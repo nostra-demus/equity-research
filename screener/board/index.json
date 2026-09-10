@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T13:16:58Z",
+  "generated_at": "2026-09-10T13:32:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-466",
+      "headline": "Reliance Communications Limited: Reliance Communications Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RCOM_10092026182440_DisclosureLettertoSE76COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T12:55:21Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Reliance Communications Limited has entered a corporate insolvency resolution process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Communications Limited has entered a corporate insolvency resolution process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Communications Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-441",
       "headline": "SIPAI HEALTH (00314): COMPLETION ANNOUNCEMENT - DISCLOSEABLE TRANSACTION - ACQUISITION OF 100% EQUITY INTEREST IN JIANYI INFORMATION",
@@ -438,6 +487,163 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-489",
+      "headline": "Bending Spoons to buy Miro in $1.36 billion cash deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/bending-spoons-buy-miro-136-billion-cash-deal-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:58:05Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Bending Spoons to acquire Miro for $1.36 billion cash; NASDAQ-listed Miro taken private—deal price, shareholder-return outcome, and market-structure impact all material to equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bending Spoons to acquire Miro for $1.36 billion cash; NASDAQ-listed Miro taken private—deal price, shareholder-return outcome, and market-structure impact all material to equity holders.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Miro",
+          "ticker": "MIRO",
+          "listing_country": "US"
+        },
+        {
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-482",
+      "headline": "Sumadhura Group to invest Rs 17,000 cr on realty projects, land acquisition",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/sumadhura-group-to-invest-rs-17000-cr-on-realty-projects-land-acquisition/articleshow/134010395.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:42:06Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Sumadhura Group to invest Rs 17,000 crore in realty projects and land acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sumadhura Group to invest Rs 17,000 crore in realty projects and land acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumadhura Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-480",
+      "headline": "Bending Spoons To Buy Miro For $1.355 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bending-spoons-buy-miro-1355-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:32:15Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Bending Spoons to acquire Miro for $1.355 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bending Spoons to acquire Miro for $1.355 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Miro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1776,202 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-158",
-      "headline": "RITAMIX (01936): TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000147.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T01:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Trading halt often precedes a material announcement or corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Trading halt often precedes a material announcement or corporate action.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RITAMIX",
-          "ticker": "01936",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-325",
-      "headline": "IHC backs Adani Airport Holdings’ $1bn fundraising round",
-      "headline_en": null,
-      "url": "https://www.agbi.com/aviation/2026/09/ihc-backs-adani-airport-holdings-1bn-fundraising-round/",
-      "source_name": "AGBI — Arabian Gulf Business Insight",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T06:38:58Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "IHC is backing a $1 billion fundraising round for Adani Airport Holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "IHC is backing a $1 billion fundraising round for Adani Airport Holdings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Adani Airport Holdings",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-079",
-      "headline": "India's Adani Airport to raise $1bn from BlackRock, Temasek and others",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/business-deals/india-s-adani-airport-to-raise-1bn-from-blackrock-temasek-and-others",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T00:26:09Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Adani Airport is raising $1 billion in capital from major institutional investors including BlackRock and Temasek.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Adani Airport is raising $1 billion in capital from major institutional investors including BlackRock and Temasek.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Airport",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-420",
-      "headline": "Share India Securities Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulation, 2015, please be informed that the Company has undertaken Partial Redemption of Face value of NCD Series A and NCD Second Issue.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SISL_10092026152128_Reg30Redemption10092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T09:54:33Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The company announced a partial redemption of non-convertible debentures, affecting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The company announced a partial redemption of non-convertible debentures, affecting its capital structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Share India Securities Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153469,9 +153479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3617134,
-    "news_picked_today": 1059,
-    "news_dropped_today": 12765
+    "news_seen_today": 3717263,
+    "news_picked_today": 1092,
+    "news_dropped_today": 12900
   },
   "book_momentum": {
     "live_count": 8,
