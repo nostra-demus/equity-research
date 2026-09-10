@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T12:21:51Z",
+  "generated_at": "2026-09-10T12:26:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-441",
@@ -438,6 +438,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-461",
+      "headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company cut its capacity-growth outlook due to operational headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company cut its capacity-growth outlook due to operational headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JetBlue",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-300",
-      "headline": "Dilip Buildcon Limited: Dilip Buildcon Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Dilip Buildcon sells stake in Under-Construction Power Transmission Project to Alpha Alternatives\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DBL_10092026103120_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T05:04:24Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Dilip Buildcon sold a stake in an under-construction power transmission project to Alpha Alternatives.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Dilip Buildcon sold a stake in an under-construction power transmission project to Alpha Alternatives.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dilip Buildcon Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153465,9 +153465,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3363078,
-    "news_picked_today": 1002,
-    "news_dropped_today": 11862
+    "news_seen_today": 3393088,
+    "news_picked_today": 1009,
+    "news_dropped_today": 11903
   },
   "book_momentum": {
     "live_count": 8,
