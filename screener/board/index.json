@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T06:03:04Z",
+  "generated_at": "2026-09-10T06:11:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -640,6 +640,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-300",
+      "headline": "Dilip Buildcon Limited: Dilip Buildcon Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Dilip Buildcon sells stake in Under-Construction Power Transmission Project to Alpha Alternatives\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DBL_10092026103120_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T05:04:24Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Dilip Buildcon sold a stake in an under-construction power transmission project to Alpha Alternatives.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Dilip Buildcon sold a stake in an under-construction power transmission project to Alpha Alternatives.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dilip Buildcon Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-025",
       "headline": "HWORLD-S (01179): PRICING OF CNY3.35 BILLION CNY-DENOMINATED SENIOR BONDS",
       "headline_en": null,
@@ -983,6 +1032,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-303",
+      "headline": "GEM: Ceasing to be a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GEM?key=2924-03134125-2A1696516",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T04:46:29Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "A substantial holder has ceased their position in GEM, indicating a change in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A substantial holder has ceased their position in GEM, indicating a change in ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GEM",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1863,104 +1961,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-107",
-      "headline": "PAN ASIA DATA H (01561): TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000145.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T00:58:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Trading halt indicates pending material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Trading halt indicates pending material announcement.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pan Asia Data Holdings Inc",
-          "ticker": "01561",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-067",
-      "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "First patient enrollment and dosing in Phase III trial significantly de-risks regulatory pathway and approval timeline for Rentosertib, Insilico's lead AI-driven drug candidate for IPF.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "First patient enrollment and dosing in Phase III trial significantly de-risks regulatory pathway and approval timeline for Rentosertib, Insilico's lead AI-driven drug candidate for IPF.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Insilico Medicine",
-          "ticker": "03696",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153175,9 +153175,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1486431,
-    "news_picked_today": 625,
-    "news_dropped_today": 3767
+    "news_seen_today": 1573174,
+    "news_picked_today": 636,
+    "news_dropped_today": 3828
   },
   "book_momentum": {
     "live_count": 8,
