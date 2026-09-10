@@ -418,7 +418,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module) — and the §18 Phase 6 calibration-feedback gate, that `decision_record.json` carries a `calibration_feedback` object consistent with the as-of `calibration_summary.json` and that an applied haircut actually reaches `confidence_inputs.calibration_haircut` (check AG, via `scripts/calibration_gate_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -863,6 +863,28 @@ viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_crite
 # first decided.
 viol.extend(sic.eval_am_bear_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
 viol.extend(sic.eval_ar_short_bull_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
+# check AG — §18 Phase 6 calibration-feedback gate (live pre-publish; mirrors eval.py check AG via
+# scripts/calibration_gate_checks.py, the same shared-detection-module pattern as rating_caps.py /
+# headline_checks.py / valuation_summary_checks.py / scenario_integrity_checks.py above). Until this
+# block existed, DECISION_LEDGER.md §18's Phase 6 calibration-feedback loop — the mechanism that stops
+# the engine from repeating its own known mistakes (CLAUDE.md §19's "the engine must be able to learn
+# from being wrong") — was enforced only by prose instruction to the synthesizer (Pre-Write Gate step
+# 4C) plus a POST-HOC eval.py check nobody was required to run before commit. A run could omit
+# calibration_feedback entirely, claim status="applied" without naming a single flagged module/forecast
+# type/thesis type/error category, or record calibration_feedback.haircut_points=8 without ever
+# threading confidence_inputs.calibration_haircut=8 into the scorer (the exact "measured but never
+# acted on" dead-end §18 warns against) — and still print `GATE: PASS` and commit straight to `main`
+# (§25/§28), undetected until a later manual `/research:eval` run. This block closes that hole for
+# every future run, standalone rerun included (rerun.md Step 8A runs this file verbatim), the same way
+# the blocks above already close it for §24/§13/§10/HARD GATE 11/13. Uses `_live_date` (not `ddte`) for
+# the same reason BB/BD/BE/AT/AU/AV/BC/BA/AJ do: the Pre-Write Gate reruns fresh on every
+# /research:rerun even though the folder's decision_date stays pinned to its original suffix — gating
+# on `ddte` would make this check permanently N/A for a rerun of any pre-AG_DATE folder. Resolves the
+# as-of calibration summary against `_live_date` too, matching what a fresh Pre-Write Gate run would
+# just have read.
+import calibration_gate_checks as cgc
+_calib_asof_live = cgc._calib_summary_asof(_live_date)
+viol.extend(cgc.eval_ag_calibration_feedback_gate(_live_date, _calib_asof_live, d.get("calibration_feedback"), d.get("confidence_inputs")) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")
@@ -870,7 +892,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, HARD GATE 11 kill-criteria presence + trigger-test schema, and the §18 Phase 6 calibration-feedback gate all satisfied")
 PY
 ```
 
