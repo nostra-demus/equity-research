@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T08:47:34Z",
+  "generated_at": "2026-09-10T09:31:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-315",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-384",
+      "headline": "Dilip Buildcon Divests Mekhali Power Project For ₹2,914 Crore, Alpha Alternatives To Acquire 51% Equity",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/dilip-buildcon-divests-mekhali-power-project-for-2914-crore-alpha-alternatives-to-acquire-51-equity",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T07:55:02Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Dilip Buildcon is divesting its Mekhali Power project for 29.14 billion INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dilip Buildcon is divesting its Mekhali Power project for 29.14 billion INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dilip Buildcon",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1032,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-390",
+      "headline": "SOLIS HOLDINGS (02227): DELAY IN DESPATCH OF CIRCULAR FOR MAJOR TRANSACTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000388.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T08:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Solis Holdings files notice of delay in shareholder-vote circular for major transaction, signaling execution or regulatory complexity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Solis Holdings files notice of delay in shareholder-vote circular for major transaction, signaling execution or regulatory complexity.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solis Holdings",
+          "ticker": "02227",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-300",
       "headline": "Dilip Buildcon Limited: Dilip Buildcon Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Dilip Buildcon sells stake in Under-Construction Power Transmission Project to Alpha Alternatives\".",
       "headline_en": null,
@@ -1224,6 +1322,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-378",
+      "headline": "SHK PPT SHK PPT-R (00016 80016): 2025/26 Annual Results",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000334.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "SHK PPT released its 2025/26 annual results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SHK PPT released its 2025/26 annual results.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHK PPT",
+          "ticker": "00016",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1813,153 +1960,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-303",
-      "headline": "GEM: Ceasing to be a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GEM?key=2924-03134125-2A1696516",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T04:46:29Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "A substantial holder has ceased their position in GEM, indicating a change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A substantial holder has ceased their position in GEM, indicating a change in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GEM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-153",
-      "headline": "LOT: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LOT?key=2924-03134053-6A1343178",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T01:12:28Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Disclosure of a substantial holder indicates significant institutional interest in the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Disclosure of a substantial holder indicates significant institutional interest in the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lotus Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-023",
-      "headline": "NUC: Nouvlait Arbitration- Final Award [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NUC?key=2924-03134028-3A701493",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T23:58:18Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Final arbitration award in the Nouvlait case is a material legal event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Final arbitration award in the Nouvlait case is a material legal event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NUC",
-          "ticker": "NUC",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109242,76 +109242,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c9da0ae18daf",
-      "idea_version": "IDEAV-046465d9694605bc",
-      "idea_version_started_at": "2026-09-09T01:08:50Z",
-      "ticker": "IONQ",
-      "company": "IonQ",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 revenue guidance during its Investor Day, indicating stronger-than-anticipated commercial traction for its quantum computing technology.",
-      "why_now": "The guidance increase was announced today, September 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0e6ab0fe4da7"
-      ],
-      "primary_source_event_id": "EVT-0e6ab0fe4da7",
-      "source_headlines": [
-        "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day"
-      ],
-      "source_headline": "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-8-ionq-raises-2026-revenue-guidance-investor-day",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T21:06:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T01:08:50Z",
-      "updated_at": "2026-09-09T01:08:50Z",
-      "decay_at": "2026-09-10T09:06:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -111301,6 +111231,76 @@
       "surfaced_at": "2026-09-08T15:48:21Z",
       "updated_at": "2026-09-09T01:08:50Z",
       "decay_at": "2026-09-10T05:40:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c9da0ae18daf",
+      "idea_version": "IDEAV-046465d9694605bc",
+      "idea_version_started_at": "2026-09-09T01:08:50Z",
+      "ticker": "IONQ",
+      "company": "IonQ",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 revenue guidance during its Investor Day, indicating stronger-than-anticipated commercial traction for its quantum computing technology.",
+      "why_now": "The guidance increase was announced today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0e6ab0fe4da7"
+      ],
+      "primary_source_event_id": "EVT-0e6ab0fe4da7",
+      "source_headlines": [
+        "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day"
+      ],
+      "source_headline": "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-8-ionq-raises-2026-revenue-guidance-investor-day",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T21:06:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T01:08:50Z",
+      "updated_at": "2026-09-09T01:08:50Z",
+      "decay_at": "2026-09-10T09:06:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116161,14 +116161,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
+    "total_count": 570,
     "shown_count": 500,
-    "hidden_count": 69,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
-        "total_count": 298,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 48
+        "hidden_count": 49
       },
       "short": {
         "total_count": 271,
@@ -116192,6 +116192,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c9da0ae18daf",
+        "idea_version": "IDEAV-046465d9694605bc",
+        "idea_version_started_at": "2026-09-09T01:08:50Z",
+        "ticker": "IONQ",
+        "company": "IonQ",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 revenue guidance during its Investor Day, indicating stronger-than-anticipated commercial traction for its quantum computing technology.",
+        "why_now": "The guidance increase was announced today, September 8, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0e6ab0fe4da7"
+        ],
+        "primary_source_event_id": "EVT-0e6ab0fe4da7",
+        "source_headlines": [
+          "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day"
+        ],
+        "source_headline": "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-8-ionq-raises-2026-revenue-guidance-investor-day",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T21:06:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T01:08:50Z",
+        "updated_at": "2026-09-09T01:08:50Z",
+        "decay_at": "2026-09-10T09:06:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T09:06:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f8811cd4e8f2",
         "idea_version": "IDEAV-34df6b15d983f300",
@@ -146607,80 +146680,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-87ee6f6e0a27",
-        "idea_version": "IDEAV-c7926b8790634ea9",
-        "idea_version_started_at": "2026-08-28T03:27:36Z",
-        "ticker": "OLL",
-        "company": "OLL",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong H1 2026 results with gross profit up 64% and revenue up 43%, indicating significant operational momentum.",
-        "why_now": "The results were filed on 2026-08-28, making this a live earnings-driven catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7dd61df7de65"
-        ],
-        "primary_source_event_id": "EVT-7dd61df7de65",
-        "source_headlines": [
-          "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
-        ],
-        "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 99,
-        "newest_source_at": "2026-08-28T00:01:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T03:27:36Z",
-        "updated_at": "2026-08-28T03:27:36Z",
-        "decay_at": "2026-08-29T12:01:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T00:14:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-728d9c6bfb69",
         "idea_version": "IDEAV-c7f0f3f91317bddd",
         "idea_version_started_at": "2026-08-28T00:35:47Z",
@@ -153365,7 +153364,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 658,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153384,9 +153383,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2473570,
-    "news_picked_today": 742,
-    "news_dropped_today": 7370
+    "news_seen_today": 2602187,
+    "news_picked_today": 773,
+    "news_dropped_today": 9067
   },
   "book_momentum": {
     "live_count": 8,
