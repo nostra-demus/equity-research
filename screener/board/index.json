@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T05:36:47Z",
+  "generated_at": "2026-09-10T05:52:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -831,6 +831,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-294",
+      "headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T04:25:45Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Apple's entry into the foldable market directly challenges Samsung's dominance in a high-margin smartphone segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Apple's entry into the foldable market directly challenges Samsung's dominance in a high-margin smartphone segment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Samsung Electronics",
+          "ticker": "005930",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1958,6 @@
           "name": "Insilico Medicine",
           "ticker": "03696",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-021",
-      "headline": "LDR: High Grade Tin & Copper Discovery at Montezuma [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LDR?key=2924-03134033-2A1696472",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T00:00:53Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Discovery of high-grade tin and copper at the Montezuma project is a positive operational development for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Discovery of high-grade tin and copper at the Montezuma project is a positive operational development for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LDR",
-          "ticker": "LDR",
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -109168,76 +109173,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aae3ef159f69",
-      "idea_version": "IDEAV-2951d7ef1c34c735",
-      "idea_version_started_at": "2026-09-09T01:08:50Z",
-      "ticker": "BSX",
-      "company": "Boston Scientific",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed its 2026 guidance following a significant cyberattack, which will likely disrupt operations and increase remediation costs.",
-      "why_now": "The guidance miss was announced today, September 8, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5604f76b58d7"
-      ],
-      "primary_source_event_id": "EVT-5604f76b58d7",
-      "source_headlines": [
-        "Boston Scientific misses 2026 guidance after cyberattack"
-      ],
-      "source_headline": "Boston Scientific misses 2026 guidance after cyberattack",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-misses-2026-guidance-174054579.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T17:40:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T15:48:21Z",
-      "updated_at": "2026-09-09T01:08:50Z",
-      "decay_at": "2026-09-10T05:40:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c9da0ae18daf",
       "idea_version": "IDEAV-046465d9694605bc",
       "idea_version_started_at": "2026-09-09T01:08:50Z",
@@ -109442,76 +109377,6 @@
       "surfaced_at": "2026-09-08T22:44:52Z",
       "updated_at": "2026-09-08T22:44:52Z",
       "decay_at": "2026-09-10T06:31:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1e21975df7c3",
-      "idea_version": "IDEAV-e826bd2e34cc78c9",
-      "idea_version_started_at": "2026-09-08T21:38:42Z",
-      "ticker": "GME",
-      "company": "GameStop",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported an increase in quarterly profit and raised its full-year outlook, signaling better-than-expected operational performance.",
-      "why_now": "The Q2 2026 earnings report was released on September 8, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab04c9656e52"
-      ],
-      "primary_source_event_id": "EVT-ab04c9656e52",
-      "source_headlines": [
-        "GameStop Q2 2026 earnings: profit rises, full-year outlook raised"
-      ],
-      "source_headline": "GameStop Q2 2026 earnings: profit rises, full-year outlook raised",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-q2-2026-earnings-profit-174413093.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T17:44:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T21:38:42Z",
-      "updated_at": "2026-09-08T21:38:42Z",
-      "decay_at": "2026-09-10T05:44:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111366,6 +111231,146 @@
       "surfaced_at": "2026-09-08T15:48:21Z",
       "updated_at": "2026-09-09T01:49:16Z",
       "decay_at": "2026-09-10T04:57:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aae3ef159f69",
+      "idea_version": "IDEAV-2951d7ef1c34c735",
+      "idea_version_started_at": "2026-09-09T01:08:50Z",
+      "ticker": "BSX",
+      "company": "Boston Scientific",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed its 2026 guidance following a significant cyberattack, which will likely disrupt operations and increase remediation costs.",
+      "why_now": "The guidance miss was announced today, September 8, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5604f76b58d7"
+      ],
+      "primary_source_event_id": "EVT-5604f76b58d7",
+      "source_headlines": [
+        "Boston Scientific misses 2026 guidance after cyberattack"
+      ],
+      "source_headline": "Boston Scientific misses 2026 guidance after cyberattack",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-misses-2026-guidance-174054579.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T17:40:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T15:48:21Z",
+      "updated_at": "2026-09-09T01:08:50Z",
+      "decay_at": "2026-09-10T05:40:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1e21975df7c3",
+      "idea_version": "IDEAV-e826bd2e34cc78c9",
+      "idea_version_started_at": "2026-09-08T21:38:42Z",
+      "ticker": "GME",
+      "company": "GameStop",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported an increase in quarterly profit and raised its full-year outlook, signaling better-than-expected operational performance.",
+      "why_now": "The Q2 2026 earnings report was released on September 8, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab04c9656e52"
+      ],
+      "primary_source_event_id": "EVT-ab04c9656e52",
+      "source_headlines": [
+        "GameStop Q2 2026 earnings: profit rises, full-year outlook raised"
+      ],
+      "source_headline": "GameStop Q2 2026 earnings: profit rises, full-year outlook raised",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-q2-2026-earnings-profit-174413093.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T17:44:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T21:38:42Z",
+      "updated_at": "2026-09-08T21:38:42Z",
+      "decay_at": "2026-09-10T05:44:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116086,19 +116091,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 65,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 298,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 48
+        "hidden_count": 49
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -116117,6 +116122,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1e21975df7c3",
+        "idea_version": "IDEAV-e826bd2e34cc78c9",
+        "idea_version_started_at": "2026-09-08T21:38:42Z",
+        "ticker": "GME",
+        "company": "GameStop",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported an increase in quarterly profit and raised its full-year outlook, signaling better-than-expected operational performance.",
+        "why_now": "The Q2 2026 earnings report was released on September 8, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ab04c9656e52"
+        ],
+        "primary_source_event_id": "EVT-ab04c9656e52",
+        "source_headlines": [
+          "GameStop Q2 2026 earnings: profit rises, full-year outlook raised"
+        ],
+        "source_headline": "GameStop Q2 2026 earnings: profit rises, full-year outlook raised",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-q2-2026-earnings-profit-174413093.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T17:44:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T21:38:42Z",
+        "updated_at": "2026-09-08T21:38:42Z",
+        "decay_at": "2026-09-10T05:44:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T05:44:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-aae3ef159f69",
+        "idea_version": "IDEAV-2951d7ef1c34c735",
+        "idea_version_started_at": "2026-09-09T01:08:50Z",
+        "ticker": "BSX",
+        "company": "Boston Scientific",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company missed its 2026 guidance following a significant cyberattack, which will likely disrupt operations and increase remediation costs.",
+        "why_now": "The guidance miss was announced today, September 8, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5604f76b58d7"
+        ],
+        "primary_source_event_id": "EVT-5604f76b58d7",
+        "source_headlines": [
+          "Boston Scientific misses 2026 guidance after cyberattack"
+        ],
+        "source_headline": "Boston Scientific misses 2026 guidance after cyberattack",
+        "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-misses-2026-guidance-174054579.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T17:40:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T15:48:21Z",
+        "updated_at": "2026-09-09T01:08:50Z",
+        "decay_at": "2026-09-10T05:40:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T05:40:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e38b2231c234",
         "idea_version": "IDEAV-729c86a7a34ac4c1",
@@ -146240,80 +146391,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52c1133413b1",
-        "idea_version": "IDEAV-a4214a5d21d84523",
-        "idea_version_started_at": "2026-08-28T03:27:36Z",
-        "ticker": "00013",
-        "company": "HUTCHMED",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The NMPA approval of Fanregratinib for intrahepatic cholangiocarcinoma provides a new revenue stream in a high-unmet-need oncology segment.",
-        "why_now": "The regulatory approval was announced on 2026-08-28, providing immediate commercialization potential.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e0bc1d52b950"
-        ],
-        "primary_source_event_id": "EVT-e0bc1d52b950",
-        "source_headlines": [
-          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
-        ],
-        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 97,
-        "newest_source_at": "2026-08-28T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T03:27:36Z",
-        "updated_at": "2026-08-28T03:27:36Z",
-        "decay_at": "2026-08-29T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T00:14:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-728d9c6bfb69",
         "idea_version": "IDEAV-c7f0f3f91317bddd",
         "idea_version_started_at": "2026-08-28T00:35:47Z",
@@ -153215,85 +153292,12 @@
         "archived_at": "2026-08-23T00:15:41Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f8343593fd62",
-        "idea_version": "IDEAV-4052d9406f137644",
-        "idea_version_started_at": "2026-08-21T03:03:54Z",
-        "ticker": "COTY",
-        "company": "Coty Inc.",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a warning regarding a 'transition' year, signaling potential margin compression and revenue headwinds ahead.",
-        "why_now": "The guidance change was reported on 2026-08-19 and is currently being digested by the market.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-447cb74c203a"
-        ],
-        "primary_source_event_id": "EVT-447cb74c203a",
-        "source_headlines": [
-          "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead"
-        ],
-        "source_headline": "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-19/coty-s-revenue-beats-expectations-amid-turnaround-push",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T20:30:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T03:03:54Z",
-        "updated_at": "2026-08-21T03:03:54Z",
-        "decay_at": "2026-08-21T08:30:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T20:33:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 654,
-    "live_count": 39,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153312,9 +153316,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1277945,
-    "news_picked_today": 602,
-    "news_dropped_today": 3502
+    "news_seen_today": 1434445,
+    "news_picked_today": 620,
+    "news_dropped_today": 3700
   },
   "book_momentum": {
     "live_count": 8,
