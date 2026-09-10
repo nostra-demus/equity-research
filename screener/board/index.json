@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T11:04:21Z",
+  "generated_at": "2026-09-10T11:14:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-421",
@@ -389,6 +389,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-427",
+      "headline": "Macy's posts strong results, raises guidance as turnaround begins to take hold",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/10/macys-m-q2-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T10:56:08Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Company reported strong results and raised guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported strong results and raised guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macy's, Inc.",
+          "ticker": "M",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1770,6 +1820,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-424",
+      "headline": "SINOFORTUNE FIN (08123): JOINT ANNOUNCEMENT (1) CLOSE OF THE MANDATORY UNCONDITIONAL CASH OFFER BY ASIAN CAPITAL LIMITED FOR AND ON BEHALF OF MR. WANG FOR ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY MR. WANG AND PARTIES ACTING IN CONCERT WITH HIM (EXCLUDING MS. LAI)); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0910/2026091001331.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Completion of a mandatory unconditional cash offer for the company's shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Completion of a mandatory unconditional cash offer for the company's shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SINOFORTUNE FIN",
+          "ticker": "08123",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-418",
       "headline": "FINELAND LIVING (09978): DESPATCH OF CIRCULAR RELATING TO (1) CONNECTED TRANSACTION AND SPECIAL DEAL IN RELATION TO THE SUBSCRIPTION OF SHARES UNDER SPECIFIC MANDATE; (2) ISSUANCE OF UNLISTED WARRANTS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
       "headline_en": null,
@@ -1860,104 +1959,6 @@
         {
           "name": "SHK PPT",
           "ticker": "00016",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-256",
-      "headline": "JN LIXIA B2909 (40708): PUBLICATION OF THE OFFERING CIRCULAR - U.S.$300,000,000 4.90 per cent. Bonds due 2029 issued by JINAN LIXIA HOLDING GROUP CO., LTD.",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000223.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T04:11:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Jinan Lixia Holding Group issues USD 300 million of 4.90 percent bonds due 2029, confirmed debt capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Jinan Lixia Holding Group issues USD 300 million of 4.90 percent bonds due 2029, confirmed debt capital raise.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jinan Lixia Holding Group Co., Ltd.",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-018",
-      "headline": "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000077.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "BOC Aviation announced the purchase and long-term lease of 12 Airbus A320neo aircraft, representing a significant capital commitment and revenue-generating activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "BOC Aviation announced the purchase and long-term lease of 12 Airbus A320neo aircraft, representing a significant capital commitment and revenue-generating activity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BOC Aviation",
-          "ticker": "02588",
           "listing_country": "CN"
         }
       ],
@@ -153456,9 +153457,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2937838,
-    "news_picked_today": 890,
-    "news_dropped_today": 11230
+    "news_seen_today": 2995288,
+    "news_picked_today": 908,
+    "news_dropped_today": 11356
   },
   "book_momentum": {
     "live_count": 8,
