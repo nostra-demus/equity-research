@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T20:28:41Z",
+  "generated_at": "2026-09-10T20:38:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -590,20 +590,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260910-542",
-      "headline": "Copart Nears Agreement to Buy ACV Auctions for Almost $2 Billion",
+      "inbox_id": "INB-20260910-548",
+      "headline": "Copart to buy ACV Auctions in $1.9 billion deal",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/copart-nears-agreement-to-buy-acv-auctions-for-almost-2-billion",
-      "source_name": "Bloomberg",
+      "url": "https://www.reuters.com/business/copart-buy-acv-auctions-19-billion-deal-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-10T20:01:16Z",
+      "found_at": "2026-09-10T20:23:35Z",
       "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Copart is nearing an agreement to acquire ACV Auctions for nearly $2 billion.",
+      "prelim_note": "Copart announced a $1.9 billion acquisition of ACV Auctions.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Copart is nearing an agreement to acquire ACV Auctions for nearly $2 billion.",
+      "triage_reason": "Copart announced a $1.9 billion acquisition of ACV Auctions.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -639,6 +639,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-544",
+      "headline": "Oracle's stock jumps 7% on earnings beat as cloud infrastructure revenue more than doubles",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/10/oracle-orcl-q1-earnings-report-2027.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T20:17:05Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Oracle reported an earnings beat with cloud infrastructure revenue more than doubling, driving a 7% stock price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle reported an earnings beat with cloud infrastructure revenue more than doubling, driving a 7% stock price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,56 +2003,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-402",
-      "headline": "Elon Musk’s The Boring Company plans 150km of tunnels in UAE, raises $3 billion",
-      "headline_en": null,
-      "url": "https://gulfnews.com/uae/transport/elon-musks-the-boring-company-plans-150km-of-tunnels-in-uae-raises-3-billion-1.500669528",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T08:09:42Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The Boring Company plans a $3 billion, 150km tunnel project in the UAE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Boring Company plans a $3 billion, 150km tunnel project in the UAE.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Boring Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153507,9 +153506,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5999875,
-    "news_picked_today": 1499,
-    "news_dropped_today": 16525
+    "news_seen_today": 6080678,
+    "news_picked_today": 1526,
+    "news_dropped_today": 16594
   },
   "book_momentum": {
     "live_count": 8,
