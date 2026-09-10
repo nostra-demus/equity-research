@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T02:28:18Z",
+  "generated_at": "2026-09-10T02:28:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-159",
@@ -109732,6 +109732,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2d93368aeb39",
+      "idea_version": "IDEAV-de37e1af31e96430",
+      "idea_version_started_at": "2026-09-10T02:28:33Z",
+      "ticker": "WDS",
+      "company": "Woodside Energy",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of the executive overseeing the $24 billion US LNG project introduces execution risk and potential delays to a massive capital-intensive investment.",
+      "why_now": "The executive exit was reported on 2026-09-10, directly impacting the oversight of the company's largest growth project.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e06313f26695"
+      ],
+      "primary_source_event_id": "EVT-e06313f26695",
+      "source_headlines": [
+        "Woodside loses key executive overseeing $24b LNG bet in the US"
+      ],
+      "source_headline": "Woodside loses key executive overseeing $24b LNG bet in the US",
+      "source_url": "https://www.afr.com/companies/energy/woodside-loses-key-executive-overseeing-24b-lng-bet-in-the-us-20260910-p60w2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-10T00:17:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T02:28:33Z",
+      "updated_at": "2026-09-10T02:28:33Z",
+      "decay_at": "2026-09-11T12:17:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0e754328b539",
       "idea_version": "IDEAV-848eb9acfa328652",
       "idea_version_started_at": "2026-09-09T20:06:47Z",
@@ -111380,6 +111450,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-12b791fa381c",
+      "idea_version": "IDEAV-7ea6716509268d1e",
+      "idea_version_started_at": "2026-09-10T02:28:33Z",
+      "ticker": "03696",
+      "company": "Insilico Medicine",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The successful enrollment and dosing of the first patient in a Phase III trial for Rentosertib validates the company's AI-driven drug discovery platform and advances its lead asset toward potential commercialization.",
+      "why_now": "The announcement was filed on 2026-09-10, marking a critical clinical milestone that reduces development risk.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4bdef8262fbf"
+      ],
+      "primary_source_event_id": "EVT-4bdef8262fbf",
+      "source_headlines": [
+        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF"
+      ],
+      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-10T00:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T02:28:33Z",
+      "updated_at": "2026-09-10T02:28:33Z",
+      "decay_at": "2026-09-11T12:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -112145,76 +112286,6 @@
       "surfaced_at": "2026-09-07T01:06:48Z",
       "updated_at": "2026-09-07T05:58:37Z",
       "decay_at": "2026-09-08T15:45:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-759cf3b531e6",
-      "idea_version": "IDEAV-4ade98d402d9122a",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
-      "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89191f47ab8e"
-      ],
-      "primary_source_event_id": "EVT-89191f47ab8e",
-      "source_headlines": [
-        "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
-      ],
-      "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
-      "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T02:23:27Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:23:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115653,151 +115724,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e28ce99f344d",
-      "idea_version": "IDEAV-b6b25379f08032a3",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "ING",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
-      "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ab7cb9e8649"
-      ],
-      "primary_source_event_id": "EVT-5ab7cb9e8649",
-      "source_headlines": [
-        "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
-      ],
-      "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
-      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T02:01:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:01:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b8cfb6be47e3",
-      "idea_version": "IDEAV-ee5553cd5f3c92e7",
-      "idea_version_started_at": "2026-09-07T03:26:40Z",
-      "ticker": "MQG",
-      "company": "Macquarie Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Macquarie Asset Management's $4 billion acquisition of a stake in SERV from Aware Super expands its infrastructure AUM and demonstrates continued capital deployment in high-moat assets.",
-      "why_now": "The deal was reported on September 7, 2026, and represents a significant deployment of capital that impacts the Asset Management division's fee-earning potential.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2314895a53e3"
-      ],
-      "primary_source_event_id": "EVT-2314895a53e3",
-      "source_headlines": [
-        "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal"
-      ],
-      "source_headline": "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal",
-      "source_url": "https://www.afr.com/street-talk/macquarie-asset-management-buys-serv-stake-from-aware-super-in-4-deal-20260906-p60uua?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T02:07:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:26:40Z",
-      "updated_at": "2026-09-07T03:26:40Z",
-      "decay_at": "2026-09-08T14:07:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -117092,20 +117018,20 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 496,
+      "file_count": 497,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 571,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 306,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 56
       },
       "short": {
         "total_count": 265,
@@ -117115,12 +117041,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 35,
+      "evicted_count": 37,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 35,
-          "oldest_retained_at": "2026-08-25T10:06:05Z"
+          "evicted_count": 37,
+          "oldest_retained_at": "2026-08-25T10:42:24Z"
         },
         "short": {
           "evicted_count": 0,
@@ -122775,8 +122701,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T14:23:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T02:28:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -122851,8 +122777,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T14:07:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T02:28:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -122926,8 +122852,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T14:01:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T02:28:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -154303,8 +154229,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 651,
-    "live_count": 41,
+    "surfaced_total": 653,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
