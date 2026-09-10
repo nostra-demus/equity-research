@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T01:38:45Z",
+  "generated_at": "2026-09-10T01:48:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-125",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-149",
+      "headline": "서부발전, 500억 녹색채권 발행 성공",
+      "headline_en": "Korea Western Power, successfully issues 50 billion won in green bonds",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276598",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T00:53:15Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Korea Western Power successfully issued 50 billion KRW in green bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Korea Western Power successfully issued 50 billion KRW in green bonds.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Western Power",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-027",
       "headline": "XUNZHONG (02597): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-046",
-      "headline": "FDA approves AstraZeneca’s Etcamah, opening ctDNA-guided treatment paradigm in breast cancer",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/pharma/fda-approves-astrazeneca-etcamah-opening-ctdna-guided-treatment-shift-breast-cancer",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T23:56:07Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "FDA approved AstraZeneca’s Etcamah for breast cancer treatment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "FDA approved AstraZeneca’s Etcamah for breast cancer treatment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AstraZeneca",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154628,9 +154628,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 303684,
-    "news_picked_today": 179,
-    "news_dropped_today": 1261
+    "news_seen_today": 363431,
+    "news_picked_today": 191,
+    "news_dropped_today": 1297
   },
   "book_momentum": {
     "live_count": 8,
