@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T14:22:29Z",
+  "generated_at": "2026-09-10T14:42:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-503",
+      "headline": "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001687.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T14:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company announced a creditors' voluntary winding-up of its Singapore subsidiaries, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a creditors' voluntary winding-up of its Singapore subsidiaries, indicating significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KONTA CHINA",
+          "ticker": "01312",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-498",
       "headline": "JSW Infrastructure Limited: JSWINFRA: JSW Infrastructure Limited has informed the Exchange about Acquisition of NCR Rail Infrastructure Limited on implementation of the Resolution Plan under the Insolvency and Bankruptcy Code, 2016.",
@@ -1930,55 +1979,6 @@
           "name": "National Stock Exchange of India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-119",
-      "headline": "Majid Al Futtaim profit jumps 25% to $490m as property pipeline tops $27bn",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/majid-al-futtaim-profit-h1-2026",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T00:47:07Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Majid Al Futtaim reported a 25% profit jump to $490m.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Majid Al Futtaim reported a 25% profit jump to $490m.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Majid Al Futtaim",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -153623,9 +153623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3931104,
-    "news_picked_today": 1158,
-    "news_dropped_today": 13602
+    "news_seen_today": 4000828,
+    "news_picked_today": 1175,
+    "news_dropped_today": 13873
   },
   "book_momentum": {
     "live_count": 8,
