@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T08:47:00Z",
+  "generated_at": "2026-09-10T08:47:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-315",
@@ -109312,6 +109312,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-af31c2e0f9bf",
+      "idea_version": "IDEAV-9968a02053526a49",
+      "idea_version_started_at": "2026-09-10T08:47:13Z",
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The launch of a foldable iPhone expands Apple's product portfolio into a new high-end hardware segment, potentially driving a hardware upgrade cycle and capturing market share from Samsung.",
+      "why_now": "The product was officially unveiled on September 10, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b948459178d"
+      ],
+      "primary_source_event_id": "EVT-9b948459178d",
+      "source_headlines": [
+        "Apple Unveils First Foldable iPhone, Taking on Samsung"
+      ],
+      "source_headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-10T04:25:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T08:47:13Z",
+      "updated_at": "2026-09-10T08:47:13Z",
+      "decay_at": "2026-09-11T16:25:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b34fe82f77a4",
       "idea_version": "IDEAV-71be0192807ccf28",
       "idea_version_started_at": "2026-09-10T01:49:10Z",
@@ -110592,6 +110662,78 @@
       "surfaced_at": "2026-09-09T01:49:16Z",
       "updated_at": "2026-09-09T01:49:16Z",
       "decay_at": "2026-09-10T10:54:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-14e8a146693a",
+      "idea_version": "IDEAV-75af08a2bada8d89",
+      "idea_version_started_at": "2026-09-10T08:47:13Z",
+      "ticker": "005930",
+      "company": "Samsung Electronics",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Apple's entry into the foldable smartphone market directly threatens Samsung's established dominance and premium pricing power in the foldable category.",
+      "why_now": "The competitive threat was formalized with Apple's product unveiling on September 10, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b948459178d"
+      ],
+      "primary_source_event_id": "EVT-9b948459178d",
+      "source_headlines": [
+        "Apple Unveils First Foldable iPhone, Taking on Samsung"
+      ],
+      "source_headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-10T04:25:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T08:47:13Z",
+      "updated_at": "2026-09-10T08:47:13Z",
+      "decay_at": "2026-09-11T16:25:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114788,77 +114930,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-22cd265aac6e",
-      "idea_version": "IDEAV-b077ce0a4e6449a7",
-      "idea_version_started_at": "2026-09-07T12:27:09Z",
-      "ticker": "STO",
-      "company": "Santos",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is increasing its interest in the Papua LNG project, which enhances its long-term production profile and asset base.",
-      "why_now": "The filing confirming the interest increase was released on 2026-09-07.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-67fa026d4912"
-      ],
-      "primary_source_event_id": "EVT-67fa026d4912",
-      "source_headlines": [
-        "STO: Santos to increase interest in Papua LNG"
-      ],
-      "source_headline": "STO: Santos to increase interest in Papua LNG",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STO?key=2924-03132694-2A1695889",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T07:32:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T12:27:09Z",
-      "updated_at": "2026-09-07T12:27:09Z",
-      "decay_at": "2026-09-08T19:32:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-944ea5e8ab2b",
       "idea_version": "IDEAV-528910e6e1b240f0",
       "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -116090,14 +116161,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 570,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 70,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
-        "total_count": 299,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 49
+        "hidden_count": 48
       },
       "short": {
         "total_count": 271,
@@ -116107,12 +116178,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 49,
+      "evicted_count": 50,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 49,
-          "oldest_retained_at": "2026-08-26T02:12:00Z"
+          "evicted_count": 50,
+          "oldest_retained_at": "2026-08-26T12:10:00Z"
         },
         "short": {
           "evicted_count": 0,
@@ -121312,8 +121383,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T19:32:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T08:47:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153293,8 +153364,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 656,
-    "live_count": 35,
+    "surfaced_total": 658,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
