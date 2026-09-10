@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T19:28:03Z",
+  "generated_at": "2026-09-10T19:33:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -110700,77 +110700,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-83bd5483df63",
-      "idea_version": "IDEAV-62f01bc2551b23a1",
-      "idea_version_started_at": "2026-09-09T13:46:59Z",
-      "ticker": "NXT",
-      "company": "NextDC",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The announcement of a large A$1.1 billion convertible note offering will cause immediate dilution to existing shareholders and increase the company's debt burden.",
-      "why_now": "The filing was released today, 2026-09-09, and the market is currently pricing in the dilutive impact of the new capital structure.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3c995d7562db"
-      ],
-      "primary_source_event_id": "EVT-3c995d7562db",
-      "source_headlines": [
-        "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]"
-      ],
-      "source_headline": "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXT?key=2924-03133752-2A1696378",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T07:28:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T13:46:59Z",
-      "updated_at": "2026-09-09T13:46:59Z",
-      "decay_at": "2026-09-10T19:28:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-75af08a2bada8d89",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112595,6 +112524,77 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-83bd5483df63",
+      "idea_version": "IDEAV-62f01bc2551b23a1",
+      "idea_version_started_at": "2026-09-09T13:46:59Z",
+      "ticker": "NXT",
+      "company": "NextDC",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a large A$1.1 billion convertible note offering will cause immediate dilution to existing shareholders and increase the company's debt burden.",
+      "why_now": "The filing was released today, 2026-09-09, and the market is currently pricing in the dilutive impact of the new capital structure.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3c995d7562db"
+      ],
+      "primary_source_event_id": "EVT-3c995d7562db",
+      "source_headlines": [
+        "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]"
+      ],
+      "source_headline": "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXT?key=2924-03133752-2A1696378",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T07:28:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T13:46:59Z",
+      "updated_at": "2026-09-09T13:46:59Z",
+      "decay_at": "2026-09-10T19:28:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116197,9 +116197,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 570,
+    "total_count": 571,
     "shown_count": 500,
-    "hidden_count": 70,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
         "total_count": 296,
@@ -116207,9 +116207,9 @@
         "hidden_count": 46
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -116228,6 +116228,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-83bd5483df63",
+        "idea_version": "IDEAV-62f01bc2551b23a1",
+        "idea_version_started_at": "2026-09-09T13:46:59Z",
+        "ticker": "NXT",
+        "company": "NextDC",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The announcement of a large A$1.1 billion convertible note offering will cause immediate dilution to existing shareholders and increase the company's debt burden.",
+        "why_now": "The filing was released today, 2026-09-09, and the market is currently pricing in the dilutive impact of the new capital structure.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3c995d7562db"
+        ],
+        "primary_source_event_id": "EVT-3c995d7562db",
+        "source_headlines": [
+          "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]"
+        ],
+        "source_headline": "NXT: A$1.1 billion Convertible Notes Offering [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXT?key=2924-03133752-2A1696378",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T07:28:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T13:46:59Z",
+        "updated_at": "2026-09-09T13:46:59Z",
+        "decay_at": "2026-09-10T19:28:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T19:28:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f9ace9bc692f",
         "idea_version": "IDEAV-cafb99fe763d9091",
@@ -153329,88 +153403,12 @@
         "archived_at": "2026-08-24T08:35:43Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c1dd7afb32da",
-        "idea_version": "IDEAV-09cf5d1da3438b73",
-        "idea_version_started_at": "2026-08-21T06:43:23Z",
-        "ticker": "BMPS",
-        "company": "Banca Monte dei Paschi di Siena",
-        "exchange": "BIT",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Monte dei Paschi is attempting a highly dilutive all-share acquisition of Banco BPM and Banca Generali to defend against a potential takeover, which typically creates downward pressure on the acquirer's stock due to execution risk and dilution.",
-        "why_now": "The bid was launched today, August 21, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-944126974dc0",
-          "EVT-b29752f96856"
-        ],
-        "primary_source_event_id": "EVT-944126974dc0",
-        "source_headlines": [
-          "Monte Paschi Offers to Buy BPM, Banca Generali for €34 Billion",
-          "Monte dei Paschi launches all-share bids for BPM, Banca Generali to stave off Intesa takeover"
-        ],
-        "source_headline": "Monte Paschi Offers to Buy BPM, Banca Generali for €34 Billion",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-21/monte-paschi-offers-to-buy-bpm-banca-generali-for-34-billion",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T06:01:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T06:43:23Z",
-        "updated_at": "2026-08-21T06:43:23Z",
-        "decay_at": "2026-08-22T18:01:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T07:17:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 669,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153429,9 +153427,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5658129,
-    "news_picked_today": 1444,
-    "news_dropped_today": 16124
+    "news_seen_today": 5684267,
+    "news_picked_today": 1447,
+    "news_dropped_today": 16169
   },
   "book_momentum": {
     "live_count": 8,
