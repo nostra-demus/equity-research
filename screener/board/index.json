@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T18:08:04Z",
+  "generated_at": "2026-09-10T18:09:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -108574,6 +108574,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0f963912a562",
+      "idea_version": "IDEAV-b7fb47a65af82ac5",
+      "idea_version_started_at": "2026-09-10T18:09:40Z",
+      "ticker": "AXGN",
+      "company": "Axogen",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's portfolio in the peripheral nerve repair market, providing a new revenue stream.",
+      "why_now": "The acquisition was announced on 2026-09-10.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9482923fd716"
+      ],
+      "primary_source_event_id": "EVT-9482923fd716",
+      "source_headlines": [
+        "Axogen to buy BioCircuit Technologies for $200M"
+      ],
+      "source_headline": "Axogen to buy BioCircuit Technologies for $200M",
+      "source_url": "https://www.medtechdive.com/news/axogen-to-buy-biocircuit-technologies-for-200m/830059/",
+      "source_name": "MedTech Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T15:55:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T18:09:40Z",
+      "updated_at": "2026-09-10T18:09:40Z",
+      "decay_at": "2026-09-12T03:55:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dba8408df9af",
       "idea_version": "IDEAV-3e9d19ce199fc9f2",
       "idea_version_started_at": "2026-09-10T14:12:20Z",
@@ -153337,8 +153407,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 668,
-    "live_count": 38,
+    "surfaced_total": 669,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
