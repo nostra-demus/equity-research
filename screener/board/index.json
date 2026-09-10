@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T19:49:40Z",
+  "generated_at": "2026-09-10T19:53:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -585,6 +585,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-539",
+      "headline": "Shell sells its interest in RISEC to Constellation for $715 million, acquires Hunlock Creek",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/shell-sells-risec-interest-constellation-715-mln-acquires-hunlock-creek-plant-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T19:40:54Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Shell is selling its interest in RISEC to Constellation for $715 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shell is selling its interest in RISEC to Constellation for $715 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Constellation Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,55 +1999,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-372",
-      "headline": "Eleco agrees £208m takeover by US private equity",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/eleco-agrees-208m-takeover-by-us-private-equity/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T07:44:50Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Eleco has agreed to a £208m takeover by a private equity firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eleco has agreed to a £208m takeover by a private equity firm.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eleco",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153427,9 +153432,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5775558,
-    "news_picked_today": 1463,
-    "news_dropped_today": 16249
+    "news_seen_today": 5788665,
+    "news_picked_today": 1470,
+    "news_dropped_today": 16266
   },
   "book_momentum": {
     "live_count": 8,
