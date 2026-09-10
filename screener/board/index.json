@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T06:56:49Z",
+  "generated_at": "2026-09-10T07:06:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-315",
+      "headline": "[TSE]Decision on Delisting, etc.: Anshin Guarantor Service Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260910-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Anshin Guarantor Service Co., Ltd. is facing a delisting decision from the Tokyo Stock Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anshin Guarantor Service Co., Ltd. is facing a delisting decision from the Tokyo Stock Exchange.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anshin Guarantor Service Co., Ltd.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-289",
       "headline": "[TSE]Decision on Delisting, etc.: NISSIN SHOJI CO.,LTD.",
@@ -193,6 +242,153 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-320",
+      "headline": "‎National Gypsum shares suspended again until H1 2026 results are announced",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935419",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T09:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "National Gypsum shares are suspended until H1 2026 due to failure to report financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Gypsum shares are suspended until H1 2026 due to failure to report financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Gypsum",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-324",
+      "headline": "Elon Musk’s Boring Company raises capital, valuing firm at $29b",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/update-1-musks-tunnel-startup-the-boring-company-raises-3-billion-at-23-billion-valuation",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The Boring Company raised capital at a $29 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Boring Company raised capital at a $29 billion valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Boring Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-322",
+      "headline": "Musk's tunnel startup The Boring Company raises $3 billion at $23 billion valuation",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/musks-tunnel-startup-boring-company-raises-3-billion-23-billion-valuation-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T06:21:20Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The Boring Company raised $3 billion in new capital at a $23 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Boring Company raised $3 billion in new capital at a $23 billion valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Boring Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -635,6 +831,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-325",
+      "headline": "IHC backs Adani Airport Holdings’ $1bn fundraising round",
+      "headline_en": null,
+      "url": "https://www.agbi.com/aviation/2026/09/ihc-backs-adani-airport-holdings-1bn-fundraising-round/",
+      "source_name": "AGBI — Arabian Gulf Business Insight",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T06:38:58Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "IHC is backing a $1 billion fundraising round for Adani Airport Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "IHC is backing a $1 billion fundraising round for Adani Airport Holdings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Adani Airport Holdings",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1578,55 +1823,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260910-307",
-      "headline": "Musk’s Boring Co. Raises Capital, Valuing Firm at $23 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/musk-s-boring-co-raises-capital-valuing-firm-at-23-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T05:35:53Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The Boring Company raised capital at a $23 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The Boring Company raised capital at a $23 billion valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Boring Company",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260910-083",
       "headline": "Cerberus-Backed Stratolaunch Is Said to Seek $500 Million in IPO",
       "headline_en": null,
@@ -1676,264 +1872,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260910-157",
-      "headline": "I-CONTROL (01402): TRADING HALT",
+      "inbox_id": "INB-20260910-337",
+      "headline": "Aichi Financial Group,Inc.(7389)",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000159.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T01:25:00Z",
+      "found_at": "2026-09-10T06:30:00Z",
       "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Trading halt on a listed entity is a significant event requiring investigation.",
+      "prelim_note": "Trading halt on Aichi Financial Group indicates a pending material announcement.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "Trading halt on a listed entity is a significant event requiring investigation.",
-      "region": "CN",
+      "triage_reason": "Trading halt on Aichi Financial Group indicates a pending material announcement.",
+      "region": "JP",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "I-CONTROL",
-          "ticker": "01402",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-314",
-      "headline": "Embodied AI startup PHYMI raises nearly US$100 million in seed funding",
-      "headline_en": null,
-      "url": "https://technode.com/2026/09/10/embodied-ai-startup-phymi-raises-nearly-us100-million-in-seed-funding/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T06:35:21Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "PHYMI raised nearly US$100 million in seed funding for embodied AI development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "PHYMI raised nearly US$100 million in seed funding for embodied AI development.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PHYMI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-282",
-      "headline": "ECB to Hike Interest Rates Again as Iran War Fans Inflation",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/ecb-to-hike-interest-rates-again-as-iran-war-fans-inflation",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T04:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The combination of an ECB rate hike and an Iran-related conflict escalation creates a major negative macro shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The combination of an ECB rate hike and an Iran-related conflict escalation creates a major negative macro shock.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-252",
-      "headline": "Swish raises $24 million to expand quick food delivery network",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/start-ups/swish-raises-24-million-to-expand-quick-food-delivery-network-11788961808550.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T03:31:56Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Swish raised $24 million in funding to expand its quick food delivery network.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Swish raised $24 million in funding to expand its quick food delivery network.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swish",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-176",
-      "headline": "BOJ’s Masu Says Will Continue to Raise Benchmark Rate",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/boj-s-masu-says-will-continue-to-raise-benchmark-interest-rate",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T01:39:12Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The Bank of Japan stating it will continue to raise benchmark rates is a significant monetary policy signal that can impact global markets, currency exchange rates, and borrowing costs for companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Bank of Japan stating it will continue to raise benchmark rates is a significant monetary policy signal that can impact global markets, currency exchange rates, and borrowing costs for companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-305",
-      "headline": "The Karnataka Bank Limited: The Karnataka Bank Limited has informed the Exchange about strikes/lockouts/disturbances",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KTKBANK_10092026104210_Strike.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T05:14:02Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Karnataka Bank reported labor disturbances which may impact operational continuity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Karnataka Bank reported labor disturbances which may impact operational continuity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 8,
         "scope": 6,
         "event": 2,
         "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1947,9 +1910,58 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "The Karnataka Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "Aichi Financial Group",
+          "ticker": "7389",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-336",
+      "headline": "San ju San Financial Group,Inc. (7322)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T06:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Trading halt on San ju San Financial Group indicates a pending material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Trading halt on San ju San Financial Group indicates a pending material announcement.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "San ju San Financial Group",
+          "ticker": "7322",
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "mid",
@@ -153307,9 +153319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1919570,
-    "news_picked_today": 668,
-    "news_dropped_today": 4156
+    "news_seen_today": 1970593,
+    "news_picked_today": 699,
+    "news_dropped_today": 4989
   },
   "book_momentum": {
     "live_count": 8,
