@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T16:23:04Z",
+  "generated_at": "2026-09-10T16:33:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -631,6 +631,60 @@
           "name": "UCA",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-519",
+      "headline": "Axogen to buy BioCircuit Technologies for $200M",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/axogen-to-buy-biocircuit-technologies-for-200m/830059/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T15:55:20Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Axogen is acquiring BioCircuit Technologies for $200M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axogen is acquiring BioCircuit Technologies for $200M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axogen",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "BioCircuit Technologies",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1933,55 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-179",
-      "headline": "+++ USA +++: Amazon-Pilot warnte vor Unglück vor zu schnellem Anflug",
-      "headline_en": "Amazon pilots warned of an accident before a too-fast approach",
-      "url": "https://www.handelsblatt.com/politik/international/supreme-court-bestaetigt-aus-fuer-neue-wahlkreise-in-missouri/29669594.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T01:27:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Amazon pilots warning of an accident due to a too-fast approach indicates a serious operational safety issue that could lead to investigations, grounding of flights, and reputational damage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon pilots warning of an accident due to a too-fast approach indicates a serious operational safety issue that could lead to investigations, grounding of flights, and reputational damage.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153415,9 +153420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4459271,
-    "news_picked_today": 1278,
-    "news_dropped_today": 14802
+    "news_seen_today": 4526272,
+    "news_picked_today": 1291,
+    "news_dropped_today": 14885
   },
   "book_momentum": {
     "live_count": 8,
