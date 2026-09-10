@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T13:42:55Z",
+  "generated_at": "2026-09-10T13:47:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-498",
+      "headline": "JSW Infrastructure Limited: JSWINFRA: JSW Infrastructure Limited has informed the Exchange about Acquisition of NCR Rail Infrastructure Limited on implementation of the Resolution Plan under the Insolvency and Bankruptcy Code, 2016.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JSWINFRA_10092026190128_Covering_Letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T13:33:38Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "JSW Infrastructure acquired NCR Rail Infrastructure Limited through an insolvency resolution process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JSW Infrastructure acquired NCR Rail Infrastructure Limited through an insolvency resolution process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Infrastructure Limited",
+          "ticker": "JSWINFRA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-466",
       "headline": "Reliance Communications Limited: Reliance Communications Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-126",
-      "headline": "Qualcomm’s $60 billion deal reveals what comes after smartphones",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/technology/qualcomms-60-billion-deal-reveals-what-comes-after-smartphones",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T22:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Qualcomm announced a $60 billion deal, a major capital allocation and strategic shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualcomm announced a $60 billion deal, a major capital allocation and strategic shift.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": "QCOM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153480,9 +153480,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3774878,
-    "news_picked_today": 1112,
-    "news_dropped_today": 12976
+    "news_seen_today": 3789334,
+    "news_picked_today": 1122,
+    "news_dropped_today": 13014
   },
   "book_momentum": {
     "live_count": 8,
