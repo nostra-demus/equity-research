@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T21:18:00Z",
+  "generated_at": "2026-09-10T21:23:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -689,6 +689,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-562",
+      "headline": "Copart Agrees To Buy ACV For $1.9 Bln In Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/copart-agrees-buy-acv-19-bln-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T20:42:53Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Copart agreed to acquire ACV for $1.9 billion in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Copart agreed to acquire ACV for $1.9 billion in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Copart",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ACV",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1959,55 +2013,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-320",
-      "headline": "‎National Gypsum shares suspended again until H1 2026 results are announced",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1935419",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T09:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "National Gypsum shares are suspended until H1 2026 due to failure to report financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "National Gypsum shares are suspended until H1 2026 due to failure to report financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Gypsum",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153439,9 +153444,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6383457,
-    "news_picked_today": 1565,
-    "news_dropped_today": 16867
+    "news_seen_today": 6425339,
+    "news_picked_today": 1575,
+    "news_dropped_today": 16905
   },
   "book_momentum": {
     "live_count": 8,
