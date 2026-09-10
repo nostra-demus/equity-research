@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-dba8408df9af",
+  "idea_version": "IDEAV-3e9d19ce199fc9f2",
+  "idea_version_started_at": "2026-09-10T14:12:20Z",
+  "ticker": "JBLU",
+  "company": "JetBlue Airways Corp.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "JetBlue cut its capacity-growth outlook due to adverse weather and higher fuel costs, which will likely pressure its revenue and margins.",
+  "why_now": "The revised outlook was announced on September 10, 2026, creating immediate negative pressure on the stock.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-4cd5b6531087",
+    "EVT-16fffa928ba2"
+  ],
+  "primary_source_event_id": "EVT-4cd5b6531087",
+  "source_headlines": [
+    "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+    "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure"
+  ],
+  "source_headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+  "source_url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-10T13:16:50Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-10T14:12:20Z",
+  "updated_at": "2026-09-10T14:12:20Z",
+  "decay_at": "2026-09-12T01:16:50Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

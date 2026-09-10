@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T14:11:59Z",
+  "generated_at": "2026-09-10T14:22:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-498",
@@ -108562,6 +108562,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-dba8408df9af",
+      "idea_version": "IDEAV-3e9d19ce199fc9f2",
+      "idea_version_started_at": "2026-09-10T14:12:20Z",
+      "ticker": "JBLU",
+      "company": "JetBlue Airways Corp.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "JetBlue cut its capacity-growth outlook due to adverse weather and higher fuel costs, which will likely pressure its revenue and margins.",
+      "why_now": "The revised outlook was announced on September 10, 2026, creating immediate negative pressure on the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4cd5b6531087",
+        "EVT-16fffa928ba2"
+      ],
+      "primary_source_event_id": "EVT-4cd5b6531087",
+      "source_headlines": [
+        "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+        "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure"
+      ],
+      "source_headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+      "source_url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T13:16:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T14:12:20Z",
+      "updated_at": "2026-09-10T14:12:20Z",
+      "decay_at": "2026-09-12T01:16:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-45095adaca6b",
       "idea_version": "IDEAV-ccc7c8f6cf2e2321",
       "idea_version_started_at": "2026-09-10T12:37:06Z",
@@ -109609,6 +109680,150 @@
       "surfaced_at": "2026-09-10T01:49:10Z",
       "updated_at": "2026-09-10T01:49:10Z",
       "decay_at": "2026-09-11T11:56:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7f435f03c9a1",
+      "idea_version": "IDEAV-6b414f39b9cea62e",
+      "idea_version_started_at": "2026-09-10T14:12:20Z",
+      "ticker": "SSG",
+      "company": "Shoe Station Group",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Shoe Station Group cut its annual guidance, which is likely to negatively impact its revenue and profitability expectations.",
+      "why_now": "The company announced the guidance cut on September 10, 2026, leading to a significant pre-market stock decline.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-209c78e11b33"
+      ],
+      "primary_source_event_id": "EVT-209c78e11b33",
+      "source_headlines": [
+        "Shoe Station Group Cuts Annual Guidance; Stock Down Over 22% In Pre-Market"
+      ],
+      "source_headline": "Shoe Station Group Cuts Annual Guidance; Stock Down Over 22% In Pre-Market",
+      "source_url": "https://www.nasdaq.com/articles/shoe-station-group-cuts-annual-guidance-stock-down-over-22-pre-market",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T11:04:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T14:12:20Z",
+      "updated_at": "2026-09-10T14:12:20Z",
+      "decay_at": "2026-09-11T23:04:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-843296e89987",
+      "idea_version": "IDEAV-7f373bab79431030",
+      "idea_version_started_at": "2026-09-10T14:12:20Z",
+      "ticker": "VNC",
+      "company": "Vince Holding Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Vince Holding Corp reported Q2 gains and raised its outlook, suggesting improved financial performance and future profitability.",
+      "why_now": "The company announced its Q2 results and raised guidance on September 10, 2026, providing a clear positive catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0650b1ff1a3d"
+      ],
+      "primary_source_event_id": "EVT-0650b1ff1a3d",
+      "source_headlines": [
+        "Vince Reports Q2 Gains, Raises Outlook"
+      ],
+      "source_headline": "Vince Reports Q2 Gains, Raises Outlook",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T12:17:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T14:12:20Z",
+      "updated_at": "2026-09-10T14:12:20Z",
+      "decay_at": "2026-09-12T00:17:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114811,78 +115026,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-25acb1424522",
-      "idea_version": "IDEAV-0155b5a0c7afca09",
-      "idea_version_started_at": "2026-09-07T18:37:04Z",
-      "ticker": "NOVARTIS",
-      "company": "Novartis India Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of blood pressure drug trademarks from Pfizer for ₹1,250 crore expands the company's domestic portfolio in a high-volume therapeutic category.",
-      "why_now": "The acquisition was reported on September 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3fa6d955602b"
-      ],
-      "primary_source_event_id": "EVT-3fa6d955602b",
-      "source_headlines": [
-        "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
-      ],
-      "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
-      "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T13:42:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T18:37:04Z",
-      "updated_at": "2026-09-07T18:37:04Z",
-      "decay_at": "2026-09-09T01:42:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c72c1e88a94b",
       "idea_version": "IDEAV-31cddb974a599481",
       "idea_version_started_at": "2026-09-07T18:37:04Z",
@@ -116254,14 +116397,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 571,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
-        "total_count": 299,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 49
+        "hidden_count": 48
       },
       "short": {
         "total_count": 273,
@@ -116271,12 +116414,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 54,
+      "evicted_count": 55,
       "oldest_retained_at": "2026-08-14T16:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 53,
-          "oldest_retained_at": "2026-08-26T15:01:16Z"
+          "evicted_count": 54,
+          "oldest_retained_at": "2026-08-26T15:42:00Z"
         },
         "short": {
           "evicted_count": 1,
@@ -121471,8 +121614,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T01:42:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T14:12:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153460,8 +153603,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 663,
-    "live_count": 35,
+    "surfaced_total": 666,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153480,9 +153623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3916801,
-    "news_picked_today": 1147,
-    "news_dropped_today": 13373
+    "news_seen_today": 3931104,
+    "news_picked_today": 1158,
+    "news_dropped_today": 13602
   },
   "book_momentum": {
     "live_count": 8,
