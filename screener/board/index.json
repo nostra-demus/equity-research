@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T10:22:45Z",
+  "generated_at": "2026-09-10T10:39:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-404",
@@ -1672,6 +1672,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-418",
+      "headline": "FINELAND LIVING (09978): DESPATCH OF CIRCULAR RELATING TO (1) CONNECTED TRANSACTION AND SPECIAL DEAL IN RELATION TO THE SUBSCRIPTION OF SHARES UNDER SPECIFIC MANDATE; (2) ISSUANCE OF UNLISTED WARRANTS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000891.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T09:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company is issuing new shares and warrants under a specific mandate, which is a material capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company is issuing new shares and warrants under a specific mandate, which is a material capital structure event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FINELAND LIVING",
+          "ticker": "09978",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-378",
       "headline": "SHK PPT SHK PPT-R (00016 80016): 2025/26 Annual Results",
       "headline_en": null,
@@ -1908,55 +1958,6 @@
           "name": "Samsung Electronics",
           "ticker": "005930",
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-392",
-      "headline": "HSBC HOLDINGS (00005): Group CFO Succession",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000632.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "HSBC Holdings announced a succession plan for its Group CFO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "HSBC Holdings announced a succession plan for its Group CFO.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC HOLDINGS",
-          "ticker": "00005",
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -153381,9 +153382,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2792954,
-    "news_picked_today": 831,
-    "news_dropped_today": 10569
+    "news_seen_today": 2836464,
+    "news_picked_today": 863,
+    "news_dropped_today": 10969
   },
   "book_momentum": {
     "live_count": 8,
