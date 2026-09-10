@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T23:13:41Z",
+  "generated_at": "2026-09-10T23:14:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-573",
@@ -108587,23 +108587,23 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-55c58018f9d8",
-      "idea_version": "IDEAV-0631760f4eac4184",
-      "idea_version_started_at": "2026-09-10T20:58:23Z",
-      "ticker": "CPRT",
-      "company": "Copart",
+      "idea_id": "IDEA-4fb23c12ca36",
+      "idea_version": "IDEAV-dd460e2ca87bb4c8",
+      "idea_version_started_at": "2026-09-10T23:13:56Z",
+      "ticker": "ADBE",
+      "company": "Adobe",
       "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "The $1.9 billion acquisition of ACV Auctions allows Copart to integrate digital auction capabilities into its existing vehicle remarketing business, creating a more comprehensive platform.",
-      "why_now": "The deal was announced today, September 10, 2026.",
-      "conviction": 60,
+      "reason": "Adobe reached a milestone of 1 billion monthly active users and raised its full-year outlook, signaling strong demand and operational momentum.",
+      "why_now": "The guidance increase was announced on 2026-09-10.",
+      "conviction": 80,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 20,
+        "impact": 21,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -108631,17 +108631,87 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-3904c70b14d6"
+        "EVT-dda9fb26bd40"
       ],
-      "primary_source_event_id": "EVT-3904c70b14d6",
+      "primary_source_event_id": "EVT-dda9fb26bd40",
       "source_headlines": [
-        "Copart to buy ACV Auctions in $1.9 billion deal"
+        "Adobe Hits 1 Billion Monthly Active Users, Raises Full-Year Outlook"
       ],
-      "source_headline": "Copart to buy ACV Auctions in $1.9 billion deal",
-      "source_url": "https://www.reuters.com/business/copart-buy-acv-auctions-19-billion-deal-2026-09-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "source_headline": "Adobe Hits 1 Billion Monthly Active Users, Raises Full-Year Outlook",
+      "source_url": "https://www.wsj.com/business/earnings/adobe-hits-1-billion-monthly-active-users-raises-full-year-outlook-b4e45b83?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-10T20:23:35Z",
+      "newest_source_at": "2026-09-10T20:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T23:13:56Z",
+      "updated_at": "2026-09-10T23:13:56Z",
+      "decay_at": "2026-09-12T08:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-55c58018f9d8",
+      "idea_version": "IDEAV-4e7a1126d35d638b",
+      "idea_version_started_at": "2026-09-10T23:13:56Z",
+      "ticker": "CPRT",
+      "company": "Copart",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Copart is acquiring ACV Auctions for $1.9 billion in cash, which expands its footprint in the digital automotive marketplace.",
+      "why_now": "The acquisition agreement was announced on 2026-09-10.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5749f7a7c40d"
+      ],
+      "primary_source_event_id": "EVT-5749f7a7c40d",
+      "source_headlines": [
+        "Copart Agrees To Buy ACV For $1.9 Bln In Cash"
+      ],
+      "source_headline": "Copart Agrees To Buy ACV For $1.9 Bln In Cash",
+      "source_url": "https://www.nasdaq.com/articles/copart-agrees-buy-acv-19-bln-cash",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T20:42:53Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -108649,8 +108719,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-10T20:58:23Z",
-      "updated_at": "2026-09-10T20:58:23Z",
-      "decay_at": "2026-09-12T08:23:35Z",
+      "updated_at": "2026-09-10T23:13:56Z",
+      "decay_at": "2026-09-12T08:42:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109494,76 +109564,6 @@
       "surfaced_at": "2026-09-09T16:42:21Z",
       "updated_at": "2026-09-09T16:42:21Z",
       "decay_at": "2026-09-11T01:11:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-822f1593587e",
-      "idea_version": "IDEAV-446a7090aedcb397",
-      "idea_version_started_at": "2026-09-09T14:52:59Z",
-      "ticker": "SIG",
-      "company": "Signet Jewelers",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a return to profitability and raised its forward outlook, suggesting improved operational efficiency and consumer demand.",
-      "why_now": "The announcement was made today, September 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-075c60ad478b"
-      ],
-      "primary_source_event_id": "EVT-075c60ad478b",
-      "source_headlines": [
-        "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit"
-      ],
-      "source_headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
-      "source_url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T11:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T14:52:59Z",
-      "updated_at": "2026-09-09T14:52:59Z",
-      "decay_at": "2026-09-10T23:14:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111208,6 +111208,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-822f1593587e",
+      "idea_version": "IDEAV-446a7090aedcb397",
+      "idea_version_started_at": "2026-09-09T14:52:59Z",
+      "ticker": "SIG",
+      "company": "Signet Jewelers",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a return to profitability and raised its forward outlook, suggesting improved operational efficiency and consumer demand.",
+      "why_now": "The announcement was made today, September 9, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-075c60ad478b"
+      ],
+      "primary_source_event_id": "EVT-075c60ad478b",
+      "source_headlines": [
+        "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit"
+      ],
+      "source_headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
+      "source_url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T11:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T14:52:59Z",
+      "updated_at": "2026-09-09T14:52:59Z",
+      "decay_at": "2026-09-10T23:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-301c9958417a",
@@ -114551,78 +114621,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-815cbc7f3212",
-      "idea_version": "IDEAV-42635029d1772aaa",
-      "idea_version_started_at": "2026-09-07T23:46:49Z",
-      "ticker": "GCI",
-      "company": "Gryphon Capital Income Trust",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The completion of a large $86.25M wholesale placement typically creates immediate downward pressure on the share price as new supply hits the market at a discount.",
-      "why_now": "The placement completion was announced on 2026-09-07, marking the point where new shares are issued and secondary market digestion begins.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-815b42714107"
-      ],
-      "primary_source_event_id": "EVT-815b42714107",
-      "source_headlines": [
-        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
-      ],
-      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T22:42:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T23:46:49Z",
-      "updated_at": "2026-09-07T23:46:49Z",
-      "decay_at": "2026-09-09T10:42:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9dcb830cc86c",
       "idea_version": "IDEAV-7863a0061b902af7",
       "idea_version_started_at": "2026-09-07T23:26:05Z",
@@ -114688,148 +114686,6 @@
       "surfaced_at": "2026-09-07T23:26:05Z",
       "updated_at": "2026-09-07T23:26:05Z",
       "decay_at": "2026-09-09T11:19:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-24262cdd95f2",
-      "idea_version": "IDEAV-f25fe8fb0faa22c1",
-      "idea_version_started_at": "2026-09-07T23:01:43Z",
-      "ticker": "GCI",
-      "company": "GCI",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
-      "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-815b42714107"
-      ],
-      "primary_source_event_id": "EVT-815b42714107",
-      "source_headlines": [
-        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
-      ],
-      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T22:42:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T23:01:43Z",
-      "updated_at": "2026-09-07T23:01:43Z",
-      "decay_at": "2026-09-09T10:42:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3993a824df55",
-      "idea_version": "IDEAV-9c808b9568582d5f",
-      "idea_version_started_at": "2026-09-07T23:01:43Z",
-      "ticker": "BTC",
-      "company": "Arna Pharma",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Arna Pharma has entered voluntary administration, indicating severe financial distress and potential insolvency.",
-      "why_now": "The company announced its entry into voluntary administration via an ASX filing on September 7, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-722f1d74193b"
-      ],
-      "primary_source_event_id": "EVT-722f1d74193b",
-      "source_headlines": [
-        "BTC: Arna Pharma enters voluntary administration [price-sensitive]"
-      ],
-      "source_headline": "BTC: Arna Pharma enters voluntary administration [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTC?key=2924-03132915-3A701253",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T22:52:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T23:01:43Z",
-      "updated_at": "2026-09-07T23:01:43Z",
-      "decay_at": "2026-09-09T10:52:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115913,148 +115769,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4b86fb8ac7f1",
-      "idea_version": "IDEAV-cb8808d4da7aa5a9",
-      "idea_version_started_at": "2026-09-08T00:27:06Z",
-      "ticker": "01511",
-      "company": "UISEE Tech",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inclusion in the Stock Connect program increases liquidity and accessibility for mainland Chinese investors, typically leading to a valuation re-rating.",
-      "why_now": "The announcement was made on 2026-09-07, and the positive impact of increased institutional and retail access is usually realized over the following trading sessions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 10,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea434ece6dbe"
-      ],
-      "primary_source_event_id": "EVT-ea434ece6dbe",
-      "source_headlines": [
-        "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT"
-      ],
-      "source_headline": "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 63,
-      "newest_source_at": "2026-09-07T22:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T00:27:06Z",
-      "updated_at": "2026-09-08T00:27:06Z",
-      "decay_at": "2026-09-09T10:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6e64b8931620",
-      "idea_version": "IDEAV-25a0b301adabc0a1",
-      "idea_version_started_at": "2026-09-08T00:06:31Z",
-      "ticker": "1511",
-      "company": "UISEE Tech",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inclusion in the Stock Connect eligible securities list opens up the stock to direct mainland Chinese retail and institutional capital inflows, expanding its investor base.",
-      "why_now": "The official inclusion announcement was filed on September 7, 2026, providing an immediate liquidity catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 10,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea434ece6dbe"
-      ],
-      "primary_source_event_id": "EVT-ea434ece6dbe",
-      "source_headlines": [
-        "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT"
-      ],
-      "source_headline": "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 63,
-      "newest_source_at": "2026-09-07T22:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T00:06:31Z",
-      "updated_at": "2026-09-08T00:06:31Z",
-      "decay_at": "2026-09-09T10:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -116135,37 +115849,110 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 41
       },
       "short": {
-        "total_count": 275,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 23
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 65,
-      "oldest_retained_at": "2026-08-20T19:10:38Z",
+      "evicted_count": 70,
+      "oldest_retained_at": "2026-08-20T20:40:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 62,
-          "oldest_retained_at": "2026-08-27T15:26:44Z"
+          "evicted_count": 65,
+          "oldest_retained_at": "2026-08-27T17:40:45Z"
         },
         "short": {
-          "evicted_count": 3,
-          "oldest_retained_at": "2026-08-20T19:10:38Z"
+          "evicted_count": 5,
+          "oldest_retained_at": "2026-08-20T20:40:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-822f1593587e",
+        "idea_version": "IDEAV-446a7090aedcb397",
+        "idea_version_started_at": "2026-09-09T14:52:59Z",
+        "ticker": "SIG",
+        "company": "Signet Jewelers",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a return to profitability and raised its forward outlook, suggesting improved operational efficiency and consumer demand.",
+        "why_now": "The announcement was made today, September 9, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-075c60ad478b"
+        ],
+        "primary_source_event_id": "EVT-075c60ad478b",
+        "source_headlines": [
+          "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit"
+        ],
+        "source_headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
+        "source_url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T11:14:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T14:52:59Z",
+        "updated_at": "2026-09-09T14:52:59Z",
+        "decay_at": "2026-09-10T23:14:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T23:14:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ab31901fa897",
         "idea_version": "IDEAV-7614be235044d7a8",
@@ -120914,8 +120701,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T10:52:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T23:14:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120988,8 +120775,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T10:42:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T23:14:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121063,8 +120850,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T10:42:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T23:14:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121137,8 +120924,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T10:03:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T23:14:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121211,8 +120998,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T10:03:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T23:14:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146960,80 +146747,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-080389da3464",
-        "idea_version": "IDEAV-c9d2c2d58b1e41a6",
-        "idea_version_started_at": "2026-08-29T17:43:44Z",
-        "ticker": "08270",
-        "company": "CHINA CBM",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "CHINA CBM issued a positive profit alert, indicating better-than-expected earnings for the period.",
-        "why_now": "The positive profit alert was filed on August 28, 2026, signaling an immediate upward revision to earnings expectations.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2911d021f0ad"
-        ],
-        "primary_source_event_id": "EVT-2911d021f0ad",
-        "source_headlines": [
-          "CHINA CBM (08270): POSITIVE PROFIT ALERT"
-        ],
-        "source_headline": "CHINA CBM (08270): POSITIVE PROFIT ALERT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0828/2026082800571.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T08:36:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T17:43:44Z",
-        "updated_at": "2026-08-29T17:43:44Z",
-        "decay_at": "2026-08-29T20:36:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T09:15:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dfcaa49f64a2",
         "idea_version": "IDEAV-63e75ccd6ed2e15d",
         "idea_version_started_at": "2026-08-29T17:43:44Z",
@@ -153345,7 +153058,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 672,
+    "surfaced_total": 673,
     "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
