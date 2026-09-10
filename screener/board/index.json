@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T22:34:05Z",
+  "generated_at": "2026-09-10T22:43:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -585,6 +585,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-572",
+      "headline": "Oracle (ORCL) Beats Q1 Earnings and Revenue Estimates",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/oracle-orcl-beats-q1-earnings-and-revenue-estimates",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T21:20:01Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Oracle beat Q1 earnings and revenue estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle beat Q1 earnings and revenue estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": "ORCL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-568",
-      "headline": "425 - newcleo plc (0002131813) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2131813/000095010326013784/0000950103-26-013784-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-10T21:22:11Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Newcleo plc filed business combination communications related to a potential M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Newcleo plc filed business combination communications related to a potential M&A transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "newcleo plc",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153366,9 +153366,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7033051,
-    "news_picked_today": 1622,
-    "news_dropped_today": 17506
+    "news_seen_today": 7101152,
+    "news_picked_today": 1645,
+    "news_dropped_today": 17627
   },
   "book_momentum": {
     "live_count": 8,
