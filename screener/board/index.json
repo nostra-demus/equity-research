@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T13:32:36Z",
+  "generated_at": "2026-09-10T13:42:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-466",
@@ -492,37 +492,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260910-489",
-      "headline": "Bending Spoons to buy Miro in $1.36 billion cash deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/bending-spoons-buy-miro-136-billion-cash-deal-2026-09-10/",
+      "inbox_id": "INB-20260910-496",
+      "headline": "Bending Spoons acquisirà Miro con operazione cash da 1,36 mld dlr",
+      "headline_en": "Bending Spoons will acquire Miro in a 1.36 billion dollar cash deal",
+      "url": "https://www.reuters.com/it/azienda/bending-spoons-acquisir-miro-con-operazione-cash-da-136-mld-dlr-2026-09-10/",
       "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-10T12:58:05Z",
+      "found_at": "2026-09-10T13:18:26Z",
       "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Bending Spoons to acquire Miro for $1.36 billion cash; NASDAQ-listed Miro taken private—deal price, shareholder-return outcome, and market-structure impact all material to equity holders.",
+      "prelim_note": "Bending Spoons is acquiring Miro in a cash deal valued at 1.36 billion dollars.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Bending Spoons to acquire Miro for $1.36 billion cash; NASDAQ-listed Miro taken private—deal price, shareholder-return outcome, and market-structure impact all material to equity holders.",
-      "region": "GLOBAL",
+      "triage_reason": "Bending Spoons is acquiring Miro in a cash deal valued at 1.36 billion dollars.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 82,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 82,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 2,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "mna"
@@ -530,17 +530,116 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Miro",
-          "ticker": "MIRO",
-          "listing_country": "US"
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": null
         },
         {
-          "name": "Bending Spoons",
+          "name": "Miro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-491",
+      "headline": "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/jetblue-cuts-capacity-outlook-adding-to-turnaround-pressure",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T13:16:50Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "JetBlue cut its capacity outlook, signaling operational pressure and potential revenue impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JetBlue cut its capacity outlook, signaling operational pressure and potential revenue impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JetBlue",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-492",
+      "headline": "Groupe Dynamite reports profit and sales up in second quarter, raises revenue growth forecast",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-groupe-dynamite-second-quarter-results-profit-and-sales/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T13:09:30Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Groupe Dynamite reported increased profit and sales while raising its revenue growth forecast.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Groupe Dynamite reported increased profit and sales while raising its revenue growth forecast.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Groupe Dynamite",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,104 +1980,6 @@
           "name": "Qualcomm",
           "ticker": "QCOM",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-306",
-      "headline": "BAS: Half Year Results - 30 June 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BAS?key=2924-03134144-3A701503",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T05:56:44Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Company released half-year financial results for the period ending June 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company released half-year financial results for the period ending June 30, 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-410",
-      "headline": "ICBC (01398): Announcement on the Completion of the Issuance of 2026 Undated Additional Tier 1 Capital Bonds (Series 4) (Bond Connect)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000827.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T09:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "ICBC completed the issuance of Undated Additional Tier 1 Capital Bonds to strengthen its capital base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ICBC completed the issuance of Undated Additional Tier 1 Capital Bonds to strengthen its capital base.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICBC",
-          "ticker": "01398",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -153479,9 +153480,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3717263,
-    "news_picked_today": 1092,
-    "news_dropped_today": 12900
+    "news_seen_today": 3774878,
+    "news_picked_today": 1112,
+    "news_dropped_today": 12976
   },
   "book_momentum": {
     "live_count": 8,
