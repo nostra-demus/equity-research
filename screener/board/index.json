@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T16:33:54Z",
+  "generated_at": "2026-09-10T16:39:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -631,6 +631,55 @@
           "name": "UCA",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-521",
+      "headline": "RedHill (RDHL) Acquires Rebyota and Clenpiq Commercialization Rights for $12M Upfront. Can Sales Outpace Royalties?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/redhill-rdhl-acquires-rebyota-clenpiq-160630625.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T16:06:30Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "RedHill Biopharma acquired commercialization rights for $12M upfront, a material capital deployment and growth event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RedHill Biopharma acquired commercialization rights for $12M upfront, a material capital deployment and growth event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RedHill Biopharma",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-288",
-      "headline": "Mubadala Backs China’s Luckin Coffee Chain in $1 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/mubadala-backs-china-s-luckin-coffee-chain-in-1-billion-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T03:25:24Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Mubadala invests $1 billion in Luckin Coffee, a significant capital injection for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mubadala invests $1 billion in Luckin Coffee, a significant capital injection for the company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Luckin Coffee",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153420,9 +153420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4526272,
-    "news_picked_today": 1291,
-    "news_dropped_today": 14885
+    "news_seen_today": 4553231,
+    "news_picked_today": 1301,
+    "news_dropped_today": 14971
   },
   "book_momentum": {
     "live_count": 8,
