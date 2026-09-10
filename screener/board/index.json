@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T06:41:39Z",
+  "generated_at": "2026-09-10T06:56:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -1725,6 +1725,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-314",
+      "headline": "Embodied AI startup PHYMI raises nearly US$100 million in seed funding",
+      "headline_en": null,
+      "url": "https://technode.com/2026/09/10/embodied-ai-startup-phymi-raises-nearly-us100-million-in-seed-funding/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T06:35:21Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "PHYMI raised nearly US$100 million in seed funding for embodied AI development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "PHYMI raised nearly US$100 million in seed funding for embodied AI development.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PHYMI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-282",
       "headline": "ECB to Hike Interest Rates Again as Iran War Fans Inflation",
       "headline_en": null,
@@ -1904,56 +1953,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-250",
-      "headline": "OEL: Update on Gulf of America Asset Monetization Process [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OEL?key=2924-03134103-6A1343197",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T03:05:43Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Asset monetization process for Gulf of America flagged price-sensitive; material capital-structure and cash-flow event, but headline does not specify deal status, valuation, or use of proceeds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Asset monetization process for Gulf of America flagged price-sensitive; material capital-structure and cash-flow event, but headline does not specify deal status, valuation, or use of proceeds.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OEL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153308,9 +153307,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1747029,
-    "news_picked_today": 660,
-    "news_dropped_today": 4020
+    "news_seen_today": 1919570,
+    "news_picked_today": 668,
+    "news_dropped_today": 4156
   },
   "book_momentum": {
     "live_count": 8,
