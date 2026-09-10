@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T04:33:43Z",
+  "generated_at": "2026-09-10T05:22:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-159",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-288",
+      "headline": "Mubadala Backs China’s Luckin Coffee Chain in $1 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/mubadala-backs-china-s-luckin-coffee-chain-in-1-billion-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T03:25:24Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Mubadala invests $1 billion in Luckin Coffee, a significant capital injection for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mubadala invests $1 billion in Luckin Coffee, a significant capital injection for the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Luckin Coffee",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -640,6 +689,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-256",
+      "headline": "JN LIXIA B2909 (40708): PUBLICATION OF THE OFFERING CIRCULAR - U.S.$300,000,000 4.90 per cent. Bonds due 2029 issued by JINAN LIXIA HOLDING GROUP CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T04:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Jinan Lixia Holding Group issues USD 300 million of 4.90 percent bonds due 2029, confirmed debt capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Jinan Lixia Holding Group issues USD 300 million of 4.90 percent bonds due 2029, confirmed debt capital raise.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jinan Lixia Holding Group Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-018",
       "headline": "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT",
       "headline_en": null,
@@ -684,6 +782,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-281",
+      "headline": "Japanese giant splashes out on Ausbuild, valuing developer at $670m",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/japanese-giant-splashes-out-of-ausbuild-valuing-developer-at-670m-20260910-p60w2q?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T04:15:06Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "A Japanese firm is acquiring Ausbuild for $670 million, representing a significant M&A event in the property sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A Japanese firm is acquiring Ausbuild for $670 million, representing a significant M&A event in the property sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ausbuild",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1230,6 +1377,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-282",
+      "headline": "ECB to Hike Interest Rates Again as Iran War Fans Inflation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/ecb-to-hike-interest-rates-again-as-iran-war-fans-inflation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T04:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The combination of an ECB rate hike and an Iran-related conflict escalation creates a major negative macro shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The combination of an ECB rate hike and an Iran-related conflict escalation creates a major negative macro shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-252",
       "headline": "Swish raises $24 million to expand quick food delivery network",
       "headline_en": null,
@@ -1766,197 +1956,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-026",
-      "headline": "LYGEND RESOURCE (02245): INSIDE INFORMATION - PRELIMINARY PRICE CONSULTATION PERIOD FOR THE PROPOSED A SHARE OFFERING AND PRINCIPAL CONTENTS OF A SHARE PROSPECTUS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T22:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Lygend Resource announces proposed A-share offering with preliminary price consultation period opened; a confirmed capital-raising event but pricing and size not yet final.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Lygend Resource announces proposed A-share offering with preliminary price consultation period opened; a confirmed capital-raising event but pricing and size not yet final.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lygend Resource",
-          "ticker": "02245",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-177",
-      "headline": "E.l.f. Expands Global Ambitions With Hailey Bieber’s Rhode",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/e-l-f-expands-global-ambitions-with-hailey-bieber-s-rhode",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "E.l.f. expanding global ambitions with a partnership involving a celebrity brand suggests significant revenue growth potential and market expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "E.l.f. expanding global ambitions with a partnership involving a celebrity brand suggests significant revenue growth potential and market expansion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "E.l.f. Beauty",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-178",
-      "headline": "Will South Korea follow through on $350bn deal with Trump?",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/81f74c91-7fdc-4d6b-a7e3-cd3b510cecd3",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T01:29:37Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "A $350bn deal with a former US president raises significant questions about its feasibility, terms, and potential impact on South Korea's economy and companies involved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A $350bn deal with a former US president raises significant questions about its feasibility, terms, and potential impact on South Korea's economy and companies involved.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-137",
-      "headline": "DOJ probes Nvidia's licensing deal with AI startup Groq, NYT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/us-doj-probes-nvidias-licensing-deal-with-ai-startup-groq-nyt-reports-2026-09-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T01:11:34Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The DOJ is investigating Nvidia's licensing practices, which could lead to regulatory scrutiny or antitrust action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The DOJ is investigating Nvidia's licensing practices, which could lead to regulatory scrutiny or antitrust action.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109169,76 +109168,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e38b2231c234",
-      "idea_version": "IDEAV-729c86a7a34ac4c1",
-      "idea_version_started_at": "2026-09-09T01:49:16Z",
-      "ticker": "GE",
-      "company": "GE Aerospace",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $12 billion acquisition of a castings supplier directly addresses critical engine production bottlenecks, allowing GE Aerospace to accelerate delivery schedules and capture higher revenue from its massive engine backlog.",
-      "why_now": "The acquisition was announced on 2026-09-08 to resolve immediate supply chain constraints.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-562642158179"
-      ],
-      "primary_source_event_id": "EVT-562642158179",
-      "source_headlines": [
-        "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck"
-      ],
-      "source_headline": "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck",
-      "source_url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T16:57:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T15:48:21Z",
-      "updated_at": "2026-09-09T01:49:16Z",
-      "decay_at": "2026-09-10T04:57:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aae3ef159f69",
       "idea_version": "IDEAV-2951d7ef1c34c735",
       "idea_version_started_at": "2026-09-09T01:08:50Z",
@@ -111371,6 +111300,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-e38b2231c234",
+      "idea_version": "IDEAV-729c86a7a34ac4c1",
+      "idea_version_started_at": "2026-09-09T01:49:16Z",
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $12 billion acquisition of a castings supplier directly addresses critical engine production bottlenecks, allowing GE Aerospace to accelerate delivery schedules and capture higher revenue from its massive engine backlog.",
+      "why_now": "The acquisition was announced on 2026-09-08 to resolve immediate supply chain constraints.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-562642158179"
+      ],
+      "primary_source_event_id": "EVT-562642158179",
+      "source_headlines": [
+        "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck"
+      ],
+      "source_headline": "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck",
+      "source_url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T16:57:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T15:48:21Z",
+      "updated_at": "2026-09-09T01:49:16Z",
+      "decay_at": "2026-09-10T04:57:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-7be5a1652401",
@@ -116087,14 +116086,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 565,
     "shown_count": 500,
-    "hidden_count": 64,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 48
       },
       "short": {
         "total_count": 267,
@@ -116118,6 +116117,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e38b2231c234",
+        "idea_version": "IDEAV-729c86a7a34ac4c1",
+        "idea_version_started_at": "2026-09-09T01:49:16Z",
+        "ticker": "GE",
+        "company": "GE Aerospace",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $12 billion acquisition of a castings supplier directly addresses critical engine production bottlenecks, allowing GE Aerospace to accelerate delivery schedules and capture higher revenue from its massive engine backlog.",
+        "why_now": "The acquisition was announced on 2026-09-08 to resolve immediate supply chain constraints.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-562642158179"
+        ],
+        "primary_source_event_id": "EVT-562642158179",
+        "source_headlines": [
+          "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck"
+        ],
+        "source_headline": "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck",
+        "source_url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T16:57:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T15:48:21Z",
+        "updated_at": "2026-09-09T01:49:16Z",
+        "decay_at": "2026-09-10T04:57:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T04:57:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8ce0d29dfa32",
         "idea_version": "IDEAV-923004b5eabcb9ac",
@@ -146242,81 +146314,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3d29191d07b1",
-        "idea_version": "IDEAV-f8810176db6f3b69",
-        "idea_version_started_at": "2026-08-28T00:58:50Z",
-        "ticker": "00177.HK",
-        "company": "Jiangsu Expressway",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Jiangsu Expressway is acquiring 100% of Suxichang South Expressway, adding toll-road cash flows in a connected transaction.",
-        "why_now": "HKEX progress announcement on 2026-08-27 confirms the acquisition is advancing.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a481930cadfb"
-        ],
-        "primary_source_event_id": "EVT-a481930cadfb",
-        "source_headlines": [
-          "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION"
-        ],
-        "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800113.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T23:47:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T00:58:50Z",
-        "updated_at": "2026-08-28T00:58:50Z",
-        "decay_at": "2026-08-29T11:47:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T23:54:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-728d9c6bfb69",
         "idea_version": "IDEAV-c7f0f3f91317bddd",
         "idea_version_started_at": "2026-08-28T00:35:47Z",
@@ -153296,7 +153293,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 654,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153315,9 +153312,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1000067,
-    "news_picked_today": 505,
-    "news_dropped_today": 2759
+    "news_seen_today": 1166452,
+    "news_picked_today": 587,
+    "news_dropped_today": 3421
   },
   "book_momentum": {
     "live_count": 8,
