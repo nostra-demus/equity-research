@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T02:35:17Z",
+  "generated_at": "2026-09-10T02:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-159",
@@ -880,6 +880,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-206",
+      "headline": "Kolte - Patil Developers Limited: Kolte - Patil Developers Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Kolte-Patil Developers Marks its Strongest-ever Launch Performance with Sales of over Rs. 600 crore in 60 hours at Vyana at The Reserve , Pune\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KOLTEPATIL_10092026075106_PressRelease10sept2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T02:21:18Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company reported strong sales of over Rs. 600 crore in 60 hours for a new project launch.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company reported strong sales of over Rs. 600 crore in 60 hours for a new project launch.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kolte-Patil Developers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1813,6 +1862,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-216",
+      "headline": "Barclays faces legal scrutiny over role in £90m ‘Ponzi scheme within a Ponzi scheme’",
+      "headline_en": null,
+      "url": "https://www.cityam.com/barclays-faces-legal-scrutiny-over-role-in-90m-ponzi-scheme-within-a-ponzi-scheme/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T00:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Barclays faces legal scrutiny regarding its role in a £90 million alleged Ponzi scheme, posing potential reputational and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Barclays faces legal scrutiny regarding its role in a £90 million alleged Ponzi scheme, posing potential reputational and legal risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barclays",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-100",
       "headline": "Woodside loses key executive overseeing $24b LNG bet in the US",
       "headline_en": null,
@@ -1857,109 +1955,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-098",
-      "headline": "Coforge top shareholder thumbs-down leads to chairman Bhatt's exit",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/coforge-chairman-op-bhatt-resignation-advent-international-11788960783608.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T00:15:34Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Chairman exit following shareholder dissent indicates governance and management instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Chairman exit following shareholder dissent indicates governance and management instability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-204",
-      "headline": "AI research startup Listen Labs scrubbed a $1.5B funding round for Salesforce talks",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/09/09/ai-research-startup-listen-labs-scrubbed-a-1-5b-funding-round-for-salesforce-talks/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T00:00:37Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "AI research startup Listen Labs scrubbed a $1.5 billion funding round for talks with Salesforce.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "AI research startup Listen Labs scrubbed a $1.5 billion funding round for talks with Salesforce.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Listen Labs",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111163,78 +111158,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6b01e61cc52b",
-      "idea_version": "IDEAV-04aef4d99ccab1e9",
-      "idea_version_started_at": "2026-09-08T20:12:32Z",
-      "ticker": "TVX",
-      "company": "Tamarack Valley Energy Ltd.",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tamarack Valley Energy is merging with Headwater Exploration in a $7.2 billion all-stock deal, which could create synergies and enhance its market position.",
-      "why_now": "The agreement for the all-stock merger was announced today, September 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-98ac15ba6114"
-      ],
-      "primary_source_event_id": "EVT-98ac15ba6114",
-      "source_headlines": [
-        "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger"
-      ],
-      "source_headline": "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger",
-      "source_url": "https://finance.yahoo.com/energy/articles/tamarack-valley-headwater-exploration-agree-143534074.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T14:35:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T20:12:32Z",
-      "updated_at": "2026-09-08T20:12:32Z",
-      "decay_at": "2026-09-10T02:35:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f7ffb6f55f2f",
       "idea_version": "IDEAV-1a1806362384d420",
       "idea_version_started_at": "2026-09-08T19:23:17Z",
@@ -112988,6 +112911,78 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6b01e61cc52b",
+      "idea_version": "IDEAV-04aef4d99ccab1e9",
+      "idea_version_started_at": "2026-09-08T20:12:32Z",
+      "ticker": "TVX",
+      "company": "Tamarack Valley Energy Ltd.",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tamarack Valley Energy is merging with Headwater Exploration in a $7.2 billion all-stock deal, which could create synergies and enhance its market position.",
+      "why_now": "The agreement for the all-stock merger was announced today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-98ac15ba6114"
+      ],
+      "primary_source_event_id": "EVT-98ac15ba6114",
+      "source_headlines": [
+        "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger"
+      ],
+      "source_headline": "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger",
+      "source_url": "https://finance.yahoo.com/energy/articles/tamarack-valley-headwater-exploration-agree-143534074.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T14:35:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T20:12:32Z",
+      "updated_at": "2026-09-08T20:12:32Z",
+      "decay_at": "2026-09-10T02:35:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117024,14 +117019,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 71,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
-        "total_count": 306,
+        "total_count": 307,
         "shown_count": 250,
-        "hidden_count": 56
+        "hidden_count": 57
       },
       "short": {
         "total_count": 265,
@@ -117055,6 +117050,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6b01e61cc52b",
+        "idea_version": "IDEAV-04aef4d99ccab1e9",
+        "idea_version_started_at": "2026-09-08T20:12:32Z",
+        "ticker": "TVX",
+        "company": "Tamarack Valley Energy Ltd.",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tamarack Valley Energy is merging with Headwater Exploration in a $7.2 billion all-stock deal, which could create synergies and enhance its market position.",
+        "why_now": "The agreement for the all-stock merger was announced today, September 8, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-98ac15ba6114"
+        ],
+        "primary_source_event_id": "EVT-98ac15ba6114",
+        "source_headlines": [
+          "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger"
+        ],
+        "source_headline": "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger",
+        "source_url": "https://finance.yahoo.com/energy/articles/tamarack-valley-headwater-exploration-agree-143534074.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T14:35:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T20:12:32Z",
+        "updated_at": "2026-09-08T20:12:32Z",
+        "decay_at": "2026-09-10T02:35:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T02:35:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c38f617866c6",
         "idea_version": "IDEAV-bf77dc483d9d6667",
@@ -147029,80 +147099,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-921ce28082df",
-        "idea_version": "IDEAV-d5320931a7b63b8c",
-        "idea_version_started_at": "2026-08-28T00:35:47Z",
-        "ticker": "09606",
-        "company": "DualityBio",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs on its DUPAC platform, validating technology and creating revenue optionality.",
-        "why_now": "Inside information filing 2026-08-27 announcing the Genentech deal; fresh commercial catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1db28d8096bb"
-        ],
-        "primary_source_event_id": "EVT-1db28d8096bb",
-        "source_headlines": [
-          "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
-        ],
-        "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T23:18:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T00:35:47Z",
-        "updated_at": "2026-08-28T00:35:47Z",
-        "decay_at": "2026-08-29T11:18:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T23:54:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-728d9c6bfb69",
         "idea_version": "IDEAV-c7f0f3f91317bddd",
         "idea_version_started_at": "2026-08-28T00:35:47Z",
@@ -154230,7 +154226,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 653,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154249,9 +154245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586711,
-    "news_picked_today": 298,
-    "news_dropped_today": 1670
+    "news_seen_today": 615925,
+    "news_picked_today": 334,
+    "news_dropped_today": 1826
   },
   "book_momentum": {
     "live_count": 8,
