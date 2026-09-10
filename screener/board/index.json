@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T13:47:13Z",
+  "generated_at": "2026-09-10T14:11:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-498",
@@ -533,6 +533,55 @@
           "name": "Lingbao Gold",
           "ticker": "03330",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-502",
+      "headline": "‎UCA decides to file for financial restructuring",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935583",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T16:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "UCA is filing for financial restructuring, indicating severe distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UCA is filing for financial restructuring, indicating severe distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UCA",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1933,56 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-001",
-      "headline": "Olive Garden rival closes 18 locations after filing bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/bravo-brio-restaurants-close-18-locations-since-filing-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T23:47:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "A restaurant chain is closing 18 locations following a bankruptcy filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A restaurant chain is closing 18 locations following a bankruptcy filing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Olive Garden rival",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -110767,78 +110766,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9512c5197cc0",
-      "idea_version": "IDEAV-895dd45d9843d7ae",
-      "idea_version_started_at": "2026-09-09T05:11:41Z",
-      "ticker": "BVT",
-      "company": "Bidvest",
-      "exchange": "JSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allegations of suspicious payments and accounting maneuvers at a subsidiary create significant governance risk and potential for earnings restatements or regulatory fines.",
-      "why_now": "The allegations surfaced in a report on 2026-09-09.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4b63acc1d970"
-      ],
-      "primary_source_event_id": "EVT-4b63acc1d970",
-      "source_headlines": [
-        "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary"
-      ],
-      "source_headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
-      "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-09T02:02:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T05:11:41Z",
-      "updated_at": "2026-09-09T05:11:41Z",
-      "decay_at": "2026-09-10T14:02:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-09ff42dc9b39",
       "idea_version": "IDEAV-69ca76bc4ac9d22f",
       "idea_version_started_at": "2026-09-10T06:28:42Z",
@@ -115172,6 +115099,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9512c5197cc0",
+      "idea_version": "IDEAV-895dd45d9843d7ae",
+      "idea_version_started_at": "2026-09-09T05:11:41Z",
+      "ticker": "BVT",
+      "company": "Bidvest",
+      "exchange": "JSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allegations of suspicious payments and accounting maneuvers at a subsidiary create significant governance risk and potential for earnings restatements or regulatory fines.",
+      "why_now": "The allegations surfaced in a report on 2026-09-09.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4b63acc1d970"
+      ],
+      "primary_source_event_id": "EVT-4b63acc1d970",
+      "source_headlines": [
+        "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary"
+      ],
+      "source_headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
+      "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-09T02:02:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T05:11:41Z",
+      "updated_at": "2026-09-09T05:11:41Z",
+      "decay_at": "2026-09-10T14:02:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d45c5c6a293c",
       "idea_version": "IDEAV-4c3423f52b003f7e",
       "idea_version_started_at": "2026-09-08T08:32:35Z",
@@ -116255,9 +116254,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 71,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
         "total_count": 299,
@@ -116265,9 +116264,9 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -116286,6 +116285,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9512c5197cc0",
+        "idea_version": "IDEAV-895dd45d9843d7ae",
+        "idea_version_started_at": "2026-09-09T05:11:41Z",
+        "ticker": "BVT",
+        "company": "Bidvest",
+        "exchange": "JSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Allegations of suspicious payments and accounting maneuvers at a subsidiary create significant governance risk and potential for earnings restatements or regulatory fines.",
+        "why_now": "The allegations surfaced in a report on 2026-09-09.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4b63acc1d970"
+        ],
+        "primary_source_event_id": "EVT-4b63acc1d970",
+        "source_headlines": [
+          "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary"
+        ],
+        "source_headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
+        "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
+        "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+        "materiality_max": 95,
+        "newest_source_at": "2026-09-09T02:02:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T05:11:41Z",
+        "updated_at": "2026-09-09T05:11:41Z",
+        "decay_at": "2026-09-10T14:02:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T14:02:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-301c9958417a",
         "idea_version": "IDEAV-99b619b91ddba052",
@@ -153382,86 +153456,12 @@
         "archived_at": "2026-08-24T00:05:14Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-21c21ede9213",
-        "idea_version": "IDEAV-28bd6904c7b57388",
-        "idea_version_started_at": "2026-08-21T00:59:07Z",
-        "ticker": "PPT",
-        "company": "Perpetual Limited",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company announced a non-cash impairment, which signals a downward revision in the carrying value of assets and potential pressure on future earnings.",
-        "why_now": "The impairment was disclosed in an official ASX filing on 2026-08-20.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6e97008807f9"
-        ],
-        "primary_source_event_id": "EVT-6e97008807f9",
-        "source_headlines": [
-          "PPT: Non-cash impairment [price-sensitive]"
-        ],
-        "source_headline": "PPT: Non-cash impairment [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PPT?key=2924-03124062-2A1690988",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-20T23:06:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T00:59:07Z",
-        "updated_at": "2026-08-21T00:59:07Z",
-        "decay_at": "2026-08-22T11:06:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T23:13:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 663,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153480,9 +153480,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3789334,
-    "news_picked_today": 1122,
-    "news_dropped_today": 13014
+    "news_seen_today": 3916801,
+    "news_picked_today": 1147,
+    "news_dropped_today": 13373
   },
   "book_momentum": {
     "live_count": 8,
