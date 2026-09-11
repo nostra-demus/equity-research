@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T08:39:50Z",
+  "generated_at": "2026-09-11T08:54:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-319",
+      "headline": "WK GROUP (02535): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO CONDITIONAL MANDATORY GENERAL CASH OFFER BY GET NICE SECURITIES LIMITED FOR AND ON BEHALF OF WELLLUCK LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF WK GROUP (HOLDINGS) LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY WELLLUCK LIMITED AND PARTIES ACTING IN CONCERT WITH IT)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100372.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "A mandatory general cash offer has been initiated for all issued shares of WK Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A mandatory general cash offer has been initiated for all issued shares of WK Group.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WK Group",
+          "ticker": "02535",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-318",
       "headline": "SBP GROUP (01177): CONNECTED TRANSACTION - ACQUISITION OF 5% EQUITY INTEREST IN CT TIANQING THROUGH THE ACQUISITION OF EQUITY INTERESTS IN THE TARGET COMPANY",
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-087",
-      "headline": "FLC: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FLC?key=2924-03134476-3A701558",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T01:19:13Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "A new substantial holder disclosure indicates a change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A new substantial holder disclosure indicates a change in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111099,77 +111099,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7598308e07cb",
-      "idea_version": "IDEAV-8eb68c29636b2c41",
-      "idea_version_started_at": "2026-09-09T23:02:57Z",
-      "ticker": "ENB",
-      "company": "Enbridge",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Enbridge is expanding its midstream footprint by acquiring the Tallgrass crude oil business for $2.55 billion, which should be accretive to cash flow once integrated.",
-      "why_now": "The acquisition was announced on 2026-09-09, providing a clear catalyst for the stock as it scales its asset base.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d02fd2c9091c",
-        "EVT-881a5898c57b"
-      ],
-      "primary_source_event_id": "EVT-d02fd2c9091c",
-      "source_headlines": [
-        "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
-        "Enbridge to buy Tallgrass crude oil business for $2.55-billion"
-      ],
-      "source_headline": "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
-      "source_url": "https://www.nasdaq.com/articles/enbridge-acquire-tallgrass-crude-business-255-bln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T20:49:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T23:02:57Z",
-      "updated_at": "2026-09-09T23:02:57Z",
-      "decay_at": "2026-09-11T08:49:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112806,6 +112735,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-7598308e07cb",
+      "idea_version": "IDEAV-8eb68c29636b2c41",
+      "idea_version_started_at": "2026-09-09T23:02:57Z",
+      "ticker": "ENB",
+      "company": "Enbridge",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Enbridge is expanding its midstream footprint by acquiring the Tallgrass crude oil business for $2.55 billion, which should be accretive to cash flow once integrated.",
+      "why_now": "The acquisition was announced on 2026-09-09, providing a clear catalyst for the stock as it scales its asset base.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d02fd2c9091c",
+        "EVT-881a5898c57b"
+      ],
+      "primary_source_event_id": "EVT-d02fd2c9091c",
+      "source_headlines": [
+        "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+        "Enbridge to buy Tallgrass crude oil business for $2.55-billion"
+      ],
+      "source_headline": "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+      "source_url": "https://www.nasdaq.com/articles/enbridge-acquire-tallgrass-crude-business-255-bln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T20:49:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T23:02:57Z",
+      "updated_at": "2026-09-09T23:02:57Z",
+      "decay_at": "2026-09-11T08:49:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-ed1237cf4982",
@@ -116232,14 +116232,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 32
       },
       "short": {
         "total_count": 266,
@@ -116263,6 +116263,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7598308e07cb",
+        "idea_version": "IDEAV-8eb68c29636b2c41",
+        "idea_version_started_at": "2026-09-09T23:02:57Z",
+        "ticker": "ENB",
+        "company": "Enbridge",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Enbridge is expanding its midstream footprint by acquiring the Tallgrass crude oil business for $2.55 billion, which should be accretive to cash flow once integrated.",
+        "why_now": "The acquisition was announced on 2026-09-09, providing a clear catalyst for the stock as it scales its asset base.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d02fd2c9091c",
+          "EVT-881a5898c57b"
+        ],
+        "primary_source_event_id": "EVT-d02fd2c9091c",
+        "source_headlines": [
+          "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+          "Enbridge to buy Tallgrass crude oil business for $2.55-billion"
+        ],
+        "source_headline": "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+        "source_url": "https://www.nasdaq.com/articles/enbridge-acquire-tallgrass-crude-business-255-bln",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T20:49:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T23:02:57Z",
+        "updated_at": "2026-09-09T23:02:57Z",
+        "decay_at": "2026-09-11T08:49:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T08:49:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0e754328b539",
         "idea_version": "IDEAV-848eb9acfa328652",
@@ -145647,79 +145721,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c559ff4a8d85",
-        "idea_version": "IDEAV-fac930fbf4d23738",
-        "idea_version_started_at": "2026-08-30T00:06:22Z",
-        "ticker": "FLR",
-        "company": "Fluor Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
-        "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a225fc453d91"
-        ],
-        "primary_source_event_id": "EVT-a225fc453d91",
-        "source_headlines": [
-          "Fluor to wrap $5B Alabama plant construction"
-        ],
-        "source_headline": "Fluor to wrap $5B Alabama plant construction",
-        "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
-        "source_name": "Construction Dive",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T15:27:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T13:40:33Z",
-        "updated_at": "2026-08-30T00:06:22Z",
-        "decay_at": "2026-08-30T03:27:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:41:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-865901eb21c3",
         "idea_version": "IDEAV-1a2f2037ab34fb0c",
         "idea_version_started_at": "2026-08-29T23:48:06Z",
@@ -153439,7 +153440,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 677,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153458,9 +153459,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4004869,
-    "news_picked_today": 645,
-    "news_dropped_today": 3795
+    "news_seen_today": 4178742,
+    "news_picked_today": 657,
+    "news_dropped_today": 3879
   },
   "book_momentum": {
     "live_count": 8,
