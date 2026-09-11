@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T15:04:32Z",
+  "generated_at": "2026-09-11T15:08:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-407",
+      "headline": "HONBRIDGE (08137): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 73% EQUITY INTEREST IN BONA GLOBAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0911/2026091101947.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Honbridge Holdings announced a discloseable transaction to acquire a 73% equity interest in Bona Global.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honbridge Holdings announced a discloseable transaction to acquire a 73% equity interest in Bona Global.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honbridge Holdings",
+          "ticker": "08137",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-405",
       "headline": "CLARITY MEDICAL (01406): KEY FINDINGS OF FORENSIC INVESTIGATION IN CONNECTION WITH IPO ALLEGATIONS",
@@ -1910,55 +1959,6 @@
           "name": "Ozon",
           "ticker": "OZON",
           "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-148",
-      "headline": "Samsung E&A Wins $3.5 Billion Saudi Fertilizer Plant Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276688",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T03:30:39Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Samsung E&A secured a $3.5 billion contract for a fertilizer plant in Saudi Arabia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung E&A secured a $3.5 billion contract for a fertilizer plant in Saudi Arabia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung E&A",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -153388,9 +153388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7649331,
-    "news_picked_today": 1028,
-    "news_dropped_today": 6700
+    "news_seen_today": 7669005,
+    "news_picked_today": 1033,
+    "news_dropped_today": 6719
   },
   "book_momentum": {
     "live_count": 8,
