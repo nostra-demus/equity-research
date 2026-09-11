@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T03:09:51Z",
+  "generated_at": "2026-09-11T03:19:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-201",
@@ -292,6 +292,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-241",
+      "headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T02:51:42Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Vietravel signed a major deal for 50 Airbus jets, representing a significant capital expenditure and fleet expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vietravel signed a major deal for 50 Airbus jets, representing a significant capital expenditure and fleet expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vietravel",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,55 +1948,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-189",
-      "headline": "Telkom Towers part of R4.5bn revival plan",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/investing/property/telkom-towers-part-of-r4-5bn-revival-plan/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:02:48Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Telkom is part of a R4.5 billion revival plan for its towers, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Telkom is part of a R4.5 billion revival plan for its towers, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telkom",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111164,146 +111170,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ed1237cf4982",
-      "idea_version": "IDEAV-3a25d61b702ed2f1",
-      "idea_version_started_at": "2026-09-09T19:31:54Z",
-      "ticker": "CASY",
-      "company": "Casey's General Stores",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a Q1 earnings beat supported by strong performance in both inside store sales and fuel margins.",
-      "why_now": "The Q1 results were released on 2026-09-09, confirming the effectiveness of their current retail strategy.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d4397ddbfec0"
-      ],
-      "primary_source_event_id": "EVT-d4397ddbfec0",
-      "source_headlines": [
-        "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains"
-      ],
-      "source_headline": "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains",
-      "source_url": "https://www.nasdaq.com/articles/casy-q1-earnings-beat-estimates-inside-and-fuel-gains",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T19:31:54Z",
-      "updated_at": "2026-09-09T19:31:54Z",
-      "decay_at": "2026-09-11T03:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ddc523ea3e44",
-      "idea_version": "IDEAV-e78a1a89cd8f5a8e",
-      "idea_version_started_at": "2026-09-09T17:32:12Z",
-      "ticker": "UNFI",
-      "company": "United Natural Foods",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
-      "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-493281f98b9d"
-      ],
-      "primary_source_event_id": "EVT-493281f98b9d",
-      "source_headlines": [
-        "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
-      ],
-      "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
-      "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T17:32:12Z",
-      "updated_at": "2026-09-09T17:32:12Z",
-      "decay_at": "2026-09-11T03:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112301,78 +112167,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e715a11c3283",
-      "idea_version": "IDEAV-81b9b92650bd701e",
-      "idea_version_started_at": "2026-09-09T17:32:12Z",
-      "ticker": "ASO",
-      "company": "Academy Sports + Outdoors",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual profit forecast due to successful cost discipline and e-commerce growth, signaling better-than-expected margin expansion.",
-      "why_now": "The guidance hike was announced on 2026-09-09, providing a fresh catalyst for valuation expansion.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0cb3ce79b89"
-      ],
-      "primary_source_event_id": "EVT-e0cb3ce79b89",
-      "source_headlines": [
-        "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth"
-      ],
-      "source_headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T17:32:12Z",
-      "updated_at": "2026-09-09T17:32:12Z",
-      "decay_at": "2026-09-11T03:12:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-75af08a2bada8d89",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112869,6 +112663,146 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-ed1237cf4982",
+      "idea_version": "IDEAV-3a25d61b702ed2f1",
+      "idea_version_started_at": "2026-09-09T19:31:54Z",
+      "ticker": "CASY",
+      "company": "Casey's General Stores",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a Q1 earnings beat supported by strong performance in both inside store sales and fuel margins.",
+      "why_now": "The Q1 results were released on 2026-09-09, confirming the effectiveness of their current retail strategy.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d4397ddbfec0"
+      ],
+      "primary_source_event_id": "EVT-d4397ddbfec0",
+      "source_headlines": [
+        "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains"
+      ],
+      "source_headline": "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains",
+      "source_url": "https://www.nasdaq.com/articles/casy-q1-earnings-beat-estimates-inside-and-fuel-gains",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T15:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T19:31:54Z",
+      "updated_at": "2026-09-09T19:31:54Z",
+      "decay_at": "2026-09-11T03:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ddc523ea3e44",
+      "idea_version": "IDEAV-e78a1a89cd8f5a8e",
+      "idea_version_started_at": "2026-09-09T17:32:12Z",
+      "ticker": "UNFI",
+      "company": "United Natural Foods",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
+      "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-493281f98b9d"
+      ],
+      "primary_source_event_id": "EVT-493281f98b9d",
+      "source_headlines": [
+        "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
+      ],
+      "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
+      "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T15:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T17:32:12Z",
+      "updated_at": "2026-09-09T17:32:12Z",
+      "decay_at": "2026-09-11T03:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-39d1aa3d7440",
@@ -114129,6 +114063,78 @@
       "surfaced_at": "2026-09-08T21:38:42Z",
       "updated_at": "2026-09-08T21:38:42Z",
       "decay_at": "2026-09-10T03:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e715a11c3283",
+      "idea_version": "IDEAV-81b9b92650bd701e",
+      "idea_version_started_at": "2026-09-09T17:32:12Z",
+      "ticker": "ASO",
+      "company": "Academy Sports + Outdoors",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its annual profit forecast due to successful cost discipline and e-commerce growth, signaling better-than-expected margin expansion.",
+      "why_now": "The guidance hike was announced on 2026-09-09, providing a fresh catalyst for valuation expansion.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0cb3ce79b89"
+      ],
+      "primary_source_event_id": "EVT-e0cb3ce79b89",
+      "source_headlines": [
+        "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth"
+      ],
+      "source_headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T15:12:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T17:32:12Z",
+      "updated_at": "2026-09-09T17:32:12Z",
+      "decay_at": "2026-09-11T03:12:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116655,14 +116661,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 52,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 38
       },
       "short": {
         "total_count": 267,
@@ -116686,6 +116692,227 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ddc523ea3e44",
+        "idea_version": "IDEAV-e78a1a89cd8f5a8e",
+        "idea_version_started_at": "2026-09-09T17:32:12Z",
+        "ticker": "UNFI",
+        "company": "United Natural Foods",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
+        "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-493281f98b9d"
+        ],
+        "primary_source_event_id": "EVT-493281f98b9d",
+        "source_headlines": [
+          "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
+        ],
+        "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
+        "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T15:17:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T17:32:12Z",
+        "updated_at": "2026-09-09T17:32:12Z",
+        "decay_at": "2026-09-11T03:17:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T03:17:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ed1237cf4982",
+        "idea_version": "IDEAV-3a25d61b702ed2f1",
+        "idea_version_started_at": "2026-09-09T19:31:54Z",
+        "ticker": "CASY",
+        "company": "Casey's General Stores",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a Q1 earnings beat supported by strong performance in both inside store sales and fuel margins.",
+        "why_now": "The Q1 results were released on 2026-09-09, confirming the effectiveness of their current retail strategy.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d4397ddbfec0"
+        ],
+        "primary_source_event_id": "EVT-d4397ddbfec0",
+        "source_headlines": [
+          "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains"
+        ],
+        "source_headline": "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains",
+        "source_url": "https://www.nasdaq.com/articles/casy-q1-earnings-beat-estimates-inside-and-fuel-gains",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T15:17:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T19:31:54Z",
+        "updated_at": "2026-09-09T19:31:54Z",
+        "decay_at": "2026-09-11T03:17:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T03:17:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e715a11c3283",
+        "idea_version": "IDEAV-81b9b92650bd701e",
+        "idea_version_started_at": "2026-09-09T17:32:12Z",
+        "ticker": "ASO",
+        "company": "Academy Sports + Outdoors",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its annual profit forecast due to successful cost discipline and e-commerce growth, signaling better-than-expected margin expansion.",
+        "why_now": "The guidance hike was announced on 2026-09-09, providing a fresh catalyst for valuation expansion.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e0cb3ce79b89"
+        ],
+        "primary_source_event_id": "EVT-e0cb3ce79b89",
+        "source_headlines": [
+          "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth"
+        ],
+        "source_headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T15:12:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T17:32:12Z",
+        "updated_at": "2026-09-09T17:32:12Z",
+        "decay_at": "2026-09-11T03:12:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T03:12:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-39d1aa3d7440",
         "idea_version": "IDEAV-aa0326fffab0e08c",
@@ -145996,155 +146223,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-017f4db87209",
-        "idea_version": "IDEAV-5f777a7efbcea721",
-        "idea_version_started_at": "2026-08-29T19:04:06Z",
-        "ticker": "GPS",
-        "company": "Gap Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Gap Inc. raised its profit forecast after a leadership change at its Old Navy division, indicating improved operational outlook.",
-        "why_now": "The company announced the leadership change and raised its profit forecast on August 28, 2026, providing a fresh catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-38dba5bba266"
-        ],
-        "primary_source_event_id": "EVT-38dba5bba266",
-        "source_headlines": [
-          "Gap climbs after leadership change at Old Navy, profit forecast raise"
-        ],
-        "source_headline": "Gap climbs after leadership change at Old Navy, profit forecast raise",
-        "source_url": "https://www.reuters.com/business/retail-consumer/gap-shares-jump-after-old-navy-brings-new-ceo-revive-brand-2026-08-28/",
-        "source_name": "Reuters — Latest, next page (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T15:08:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T23:06:02Z",
-        "updated_at": "2026-08-29T19:04:06Z",
-        "decay_at": "2026-08-30T03:08:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:18:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cfa708bb1644",
-        "idea_version": "IDEAV-0b058ce756b409b2",
-        "idea_version_started_at": "2026-08-29T18:23:37Z",
-        "ticker": "00656",
-        "company": "Fosun International Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Fosun is pursuing a separate listing and spin-off of its Club Med Lifestyle business on the HKEX, which acts as a catalyst to unlock value from its core leisure assets.",
-        "why_now": "The disclosure of the possible spin-off was made on August 28, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c3df3f351784"
-        ],
-        "primary_source_event_id": "EVT-c3df3f351784",
-        "source_headlines": [
-          "FOSUN INTL (00656): POSSIBLE DISCLOSEABLE TRANSACTION - IN RELATION TO PROPOSED SPIN-OFF AND SEPARATE LISTING OF CLUBMED LIFESTYLE ON THE MAIN BOARD OF THE HONG KONG STOCK EXCHANGE"
-        ],
-        "source_headline": "FOSUN INTL (00656): POSSIBLE DISCLOSEABLE TRANSACTION - IN RELATION TO PROPOSED SPIN-OFF AND SEPARATE LISTING OF CLUBMED LIFESTYLE ON THE MAIN BOARD OF THE HONG KONG STOCK EXCHANGE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804230.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T14:52:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T18:23:37Z",
-        "updated_at": "2026-08-29T18:23:37Z",
-        "decay_at": "2026-08-30T02:52:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:18:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7632014ea423",
         "idea_version": "IDEAV-e134012ebde76b09",
         "idea_version_started_at": "2026-08-29T12:26:38Z",
@@ -146431,80 +146509,6 @@
         "surfaced_at": "2026-08-27T23:55:54Z",
         "updated_at": "2026-08-29T19:04:06Z",
         "decay_at": "2026-08-30T02:09:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b6c0f11fb03b",
-        "idea_version": "IDEAV-1335a8ecc7249039",
-        "idea_version_started_at": "2026-08-29T18:43:39Z",
-        "ticker": "CVX",
-        "company": "Chevron",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Chevron is nearing a deal to invest billions in Venezuelan oil fields, which represents a significant expansion of its oil production capacity and reserves.",
-        "why_now": "The news of the potential deal emerged on August 28, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0112ea3c81c2"
-        ],
-        "primary_source_event_id": "EVT-0112ea3c81c2",
-        "source_headlines": [
-          "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields"
-        ],
-        "source_headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
-        "source_url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T14:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T18:43:39Z",
-        "updated_at": "2026-08-29T18:43:39Z",
-        "decay_at": "2026-08-30T02:08:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -153865,7 +153869,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 675,
-    "live_count": 33,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153884,9 +153888,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1267158,
-    "news_picked_today": 340,
-    "news_dropped_today": 1244
+    "news_seen_today": 1328230,
+    "news_picked_today": 358,
+    "news_dropped_today": 1298
   },
   "book_momentum": {
     "live_count": 8,
