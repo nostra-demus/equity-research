@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:25:28Z",
+  "generated_at": "2026-09-11T09:34:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-324",
@@ -1801,6 +1801,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-328",
+      "headline": "FORTUNE SUN (00352): QUARTERLY UPDATE ON STATUS OF RESUMPTION,FURTHER CLARIFICATION OF DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DELAY IN DESPATCH OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100740.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Company remains suspended from trading and reports continued delays in financial reporting, indicating significant operational or governance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company remains suspended from trading and reports continued delays in financial reporting, indicating significant operational or governance issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortune Sun",
+          "ticker": "00352",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-268",
       "headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
       "headline_en": null,
@@ -1894,55 +1943,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-120",
-      "headline": "CAY: Fourth Supplementary Bidder's Statement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03134490-6A1343366",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T01:49:13Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "The company is issuing a supplementary bidder's statement regarding an active takeover bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company is issuing a supplementary bidder's statement regarding an active takeover bid.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CAY",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153309,9 +153309,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4404659,
-    "news_picked_today": 691,
-    "news_dropped_today": 4133
+    "news_seen_today": 4473935,
+    "news_picked_today": 695,
+    "news_dropped_today": 4201
   },
   "book_momentum": {
     "live_count": 8,
