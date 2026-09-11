@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T00:58:13Z",
+  "generated_at": "2026-09-11T01:08:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-049",
@@ -780,6 +780,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-054",
+      "headline": "OpenAI Is Open to Slowing Cutting-Edge AI, CEO Sam Altman Tells Staff",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/openai-is-open-to-slowing-cutting-edge-ai-ceo-sam-altman-tells-staff",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:43:22Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "OpenAI CEO Sam Altman indicated a potential shift in strategy regarding the pace of AI development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "OpenAI CEO Sam Altman indicated a potential shift in strategy regarding the pace of AI development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-029",
       "headline": "US sanctions Iraqi paramilitary group Kataib Hezbollah",
       "headline_en": null,
@@ -1350,6 +1400,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-060",
+      "headline": "Azizi Developments stellt die auf 8,1 Milliarden US-Dollar angelegte, nach einem Gesamtkonzept geplante Wohnanlage „Azizi Florence“ in Sharjah vor",
+      "headline_en": "Azizi Developments unveils the 8.1 billion USD master-planned residential community 'Azizi Florence' in Sharjah",
+      "url": "http://www.businesswire.com/news/home/20260910489823/de/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-11T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Azizi Developments announced an 8.1 billion USD residential project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Azizi Developments announced an 8.1 billion USD residential project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Azizi Developments",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-039",
       "headline": "Balmer Lawrie Investments Limited - Ex-Date: 11-Sep-2026",
       "headline_en": null,
@@ -1796,148 +1895,44 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260911-033",
-      "headline": "Thomson Reuters Announces Pricing of Public Offering of US$1,300,000,000 Notes and Canadian Private Placement of C$1,000,000,000 Notes | TRI Stock News",
+      "inbox_id": "INB-20260911-055",
+      "headline": "China-initiated international alliance to combat telecom, cyber fraud established",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TRI/thomson-reuters-announces-pricing-of-public-offering-of-us-1-300-000-18670qhb5gk3.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-10T23:34:00Z",
+      "url": "https://gulfnews.com/technology/china-initiated-international-alliance-to-combat-telecom-cyber-fraud-established-1.500670463",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:27:04Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Thomson Reuters is raising $1.3 billion in US notes and C$1 billion in Canadian notes.",
+      "prelim_note": "China has initiated an international alliance to combat telecom and cyber fraud, impacting global regulatory cooperation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Thomson Reuters is raising $1.3 billion in US notes and C$1 billion in Canadian notes.",
-      "region": "US",
+      "triage_score": 56,
+      "triage_reason": "China has initiated an international alliance to combat telecom and cyber fraud, impacting global regulatory cooperation.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "debt_credit"
+        "regulatory"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thomson Reuters",
-          "ticker": "TRI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-044",
-      "headline": "Tencent Music Entertainment Group Announces Closing of US$1,000 Million Notes Offering | TME Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TME/tencent-music-entertainment-group-announces-closing-of-us-1-000-vqbvzdua65td.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-10T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Tencent Music closed a $1,000 million notes offering, impacting capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Tencent Music closed a $1,000 million notes offering, impacting capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent Music Entertainment Group",
-          "ticker": "TME",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-024",
-      "headline": "Vistra Prices Registered Offering of $1.5 Billion of Junior Subordinated Notes",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/vistra-prices-registered-offering-of-1-5-billion-of-junior-subordinated-notes-302875819.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-10T22:48:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Vistra is raising $1.5 billion in debt capital through junior subordinated notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Vistra is raising $1.5 billion in debt capital through junior subordinated notes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vistra",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154663,9 +154658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 393328,
-    "news_picked_today": 57,
-    "news_dropped_today": 375
+    "news_seen_today": 484280,
+    "news_picked_today": 69,
+    "news_dropped_today": 459
   },
   "book_momentum": {
     "live_count": 8,
