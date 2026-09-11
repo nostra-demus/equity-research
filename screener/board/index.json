@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-11T11:09:48Z",
+  "generated_at": "2026-09-11T11:19:40Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260911-355",
-      "headline": "C&D INTL GROUP (01908): (1) CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY (2) CONTINUING CONNECTED TRANSACTION ENTRUSTED MANAGEMENT AGREEMENT (3) INSIDE INFORMATION TERMINATION OF MEMORANDUM OF UNDERSTANDING REGARDING THE ACQUISITION OF C&D CITY SERVICE",
+      "inbox_id": "INB-20260911-360",
+      "headline": "C&D PROPERTY (02156): (1) DISCLOSEABLE AND CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY (2) CONTINUING CONNECTED TRANSACTION ENTRUSTED MANAGEMENT AGREEMENT (3) INSIDE INFORMATION TERMINATION OF MEMORANDUM OF UNDERSTANDING REGARDING THE ACQUISITION OF C&D CITY SERVICE",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101299.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101309.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T10:59:00Z",
+      "found_at": "2026-09-11T11:04:00Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "C&D International Group is acquiring 100% of Lianfa Property, a connected transaction.",
+      "prelim_note": "C&D Property announced the acquisition of Lianfa Property and the termination of a separate MOU for C&D City Service.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "C&D International Group is acquiring 100% of Lianfa Property, a connected transaction.",
+      "triage_reason": "C&D Property announced the acquisition of Lianfa Property and the termination of a separate MOU for C&D City Service.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -24,7 +24,7 @@
         "source_tier": 8,
         "scope": 5,
         "event": 9,
-        "size": 2,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 6,
@@ -32,20 +32,21 @@
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "mna",
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "C&D INTL GROUP",
-          "ticker": "01908",
+          "name": "C&D Property",
+          "ticker": "02156",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152891,9 +152892,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5409431,
-    "news_picked_today": 794,
-    "news_dropped_today": 4918
+    "news_seen_today": 5514201,
+    "news_picked_today": 798,
+    "news_dropped_today": 5010
   },
   "book_momentum": {
     "live_count": 8,
