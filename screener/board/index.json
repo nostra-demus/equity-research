@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T00:28:55Z",
+  "generated_at": "2026-09-11T00:38:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-001",
@@ -388,6 +388,196 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-028",
+      "headline": "Prosecutors Summon OCI CEO in Price-Fixing Probe",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276689",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T03:40:27Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "CEO summoned in a price-fixing probe, creating significant legal and management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "CEO summoned in a price-fixing probe, creating significant legal and management risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OCI",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-030",
+      "headline": "LIV Golf wins interim court approval to access $14 million in bankruptcy financing",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/liv-golf-wins-interim-court-approval-access-14-million-bankruptcy-financing-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:12:28Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "LIV Golf secured $14 million in bankruptcy financing, a critical step for liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "LIV Golf secured $14 million in bankruptcy financing, a critical step for liquidity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-029",
+      "headline": "US sanctions Iraqi paramilitary group Kataib Hezbollah",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-iraqi-paramilitary-group-kataib-hezbollah",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:04:45Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "US sanctions on a paramilitary group represent a geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "US sanctions on a paramilitary group represent a geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-027",
+      "headline": "Rigetti Computing CEO Sells 120,000 Shares for $1.9 Million After Signing an Agreement with the U.S. Government",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/09/10/rigetti-computing-ceo-sells-120-000-shares-for-usd1-9-million-after-signing-an-agreement-with-the-u-s-government/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T23:52:21Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "CEO sold 120,000 shares for $1.9 million, which is a significant insider liquidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "CEO sold 120,000 shares for $1.9 million, which is a significant insider liquidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rigetti Computing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-007",
       "headline": "TME-SW (01698): CLOSING OF US$1,000 MILLION NOTES OFFERING",
       "headline_en": null,
@@ -573,6 +763,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-031",
+      "headline": "RH (RH) Q2 Earnings: Taking a Look at Key Metrics Versus Estimates",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rh-rh-q2-earnings-taking-look-key-metrics-versus-estimates",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T23:00:02Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "RH reported Q2 earnings, requiring comparison against analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "RH reported Q2 earnings, requiring comparison against analyst estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RH",
+          "ticker": "RH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -774,6 +1013,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-033",
+      "headline": "Thomson Reuters Announces Pricing of Public Offering of US$1,300,000,000 Notes and Canadian Private Placement of C$1,000,000,000 Notes | TRI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TRI/thomson-reuters-announces-pricing-of-public-offering-of-us-1-300-000-18670qhb5gk3.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-10T23:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Thomson Reuters is raising $1.3 billion in US notes and C$1 billion in Canadian notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Thomson Reuters is raising $1.3 billion in US notes and C$1 billion in Canadian notes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thomson Reuters",
+          "ticker": "TRI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-024",
       "headline": "Vistra Prices Registered Offering of $1.5 Billion of Junior Subordinated Notes",
       "headline_en": null,
@@ -813,6 +1101,55 @@
       "companies": [
         {
           "name": "Vistra",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-034",
+      "headline": "Wynn Resorts Announces Pricing of Private Offering of $900 Million of Wynn Resorts Finance 6.875% Senior Notes due 2035",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/wynn-resorts-announces-pricing-of-private-offering-of-900-million-of-wynn-resorts-finance-6-875-senior-notes-due-2035--302875813.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-10T22:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Wynn Resorts is pricing $900 million in senior notes due 2035.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Wynn Resorts is pricing $900 million in senior notes due 2035.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wynn Resorts",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1253,6 +1590,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-032",
+      "headline": "Laser Photonics Announces Pricing of $7.9 Million Public Offering | LASE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LASE/laser-photonics-announces-pricing-of-7-9-million-public-p18iclzhxbla.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-11T00:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Laser Photonics announced a $7.9 million public offering, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Laser Photonics announced a $7.9 million public offering, which is dilutive to existing shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Laser Photonics",
+          "ticker": "LASE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153969,7 +154355,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2273,
+    "inbox_unconsumed": 2281,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153978,9 +154364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 210062,
-    "news_picked_today": 26,
-    "news_dropped_today": 190
+    "news_seen_today": 275595,
+    "news_picked_today": 34,
+    "news_dropped_today": 254
   },
   "book_momentum": {
     "live_count": 8,
