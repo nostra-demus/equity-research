@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T23:39:55Z",
+  "generated_at": "2026-09-11T23:49:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -287,6 +287,55 @@
         {
           "name": "Int Medical",
           "ticker": "01501",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-450",
+      "headline": "EMPEROR CAPITAL (00717): Supplemental Announcement - Discloseable Transaction in relation to Disposal of Entire Equity Interest in Target Company",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101825.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "EMPEROR CAPITAL announced a discloseable transaction for the disposal of its entire equity interest in a target company, which is a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EMPEROR CAPITAL announced a discloseable transaction for the disposal of its entire equity interest in a target company, which is a significant M&A event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EMPEROR CAPITAL",
+          "ticker": "00717",
           "listing_country": "CN"
         }
       ],
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-388",
-      "headline": "Oracle's stock rises on earnings and revenue beat fueled by AI cloud demand",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T13:34:34Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Oracle beat earnings and revenue expectations, driven by strong AI cloud demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oracle beat earnings and revenue expectations, driven by strong AI cloud demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153195,9 +153195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13061360,
-    "news_picked_today": 1365,
-    "news_dropped_today": 11043
+    "news_seen_today": 13165456,
+    "news_picked_today": 1379,
+    "news_dropped_today": 11173
   },
   "book_momentum": {
     "live_count": 8,
