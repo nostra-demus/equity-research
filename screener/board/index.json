@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T09:14:47Z",
+  "generated_at": "2026-09-11T09:19:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-324",
+      "headline": "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100448.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T08:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Company completed the early redemption of US$330 million in senior notes, reducing debt obligations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company completed the early redemption of US$330 million in senior notes, reducing debt obligations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Hongqiao",
+          "ticker": "01378",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-319",
       "headline": "WK GROUP (02535): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO CONDITIONAL MANDATORY GENERAL CASH OFFER BY GET NICE SECURITIES LIMITED FOR AND ON BEHALF OF WELLLUCK LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF WK GROUP (HOLDINGS) LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY WELLLUCK LIMITED AND PARTIES ACTING IN CONCERT WITH IT)",
@@ -1891,60 +1940,6 @@
           "name": "PI Industries",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-247",
-      "headline": "Vietnam Airlines places provisional order with Airbus for five Airbus A350-900s",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/vietnam-airlines-places-provisional-order-with-airbus-five-airbus-a350-900s-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T03:15:43Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Vietnam Airlines has placed a provisional order for five Airbus A350-900 aircraft.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Vietnam Airlines has placed a provisional order for five Airbus A350-900 aircraft.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Vietnam Airlines",
-          "ticker": null,
-          "listing_country": "VN"
         }
       ],
       "size_bucket": "large",
@@ -153314,9 +153309,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4300598,
-    "news_picked_today": 670,
-    "news_dropped_today": 4010
+    "news_seen_today": 4352634,
+    "news_picked_today": 676,
+    "news_dropped_today": 4052
   },
   "book_momentum": {
     "live_count": 8,
