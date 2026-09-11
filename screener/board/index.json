@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T15:43:18Z",
+  "generated_at": "2026-09-11T15:48:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-429",
+      "headline": "Indiabulls Limited: Indiabulls Limited has informed the Exchange about Acquisition of 70% of the issued, subscribed and paid-up equity share capital of the Fintech Cloud Private Limited and execution of definitive agreement, in this regard.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/YAARI_11092026210441_BM_Outcome_11092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T15:34:48Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Indiabulls is acquiring a 70% stake in Fintech Cloud Private Limited to expand its fintech operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indiabulls is acquiring a 70% stake in Fintech Cloud Private Limited to expand its fintech operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indiabulls Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-427",
       "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange about General Updates - Investor Presentation - 100% Acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Asssam.",
@@ -1328,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-432",
+      "headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/hdfc-life-insurance-share-price-faces-rs-3365-crore-gst-tax-demand-and-penalty-after-appeal-order-19989660.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T15:34:18Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "HDFC Life faces a significant tax demand and penalty of ₹3,365 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Life faces a significant tax demand and penalty of ₹3,365 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Life Insurance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-377",
       "headline": "‎Saudi Arabia weighs EA-Savvy merger to create global gaming giant",
       "headline_en": null,
@@ -1861,109 +1959,6 @@
           "name": "NextDC",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-339",
-      "headline": "Omnia in advanced talks over potential buyout of all its ordinary shares",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/omnia-in-advanced-talks-over-potential-buyout-of-all-its-ordinary-shares/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T09:35:28Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Omnia is in advanced talks regarding a potential buyout of all ordinary shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Omnia is in advanced talks regarding a potential buyout of all ordinary shares.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Omnia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-334",
-      "headline": "Energy Holdings to buy Ventura Offshore to form $1 billion group, mulls US dual-listing",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/energy-holdings-buy-ventura-offshore-form-1-billion-group-mulls-us-dual-listing-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T09:23:59Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Energy Holdings to acquire Ventura Offshore in a deal valued at $1 billion, creating a new entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Energy Holdings to acquire Ventura Offshore in a deal valued at $1 billion, creating a new entity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Holdings",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Ventura Offshore",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -153393,9 +153388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7962675,
-    "news_picked_today": 1068,
-    "news_dropped_today": 7044
+    "news_seen_today": 8002034,
+    "news_picked_today": 1077,
+    "news_dropped_today": 7059
   },
   "book_momentum": {
     "live_count": 8,
