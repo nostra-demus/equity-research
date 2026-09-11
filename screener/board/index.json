@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T02:18:17Z",
+  "generated_at": "2026-09-11T02:23:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-143",
@@ -1166,6 +1166,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-189",
+      "headline": "Telkom Towers part of R4.5bn revival plan",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/investing/property/telkom-towers-part-of-r4-5bn-revival-plan/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T02:02:48Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Telkom is part of a R4.5 billion revival plan for its towers, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Telkom is part of a R4.5 billion revival plan for its towers, representing a significant capital investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telkom",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-118",
       "headline": "True Fitness, True Yoga closes all outlets; liquidators start winding-up process",
       "headline_en": null,
@@ -1872,49 +1921,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-029",
-      "headline": "US sanctions Iraqi paramilitary group Kataib Hezbollah",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-iraqi-paramilitary-group-kataib-hezbollah",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:04:45Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "US sanctions on a paramilitary group represent a geopolitical escalation in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "US sanctions on a paramilitary group represent a geopolitical escalation in the Middle East.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -154642,9 +154648,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 982506,
-    "news_picked_today": 238,
-    "news_dropped_today": 962
+    "news_seen_today": 1019950,
+    "news_picked_today": 243,
+    "news_dropped_today": 981
   },
   "book_momentum": {
     "live_count": 8,
