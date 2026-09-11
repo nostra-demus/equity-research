@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T16:08:14Z",
+  "generated_at": "2026-09-11T16:13:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-437",
+      "headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:00:14Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Axogen is acquiring BioCircuit for $200 million to expand its nerve repair portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axogen is acquiring BioCircuit for $200 million to expand its nerve repair portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axogen",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-432",
       "headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
       "headline_en": null,
@@ -1899,55 +1948,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-359",
-      "headline": "Kroger cuts annual sales forecast as consumer spending sputters",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/kroger-cuts-annual-sales-forecast-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T10:58:50Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Kroger cut its annual sales forecast due to slowing consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger cut its annual sales forecast due to slowing consumer spending.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -153393,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8217976,
-    "news_picked_today": 1100,
-    "news_dropped_today": 7204
+    "news_seen_today": 8257357,
+    "news_picked_today": 1118,
+    "news_dropped_today": 7234
   },
   "book_momentum": {
     "live_count": 8,
