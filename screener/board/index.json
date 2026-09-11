@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T15:58:19Z",
+  "generated_at": "2026-09-11T16:08:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -1426,6 +1426,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-436",
+      "headline": "Chime Financial (CHYM) Moves Deeper into Banking with $590 Million Stride Acquisition",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/chime-financial-chym-moves-deeper-153418426.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T15:34:18Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Chime Financial is acquiring Stride for $590 million to expand its banking capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chime Financial is acquiring Stride for $590 million to expand its banking capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chime Financial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Stride",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-377",
       "headline": "‎Saudi Arabia weighs EA-Savvy merger to create global gaming giant",
       "headline_en": null,
@@ -1913,55 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-341",
-      "headline": "Australia's NextDC raises AU$1.1bn in convertible notes",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/australias-nextdc-raises-au11bn-in-convertible-notes/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T09:53:32Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "NextDC raised AU$1.1 billion in convertible notes to fund capital expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextDC raised AU$1.1 billion in convertible notes to fund capital expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153388,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8119934,
-    "news_picked_today": 1087,
-    "news_dropped_today": 7121
+    "news_seen_today": 8217976,
+    "news_picked_today": 1100,
+    "news_dropped_today": 7204
   },
   "book_momentum": {
     "live_count": 8,
