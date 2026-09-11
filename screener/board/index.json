@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T14:58:37Z",
+  "generated_at": "2026-09-11T15:04:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-405",
+      "headline": "CLARITY MEDICAL (01406): KEY FINDINGS OF FORENSIC INVESTIGATION IN CONNECTION WITH IPO ALLEGATIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101943.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T14:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Clarity Medical released findings from a forensic investigation into IPO allegations, maintaining a trading suspension.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Clarity Medical released findings from a forensic investigation into IPO allegations, maintaining a trading suspension.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clarity Medical",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-400",
       "headline": "INT MEDICAL (01501): FURTHER ANNOUNCEMENT DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANY",
@@ -1913,61 +1962,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-241",
-      "headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:51:42Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Vietravel signed a major deal for 50 Airbus jets, representing a significant capital expenditure and fleet expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vietravel signed a major deal for 50 Airbus jets, representing a significant capital expenditure and fleet expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vietravel",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153538,9 +153532,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7629698,
-    "news_picked_today": 1024,
-    "news_dropped_today": 6680
+    "news_seen_today": 7649331,
+    "news_picked_today": 1028,
+    "news_dropped_today": 6700
   },
   "book_momentum": {
     "live_count": 8,
