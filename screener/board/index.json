@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T01:33:15Z",
+  "generated_at": "2026-09-11T01:48:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-081",
@@ -233,6 +233,55 @@
           "name": "Tencent Music Entertainment Group",
           "ticker": "01698",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-093",
+      "headline": "NSE IPO: Price band set at ₹1,700-1,785 per share; check key dates, issue details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/nse-ipo-price-band-set-at-rs-1-700-1-785-per-share-check-key-dates-issue-details-11789087370238.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:57:38Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "NSE has set the price band for its IPO, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "NSE has set the price band for its IPO, a major capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1114,6 +1163,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-100",
+      "headline": "CBI Searches 12 Locations In Mumbai, Pune, Bengaluru Over Alleged Builder-Financial Institution Nexus",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-searches-12-locations-in-mumbai-pune-bengaluru-over-alleged-builder-financial-institution-nexus",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T01:07:07Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "CBI investigation into builder-financial institution nexus creates regulatory and legal risk for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "CBI investigation into builder-financial institution nexus creates regulatory and legal risk for the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-037",
       "headline": "Rigetti Computing CEO Sells 120,000 Shares for $1.9 Million After Signing an Agreement with the U.S. Government",
       "headline_en": null,
@@ -1793,148 +1885,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260911-077",
-      "headline": "アジジ・デベロップメンツ、シャールジャで81億米ドル規模のマスタープラン型コミュニティ「アジジ・フローレンス」を発表",
-      "headline_en": "Azizi Developments announces $8.1 billion master-planned community 'Azizi Florence' in Sharjah",
-      "url": "http://www.businesswire.com/news/home/20260910068357/ja/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-11T01:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Azizi Developments announced an $8.1 billion master-planned community project in Sharjah.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Azizi Developments announced an $8.1 billion master-planned community project in Sharjah.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Azizi Developments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-063",
-      "headline": "Azizi Developments apresenta Azizi Florence, empreendimento planejado de US$ 8,1 bilhões em Sharjah",
-      "headline_en": "Azizi Developments presents Azizi Florence, a planned development of $8.1 billion in Sharjah",
-      "url": "http://www.businesswire.com/news/home/20260910548705/pt/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-11T00:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Azizi Developments announced a new planned community project in Sharjah valued at $8.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Azizi Developments announced a new planned community project in Sharjah valued at $8.1 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Azizi Developments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-039",
-      "headline": "Balmer Lawrie Investments Limited - Ex-Date: 11-Sep-2026",
+      "inbox_id": "INB-20260911-090",
+      "headline": "DigitalOcean Secures $725 Million in Equipment Financing Facility to Fund Capacity Expansion | DOCN Stock News",
       "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T00:39:14Z",
+      "url": "https://www.stocktitan.net/news/DOCN/digital-ocean-secures-725-million-in-equipment-financing-facility-to-an1l5gvu7fzr.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-10T20:05:00Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Routine ex-dividend date announcement.",
+      "prelim_note": "Secured $725 million in equipment financing to fund capacity expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Routine ex-dividend date announcement.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
+      "triage_score": 67,
+      "triage_reason": "Secured $725 million in equipment financing to fund capacity expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
+        "materiality": 75,
+        "source_tier": -36,
         "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "capex",
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Balmer Lawrie Investments Limited",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "DigitalOcean",
+          "ticker": "DOCN",
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154660,9 +154655,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 639077,
-    "news_picked_today": 104,
-    "news_dropped_today": 616
+    "news_seen_today": 779891,
+    "news_picked_today": 127,
+    "news_dropped_today": 713
   },
   "book_momentum": {
     "live_count": 8,
