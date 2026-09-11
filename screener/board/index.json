@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T12:19:28Z",
+  "generated_at": "2026-09-11T12:34:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-374",
@@ -985,6 +985,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-377",
+      "headline": "‎Saudi Arabia weighs EA-Savvy merger to create global gaming giant",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935751",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T15:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Saudi Arabia is considering a merger to create a global gaming giant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saudi Arabia is considering a merger to create a global gaming giant.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Savvy Games Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-368",
       "headline": "Kroger Cuts Sales View Due to Macro Challenges",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-351",
-      "headline": "CHINAHONGQIAO (01378): CONNECTED TRANSACTION - ACQUISITION OF EQUITY INTEREST",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101231.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T10:47:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "The company is engaging in a connected transaction to acquire equity interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company is engaging in a connected transaction to acquire equity interest.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Hongqiao Group Limited",
-          "ticker": "01378",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153251,9 +153251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6147296,
-    "news_picked_today": 854,
-    "news_dropped_today": 5530
+    "news_seen_today": 6325932,
+    "news_picked_today": 867,
+    "news_dropped_today": 5661
   },
   "book_momentum": {
     "live_count": 8,
