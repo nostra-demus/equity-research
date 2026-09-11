@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-22T09:59:55Z",
+  "archived_at": "2026-09-11T02:58:58Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-602ad4c70d52",
-    "idea_version": "IDEAV-6ce77eb99176854e",
-    "idea_version_started_at": "2026-08-20T06:23:48Z",
-    "ticker": "02108",
-    "company": "K2 F&B",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-841758969e76",
+    "idea_version": "IDEAV-d59e7b53b8401bd6",
+    "idea_version_started_at": "2026-09-08T03:57:59Z",
+    "ticker": "SARTELE",
+    "company": "Sar Televentures",
+    "exchange": "BSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company issued a profit warning indicating a decline in financial performance, which typically leads to downward revisions in earnings estimates.",
-    "why_now": "The profit warning was filed on 2026-08-19.",
-    "conviction": 60,
+    "reason": "The cancellation of the Tikona Infinet acquisition removes a key inorganic growth catalyst and signals potential integration or financing hurdles.",
+    "why_now": "The acquisition was officially called off on 2026-09-08.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 20,
+      "evidence": 14,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-10c3d2b96200"
+      "EVT-6faa79a4df79"
     ],
-    "primary_source_event_id": "EVT-10c3d2b96200",
+    "primary_source_event_id": "EVT-6faa79a4df79",
     "source_headlines": [
-      "K2 F&B (02108): PROFIT WARNING"
+      "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition"
     ],
-    "source_headline": "K2 F&B (02108): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900829.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-08-19T09:58:00Z",
+    "source_headline": "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition",
+    "source_url": "https://www.thehindubusinessline.com/info-tech/sar-televentures-calls-off-669-crore-tikona-infinet-acquisition/article71441092.ece",
+    "source_name": "The Hindu BusinessLine",
+    "materiality_max": 99,
+    "newest_source_at": "2026-09-08T02:40:16Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-20T02:14:56Z",
-    "updated_at": "2026-08-20T06:23:48Z",
-    "decay_at": "2026-08-20T21:58:00Z",
+    "surfaced_at": "2026-09-08T03:57:59Z",
+    "updated_at": "2026-09-08T03:57:59Z",
+    "decay_at": "2026-09-09T14:40:16Z",
     "status": "live",
     "promoted_signal_id": null
   }
