@@ -338,11 +338,12 @@ function diffBooks(before: Snapshot, after: Snapshot): ImportDelta {
   }
 }
 
-function Card({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: string }) {
+function Card({ label, value, sub, tone, tags }: { label: string; value: string; sub?: string; tone?: string; tags?: React.ReactNode }) {
   return (
     <div className="fundbook__card">
       <span className="fundbook__cardlabel">{label}</span>
       <strong className="fundbook__cardvalue" style={tone ? { color: tone } : undefined}>{value}</strong>
+      {tags}
       {sub && <small className="fundbook__cardsub">{sub}</small>}
     </div>
   )
@@ -389,7 +390,7 @@ function withLive(
 
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, onChanged }: {
+export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
   cashEquivalents: string[]; live: PortfolioLiveMark | null
   /** Absent on an engine that predates idea grouping — the block simply does not render (DESIGN.md §5). */
@@ -502,7 +503,12 @@ function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, 
             <div><strong>How NAV got here</strong></div>
           </div>
           <BridgeRow label="LP capital, net" value={fmtMoney(flows, ccy)} />
-          <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
+          <BridgeRow
+            label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)}
+            tags={<RealisedTags set
+              partial={book.closures.some((c) => c.partialHistory === true)}
+              costsUnknown={book.closures.some((c) => c.costsUnknown === true)} />}
+          />
           <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
           <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
           {bridgeGap !== null && (
@@ -865,11 +871,11 @@ function Bar({ label, pct, value, deep }: { label: string; pct: number; value: s
   )
 }
 
-function BridgeRow({ label, value, tone, title }: { label: string; value: string; tone?: string; title?: string }) {
+function BridgeRow({ label, value, tone, title, tags }: { label: string; value: string; tone?: string; title?: string; tags?: React.ReactNode }) {
   return (
     <div className="fundbook__bridge" title={title}>
       <span>{label}{title && <small className="fundbook__since"> {title}</small>}</span>
-      <strong style={tone ? { color: tone } : undefined}>{value}</strong>
+      <strong style={tone ? { color: tone } : undefined}>{value}{tags}</strong>
     </div>
   )
 }
@@ -1265,7 +1271,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
 
 /** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
 
-function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, onImportOpen, importSurface }: {
+export function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
   ideas?: PortfolioIdeaBook; cashEquivalents: string[]
   importOpen: boolean; onImportOpen: (v: boolean) => void; importSurface: React.ReactNode
@@ -1308,6 +1314,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       partial: rows.filter((r) => r.partial > 0).length,
     }
   }, [rows])
+  const qualified = <RealisedTags set partial={stats.partial > 0} costsUnknown={stats.costsUnknown > 0} />
 
   // Attribution: what carried the realised result, biggest absolute mover first.
   //
@@ -1315,11 +1322,13 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
   // through two vehicles showed up as CANE +3,703 and SUGAl +3,005 — two mid-sized bars that between
   // them were the book's biggest winner at +6,708, and nothing on the panel said so. A declared cash
   // equivalent keeps its own name: SGOV is where the money waited, not a name that "carried" anything.
-  const { attribution, attributionMax, topShare, nameCount, foldedNames } = useMemo(() => {
+  const { attribution, attributionMax, topShare, topShareQualified, nameCount, foldedNames } = useMemo(() => {
     const labels = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
     const assigned = ideas?.assignments?.closures ?? {}
     const cash = new Set(cashEquivalents.map((v) => v.trim().toUpperCase()))
-    const by = new Map<string, { value: number; trades: number; names: Set<string>; label: string }>()
+    // A bar is the sum of its trades' realised, so it carries their qualifiers — counted per bar, so only the
+    // bars built from unproven trades say so.
+    const by = new Map<string, { value: number; trades: number; names: Set<string>; label: string; partial: number; costsUnknown: number }>()
     let folded = 0
     for (const c of rows) {
       const sym = c.symbol ?? '—'
@@ -1331,14 +1340,16 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       // silently merged with the AMZN ticker's own bar, and two ideas renamed alike merged with each
       // other — unrelated P&L and trade counts added into one contribution and its concentration stats.
       const k = useIdea ? `i:${id}` : `s:${sym}`
-      const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>(), label: useIdea ? (labels.get(id!) ?? id!) : sym }
+      const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>(), label: useIdea ? (labels.get(id!) ?? id!) : sym, partial: 0, costsUnknown: 0 }
       cur.value += c.realized
       cur.trades += 1
       cur.names.add(sym)
+      if (c.partial > 0) cur.partial += 1
+      if (c.costsUnknown > 0) cur.costsUnknown += 1
       by.set(k, cur)
     }
     for (const v of by.values()) if (v.names.size > 1) folded += 1
-    const all = [...by.values()].map((v) => ({ symbol: v.label, value: v.value, trades: v.trades }))
+    const all = [...by.values()].map((v) => ({ symbol: v.label, value: v.value, trades: v.trades, partial: v.partial, costsUnknown: v.costsUnknown }))
       .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
     const list = all.slice(0, 12)
     const max = Math.max(...list.map((a) => Math.abs(a.value)), 1)
@@ -1349,6 +1360,8 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       attribution: list,
       attributionMax: max,
       topShare: winners.length > 3 && grossWin > 0 ? (top3 / grossWin) * 100 : null,
+      // The share is over every winner, so any qualified winner — shown or not — reaches it.
+      topShareQualified: winners.some((w) => w.partial > 0 || w.costsUnknown > 0),
       nameCount: all.length,
       foldedNames: folded,
     }
@@ -1359,7 +1372,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
   // Only the FX move on the GAIN can appear here — the move on the capital itself never enters the
   // broker's realised P&L, which is why the note under the table says where it does land.
   const { currencyEffect, allBase } = useMemo(() => {
-    const by = new Map<string, { trades: number; security: number; currencyEffect: number; costs: number; realised: number }>()
+    const by = new Map<string, { trades: number; security: number; currencyEffect: number; costs: number; realised: number; partial: number; costsUnknown: number }>()
     // Reads the LOTS, not the merged rows: the fx pair belongs to a lot (each was opened on its own day
     // at its own rate), and averaging rates across a merge would blur the very split this table exists
     // to show.
@@ -1368,12 +1381,16 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       const close = c.closeFxRateToBase
       if (open === null || close === null) continue // no rate pair — excluded rather than assumed 1
       const k = c.currency ?? '—'
-      const cur = by.get(k) ?? { trades: 0, security: 0, currencyEffect: 0, costs: 0, realised: 0 }
+      const cur = by.get(k) ?? { trades: 0, security: 0, currencyEffect: 0, costs: 0, realised: 0, partial: 0, costsUnknown: 0 }
       cur.trades += 1
       cur.security += c.grossLocal * open
       cur.currencyEffect += c.grossLocal * (close - open)
       cur.costs += c.commissionLocal * close
       cur.realised += c.realizedBase ?? 0
+      // The whole row rests on these lots: a wrong opening lot moves the stock and currency split, and a blank
+      // commission the costs. Positive matches only (DESIGN.md §5).
+      if (c.partialHistory === true) cur.partial += 1
+      if (c.costsUnknown === true) cur.costsUnknown += 1
       by.set(k, cur)
     }
     const list = [...by.entries()].map(([currency, v]) => ({ currency, ...v }))
@@ -1460,16 +1477,22 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
             ? ` · ${stats.partial} trade${stats.partial === 1 ? ' rests' : 's rest'} on partial history, so realised is unproven there`
             : ''}`}
           tone={toneOf(stats.total)}
+          tags={qualified}
         />
-        <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} />
-        <Card label="Hit rate" value={stats.hitRate === null ? '—' : `${stats.hitRate.toFixed(0)}%`} sub="Share that closed up" />
+        {/* Every card below is built from the same realised figures, so each carries their qualifiers: a
+            count, a rate, an average or an extreme drawn from unproven trades is unproven too. */}
+        <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} tags={qualified} />
+        <Card label="Hit rate" value={stats.hitRate === null ? '—' : `${stats.hitRate.toFixed(0)}%`} sub="Share that closed up" tags={qualified} />
         <Card
           label="Win / loss size"
           value={stats.avgWin && stats.avgLoss ? `${(stats.avgWin / Math.abs(stats.avgLoss)).toFixed(1)}×` : '—'}
           sub={`Avg ${fmtMoney(stats.avgWin, ccy)} vs ${fmtMoney(stats.avgLoss, ccy)}`}
+          tags={qualified}
         />
-        <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close" />
-        <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} />
+        {/* A blank commission moves money, not dates: only the matched lot, and so partial history, reaches the hold. */}
+        <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close"
+          tags={<RealisedTags set partial={stats.partial > 0} costsUnknown={false} />} />
+        <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} tags={qualified} />
       </div>
 
       {manualPanel}
@@ -1508,8 +1531,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                         title={`${g.unvalued} leg${g.unvalued === 1 ? '' : 's'} the statement carried no rate for — excluded, so this is the convertible part only`}
                       >part only</small>
                     )}
-                    {g.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
-                    {g.partial > 0 && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
+                    <RealisedTags set partial={g.partial > 0} costsUnknown={g.costsUnknown > 0} />
                   </span>
                   <span className="num dim">{g.trades}</span>
                   <span className="num dim">{g.firstClosed ?? '—'}</span>
@@ -1553,7 +1575,10 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                     }}
                   />
                 </span>
-                <span className="fundbook__contrib-value num" style={{ color: toneOf(a.value) }}>{fmtMoney(a.value, ccy)}</span>
+                <span className="fundbook__contrib-value num" style={{ color: toneOf(a.value) }}>
+                  {fmtMoney(a.value, ccy)}
+                  <RealisedTags set partial={a.partial > 0} costsUnknown={a.costsUnknown > 0} />
+                </span>
                 <span className="fundbook__contrib-n num dim">{a.trades}</span>
               </div>
             ))}
@@ -1565,7 +1590,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
               {attribution.length < nameCount
                 ? `The ${attribution.length} biggest movers, of ${nameCount} closed names.`
                 : 'Every closed name is shown.'}
-              {topShare !== null && ` The best three carry ${topShare.toFixed(0)}% of the gross winnings.`}
+              {topShare !== null && ` The best three carry ${topShare.toFixed(0)}% of the gross winnings${topShareQualified ? ', counting trades tagged unproven or cost unknown' : ''}.`}
               {foldedNames > 0 && ` ${foldedNames === 1 ? 'One bar is an idea' : `${foldedNames} bars are ideas`} — every vehicle used to express it, added up.`}
             </div>
           )}
@@ -1589,7 +1614,10 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                   <span className="num" style={{ color: toneOf(r.security) }}>{fmtMoney(r.security, ccy)}</span>
                   <span className="num" style={{ color: toneOf(r.currencyEffect) }}>{fmtMoney(r.currencyEffect, ccy)}</span>
                   <span className="num dim">{fmtMoney(r.costs, ccy)}</span>
-                  <strong className="num" style={{ color: toneOf(r.realised) }}>{fmtMoney(r.realised, ccy)}</strong>
+                  <strong className="num" style={{ color: toneOf(r.realised) }}>
+                    {fmtMoney(r.realised, ccy)}
+                    <RealisedTags set partial={r.partial > 0} costsUnknown={r.costsUnknown > 0} />
+                  </strong>
                 </div>
               ))}
               <div className="fundbook__foot">
@@ -1716,7 +1744,23 @@ const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of thi
 /** Said wherever a fill's effect rests on history the statements do not cover (BookExecution.partialHistory). */
 const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position, what is left of it, and what a sale realised are reconstructed, not established.'
 /** Said wherever a realised figure rests on partial history (BookClosure.partialHistory on the server). */
-const PARTIAL_REALISED_NOTE = 'The statements do not cover this position\u2019s whole history, so FIFO may have matched this sale against the wrong opening lot. The broker\u2019s own realised figure may differ.'
+const PARTIAL_REALISED_NOTE = 'The statements do not cover this position\u2019s whole history, so FIFO may have matched this sale against the wrong opening lot. What it realised, and the entry price, opening date and hold that come from that lot, are reconstructed; the broker\u2019s own figures may differ.'
+/** The same two, said of a figure built from several trades: a total, a count, a rate, an average, an extreme,
+ *  a bar or a row. It rests on every trade it includes. */
+const COSTS_UNKNOWN_SET_NOTE = 'At least one trade behind this figure had a blank commission from the broker. That cost counts as zero here, so the figure leaves it out.'
+const PARTIAL_SET_NOTE = 'At least one trade behind this figure comes from a position these statements do not fully cover, so FIFO may have matched its sale against the wrong opening lot. The figure is reconstructed, not established.'
+
+/** The qualifiers a realised figure carries, tagged the same way wherever it — or anything built from it —
+ *  is shown. A qualifier left off a derived figure presents a reconstruction as a measurement (§3). `set`
+ *  marks a figure built from several trades, whose note then speaks of the trades behind it. */
+function RealisedTags({ partial, costsUnknown, set }: { partial: boolean; costsUnknown: boolean; set?: boolean }) {
+  return (
+    <>
+      {costsUnknown && <small className="fundbook__lots" title={set ? COSTS_UNKNOWN_SET_NOTE : COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+      {partial && <small className="fundbook__lots" title={set ? PARTIAL_SET_NOTE : PARTIAL_REALISED_NOTE}>unproven</small>}
+    </>
+  )
+}
 
 function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
@@ -1754,8 +1798,7 @@ function FillLine({ r }: { r: FillRow }) {
       <span className="num" title={partial ? PARTIAL_NOTE : undefined}>{fmtQty(r.positionAfter)}</span>
       <span className="num" style={{ color: toneOf(r.realizedLocal) }}>
         {fmtSmallMoney(r.realizedLocal)}
-        {r.costsUnknown === true && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
-        {partial && r.realizedLocal !== null && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
+        <RealisedTags partial={partial && r.realizedLocal !== null} costsUnknown={r.costsUnknown === true} />
       </span>
       <span className={status === 'held' || status === 'part' ? undefined : 'dim'} title={inferred ? INFERRED_NOTE : undefined}>{statusText}</span>
     </div>
@@ -1796,8 +1839,7 @@ function TradeRow({ c, grossRealised, ideas, onChanged }: {
       <span className="num dim">{fmtSmallMoney(c.commissionLocal)}</span>
       <strong className="num" style={{ color: toneOf(c.realized) }}>
         {fmtSmallMoney(c.realized)}
-        {c.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
-        {c.partial > 0 && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
+        <RealisedTags partial={c.partial > 0} costsUnknown={c.costsUnknown > 0} />
       </strong>
       <span className="num dim">{share === null ? '—' : `${share.toFixed(1)}%`}</span>
     </div>

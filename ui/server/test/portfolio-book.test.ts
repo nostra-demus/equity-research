@@ -927,7 +927,7 @@ const newerTradesOnly = (buyQty: number, snapshotAAA: number | null = null) => {
     fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
     sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [],
     equitySummary: [], changeInNav: null,
-    trades: [{ ...doc.trades[0]!, tradeID: 'N1', transactionID: 'NX1', quantity: buyQty, tradePrice: 20, openCloseIndicator: 'O', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+    trades: [{ ...doc.trades[0]!, tradeID: 'N1', transactionID: 'NX1', quantity: buyQty, tradePrice: 20, openCloseIndicator: 'O', tradeDate: '2026-05-01', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
   }
   return buildBook([base, later as typeof doc])
 }
@@ -964,7 +964,7 @@ check('a sale after the snapshot that empties a position leaves it closed now', 
   const later = {
     ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
     sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
-    trades: [{ ...doc.trades[0]!, tradeID: 'S9', transactionID: 'SX9', quantity: -50, tradePrice: 20, openCloseIndicator: 'C', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+    trades: [{ ...doc.trades[0]!, tradeID: 'S9', transactionID: 'SX9', quantity: -50, tradePrice: 20, openCloseIndicator: 'C', tradeDate: '2026-05-01', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
   }
   const b = buildBook([doc, later as typeof doc])
   assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => e.openNow === false), 'the snapshot 50, less the 50 sold after it')
@@ -989,6 +989,46 @@ check('a newer export restating a fill the snapshot saw keeps the contract ancho
   }
   const b = buildBook([doc, later as typeof doc])
   assert.deepEqual(b.executions.filter((e) => e.symbol === 'EEE').map((e) => [e.id, e.partialHistory, e.openNow]), [['T9R', false, true]])
+})
+
+
+// ---------- review round 6: what the snapshot already holds is decided by the day a fill was booked ----------
+
+// A snapshot exported without its trades, then a newer Trades-only export reaching back before it. Nothing up
+// to the snapshot lists the fill, but the broker had booked it by then, so the snapshot already reflects it.
+const backfilled = (fill: Record<string, unknown>) => {
+  const xxx = { ...doc.openPositions[0]!, symbol: 'XXX', conid: '911', position: 10, positionValue: 100, costBasisMoney: 100 }
+  const snapshot = { ...doc, trades: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'Trades'), openPositions: [...doc.openPositions, xxx] }
+  const later = {
+    ...doc, fromDate: '2025-12-01', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, symbol: 'XXX', conid: '911', tradePrice: 10, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', levelOfDetail: 'EXECUTION', ...fill }],
+  }
+  return buildBook([snapshot, later as typeof doc])
+}
+
+check('a fill before the snapshot that only a newer export carries is already in the snapshot', () => {
+  // The buy rebuilds the broker's 10 exactly: established, and 10 held, not 20.
+  const bought = backfilled({ tradeID: 'B1', transactionID: 'BX1', quantity: 10, openCloseIndicator: 'O' }).executions.find((e) => e.id === 'B1')!
+  assert.deepEqual([bought.effect, bought.partialHistory, bought.openNow], ['open', false, true])
+  // History starting mid-position: the snapshot already reflects this sale, so the broker's 10 are still held.
+  const sold = backfilled({ tradeID: 'B2', transactionID: 'BX2', quantity: -10, openCloseIndicator: 'C' }).executions.find((e) => e.id === 'B2')!
+  assert.deepEqual([sold.effect, sold.partialHistory, sold.openNow], ['unmatched', true, true])
+})
+
+check('a fill executed on the snapshot day but booked to the next one is after the snapshot', () => {
+  // An overnight-session fill carries the next trading day as its trade date, and a statement counts it there.
+  // The snapshot's own statement lists the buy of the 10 YYY it holds; a newer export sells them that evening.
+  const buy = { ...doc.trades[0]!, tradeID: 'Y1', transactionID: 'YX1', symbol: 'YYY', conid: '912', quantity: 10, tradePrice: 10, openCloseIndicator: 'O', tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', levelOfDetail: 'EXECUTION' }
+  const yyy = { ...doc.openPositions[0]!, symbol: 'YYY', conid: '912', position: 10, positionValue: 100, costBasisMoney: 100 }
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...buy, tradeID: 'Y2', transactionID: 'YX2', quantity: -10, openCloseIndicator: 'C', tradeDate: '2026-01-05', dateTime: '2026-01-04T21:00:00' }],
+  }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, yyy], trades: [...doc.trades, buy] }, later as typeof doc])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'YYY').map((e) => [e.id, e.tradeDate, e.partialHistory, e.openNow]),
+    [['Y1', '2026-01-03', false, false], ['Y2', '2026-01-05', false, false]], 'the snapshot held 10; the sale after it closed them')
 })
 
 

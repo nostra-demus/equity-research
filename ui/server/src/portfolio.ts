@@ -111,6 +111,10 @@ export interface BookExecution {
   assetCategory: string | null
   currency: string | null
   executedAt: string | null
+  /** The trading day the broker booked the fill to: its trade date, else the day it executed. A statement's
+   *  period, and so its position snapshot, counts fills by this day — and an overnight-session fill executed
+   *  in the evening is booked to the next one. */
+  tradeDate: string | null
   /** From the SIGN of the quantity, which is what the book acts on — not the free-text buySell label. */
   side: 'buy' | 'sell'
   /** ABSOLUTE size. The direction is in `side`. */
@@ -514,6 +518,7 @@ export function runFifo(
       assetCategory: t.assetCategory,
       currency: t.currency,
       executedAt: t.dateTime ?? t.tradeDate,
+      tradeDate: t.tradeDate ?? (t.dateTime ? t.dateTime.slice(0, 10) : null),
       side: qty > 0 ? 'buy' : 'sell',
       quantity: Math.abs(qty),
       price,
@@ -935,11 +940,18 @@ export function buildBook(documents: FlexDocument[]): Book {
   // every contract unanchored.
   //
   // AS OF THE SNAPSHOT, not at the end. A Trades-only export newer than the snapshot adds fills after it, so
-  // the rebuilt position is taken through the fills of the snapshot's own statement and every older one — a
-  // fill is covered by its broker id, an id-less fill by its date. Comparing the final position instead
-  // flagged fully covered newer trading as partial, and let a stale quantity that happened to equal the final
-  // one clear a real mismatch. A zero offset at the snapshot carries forward: later fills move the rebuilt
-  // and the real position alike, and any later sale with nothing to close is flagged on its own.
+  // the rebuilt position is taken through the fills the snapshot already reflects. Comparing the final
+  // position instead flagged fully covered newer trading as partial, and let a stale quantity that happened
+  // to equal the final one clear a real mismatch. A zero offset at the snapshot carries forward: later fills
+  // move the rebuilt and the real position alike, and any later sale with nothing to close is flagged on its own.
+  //
+  // WHICH FILLS THE SNAPSHOT REFLECTS. Every one the snapshot's own statement or an older one lists, by broker
+  // id, and a restatement of one of those. A fill no statement up to the snapshot lists is decided by its trade
+  // date: on or before the snapshot's day, the broker had already booked it. That covers a newer export
+  // reaching back before the snapshot, and a snapshot exported without its trades — read by id alone, such a
+  // fill was applied a second time on top of a snapshot that already held it, so a contract the broker holds
+  // read as closed. The trade date, not the execution time: an overnight-session fill executed on the
+  // snapshot's day is booked to the next one, so the snapshot does not hold it.
   const snapshotHeld = docs.some((d) => d.sectionsPresent.includes('OpenPositions')) || positions.length > 0
   const partialKeys = new Set<string>()
   for (const e of executions) {
@@ -967,7 +979,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     // since before the statements is never reported closed.
     const now = new Map(held)
     for (const e of executions) {
-      const covered = e.id !== null ? coveredIds.has(e.id) : snapshotDay !== null && (e.executedAt ?? '').slice(0, 10) <= snapshotDay
+      const covered = (e.id !== null && coveredIds.has(e.id)) || (snapshotDay !== null && (e.tradeDate ?? '') <= snapshotDay)
       if (covered) rebuilt.set(e.key, e.positionAfter)
       else now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
     }
