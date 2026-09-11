@@ -946,5 +946,51 @@ check('a stale snapshot that happens to equal the final position cannot clear a 
 })
 
 
+// ---------- review round 5: open-now anchored to the broker, unproven realised, restated fills ----------
+
+check('the broker snapshot decides which contracts are open now, whatever the fills rebuild', () => {
+  const openBy = new Map(book.executions.map((e) => [e.symbol, e.openNow]))
+  assert.deepEqual(['AAA', 'BBB', 'EEE', 'FFF', 'CCC', 'DDD'].map((x) => openBy.get(x)), [true, true, true, true, false, false])
+  // History starting mid-position: the broker holds 90 ZZZ, and the statements hold only a 10-share sale.
+  // The fills rebuild nothing, but the broker says the position is open, and the Open positions view must.
+  const zzz = { ...doc.openPositions[0]!, symbol: 'ZZZ', conid: '606', position: 90, positionValue: 900, costBasisMoney: 800 }
+  const sale = { ...doc.trades[0]!, tradeID: 'Z1', transactionID: 'ZX1', symbol: 'ZZZ', conid: '606', quantity: -10, tradePrice: 10, openCloseIndicator: 'C', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, zzz], trades: [...doc.trades, sale] }])
+  const z = b.executions.find((e) => e.id === 'Z1')!
+  assert.deepEqual([z.effect, z.partialHistory, z.openNow], ['unmatched', true, true])
+})
+
+check('a sale after the snapshot that empties a position leaves it closed now', () => {
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, tradeID: 'S9', transactionID: 'SX9', quantity: -50, tradePrice: 20, openCloseIndicator: 'C', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+  }
+  const b = buildBook([doc, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => e.openNow === false), 'the snapshot 50, less the 50 sold after it')
+})
+
+check('a round trip in a contract with partial history carries the qualifier, so its realised is unproven', () => {
+  assert.ok(book.closures.every((c) => c.partialHistory === false))
+  const carried = buildBook([{ ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: 150 } : p) }])
+  const aaa = carried.closures.filter((c) => c.symbol === 'AAA')
+  assert.ok(aaa.length > 0 && aaa.every((c) => c.partialHistory), 'FIFO may have sold the wrong lot')
+  assert.ok(carried.closures.filter((c) => c.symbol !== 'AAA').every((c) => !c.partialHistory))
+})
+
+check('a newer export restating a fill the snapshot saw keeps the contract anchored', () => {
+  // EEE's only fill (T9) is restated in a later Trades-only export under a new id. The snapshot saw the
+  // original, so the replacement is covered through the supersession relation, and EEE still reconciles.
+  const t9 = doc.trades.find((t) => t.tradeID === 'T9')!
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...t9, tradeID: 'T9R', transactionID: 'X9R', origTradeID: 'T9', origTransactionID: 'X9' }],
+  }
+  const b = buildBook([doc, later as typeof doc])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'EEE').map((e) => [e.id, e.partialHistory, e.openNow]), [['T9R', false, true]])
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

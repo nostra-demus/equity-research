@@ -1305,6 +1305,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
       worst: losses.length ? Math.min(...losses) : null,
       costsUnknown: rows.filter((r) => r.costsUnknown > 0).length,
+      partial: rows.filter((r) => r.partial > 0).length,
     }
   }, [rows])
 
@@ -1455,6 +1456,8 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
             ? ` · costs on ${stats.commissionUnvalued} trade${stats.commissionUnvalued === 1 ? '' : 's'} had no rate and are left out`
             : ''}${stats.costsUnknown > 0
             ? ` · ${stats.costsUnknown} trade${stats.costsUnknown === 1 ? '' : 's'} had a blank commission, counted as zero`
+            : ''}${stats.partial > 0
+            ? ` · ${stats.partial} trade${stats.partial === 1 ? ' rests' : 's rest'} on partial history, so realised is unproven there`
             : ''}`}
           tone={toneOf(stats.total)}
         />
@@ -1506,6 +1509,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                       >part only</small>
                     )}
                     {g.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+                    {g.partial > 0 && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
                   </span>
                   <span className="num dim">{g.trades}</span>
                   <span className="num dim">{g.firstClosed ?? '—'}</span>
@@ -1696,7 +1700,7 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
           {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was opened.`}
           {summary.inferred > 0 && ` ${plural(summary.inferred, 'fill')} had no open/close flag from the broker, so what ${summary.inferred === 1 ? 'it' : 'they'} opened is inferred.`}
           {summary.costsUnknown > 0 && ` ${plural(summary.costsUnknown, 'sale')} closed against a blank commission, so ${summary.costsUnknown === 1 ? 'its' : 'their'} realised counts that cost as zero.`}
-          {summary.partial > 0 && ` ${plural(summary.partial, 'fill')} belong to positions these statements do not fully cover, so what ${summary.partial === 1 ? 'it' : 'they'} did is reconstructed.`}
+          {summary.partial > 0 && ` ${plural(summary.partial, 'fill')} ${summary.partial === 1 ? 'belongs' : 'belong'} to positions these statements do not fully cover, so what ${summary.partial === 1 ? 'it' : 'they'} did, what is left of ${summary.partial === 1 ? 'it' : 'them'} and what ${summary.partial === 1 ? 'it' : 'they'} realised are reconstructed.`}
           {' '}Status is as of the last statement; realised is net of commission on both legs
           {outsideBase ? `, and every figure is in the trade’s own currency${baseCurrency ? `, not converted to ${baseCurrency}` : ''}` : ''}.
         </div>
@@ -1710,7 +1714,9 @@ const INFERRED_NOTE = 'The broker left the open/close flag blank, so the engine 
 /** Said wherever a realised figure counts a blank commission as zero (see BookClosure.costsUnknown). */
 const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of this trade, so realised counts that cost as zero and may be overstated by it.'
 /** Said wherever a fill's effect rests on history the statements do not cover (BookExecution.partialHistory). */
-const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position is reconstructed, not established.'
+const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position, what is left of it, and what a sale realised are reconstructed, not established.'
+/** Said wherever a realised figure rests on partial history (BookClosure.partialHistory on the server). */
+const PARTIAL_REALISED_NOTE = 'The statements do not cover this position\u2019s whole history, so FIFO may have matched this sale against the wrong opening lot. The broker\u2019s own realised figure may differ.'
 
 function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
@@ -1720,7 +1726,7 @@ function FillLine({ r }: { r: FillRow }) {
     : status === 'part' ? `${open} ${fmtQty(r.stillOpen)} of ${fmtQty(r.openedQuantity)}`
       : status === 'sold' ? gone : '—'
   const unmatched = r.unmatchedQuantity > 0
-    ? `${fmtQty(r.unmatchedQuantity)} of this fill had no open lot to close — the statements begin after that position was opened`
+    ? `${fmtQty(r.unmatchedQuantity)} of this fill had no open lot to close. The statements may begin after that position was opened, or an execution may be missing or misflagged.`
     : undefined
   // Positive matches only (DESIGN.md §5): a qualifier the engine did not send is not asserted.
   const inferred = r.inferred === true
@@ -1749,6 +1755,7 @@ function FillLine({ r }: { r: FillRow }) {
       <span className="num" style={{ color: toneOf(r.realizedLocal) }}>
         {fmtSmallMoney(r.realizedLocal)}
         {r.costsUnknown === true && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+        {partial && r.realizedLocal !== null && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
       </span>
       <span className={status === 'held' || status === 'part' ? undefined : 'dim'} title={inferred ? INFERRED_NOTE : undefined}>{statusText}</span>
     </div>
@@ -1790,6 +1797,7 @@ function TradeRow({ c, grossRealised, ideas, onChanged }: {
       <strong className="num" style={{ color: toneOf(c.realized) }}>
         {fmtSmallMoney(c.realized)}
         {c.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+        {c.partial > 0 && <small className="fundbook__lots" title={PARTIAL_REALISED_NOTE}>unproven</small>}
       </strong>
       <span className="num dim">{share === null ? '—' : `${share.toFixed(1)}%`}</span>
     </div>

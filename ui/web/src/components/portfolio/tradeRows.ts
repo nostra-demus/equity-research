@@ -33,6 +33,9 @@ export interface TradeRowData {
   /** Legs whose commission the broker left blank, so `realized` counts that cost as zero. Non-zero means
    *  the figure is net of the KNOWN costs only. Absent on the wire counts as none, never as known. */
   costsUnknown: number
+  /** Legs from a contract whose history the statements only partly cover: FIFO may have matched the wrong
+   *  opening lot, so `realized` is unproven. */
+  partial: number
   /** Every broker closeTradeID behind this row. This is the row's STABLE identity: an idea assignment
    *  is written against these, not against the symbol, so labelling this year's AMZN cannot relabel
    *  next year's. Empty when the broker gave no id — such a row cannot be labelled at all, which is
@@ -88,6 +91,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       realized: sumBase(lots, baseRealised).total,
       unvalued: sumBase(lots, baseRealised).unvalued,
       costsUnknown: lots.filter((c) => c.costsUnknown === true).length,
+      partial: lots.filter((c) => c.partialHistory === true).length,
       lots: lots.length,
       fills: 1,
       closeTradeIDs: [...new Set(lots.map((c) => c.closeTradeID).filter((v): v is string => !!v))],
@@ -141,6 +145,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       realized: group.reduce((a, r) => a + r.realized, 0),
       unvalued: group.reduce((a, r) => a + r.unvalued, 0),
       costsUnknown: group.reduce((a, r) => a + r.costsUnknown, 0),
+      partial: group.reduce((a, r) => a + r.partial, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),
       closeTradeIDs: [...new Set(group.flatMap((r) => r.closeTradeIDs))],
@@ -173,6 +178,8 @@ export interface IdeaGroupRow {
   unvalued: number
   /** Round-trip legs inside this idea whose commission was blank, so `realized` counts that cost as zero. */
   costsUnknown: number
+  /** Round-trip legs inside this idea resting on partial history, so `realized` is unproven. */
+  partial: number
   /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
    *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
   isCash: boolean
@@ -222,12 +229,13 @@ export function groupByIdea(
     if (cash.has((r.symbol ?? '').toUpperCase()) && !ideaOfRow(r.closeTradeIDs, assigned).id) {
       const g = out.get('\u0000cash') ?? {
         ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
-        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0, costsUnknown: 0,
+        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0, costsUnknown: 0, partial: 0,
       }
       if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
       g.realized += r.realized
       g.unvalued += r.unvalued
       g.costsUnknown += r.costsUnknown
+      g.partial += r.partial
       g.trades += 1
       const cl = (r.closedAt ?? '').slice(0, 10)
       if (cl) {
@@ -246,12 +254,13 @@ export function groupByIdea(
 
     const g = out.get(key) ?? {
       ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
-      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0, costsUnknown: 0,
+      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0, costsUnknown: 0, partial: 0,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
     g.realized += r.realized
     g.unvalued += r.unvalued
     g.costsUnknown += r.costsUnknown
+    g.partial += r.partial
     g.trades += 1
     if (r.closeTradeIDs.length === 0) g.unlabellable += 1
     const closed = (r.closedAt ?? '').slice(0, 10)
@@ -310,7 +319,14 @@ export function fillRows(executions: PortfolioExecution[]): FillRow[] {
     final.set(e.key, e.positionAfter)
   })
   return executions
-    .map((e, i) => ({ ...e, current: Math.abs(final.get(e.key) ?? 0) > QTY_EPS && i > (endedAt.get(e.key) ?? -1) }))
+    .map((e, i) => {
+      // OPEN NOW is the broker's word where the engine sends it, anchored to its snapshot. The rebuilt
+      // position only stands in for an engine that predates the field (DESIGN.md §5).
+      const openNow = typeof e.openNow === 'boolean' ? e.openNow : Math.abs(final.get(e.key) ?? 0) > QTY_EPS
+      // With partial history the rebuilt flat points are offset from the real ones, so where the held position
+      // began is unknown: every fill of that contract is shown, each tagged partial.
+      return { ...e, current: openNow && (e.partialHistory === true || i > (endedAt.get(e.key) ?? -1)) }
+    })
     .reverse()
 }
 

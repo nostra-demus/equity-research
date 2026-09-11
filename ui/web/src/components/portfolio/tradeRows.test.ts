@@ -504,5 +504,25 @@ check('the summary counts fills whose history the statements only partly cover',
   assert.equal(fillSummary(rows).partial, 2)
 })
 
+check('a position the broker holds stays under Open positions even when the fills rebuild it as closed', () => {
+  // The broker holds 90; the statements hold only a 10-share sale with no lot to close.
+  const rows = fillRows([fill({ id: 'z', executedAt: '2026-01-06T10:00:00', side: 'sell', effect: 'unmatched', quantity: 10, positionBefore: 0, positionAfter: 0, openedQuantity: 0, stillOpen: 0, partialHistory: true, openNow: true })])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['z'])
+})
+
+check('when the broker says a position is closed, no fill of it is open, whatever the fills rebuild', () => {
+  const rows = fillRows([fill({ id: 'b', executedAt: '2026-01-06T10:00:00', openNow: false })])
+  assert.equal(filterFills(rows, 'open', null).length, 0, 'the rebuilt 10 is not the broker’s word')
+})
+
+check('a round trip resting on partial history carries the count, and so does its idea', () => {
+  const rows = foldRoundTrips([
+    closure({ quantity: 100, realizedBase: 19.47, closeTradeID: 'a', partialHistory: true }),
+    closure({ quantity: 200, realizedBase: 38.95, closeTradeID: 'b' }),
+  ])
+  assert.equal(rows[0]!.partial, 1)
+  assert.equal(groupByIdea(rows, ideaBook([['t', 'T-bills']], { a: 't', b: 't' }))[0]!.partial, 1)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

@@ -2206,6 +2206,9 @@ export interface PortfolioClosure {
   /** A blank commission on either leg: realised counts it as zero. Optional, because an engine that
    *  predates it sends nothing, and the screen then claims nothing either way (DESIGN.md §5). */
   costsUnknown?: boolean
+  /** The contract's history is only partly covered, so FIFO may have matched the wrong opening lot and
+   *  realised is unproven. Optional for the same reason (DESIGN.md §5). */
+  partialHistory?: boolean
 }
 
 /** One broker execution — every buy and sell the statements carry, open positions included. The round
@@ -2247,6 +2250,9 @@ export interface PortfolioExecution {
   value: number | null
   /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
   partialHistory: boolean
+  /** Whether the contract is held now, anchored to the broker's snapshot. Positive match only: absent means the
+   *  screen falls back to the rebuilt position (DESIGN.md §5). */
+  openNow?: boolean
 }
 
 export interface PortfolioBook {

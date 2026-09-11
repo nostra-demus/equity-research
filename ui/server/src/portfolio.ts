@@ -90,6 +90,10 @@ export interface BookClosure {
    *  that unknown cost as zero, so realised may be overstated by it, and every surface that shows this
    *  figure as net of commission must say so. */
   costsUnknown: boolean
+  /** True when this round trip belongs to a contract whose history the statements do not fully cover (see
+   *  BookExecution.partialHistory): FIFO may have matched the sale against the wrong opening lot, so its
+   *  realised is unproven. Set by buildBook; runFifo alone leaves it false. */
+  partialHistory: boolean
 }
 
 /** One broker execution, exactly as the lot engine applied it — the fund's trade blotter.
@@ -152,6 +156,10 @@ export interface BookExecution {
    *  position is reconstructed rather than established. Set by buildBook, which holds the broker's
    *  snapshot (see the note where it is computed); runFifo alone cannot know and leaves it false. */
   partialHistory: boolean
+  /** Whether this contract is held now, anchored to the broker: its snapshot quantity plus every fill after
+   *  it, which equals the rebuilt position when the history is complete. Without a snapshot it can only be
+   *  the rebuilt position. runFifo sets that; buildBook anchors it. */
+  openNow: boolean
 }
 
 export interface BookPosition {
@@ -453,6 +461,7 @@ export function runFifo(
           // and the UI declared that round trip permanently unlabellable.
           closeTradeID: t.tradeID ?? t.transactionID,
           costsUnknown: legCostUnknown,
+          partialHistory: false,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched
@@ -526,6 +535,7 @@ export function runFifo(
           : PAR_PRICED.has((t.assetCategory ?? '').toUpperCase()) ? null
             : Math.abs(qty) * price * multiplier,
       partialHistory: false,
+      openNow: false,
     }
     executions.push(execution)
     if (opened) openedBy.set(opened, execution)
@@ -540,6 +550,10 @@ export function runFifo(
     const by = openedBy.get(lot)
     if (by) by.stillOpen += Math.abs(lot.quantity)
   }
+  // Without a broker snapshot, "open now" can only be the rebuilt position; buildBook anchors it.
+  const finalByKey = new Map<string, number>()
+  for (const lot of lots) finalByKey.set(lot.key, (finalByKey.get(lot.key) ?? 0) + lot.quantity)
+  for (const e of executions) e.openNow = Math.abs(finalByKey.get(e.key) ?? 0) > EPS
   return { lots, closures, executions, warnings }
 }
 
@@ -939,17 +953,32 @@ export function buildBook(documents: FlexDocument[]): Book {
     for (const d of docs.slice(0, docs.indexOf(positionSource) + 1)) {
       for (const t of d.trades) { const id = t.tradeID ?? t.transactionID; if (id) coveredIds.add(id) }
     }
+    // A restatement in a NEWER export replaces a fill the snapshot already saw. The replacement carries a new
+    // id, so it is followed through the same supersession relation the dedup acts on; without this the
+    // replaced fill fell out of the rebuilt position and a reconciling contract read as partial.
+    const replacedBy = supersessionMap(docs)
+    for (const id of [...coveredIds]) {
+      for (let next = replacedBy[id]; next && !coveredIds.has(next); next = replacedBy[next]) coveredIds.add(next)
+    }
     const snapshotDay = positionSource.toDate
     const rebuilt = new Map<string, number>()
+    // What the broker holds NOW: its snapshot plus every fill after it, which move the real position whatever
+    // the engine could match. Open positions reads this rather than the rebuilt position, so a contract held
+    // since before the statements is never reported closed.
+    const now = new Map(held)
     for (const e of executions) {
       const covered = e.id !== null ? coveredIds.has(e.id) : snapshotDay !== null && (e.executedAt ?? '').slice(0, 10) <= snapshotDay
       if (covered) rebuilt.set(e.key, e.positionAfter)
+      else now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
     }
     for (const key of new Set([...held.keys(), ...rebuilt.keys()])) {
       if (Math.abs((rebuilt.get(key) ?? 0) - (held.get(key) ?? 0)) > EPS) partialKeys.add(key)
     }
+    for (const e of executions) e.openNow = Math.abs(now.get(e.key) ?? 0) > EPS
   }
   for (const e of executions) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
+  // The round trips carry the same qualifier: FIFO may have matched a sale against the wrong opening lot.
+  for (const c of closures) c.partialHistory = gaps.length > 0 || partialKeys.has(c.key)
 
   return {
     accountId: newest.accountId,
