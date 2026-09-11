@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T14:33:48Z",
+  "generated_at": "2026-09-11T14:38:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-399",
+      "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026195905_Stx_BM_Outcome_Acquisition_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T14:29:19Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Vijaya Diagnostic Centre Limited announced the 100% acquisition of Arya Wellness Centre's diagnostic business on a slump sale basis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vijaya Diagnostic Centre Limited announced the 100% acquisition of Arya Wellness Centre's diagnostic business on a slump sale basis.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vijaya Diagnostic Centre Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-374",
       "headline": "CHINA CBS INTL (00989): JOINT ANNOUNCEMENT (1) COMPLETION OF THE PROPOSED RESTRUCTURING; AND (2) UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF GROUND GROUP (HONG KONG) CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT)",
@@ -1918,56 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-206",
-      "headline": "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/coforge-says-chairman-op-bhatt-instructed-to-hide-audit-findings-from-other-board-members-kpmg-audit-dk-singh-nrc/articleshow/134040634.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:14:05Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Allegations of a chairman hiding audit findings from the board represent a severe governance and accounting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allegations of a chairman hiding audit findings from the board represent a severe governance and accounting risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153538,9 +153537,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7434606,
-    "news_picked_today": 996,
-    "news_dropped_today": 6468
+    "news_seen_today": 7472866,
+    "news_picked_today": 1000,
+    "news_dropped_today": 6488
   },
   "book_momentum": {
     "live_count": 8,
