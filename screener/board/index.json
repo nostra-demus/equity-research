@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T11:29:45Z",
+  "generated_at": "2026-09-11T11:44:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-367",
+      "headline": "CONTEL (01912): JOINT ANNOUNCEMENT (1) CLOSE OF UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF ZHUANGYAN INVESTMENT INTERNATIONAL LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF CONTEL TECHNOLOGY COMPANY LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; (4) PUBLIC FLOAT OF THE COMPANY; AND (5) RESIGNATION OF DI",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101369.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T11:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Contel Technology has completed a mandatory cash offer and subsequent board changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Contel Technology has completed a mandatory cash offer and subsequent board changes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Contel Technology Company Limited",
+          "ticker": "01912",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-360",
       "headline": "C&D PROPERTY (02156): (1) DISCLOSEABLE AND CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY (2) CONTINUING CONNECTED TRANSACTION ENTRUSTED MANAGEMENT AGREEMENT (3) INSIDE INFORMATION TERMINATION OF MEMORANDUM OF UNDERSTANDING REGARDING THE ACQUISITION OF C&D CITY SERVICE",
@@ -832,6 +881,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-368",
+      "headline": "Kroger Cuts Sales View Due to Macro Challenges",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/kroger-cuts-sales-view-due-to-macro-challenges-4adac3e8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T11:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Kroger has cut its sales guidance due to macro challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kroger has cut its sales guidance due to macro challenges.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kroger",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1862,99 +1960,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-277",
-      "headline": "S&P downgrades Queensland over ‘weak’ budget",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/s-and-p-downgrades-queensland-over-weak-budget-20260817-p60p0w?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T05:52:25Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "S&P downgraded Queensland's credit rating due to a weak budget, impacting sovereign/regional credit risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "S&P downgraded Queensland's credit rating due to a weak budget, impacting sovereign/regional credit risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-198",
-      "headline": "Oracle’s AI bet pays off as cloud momentum helps drive a rosier forecast",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/oracles-ai-bet-pays-off-as-cloud-momentum-helps-drive-a-rosier-forecast-cc41a4aa?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Oracle reported strong cloud momentum and provided a positive forecast.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Oracle reported strong cloud momentum and provided a positive forecast.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152892,9 +152897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5636725,
-    "news_picked_today": 808,
-    "news_dropped_today": 5072
+    "news_seen_today": 5811284,
+    "news_picked_today": 817,
+    "news_dropped_today": 5207
   },
   "book_momentum": {
     "live_count": 8,
