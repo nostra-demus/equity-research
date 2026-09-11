@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:05:01Z",
+  "generated_at": "2026-09-11T09:09:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-319",
@@ -586,6 +586,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-321",
+      "headline": "Jefferies cuts KEI Industries target price by 11%. Will UltraTech’s entry put the company at risk?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/jefferies-cuts-kei-industries-target-price-by-11-will-ultratechs-entry-put-the-company-at-risk/articleshow/134056011.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T08:47:52Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Jefferies cut the target price for KEI Industries by 11%, signaling a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jefferies cut the target price for KEI Industries by 11%, signaling a shift in analyst expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEI Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-185",
-      "headline": "Tencent-Backed Chipmaker Enflame to Debut After $911 Million IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/tencent-backed-chipmaker-enflame-to-debut-after-911-million-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:25:27Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Enflame is launching an IPO valued at $911 million, representing a significant capital market event for the semiconductor sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Enflame is launching an IPO valued at $911 million, representing a significant capital market event for the semiconductor sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enflame",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153459,9 +153459,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4265848,
-    "news_picked_today": 662,
-    "news_dropped_today": 3970
+    "news_seen_today": 4283232,
+    "news_picked_today": 668,
+    "news_dropped_today": 3988
   },
   "book_momentum": {
     "live_count": 8,
