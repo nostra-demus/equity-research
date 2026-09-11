@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T03:49:41Z",
+  "generated_at": "2026-09-11T04:00:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-201",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-252",
+      "headline": "Russian air strikes injure eight in Kyiv, Ukraine hits Ozon in Saratov",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/russian-air-strikes-injure-two-cause-fire-9-storey-apartment-building-kyiv-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T03:44:03Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Escalation of military conflict involving air strikes in Kyiv and attacks on infrastructure in Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Escalation of military conflict involving air strikes in Kyiv and attacks on infrastructure in Russia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [
+        {
+          "name": "Ozon",
+          "ticker": "OZON",
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-010",
-      "headline": "AKM: Ovoot Reserve Update Supports Strong Project Economics [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AKM?key=2924-03134440-2A1696651",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T23:54:47Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "AKM updated its Ovoot reserve estimates, supporting strong project economics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "AKM updated its Ovoot reserve estimates, supporting strong project economics.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AKM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153612,9 +153612,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1484759,
-    "news_picked_today": 406,
-    "news_dropped_today": 1538
+    "news_seen_today": 1532588,
+    "news_picked_today": 420,
+    "news_dropped_today": 1596
   },
   "book_momentum": {
     "live_count": 8,
