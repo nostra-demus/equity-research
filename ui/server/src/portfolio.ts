@@ -915,10 +915,17 @@ export function buildBook(documents: FlexDocument[]): Book {
   // statements alone. When they begin after a position was opened, or a blank open/close flag made the
   // engine guess the wrong side, the rebuilt position is offset from the real one by a constant, and every
   // effect in that contract (opened or added, trimmed or unmatched) is reconstructed rather than established.
-  // The broker's snapshot is the anchor, compared exactly as reconciliation check 5 compares it: a contract
-  // whose rebuilt position disagrees with the snapshot, or that has a sale with nothing to close, has partial
-  // history on every fill. With no snapshot there is no anchor, so a contract whose history rests on a guess
-  // stays partial; and a hole between statements leaves every contract unanchored.
+  // The broker's snapshot is the anchor: a contract whose rebuilt position disagrees with the snapshot, or
+  // that has a sale with nothing to close, has partial history on every fill. With no snapshot there is no
+  // anchor, so a contract whose history rests on a guess stays partial; and a hole between statements leaves
+  // every contract unanchored.
+  //
+  // AS OF THE SNAPSHOT, not at the end. A Trades-only export newer than the snapshot adds fills after it, so
+  // the rebuilt position is taken through the fills of the snapshot's own statement and every older one — a
+  // fill is covered by its broker id, an id-less fill by its date. Comparing the final position instead
+  // flagged fully covered newer trading as partial, and let a stale quantity that happened to equal the final
+  // one clear a real mismatch. A zero offset at the snapshot carries forward: later fills move the rebuilt
+  // and the real position alike, and any later sale with nothing to close is flagged on its own.
   const snapshotHeld = docs.some((d) => d.sectionsPresent.includes('OpenPositions')) || positions.length > 0
   const partialKeys = new Set<string>()
   for (const e of executions) {
@@ -928,8 +935,16 @@ export function buildBook(documents: FlexDocument[]): Book {
   if (snapshotHeld) {
     const held = new Map<string, number>()
     for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    const coveredIds = new Set<string>()
+    for (const d of docs.slice(0, docs.indexOf(positionSource) + 1)) {
+      for (const t of d.trades) { const id = t.tradeID ?? t.transactionID; if (id) coveredIds.add(id) }
+    }
+    const snapshotDay = positionSource.toDate
     const rebuilt = new Map<string, number>()
-    for (const l of lots) rebuilt.set(l.key, (rebuilt.get(l.key) ?? 0) + l.quantity)
+    for (const e of executions) {
+      const covered = e.id !== null ? coveredIds.has(e.id) : snapshotDay !== null && (e.executedAt ?? '').slice(0, 10) <= snapshotDay
+      if (covered) rebuilt.set(e.key, e.positionAfter)
+    }
     for (const key of new Set([...held.keys(), ...rebuilt.keys()])) {
       if (Math.abs((rebuilt.get(key) ?? 0) - (held.get(key) ?? 0)) > EPS) partialKeys.add(key)
     }

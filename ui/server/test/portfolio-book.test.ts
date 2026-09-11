@@ -915,5 +915,36 @@ check('a fill is worth its broker proceeds, a future its notional, and a par-pri
 })
 
 
+// ---------- review round 4: anchor against the snapshot the fills can actually be compared with ----------
+
+// A Trades-only export newer than the last position snapshot: the snapshot stays the older statement's, and
+// the new fills come after it. `buy` adds to a position; `snapshotAAA` overrides what the snapshot says.
+const newerTradesOnly = (buyQty: number, snapshotAAA: number | null = null) => {
+  const base = snapshotAAA === null ? doc
+    : { ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: snapshotAAA } : p) }
+  const later = {
+    ...doc,
+    fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [],
+    equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, tradeID: 'N1', transactionID: 'NX1', quantity: buyQty, tradePrice: 20, openCloseIndicator: 'O', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+  }
+  return buildBook([base, later as typeof doc])
+}
+
+check('trading after the last snapshot does not make a fully covered position partial', () => {
+  // The snapshot (50 AAA) matches the fills it saw; 10 more bought afterwards is new trading, not a gap.
+  const b = newerTradesOnly(10)
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => !e.partialHistory), 'AAA is anchored as of its snapshot')
+})
+
+check('a stale snapshot that happens to equal the final position cannot clear a real mismatch', () => {
+  // 100 AAA carried in from before the statements: the snapshot says 150 where the fills it saw rebuild 50.
+  // 100 more bought later brings the final position to 150, equal to that stale snapshot by coincidence.
+  const b = newerTradesOnly(100, 150)
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => e.partialHistory), 'still partial: the offset was there all along')
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
