@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T06:19:43Z",
+  "generated_at": "2026-09-11T06:20:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-278",
@@ -111599,6 +111599,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5d986322cea5",
+      "idea_version": "IDEAV-4b27c23c93432c01",
+      "idea_version_started_at": "2026-09-11T06:19:56Z",
+      "ticker": "COFORGE",
+      "company": "Coforge",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allegations of the chairman concealing audit findings from the board suggest severe governance failures and potential accounting irregularities.",
+      "why_now": "The report of the board-level conflict surfaced on September 11, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8ee1378ff7bd"
+      ],
+      "primary_source_event_id": "EVT-8ee1378ff7bd",
+      "source_headlines": [
+        "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members"
+      ],
+      "source_headline": "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members",
+      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/coforge-says-chairman-op-bhatt-instructed-to-hide-audit-findings-from-other-board-members-kpmg-audit-dk-singh-nrc/articleshow/134040634.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T02:14:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T01:49:16Z",
+      "updated_at": "2026-09-11T06:19:56Z",
+      "decay_at": "2026-09-12T14:14:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-55ab00141a90",
       "idea_version": "IDEAV-58fc8125faed4fe3",
       "idea_version_started_at": "2026-09-11T03:30:01Z",
@@ -114939,78 +115011,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5d986322cea5",
-      "idea_version": "IDEAV-79017cdc6b24b553",
-      "idea_version_started_at": "2026-09-09T01:49:16Z",
-      "ticker": "COFORGE",
-      "company": "Coforge",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of the chairman following audit concerns regarding board evaluation signals potential governance failures and internal control risks that typically lead to valuation de-rating.",
-      "why_now": "The resignation was reported on 2026-09-08, creating immediate uncertainty regarding the company's leadership and financial oversight.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f767b2436add"
-      ],
-      "primary_source_event_id": "EVT-f767b2436add",
-      "source_headlines": [
-        "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation"
-      ],
-      "source_headline": "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation",
-      "source_url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T22:54:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T01:49:16Z",
-      "updated_at": "2026-09-09T01:49:16Z",
-      "decay_at": "2026-09-10T10:54:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7e55579cb4be",
       "idea_version": "IDEAV-6527540977b72ae7",
       "idea_version_started_at": "2026-09-08T21:12:44Z",
@@ -116016,78 +116016,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d45c5c6a293c",
-      "idea_version": "IDEAV-4c3423f52b003f7e",
-      "idea_version_started_at": "2026-09-08T08:32:35Z",
-      "ticker": "IDEA",
-      "company": "Vodafone Idea",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces significant financial pressure and potential dilution, with analysts projecting a 46% downside due to persistent debt and competitive headwinds.",
-      "why_now": "HSBC issued a fresh warning on September 8, 2026, highlighting the overhang on the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e8e352ebf5d1"
-      ],
-      "primary_source_event_id": "EVT-e8e352ebf5d1",
-      "source_headlines": [
-        "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside"
-      ],
-      "source_headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
-      "source_url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-08T05:44:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T08:32:35Z",
-      "updated_at": "2026-09-08T08:32:35Z",
-      "decay_at": "2026-09-09T17:44:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -116239,9 +116167,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -116249,23 +116177,23 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 267,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 95,
-      "oldest_retained_at": "2026-08-20T22:25:00Z",
+      "evicted_count": 96,
+      "oldest_retained_at": "2026-08-20T22:29:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 83,
           "oldest_retained_at": "2026-08-28T23:11:07Z"
         },
         "short": {
-          "evicted_count": 12,
-          "oldest_retained_at": "2026-08-20T22:25:00Z"
+          "evicted_count": 13,
+          "oldest_retained_at": "2026-08-20T22:29:00Z"
         }
       }
     },
@@ -117900,81 +117828,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-10T11:55:09Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5d986322cea5",
-        "idea_version": "IDEAV-79017cdc6b24b553",
-        "idea_version_started_at": "2026-09-09T01:49:16Z",
-        "ticker": "COFORGE",
-        "company": "Coforge",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The resignation of the chairman following audit concerns regarding board evaluation signals potential governance failures and internal control risks that typically lead to valuation de-rating.",
-        "why_now": "The resignation was reported on 2026-09-08, creating immediate uncertainty regarding the company's leadership and financial oversight.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f767b2436add"
-        ],
-        "primary_source_event_id": "EVT-f767b2436add",
-        "source_headlines": [
-          "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation"
-        ],
-        "source_headline": "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation",
-        "source_url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T22:54:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T01:49:16Z",
-        "updated_at": "2026-09-09T01:49:16Z",
-        "decay_at": "2026-09-10T10:54:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T10:54:05Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -119827,8 +119680,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T17:44:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-11T06:19:59Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153442,12 +153295,86 @@
         "archived_at": "2026-08-24T09:24:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-655859ede7f8",
+        "idea_version": "IDEAV-8412007306b38704",
+        "idea_version_started_at": "2026-08-21T10:31:43Z",
+        "ticker": "00413",
+        "company": "SC Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning indicating a significant decline in earnings performance for the current period.",
+        "why_now": "The filing was released on 2026-08-21, making the negative guidance fresh for immediate market reaction.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d1ec87365ae"
+        ],
+        "primary_source_event_id": "EVT-4d1ec87365ae",
+        "source_headlines": [
+          "SC HOLDINGS (00413): PROFIT WARNING"
+        ],
+        "source_headline": "SC HOLDINGS (00413): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100366.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-21T08:44:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-21T10:31:43Z",
+        "updated_at": "2026-08-21T10:31:43Z",
+        "decay_at": "2026-08-22T20:44:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T08:53:48Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 676,
-    "live_count": 31,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
