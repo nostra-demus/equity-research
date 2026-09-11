@@ -1681,7 +1681,7 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
           <div className="fundbook__row fundbook__row--fills fundbook__row--head">
             <span>Date</span><span>Symbol</span><span>Ccy</span><span>Trade</span>
             <span className="num">Qty</span><span className="num">Price</span>
-            <span className="num" title="Quantity × price × contract multiplier. For futures and similar contracts that is notional exposure, not cash.">Value</span>
+            <span className="num" title="The money that changed hands before costs, from the broker's proceeds. For futures and similar contracts, the notional exposure: quantity × price × multiplier.">Value</span>
             <span className="num">Costs</span><span className="num">Position after</span>
             <span className="num">Realised</span>
             <span title="What is left of what this fill opened, as of the last statement">Status</span>
@@ -1696,6 +1696,7 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
           {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was opened.`}
           {summary.inferred > 0 && ` ${plural(summary.inferred, 'fill')} had no open/close flag from the broker, so what ${summary.inferred === 1 ? 'it' : 'they'} opened is inferred.`}
           {summary.costsUnknown > 0 && ` ${plural(summary.costsUnknown, 'sale')} closed against a blank commission, so ${summary.costsUnknown === 1 ? 'its' : 'their'} realised counts that cost as zero.`}
+          {summary.partial > 0 && ` ${plural(summary.partial, 'fill')} belong to positions these statements do not fully cover, so what ${summary.partial === 1 ? 'it' : 'they'} did is reconstructed.`}
           {' '}Status is as of the last statement; realised is net of commission on both legs
           {outsideBase ? `, and every figure is in the trade’s own currency${baseCurrency ? `, not converted to ${baseCurrency}` : ''}` : ''}.
         </div>
@@ -1708,6 +1709,8 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
 const INFERRED_NOTE = 'The broker left the open/close flag blank, so the engine inferred that this fill opened a position. When the statements begin after a position was opened, it may instead have closed that earlier position.'
 /** Said wherever a realised figure counts a blank commission as zero (see BookClosure.costsUnknown). */
 const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of this trade, so realised counts that cost as zero and may be overstated by it.'
+/** Said wherever a fill's effect rests on history the statements do not cover (BookExecution.partialHistory). */
+const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position is reconstructed, not established.'
 
 function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
@@ -1721,26 +1724,28 @@ function FillLine({ r }: { r: FillRow }) {
     : undefined
   // Positive matches only (DESIGN.md §5): a qualifier the engine did not send is not asserted.
   const inferred = r.inferred === true
+  const partial = r.partialHistory === true
   return (
     <div className="fundbook__row fundbook__row--fills">
       <span className="dim mono">{(r.executedAt ?? '—').slice(0, 10)}</span>
       <strong className="mono">{r.symbol ?? '—'}</strong>
       <span className="dim">{r.currency ?? '—'}</span>
-      <span title={unmatched ?? (inferred ? INFERRED_NOTE : undefined)}>
+      <span title={unmatched ?? (partial ? PARTIAL_NOTE : inferred ? INFERRED_NOTE : undefined)}>
         <b className="fundbook__fillside">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
         <span className="dim">{fillAction(r)}</span>
         {unmatched && <small className="fundbook__lots">{fmtQty(r.unmatchedQuantity)} unmatched</small>}
         {inferred && <small className="fundbook__lots">inferred</small>}
+        {partial && <small className="fundbook__lots">partial history</small>}
       </span>
       <span className="num">{fmtQty(r.quantity)}</span>
       <span className="num dim">{fmtNum(r.price)}</span>
-      {/* Futures and the like: quantity × price × multiplier is exposure, not money that moved. */}
+      {/* The engine's value: the broker's proceeds for a cash instrument, notional exposure for a derivative. */}
       <span className="num">
-        {fmtSmallMoney(r.quantity * r.price * r.multiplier)}
+        {typeof r.value === 'number' ? fmtSmallMoney(r.value) : '—'}
         {r.isDerivative === true && <small className="fundbook__notional">notional</small>}
       </span>
       <span className="num dim">{fmtSmallMoney(r.commission)}</span>
-      <span className="num">{fmtQty(r.positionAfter)}</span>
+      <span className="num" title={partial ? PARTIAL_NOTE : undefined}>{fmtQty(r.positionAfter)}</span>
       <span className="num" style={{ color: toneOf(r.realizedLocal) }}>
         {fmtSmallMoney(r.realizedLocal)}
         {r.costsUnknown === true && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}

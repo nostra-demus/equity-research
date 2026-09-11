@@ -2242,6 +2242,11 @@ export interface PortfolioExecution {
   inferred: boolean
   /** Quantity × price × multiplier is notional exposure, not cash (futures and the like). */
   isDerivative: boolean
+  /** What the fill was worth in its own currency: the broker's proceeds for a cash instrument, notional for
+   *  a derivative. Null when neither can be established (a bond with no proceeds is never guessed). */
+  value: number | null
+  /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
+  partialHistory: boolean
 }
 
 export interface PortfolioBook {

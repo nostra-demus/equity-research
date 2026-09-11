@@ -143,6 +143,15 @@ export interface BookExecution {
   /** Futures and similar contracts: quantity × price × multiplier is notional exposure, not cash. The same
    *  rule the positions use (isDerivativeCategory). */
   isDerivative: boolean
+  /** What the fill was worth, in its own currency. For a cash instrument, the money that changed hands
+   *  before costs: the broker's own proceeds. A bond or bill is priced as a percentage of par, so
+   *  quantity × price would overstate it about a hundredfold. For a derivative, its notional exposure,
+   *  since no cash moved. Null when neither can be established. */
+  value: number | null
+  /** True when these statements do not cover this contract's whole history, so what its fills did to the
+   *  position is reconstructed rather than established. Set by buildBook, which holds the broker's
+   *  snapshot (see the note where it is computed); runFifo alone cannot know and leaves it false. */
+  partialHistory: boolean
 }
 
 export interface BookPosition {
@@ -320,6 +329,9 @@ function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
 
 const EPS = 1e-9
 
+/** Instruments quoted as a percentage of par, for which quantity × price is not their value. */
+const PAR_PRICED = new Set(['BOND', 'BILL'])
+
 /** The signed quantity a contract's open lots add up to — the position as the lot engine holds it. */
 function netQuantity(lots: BookLot[]): number {
   return lots.reduce((a, l) => a + l.quantity, 0)
@@ -485,6 +497,7 @@ export function runFifo(
           : Math.abs(positionAfter) <= EPS ? 'close'
             : Math.sign(positionAfter) !== Math.sign(positionBefore) ? 'flip'
               : Math.abs(positionAfter) > Math.abs(positionBefore) ? 'add' : 'reduce'
+    const isDerivative = isDerivativeCategory(t.assetCategory)
     const execution: BookExecution = {
       id: t.tradeID ?? t.transactionID,
       key,
@@ -507,7 +520,12 @@ export function runFifo(
       costsUnknown,
       // A blank flag made the engine GUESS the open: from flat, or beyond the side it held.
       inferred: !explicit && opened !== null && Math.sign(opened.quantity) !== Math.sign(positionBefore),
-      isDerivative: isDerivativeCategory(t.assetCategory),
+      isDerivative,
+      value: isDerivative ? Math.abs(qty) * price * multiplier
+        : t.proceeds !== null ? Math.abs(t.proceeds)
+          : PAR_PRICED.has((t.assetCategory ?? '').toUpperCase()) ? null
+            : Math.abs(qty) * price * multiplier,
+      partialHistory: false,
     }
     executions.push(execution)
     if (opened) openedBy.set(opened, execution)
@@ -892,6 +910,31 @@ export function buildBook(documents: FlexDocument[]): Book {
   // An all-history return computed across a hole is not a conservative estimate of the real one; it is a
   // different number with flows counted as performance. Withhold it rather than publish it.
   const twr = gaps.length > 0 ? null : computeTwr(navSeries, flowsByDate)
+
+  // THE BLOTTER, ANCHORED TO THE BROKER. runFifo rebuilds each contract's position from the fills in these
+  // statements alone. When they begin after a position was opened, or a blank open/close flag made the
+  // engine guess the wrong side, the rebuilt position is offset from the real one by a constant, and every
+  // effect in that contract (opened or added, trimmed or unmatched) is reconstructed rather than established.
+  // The broker's snapshot is the anchor, compared exactly as reconciliation check 5 compares it: a contract
+  // whose rebuilt position disagrees with the snapshot, or that has a sale with nothing to close, has partial
+  // history on every fill. With no snapshot there is no anchor, so a contract whose history rests on a guess
+  // stays partial; and a hole between statements leaves every contract unanchored.
+  const snapshotHeld = docs.some((d) => d.sectionsPresent.includes('OpenPositions')) || positions.length > 0
+  const partialKeys = new Set<string>()
+  for (const e of executions) {
+    if (e.unmatchedQuantity > EPS) partialKeys.add(e.key)
+    if (!snapshotHeld && e.inferred) partialKeys.add(e.key)
+  }
+  if (snapshotHeld) {
+    const held = new Map<string, number>()
+    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    const rebuilt = new Map<string, number>()
+    for (const l of lots) rebuilt.set(l.key, (rebuilt.get(l.key) ?? 0) + l.quantity)
+    for (const key of new Set([...held.keys(), ...rebuilt.keys()])) {
+      if (Math.abs((rebuilt.get(key) ?? 0) - (held.get(key) ?? 0)) > EPS) partialKeys.add(key)
+    }
+  }
+  for (const e of executions) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
 
   return {
     accountId: newest.accountId,

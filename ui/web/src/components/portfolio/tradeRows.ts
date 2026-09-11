@@ -363,12 +363,14 @@ export function fillStatus(r: Pick<PortfolioExecution, 'openedQuantity' | 'still
 /** The counts under the table, over exactly the rows shown. */
 export function fillSummary(rows: FillRow[]): {
   fills: number; buys: number; sells: number; adds: number; positions: number; inferred: number; costsUnknown: number
+  partial: number
 } {
   let buys = 0
   let sells = 0
   let adds = 0
   let inferred = 0
   let costsUnknown = 0
+  let partial = 0
   const open = new Set<string>()
   for (const r of rows) {
     if (r.side === 'buy') buys += 1
@@ -378,6 +380,7 @@ export function fillSummary(rows: FillRow[]): {
     // Positive matches only: a qualifier the engine did not send is not counted (DESIGN.md §5).
     if (r.inferred === true) inferred += 1
     if (r.costsUnknown === true) costsUnknown += 1
+    if (r.partialHistory === true) partial += 1
   }
-  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown }
+  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown, partial }
 }

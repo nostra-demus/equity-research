@@ -861,5 +861,59 @@ check('futures fills are marked as notional exposure; stock fills are not', () =
 })
 
 
+// ---------- review round 3: the blotter anchored to the broker, and what a fill was worth ----------
+
+check('a contract whose rebuilt position disagrees with the broker snapshot has partial history', () => {
+  assert.ok(book.executions.every((e) => e.partialHistory === false), 'the fixture reconciles, so every fill is established')
+  // Carrying 100 AAA from before the statements: the snapshot says 150 where the fills rebuild 50. The first
+  // buy reads "open" but was really an add, so every AAA fill is reconstructed, and says so.
+  const carried = buildBook([{ ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: 150 } : p) }])
+  const aaa = carried.executions.filter((e) => e.symbol === 'AAA')
+  assert.ok(aaa.length === 3 && aaa.every((e) => e.partialHistory), 'every fill in the carried contract')
+  assert.ok(carried.executions.filter((e) => e.symbol !== 'AAA').every((e) => !e.partialHistory), 'and no other')
+})
+
+check('a sale with nothing to close marks its whole contract as partial history', () => {
+  const extra = [
+    { ...doc.trades[0]!, tradeID: 'Q1', transactionID: 'QX1', symbol: 'QQQ', conid: '707', quantity: 5, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' },
+    { ...doc.trades[0]!, tradeID: 'Q2', transactionID: 'QX2', symbol: 'QQQ', conid: '707', quantity: -8, tradePrice: 12, openCloseIndicator: 'C', dateTime: '2026-01-07T10:00:00', levelOfDetail: 'EXECUTION' },
+  ]
+  const b = buildBook([{ ...doc, trades: [...doc.trades, ...extra] }])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'QQQ').map((e) => [e.effect, e.partialHistory]), [['open', true], ['close', true]])
+})
+
+check('with no snapshot to check against, a contract resting on a guess stays partial', () => {
+  const blankSale = { ...doc.trades[0]!, tradeID: 'G1', transactionID: 'GX1', symbol: 'GSS', conid: '808', quantity: -10, tradePrice: 5, openCloseIndicator: null, dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }
+  const noSnapshot = { ...doc, openPositions: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'OpenPositions'), trades: [...doc.trades, blankSale] }
+  const b = buildBook([noSnapshot])
+  const guess = b.executions.find((e) => e.id === 'G1')!
+  assert.deepEqual([guess.inferred, guess.partialHistory], [true, true])
+  assert.equal(b.executions.find((e) => e.id === 'T1')!.partialHistory, false, 'explicit flags need no anchor to be read')
+})
+
+check('a hole between statements leaves every fill unanchored', () => {
+  const later = {
+    ...doc,
+    fromDate: '2028-01-01', toDate: '2028-12-31',
+    trades: [], cashTransactions: [], corporateActions: [], openPositions: [],
+    equitySummary: [{ reportDate: '2028-06-30', total: 500000, currency: 'USD', cash: null }],
+  }
+  const gapped = buildBook([doc, later as typeof doc])
+  assert.ok(gapped.executions.length > 0 && gapped.executions.every((e) => e.partialHistory))
+})
+
+check('a fill is worth its broker proceeds, a future its notional, and a par-priced bond never quantity x price', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.equal(by.get('T1')!.value, 1000, 'AAA: the broker’s own proceeds')
+  assert.equal(by.get('T5')!.value, 400000, 'CCC: 2 contracts x 2,000 x 100 of exposure, although no cash moved')
+  const base = { ...doc.trades[0]!, symbol: 'UST', conid: '909', assetCategory: 'BOND', multiplier: 1, openCloseIndicator: 'O', levelOfDetail: 'EXECUTION', dateTime: '2026-01-06T10:00:00' }
+  const bond = (proceeds: number | null) => runFifo([{ ...base, quantity: 10000, tradePrice: 98.5, proceeds }]).executions[0]!.value
+  assert.equal(bond(-9850), 9850, '10,000 face at 98.5 is 9,850, not 985,000')
+  assert.equal(bond(null), null, 'without proceeds a bond cannot be valued, so it is not guessed')
+  const { executions: stk } = runFifo([{ ...doc.trades[0]!, tradeID: 'P1', transactionID: 'PX1', symbol: 'PPP', conid: '910', quantity: 7, tradePrice: 3, proceeds: null, openCloseIndicator: 'O', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }])
+  assert.equal(stk[0]!.value, 21, 'a stock with no proceeds field falls back to quantity x price')
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

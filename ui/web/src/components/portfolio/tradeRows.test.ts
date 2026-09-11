@@ -336,6 +336,7 @@ function fill(o: Partial<PortfolioExecution> & { id: string; executedAt: string 
     key: 'conid:1', symbol: 'GLDM', currency: 'USD', side: 'buy', quantity: 10, price: 50, multiplier: 1,
     commission: -1, positionBefore: 0, positionAfter: 10, effect: 'open', openedQuantity: 10, stillOpen: 10,
     unmatchedQuantity: 0, realizedLocal: null, costsUnknown: false, inferred: false, isDerivative: false,
+    value: 500, partialHistory: false,
     ...o,
   }
 }
@@ -417,7 +418,7 @@ check('the summary counts exactly the rows shown', () => {
     fill({ id: 'a2', executedAt: '2026-06-02T10:00:00', effect: 'add', positionBefore: 20, positionAfter: 30 }),
     fill({ id: 't', executedAt: '2026-06-03T10:00:00', side: 'sell', effect: 'reduce', positionBefore: 30, positionAfter: 25, openedQuantity: 0, stillOpen: 0 }),
   ])
-  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1, inferred: 0, costsUnknown: 0 })
+  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1, inferred: 0, costsUnknown: 0, partial: 0 })
 })
 
 check('the name list marks which names are still held', () => {
@@ -492,6 +493,15 @@ check('a round trip with a blank commission on any leg says realised is missing 
 check('an idea whose trades include a blank commission carries the count', () => {
   const rows = foldRoundTrips([closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'a', costsUnknown: true })])
   assert.equal(groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar' }))[0]!.costsUnknown, 1)
+})
+
+check('the summary counts fills whose history the statements only partly cover', () => {
+  const rows = fillRows([
+    fill({ id: 'p1', executedAt: '2026-01-01T10:00:00', partialHistory: true }),
+    fill({ id: 'p2', executedAt: '2026-01-02T10:00:00', effect: 'add', positionBefore: 10, positionAfter: 20, partialHistory: true }),
+    fill({ id: 'ok', symbol: 'V', key: 'conid:9', executedAt: '2026-01-03T10:00:00' }),
+  ])
+  assert.equal(fillSummary(rows).partial, 2)
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
