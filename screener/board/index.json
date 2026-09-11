@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T14:42:59Z",
+  "generated_at": "2026-09-11T14:53:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-400",
+      "headline": "INT MEDICAL (01501): FURTHER ANNOUNCEMENT DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101839.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T14:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "The company announced a discloseable transaction involving the acquisition of equity interest in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a discloseable transaction involving the acquisition of equity interest in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Int Medical",
+          "ticker": "01501",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-399",
       "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-229",
-      "headline": "Oracle Cloud Sales More Than Double, Topping Estimates On AI",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/oracle-cloud-sales-more-than-double-topping-estimates-on-ai-12031147#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:34:52Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Oracle reported cloud sales that more than doubled, beating analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oracle reported cloud sales that more than doubled, beating analyst estimates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": "ORCL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153537,9 +153537,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7512057,
-    "news_picked_today": 1012,
-    "news_dropped_today": 6524
+    "news_seen_today": 7609948,
+    "news_picked_today": 1020,
+    "news_dropped_today": 6612
   },
   "book_momentum": {
     "live_count": 8,
