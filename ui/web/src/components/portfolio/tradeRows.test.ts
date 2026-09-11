@@ -335,7 +335,7 @@ function fill(o: Partial<PortfolioExecution> & { id: string; executedAt: string 
   return {
     key: 'conid:1', symbol: 'GLDM', currency: 'USD', side: 'buy', quantity: 10, price: 50, multiplier: 1,
     commission: -1, positionBefore: 0, positionAfter: 10, effect: 'open', openedQuantity: 10, stillOpen: 10,
-    unmatchedQuantity: 0, realizedLocal: null,
+    unmatchedQuantity: 0, realizedLocal: null, costsUnknown: false, inferred: false, isDerivative: false,
     ...o,
   }
 }
@@ -417,7 +417,7 @@ check('the summary counts exactly the rows shown', () => {
     fill({ id: 'a2', executedAt: '2026-06-02T10:00:00', effect: 'add', positionBefore: 20, positionAfter: 30 }),
     fill({ id: 't', executedAt: '2026-06-03T10:00:00', side: 'sell', effect: 'reduce', positionBefore: 30, positionAfter: 25, openedQuantity: 0, stillOpen: 0 }),
   ])
-  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1 })
+  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1, inferred: 0, costsUnknown: 0 })
 })
 
 check('the name list marks which names are still held', () => {
@@ -466,6 +466,32 @@ check('the blotter says its figures are in the trade’s currency whenever that 
   assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at })], 'USD'), false, 'figures already in the base need no note')
   assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at }), fill({ id: 'e', executedAt: at, currency: 'EUR' })], 'USD'), true)
   assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at })], null), true, 'an unknown base cannot be claimed')
+})
+
+check('the summary counts inferred fills and sales missing a commission', () => {
+  const rows = fillRows([
+    fill({ id: 'guess', executedAt: '2026-01-01T10:00:00', side: 'sell', positionAfter: -10, inferred: true }),
+    fill({ id: 'cost', executedAt: '2026-01-02T10:00:00', effect: 'close', positionBefore: -10, positionAfter: 0, openedQuantity: 0, stillOpen: 0, realizedLocal: 5, costsUnknown: true }),
+  ])
+  const s = fillSummary(rows)
+  assert.deepEqual([s.inferred, s.costsUnknown], [1, 1])
+})
+
+check('a round trip with a blank commission on any leg says realised is missing a cost', () => {
+  // Two orders of one sale fold into one row; the broker gave no commission on one of them.
+  const rows = foldRoundTrips([
+    closure({ quantity: 100, realizedBase: 19.47, closeTradeID: 'a', costsUnknown: true }),
+    closure({ quantity: 200, realizedBase: 38.95, closeTradeID: 'b', costsUnknown: false }),
+  ])
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0]!.costsUnknown, 1)
+  // An engine that predates the field sends nothing, and the row then makes no claim (DESIGN.md §5).
+  assert.equal(foldRoundTrips([closure({ quantity: 50, realizedBase: 5, closeTradeID: 'c' })])[0]!.costsUnknown, 0)
+})
+
+check('an idea whose trades include a blank commission carries the count', () => {
+  const rows = foldRoundTrips([closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'a', costsUnknown: true })])
+  assert.equal(groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar' }))[0]!.costsUnknown, 1)
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

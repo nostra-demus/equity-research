@@ -54,6 +54,9 @@ export interface BookLot {
    *  closing rate, which silently folds the currency move into the stock result — the one split a
    *  cross-border book most needs to see. */
   openFxRateToBase: number | null
+  /** False when the broker left the opening fill's commission blank. `commission` then counts that cost as
+   *  zero, so whatever the lot later realises omits it — see BookClosure.costsUnknown. */
+  commissionKnown: boolean
 }
 
 export interface BookClosure {
@@ -83,6 +86,10 @@ export interface BookClosure {
   openFxRateToBase: number | null
   closeFxRateToBase: number | null
   closeTradeID: string | null
+  /** True when the broker left the commission blank on either leg. Realised and commission above then count
+   *  that unknown cost as zero, so realised may be overstated by it, and every surface that shows this
+   *  figure as net of commission must say so. */
+  costsUnknown: boolean
 }
 
 /** One broker execution, exactly as the lot engine applied it — the fund's trade blotter.
@@ -125,6 +132,17 @@ export interface BookExecution {
    *  closures it produced, so the blotter and the round trips can never disagree. Null when it closed
    *  nothing. */
   realizedLocal: number | null
+  /** True when a commission behind `realizedLocal` was blank (see BookClosure.costsUnknown). */
+  costsUnknown: boolean
+  /** True when the broker left the open/close flag blank AND the fill opened a position from flat or across
+   *  zero. The engine then closes what it can and opens the rest, which is a guess: when the statements
+   *  begin after a position was opened, the same sale may instead have closed that earlier position. An
+   *  explicit O or C is the broker's own word and is never inferred; an add to the side already held is
+   *  consistent with the position either way. */
+  inferred: boolean
+  /** Futures and similar contracts: quantity × price × multiplier is notional exposure, not cash. The same
+   *  rule the positions use (isDerivativeCategory). */
+  isDerivative: boolean
 }
 
 export interface BookPosition {
@@ -363,6 +381,7 @@ export function runFifo(
     let realized: number | null = null
     let unmatched = 0
     let opened: BookLot | null = null
+    let costsUnknown = false
     let remaining = qty
 
     // CLOSE first — `C;O` means close the existing side before opening the opposite one.
@@ -389,6 +408,10 @@ export function runFifo(
         const commissionLocal = openShare + closeShare
         const realizedLocal = grossLocal + commissionLocal
         realized = (realized ?? 0) + realizedLocal
+        // A blank commission on either leg was counted as zero just above. Record it, so no surface can
+        // present this net figure as if every cost were known.
+        const legCostUnknown = !lot.commissionKnown || t.ibCommission === null
+        if (legCostUnknown) costsUnknown = true
         const closedAt = t.dateTime ?? t.tradeDate
         const closeRate = t.fxRateToBase ?? (rateFor ? rateFor(t.currency ?? lot.currency, closedAt ? closedAt.slice(0, 10) : null) : null)
         closures.push({
@@ -417,6 +440,7 @@ export function runFifo(
           // execution that carries only a transactionID produced a closure with no identity at all,
           // and the UI declared that round trip permanently unlabellable.
           closeTradeID: t.tradeID ?? t.transactionID,
+          costsUnknown: legCostUnknown,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched
@@ -444,6 +468,7 @@ export function runFifo(
         // Only the share of the opening commission belonging to the quantity that actually stays open.
         commission: ((t.ibCommission ?? 0) + (t.taxes ?? 0)) * (Math.abs(remaining) / Math.abs(qty)),
         openedQuantityAbs: Math.abs(remaining),
+        commissionKnown: t.ibCommission !== null,
         openFxRateToBase: t.fxRateToBase ?? (rateFor ? rateFor(t.currency, (t.dateTime ?? t.tradeDate)?.slice(0, 10) ?? null) : null),
       }
       lots.push(opened)
@@ -479,6 +504,10 @@ export function runFifo(
       stillOpen: 0,
       unmatchedQuantity: unmatched,
       realizedLocal: realized,
+      costsUnknown,
+      // A blank flag made the engine GUESS the open: from flat, or beyond the side it held.
+      inferred: !explicit && opened !== null && Math.sign(opened.quantity) !== Math.sign(positionBefore),
+      isDerivative: isDerivativeCategory(t.assetCategory),
     }
     executions.push(execution)
     if (opened) openedBy.set(opened, execution)

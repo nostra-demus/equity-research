@@ -817,5 +817,49 @@ check('re-importing an overlapping export does not duplicate a fill', () => {
 })
 
 
+// ---------- review follow-ups: inferred opens, blank commissions, notional exposure ----------
+
+check('a blank-flag fill that opens from flat or across zero is marked inferred; the broker’s own flags never are', () => {
+  assert.ok(book.executions.every((e) => e.inferred === false), 'every fixture fill carries an explicit O or C')
+  const base = { ...doc.trades[0]!, symbol: 'BLK', conid: '55', openCloseIndicator: null, levelOfDetail: 'EXECUTION', multiplier: 1 }
+  // History starting mid-position: the first sale has nothing to close. The engine opens a short, but the
+  // same sale may instead have closed a long from before the statements. A guess, and flagged as one.
+  const { executions: start } = runFifo([{ ...base, tradeID: 'S1', transactionID: 'SX1', quantity: -10, tradePrice: 5, dateTime: '2026-01-01T10:00:00' }])
+  assert.deepEqual([start[0]!.effect, start[0]!.side, start[0]!.inferred], ['open', 'sell', true])
+  const { executions: seq } = runFifo([
+    { ...base, tradeID: 'B1', transactionID: 'BX1', quantity: 100, tradePrice: 10, dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'B2', transactionID: 'BX2', quantity: 50, tradePrice: 11, dateTime: '2026-01-02T10:00:00' },
+    { ...base, tradeID: 'B3', transactionID: 'BX3', quantity: -60, tradePrice: 12, dateTime: '2026-01-03T10:00:00' },
+    { ...base, tradeID: 'B4', transactionID: 'BX4', quantity: -150, tradePrice: 13, dateTime: '2026-01-04T10:00:00' },
+  ])
+  // opened from flat: inferred; added to the side held: not; trimmed a held long: not; reversed past zero: inferred
+  assert.deepEqual(seq.map((e) => [e.effect, e.inferred]), [['open', true], ['add', false], ['reduce', false], ['flip', true]])
+  const { executions: explicit } = runFifo([{ ...base, tradeID: 'E1', transactionID: 'EX1', quantity: -10, tradePrice: 5, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' }])
+  assert.equal(explicit[0]!.inferred, false, 'an explicit O is the broker’s word, not a guess')
+})
+
+check('a blank commission on either leg marks the realised figure as missing that cost', () => {
+  const base = { ...doc.trades[0]!, symbol: 'CST', conid: '33', levelOfDetail: 'EXECUTION', multiplier: 1, taxes: 0 }
+  const run = (openComm: number | null, closeComm: number | null) => runFifo([
+    { ...base, tradeID: 'C1', transactionID: 'CX1', quantity: 10, tradePrice: 10, openCloseIndicator: 'O', ibCommission: openComm, dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'C2', transactionID: 'CX2', quantity: -10, tradePrice: 12, openCloseIndicator: 'C', ibCommission: closeComm, dateTime: '2026-02-01T10:00:00' },
+  ])
+  const cases: [number | null, number | null, boolean][] = [[-1, -1, false], [null, -1, true], [-1, null, true]]
+  for (const [o, c, unknown] of cases) {
+    const { closures, executions } = run(o, c)
+    assert.equal(closures[0]!.costsUnknown, unknown, `open ${o} / close ${c}: the round trip`)
+    assert.equal(executions[1]!.costsUnknown, unknown, `open ${o} / close ${c}: the sale`)
+    assert.equal(executions[0]!.costsUnknown, false, 'a buy realises nothing, so nothing is missing from it')
+  }
+  assert.ok(book.closures.every((c) => c.costsUnknown === false), 'every fixture round trip has both commissions')
+})
+
+check('futures fills are marked as notional exposure; stock fills are not', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.deepEqual([by.get('T5')!.isDerivative, by.get('T6')!.isDerivative, by.get('T10')!.isDerivative], [true, true, true], 'CCC and FFF are futures')
+  assert.equal(by.get('T1')!.isDerivative, false)
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

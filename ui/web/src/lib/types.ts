@@ -2203,6 +2203,9 @@ export interface PortfolioClosure {
   /** The closing execution this lot was matched against. One sell can consume several opening lots, so
    *  this is what groups the FIFO fragments back into the single trade the operator actually placed. */
   closeTradeID: string | null
+  /** A blank commission on either leg: realised counts it as zero. Optional, because an engine that
+   *  predates it sends nothing, and the screen then claims nothing either way (DESIGN.md §5). */
+  costsUnknown?: boolean
 }
 
 /** One broker execution — every buy and sell the statements carry, open positions included. The round
@@ -2233,6 +2236,12 @@ export interface PortfolioExecution {
   unmatchedQuantity: number
   /** Realised by the lots this fill closed, net of commission on both legs. Null when it closed nothing. */
   realizedLocal: number | null
+  /** A blank commission on a leg this fill closed: realised counts that cost as zero. */
+  costsUnknown: boolean
+  /** A blank open/close flag made the engine infer the position this fill opened. */
+  inferred: boolean
+  /** Quantity × price × multiplier is notional exposure, not cash (futures and the like). */
+  isDerivative: boolean
 }
 
 export interface PortfolioBook {

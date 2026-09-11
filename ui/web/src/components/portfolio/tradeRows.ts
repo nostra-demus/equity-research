@@ -30,6 +30,9 @@ export interface TradeRowData {
    *  the figure beside it is incomplete, and anything that adds it up has to say so rather than publish
    *  a plausible, understated total. */
   unvalued: number
+  /** Legs whose commission the broker left blank, so `realized` counts that cost as zero. Non-zero means
+   *  the figure is net of the KNOWN costs only. Absent on the wire counts as none, never as known. */
+  costsUnknown: number
   /** Every broker closeTradeID behind this row. This is the row's STABLE identity: an idea assignment
    *  is written against these, not against the symbol, so labelling this year's AMZN cannot relabel
    *  next year's. Empty when the broker gave no id — such a row cannot be labelled at all, which is
@@ -84,6 +87,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         : lots.reduce((a, c) => a + c.commissionLocal * c.closeFxRateToBase!, 0),
       realized: sumBase(lots, baseRealised).total,
       unvalued: sumBase(lots, baseRealised).unvalued,
+      costsUnknown: lots.filter((c) => c.costsUnknown === true).length,
       lots: lots.length,
       fills: 1,
       closeTradeIDs: [...new Set(lots.map((c) => c.closeTradeID).filter((v): v is string => !!v))],
@@ -136,6 +140,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         : group.reduce((a, r) => a + r.commissionBase!, 0),
       realized: group.reduce((a, r) => a + r.realized, 0),
       unvalued: group.reduce((a, r) => a + r.unvalued, 0),
+      costsUnknown: group.reduce((a, r) => a + r.costsUnknown, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),
       closeTradeIDs: [...new Set(group.flatMap((r) => r.closeTradeIDs))],
@@ -166,6 +171,8 @@ export interface IdeaGroupRow {
    *  part only: a split exit with one missing FX rate would otherwise publish a believable but
    *  understated idea result with nothing on screen saying money was left out. */
   unvalued: number
+  /** Round-trip legs inside this idea whose commission was blank, so `realized` counts that cost as zero. */
+  costsUnknown: number
   /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
    *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
   isCash: boolean
@@ -215,11 +222,12 @@ export function groupByIdea(
     if (cash.has((r.symbol ?? '').toUpperCase()) && !ideaOfRow(r.closeTradeIDs, assigned).id) {
       const g = out.get('\u0000cash') ?? {
         ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
-        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0,
+        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0, costsUnknown: 0,
       }
       if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
       g.realized += r.realized
       g.unvalued += r.unvalued
+      g.costsUnknown += r.costsUnknown
       g.trades += 1
       const cl = (r.closedAt ?? '').slice(0, 10)
       if (cl) {
@@ -238,11 +246,12 @@ export function groupByIdea(
 
     const g = out.get(key) ?? {
       ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
-      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0,
+      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0, costsUnknown: 0,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
     g.realized += r.realized
     g.unvalued += r.unvalued
+    g.costsUnknown += r.costsUnknown
     g.trades += 1
     if (r.closeTradeIDs.length === 0) g.unlabellable += 1
     const closed = (r.closedAt ?? '').slice(0, 10)
@@ -352,16 +361,23 @@ export function fillStatus(r: Pick<PortfolioExecution, 'openedQuantity' | 'still
 }
 
 /** The counts under the table, over exactly the rows shown. */
-export function fillSummary(rows: FillRow[]): { fills: number; buys: number; sells: number; adds: number; positions: number } {
+export function fillSummary(rows: FillRow[]): {
+  fills: number; buys: number; sells: number; adds: number; positions: number; inferred: number; costsUnknown: number
+} {
   let buys = 0
   let sells = 0
   let adds = 0
+  let inferred = 0
+  let costsUnknown = 0
   const open = new Set<string>()
   for (const r of rows) {
     if (r.side === 'buy') buys += 1
     else sells += 1
     if (r.effect === 'add') adds += 1
     if (r.current) open.add(r.key)
+    // Positive matches only: a qualifier the engine did not send is not counted (DESIGN.md §5).
+    if (r.inferred === true) inferred += 1
+    if (r.costsUnknown === true) costsUnknown += 1
   }
-  return { fills: rows.length, buys, sells, adds, positions: open.size }
+  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown }
 }

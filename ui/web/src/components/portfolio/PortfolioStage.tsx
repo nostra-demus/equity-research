@@ -1304,6 +1304,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       commissionUnvalued: costs.unvalued,
       grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
       worst: losses.length ? Math.min(...losses) : null,
+      costsUnknown: rows.filter((r) => r.costsUnknown > 0).length,
     }
   }, [rows])
 
@@ -1452,6 +1453,8 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
           value={fmtMoney(stats.total, ccy)}
           sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs${stats.commissionUnvalued > 0
             ? ` · costs on ${stats.commissionUnvalued} trade${stats.commissionUnvalued === 1 ? '' : 's'} had no rate and are left out`
+            : ''}${stats.costsUnknown > 0
+            ? ` · ${stats.costsUnknown} trade${stats.costsUnknown === 1 ? '' : 's'} had a blank commission, counted as zero`
             : ''}`}
           tone={toneOf(stats.total)}
         />
@@ -1502,6 +1505,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                         title={`${g.unvalued} leg${g.unvalued === 1 ? '' : 's'} the statement carried no rate for — excluded, so this is the convertible part only`}
                       >part only</small>
                     )}
+                    {g.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
                   </span>
                   <span className="num dim">{g.trades}</span>
                   <span className="num dim">{g.firstClosed ?? '—'}</span>
@@ -1677,7 +1681,7 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
           <div className="fundbook__row fundbook__row--fills fundbook__row--head">
             <span>Date</span><span>Symbol</span><span>Ccy</span><span>Trade</span>
             <span className="num">Qty</span><span className="num">Price</span>
-            <span className="num" title="Quantity × price × contract multiplier">Value</span>
+            <span className="num" title="Quantity × price × contract multiplier. For futures and similar contracts that is notional exposure, not cash.">Value</span>
             <span className="num">Costs</span><span className="num">Position after</span>
             <span className="num">Realised</span>
             <span title="What is left of what this fill opened, as of the last statement">Status</span>
@@ -1690,6 +1694,8 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
           {plural(summary.fills, 'fill')}: {plural(summary.buys, 'buy')} and {plural(summary.sells, 'sell')}
           {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}.
           {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was opened.`}
+          {summary.inferred > 0 && ` ${plural(summary.inferred, 'fill')} had no open/close flag from the broker, so what ${summary.inferred === 1 ? 'it' : 'they'} opened is inferred.`}
+          {summary.costsUnknown > 0 && ` ${plural(summary.costsUnknown, 'sale')} closed against a blank commission, so ${summary.costsUnknown === 1 ? 'its' : 'their'} realised counts that cost as zero.`}
           {' '}Status is as of the last statement; realised is net of commission on both legs
           {outsideBase ? `, and every figure is in the trade’s own currency${baseCurrency ? `, not converted to ${baseCurrency}` : ''}` : ''}.
         </div>
@@ -1697,6 +1703,11 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
     </div>
   )
 }
+
+/** Said wherever the engine had to guess what a fill opened (see BookExecution.inferred on the server). */
+const INFERRED_NOTE = 'The broker left the open/close flag blank, so the engine inferred that this fill opened a position. When the statements begin after a position was opened, it may instead have closed that earlier position.'
+/** Said wherever a realised figure counts a blank commission as zero (see BookClosure.costsUnknown). */
+const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of this trade, so realised counts that cost as zero and may be overstated by it.'
 
 function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
@@ -1708,23 +1719,33 @@ function FillLine({ r }: { r: FillRow }) {
   const unmatched = r.unmatchedQuantity > 0
     ? `${fmtQty(r.unmatchedQuantity)} of this fill had no open lot to close — the statements begin after that position was opened`
     : undefined
+  // Positive matches only (DESIGN.md §5): a qualifier the engine did not send is not asserted.
+  const inferred = r.inferred === true
   return (
     <div className="fundbook__row fundbook__row--fills">
       <span className="dim mono">{(r.executedAt ?? '—').slice(0, 10)}</span>
       <strong className="mono">{r.symbol ?? '—'}</strong>
       <span className="dim">{r.currency ?? '—'}</span>
-      <span title={unmatched}>
+      <span title={unmatched ?? (inferred ? INFERRED_NOTE : undefined)}>
         <b className="fundbook__fillside">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
         <span className="dim">{fillAction(r)}</span>
         {unmatched && <small className="fundbook__lots">{fmtQty(r.unmatchedQuantity)} unmatched</small>}
+        {inferred && <small className="fundbook__lots">inferred</small>}
       </span>
       <span className="num">{fmtQty(r.quantity)}</span>
       <span className="num dim">{fmtNum(r.price)}</span>
-      <span className="num">{fmtSmallMoney(r.quantity * r.price * r.multiplier)}</span>
+      {/* Futures and the like: quantity × price × multiplier is exposure, not money that moved. */}
+      <span className="num">
+        {fmtSmallMoney(r.quantity * r.price * r.multiplier)}
+        {r.isDerivative === true && <small className="fundbook__notional">notional</small>}
+      </span>
       <span className="num dim">{fmtSmallMoney(r.commission)}</span>
       <span className="num">{fmtQty(r.positionAfter)}</span>
-      <span className="num" style={{ color: toneOf(r.realizedLocal) }}>{fmtSmallMoney(r.realizedLocal)}</span>
-      <span className={status === 'held' || status === 'part' ? undefined : 'dim'}>{statusText}</span>
+      <span className="num" style={{ color: toneOf(r.realizedLocal) }}>
+        {fmtSmallMoney(r.realizedLocal)}
+        {r.costsUnknown === true && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+      </span>
+      <span className={status === 'held' || status === 'part' ? undefined : 'dim'} title={inferred ? INFERRED_NOTE : undefined}>{statusText}</span>
     </div>
   )
 }
@@ -1761,7 +1782,10 @@ function TradeRow({ c, grossRealised, ideas, onChanged }: {
       <span className="num">{fmtNum(c.exitPrice)}</span>
       <span className="num dim">{fmtSmallMoney(c.grossLocal)}</span>
       <span className="num dim">{fmtSmallMoney(c.commissionLocal)}</span>
-      <strong className="num" style={{ color: toneOf(c.realized) }}>{fmtSmallMoney(c.realized)}</strong>
+      <strong className="num" style={{ color: toneOf(c.realized) }}>
+        {fmtSmallMoney(c.realized)}
+        {c.costsUnknown > 0 && <small className="fundbook__lots" title={COSTS_UNKNOWN_NOTE}>cost unknown</small>}
+      </strong>
       <span className="num dim">{share === null ? '—' : `${share.toFixed(1)}%`}</span>
     </div>
   )
