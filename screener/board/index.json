@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T10:54:49Z",
+  "generated_at": "2026-09-11T11:04:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-352",
+      "headline": "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRAKASH_11092026155921_Intimation_to_SE_11092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T10:31:39Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Prakash Industries received consent to expand coal mine production capacity from 1.0 MTPA to 1.2 MTPA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prakash Industries received consent to expand coal mine production capacity from 1.0 MTPA to 1.2 MTPA.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prakash Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-347",
       "headline": "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE",
@@ -1523,6 +1572,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-351",
+      "headline": "CHINAHONGQIAO (01378): CONNECTED TRANSACTION - ACQUISITION OF EQUITY INTEREST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101231.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T10:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "The company is engaging in a connected transaction to acquire equity interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company is engaging in a connected transaction to acquire equity interest.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Hongqiao Group Limited",
+          "ticker": "01378",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-327",
       "headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
       "headline_en": null,
@@ -1856,104 +1954,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-260",
-      "headline": "TME-SW TME N3109 TME N3609 (01698 40709 40713): Publication of Prospectus and Prospectus Supplement - Tencent Music Entertainment Group - US$500,000,000 5.050% Notes due 2031 and US$500,000,000 5.650% Notes due 2036",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100239.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T04:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Tencent Music is issuing 1 billion USD in total notes (500 million USD due 2031 and 500 million USD due 2036).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tencent Music is issuing 1 billion USD in total notes (500 million USD due 2031 and 500 million USD due 2036).",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent Music Entertainment",
-          "ticker": "01698",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-005",
-      "headline": "TME-SW TME N3109 TME N3609 (01698 40709 40713): Notice of Listing on The Stock Exchange of Hong Kong Limited - Tencent Music Entertainment Group - US$500,000,000 5.050% Notes due 2031 and US$500,000,000 5.650% Notes due 2036",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100077.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T23:48:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Tencent Music Entertainment issued $1 billion in total notes due 2031 and 2036.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tencent Music Entertainment issued $1 billion in total notes due 2031 and 2036.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent Music Entertainment Group",
-          "ticker": "01698",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152891,9 +152891,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5270079,
-    "news_picked_today": 779,
-    "news_dropped_today": 4813
+    "news_seen_today": 5357031,
+    "news_picked_today": 785,
+    "news_dropped_today": 4879
   },
   "book_momentum": {
     "live_count": 8,
