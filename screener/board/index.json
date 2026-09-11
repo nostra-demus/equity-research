@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-11T12:10:17Z",
+  "generated_at": "2026-09-11T12:19:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-374",
+      "headline": "CHINA CBS INTL (00989): JOINT ANNOUNCEMENT (1) COMPLETION OF THE PROPOSED RESTRUCTURING; AND (2) UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF GROUND GROUP (HONG KONG) CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101501.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T12:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "China CBS Intl completed a restructuring and is subject to an unconditional mandatory cash offer for all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China CBS Intl completed a restructuring and is subject to an unconditional mandatory cash offer for all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA CBS INTL",
+          "ticker": "00989",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-370",
       "headline": "Allied Blenders and Distillers Limited: Capacity Expansion",
@@ -1907,55 +1957,6 @@
         {
           "name": "China Hongqiao Group Limited",
           "ticker": "01378",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-327",
-      "headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T08:41:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "The company has completed a major and connected transaction, signaling the finalization of a significant corporate deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company has completed a major and connected transaction, signaling the finalization of a significant corporate deal.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hua Hong Semiconductor",
-          "ticker": "01347",
           "listing_country": "CN"
         }
       ],
@@ -111252,76 +111253,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2d93368aeb39",
-      "idea_version": "IDEAV-de37e1af31e96430",
-      "idea_version_started_at": "2026-09-10T02:28:33Z",
-      "ticker": "WDS",
-      "company": "Woodside Energy",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of the executive overseeing the $24 billion US LNG project introduces execution risk and potential delays to a massive capital-intensive investment.",
-      "why_now": "The executive exit was reported on 2026-09-10, directly impacting the oversight of the company's largest growth project.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e06313f26695"
-      ],
-      "primary_source_event_id": "EVT-e06313f26695",
-      "source_headlines": [
-        "Woodside loses key executive overseeing $24b LNG bet in the US"
-      ],
-      "source_headline": "Woodside loses key executive overseeing $24b LNG bet in the US",
-      "source_url": "https://www.afr.com/companies/energy/woodside-loses-key-executive-overseeing-24b-lng-bet-in-the-us-20260910-p60w2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-10T00:17:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T02:28:33Z",
-      "updated_at": "2026-09-10T02:28:33Z",
-      "decay_at": "2026-09-11T12:17:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8785cce22dea",
       "idea_version": "IDEAV-02774348257066fe",
       "idea_version_started_at": "2026-09-10T20:58:23Z",
@@ -112897,77 +112828,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-12b791fa381c",
-      "idea_version": "IDEAV-7ea6716509268d1e",
-      "idea_version_started_at": "2026-09-10T02:28:33Z",
-      "ticker": "03696",
-      "company": "Insilico Medicine",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful enrollment and dosing of the first patient in a Phase III trial for Rentosertib validates the company's AI-driven drug discovery platform and advances its lead asset toward potential commercialization.",
-      "why_now": "The announcement was filed on 2026-09-10, marking a critical clinical milestone that reduces development risk.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4bdef8262fbf"
-      ],
-      "primary_source_event_id": "EVT-4bdef8262fbf",
-      "source_headlines": [
-        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF"
-      ],
-      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-10T00:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T02:28:33Z",
-      "updated_at": "2026-09-10T02:28:33Z",
-      "decay_at": "2026-09-11T12:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-20aa195678e4",
       "idea_version": "IDEAV-22abcdab3b885ad5",
       "idea_version_started_at": "2026-09-11T02:58:52Z",
@@ -114225,6 +114085,76 @@
       "surfaced_at": "2026-09-10T01:49:10Z",
       "updated_at": "2026-09-10T01:49:10Z",
       "decay_at": "2026-09-11T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2d93368aeb39",
+      "idea_version": "IDEAV-de37e1af31e96430",
+      "idea_version_started_at": "2026-09-10T02:28:33Z",
+      "ticker": "WDS",
+      "company": "Woodside Energy",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of the executive overseeing the $24 billion US LNG project introduces execution risk and potential delays to a massive capital-intensive investment.",
+      "why_now": "The executive exit was reported on 2026-09-10, directly impacting the oversight of the company's largest growth project.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e06313f26695"
+      ],
+      "primary_source_event_id": "EVT-e06313f26695",
+      "source_headlines": [
+        "Woodside loses key executive overseeing $24b LNG bet in the US"
+      ],
+      "source_headline": "Woodside loses key executive overseeing $24b LNG bet in the US",
+      "source_url": "https://www.afr.com/companies/energy/woodside-loses-key-executive-overseeing-24b-lng-bet-in-the-us-20260910-p60w2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-10T00:17:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T02:28:33Z",
+      "updated_at": "2026-09-10T02:28:33Z",
+      "decay_at": "2026-09-11T12:17:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115878,6 +115808,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-12b791fa381c",
+      "idea_version": "IDEAV-7ea6716509268d1e",
+      "idea_version_started_at": "2026-09-10T02:28:33Z",
+      "ticker": "03696",
+      "company": "Insilico Medicine",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The successful enrollment and dosing of the first patient in a Phase III trial for Rentosertib validates the company's AI-driven drug discovery platform and advances its lead asset toward potential commercialization.",
+      "why_now": "The announcement was filed on 2026-09-10, marking a critical clinical milestone that reduces development risk.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4bdef8262fbf"
+      ],
+      "primary_source_event_id": "EVT-4bdef8262fbf",
+      "source_headlines": [
+        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF"
+      ],
+      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-10T00:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T02:28:33Z",
+      "updated_at": "2026-09-10T02:28:33Z",
+      "decay_at": "2026-09-11T12:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -116029,19 +116030,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -116060,6 +116061,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2d93368aeb39",
+        "idea_version": "IDEAV-de37e1af31e96430",
+        "idea_version_started_at": "2026-09-10T02:28:33Z",
+        "ticker": "WDS",
+        "company": "Woodside Energy",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The departure of the executive overseeing the $24 billion US LNG project introduces execution risk and potential delays to a massive capital-intensive investment.",
+        "why_now": "The executive exit was reported on 2026-09-10, directly impacting the oversight of the company's largest growth project.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e06313f26695"
+        ],
+        "primary_source_event_id": "EVT-e06313f26695",
+        "source_headlines": [
+          "Woodside loses key executive overseeing $24b LNG bet in the US"
+        ],
+        "source_headline": "Woodside loses key executive overseeing $24b LNG bet in the US",
+        "source_url": "https://www.afr.com/companies/energy/woodside-loses-key-executive-overseeing-24b-lng-bet-in-the-us-20260910-p60w2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-10T00:17:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T02:28:33Z",
+        "updated_at": "2026-09-10T02:28:33Z",
+        "decay_at": "2026-09-11T12:17:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T12:17:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-12b791fa381c",
+        "idea_version": "IDEAV-7ea6716509268d1e",
+        "idea_version_started_at": "2026-09-10T02:28:33Z",
+        "ticker": "03696",
+        "company": "Insilico Medicine",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The successful enrollment and dosing of the first patient in a Phase III trial for Rentosertib validates the company's AI-driven drug discovery platform and advances its lead asset toward potential commercialization.",
+        "why_now": "The announcement was filed on 2026-09-10, marking a critical clinical milestone that reduces development risk.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4bdef8262fbf"
+        ],
+        "primary_source_event_id": "EVT-4bdef8262fbf",
+        "source_headlines": [
+          "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF"
+        ],
+        "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-10T00:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T02:28:33Z",
+        "updated_at": "2026-09-10T02:28:33Z",
+        "decay_at": "2026-09-11T12:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T12:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ad732217d75c",
         "idea_version": "IDEAV-afa12f274e316088",
@@ -145220,80 +145368,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5ca7ca4ccdb1",
-        "idea_version": "IDEAV-46cad2b4d5f4ae4b",
-        "idea_version_started_at": "2026-08-29T18:43:39Z",
-        "ticker": "PRATAPSNK",
-        "company": "Prataap Snacks Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Prataap Snacks Ltd completed the acquisition of 100% of RLOP Food Processing Private Limited, which is expected to expand its business operations.",
-        "why_now": "The acquisition was completed as of August 29, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cdf8bda797d8"
-        ],
-        "primary_source_event_id": "EVT-cdf8bda797d8",
-        "source_headlines": [
-          "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")"
-        ],
-        "source_headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2dba565f-07d4-457d-8dda-7d749c45156f.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T09:46:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T18:43:39Z",
-        "updated_at": "2026-08-29T18:43:39Z",
-        "decay_at": "2026-08-30T21:46:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-9e168a4e0799",
         "idea_version": "IDEAV-f52789b232384ccd",
         "idea_version_started_at": "2026-08-29T22:28:34Z",
@@ -153153,86 +153227,12 @@
         "archived_at": "2026-08-24T09:24:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7df43c2881a5",
-        "idea_version": "IDEAV-16d452efeab96364",
-        "idea_version_started_at": "2026-08-21T10:31:43Z",
-        "ticker": "00180",
-        "company": "Kader Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling deteriorating financial results compared to the prior period.",
-        "why_now": "The announcement was filed on 2026-08-21, providing an immediate catalyst for price adjustment.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-71fe62bb2231"
-        ],
-        "primary_source_event_id": "EVT-71fe62bb2231",
-        "source_headlines": [
-          "KADER HOLDINGS (00180): Profit Warning"
-        ],
-        "source_headline": "KADER HOLDINGS (00180): Profit Warning",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100480.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T09:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T10:31:43Z",
-        "updated_at": "2026-08-21T10:31:43Z",
-        "decay_at": "2026-08-22T21:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T09:24:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 686,
-    "live_count": 35,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153251,9 +153251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6057756,
-    "news_picked_today": 841,
-    "news_dropped_today": 5447
+    "news_seen_today": 6147296,
+    "news_picked_today": 854,
+    "news_dropped_today": 5530
   },
   "book_momentum": {
     "live_count": 8,
