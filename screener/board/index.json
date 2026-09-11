@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:44:45Z",
+  "generated_at": "2026-09-11T09:54:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-324",
@@ -635,6 +635,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-339",
+      "headline": "Omnia in advanced talks over potential buyout of all its ordinary shares",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/omnia-in-advanced-talks-over-potential-buyout-of-all-its-ordinary-shares/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T09:35:28Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Omnia is in advanced talks regarding a potential buyout of all ordinary shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Omnia is in advanced talks regarding a potential buyout of all ordinary shares.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omnia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1953,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-328",
-      "headline": "FORTUNE SUN (00352): QUARTERLY UPDATE ON STATUS OF RESUMPTION,FURTHER CLARIFICATION OF DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DELAY IN DESPATCH OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100740.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T09:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Company remains suspended from trading and reports continued delays in financial reporting, indicating significant operational or governance issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company remains suspended from trading and reports continued delays in financial reporting, indicating significant operational or governance issues.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortune Sun",
-          "ticker": "00352",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111175,76 +111175,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6fb7cca60927",
-      "idea_version": "IDEAV-1534116573bae5ed",
-      "idea_version_started_at": "2026-09-09T23:02:57Z",
-      "ticker": "COO",
-      "company": "Cooper Companies",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its annual profit guidance due to weakening demand for contact lenses, signaling a potential slowdown in their core revenue segment.",
-      "why_now": "The guidance cut was announced on 2026-09-09, and the market is currently digesting the impact on forward earnings expectations.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-00ef4894adf8"
-      ],
-      "primary_source_event_id": "EVT-00ef4894adf8",
-      "source_headlines": [
-        "Cooper Companies cuts annual profit forecast on weak contact lens demand"
-      ],
-      "source_headline": "Cooper Companies cuts annual profit forecast on weak contact lens demand",
-      "source_url": "https://www.reuters.com/business/cooper-companies-cuts-annual-profit-forecast-weak-contact-lens-demand-2026-09-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T21:46:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T23:02:57Z",
-      "updated_at": "2026-09-09T23:02:57Z",
-      "decay_at": "2026-09-11T09:46:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112952,6 +112882,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-6fb7cca60927",
+      "idea_version": "IDEAV-1534116573bae5ed",
+      "idea_version_started_at": "2026-09-09T23:02:57Z",
+      "ticker": "COO",
+      "company": "Cooper Companies",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its annual profit guidance due to weakening demand for contact lenses, signaling a potential slowdown in their core revenue segment.",
+      "why_now": "The guidance cut was announced on 2026-09-09, and the market is currently digesting the impact on forward earnings expectations.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-00ef4894adf8"
+      ],
+      "primary_source_event_id": "EVT-00ef4894adf8",
+      "source_headlines": [
+        "Cooper Companies cuts annual profit forecast on weak contact lens demand"
+      ],
+      "source_headline": "Cooper Companies cuts annual profit forecast on weak contact lens demand",
+      "source_url": "https://www.reuters.com/business/cooper-companies-cuts-annual-profit-forecast-weak-contact-lens-demand-2026-09-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T21:46:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T23:02:57Z",
+      "updated_at": "2026-09-09T23:02:57Z",
+      "decay_at": "2026-09-11T09:46:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-7598308e07cb",
@@ -116092,9 +116092,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -116102,9 +116102,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -116123,6 +116123,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6fb7cca60927",
+        "idea_version": "IDEAV-1534116573bae5ed",
+        "idea_version_started_at": "2026-09-09T23:02:57Z",
+        "ticker": "COO",
+        "company": "Cooper Companies",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company lowered its annual profit guidance due to weakening demand for contact lenses, signaling a potential slowdown in their core revenue segment.",
+        "why_now": "The guidance cut was announced on 2026-09-09, and the market is currently digesting the impact on forward earnings expectations.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-00ef4894adf8"
+        ],
+        "primary_source_event_id": "EVT-00ef4894adf8",
+        "source_headlines": [
+          "Cooper Companies cuts annual profit forecast on weak contact lens demand"
+        ],
+        "source_headline": "Cooper Companies cuts annual profit forecast on weak contact lens demand",
+        "source_url": "https://www.reuters.com/business/cooper-companies-cuts-annual-profit-forecast-weak-contact-lens-demand-2026-09-09/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T21:46:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T23:02:57Z",
+        "updated_at": "2026-09-09T23:02:57Z",
+        "decay_at": "2026-09-11T09:46:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-11T09:46:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7598308e07cb",
         "idea_version": "IDEAV-8eb68c29636b2c41",
@@ -153221,86 +153294,12 @@
         "archived_at": "2026-08-24T09:24:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d506fe2a7795",
-        "idea_version": "IDEAV-80306f9388ae8d3f",
-        "idea_version_started_at": "2026-08-22T00:54:27Z",
-        "ticker": "03623",
-        "company": "C Success Financial Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning suggests that the company's financial services business is struggling, likely due to credit quality issues or reduced transaction volumes.",
-        "why_now": "The filing was released on August 21, 2026, and the market is likely to reprice the stock based on the negative guidance.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d0b19d15ddbd"
-        ],
-        "primary_source_event_id": "EVT-d0b19d15ddbd",
-        "source_headlines": [
-          "C SUCCESS FIN (03623): PROFIT WARNING"
-        ],
-        "source_headline": "C SUCCESS FIN (03623): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100468.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T09:01:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T10:31:43Z",
-        "updated_at": "2026-08-22T00:54:27Z",
-        "decay_at": "2026-08-22T21:01:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T09:24:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 680,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153319,9 +153318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4577691,
-    "news_picked_today": 711,
-    "news_dropped_today": 4281
+    "news_seen_today": 4664141,
+    "news_picked_today": 718,
+    "news_dropped_today": 4346
   },
   "book_momentum": {
     "live_count": 8,
