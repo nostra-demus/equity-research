@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T05:25:21Z",
+  "generated_at": "2026-09-11T05:44:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-264",
@@ -1225,6 +1225,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-268",
+      "headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DIACABS_11092026104334_Regulation30PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T05:13:44Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Diamond Power Infrastructure has successfully exited the NCLT insolvency framework one year ahead of schedule, signaling a significant improvement in its financial and operational status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Diamond Power Infrastructure has successfully exited the NCLT insolvency framework one year ahead of schedule, signaling a significant improvement in its financial and operational status.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamond Power Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-205",
       "headline": "PAR: Drawdown of Tranche 4 under the Convertible Note Facility [price-sensitive]",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
         {
           "name": "Imricor Medical Systems",
           "ticker": "IBR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-011",
-      "headline": "IBR: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IBR?key=2924-03134437-6A1343356",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T23:53:17Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Trading pause for IBR pending an announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading pause for IBR pending an announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IBR",
-          "ticker": null,
           "listing_country": null
         }
       ],
@@ -153472,9 +153472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2178265,
-    "news_picked_today": 543,
-    "news_dropped_today": 2169
+    "news_seen_today": 2369362,
+    "news_picked_today": 546,
+    "news_dropped_today": 2286
   },
   "book_momentum": {
     "live_count": 8,
