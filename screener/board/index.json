@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T10:14:47Z",
+  "generated_at": "2026-09-11T10:24:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-344",
+      "headline": "Z FIN (01168): JOINT ANNOUNCEMENT - MONTHLY UPDATE ON (1) PROPOSAL FOR THE PRIVATISATION OF Z FIN LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT; AND (2) PROPOSED WITHDRAWAL OF THE LISTING OF Z FIN LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100896.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Z Fin Limited announced a proposal for privatization and withdrawal of listing, which is a significant corporate event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Z Fin Limited announced a proposal for privatization and withdrawal of listing, which is a significant corporate event for shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Z Fin Limited",
+          "ticker": "01168",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-324",
       "headline": "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028",
@@ -1665,6 +1714,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-343",
+      "headline": "SHUI ON LAND (00272): DISCLOSEABLE TRANSACTION - DISPOSAL OF PROPERTY IN YUZHONG DISTRICT, CHONGQING, THE PRC",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100922.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:43:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Disposal of property assets is a significant transaction that impacts the company's balance sheet and cash position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Disposal of property assets is a significant transaction that impacts the company's balance sheet and cash position.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHUI ON LAND",
+          "ticker": "00272",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-260",
       "headline": "TME-SW TME N3109 TME N3609 (01698 40709 40713): Publication of Prospectus and Prospectus Supplement - Tencent Music Entertainment Group - US$500,000,000 5.050% Notes due 2031 and US$500,000,000 5.650% Notes due 2036",
       "headline_en": null,
@@ -1856,98 +1954,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-218",
-      "headline": "NSE IPO Size Cut To ₹22,567 Crore, Much-Awaited Issue Opens September 17",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nse-ipo-size-cut-to-22567-crore-much-awaited-issue-opens-september-17",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:05:55Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "National Stock Exchange of India updated its IPO size to ₹22,567 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "National Stock Exchange of India updated its IPO size to ₹22,567 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-234",
-      "headline": "Municipal Securities Underwriters Pay a Total of $325,000 in Fines",
-      "headline_en": null,
-      "url": "https://www.sec.gov/newsroom/press-releases/97-114-municipal-securities-underwriters-pay-total-325000-fines",
-      "source_name": "U.S. Securities & Exchange Commission (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-12-16T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Multiple municipal securities underwriters were fined a total of $325,000 for regulatory violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Multiple municipal securities underwriters were fined a total of $325,000 for regulatory violations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153313,9 +153319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4889135,
-    "news_picked_today": 739,
-    "news_dropped_today": 4493
+    "news_seen_today": 4975933,
+    "news_picked_today": 752,
+    "news_dropped_today": 4576
   },
   "book_momentum": {
     "live_count": 8,
