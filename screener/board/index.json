@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T01:48:13Z",
+  "generated_at": "2026-09-11T01:53:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-081",
@@ -329,6 +329,55 @@
       "companies": [
         {
           "name": "FLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-101",
+      "headline": "RCM: Director Resignation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RCM?key=2924-03134486-2A1696678",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T01:35:28Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "A director resignation is a material management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A director resignation is a material management change.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RCM",
           "ticker": null,
           "listing_country": null
         }
@@ -1880,56 +1929,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-090",
-      "headline": "DigitalOcean Secures $725 Million in Equipment Financing Facility to Fund Capacity Expansion | DOCN Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/DOCN/digital-ocean-secures-725-million-in-equipment-financing-facility-to-an1l5gvu7fzr.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-10T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Secured $725 million in equipment financing to fund capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Secured $725 million in equipment financing to fund capacity expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DigitalOcean",
-          "ticker": "DOCN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154655,9 +154654,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 779891,
-    "news_picked_today": 127,
-    "news_dropped_today": 713
+    "news_seen_today": 818126,
+    "news_picked_today": 138,
+    "news_dropped_today": 750
   },
   "book_momentum": {
     "live_count": 8,
