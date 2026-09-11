@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-11T18:48:37Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-ec6bbb848a36",
+    "idea_version": "IDEAV-0e1ffa758b014fb5",
+    "idea_version_started_at": "2026-09-08T22:44:52Z",
+    "ticker": "CTSH",
+    "company": "Cognizant",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The suspension of green-card filings due to a visa-fraud probe threatens the company's ability to staff and execute on high-margin IT service contracts.",
+    "why_now": "The regulatory action was reported today, September 8, 2026.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-638f19bb37a7"
+    ],
+    "primary_source_event_id": "EVT-638f19bb37a7",
+    "source_headlines": [
+      "US suspends Cognizant’s green-card filings amid visa-fraud probe"
+    ],
+    "source_headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
+    "source_url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
+    "source_name": "CNBC-TV18",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-08T18:31:55Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-08T22:44:52Z",
+    "updated_at": "2026-09-08T22:44:52Z",
+    "decay_at": "2026-09-10T06:31:55Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
