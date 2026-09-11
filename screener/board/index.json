@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T20:03:17Z",
+  "generated_at": "2026-09-11T20:04:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -111331,6 +111331,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fdd6333c0914",
+      "idea_version": "IDEAV-94d1386a354832ec",
+      "idea_version_started_at": "2026-09-11T20:03:47Z",
+      "ticker": "CCR",
+      "company": "C&C Group",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Acquiring Asahi UK's wholesale business allows C&C Group to consolidate its distribution network and increase market share in the UK beverage sector.",
+      "why_now": "The acquisition was announced on 2026-09-11, signaling a strategic shift in their distribution footprint.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-01a6183756fd"
+      ],
+      "primary_source_event_id": "EVT-01a6183756fd",
+      "source_headlines": [
+        "C&C Group to acquire Asahi UK’s wholesale business"
+      ],
+      "source_headline": "C&C Group to acquire Asahi UK’s wholesale business",
+      "source_url": "https://finance.yahoo.com/small-business/articles/c-c-group-acquire-asahi-165428446.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T16:54:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T20:03:47Z",
+      "updated_at": "2026-09-11T20:03:47Z",
+      "decay_at": "2026-09-13T04:54:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7b08e8c1482d",
       "idea_version": "IDEAV-db4a7ad15168f0e8",
       "idea_version_started_at": "2026-09-11T18:48:34Z",
@@ -113746,76 +113818,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f8811cd4e8f2",
-      "idea_version": "IDEAV-34df6b15d983f300",
-      "idea_version_started_at": "2026-09-08T23:23:50Z",
-      "ticker": "TTD",
-      "company": "The Trade Desk",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 15% workforce reduction is a clear signal of slowing growth or internal cost-cutting measures necessitated by deteriorating business conditions.",
-      "why_now": "The layoff announcement occurred on 2026-09-08.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f6403ef66cc9"
-      ],
-      "primary_source_event_id": "EVT-f6403ef66cc9",
-      "source_headlines": [
-        "The Trade Desk cuts 15% of workforce"
-      ],
-      "source_headline": "The Trade Desk cuts 15% of workforce",
-      "source_url": "https://www.cfodive.com/news/trade-desk-cuts-15-workforce/829838/",
-      "source_name": "CFO Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T19:59:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T05:58:37Z",
-      "updated_at": "2026-09-08T23:23:50Z",
-      "decay_at": "2026-09-10T07:59:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -114090,77 +114092,6 @@
       "surfaced_at": "2026-09-09T20:06:47Z",
       "updated_at": "2026-09-09T20:06:47Z",
       "decay_at": "2026-09-11T06:32:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-523a4ee7d93a",
-      "idea_version": "IDEAV-6111ce52e34a3cb7",
-      "idea_version_started_at": "2026-09-08T22:44:52Z",
-      "ticker": "BALY",
-      "company": "Bally's",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of the CFO shortly after a going concern warning signals severe liquidity stress and potential failure to meet debt obligations.",
-      "why_now": "The executive departure was announced today, September 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d07e3b9d442"
-      ],
-      "primary_source_event_id": "EVT-2d07e3b9d442",
-      "source_headlines": [
-        "Bally’s CFO resigns weeks after going concern warning"
-      ],
-      "source_headline": "Bally’s CFO resigns weeks after going concern warning",
-      "source_url": "https://www.constructiondive.com/news/ballys-cfo-resigns-weeks-going-concern-warning/829798/",
-      "source_name": "Construction Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T19:52:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T22:44:52Z",
-      "updated_at": "2026-09-08T22:44:52Z",
-      "decay_at": "2026-09-10T07:52:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115895,9 +115826,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -115905,23 +115836,23 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 263,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 11
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 117,
-      "oldest_retained_at": "2026-08-21T20:46:00Z",
+      "evicted_count": 119,
+      "oldest_retained_at": "2026-08-22T08:01:49Z",
       "side_counts": {
         "long": {
           "evicted_count": 98,
           "oldest_retained_at": "2026-08-29T12:01:35Z"
         },
         "short": {
-          "evicted_count": 19,
-          "oldest_retained_at": "2026-08-21T20:46:00Z"
+          "evicted_count": 21,
+          "oldest_retained_at": "2026-08-22T08:01:49Z"
         }
       }
     },
@@ -118809,8 +118740,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T07:59:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-11T20:03:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -118883,8 +118814,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T07:52:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-11T20:03:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153094,8 +153025,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 693,
-    "live_count": 34,
+    "surfaced_total": 694,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
