@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T14:00:07Z",
+  "generated_at": "2026-09-11T14:05:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-374",
@@ -1132,6 +1132,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-396",
+      "headline": "Ondas Raises 2026 Revenue View: Can It Deliver the Required H2 Ramp?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ondas-raises-2026-revenue-view-can-it-deliver-required-h2-ramp",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Ondas raised its 2026 revenue guidance, signaling improved growth expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ondas raised its 2026 revenue guidance, signaling improved growth expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ondas Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-368",
       "headline": "Kroger Cuts Sales View Due to Macro Challenges",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-211",
-      "headline": "SBI-led group agrees to $3.5 billion debt package for Vodafone Idea to fuel network push: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/sbi-led-group-agrees-to-3-5-billion-debt-package-for-vodafone-idea-to-fuel-network-push-report-554734-2026-09-11?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:04:10Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "A $3.5 billion debt package is a significant capital injection for a distressed telecom operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $3.5 billion debt package is a significant capital injection for a distressed telecom operator.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153539,9 +153539,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7191072,
-    "news_picked_today": 966,
-    "news_dropped_today": 6162
+    "news_seen_today": 7209961,
+    "news_picked_today": 974,
+    "news_dropped_today": 6202
   },
   "book_momentum": {
     "live_count": 8,
