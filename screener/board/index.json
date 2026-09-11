@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T11:19:40Z",
+  "generated_at": "2026-09-11T11:29:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-360",
@@ -832,6 +832,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-365",
+      "headline": "Kroger Cuts Sales Forecast as Grocery Competition Intensifies",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/kroger-cuts-sales-forecast-as-grocery-competition-intensifies",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T11:00:58Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Kroger cut its sales forecast due to increased competition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kroger cut its sales forecast due to increased competition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kroger",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,55 +1955,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-196",
-      "headline": "34% capex cut to hit KIA expansion plans",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/34-capex-cut-to-hit-kia-expansion-plans-4142399",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T23:39:02Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "A 34% cut in capital expenditure will negatively impact the expansion plans of KIA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A 34% cut in capital expenditure will negatively impact the expansion plans of KIA.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KIA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152892,9 +152892,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5514201,
-    "news_picked_today": 798,
-    "news_dropped_today": 5010
+    "news_seen_today": 5636725,
+    "news_picked_today": 808,
+    "news_dropped_today": 5072
   },
   "book_momentum": {
     "live_count": 8,
