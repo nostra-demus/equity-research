@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-11T02:33:08Z",
+  "generated_at": "2026-09-11T02:44:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-201",
+      "headline": "WEC: Completion of Proposed Acquisitions and Cap Raising [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEC?key=2924-03134518-2A1696692",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T02:23:58Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "WEC completed acquisitions and a capital raise, which directly impacts its capital structure and asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WEC completed acquisitions and a capital raise, which directly impacts its capital structure and asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WEC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-143",
       "headline": "BONJOUR HOLD (00653): EXCHANGE NOTICE - TRADING HALT",
@@ -247,6 +297,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-206",
+      "headline": "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/coforge-says-chairman-op-bhatt-instructed-to-hide-audit-findings-from-other-board-members-kpmg-audit-dk-singh-nrc/articleshow/134040634.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T02:14:05Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Allegations of a chairman hiding audit findings from the board represent a severe governance and accounting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allegations of a chairman hiding audit findings from the board represent a severe governance and accounting risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-152",
       "headline": "Azizi to announce $8bn Sharjah residential community",
       "headline_en": null,
@@ -291,6 +391,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-211",
+      "headline": "SBI-led group agrees to $3.5 billion debt package for Vodafone Idea to fuel network push: Report",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/sbi-led-group-agrees-to-3-5-billion-debt-package-for-vodafone-idea-to-fuel-network-push-report-554734-2026-09-11?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T02:04:10Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "A $3.5 billion debt package is a significant capital injection for a distressed telecom operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $3.5 billion debt package is a significant capital injection for a distressed telecom operator.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone Idea",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -531,6 +680,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-205",
+      "headline": "PAR: Drawdown of Tranche 4 under the Convertible Note Facility [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03134515-3A701570",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T02:19:13Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "PAR is drawing down on a convertible note facility, indicating a need for liquidity and potential future dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "PAR is drawing down on a convertible note facility, indicating a need for liquidity and potential future dilution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PAR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1750,190 +1948,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-030",
-      "headline": "LIV Golf wins interim court approval to access $14 million in bankruptcy financing",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/liv-golf-wins-interim-court-approval-access-14-million-bankruptcy-financing-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:12:28Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "LIV Golf secured $14 million in bankruptcy financing, a critical step for liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "LIV Golf secured $14 million in bankruptcy financing, a critical step for liquidity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-178",
-      "headline": "Bahrain court has ruled in our favour in bond case: HDFC",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/bahrain-court-has-ruled-in-our-favour-in-bond-case-hdfc/articleshow/134035989.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T23:26:53Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "HDFC won a bond case in a Bahrain court, resolving a legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HDFC won a bond case in a Bahrain court, resolving a legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-153",
-      "headline": "Oman issues RFP for 500MW Sinaw solar plant",
-      "headline_en": null,
-      "url": "https://www.meed.com/oman-issues-rfp-for-500mw-sinaw-solar-plant",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:05:51Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Oman issued an RFP for a 500MW solar plant, signaling major infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Oman issued an RFP for a 500MW solar plant, signaling major infrastructure investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-151",
-      "headline": "Contractor wins Riyadh airport sewage plant deal",
-      "headline_en": null,
-      "url": "https://www.meed.com/contractor-selected-for-riyadh-airport-sewage-plant",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T02:05:51Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Contractor wins a significant infrastructure deal for a Riyadh airport sewage plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Contractor wins a significant infrastructure deal for a Riyadh airport sewage plant.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154659,9 +154673,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1082084,
-    "news_picked_today": 269,
-    "news_dropped_today": 1051
+    "news_seen_today": 1156310,
+    "news_picked_today": 299,
+    "news_dropped_today": 1117
   },
   "book_momentum": {
     "live_count": 8,
