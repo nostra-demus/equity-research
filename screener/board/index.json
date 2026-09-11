@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T00:43:19Z",
+  "generated_at": "2026-09-11T00:48:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-001",
@@ -904,6 +904,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-045",
+      "headline": "Ceat bets on dual-brand strategy after acquiring Camso",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/ceat-tyres-dual-brand-strategy-camso-acquisition-arnab-banerjee-11789036742497.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:30:55Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Ceat is implementing a new dual-brand strategy following the acquisition of Camso.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Ceat is implementing a new dual-brand strategy following the acquisition of Camso.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ceat",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,55 +1929,6 @@
         {
           "name": "Ximen Mining",
           "ticker": "XXMMF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-022",
-      "headline": "NUTEX HEALTH PROVIDES UPDATE REGARDING CYBERSECURITY EVENT",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/nutex-health-provides-update-regarding-cybersecurity-event-302875826.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-10T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Nutex Health is providing an update on a cybersecurity event, which poses operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Nutex Health is providing an update on a cybersecurity event, which poses operational and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "cybersecurity",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nutex Health",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -154658,9 +154658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 288724,
-    "news_picked_today": 46,
-    "news_dropped_today": 290
+    "news_seen_today": 314904,
+    "news_picked_today": 47,
+    "news_dropped_today": 313
   },
   "book_momentum": {
     "live_count": 8,
