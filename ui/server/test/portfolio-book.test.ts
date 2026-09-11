@@ -793,11 +793,15 @@ check('with a blank open/close indicator the effect is read off the position', (
 })
 
 check('a fill the broker gave no id still owns what it opened', () => {
+  // TWO id-less fills in different contracts. Keyed on the missing id they would share one slot: one fill
+  // would read the other's shares as its own while the other read as sold. The lot object is the only
+  // identity they have.
+  const base = { ...doc.trades[0]!, tradeID: null, transactionID: null, openCloseIndicator: 'O', levelOfDetail: 'EXECUTION' }
   const { executions } = runFifo([
-    { ...doc.trades[0]!, tradeID: null, transactionID: null, symbol: 'NID', conid: '44', quantity: 7, tradePrice: 3, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' },
+    { ...base, symbol: 'NID', conid: '44', quantity: 7, tradePrice: 3, dateTime: '2026-01-01T10:00:00' },
+    { ...base, symbol: 'NID2', conid: '45', quantity: 20, tradePrice: 4, dateTime: '2026-01-02T10:00:00' },
   ])
-  assert.equal(executions[0]!.id, null)
-  assert.equal(executions[0]!.stillOpen, 7)
+  assert.deepEqual(executions.map((e) => [e.id, e.symbol, e.stillOpen]), [[null, 'NID', 7], [null, 'NID2', 20]])
 })
 
 check('a restated trade appears once, as its replacement', () => {

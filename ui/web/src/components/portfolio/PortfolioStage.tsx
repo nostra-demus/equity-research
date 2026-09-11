@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, foldRoundTrips,
+  fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, fillsOutsideBase, foldRoundTrips,
   type FillRow, type FillScope, type TradeRowData,
 } from './tradeRows'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -1428,7 +1428,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
 
   // Every fill, open positions included. Rendered on BOTH paths: a book whose positions are all still
   // held has no round trips at all, and that is exactly the book on which this tab showed nothing.
-  const allTrades = <AllTrades executions={book.executions} />
+  const allTrades = <AllTrades executions={book.executions} baseCurrency={ccy} />
 
   if (rows.length === 0) {
     return (
@@ -1626,7 +1626,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
  *  position, had no row anywhere on this tab (40 of 62 buys on the real book). This lists every
  *  execution the statements carry, newest first, with what it did to the position and what is left of
  *  it, so "did we buy more, and when" is one filter away. */
-function AllTrades({ executions }: { executions: PortfolioExecution[] | undefined }) {
+function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecution[] | undefined; baseCurrency: string | null }) {
   const [scope, setScope] = useState<FillScope>('all')
   const [symbol, setSymbol] = useState<string | null>(null)
   const rows = useMemo(() => fillRows(executions ?? []), [executions])
@@ -1635,7 +1635,9 @@ function AllTrades({ executions }: { executions: PortfolioExecution[] | undefine
   const active = symbol !== null && symbols.some((s) => s.symbol === symbol) ? symbol : null
   const shown = useMemo(() => filterFills(rows, scope, active), [rows, scope, active])
   const summary = useMemo(() => fillSummary(shown), [shown])
-  const mixedCurrency = useMemo(() => new Set(rows.map((r) => r.currency ?? '—')).size > 1, [rows])
+  // Every figure in the table is in the trade's own currency, while the cards and round trips beside it
+  // are in the base. Say so whenever any fill is not in the base, not only when the fills mix currencies.
+  const outsideBase = useMemo(() => fillsOutsideBase(rows, baseCurrency), [rows, baseCurrency])
   const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
 
   return (
@@ -1650,7 +1652,7 @@ function AllTrades({ executions }: { executions: PortfolioExecution[] | undefine
             <div className="fundbook__ranges" role="group" aria-label="Which trades to show">
               <button type="button" className={`fundbook__range${scope === 'all' ? ' is-on' : ''}`} aria-pressed={scope === 'all'} onClick={() => setScope('all')}>All</button>
               <button type="button" className={`fundbook__range${scope === 'open' ? ' is-on' : ''}`} aria-pressed={scope === 'open'} onClick={() => setScope('open')}
-                title="Only the fills of positions still open, each since it was last flat">Open positions</button>
+                title="Only the fills of positions still open, each since it was opened">Open positions</button>
             </div>
             <select className="fundbook__select" aria-label="Show one name" value={active ?? ''} onChange={(e) => setSymbol(e.target.value || null)}>
               <option value="">All names</option>
@@ -1687,9 +1689,9 @@ function AllTrades({ executions }: { executions: PortfolioExecution[] | undefine
         <div className="fundbook__foot">
           {plural(summary.fills, 'fill')}: {plural(summary.buys, 'buy')} and {plural(summary.sells, 'sell')}
           {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}.
-          {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was last flat.`}
+          {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was opened.`}
           {' '}Status is as of the last statement; realised is net of commission on both legs
-          {mixedCurrency ? ', and every figure is in the trade’s own currency' : ''}.
+          {outsideBase ? `, and every figure is in the trade’s own currency${baseCurrency ? `, not converted to ${baseCurrency}` : ''}` : ''}.
         </div>
       )}
     </div>
@@ -1712,7 +1714,7 @@ function FillLine({ r }: { r: FillRow }) {
       <strong className="mono">{r.symbol ?? '—'}</strong>
       <span className="dim">{r.currency ?? '—'}</span>
       <span title={unmatched}>
-        <b className="fundbook__side">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
+        <b className="fundbook__fillside">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
         <span className="dim">{fillAction(r)}</span>
         {unmatched && <small className="fundbook__lots">{fmtQty(r.unmatchedQuantity)} unmatched</small>}
       </span>

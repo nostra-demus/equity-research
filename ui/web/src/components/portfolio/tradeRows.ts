@@ -275,9 +275,11 @@ export function groupByIdea(
 const QTY_EPS = 1e-9
 
 export interface FillRow extends PortfolioExecution {
-  /** Part of a position still open now: filled after its contract last went flat, in a contract that is
-   *  not flat at the end. A name bought in May, sold out in July and bought again in August has only its
-   *  August fills here — the earlier round trip is history, not part of what is held. */
+  /** Part of a position still open now: filled since its contract last OPENED — after the fill that last
+   *  left it flat, or from the flip that last reversed it — in a contract that is not flat at the end. A
+   *  name bought in May, sold out in July and bought again in August has only its August fills here; a
+   *  long reversed into a short keeps only the reversing fill onward. The earlier trades are history, not
+   *  part of what is held. */
   current: boolean
 }
 
@@ -287,19 +289,32 @@ export type FillScope = 'all' | 'open'
  *  CONTRACT, not the symbol: two futures expiries share a root, and one going flat says nothing about
  *  the other. */
 export function fillRows(executions: PortfolioExecution[]): FillRow[] {
-  const lastFlat = new Map<string, number>()
+  // The index of the last fill that ENDED a position, per contract. A fill leaving it flat ends it. So
+  // does a flip, which closes one side and opens the other inside a single fill and never lands on zero:
+  // "last went flat" alone kept a long's buys under open positions after a C;O sale had reversed it. The
+  // flip itself opens the new position, so the end sits just before it.
+  const endedAt = new Map<string, number>()
   const final = new Map<string, number>()
   executions.forEach((e, i) => {
-    if (Math.abs(e.positionAfter) <= QTY_EPS) lastFlat.set(e.key, i)
+    if (Math.abs(e.positionAfter) <= QTY_EPS) endedAt.set(e.key, i)
+    else if (e.effect === 'flip') endedAt.set(e.key, i - 1)
     final.set(e.key, e.positionAfter)
   })
   return executions
-    .map((e, i) => ({ ...e, current: Math.abs(final.get(e.key) ?? 0) > QTY_EPS && i > (lastFlat.get(e.key) ?? -1) }))
+    .map((e, i) => ({ ...e, current: Math.abs(final.get(e.key) ?? 0) > QTY_EPS && i > (endedAt.get(e.key) ?? -1) }))
     .reverse()
 }
 
 export function filterFills(rows: FillRow[], scope: FillScope, symbol: string | null): FillRow[] {
   return rows.filter((r) => (scope === 'all' || r.current) && (symbol === null || r.symbol === symbol))
+}
+
+/** Whether any fill is in a currency other than the book's base. The blotter shows every figure in the
+ *  trade's own currency, beside round trips and cards stated in the base, so this is when it must say so.
+ *  Mixed currencies are not the test: a book trading only EUR on a USD base is single-currency and still
+ *  differs from every base figure around it. An unknown base or fill currency counts as different. */
+export function fillsOutsideBase(rows: PortfolioExecution[], baseCurrency: string | null): boolean {
+  return baseCurrency === null || rows.some((r) => r.currency !== baseCurrency)
 }
 
 /** The names the filter offers: how many fills each has, and whether any of them is still held. */

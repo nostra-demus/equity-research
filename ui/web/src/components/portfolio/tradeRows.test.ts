@@ -3,7 +3,7 @@
 // presentation — every total must survive it untouched.
 // Run: npx tsx src/components/portfolio/tradeRows.test.ts
 import assert from 'node:assert/strict'
-import { fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, foldRoundTrips, groupByIdea } from './tradeRows'
+import { fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, fillsOutsideBase, foldRoundTrips, groupByIdea } from './tradeRows'
 import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 let passed = 0
@@ -427,6 +427,45 @@ check('the name list marks which names are still held', () => {
     fill({ id: 'c2', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-20T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
   ])
   assert.deepEqual(fillSymbols(rows), [{ symbol: 'CANE', fills: 2, held: false }, { symbol: 'GLDM', fills: 1, held: true }])
+})
+
+check('a flip starts a new position: the long it closed is history', () => {
+  // Buy 100, then one C;O sale of 150: the long is closed and a 50 short opened in the same fill. Nothing
+  // leaves the position at zero, so "last went flat" alone kept the closed long's buy under open positions.
+  const rows = fillRows([
+    fill({ id: 'long', executedAt: '2026-01-01T10:00:00', quantity: 100, positionAfter: 100, openedQuantity: 100, stillOpen: 0 }),
+    fill({ id: 'flip', executedAt: '2026-02-01T10:00:00', side: 'sell', effect: 'flip', quantity: 150, positionBefore: 100, positionAfter: -50, openedQuantity: 50, stillOpen: 50, realizedLocal: 200 }),
+  ])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['flip'])
+})
+
+check('fills after a flip belong to the new position, and closing it leaves nothing open', () => {
+  const held = [
+    fill({ id: 'long', executedAt: '2026-01-01T10:00:00', quantity: 100, positionAfter: 100, openedQuantity: 100, stillOpen: 0 }),
+    fill({ id: 'flip', executedAt: '2026-02-01T10:00:00', side: 'sell', effect: 'flip', quantity: 150, positionBefore: 100, positionAfter: -50, openedQuantity: 50, stillOpen: 50 }),
+    fill({ id: 'add', executedAt: '2026-02-10T10:00:00', side: 'sell', effect: 'add', quantity: 30, positionBefore: -50, positionAfter: -80, openedQuantity: 30, stillOpen: 30 }),
+  ]
+  assert.deepEqual(filterFills(fillRows(held), 'open', null).map((r) => r.id), ['add', 'flip'])
+  const covered = [...held, fill({ id: 'cover', executedAt: '2026-03-01T10:00:00', effect: 'close', quantity: 80, positionBefore: -80, positionAfter: 0, openedQuantity: 0, stillOpen: 0 })]
+  assert.equal(filterFills(fillRows(covered), 'open', null).length, 0)
+})
+
+check('a flip back from short to long resets the same way', () => {
+  const rows = fillRows([
+    fill({ id: 'short', executedAt: '2026-01-01T10:00:00', side: 'sell', quantity: 30, positionAfter: -30, openedQuantity: 30, stillOpen: 0 }),
+    fill({ id: 'back', executedAt: '2026-02-01T10:00:00', effect: 'flip', quantity: 50, positionBefore: -30, positionAfter: 20, openedQuantity: 20, stillOpen: 20 }),
+  ])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['back'])
+})
+
+check('the blotter says its figures are in the trade’s currency whenever that is not the base', () => {
+  const at = '2026-01-01T10:00:00'
+  // The miss this pins: a single-currency EUR book on a USD base showed local realised with no note,
+  // because the note fired only when the fills themselves spanned two currencies.
+  assert.equal(fillsOutsideBase([fill({ id: 'e', executedAt: at, currency: 'EUR' })], 'USD'), true)
+  assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at })], 'USD'), false, 'figures already in the base need no note')
+  assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at }), fill({ id: 'e', executedAt: at, currency: 'EUR' })], 'USD'), true)
+  assert.equal(fillsOutsideBase([fill({ id: 'u', executedAt: at })], null), true, 'an unknown base cannot be claimed')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

@@ -5166,7 +5166,8 @@ a { color: inherit; }
 /* Every fill: the blotter. The Trade cell carries the side AND what the fill did to the position (opened,
    added, trimmed, closed), which is the question the table exists to answer. */
 .fundbook__row--fills { grid-template-columns: 88px 92px 44px minmax(132px, 1.3fr) 70px 78px 90px 66px 92px 86px minmax(120px, 1fr); min-width: 1068px; }
-.fundbook__side { font-weight: 700; color: var(--text); }
+/* Its own name: .fundbook__side is the log-a-trade Bought/Sold toggle, and its later rule won here. */
+.fundbook__fillside { font-weight: 700; color: var(--text); }
 /* The blotter's filters sit in the panel head beside its title; the chart-range buttons are the toggle. */
 .fundbook__fillctl { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
 .fundbook__fillctl .fundbook__ranges { padding: 0; }
