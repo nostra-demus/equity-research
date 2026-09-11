@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T17:08:18Z",
+  "generated_at": "2026-09-11T17:18:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -1377,6 +1377,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-439",
+      "headline": "Indiabulls signs deal to acquire 70% stake in Fintech Cloud for ₹1,050 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/indiabulls-share-price-signs-deal-to-acquire-70-stake-in-fintech-cloud-for-rs-1050-crore-19989684.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T17:05:10Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Indiabulls is acquiring a 70% stake in Fintech Cloud for ₹1,050 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indiabulls is acquiring a 70% stake in Fintech Cloud for ₹1,050 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indiabulls",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-438",
+      "headline": "C&C Group to acquire Asahi UK’s wholesale business",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/c-c-group-acquire-asahi-165428446.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:54:28Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "C&C Group is acquiring Asahi UK's wholesale business, representing a significant inorganic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C&C Group is acquiring Asahi UK's wholesale business, representing a significant inorganic expansion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C&C Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-437",
       "headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
       "headline_en": null,
@@ -1869,104 +1967,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-368",
-      "headline": "Kroger Cuts Sales View Due to Macro Challenges",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/kroger-cuts-sales-view-due-to-macro-challenges-4adac3e8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T11:23:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Kroger has cut its sales guidance due to macro challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger has cut its sales guidance due to macro challenges.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-365",
-      "headline": "Kroger Cuts Sales Forecast as Grocery Competition Intensifies",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/kroger-cuts-sales-forecast-as-grocery-competition-intensifies",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T11:00:58Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Kroger cut its sales forecast due to increased competition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger cut its sales forecast due to increased competition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153393,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8843976,
-    "news_picked_today": 1161,
-    "news_dropped_today": 7719
+    "news_seen_today": 8941948,
+    "news_picked_today": 1169,
+    "news_dropped_today": 7783
   },
   "book_momentum": {
     "live_count": 8,
