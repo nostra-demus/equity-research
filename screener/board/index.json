@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T15:23:17Z",
+  "generated_at": "2026-09-11T15:29:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-408",
+      "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026204548_Stx_VDCL_PR_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T15:16:29Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Vijaya Diagnostic Centre Limited is acquiring the diagnostic business of Arya Wellness Centre.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vijaya Diagnostic Centre Limited is acquiring the diagnostic business of Arya Wellness Centre.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vijaya Diagnostic Centre Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-407",
       "headline": "HONBRIDGE (08137): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 73% EQUITY INTEREST IN BONA GLOBAL",
@@ -193,6 +242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-426",
+      "headline": "HXTL (01085): MAJOR TRANSACTION IN RELATION TO QUASI-REITS - NET DISPOSAL OF 70% OF THE UNDERLYING ASSETS; AND NOTICE OF THE EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101543.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T12:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "HXTL announced a major transaction involving the net disposal of 70% of its underlying assets in relation to quasi-REITs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HXTL announced a major transaction involving the net disposal of 70% of its underlying assets in relation to quasi-REITs.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HXTL",
+          "ticker": "01085",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1280,6 +1378,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-422",
+      "headline": "HCWC Nears Host Digital Merger as $1.25B AI Lease Adds Momentum",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hcwc-nears-host-digital-merger-125b-ai-lease-adds-momentum",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T13:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "HCWC is nearing a merger with Host Digital, supported by a $1.25B AI-related lease agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HCWC is nearing a merger with Host Digital, supported by a $1.25B AI-related lease agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCWC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-398",
       "headline": "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious",
       "headline_en": null,
@@ -1820,148 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-314",
-      "headline": "Troubled Indonesian Builder Restructures $1 Billion Bank Loans",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/troubled-indonesian-builder-restructures-1-billion-bank-loans",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T07:24:29Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "A $1 billion loan restructuring indicates significant financial distress for the builder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $1 billion loan restructuring indicates significant financial distress for the builder.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-267",
-      "headline": "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/biohaven-drug-suffers-fda-hold-days-after-attracting-350m-deal",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T04:37:09Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Biohaven's epilepsy drug is under an FDA hold, impacting a recent $350M deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Biohaven's epilepsy drug is under an FDA hold, impacting a recent $350M deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Biohaven",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-252",
-      "headline": "Russian air strikes injure eight in Kyiv, Ukraine hits Ozon in Saratov",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/russian-air-strikes-injure-two-cause-fire-9-storey-apartment-building-kyiv-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T03:44:03Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Escalation of military conflict involving air strikes in Kyiv and attacks on infrastructure in Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Escalation of military conflict involving air strikes in Kyiv and attacks on infrastructure in Russia.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [
-        {
-          "name": "Ozon",
-          "ticker": "OZON",
-          "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153388,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7844637,
-    "news_picked_today": 1037,
-    "news_dropped_today": 6835
+    "news_seen_today": 7864454,
+    "news_picked_today": 1058,
+    "news_dropped_today": 6958
   },
   "book_momentum": {
     "live_count": 8,
