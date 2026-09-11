@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T06:49:43Z",
+  "generated_at": "2026-09-11T06:59:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-279",
@@ -1763,6 +1763,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-284",
+      "headline": "Alembic Pharmaceuticals Limited: Successful completion of unannounced USFDA onsite inspection at Alembic Pharmaceuticals Limited s Bioequivalence Facility in Vadodara, Gujarat",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/APLLTD_11092026112951_APL-SE-Intimation-USFDA-BE_Inspection-11-9-2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T06:07:30Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Alembic Pharmaceuticals successfully completed an unannounced USFDA inspection at its bioequivalence facility, reducing regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Alembic Pharmaceuticals successfully completed an unannounced USFDA inspection at its bioequivalence facility, reducing regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alembic Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-242",
       "headline": "4DS: Letter to Eligible Holders-Non-renounceable Rights Issue",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-050",
-      "headline": "RWL: Change of Chief Financial Officer",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RWL?key=2924-03134446-3A701552",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T23:59:47Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Change of CFO is a significant management transition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Change of CFO is a significant management transition.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rewardle Holdings",
-          "ticker": "RWL",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153464,9 +153464,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2915444,
-    "news_picked_today": 583,
-    "news_dropped_today": 2825
+    "news_seen_today": 3015204,
+    "news_picked_today": 585,
+    "news_dropped_today": 2895
   },
   "book_momentum": {
     "live_count": 8,
