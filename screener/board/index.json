@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-11T15:33:49Z",
+  "generated_at": "2026-09-11T15:43:18Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260911-408",
-      "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam.\".",
+      "inbox_id": "INB-20260911-427",
+      "headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange about General Updates - Investor Presentation - 100% Acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Asssam.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026204548_Stx_VDCL_PR_Signed.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026205743_Stx_VDCL_Inv_Pres_Signed.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T15:16:29Z",
+      "found_at": "2026-09-11T15:27:58Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Vijaya Diagnostic Centre Limited is acquiring the diagnostic business of Arya Wellness Centre.",
+      "prelim_note": "Vijaya Diagnostic Centre is acquiring an integrated diagnostic business in Guwahati, expanding its regional footprint.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Vijaya Diagnostic Centre Limited is acquiring the diagnostic business of Arya Wellness Centre.",
+      "triage_reason": "Vijaya Diagnostic Centre is acquiring an integrated diagnostic business in Guwahati, expanding its regional footprint.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-428",
+      "headline": "25-NSE - AtaiBeckley Inc. (0002081043) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2081043/000135445726000870/0001354457-26-000870-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T15:06:20Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "AtaiBeckley Inc. has filed a 25-NSE form indicating a delisting from the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AtaiBeckley Inc. has filed a 25-NSE form indicating a delisting from the exchange.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AtaiBeckley Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-321",
-      "headline": "Jefferies cuts KEI Industries target price by 11%. Will UltraTech’s entry put the company at risk?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/jefferies-cuts-kei-industries-target-price-by-11-will-ultratechs-entry-put-the-company-at-risk/articleshow/134056011.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T08:47:52Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Jefferies cut the target price for KEI Industries by 11%, signaling a shift in analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jefferies cut the target price for KEI Industries by 11%, signaling a shift in analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KEI Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153393,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7884147,
-    "news_picked_today": 1063,
-    "news_dropped_today": 7001
+    "news_seen_today": 7962675,
+    "news_picked_today": 1068,
+    "news_dropped_today": 7044
   },
   "book_momentum": {
     "live_count": 8,
