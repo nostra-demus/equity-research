@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-1e21975df7c3",
-  "idea_version": "IDEAV-e826bd2e34cc78c9",
-  "idea_version_started_at": "2026-09-08T21:38:42Z",
-  "ticker": "GME",
-  "company": "GameStop",
-  "exchange": "NYSE",
+  "idea_id": "IDEA-6c411243ff00",
+  "idea_version": "IDEAV-f2e992d469e5e438",
+  "idea_version_started_at": "2026-09-11T18:09:01Z",
+  "ticker": "NFE",
+  "company": "New Fortress Energy",
+  "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company reported an increase in quarterly profit and raised its full-year outlook, signaling better-than-expected operational performance.",
-  "why_now": "The Q2 2026 earnings report was released on September 8, 2026.",
-  "conviction": 50,
+  "reason": "The company successfully completed a restructuring that significantly reduced its debt load to $700 million, improving its balance sheet and financial flexibility.",
+  "why_now": "The restructuring completion was reported today, September 11, 2026.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 19,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -43,30 +43,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "balance_sheet_survival",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ab04c9656e52"
+    "EVT-cba92ef88340"
   ],
-  "primary_source_event_id": "EVT-ab04c9656e52",
+  "primary_source_event_id": "EVT-cba92ef88340",
   "source_headlines": [
-    "GameStop Q2 2026 earnings: profit rises, full-year outlook raised"
+    "New Fortress completes restructuring, cuts debt to $700 million"
   ],
-  "source_headline": "GameStop Q2 2026 earnings: profit rises, full-year outlook raised",
-  "source_url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-q2-2026-earnings-profit-174413093.html",
-  "source_name": "Yahoo Finance",
+  "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
+  "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-08T17:44:13Z",
+  "newest_source_at": "2026-09-11T14:42:34Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-08T21:38:42Z",
-  "updated_at": "2026-09-08T21:38:42Z",
-  "decay_at": "2026-09-10T05:44:13Z",
+  "surfaced_at": "2026-09-11T18:09:01Z",
+  "updated_at": "2026-09-11T18:09:01Z",
+  "decay_at": "2026-09-13T02:42:34Z",
   "status": "live",
   "promoted_signal_id": null
 }
