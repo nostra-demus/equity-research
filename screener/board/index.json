@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T06:40:14Z",
+  "generated_at": "2026-09-11T06:44:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-279",
@@ -1910,50 +1910,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260911-257",
-      "headline": "Virgin Media O2 owners target £600mn in cost cuts",
+      "inbox_id": "INB-20260911-280",
+      "headline": "₹1 crore penalty on Canara HSBC Life Insurance Company over mis-selling of a deferred annuity policy to an 88-year-old senior citizen",
       "headline_en": null,
-      "url": "https://www.ft.com/content/56a0085d-460d-45a1-a5a9-7dc862e826c0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://economictimes.indiatimes.com/wealth/insure/1-crore-penalty-on-canara-hsbc-life-insurance-company-over-mis-selling-of-a-deferred-annuity-policy-to-an-88-year-old-senior-citizen/articleshow/134049665.cms",
+      "source_name": "The Economic Times Wealth",
       "input_nature": "news_headline",
-      "found_at": "2026-09-11T04:00:28Z",
+      "found_at": "2026-09-11T06:27:14Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Virgin Media O2 owners are targeting 600 million GBP in cost cuts to improve margins.",
+      "prelim_note": "Canara HSBC Life Insurance Company was fined ₹1 crore for mis-selling a policy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Virgin Media O2 owners are targeting 600 million GBP in cost cuts to improve margins.",
-      "region": "GB",
+      "triage_reason": "Canara HSBC Life Insurance Company was fined ₹1 crore for mis-selling a policy.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 2,
+        "event": 6,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Virgin Media O2",
+          "name": "Canara HSBC Life Insurance Company",
           "ticker": null,
-          "listing_country": "GB"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153464,9 +153464,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2832500,
-    "news_picked_today": 575,
-    "news_dropped_today": 2761
+    "news_seen_today": 2865666,
+    "news_picked_today": 577,
+    "news_dropped_today": 2783
   },
   "book_momentum": {
     "live_count": 8,
