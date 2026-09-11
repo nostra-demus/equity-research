@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T13:45:36Z",
+  "generated_at": "2026-09-11T14:00:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-374",
@@ -1034,6 +1034,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-388",
+      "headline": "Oracle's stock rises on earnings and revenue beat fueled by AI cloud demand",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T13:34:34Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Oracle beat earnings and revenue expectations, driven by strong AI cloud demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle beat earnings and revenue expectations, driven by strong AI cloud demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-380",
       "headline": "Kroger Cuts Sales View, Citing Cyclospora and Pressured Shoppers",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
           "name": "Vodafone Idea",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-233",
-      "headline": "Blackstone’s AirTrunk seeks S$1.6 billion loan for Singapore IPO",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/startups-tech/technology/blackstones-airtrunk-seeks-s1-6-billion-loan-singapore-ipo",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:44:40Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "AirTrunk is seeking a 1.6 billion SGD loan to facilitate a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AirTrunk is seeking a 1.6 billion SGD loan to facilitate a potential IPO.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AirTrunk",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -153539,9 +153539,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7059883,
-    "news_picked_today": 941,
-    "news_dropped_today": 6019
+    "news_seen_today": 7191072,
+    "news_picked_today": 966,
+    "news_dropped_today": 6162
   },
   "book_momentum": {
     "live_count": 8,
