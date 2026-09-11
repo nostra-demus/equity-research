@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:34:43Z",
+  "generated_at": "2026-09-11T09:44:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-324",
@@ -635,6 +635,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-334",
+      "headline": "Energy Holdings to buy Ventura Offshore to form $1 billion group, mulls US dual-listing",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/energy-holdings-buy-ventura-offshore-form-1-billion-group-mulls-us-dual-listing-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T09:23:59Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Energy Holdings to acquire Ventura Offshore in a deal valued at $1 billion, creating a new entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energy Holdings to acquire Ventura Offshore in a deal valued at $1 billion, creating a new entity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energy Holdings",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Ventura Offshore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1801,6 +1855,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-329",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 7th (Seventh) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_11092026145518_IntimationofOutcomeof7thCoCMeetingunderReg30ofLODR_11092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:25:33Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "DPSC Limited is involved in the ongoing insolvency process of India Power Corporation Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "DPSC Limited is involved in the ongoing insolvency process of India Power Corporation Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-328",
       "headline": "FORTUNE SUN (00352): QUARTERLY UPDATE ON STATUS OF RESUMPTION,FURTHER CLARIFICATION OF DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DELAY IN DESPATCH OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1845,104 +1953,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-268",
-      "headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DIACABS_11092026104334_Regulation30PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T05:13:44Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Diamond Power Infrastructure has successfully exited the NCLT insolvency framework one year ahead of schedule, signaling a significant improvement in its financial and operational status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Diamond Power Infrastructure has successfully exited the NCLT insolvency framework one year ahead of schedule, signaling a significant improvement in its financial and operational status.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diamond Power Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-205",
-      "headline": "PAR: Drawdown of Tranche 4 under the Convertible Note Facility [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03134515-3A701570",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T02:19:13Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "PAR is drawing down on a convertible note facility, indicating a need for liquidity and potential future dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "PAR is drawing down on a convertible note facility, indicating a need for liquidity and potential future dilution.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PAR",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153309,9 +153319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4473935,
-    "news_picked_today": 695,
-    "news_dropped_today": 4201
+    "news_seen_today": 4577691,
+    "news_picked_today": 711,
+    "news_dropped_today": 4281
   },
   "book_momentum": {
     "live_count": 8,
