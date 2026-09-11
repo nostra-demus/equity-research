@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T05:44:42Z",
+  "generated_at": "2026-09-11T05:59:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-269",
+      "headline": "ECL: Update on Deferral of De-Listing",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ECL?key=2924-03134595-2A1696716",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T05:10:03Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "The company is providing an update on the status of its delisting process, which affects its capital structure and listing status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is providing an update on the status of its delisting process, which affects its capital structure and listing status.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ECL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-264",
       "headline": "MAX SIGHT GROUP (08483): JOINT ANNOUNCEMENT DESPATCH OF COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY CENTRAL CHINA INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF CWT LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN THE SHARE CAPITAL OF MAX SIGHT GROUP HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY CWT LIMITED AND/OR PARTIES ACTING IN CONCERT WITH IT)",
@@ -1908,55 +1957,6 @@
           "name": "I-Control",
           "ticker": "01402",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-048",
-      "headline": "IBR: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IBR?key=2924-03134450-6A1343362",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T00:07:58Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a significant upcoming event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a significant upcoming event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imricor Medical Systems",
-          "ticker": "IBR",
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -153472,9 +153472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2369362,
-    "news_picked_today": 546,
-    "news_dropped_today": 2286
+    "news_seen_today": 2511327,
+    "news_picked_today": 548,
+    "news_dropped_today": 2500
   },
   "book_momentum": {
     "live_count": 8,
