@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T03:03:27Z",
+  "generated_at": "2026-09-11T03:09:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-201",
@@ -925,6 +925,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-234",
+      "headline": "Municipal Securities Underwriters Pay a Total of $325,000 in Fines",
+      "headline_en": null,
+      "url": "https://www.sec.gov/newsroom/press-releases/97-114-municipal-securities-underwriters-pay-total-325000-fines",
+      "source_name": "U.S. Securities & Exchange Commission (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-12-16T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Multiple municipal securities underwriters were fined a total of $325,000 for regulatory violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Multiple municipal securities underwriters were fined a total of $325,000 for regulatory violations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1942,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-118",
-      "headline": "True Fitness, True Yoga closes all outlets; liquidators start winding-up process",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/singapore/smes/true-fitness-true-yoga-closes-all-outlets-liquidators-start-winding-process",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T01:47:31Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "True Fitness and True Yoga are undergoing liquidation and closing all outlets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "True Fitness and True Yoga are undergoing liquidation and closing all outlets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "True Fitness",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153890,9 +153884,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1242573,
-    "news_picked_today": 331,
-    "news_dropped_today": 1205
+    "news_seen_today": 1267158,
+    "news_picked_today": 340,
+    "news_dropped_today": 1244
   },
   "book_momentum": {
     "live_count": 8,
