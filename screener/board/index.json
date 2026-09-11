@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T22:43:47Z",
+  "generated_at": "2026-09-11T22:48:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -1377,6 +1377,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-443",
+      "headline": "Apollo Global Is Said in Talks to Acquire J&J’s Orthopedics Unit",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/apollo-global-is-said-in-talks-to-acquire-j-j-s-orthopedics-unit",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T22:26:12Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Apollo Global is in talks to acquire Johnson & Johnson's orthopedics unit, representing a significant potential divestiture for J&J.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo Global is in talks to acquire Johnson & Johnson's orthopedics unit, representing a significant potential divestiture for J&J.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Johnson & Johnson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-441",
       "headline": "Another travel company ordered to close in bankruptcy, cancel all trips",
       "headline_en": null,
@@ -1918,55 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-380",
-      "headline": "Kroger Cuts Sales View, Citing Cyclospora and Pressured Shoppers",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/kroger-cuts-sales-view-due-to-macro-challenges-4adac3e8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Kroger cut its sales guidance due to operational issues and consumer pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger cut its sales guidance due to operational issues and consumer pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": "KR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152974,9 +152979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12515524,
-    "news_picked_today": 1339,
-    "news_dropped_today": 10637
+    "news_seen_today": 12536736,
+    "news_picked_today": 1345,
+    "news_dropped_today": 10679
   },
   "book_momentum": {
     "live_count": 8,
