@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-11T08:35:28Z",
+  "generated_at": "2026-09-11T08:39:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260911-318",
+      "headline": "SBP GROUP (01177): CONNECTED TRANSACTION - ACQUISITION OF 5% EQUITY INTEREST IN CT TIANQING THROUGH THE ACQUISITION OF EQUITY INTERESTS IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100306.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Sino Biopharmaceutical is acquiring a 5% equity interest in CT Tianqing, a significant subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sino Biopharmaceutical is acquiring a 5% equity interest in CT Tianqing, a significant subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino Biopharmaceutical",
+          "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-287",
       "headline": "AKM: Ovoot Bond Raises US$10m on Mongolian OTC Market [price-sensitive]",
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-303",
-      "headline": "Magners maker C&C toasts deal to buy Asahi’s UK wholesale business",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/asahi-japanese-london-shares-b3048444.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T08:07:58Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "C&C Group is acquiring Asahi's UK wholesale business, representing a significant expansion of its distribution footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "C&C Group is acquiring Asahi's UK wholesale business, representing a significant expansion of its distribution footprint.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C&C Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153458,9 +153458,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3970076,
-    "news_picked_today": 638,
-    "news_dropped_today": 3778
+    "news_seen_today": 4004869,
+    "news_picked_today": 645,
+    "news_dropped_today": 3795
   },
   "book_momentum": {
     "live_count": 8,
