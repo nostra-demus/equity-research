@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T19:03:38Z",
+  "generated_at": "2026-09-11T19:13:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-433",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-441",
+      "headline": "Another travel company ordered to close in bankruptcy, cancel all trips",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/immaculate-travel-ordered-to-close-in-bankruptcy-cancel-all-trips",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T18:57:47Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "A bankruptcy filing and total cessation of operations is a material survival event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A bankruptcy filing and total cessation of operations is a material survival event for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown Travel Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-439",
       "headline": "Indiabulls signs deal to acquire 70% stake in Fintech Cloud for ₹1,050 crore",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-396",
-      "headline": "Ondas Raises 2026 Revenue View: Can It Deliver the Required H2 Ramp?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ondas-raises-2026-revenue-view-can-it-deliver-required-h2-ramp",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T12:18:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Ondas raised its 2026 revenue guidance, signaling improved growth expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ondas raised its 2026 revenue guidance, signaling improved growth expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ondas Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153112,9 +153112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9970427,
-    "news_picked_today": 1232,
-    "news_dropped_today": 8656
+    "news_seen_today": 10073109,
+    "news_picked_today": 1234,
+    "news_dropped_today": 8774
   },
   "book_momentum": {
     "live_count": 8,
