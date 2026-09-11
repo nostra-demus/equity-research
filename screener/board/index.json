@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T00:38:09Z",
+  "generated_at": "2026-09-11T00:43:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-001",
@@ -529,20 +529,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260911-027",
+      "inbox_id": "INB-20260911-037",
       "headline": "Rigetti Computing CEO Sells 120,000 Shares for $1.9 Million After Signing an Agreement with the U.S. Government",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/10/rigetti-computing-ceo-sells-120-000-shares-for-usd1-9-million-after-signing-an-agreement-with-the-u-s-government/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/rigetti-computing-ceo-sells-120000-shares-19-million-after-signing-agreement-us-government",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-10T23:52:21Z",
+      "found_at": "2026-09-11T00:12:21Z",
       "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "CEO sold 120,000 shares for $1.9 million, which is a significant insider liquidation.",
+      "prelim_note": "CEO sold 120,000 shares worth $1.9 million, which may signal lack of confidence despite government contract news.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 82,
-      "triage_reason": "CEO sold 120,000 shares for $1.9 million, which is a significant insider liquidation.",
+      "triage_reason": "CEO sold 120,000 shares worth $1.9 million, which may signal lack of confidence despite government contract news.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -622,6 +622,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-038",
+      "headline": "Japan's wholesale inflation stays elevated in August, boosts case for rate hike",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/japans-wholesale-inflation-stays-elevated-august-boosts-case-rate-hike-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:27:29Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Elevated wholesale inflation in Japan increases the likelihood of a central bank rate hike, impacting market liquidity and currency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Elevated wholesale inflation in Japan increases the likelihood of a central bank rate hike, impacting market liquidity and currency.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -866,6 +909,251 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-035",
+      "headline": "KI1: Resignation and appointment of directors",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KI1?key=2924-03134452-2A1696658",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T00:25:58Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Routine board changes at K-TIG Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Routine board changes at K-TIG Limited.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "K-TIG Limited",
+          "ticker": "KI1",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-039",
+      "headline": "Balmer Lawrie Investments Limited - Ex-Date: 11-Sep-2026",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
+      "source_name": "NSE India — Corporate Actions (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T00:39:14Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Routine ex-dividend date announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Routine ex-dividend date announcement.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Balmer Lawrie Investments Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-040",
+      "headline": "Bright Brothers Limited - Ex-Date: 11-Sep-2026",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
+      "source_name": "NSE India — Corporate Actions (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T00:39:14Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Routine ex-dividend date announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine ex-dividend date announcement.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bright Brothers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-042",
+      "headline": "CSL Finance Limited - Ex-Date: 11-Sep-2026",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
+      "source_name": "NSE India — Corporate Actions (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T00:39:14Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Routine ex-dividend date announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine ex-dividend date announcement.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-041",
+      "headline": "Comfort Intech Limited - Ex-Date: 11-Sep-2026",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
+      "source_name": "NSE India — Corporate Actions (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T00:39:14Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Routine ex-dividend date announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine ex-dividend date announcement.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comfort Intech Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-008",
       "headline": "NGY: Amended Investor Presentation [price-sensitive]",
       "headline_en": null,
@@ -910,6 +1198,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-036",
+      "headline": "Flipkart wants Minutes to become India’s default shopping app",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/flipkart-minutes-to-become-india-default-shopping-app-expansion-11789042129752.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T00:30:35Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Flipkart is seeking to expand its market reach by integrating with the Minutes app.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Flipkart is seeking to expand its market reach by integrating with the Minutes app.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flipkart",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1057,6 +1394,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-044",
+      "headline": "Tencent Music Entertainment Group Announces Closing of US$1,000 Million Notes Offering | TME Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TME/tencent-music-entertainment-group-announces-closing-of-us-1-000-vqbvzdua65td.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-10T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Tencent Music closed a $1,000 million notes offering, impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Tencent Music closed a $1,000 million notes offering, impacting capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tencent Music Entertainment Group",
+          "ticker": "TME",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1543,98 +1929,6 @@
         {
           "name": "Nutex Health",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-003",
-      "headline": "UN envoy warns Security Council Yemen’s war has entered ‘dangerous phase’",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/9/10/un-envoy-warns-security-council-yemens-war-has-entered-dangerous-phase?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-10T23:46:07Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "UN envoy warns Yemen war has entered a dangerous phase, signaling geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "UN envoy warns Yemen war has entered a dangerous phase, signaling geopolitical escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-032",
-      "headline": "Laser Photonics Announces Pricing of $7.9 Million Public Offering | LASE Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/LASE/laser-photonics-announces-pricing-of-7-9-million-public-p18iclzhxbla.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-11T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Laser Photonics announced a $7.9 million public offering, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Laser Photonics announced a $7.9 million public offering, which is dilutive to existing shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Laser Photonics",
-          "ticker": "LASE",
           "listing_country": "US"
         }
       ],
@@ -154355,7 +154649,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2281,
+    "inbox_unconsumed": 2287,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154364,9 +154658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 275595,
-    "news_picked_today": 34,
-    "news_dropped_today": 254
+    "news_seen_today": 288724,
+    "news_picked_today": 46,
+    "news_dropped_today": 290
   },
   "book_momentum": {
     "live_count": 8,
