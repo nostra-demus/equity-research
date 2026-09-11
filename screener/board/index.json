@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T05:59:51Z",
+  "generated_at": "2026-09-11T06:09:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-269",
@@ -882,6 +882,49 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260911-277",
+      "headline": "S&P downgrades Queensland over ‘weak’ budget",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/s-and-p-downgrades-queensland-over-weak-budget-20260817-p60p0w?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T05:52:25Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "S&P downgraded Queensland's credit rating due to a weak budget, impacting sovereign/regional credit risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "S&P downgraded Queensland's credit rating due to a weak budget, impacting sovereign/regional credit risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,55 +1950,6 @@
         {
           "name": "Ocean Star Tech",
           "ticker": "08297",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-052",
-      "headline": "I-CONTROL (01402): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100117.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T00:43:00Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Resumption of trading after a suspension is a significant event for liquidity and market access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Resumption of trading after a suspension is a significant event for liquidity and market access.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "I-Control",
-          "ticker": "01402",
           "listing_country": "CN"
         }
       ],
@@ -153472,9 +153466,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2511327,
-    "news_picked_today": 548,
-    "news_dropped_today": 2500
+    "news_seen_today": 2590336,
+    "news_picked_today": 557,
+    "news_dropped_today": 2563
   },
   "book_momentum": {
     "live_count": 8,
