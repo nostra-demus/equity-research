@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T01:18:17Z",
+  "generated_at": "2026-09-11T01:28:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-049",
@@ -1304,6 +1304,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-080",
+      "headline": "ONEOK Closes $9 Billion Minority Equity Investment with Apollo | OKE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OKE/oneok-closes-9-billion-minority-equity-investment-with-czjtcw2hj9ee.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-10T20:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "ONEOK closed a significant $9 billion minority equity investment deal with Apollo.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "ONEOK closed a significant $9 billion minority equity investment deal with Apollo.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONEOK",
+          "ticker": "OKE",
+          "listing_country": "US"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-018",
       "headline": "Agencies Reduce Regulatory Burden for Community Banks, Increase Eligibility for 18-Month Exam Cycle",
       "headline_en": null,
@@ -1641,6 +1695,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-077",
+      "headline": "アジジ・デベロップメンツ、シャールジャで81億米ドル規模のマスタープラン型コミュニティ「アジジ・フローレンス」を発表",
+      "headline_en": "Azizi Developments announces $8.1 billion master-planned community 'Azizi Florence' in Sharjah",
+      "url": "http://www.businesswire.com/news/home/20260910068357/ja/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-11T01:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "Azizi Developments announced an $8.1 billion master-planned community project in Sharjah.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Azizi Developments announced an $8.1 billion master-planned community project in Sharjah.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Azizi Developments",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-063",
       "headline": "Azizi Developments apresenta Azizi Florence, empreendimento planejado de US$ 8,1 bilhões em Sharjah",
       "headline_en": "Azizi Developments presents Azizi Florence, a planned development of $8.1 billion in Sharjah",
@@ -1832,105 +1935,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-041",
-      "headline": "Comfort Intech Limited - Ex-Date: 11-Sep-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T00:39:14Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Routine ex-dividend date announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine ex-dividend date announcement.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comfort Intech Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-074",
-      "headline": "The iPhone Duo enters China’s crowded foldable market — and faces a price test",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/11/the-iphone-duo-enters-chinas-crowded-foldable-market.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T00:19:54Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "Apple is entering a highly competitive market segment in China, which is a key growth region for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Apple is entering a highly competitive market segment in China, which is a key growth region for the company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154656,9 +154660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 548938,
-    "news_picked_today": 85,
-    "news_dropped_today": 515
+    "news_seen_today": 626168,
+    "news_picked_today": 94,
+    "news_dropped_today": 578
   },
   "book_momentum": {
     "live_count": 8,
