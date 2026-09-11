@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:19:45Z",
+  "generated_at": "2026-09-11T09:25:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260911-324",
@@ -1273,6 +1273,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260911-327",
+      "headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
+      "prelim_note": "The company has completed a major and connected transaction, signaling the finalization of a significant corporate deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company has completed a major and connected transaction, signaling the finalization of a significant corporate deal.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hua Hong Semiconductor",
+          "ticker": "01347",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260911-282",
       "headline": "PAF: PAF Completes Definitive Feasibility Study - STR Project [price-sensitive]",
       "headline_en": null,
@@ -1894,55 +1943,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260911-289",
-      "headline": "Sensex Today | Stock Market LIVE Updates: PI Industries shares fall 3% after Kumiai Chemical guidance cut",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stock-market-live-updates-sensex-nifty-50-today-crude-ongc-hpcl-oil-banks-it-midcaps-vodafone-idea-nse-share-price-liveblog-19988921.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T06:54:24Z",
-      "sweep_file": "screener/inbox/2026-09-11_sweep.json",
-      "prelim_note": "PI Industries shares fell 3% following a guidance cut from its partner Kumiai Chemical.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "PI Industries shares fell 3% following a guidance cut from its partner Kumiai Chemical.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "PI Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153309,9 +153309,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4352634,
-    "news_picked_today": 676,
-    "news_dropped_today": 4052
+    "news_seen_today": 4404659,
+    "news_picked_today": 691,
+    "news_dropped_today": 4133
   },
   "book_momentum": {
     "live_count": 8,
