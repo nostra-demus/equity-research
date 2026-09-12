@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T04:54:41Z",
+  "generated_at": "2026-09-12T04:59:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -1626,6 +1626,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-095",
+      "headline": "South Korea arms itself to protect chip secrets from foreign spies",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/6fa49d3c-e7b9-4bcd-9eb1-b737ff0c552e",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:00:32Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "South Korea is implementing new security measures to protect its semiconductor industry from intellectual property theft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "South Korea is implementing new security measures to protect its semiconductor industry from intellectual property theft.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-054",
       "headline": "China hikes visa fee sevenfold for Japanese visitors, citing 'reciprocity'",
       "headline_en": null,
@@ -1888,55 +1932,6 @@
           "name": "Honda",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-036",
-      "headline": "SCHEDULE 13D/A - Vorini Holdings Inc. (0001454685) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1454685/000093041326002879/0000930413-26-002879-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:43:05Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Vorini Holdings Inc. filed an amendment to a Schedule 13D.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Vorini Holdings Inc. filed an amendment to a Schedule 13D.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vorini Holdings Inc.",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -154926,9 +154921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3288008,
-    "news_picked_today": 106,
-    "news_dropped_today": 2582
+    "news_seen_today": 3344031,
+    "news_picked_today": 111,
+    "news_dropped_today": 2625
   },
   "book_momentum": {
     "live_count": 8,
