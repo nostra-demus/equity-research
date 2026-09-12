@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T10:00:01Z",
+  "generated_at": "2026-09-12T10:11:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-134",
@@ -687,6 +687,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-161",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority regarding Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_12092026151935_IntimationofimpositionoffineunderReg30ofSEBI_LODR__12092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T09:49:55Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "DPSC Limited reported a default in payment of regulatory fines related to non-compliance with SEBI listing regulations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "DPSC Limited reported a default in payment of regulatory fines related to non-compliance with SEBI listing regulations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,49 +1918,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "New OFAC sanctions action has been announced.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-131",
-      "headline": "Notice of OFAC Sanctions Actions",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18678/notice-of-ofac-sanctions-actions",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-14T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "New OFAC sanctions actions have been announced, which may impact specific entities or trade flows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "New OFAC sanctions actions have been announced, which may impact specific entities or trade flows.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -154982,9 +154989,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6187869,
-    "news_picked_today": 221,
-    "news_dropped_today": 5155
+    "news_seen_today": 6283581,
+    "news_picked_today": 232,
+    "news_dropped_today": 5240
   },
   "book_momentum": {
     "live_count": 8,
