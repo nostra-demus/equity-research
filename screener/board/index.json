@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T20:38:52Z",
+  "generated_at": "2026-09-12T20:44:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -113378,6 +113378,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1e21975df7c3",
+      "idea_version": "IDEAV-1102d3ba8182d1f4",
+      "idea_version_started_at": "2026-09-12T20:43:48Z",
+      "ticker": "GME",
+      "company": "GameStop",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The CEO's purchase of 1 million shares for $20 million signals strong internal confidence in the company's current turnaround strategy and capital allocation plans.",
+      "why_now": "The insider transaction was reported on 2026-09-12, providing a fresh signal of management alignment.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-95b38c9e5ac1"
+      ],
+      "primary_source_event_id": "EVT-95b38c9e5ac1",
+      "source_headlines": [
+        "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME"
+      ],
+      "source_headline": "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME",
+      "source_url": "https://www.fool.com/coverage/filings/2026/09/12/gamestop-billionaire-ryan-cohen-buys-1-million-shares-for-usd20-million-what-this-large-purchase-means-for-gme/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-12T18:13:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T20:43:48Z",
+      "updated_at": "2026-09-12T20:43:48Z",
+      "decay_at": "2026-09-14T06:13:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3123eadb829a",
       "idea_version": "IDEAV-b568e8d769be3684",
       "idea_version_started_at": "2026-09-12T15:35:59Z",
@@ -114028,78 +114099,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-55060519d4fc",
-      "idea_version": "IDEAV-3daa5450b33360db",
-      "idea_version_started_at": "2026-09-11T22:18:52Z",
-      "ticker": "01378",
-      "company": "China Hongqiao",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The early redemption of US$330 million in senior notes reduces interest expense and demonstrates strong liquidity and balance sheet health.",
-      "why_now": "Completion of the redemption was confirmed in a filing dated September 11, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b4c70eed19a"
-      ],
-      "primary_source_event_id": "EVT-1b4c70eed19a",
-      "source_headlines": [
-        "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028"
-      ],
-      "source_headline": "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100448.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T08:42:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T11:59:49Z",
-      "updated_at": "2026-09-11T22:18:52Z",
-      "decay_at": "2026-09-12T20:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-de1d8125d965",
       "idea_version": "IDEAV-6b8e40bb98d5678f",
       "idea_version_started_at": "2026-09-11T22:18:52Z",
@@ -114524,78 +114523,6 @@
       "surfaced_at": "2026-09-12T16:36:23Z",
       "updated_at": "2026-09-12T16:36:23Z",
       "decay_at": "2026-09-14T01:37:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-7bad7e7a459f",
-      "idea_version": "IDEAV-ab5c5bac32555c4b",
-      "idea_version_started_at": "2026-09-11T11:59:49Z",
-      "ticker": "01347",
-      "company": "Hua Hong Semiconductor",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The completion of a major connected transaction allows the company to finalize its strategic capital allocation and operational integration.",
-      "why_now": "The completion was officially announced on 2026-09-11.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-378c885cab8d"
-      ],
-      "primary_source_event_id": "EVT-378c885cab8d",
-      "source_headlines": [
-        "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION"
-      ],
-      "source_headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-11T08:41:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T11:59:49Z",
-      "updated_at": "2026-09-11T11:59:49Z",
-      "decay_at": "2026-09-12T20:41:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116156,6 +116083,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-55060519d4fc",
+      "idea_version": "IDEAV-3daa5450b33360db",
+      "idea_version_started_at": "2026-09-11T22:18:52Z",
+      "ticker": "01378",
+      "company": "China Hongqiao",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The early redemption of US$330 million in senior notes reduces interest expense and demonstrates strong liquidity and balance sheet health.",
+      "why_now": "Completion of the redemption was confirmed in a filing dated September 11, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b4c70eed19a"
+      ],
+      "primary_source_event_id": "EVT-1b4c70eed19a",
+      "source_headlines": [
+        "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028"
+      ],
+      "source_headline": "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100448.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T08:42:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T11:59:49Z",
+      "updated_at": "2026-09-11T22:18:52Z",
+      "decay_at": "2026-09-12T20:42:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-de5c328d9705",
       "idea_version": "IDEAV-3944aea473dba122",
       "idea_version_started_at": "2026-09-11T22:18:52Z",
@@ -116945,6 +116944,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-7bad7e7a459f",
+      "idea_version": "IDEAV-ab5c5bac32555c4b",
+      "idea_version_started_at": "2026-09-11T11:59:49Z",
+      "ticker": "01347",
+      "company": "Hua Hong Semiconductor",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of a major connected transaction allows the company to finalize its strategic capital allocation and operational integration.",
+      "why_now": "The completion was officially announced on 2026-09-11.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-378c885cab8d"
+      ],
+      "primary_source_event_id": "EVT-378c885cab8d",
+      "source_headlines": [
+        "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION"
+      ],
+      "source_headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-11T08:41:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T11:59:49Z",
+      "updated_at": "2026-09-11T11:59:49Z",
+      "decay_at": "2026-09-12T20:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6e438c26d39a",
       "idea_version": "IDEAV-53af685bf4ae0e12",
       "idea_version_started_at": "2026-09-11T09:09:59Z",
@@ -117665,14 +117736,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 28
       },
       "short": {
         "total_count": 261,
@@ -117696,6 +117767,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-55060519d4fc",
+        "idea_version": "IDEAV-3daa5450b33360db",
+        "idea_version_started_at": "2026-09-11T22:18:52Z",
+        "ticker": "01378",
+        "company": "China Hongqiao",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The early redemption of US$330 million in senior notes reduces interest expense and demonstrates strong liquidity and balance sheet health.",
+        "why_now": "Completion of the redemption was confirmed in a filing dated September 11, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1b4c70eed19a"
+        ],
+        "primary_source_event_id": "EVT-1b4c70eed19a",
+        "source_headlines": [
+          "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028"
+        ],
+        "source_headline": "CHINAHONGQIAO (01378): COMPLETION OF EARLY REDEMPTION OF US$330,000,000 7.05% SENIOR UNSECURED NOTES DUE 2028",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100448.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T08:42:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T11:59:49Z",
+        "updated_at": "2026-09-11T22:18:52Z",
+        "decay_at": "2026-09-12T20:42:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T20:42:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-7bad7e7a459f",
+        "idea_version": "IDEAV-ab5c5bac32555c4b",
+        "idea_version_started_at": "2026-09-11T11:59:49Z",
+        "ticker": "01347",
+        "company": "Hua Hong Semiconductor",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The completion of a major connected transaction allows the company to finalize its strategic capital allocation and operational integration.",
+        "why_now": "The completion was officially announced on 2026-09-11.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-378c885cab8d"
+        ],
+        "primary_source_event_id": "EVT-378c885cab8d",
+        "source_headlines": [
+          "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION"
+        ],
+        "source_headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-11T08:41:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T11:59:49Z",
+        "updated_at": "2026-09-11T11:59:49Z",
+        "decay_at": "2026-09-12T20:41:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T20:41:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bcafd2773772",
         "idea_version": "IDEAV-1cd19565d5f606c5",
@@ -146087,156 +146308,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5a90281df277",
-        "idea_version": "IDEAV-d3932cb55310fb8a",
-        "idea_version_started_at": "2026-08-30T10:00:01Z",
-        "ticker": "INDIANB",
-        "company": "Indian Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The bank is aggressively expanding its footprint with 100 new branches and 2,500 new hires to capture market share in Western India.",
-        "why_now": "The expansion plan was formally announced on August 30, 2026, signaling a shift toward higher-growth geographic regions.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-73adaa959674"
-        ],
-        "primary_source_event_id": "EVT-73adaa959674",
-        "source_headlines": [
-          "Indian Bank to add 100 branches, hire 2,500 as expansion shifts west"
-        ],
-        "source_headline": "Indian Bank to add 100 branches, hire 2,500 as expansion shifts west",
-        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indian-bank-to-add-100-branches-hire-2500-as-expansion-shifts-west/articleshow/133626487.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 89,
-        "newest_source_at": "2026-08-30T09:00:27Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T10:00:01Z",
-        "updated_at": "2026-08-30T10:00:01Z",
-        "decay_at": "2026-08-31T21:00:27Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d607ee50459a",
-        "idea_version": "IDEAV-ceca7ba21cdbb4c3",
-        "idea_version_started_at": "2026-08-30T09:40:14Z",
-        "ticker": "0857.HK",
-        "company": "PetroChina",
-        "exchange": "Hong Kong",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 22% jump in first-half net profit, driven by higher fuel sales and oil prices.",
-        "why_now": "The company just reported its first-half results, showing significant profit growth.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6e89179f92b2",
-          "EVT-0e5b9f36f511"
-        ],
-        "primary_source_event_id": "EVT-6e89179f92b2",
-        "source_headlines": [
-          "PetroChina H1 net profit jumps 22%, boosted by fuel sales, oil price spike",
-          "PetroChina First-Half Profit Rises 22% on Higher Oil Prices"
-        ],
-        "source_headline": "PetroChina H1 net profit jumps 22%, boosted by fuel sales, oil price spike",
-        "source_url": "https://www.reuters.com/business/energy/petrochina-h1-net-profit-jumps-22-boosted-by-fuel-sales-oil-price-spike-2026-08-30/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T08:52:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T09:40:14Z",
-        "updated_at": "2026-08-30T09:40:14Z",
-        "decay_at": "2026-08-31T20:52:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-778388aecb02",
         "idea_version": "IDEAV-588cd7edd5af439a",
         "idea_version_started_at": "2026-08-30T10:00:01Z",
@@ -154851,8 +154922,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 716,
-    "live_count": 34,
+    "surfaced_total": 717,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154871,9 +154942,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10385759,
+    "news_seen_today": 10410380,
     "news_picked_today": 537,
-    "news_dropped_today": 10911
+    "news_dropped_today": 10935
   },
   "book_momentum": {
     "live_count": 8,
