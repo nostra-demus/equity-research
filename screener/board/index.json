@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T09:24:02Z",
+  "generated_at": "2026-09-12T09:28:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-134",
@@ -786,6 +786,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-154",
+      "headline": "Mount Taylor Ranger District, Cibola National Forest & National Grasslands; New Mexico; Roca Honda Mine Project",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18765/mount-taylor-ranger-district-cibola-national-forest-and-national-grasslands-new-mexico-roca-honda",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-14T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Notice regarding the Roca Honda Mine project, which involves potential capital expenditure and operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Notice regarding the Roca Honda Mine project, which involves potential capital expenditure and operational development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roca Honda Mine",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,56 +1935,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-142",
-      "headline": "Chubu Electric chairman Satoru Katsuno may step down over data fraud",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/12/chubu-electric-chairman-scandal-accountability/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T08:21:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The chairman of Chubu Electric may step down due to a data fraud scandal, indicating potential governance and operational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The chairman of Chubu Electric may step down due to a data fraud scandal, indicating potential governance and operational risks.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chubu Electric Power",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154980,9 +154979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5880313,
-    "news_picked_today": 203,
-    "news_dropped_today": 4813
+    "news_seen_today": 5929250,
+    "news_picked_today": 210,
+    "news_dropped_today": 4926
   },
   "book_momentum": {
     "live_count": 8,
