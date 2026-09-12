@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-12T00:09:54Z",
+  "generated_at": "2026-09-12T00:19:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260912-004",
+      "headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101743.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Peijia Medical received NMPA approval for its GeminiOne transcatheter edge-to-edge repair system, a key product milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Peijia Medical received NMPA approval for its GeminiOne transcatheter edge-to-edge repair system, a key product milestone.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peijia Medical",
+          "ticker": "09996",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260912-001",
       "headline": "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending",
@@ -47,6 +97,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-002",
+      "headline": "Indore ₹26-Crore Warehouse Finance Fraud Under ED Lens, 18 Properties Worth ₹13 Crore Attached",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/indore-26-crore-warehouse-finance-fraud-under-ed-lens-18-properties-worth-13-crore-attached",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T23:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The Enforcement Directorate has attached properties worth ₹13 crore in connection with a ₹26-crore warehouse finance fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The Enforcement Directorate has attached properties worth ₹13 crore in connection with a ₹26-crore warehouse finance fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indore Warehouse",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-003",
+      "headline": "Whole Foods Market Issues Allergy Alert on Undeclared Egg in Cabricharme Cheese",
+      "headline_en": null,
+      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/whole-foods-market-issues-allergy-alert-undeclared-egg-cabricharme-cheese",
+      "source_name": "U.S. Food & Drug Administration (Recalls)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T22:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Whole Foods Market issued a recall for Cabricharme cheese due to an undeclared egg allergen, posing a safety and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Whole Foods Market issued a recall for Cabricharme cheese due to an undeclared egg allergen, posing a safety and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whole Foods Market",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -112744,78 +112892,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-843296e89987",
-      "idea_version": "IDEAV-7f373bab79431030",
-      "idea_version_started_at": "2026-09-10T14:12:20Z",
-      "ticker": "VNC",
-      "company": "Vince Holding Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Vince Holding Corp reported Q2 gains and raised its outlook, suggesting improved financial performance and future profitability.",
-      "why_now": "The company announced its Q2 results and raised guidance on September 10, 2026, providing a clear positive catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0650b1ff1a3d"
-      ],
-      "primary_source_event_id": "EVT-0650b1ff1a3d",
-      "source_headlines": [
-        "Vince Reports Q2 Gains, Raises Outlook"
-      ],
-      "source_headline": "Vince Reports Q2 Gains, Raises Outlook",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T12:17:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T14:12:20Z",
-      "updated_at": "2026-09-10T14:12:20Z",
-      "decay_at": "2026-09-12T00:17:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7bad7e7a459f",
       "idea_version": "IDEAV-ab5c5bac32555c4b",
       "idea_version_started_at": "2026-09-11T11:59:49Z",
@@ -114291,6 +114367,78 @@
       "surfaced_at": "2026-09-10T14:12:20Z",
       "updated_at": "2026-09-10T14:12:20Z",
       "decay_at": "2026-09-11T23:04:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-843296e89987",
+      "idea_version": "IDEAV-7f373bab79431030",
+      "idea_version_started_at": "2026-09-10T14:12:20Z",
+      "ticker": "VNC",
+      "company": "Vince Holding Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Vince Holding Corp reported Q2 gains and raised its outlook, suggesting improved financial performance and future profitability.",
+      "why_now": "The company announced its Q2 results and raised guidance on September 10, 2026, providing a clear positive catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0650b1ff1a3d"
+      ],
+      "primary_source_event_id": "EVT-0650b1ff1a3d",
+      "source_headlines": [
+        "Vince Reports Q2 Gains, Raises Outlook"
+      ],
+      "source_headline": "Vince Reports Q2 Gains, Raises Outlook",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T12:17:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T14:12:20Z",
+      "updated_at": "2026-09-10T14:12:20Z",
+      "decay_at": "2026-09-12T00:17:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116026,14 +116174,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 262,
@@ -116057,6 +116205,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-843296e89987",
+        "idea_version": "IDEAV-7f373bab79431030",
+        "idea_version_started_at": "2026-09-10T14:12:20Z",
+        "ticker": "VNC",
+        "company": "Vince Holding Corp",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Vince Holding Corp reported Q2 gains and raised its outlook, suggesting improved financial performance and future profitability.",
+        "why_now": "The company announced its Q2 results and raised guidance on September 10, 2026, providing a clear positive catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0650b1ff1a3d"
+        ],
+        "primary_source_event_id": "EVT-0650b1ff1a3d",
+        "source_headlines": [
+          "Vince Reports Q2 Gains, Raises Outlook"
+        ],
+        "source_headline": "Vince Reports Q2 Gains, Raises Outlook",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-10T12:17:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T14:12:20Z",
+        "updated_at": "2026-09-10T14:12:20Z",
+        "decay_at": "2026-09-12T00:17:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T00:17:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7f435f03c9a1",
         "idea_version": "IDEAV-6b414f39b9cea62e",
@@ -144694,80 +144917,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2b9840c4ba25",
-        "idea_version": "IDEAV-f3101285fab969e1",
-        "idea_version_started_at": "2026-08-30T02:20:00Z",
-        "ticker": "OIL",
-        "company": "Oil India Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Oil India's newly formed subsidiary, OIL Green Energy Limited, has signed MoUs with the Government of Haryana to develop four integrated waste-to-clean-energy projects, expanding its green energy footprint.",
-        "why_now": "The official exchange filing on August 30, 2026, serves as the immediate catalyst for this green transition milestone.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-35c8c567786b"
-        ],
-        "primary_source_event_id": "EVT-35c8c567786b",
-        "source_headlines": [
-          "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects"
-        ],
-        "source_headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb684b0a-4957-4363-9e15-d3ff7819ebc2.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-08-30T01:54:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T02:20:00Z",
-        "updated_at": "2026-08-30T02:20:00Z",
-        "decay_at": "2026-08-31T13:54:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f706760db176",
         "idea_version": "IDEAV-9db919d9eab10fe3",
         "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -153225,7 +153374,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 698,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153235,7 +153384,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2288,
+    "inbox_unconsumed": 2291,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153244,9 +153393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103052,
-    "news_picked_today": 2,
-    "news_dropped_today": 118
+    "news_seen_today": 205869,
+    "news_picked_today": 5,
+    "news_dropped_today": 187
   },
   "book_momentum": {
     "live_count": 8,
