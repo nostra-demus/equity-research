@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T04:29:19Z",
+  "generated_at": "2026-09-12T04:43:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -841,6 +841,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-089",
+      "headline": "NSE IPO: Market dominance vs regulatory risks; what investors should know from the RHP",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/nse-ipo-market-dominance-vs-regulatory-risks-what-investors-should-know-from-the-rhp/articleshow/134107678.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:18:55Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The NSE IPO RHP filing provides critical regulatory and financial disclosures for a major exchange operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The NSE IPO RHP filing provides critical regulatory and financial disclosures for a major exchange operator.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-081",
       "headline": "FDA delays approval decision for Exelixis' tyrosine kinase inhibitor in colorectal cancer",
       "headline_en": null,
@@ -1425,6 +1474,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-088",
+      "headline": "US consumer prices accelerate in August, push Fed closer to rate hike",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-consumer-prices-accelerate-in-august-push-fed-closer-to-rate-hike/articleshow/134107090.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:04:32Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "US consumer price acceleration increases the probability of further Federal Reserve interest rate hikes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "US consumer price acceleration increases the probability of further Federal Reserve interest rate hikes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-077",
       "headline": "Samsung may charge Apple $250 for each foldable iPhone display under reported three-year deal",
       "headline_en": null,
@@ -1854,104 +1946,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-037",
-      "headline": "SCHEDULE 13D/A - SAFE BULKERS, INC. (0001434754) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1434754/000093041326002879/0000930413-26-002879-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:43:05Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Safe Bulkers, Inc. is the subject of a Schedule 13D/A filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Safe Bulkers, Inc. is the subject of a Schedule 13D/A filing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Safe Bulkers, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-039",
-      "headline": "SCHEDULE 13D/A - TMC the metals Co Inc. (0001798562) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1798562/000110465926107182/0001104659-26-107182-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:41:34Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "TMC the metals Co Inc. is the subject of a Schedule 13D/A filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "TMC the metals Co Inc. is the subject of a Schedule 13D/A filing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TMC the metals Co Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154938,9 +154932,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2949782,
-    "news_picked_today": 99,
-    "news_dropped_today": 2301
+    "news_seen_today": 3138197,
+    "news_picked_today": 103,
+    "news_dropped_today": 2489
   },
   "book_momentum": {
     "live_count": 8,
