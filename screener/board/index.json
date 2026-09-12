@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T01:49:25Z",
+  "generated_at": "2026-09-12T01:54:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -145,6 +145,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-034",
+      "headline": "SCHEDULE 13D - Skinner Michael A. (0002043413) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2043413/000149315226042451/0001493152-26-042451-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:43:11Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Michael A. Skinner filed a Schedule 13D, indicating a significant stake in an unnamed company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Michael A. Skinner filed a Schedule 13D, indicating a significant stake in an unnamed company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-035",
+      "headline": "SCHEDULE 13D - Rainmaker Worldwide Inc. (0001872292) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1872292/000149315226042451/0001493152-26-042451-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:43:11Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Rainmaker Worldwide Inc. is the subject of a Schedule 13D filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Rainmaker Worldwide Inc. is the subject of a Schedule 13D filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rainmaker Worldwide Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -535,6 +633,202 @@
           "name": "Cosmo Metals",
           "ticker": "CMO",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-036",
+      "headline": "SCHEDULE 13D/A - Vorini Holdings Inc. (0001454685) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1454685/000093041326002879/0000930413-26-002879-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:43:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Vorini Holdings Inc. filed an amendment to a Schedule 13D.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Vorini Holdings Inc. filed an amendment to a Schedule 13D.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vorini Holdings Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-038",
+      "headline": "SCHEDULE 13D/A - Barron Gerard (0001878772) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1878772/000110465926107182/0001104659-26-107182-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:41:34Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Gerard Barron filed an amendment to a Schedule 13D.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Gerard Barron filed an amendment to a Schedule 13D.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gerard Barron",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-037",
+      "headline": "SCHEDULE 13D/A - SAFE BULKERS, INC. (0001434754) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1434754/000093041326002879/0000930413-26-002879-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:43:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Safe Bulkers, Inc. is the subject of a Schedule 13D/A filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Safe Bulkers, Inc. is the subject of a Schedule 13D/A filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Safe Bulkers, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-039",
+      "headline": "SCHEDULE 13D/A - TMC the metals Co Inc. (0001798562) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1798562/000110465926107182/0001104659-26-107182-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:41:34Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "TMC the metals Co Inc. is the subject of a Schedule 13D/A filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "TMC the metals Co Inc. is the subject of a Schedule 13D/A filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TMC the metals Co Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -154567,7 +154861,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2318,
+    "inbox_unconsumed": 2324,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154576,9 +154870,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1160012,
-    "news_picked_today": 36,
-    "news_dropped_today": 924
+    "news_seen_today": 1200099,
+    "news_picked_today": 42,
+    "news_dropped_today": 942
   },
   "book_momentum": {
     "live_count": 8,
