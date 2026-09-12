@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T01:15:04Z",
+  "generated_at": "2026-09-12T01:24:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-004",
@@ -195,6 +195,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-030",
+      "headline": "KAO: Half Year Accounts",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAO?key=2924-03134798-6A1343517",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:08:14Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The company released its half-year financial accounts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company released its half-year financial accounts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KAO",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -112590,77 +112639,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dba8408df9af",
-      "idea_version": "IDEAV-3e9d19ce199fc9f2",
-      "idea_version_started_at": "2026-09-10T14:12:20Z",
-      "ticker": "JBLU",
-      "company": "JetBlue Airways Corp.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "JetBlue cut its capacity-growth outlook due to adverse weather and higher fuel costs, which will likely pressure its revenue and margins.",
-      "why_now": "The revised outlook was announced on September 10, 2026, creating immediate negative pressure on the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4cd5b6531087",
-        "EVT-16fffa928ba2"
-      ],
-      "primary_source_event_id": "EVT-4cd5b6531087",
-      "source_headlines": [
-        "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
-        "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure"
-      ],
-      "source_headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
-      "source_url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T13:16:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T14:12:20Z",
-      "updated_at": "2026-09-10T14:12:20Z",
-      "decay_at": "2026-09-12T01:16:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c6e860326a2",
       "idea_version": "IDEAV-28a6630425430ee3",
       "idea_version_started_at": "2026-09-12T00:19:51Z",
@@ -114375,6 +114353,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-dba8408df9af",
+      "idea_version": "IDEAV-3e9d19ce199fc9f2",
+      "idea_version_started_at": "2026-09-10T14:12:20Z",
+      "ticker": "JBLU",
+      "company": "JetBlue Airways Corp.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "JetBlue cut its capacity-growth outlook due to adverse weather and higher fuel costs, which will likely pressure its revenue and margins.",
+      "why_now": "The revised outlook was announced on September 10, 2026, creating immediate negative pressure on the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4cd5b6531087",
+        "EVT-16fffa928ba2"
+      ],
+      "primary_source_event_id": "EVT-4cd5b6531087",
+      "source_headlines": [
+        "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+        "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure"
+      ],
+      "source_headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+      "source_url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T13:16:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T14:12:20Z",
+      "updated_at": "2026-09-10T14:12:20Z",
+      "decay_at": "2026-09-12T01:16:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-0c529d942ea8",
@@ -117303,9 +117352,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -117313,9 +117362,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -117334,6 +117383,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-dba8408df9af",
+        "idea_version": "IDEAV-3e9d19ce199fc9f2",
+        "idea_version_started_at": "2026-09-10T14:12:20Z",
+        "ticker": "JBLU",
+        "company": "JetBlue Airways Corp.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "JetBlue cut its capacity-growth outlook due to adverse weather and higher fuel costs, which will likely pressure its revenue and margins.",
+        "why_now": "The revised outlook was announced on September 10, 2026, creating immediate negative pressure on the stock.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4cd5b6531087",
+          "EVT-16fffa928ba2"
+        ],
+        "primary_source_event_id": "EVT-4cd5b6531087",
+        "source_headlines": [
+          "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+          "JetBlue Cuts Capacity Outlook, Adding to Turnaround Pressure"
+        ],
+        "source_headline": "JetBlue Cuts Capacity-Growth Outlook, Citing Bad Weather and Fuel Costs",
+        "source_url": "https://www.wsj.com/business/earnings/jetblue-cuts-capacity-growth-outlook-citing-bad-weather-and-fuel-costs-6a86d63f?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-10T13:16:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T14:12:20Z",
+        "updated_at": "2026-09-10T14:12:20Z",
+        "decay_at": "2026-09-12T01:16:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T01:16:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-843296e89987",
         "idea_version": "IDEAV-7f373bab79431030",
@@ -154424,86 +154547,12 @@
         "archived_at": "2026-08-24T12:14:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-41743209e9d8",
-        "idea_version": "IDEAV-3476b33f212d274a",
-        "idea_version_started_at": "2026-08-21T14:23:00Z",
-        "ticker": "00815",
-        "company": "CHI SILVER GP",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling a decline in profitability that will likely weigh on the stock price.",
-        "why_now": "The filing was released today, August 21, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c1613a261a90"
-        ],
-        "primary_source_event_id": "EVT-c1613a261a90",
-        "source_headlines": [
-          "CHI SILVER GP (00815): PROFIT WARNING"
-        ],
-        "source_headline": "CHI SILVER GP (00815): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100851.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T10:14:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T14:23:00Z",
-        "updated_at": "2026-08-21T14:23:00Z",
-        "decay_at": "2026-08-22T22:14:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T12:14:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 698,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154513,7 +154562,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2314,
+    "inbox_unconsumed": 2315,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154522,9 +154571,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 817836,
-    "news_picked_today": 32,
-    "news_dropped_today": 664
+    "news_seen_today": 938962,
+    "news_picked_today": 33,
+    "news_dropped_today": 735
   },
   "book_momentum": {
     "live_count": 8,
