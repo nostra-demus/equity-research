@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T15:13:29Z",
+  "generated_at": "2026-09-12T15:25:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -995,6 +995,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-209",
+      "headline": "Iran Nuclear Blind Spot Deepens as IAEA Loses Access",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-12/iran-nuclear-blind-spot-deepens-as-iaea-loses-access-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:57:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The IAEA losing access to Iran's nuclear program is a significant geopolitical development that increases uncertainty and potential for escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The IAEA losing access to Iran's nuclear program is a significant geopolitical development that increases uncertainty and potential for escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-154",
       "headline": "Mount Taylor Ranger District, Cibola National Forest & National Grasslands; New Mexico; Roca Honda Mine Project",
       "headline_en": null,
@@ -1913,55 +1957,6 @@
           "name": "L.I.A. Pure Capital Ltd",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-044",
-      "headline": "SPL: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPL?key=2924-03134783-3A701612",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T08:33:04Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Becoming a substantial holder filing indicates a significant ownership stake change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Becoming a substantial holder filing indicates a significant ownership stake change.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPL",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -112951,77 +112946,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6d25d5e62254",
-      "idea_version": "IDEAV-c4a9a837d7e7abe7",
-      "idea_version_started_at": "2026-09-11T09:09:59Z",
-      "ticker": "AIR.PA",
-      "company": "Airbus SE",
-      "exchange": "Paris",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Airbus is securing substantial new aircraft orders from Vietravel and Vietnam Airlines, bolstering its backlog and long-term revenue visibility.",
-      "why_now": "These major order announcements occurred today, signaling continued momentum in commercial aviation demand.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-32c89e1bbdca",
-        "EVT-4a9ca506d21a"
-      ],
-      "primary_source_event_id": "EVT-32c89e1bbdca",
-      "source_headlines": [
-        "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
-        "Vietnam Airlines places provisional order with Airbus for five Airbus A350-900s"
-      ],
-      "source_headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T03:15:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T09:09:59Z",
-      "updated_at": "2026-09-11T09:09:59Z",
-      "decay_at": "2026-09-12T15:15:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -115015,6 +114939,77 @@
       "surfaced_at": "2026-09-11T23:59:41Z",
       "updated_at": "2026-09-11T23:59:41Z",
       "decay_at": "2026-09-12T08:42:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6d25d5e62254",
+      "idea_version": "IDEAV-c4a9a837d7e7abe7",
+      "idea_version_started_at": "2026-09-11T09:09:59Z",
+      "ticker": "AIR.PA",
+      "company": "Airbus SE",
+      "exchange": "Paris",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Airbus is securing substantial new aircraft orders from Vietravel and Vietnam Airlines, bolstering its backlog and long-term revenue visibility.",
+      "why_now": "These major order announcements occurred today, signaling continued momentum in commercial aviation demand.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-32c89e1bbdca",
+        "EVT-4a9ca506d21a"
+      ],
+      "primary_source_event_id": "EVT-32c89e1bbdca",
+      "source_headlines": [
+        "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+        "Vietnam Airlines places provisional order with Airbus for five Airbus A350-900s"
+      ],
+      "source_headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T03:15:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T09:09:59Z",
+      "updated_at": "2026-09-11T09:09:59Z",
+      "decay_at": "2026-09-12T15:15:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117657,14 +117652,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 261,
@@ -117688,6 +117683,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6d25d5e62254",
+        "idea_version": "IDEAV-c4a9a837d7e7abe7",
+        "idea_version_started_at": "2026-09-11T09:09:59Z",
+        "ticker": "AIR.PA",
+        "company": "Airbus SE",
+        "exchange": "Paris",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Airbus is securing substantial new aircraft orders from Vietravel and Vietnam Airlines, bolstering its backlog and long-term revenue visibility.",
+        "why_now": "These major order announcements occurred today, signaling continued momentum in commercial aviation demand.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-32c89e1bbdca",
+          "EVT-4a9ca506d21a"
+        ],
+        "primary_source_event_id": "EVT-32c89e1bbdca",
+        "source_headlines": [
+          "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+          "Vietnam Airlines places provisional order with Airbus for five Airbus A350-900s"
+        ],
+        "source_headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T03:15:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T09:09:59Z",
+        "updated_at": "2026-09-11T09:09:59Z",
+        "decay_at": "2026-09-12T15:15:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T15:15:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-02a86175523b",
         "idea_version": "IDEAV-36a3c1f30a16bfbb",
@@ -146611,81 +146680,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ad181ba1eeef",
-        "idea_version": "IDEAV-951e0f64ffbb637d",
-        "idea_version_started_at": "2026-08-30T06:40:16Z",
-        "ticker": "BALKRISIND",
-        "company": "Balkrishna Industries",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is entering the passenger car tyre market to diversify its revenue base and has set a target to double total revenue to ₹23,000 crore by FY30.",
-        "why_now": "The specific product foray is scheduled for November 2026, providing a near-term catalyst for growth re-rating.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-717fc2418973"
-        ],
-        "primary_source_event_id": "EVT-717fc2418973",
-        "source_headlines": [
-          "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30"
-        ],
-        "source_headline": "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30",
-        "source_url": "https://www.thehindubusinessline.com/companies/bkt-to-foray-into-car-tyres-in-november-aims-to-double-revenue-to-23000-crore-by-fy30/article71405934.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 98,
-        "newest_source_at": "2026-08-30T06:21:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T06:40:16Z",
-        "updated_at": "2026-08-30T06:40:16Z",
-        "decay_at": "2026-08-31T18:21:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ce17c0a4842f",
         "idea_version": "IDEAV-4f41e063b4bab9cf",
         "idea_version_started_at": "2026-08-30T06:20:17Z",
@@ -154847,7 +154841,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 710,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154866,9 +154860,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8798221,
-    "news_picked_today": 346,
-    "news_dropped_today": 7958
+    "news_seen_today": 8893798,
+    "news_picked_today": 365,
+    "news_dropped_today": 8131
   },
   "book_momentum": {
     "live_count": 8,
