@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T02:48:04Z",
+  "generated_at": "2026-09-12T02:53:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -1513,6 +1513,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-070",
+      "headline": "US-Iran war: As conflict widens, more waterways become unsafe for oil exports, raising fears of energy crisis",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/usiran-war-as-conflict-widens-more-waterways-become-unsafe-for-oil-exports-raising-fears-of-energy-crisis-11789179665428.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T02:37:43Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Escalating geopolitical conflict in the Middle East threatens global oil supply chains and energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Escalating geopolitical conflict in the Middle East threatens global oil supply chains and energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-069",
       "headline": "Satellite image shows critical Saudi pipeline damaged in drone attack",
       "headline_en": null,
@@ -1881,49 +1924,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-064",
-      "headline": "The Aussie company profiting from China’s big problem",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/asia/the-aussie-company-profiting-from-china-s-big-problem-20260909-p60vr1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T01:40:13Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "An Australian company is profiting from a problem in China, indicating a successful business opportunity and potential for revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "An Australian company is profiting from a problem in China, indicating a successful business opportunity and potential for revenue growth.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -154912,9 +154912,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1814192,
-    "news_picked_today": 75,
-    "news_dropped_today": 1461
+    "news_seen_today": 1853385,
+    "news_picked_today": 77,
+    "news_dropped_today": 1507
   },
   "book_momentum": {
     "live_count": 8,
