@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T09:28:18Z",
+  "generated_at": "2026-09-12T09:33:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-134",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-157",
+      "headline": "Burnpur Cement Limited: Burnpur Cement Limited has informed regarding Disclosure of material issue",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BURNPURCEMENT_12092026123910_INTIMATIONOFORDEROFBSE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T07:09:23Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Burnpur Cement disclosed a material issue, which indicates potential operational or legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Burnpur Cement disclosed a material issue, which indicates potential operational or legal risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Burnpur Cement Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-108",
       "headline": "CROCODILE (00122): DISCLOSEABLE TRANSACTION - DISPOSAL OF PROPERTY",
       "headline_en": null,
@@ -1881,55 +1930,6 @@
       "companies": [
         {
           "name": "GPT Infraprojects Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-087",
-      "headline": "Krystal Integrated Services Limited: Krystal Integrated Services Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KISL123_12092026093433_Reg_30_intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-12T04:04:55Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Krystal Integrated Services Limited has secured new orders/contracts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Krystal Integrated Services Limited has secured new orders/contracts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Krystal Integrated Services Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -154979,9 +154979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5929250,
-    "news_picked_today": 210,
-    "news_dropped_today": 4926
+    "news_seen_today": 5978040,
+    "news_picked_today": 214,
+    "news_dropped_today": 4970
   },
   "book_momentum": {
     "live_count": 8,
