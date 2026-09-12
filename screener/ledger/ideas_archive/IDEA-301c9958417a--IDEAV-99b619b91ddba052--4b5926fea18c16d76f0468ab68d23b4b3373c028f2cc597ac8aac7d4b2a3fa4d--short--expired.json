@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-31T01:11:56Z",
+  "archived_at": "2026-09-12T01:49:14Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6ef3d9cacc63",
-    "idea_version": "IDEAV-871bc7d2d2d4ca1c",
-    "idea_version_started_at": "2026-08-28T05:51:01Z",
-    "ticker": "000660.KS",
-    "company": "SK Hynix",
-    "exchange": "Korea",
+    "idea_id": "IDEA-301c9958417a",
+    "idea_version": "IDEAV-99b619b91ddba052",
+    "idea_version_started_at": "2026-09-09T03:36:02Z",
+    "ticker": "META",
+    "company": "Meta Platforms",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
-    "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
+    "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
+    "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 62,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 23,
       "specificity": 15,
       "timing": 10,
       "expression": 6,
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2f11eb103002"
+      "EVT-e520e9a9e32e"
     ],
-    "primary_source_event_id": "EVT-2f11eb103002",
+    "primary_source_event_id": "EVT-e520e9a9e32e",
     "source_headlines": [
-      "SK Hynix to Invest $4 Billion in Indiana, USA"
+      "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
     ],
-    "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
-    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
-    "source_name": "Business Korea — All Articles (CDN)",
+    "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
+    "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-28T01:04:34Z",
+    "newest_source_at": "2026-09-09T01:00:28Z",
     "prior_coverage": {
-      "has_run": false,
-      "latest_run": null,
+      "has_run": true,
+      "latest_run": "analyses/META_2026-08-31",
       "latest_decision": null,
-      "data_pool_present": false
+      "data_pool_present": true
     },
-    "surfaced_at": "2026-08-28T05:51:01Z",
-    "updated_at": "2026-08-28T05:51:01Z",
-    "decay_at": "2026-08-29T13:04:34Z",
+    "surfaced_at": "2026-09-09T03:36:02Z",
+    "updated_at": "2026-09-09T03:36:02Z",
+    "decay_at": "2026-09-10T13:00:28Z",
     "status": "live",
     "promoted_signal_id": null
   }

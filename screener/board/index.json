@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T01:48:53Z",
+  "generated_at": "2026-09-12T01:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -112083,6 +112083,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-6c411243ff00",
+      "idea_version": "IDEAV-e63d21a8b1a1011e",
+      "idea_version_started_at": "2026-09-12T01:49:08Z",
+      "ticker": "NFE",
+      "company": "New Fortress Energy",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company successfully completed a restructuring that significantly reduces its debt burden to $700 million, improving its balance sheet solvency.",
+      "why_now": "The restructuring was announced as completed on 2026-09-11.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cba92ef88340"
+      ],
+      "primary_source_event_id": "EVT-cba92ef88340",
+      "source_headlines": [
+        "New Fortress completes restructuring, cuts debt to $700 million"
+      ],
+      "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
+      "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T14:42:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T18:09:01Z",
+      "updated_at": "2026-09-12T01:49:08Z",
+      "decay_at": "2026-09-13T02:42:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4fb23c12ca36",
       "idea_version": "IDEAV-30c3e50055c55f7c",
       "idea_version_started_at": "2026-09-12T00:19:51Z",
@@ -112429,76 +112499,6 @@
       "surfaced_at": "2026-09-10T12:37:06Z",
       "updated_at": "2026-09-11T18:09:01Z",
       "decay_at": "2026-09-13T01:41:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6c411243ff00",
-      "idea_version": "IDEAV-f2e992d469e5e438",
-      "idea_version_started_at": "2026-09-11T18:09:01Z",
-      "ticker": "NFE",
-      "company": "New Fortress Energy",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company successfully completed a restructuring that significantly reduced its debt load to $700 million, improving its balance sheet and financial flexibility.",
-      "why_now": "The restructuring completion was reported today, September 11, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cba92ef88340"
-      ],
-      "primary_source_event_id": "EVT-cba92ef88340",
-      "source_headlines": [
-        "New Fortress completes restructuring, cuts debt to $700 million"
-      ],
-      "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
-      "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T14:42:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:09:01Z",
-      "updated_at": "2026-09-11T18:09:01Z",
-      "decay_at": "2026-09-13T02:42:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114218,6 +114218,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e47cc519db25",
+      "idea_version": "IDEAV-f862280f5e7ad1b4",
+      "idea_version_started_at": "2026-09-12T01:49:08Z",
+      "ticker": "09996",
+      "company": "Peijia Medical",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NMPA approval for the GeminiOne system provides a new revenue stream in the transcatheter edge-to-edge repair market, a high-growth segment in China.",
+      "why_now": "The regulatory approval was announced on 2026-09-11.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-42096feebc61"
+      ],
+      "primary_source_event_id": "EVT-42096feebc61",
+      "source_headlines": [
+        "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM"
+      ],
+      "source_headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101743.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-11T13:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T01:49:08Z",
+      "updated_at": "2026-09-12T01:49:08Z",
+      "decay_at": "2026-09-13T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-36a3c1f30a16bfbb",
       "idea_version_started_at": "2026-09-11T06:39:59Z",
@@ -115128,76 +115199,6 @@
       "surfaced_at": "2026-09-09T14:52:59Z",
       "updated_at": "2026-09-09T14:52:59Z",
       "decay_at": "2026-09-10T23:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-99b619b91ddba052",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
-      "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e520e9a9e32e"
-      ],
-      "primary_source_event_id": "EVT-e520e9a9e32e",
-      "source_headlines": [
-        "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
-      ],
-      "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
-      "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T01:00:28Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-09T03:36:02Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T13:00:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116849,148 +116850,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-913d93eb2dce0907",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
-      "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-976beaeea30f"
-      ],
-      "primary_source_event_id": "EVT-976beaeea30f",
-      "source_headlines": [
-        "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
-      ],
-      "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T00:42:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T12:42:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ea37e26917fc",
-      "idea_version": "IDEAV-a04d1019e4aeab03",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "WGX",
-      "company": "Westgold Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
-      "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-41c3ce1cc890"
-      ],
-      "primary_source_event_id": "EVT-41c3ce1cc890",
-      "source_headlines": [
-        "WGX: FY27 Guidance and Three-Year Outlook Presentation"
-      ],
-      "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T00:58:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T03:36:02Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T12:58:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-75af08a2bada8d89",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -117499,33 +117358,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 121,
-      "oldest_retained_at": "2026-08-22T08:01:49Z",
+      "evicted_count": 124,
+      "oldest_retained_at": "2026-08-22T08:17:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 100,
-          "oldest_retained_at": "2026-08-29T13:04:34Z"
+          "evicted_count": 102,
+          "oldest_retained_at": "2026-08-29T19:51:44Z"
         },
         "short": {
-          "evicted_count": 21,
-          "oldest_retained_at": "2026-08-22T08:01:49Z"
+          "evicted_count": 22,
+          "oldest_retained_at": "2026-08-22T08:17:00Z"
         }
       }
     },
@@ -120492,8 +120351,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T13:00:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T01:49:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120566,8 +120425,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T12:58:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T01:49:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120640,8 +120499,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T12:42:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T01:49:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -154697,8 +154556,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 698,
-    "live_count": 33,
+    "surfaced_total": 699,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
