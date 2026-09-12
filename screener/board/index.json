@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-12T00:00:03Z",
+  "generated_at": "2026-09-12T00:09:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260912-001",
+      "headline": "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/oracle-to-spend-700-million-more-on-restructuring-costs-as-it-ramps-up-ai-spending-11789170579977.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T23:49:39Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Oracle announced an additional $700 million in restructuring costs related to AI-driven operational changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Oracle announced an additional $700 million in restructuring costs related to AI-driven operational changes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260911-433",
       "headline": "Indiabulls Limited: Indiabulls Limited has informed the Exchange regarding 'acquisition of 70% of the issued, subscribed and paid-up equity share capital of Fintech Cloud Private Limited and execution of definitive agreement , in this regard'.",
@@ -153185,7 +153235,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2287,
+    "inbox_unconsumed": 2288,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153194,9 +153244,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 103052,
+    "news_picked_today": 2,
+    "news_dropped_today": 118
   },
   "book_momentum": {
     "live_count": 8,
