@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T10:14:59Z",
+  "generated_at": "2026-09-12T10:19:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -1767,6 +1767,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-164",
+      "headline": "TD Power Systems Limited: TD Power Systems Limited has informed the Exchange about receipt of In-principle approval for the issue of 12,50,000 equity shares to Promoters on a preferential basis",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TDPOWERSYS_12092026153035_Inprincipal_Intimation_Reg_30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T10:00:48Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The company received in-principle approval for a preferential issue of 1,250,000 equity shares to promoters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company received in-principle approval for a preferential issue of 1,250,000 equity shares to promoters.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TD Power Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-006",
       "headline": "CHIHO ENV (00976): SUPPLEMENTAL ANNOUNCEMENT REMOVAL OF THE OFFICE OF AN EXECUTIVE DIRECTOR",
       "headline_en": null,
@@ -1879,50 +1928,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "The US government is modifying duties on Canadian motor vehicles, indicating potential trade friction and cost increases for the sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-147",
-      "headline": "Excluding Certain Canadian Products From Importation Into the United States in Response to Continued Discrimination Against the Commerce of the United States With Respect to Motor Vehicles",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18837/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-14T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The US is excluding certain Canadian motor vehicle products from importation, creating a supply chain and trade barrier risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The US is excluding certain Canadian motor vehicle products from importation, creating a supply chain and trade barrier risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -154995,9 +155000,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6315316,
-    "news_picked_today": 235,
-    "news_dropped_today": 5261
+    "news_seen_today": 6346843,
+    "news_picked_today": 238,
+    "news_dropped_today": 5306
   },
   "book_momentum": {
     "live_count": 8,
