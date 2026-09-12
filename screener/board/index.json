@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T00:49:54Z",
+  "generated_at": "2026-09-12T01:04:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-004",
@@ -396,6 +396,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-011",
+      "headline": "4 - VERIZON COMMUNICATIONS INC (0000732712) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/732712/000176058126000054/0001760581-26-000054-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:57:36Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Verizon Communications Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Routine Form 4 filing for Verizon Communications Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Verizon Communications Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-023",
+      "headline": "MEILAN AIRPORT (00357): DELAY IN DESPATCH OF CIRCULAR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101687.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine delay in dispatch of circular for Meilan Airport.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Routine delay in dispatch of circular for Meilan Airport.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meilan Airport",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-012",
+      "headline": "4 - SCHULMAN DANIEL H (0001215315) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1215315/000121531526000040/0001215315-26-000040-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:56:44Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Daniel H. Schulman.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Routine Form 4 filing for Daniel H. Schulman.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daniel H. Schulman",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-014",
+      "headline": "4 - FORTE ANDREW (0001400587) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1400587/000119312526389156/0001193125-26-389156-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:55:53Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Andrew Forte.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Routine Form 4 filing for Andrew Forte.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Andrew Forte",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-005",
       "headline": "SHENGLONG INTL (08481): GRANT OF WAIVER FOR DELAY IN DESPATCH OF CIRCULAR UNDER RULE 19.41(a) OF THE GEM LISTING RULES",
       "headline_en": null,
@@ -445,6 +641,251 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-015",
+      "headline": "4 - NORWOOD FINANCIAL CORP (0001013272) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1013272/000119312526389156/0001193125-26-389156-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:55:53Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Norwood Financial Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Routine Form 4 filing for Norwood Financial Corp.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norwood Financial Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-016",
+      "headline": "4 - Gifford Jeffrey S (0001815945) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1815945/000119312526389150/0001193125-26-389150-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:52:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Jeffrey S. Gifford.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Routine Form 4 filing for Jeffrey S. Gifford.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jeffrey S. Gifford",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-022",
+      "headline": "4 - Midkiff Catharine L. (0001825354) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1825354/000182535426000005/0001825354-26-000005-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:49:09Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Catharine L. Midkiff.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Routine Form 4 filing for Catharine L. Midkiff.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Catharine L. Midkiff",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-024",
+      "headline": "4 - Hungerford Meg L (0001709329) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1709329/000119312526389146/0001193125-26-389146-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:48:34Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Meg L. Hungerford.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Routine Form 4 filing for Meg L. Hungerford.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meg L. Hungerford",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-020",
+      "headline": "4 - Carter Bankshares, Inc. (0001829576) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1829576/000182535426000005/0001825354-26-000005-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:49:09Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Carter Bankshares, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Routine Form 4 filing for Carter Bankshares, Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carter Bankshares, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-008",
       "headline": "Hims & Hers Health, Inc. (HIMS) Securities Fraud Class Action Lawsuit Filed; November 2, 2026, Lead Plaintiff Deadline",
       "headline_en": null,
@@ -485,6 +926,349 @@
         {
           "name": "Hims & Hers Health, Inc.",
           "ticker": "HIMS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-018",
+      "headline": "ANGELALIGN (06699): NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101707.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine notice of extraordinary general meeting for Angelalign.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Routine notice of extraordinary general meeting for Angelalign.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angelalign",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-019",
+      "headline": "NEWBORNTOWN (09911): Next Day Disclosure Return",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101697.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine next day disclosure return for Newborntown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Routine next day disclosure return for Newborntown.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Newborntown",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-025",
+      "headline": "ANGELALIGN (06699): (1) GRANT OF RSUS TO EXECUTIVE DIRECTORS UNDER THE POST-IPO RSU SCHEME; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101683.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T12:59:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine RSU grant to executive directors and notice of meeting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Routine RSU grant to executive directors and notice of meeting.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angelalign Technology Inc",
+          "ticker": "06699",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-028",
+      "headline": "424B3 - US BANCORP \\DE\\ (0000036104) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/36104/000191870426027305/0001918704-26-027305-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B3 (Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:40:25Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine prospectus filing for existing securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Routine prospectus filing for existing securities.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "US Bancorp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-021",
+      "headline": "ZHONGLIANG HLDG (02772): INTERIM REPORT 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101689.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine interim report filing for Zhongliang Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Routine interim report filing for Zhongliang Holdings.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhongliang Holdings",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-026",
+      "headline": "424B3 - Wheeler Real Estate Investment Trust, Inc. (0001527541) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1527541/000121390026099192/0001213900-26-099192-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B3 (Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:41:35Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine prospectus filing for existing securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Routine prospectus filing for existing securities.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wheeler Real Estate Investment Trust, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-027",
+      "headline": "4 - CARLISLE COMPANIES INC (0000790051) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/790051/000162828026061512/0001628280-26-061512-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T18:39:49Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Routine insider transaction filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Routine insider transaction filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 20,
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carlisle Companies Inc",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -153680,7 +154464,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2297,
+    "inbox_unconsumed": 2313,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153689,9 +154473,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 513094,
-    "news_picked_today": 11,
-    "news_dropped_today": 421
+    "news_seen_today": 716545,
+    "news_picked_today": 30,
+    "news_dropped_today": 570
   },
   "book_momentum": {
     "live_count": 8,
