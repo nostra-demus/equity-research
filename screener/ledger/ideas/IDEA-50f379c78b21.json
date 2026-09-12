@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-efccaf2fe4854ac6",
-  "idea_version_started_at": "2026-09-12T14:03:36Z",
+  "idea_version": "IDEAV-cc2ba786d316c153",
+  "idea_version_started_at": "2026-09-12T16:36:23Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Increased DOJ scrutiny regarding the Groq acquihire signals heightened antitrust risk for Nvidia's aggressive M&A strategy, potentially leading to forced divestitures or future deal blocks.",
-  "why_now": "The DOJ has officially placed the transaction on its radar as of September 12, 2026, creating immediate regulatory overhang.",
-  "conviction": 65,
+  "reason": "The use of AI tools by sanctioned entities like Iran and Houthi rebels to develop weapons systems could lead to increased regulatory scrutiny and potential restrictions on AI technology providers.",
+  "why_now": "This news about AI use in weapons development was reported on September 12, 2026.",
+  "conviction": 45,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 59,
+  "trade_score": 60,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 14,
+    "impact": 20,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -42,22 +43,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
-  "thesis_type": "policy_conditional",
+  "priced_in": "unknown",
+  "thesis_type": "macro_conditional",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-eeac71ba7082"
+    "EVT-65517c222bac"
   ],
-  "primary_source_event_id": "EVT-eeac71ba7082",
+  "primary_source_event_id": "EVT-65517c222bac",
   "source_headlines": [
-    "Nvidia's Groq acquihire is on the DOJ's radar, but it's already too late"
+    "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems"
   ],
-  "source_headline": "Nvidia's Groq acquihire is on the DOJ's radar, but it's already too late",
-  "source_url": "https://www.theregister.com/systems/2026/09/12/nvidias-groq-acquihire-is-on-the-dojs-radar-but-its-already-too-late/5295986",
-  "source_name": "The Register",
-  "materiality_max": 91,
-  "newest_source_at": "2026-09-12T13:26:00Z",
+  "source_headline": "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems",
+  "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/iran-and-houthi-rebels-used-anthropics-claude-ai-to-target-us-warships-and-build-hypersonic-missiles-houthi-rebels-also-used-the-bot-to-code-ballistic-missile-guidance-systems",
+  "source_name": "Tom's Hardware",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-12T15:03:10Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-12T14:03:36Z",
-  "updated_at": "2026-09-12T14:03:36Z",
-  "decay_at": "2026-09-14T01:26:00Z",
+  "updated_at": "2026-09-12T16:36:23Z",
+  "decay_at": "2026-09-14T03:03:10Z",
   "status": "live",
   "promoted_signal_id": null
 }

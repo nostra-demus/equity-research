@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T16:36:08Z",
+  "generated_at": "2026-09-12T16:36:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -112526,6 +112526,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-e38b2231c234",
+      "idea_version": "IDEAV-70db0be3e28ab2d2",
+      "idea_version_started_at": "2026-09-12T16:36:23Z",
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "GE Aerospace is acquiring a company for $12 billion, which should expand its business and revenue base.",
+      "why_now": "The acquisition was announced today, September 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab951b64b3c4"
+      ],
+      "primary_source_event_id": "EVT-ab951b64b3c4",
+      "source_headlines": [
+        "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
+      ],
+      "source_headline": "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know.",
+      "source_url": "https://www.nasdaq.com/articles/ge-aerospace-making-12-billion-acquisition-heres-what-investors-should-know",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T08:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T16:36:23Z",
+      "updated_at": "2026-09-12T16:36:23Z",
+      "decay_at": "2026-09-13T20:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5f98ab3738c2",
       "idea_version": "IDEAV-a641add8d63d1b37",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -113088,22 +113158,22 @@
     },
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-efccaf2fe4854ac6",
-      "idea_version_started_at": "2026-09-12T14:03:36Z",
+      "idea_version": "IDEAV-cc2ba786d316c153",
+      "idea_version_started_at": "2026-09-12T16:36:23Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Increased DOJ scrutiny regarding the Groq acquihire signals heightened antitrust risk for Nvidia's aggressive M&A strategy, potentially leading to forced divestitures or future deal blocks.",
-      "why_now": "The DOJ has officially placed the transaction on its radar as of September 12, 2026, creating immediate regulatory overhang.",
-      "conviction": 65,
+      "reason": "The use of AI tools by sanctioned entities like Iran and Houthi rebels to develop weapons systems could lead to increased regulatory scrutiny and potential restrictions on AI technology providers.",
+      "why_now": "This news about AI use in weapons development was reported on September 12, 2026.",
+      "conviction": 45,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
+      "trade_score": 60,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 14,
+        "impact": 20,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -113114,6 +113184,7 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "price and market expectations",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -113126,22 +113197,22 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
+      "priced_in": "unknown",
+      "thesis_type": "macro_conditional",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-eeac71ba7082"
+        "EVT-65517c222bac"
       ],
-      "primary_source_event_id": "EVT-eeac71ba7082",
+      "primary_source_event_id": "EVT-65517c222bac",
       "source_headlines": [
-        "Nvidia's Groq acquihire is on the DOJ's radar, but it's already too late"
+        "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems"
       ],
-      "source_headline": "Nvidia's Groq acquihire is on the DOJ's radar, but it's already too late",
-      "source_url": "https://www.theregister.com/systems/2026/09/12/nvidias-groq-acquihire-is-on-the-dojs-radar-but-its-already-too-late/5295986",
-      "source_name": "The Register",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-12T13:26:00Z",
+      "source_headline": "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems",
+      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/iran-and-houthi-rebels-used-anthropics-claude-ai-to-target-us-warships-and-build-hypersonic-missiles-houthi-rebels-also-used-the-bot-to-code-ballistic-missile-guidance-systems",
+      "source_name": "Tom's Hardware",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T15:03:10Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -113149,8 +113220,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-12T14:03:36Z",
-      "updated_at": "2026-09-12T14:03:36Z",
-      "decay_at": "2026-09-14T01:26:00Z",
+      "updated_at": "2026-09-12T16:36:23Z",
+      "decay_at": "2026-09-14T03:03:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114374,6 +114445,78 @@
       "surfaced_at": "2026-09-11T11:59:49Z",
       "updated_at": "2026-09-11T11:59:49Z",
       "decay_at": "2026-09-12T20:34:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9151c385c64c",
+      "idea_version": "IDEAV-fb531805840aef11",
+      "idea_version_started_at": "2026-09-12T16:36:23Z",
+      "ticker": "SP",
+      "company": "Shapoorji Pallonji Group",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tata Sons' potential public listing could negatively impact the Shapoorji Pallonji Group, which has historical ties and financial entanglements.",
+      "why_now": "News of Tata Sons' public listing plans emerged today, September 12, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e030e63dc659"
+      ],
+      "primary_source_event_id": "EVT-e030e63dc659",
+      "source_headlines": [
+        "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
+      ],
+      "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
+      "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
+      "source_name": "Mint",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-12T13:37:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T16:36:23Z",
+      "updated_at": "2026-09-12T16:36:23Z",
+      "decay_at": "2026-09-14T01:37:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154561,8 +154704,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 711,
-    "live_count": 33,
+    "surfaced_total": 713,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
