@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-3123eadb829a",
+  "idea_version": "IDEAV-b568e8d769be3684",
+  "idea_version_started_at": "2026-09-12T15:35:59Z",
+  "ticker": "DPSCLTD",
+  "company": "DPSC Limited",
+  "exchange": "BSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is facing a formal Corporate Insolvency Resolution Process due to persistent regulatory non-compliance and payment defaults.",
+  "why_now": "The filing on 2026-09-12 confirms the initiation of insolvency proceedings, creating immediate balance sheet risk.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-3c227efbfb17",
+    "EVT-e898c891a625"
+  ],
+  "primary_source_event_id": "EVT-e898c891a625",
+  "source_headlines": [
+    "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+    "DPSC Limited: DPSC Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority regarding Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )"
+  ],
+  "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+  "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_12092026152931_IntimationofimpositionoffineunderReg30ofSEBI_LODR__12092026.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-12T09:59:44Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-12T15:35:59Z",
+  "updated_at": "2026-09-12T15:35:59Z",
+  "decay_at": "2026-09-13T21:59:44Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

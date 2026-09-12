@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T15:35:08Z",
+  "generated_at": "2026-09-12T15:36:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -113156,6 +113156,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3123eadb829a",
+      "idea_version": "IDEAV-b568e8d769be3684",
+      "idea_version_started_at": "2026-09-12T15:35:59Z",
+      "ticker": "DPSCLTD",
+      "company": "DPSC Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a formal Corporate Insolvency Resolution Process due to persistent regulatory non-compliance and payment defaults.",
+      "why_now": "The filing on 2026-09-12 confirms the initiation of insolvency proceedings, creating immediate balance sheet risk.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3c227efbfb17",
+        "EVT-e898c891a625"
+      ],
+      "primary_source_event_id": "EVT-e898c891a625",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+        "DPSC Limited: DPSC Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority regarding Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_12092026152931_IntimationofimpositionoffineunderReg30ofSEBI_LODR__12092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T09:59:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T15:35:59Z",
+      "updated_at": "2026-09-12T15:35:59Z",
+      "decay_at": "2026-09-13T21:59:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c4367824b313",
       "idea_version": "IDEAV-87affb7a8ba134ca",
       "idea_version_started_at": "2026-09-12T13:20:22Z",
@@ -115368,287 +115441,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ed1237cf4982",
-      "idea_version": "IDEAV-3a25d61b702ed2f1",
-      "idea_version_started_at": "2026-09-09T19:31:54Z",
-      "ticker": "CASY",
-      "company": "Casey's General Stores",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a Q1 earnings beat supported by strong performance in both inside store sales and fuel margins.",
-      "why_now": "The Q1 results were released on 2026-09-09, confirming the effectiveness of their current retail strategy.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d4397ddbfec0"
-      ],
-      "primary_source_event_id": "EVT-d4397ddbfec0",
-      "source_headlines": [
-        "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains"
-      ],
-      "source_headline": "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains",
-      "source_url": "https://www.nasdaq.com/articles/casy-q1-earnings-beat-estimates-inside-and-fuel-gains",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T19:31:54Z",
-      "updated_at": "2026-09-09T19:31:54Z",
-      "decay_at": "2026-09-11T03:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ddc523ea3e44",
-      "idea_version": "IDEAV-e78a1a89cd8f5a8e",
-      "idea_version_started_at": "2026-09-09T17:32:12Z",
-      "ticker": "UNFI",
-      "company": "United Natural Foods",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
-      "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-493281f98b9d"
-      ],
-      "primary_source_event_id": "EVT-493281f98b9d",
-      "source_headlines": [
-        "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
-      ],
-      "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
-      "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T17:32:12Z",
-      "updated_at": "2026-09-09T17:32:12Z",
-      "decay_at": "2026-09-11T03:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-39d1aa3d7440",
-      "idea_version": "IDEAV-aa0326fffab0e08c",
-      "idea_version_started_at": "2026-09-09T16:42:21Z",
-      "ticker": "IRT",
-      "company": "Independence Realty Trust",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The merger with Centerspace creates a larger $8.1 billion REIT, likely driving cost synergies and increasing scale in the residential property market.",
-      "why_now": "The definitive merger agreement was announced today, September 9, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed4d241e22bb"
-      ],
-      "primary_source_event_id": "EVT-ed4d241e22bb",
-      "source_headlines": [
-        "Independence Realty Trust To Buy Centerspace, Creating $8.1B REIT"
-      ],
-      "source_headline": "Independence Realty Trust To Buy Centerspace, Creating $8.1B REIT",
-      "source_url": "https://finance.yahoo.com/real-estate/articles/independence-realty-trust-buy-centerspace-145608519.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T14:56:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T16:42:21Z",
-      "updated_at": "2026-09-09T16:42:21Z",
-      "decay_at": "2026-09-11T02:56:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9bc5698ee004",
-      "idea_version": "IDEAV-94128c57c00ac5fb",
-      "idea_version_started_at": "2026-09-09T16:42:21Z",
-      "ticker": "ADI",
-      "company": "Analog Devices",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Alif Semiconductor for $1.35 billion expands Analog Devices' footprint in edge AI and low-power microcontrollers, enhancing their industrial and IoT product portfolio.",
-      "why_now": "The deal was announced today, September 9, 2026, providing an immediate catalyst for market repricing of the company's growth strategy.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-60e84f8334b1",
-        "EVT-839217fc24d5"
-      ],
-      "primary_source_event_id": "EVT-60e84f8334b1",
-      "source_headlines": [
-        "Analog Devices to Acquire Alif Semiconductor for $1.35 Billion",
-        "Analog Devices to acquire Alif Semiconductor for $1.35 billion"
-      ],
-      "source_headline": "Analog Devices to Acquire Alif Semiconductor for $1.35 Billion",
-      "source_url": "https://www.wsj.com/tech/analog-devices-to-acquire-alif-semiconductor-for-1-35-billion-1b31d6fe?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T14:16:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T16:42:21Z",
-      "updated_at": "2026-09-09T16:42:21Z",
-      "decay_at": "2026-09-11T02:16:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -116931,78 +116723,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e715a11c3283",
-      "idea_version": "IDEAV-81b9b92650bd701e",
-      "idea_version_started_at": "2026-09-09T17:32:12Z",
-      "ticker": "ASO",
-      "company": "Academy Sports + Outdoors",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual profit forecast due to successful cost discipline and e-commerce growth, signaling better-than-expected margin expansion.",
-      "why_now": "The guidance hike was announced on 2026-09-09, providing a fresh catalyst for valuation expansion.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0cb3ce79b89"
-      ],
-      "primary_source_event_id": "EVT-e0cb3ce79b89",
-      "source_headlines": [
-        "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth"
-      ],
-      "source_headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T15:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T17:32:12Z",
-      "updated_at": "2026-09-09T17:32:12Z",
-      "decay_at": "2026-09-11T03:12:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-36a3c1f30a16bfbb",
       "idea_version_started_at": "2026-09-11T06:39:59Z",
@@ -117652,14 +117372,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 534,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 23
       },
       "short": {
         "total_count": 261,
@@ -117669,12 +117389,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 137,
+      "evicted_count": 142,
       "oldest_retained_at": "2026-08-22T20:44:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 109,
-          "oldest_retained_at": "2026-08-30T02:00:37Z"
+          "evicted_count": 114,
+          "oldest_retained_at": "2026-08-30T03:27:09Z"
         },
         "short": {
           "evicted_count": 28,
@@ -120268,8 +119988,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T03:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T15:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120341,8 +120061,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T03:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T15:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120416,8 +120136,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T03:12:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T15:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120489,8 +120209,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T02:56:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T15:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120563,8 +120283,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T02:16:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T15:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -154840,8 +154560,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 710,
-    "live_count": 32,
+    "surfaced_total": 711,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
