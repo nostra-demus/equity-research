@@ -1,19 +1,19 @@
 {
-  "idea_id": "IDEA-0f963912a562",
-  "idea_version": "IDEAV-b6f16dc9eebc7f4a",
+  "idea_id": "IDEA-90254a96ab97",
+  "idea_version": "IDEAV-3666a7e96c5a5600",
   "idea_version_started_at": "2026-09-11T23:59:41Z",
-  "ticker": "AXGN",
-  "company": "Axogen",
+  "ticker": "CPRT",
+  "company": "Copart",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
-  "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
-  "conviction": 65,
+  "reason": "The $1.9 billion cash acquisition of ACV Auctions represents a significant capital outlay that may pressure Copart's near-term free cash flow and balance sheet liquidity.",
+  "why_now": "The deal was announced on 2026-09-10 and is currently pending regulatory and shareholder approval.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
@@ -21,15 +21,16 @@
     "evidence": 14,
     "impact": 21,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
-    "corroboration": 6,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,28 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-8af0835f4f57",
-    "EVT-9482923fd716"
+    "EVT-5749f7a7c40d"
   ],
-  "primary_source_event_id": "EVT-8af0835f4f57",
+  "primary_source_event_id": "EVT-5749f7a7c40d",
   "source_headlines": [
-    "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-    "Axogen to buy BioCircuit Technologies for $200M"
+    "Copart Agrees To Buy ACV For $1.9 Bln In Cash"
   ],
-  "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-  "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
-  "source_name": "Yahoo Finance",
+  "source_headline": "Copart Agrees To Buy ACV For $1.9 Bln In Cash",
+  "source_url": "https://www.nasdaq.com/articles/copart-agrees-buy-acv-19-bln-cash",
+  "source_name": "Nasdaq",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-11T16:00:14Z",
+  "newest_source_at": "2026-09-10T20:42:53Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-10T18:09:40Z",
+  "surfaced_at": "2026-09-11T23:59:41Z",
   "updated_at": "2026-09-11T23:59:41Z",
-  "decay_at": "2026-09-13T04:00:14Z",
+  "decay_at": "2026-09-12T08:42:53Z",
   "status": "live",
   "promoted_signal_id": null
 }
