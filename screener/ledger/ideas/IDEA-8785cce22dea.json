@@ -1,33 +1,35 @@
 {
   "idea_id": "IDEA-8785cce22dea",
-  "idea_version": "IDEAV-f321c2cc5aff754c",
-  "idea_version_started_at": "2026-09-11T23:59:41Z",
+  "idea_version": "IDEAV-252b297b2308307a",
+  "idea_version_started_at": "2026-09-12T09:50:12Z",
   "ticker": "ORCL",
-  "company": "Oracle",
+  "company": "Oracle Corporation",
   "exchange": "NYSE",
-  "ticker_verified": true,
-  "listing_verified": true,
+  "ticker_verified": false,
+  "listing_verified": false,
   "liquidity_verified": false,
-  "listing_verification_source": "yahoo_symbol_directory",
+  "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "Oracle reported strong Q1 results with revenue reaching $19.3 billion, driven by sustained demand for its cloud and AI-integrated infrastructure services.",
-  "why_now": "The earnings beat was released on 2026-09-10, providing a fresh catalyst for valuation expansion.",
-  "conviction": 80,
+  "reason": "The company is aggressively reallocating capital toward AI infrastructure by cutting costs in non-core areas, which should improve operating margins despite the immediate restructuring charge.",
+  "why_now": "The announcement of an additional $700 million in restructuring costs on September 12, 2026, signals a definitive shift in capital allocation priorities.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
-    "specificity": 15,
-    "timing": 6,
-    "expression": 6,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
     "corroboration": 6,
     "learning_adjustment": 0
   },
-  "trade_readiness": "needs_data",
+  "trade_readiness": "watch_only",
   "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
     "live liquidity",
     "dated catalyst",
     "live price, liquidity, and consensus"
@@ -46,19 +48,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-729b3129d1cd",
-    "EVT-9721e2d6567f"
+    "EVT-8aa19a7e758b",
+    "EVT-26ddad135b5c"
   ],
-  "primary_source_event_id": "EVT-729b3129d1cd",
+  "primary_source_event_id": "EVT-8aa19a7e758b",
   "source_headlines": [
-    "Oracle (ORCL) Beats Q1 Earnings and Revenue Estimates",
-    "Oracle Beats on Earnings, Sales Rise to $19.3 Billion"
+    "Oracle Plans More Job Cuts, Adds $700 Million To Restructuring Costs Amid AI Spending",
+    "Oracle to spend an additional US$700 million on more job cuts"
   ],
-  "source_headline": "Oracle (ORCL) Beats Q1 Earnings and Revenue Estimates",
-  "source_url": "https://www.nasdaq.com/articles/oracle-orcl-beats-q1-earnings-and-revenue-estimates",
-  "source_name": "Nasdaq",
+  "source_headline": "Oracle Plans More Job Cuts, Adds $700 Million To Restructuring Costs Amid AI Spending",
+  "source_url": "https://www.ndtvprofit.com/business/oracle-plans-more-job-cuts-adds-700-million-to-restructuring-costs-amid-ai-spending-12036036#publisher=newsstand",
+  "source_name": "NDTV Profit",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-10T21:20:01Z",
+  "newest_source_at": "2026-09-12T07:50:50Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/ORCL_2026-08-14",
@@ -66,8 +68,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-09-10T20:58:23Z",
-  "updated_at": "2026-09-11T23:59:41Z",
-  "decay_at": "2026-09-12T09:20:01Z",
+  "updated_at": "2026-09-12T09:50:12Z",
+  "decay_at": "2026-09-13T19:50:50Z",
   "status": "live",
   "promoted_signal_id": null
 }
