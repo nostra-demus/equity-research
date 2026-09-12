@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T14:48:42Z",
+  "generated_at": "2026-09-12T14:54:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -1141,6 +1141,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-189",
+      "headline": "SMC Global Securities Limited: Smc Global Securities Limited has informed the Exchange about Action(s) initiated or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SMCGLOBAL_12092026200843_disclosure_pulin_comtrade_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T14:39:14Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The company has disclosed regulatory or legal actions initiated against it.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company has disclosed regulatory or legal actions initiated against it.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SMC Global Securities Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-160",
       "headline": "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) taken or orders passed",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-164",
-      "headline": "TD Power Systems Limited: TD Power Systems Limited has informed the Exchange about receipt of In-principle approval for the issue of 12,50,000 equity shares to Promoters on a preferential basis",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TDPOWERSYS_12092026153035_Inprincipal_Intimation_Reg_30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-12T10:00:48Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The company received in-principle approval for a preferential issue of 1,250,000 equity shares to promoters.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The company received in-principle approval for a preferential issue of 1,250,000 equity shares to promoters.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TD Power Systems Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154866,9 +154866,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8578430,
-    "news_picked_today": 336,
-    "news_dropped_today": 7728
+    "news_seen_today": 8615428,
+    "news_picked_today": 342,
+    "news_dropped_today": 7770
   },
   "book_momentum": {
     "live_count": 8,
