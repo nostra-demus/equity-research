@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T02:43:17Z",
+  "generated_at": "2026-09-12T02:48:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -1513,6 +1513,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-069",
+      "headline": "Satellite image shows critical Saudi pipeline damaged in drone attack",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/9/12/saudi-arabia-east-west-oil-pipeline-drone-attack-iraq?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-12T02:18:52Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "A drone attack on a critical Saudi pipeline represents a significant supply shock risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "A drone attack on a critical Saudi pipeline represents a significant supply shock risk to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-065",
       "headline": "Saudis shut down oil pipeline as Houthis tighten grip on Red Sea shipping",
       "headline_en": null,
@@ -1877,56 +1926,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-045",
-      "headline": "Simply Good Foods Company Securities Fraud Class Action Result of Undisclosed Acquisition Failures and Over 27% Stock Decline - Investors may Contact Lewis Kahn, Esq., at Kahn Swick & Foti, LLC",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/simply-good-foods-company-securities-fraud-class-action-result-of-undisclosed-acquisition-failures-and-over-27-stock-decline---investors-may-contact-lewis-kahn-esq-at-kahn-swick--foti-llc-302876749.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-12T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The company faces a securities fraud class action lawsuit following undisclosed acquisition failures and a stock decline of over 27%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "The company faces a securities fraud class action lawsuit following undisclosed acquisition failures and a stock decline of over 27%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Simply Good Foods Company",
-          "ticker": "SMPL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154913,9 +154912,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1755349,
-    "news_picked_today": 72,
-    "news_dropped_today": 1416
+    "news_seen_today": 1814192,
+    "news_picked_today": 75,
+    "news_dropped_today": 1461
   },
   "book_momentum": {
     "live_count": 8,
