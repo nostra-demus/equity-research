@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T00:34:56Z",
+  "generated_at": "2026-09-12T00:44:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-004",
@@ -342,6 +342,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-008",
+      "headline": "Hims & Hers Health, Inc. (HIMS) Securities Fraud Class Action Lawsuit Filed; November 2, 2026, Lead Plaintiff Deadline",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/hims--hers-health-inc-hims-securities-fraud-class-action-lawsuit-filed-november-2-2026-lead-plaintiff-deadline-302876695.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-12T00:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "A securities fraud class action lawsuit has been filed against Hims & Hers Health, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "A securities fraud class action lawsuit has been filed against Hims & Hers Health, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hims & Hers Health, Inc.",
+          "ticker": "HIMS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153533,7 +153582,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2294,
+    "inbox_unconsumed": 2295,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153542,9 +153591,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 390445,
-    "news_picked_today": 8,
-    "news_dropped_today": 304
+    "news_seen_today": 472242,
+    "news_picked_today": 9,
+    "news_dropped_today": 375
   },
   "book_momentum": {
     "live_count": 8,
