@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T03:45:31Z",
+  "generated_at": "2026-09-12T03:49:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-078",
+      "headline": "Anthropic in talks to bring Nvidia as anchor investor in potential $100 billion IPO: Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/anthropic-in-talks-to-bring-nvidia-as-anchor-investor-in-potential-100-billion-ipo-report-11789183097696.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T03:35:58Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Anthropic is reportedly in talks for a $100 billion IPO with Nvidia as an anchor investor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is reportedly in talks for a $100 billion IPO with Nvidia as an anchor investor.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,55 +1936,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-003",
-      "headline": "Whole Foods Market Issues Allergy Alert on Undeclared Egg in Cabricharme Cheese",
-      "headline_en": null,
-      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/whole-foods-market-issues-allergy-alert-undeclared-egg-cabricharme-cheese",
-      "source_name": "U.S. Food & Drug Administration (Recalls)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T22:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Whole Foods Market issued a recall for Cabricharme cheese due to an undeclared egg allergen, posing a safety and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Whole Foods Market issued a recall for Cabricharme cheese due to an undeclared egg allergen, posing a safety and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Whole Foods Market",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154917,9 +154922,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2473603,
-    "news_picked_today": 88,
-    "news_dropped_today": 1976
+    "news_seen_today": 2511925,
+    "news_picked_today": 89,
+    "news_dropped_today": 1999
   },
   "book_momentum": {
     "live_count": 8,
