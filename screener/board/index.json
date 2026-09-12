@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T17:39:31Z",
+  "generated_at": "2026-09-12T17:40:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -112538,6 +112538,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0c6d82b4b0e4",
+      "idea_version": "IDEAV-15e4a5e87a13a252",
+      "idea_version_started_at": "2026-09-12T17:39:44Z",
+      "ticker": "LULU",
+      "company": "Lululemon Athletica Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing persistent brand erosion and market share loss, necessitating a downward revision to its forward earnings guidance.",
+      "why_now": "The guidance downgrade was announced today, September 12, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-67a21f484c0d"
+      ],
+      "primary_source_event_id": "EVT-67a21f484c0d",
+      "source_headlines": [
+        "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade"
+      ],
+      "source_headline": "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-brand-problems-force-161627412.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T16:16:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T17:39:44Z",
+      "updated_at": "2026-09-12T17:39:44Z",
+      "decay_at": "2026-09-14T04:16:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e38b2231c234",
       "idea_version": "IDEAV-70db0be3e28ab2d2",
       "idea_version_started_at": "2026-09-12T16:36:23Z",
@@ -113029,6 +113099,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d60fac062166",
+      "idea_version": "IDEAV-4b56528ac9954d8b",
+      "idea_version_started_at": "2026-09-12T17:39:44Z",
+      "ticker": "CIEN",
+      "company": "Ciena Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A record backlog of $8.5 billion provides high revenue visibility and suggests strong demand for their optical networking equipment in the AI infrastructure cycle.",
+      "why_now": "The backlog update was reported today, September 12, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2882153808d7"
+      ],
+      "primary_source_event_id": "EVT-2882153808d7",
+      "source_headlines": [
+        "Ciena’s (CIEN) Backlog Just Hit $8.5B and Keeps Climbing"
+      ],
+      "source_headline": "Ciena’s (CIEN) Backlog Just Hit $8.5B and Keeps Climbing",
+      "source_url": "https://finance.yahoo.com/technology/ai/articles/ciena-cien-backlog-just-hit-164644198.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-12T16:46:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T17:39:44Z",
+      "updated_at": "2026-09-12T17:39:44Z",
+      "decay_at": "2026-09-14T04:46:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-574ddee0f271",
       "idea_version": "IDEAV-44e721b3ac376643",
       "idea_version_started_at": "2026-09-12T08:35:39Z",
@@ -113164,6 +113304,76 @@
       "surfaced_at": "2026-09-12T14:03:36Z",
       "updated_at": "2026-09-12T16:36:23Z",
       "decay_at": "2026-09-14T03:03:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-494bd6333cab",
+      "idea_version": "IDEAV-b229deed07566c1c",
+      "idea_version_started_at": "2026-09-12T17:39:44Z",
+      "ticker": "BMRN",
+      "company": "BioMarin Pharmaceutical",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The patent settlement with Ascendis removes a significant legal overhang and competitive threat to BioMarin's core product franchise.",
+      "why_now": "The settlement was announced today, September 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5db213235e92"
+      ],
+      "primary_source_event_id": "EVT-5db213235e92",
+      "source_headlines": [
+        "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis"
+      ],
+      "source_headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-12T17:02:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T17:39:44Z",
+      "updated_at": "2026-09-12T17:39:44Z",
+      "decay_at": "2026-09-14T05:02:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154714,8 +154924,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 713,
-    "live_count": 33,
+    "surfaced_total": 716,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
