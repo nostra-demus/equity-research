@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T00:44:59Z",
+  "generated_at": "2026-09-12T00:49:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-004",
@@ -200,6 +200,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-009",
+      "headline": "Indore ED Attaches 3 Hukmakhedi Land Parcels Worth ₹3.91 Crore In ₹307.44-Crore Bank Fraud Probe",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/indore-ed-attaches-3-hukmakhedi-land-parcels-worth-391-crore-in-30744-crore-bank-fraud-probe",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Enforcement agency attached assets worth 3.91 crore in a 307.44 crore bank fraud investigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Enforcement agency attached assets worth 3.91 crore in a 307.44 crore bank fraud investigation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hukmakhedi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-002",
       "headline": "Indore ₹26-Crore Warehouse Finance Fraud Under ED Lens, 18 Properties Worth ₹13 Crore Attached",
       "headline_en": null,
@@ -241,6 +290,55 @@
           "name": "Indore Warehouse",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-010",
+      "headline": "WEBX HOLDING (00339): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101709.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T13:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Webx Holding is conducting a share placement, which will dilute existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Webx Holding is conducting a share placement, which will dilute existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WEBX HOLDING",
+          "ticker": "00339",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -153582,7 +153680,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2295,
+    "inbox_unconsumed": 2297,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153591,9 +153689,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 472242,
-    "news_picked_today": 9,
-    "news_dropped_today": 375
+    "news_seen_today": 513094,
+    "news_picked_today": 11,
+    "news_dropped_today": 421
   },
   "book_momentum": {
     "live_count": 8,
