@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T22:18:45Z",
+  "generated_at": "2026-09-12T22:45:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -1141,6 +1141,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-255",
+      "headline": "Israeli air strike kills Palestinian in southern Gaza",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-air-strike-kills-palestinian-southern-gaza",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T22:13:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Military conflict escalation in Gaza represents a geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Military conflict escalation in Gaza represents a geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-186",
       "headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
       "headline_en": null,
@@ -1917,60 +1960,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-220",
-      "headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T17:02:53Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "BioMarin reached a global patent settlement with Ascendis, resolving legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "BioMarin reached a global patent settlement with Ascendis, resolving legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BioMarin Pharmaceutical",
-          "ticker": "BMRN",
-          "listing_country": "US"
-        },
-        {
-          "name": "Ascendis Pharma",
-          "ticker": "ASND",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113956,148 +113945,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52bcd63c0c75",
-      "idea_version": "IDEAV-0c8e6188e55c17b6",
-      "idea_version_started_at": "2026-09-11T22:18:52Z",
-      "ticker": "PRAKASH",
-      "company": "Prakash Industries Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The receipt of Consent to Operate for a capacity expansion at the Bhaskarpara coal mine provides a direct path to increased production volume and revenue.",
-      "why_now": "The company informed the exchange of the approval on September 11, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58dec22bf3ae"
-      ],
-      "primary_source_event_id": "EVT-58dec22bf3ae",
-      "source_headlines": [
-        "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\"."
-      ],
-      "source_headline": "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PRAKASH_11092026155921_Intimation_to_SE_11092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T10:31:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T13:20:53Z",
-      "updated_at": "2026-09-11T22:18:52Z",
-      "decay_at": "2026-09-12T22:31:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-de1d8125d965",
-      "idea_version": "IDEAV-6b8e40bb98d5678f",
-      "idea_version_started_at": "2026-09-11T22:18:52Z",
-      "ticker": "00688",
-      "company": "China Overseas Land & Investment",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The approval of a spin-off allows the company to unlock value from its underlying property assets and improve capital allocation efficiency.",
-      "why_now": "The exchange approval was announced on September 11, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-208c265444a7"
-      ],
-      "primary_source_event_id": "EVT-208c265444a7",
-      "source_headlines": [
-        "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE"
-      ],
-      "source_headline": "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101165.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T10:28:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T13:20:53Z",
-      "updated_at": "2026-09-11T22:18:52Z",
-      "decay_at": "2026-09-12T22:28:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bcdb35c76a25",
       "idea_version": "IDEAV-ae19cf706889b129",
       "idea_version_started_at": "2026-09-11T18:09:01Z",
@@ -115725,6 +115572,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-52bcd63c0c75",
+      "idea_version": "IDEAV-0c8e6188e55c17b6",
+      "idea_version_started_at": "2026-09-11T22:18:52Z",
+      "ticker": "PRAKASH",
+      "company": "Prakash Industries Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The receipt of Consent to Operate for a capacity expansion at the Bhaskarpara coal mine provides a direct path to increased production volume and revenue.",
+      "why_now": "The company informed the exchange of the approval on September 11, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58dec22bf3ae"
+      ],
+      "primary_source_event_id": "EVT-58dec22bf3ae",
+      "source_headlines": [
+        "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\"."
+      ],
+      "source_headline": "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PRAKASH_11092026155921_Intimation_to_SE_11092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T10:31:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T13:20:53Z",
+      "updated_at": "2026-09-11T22:18:52Z",
+      "decay_at": "2026-09-12T22:31:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-55060519d4fc",
       "idea_version": "IDEAV-3daa5450b33360db",
       "idea_version_started_at": "2026-09-11T22:18:52Z",
@@ -115791,6 +115709,77 @@
       "surfaced_at": "2026-09-11T11:59:49Z",
       "updated_at": "2026-09-11T22:18:52Z",
       "decay_at": "2026-09-12T20:42:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-de1d8125d965",
+      "idea_version": "IDEAV-6b8e40bb98d5678f",
+      "idea_version_started_at": "2026-09-11T22:18:52Z",
+      "ticker": "00688",
+      "company": "China Overseas Land & Investment",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The approval of a spin-off allows the company to unlock value from its underlying property assets and improve capital allocation efficiency.",
+      "why_now": "The exchange approval was announced on September 11, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-208c265444a7"
+      ],
+      "primary_source_event_id": "EVT-208c265444a7",
+      "source_headlines": [
+        "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE"
+      ],
+      "source_headline": "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101165.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T10:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T13:20:53Z",
+      "updated_at": "2026-09-11T22:18:52Z",
+      "decay_at": "2026-09-12T22:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117665,14 +117654,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 32
       },
       "short": {
         "total_count": 263,
@@ -117696,6 +117685,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52bcd63c0c75",
+        "idea_version": "IDEAV-0c8e6188e55c17b6",
+        "idea_version_started_at": "2026-09-11T22:18:52Z",
+        "ticker": "PRAKASH",
+        "company": "Prakash Industries Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The receipt of Consent to Operate for a capacity expansion at the Bhaskarpara coal mine provides a direct path to increased production volume and revenue.",
+        "why_now": "The company informed the exchange of the approval on September 11, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-58dec22bf3ae"
+        ],
+        "primary_source_event_id": "EVT-58dec22bf3ae",
+        "source_headlines": [
+          "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\"."
+        ],
+        "source_headline": "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/PRAKASH_11092026155921_Intimation_to_SE_11092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T10:31:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T13:20:53Z",
+        "updated_at": "2026-09-11T22:18:52Z",
+        "decay_at": "2026-09-12T22:31:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T22:31:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-de1d8125d965",
+        "idea_version": "IDEAV-6b8e40bb98d5678f",
+        "idea_version_started_at": "2026-09-11T22:18:52Z",
+        "ticker": "00688",
+        "company": "China Overseas Land & Investment",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The approval of a spin-off allows the company to unlock value from its underlying property assets and improve capital allocation efficiency.",
+        "why_now": "The exchange approval was announced on September 11, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-208c265444a7"
+        ],
+        "primary_source_event_id": "EVT-208c265444a7",
+        "source_headlines": [
+          "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE"
+        ],
+        "source_headline": "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101165.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T10:28:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T13:20:53Z",
+        "updated_at": "2026-09-11T22:18:52Z",
+        "decay_at": "2026-09-12T22:28:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T22:28:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-78c621ebbbb7",
         "idea_version": "IDEAV-3fe7bf1d59a2deee",
@@ -146235,158 +146372,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-35d63271bd97",
-        "idea_version": "IDEAV-3ed696afd674b651",
-        "idea_version_started_at": "2026-08-30T12:50:24Z",
-        "ticker": "00753",
-        "company": "Air China",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The interim results provide a clear look at the carrier's margin recovery trajectory in the current travel environment.",
-        "why_now": "The report was filed on 2026-08-30 and is fresh data for valuation models.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c4f66351ba7"
-        ],
-        "primary_source_event_id": "EVT-4c4f66351ba7",
-        "source_headlines": [
-          "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026"
-        ],
-        "source_headline": "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000347.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T10:59:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T12:50:24Z",
-        "updated_at": "2026-08-30T12:50:24Z",
-        "decay_at": "2026-08-31T22:59:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-33b8457c918f",
-        "idea_version": "IDEAV-1332c8b2a67d3026",
-        "idea_version_started_at": "2026-08-30T10:20:45Z",
-        "ticker": "00857",
-        "company": "PetroChina",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 22% increase in net profit for the first half of 2026, driven by higher oil prices and robust fuel sales volume.",
-        "why_now": "The official interim results were filed on 2026-08-30, confirming the earnings growth trajectory.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6e89179f92b2",
-          "EVT-0e5b9f36f511",
-          "EVT-6d1248685bbf"
-        ],
-        "primary_source_event_id": "EVT-6e89179f92b2",
-        "source_headlines": [
-          "PetroChina H1 net profit jumps 22%, boosted by fuel sales, oil price spike",
-          "PetroChina First-Half Profit Rises 22% on Higher Oil Prices",
-          "PETROCHINA (00857): RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026"
-        ],
-        "source_headline": "PetroChina H1 net profit jumps 22%, boosted by fuel sales, oil price spike",
-        "source_url": "https://www.reuters.com/business/energy/petrochina-h1-net-profit-jumps-22-boosted-by-fuel-sales-oil-price-spike-2026-08-30/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T10:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T10:20:45Z",
-        "updated_at": "2026-08-30T10:20:45Z",
-        "decay_at": "2026-08-31T22:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-778388aecb02",
         "idea_version": "IDEAV-588cd7edd5af439a",
         "idea_version_started_at": "2026-08-30T10:00:01Z",
@@ -154854,7 +154839,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 717,
-    "live_count": 28,
+    "live_count": 26,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154873,9 +154858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10874707,
-    "news_picked_today": 634,
-    "news_dropped_today": 11702
+    "news_seen_today": 11010991,
+    "news_picked_today": 662,
+    "news_dropped_today": 11962
   },
   "book_momentum": {
     "live_count": 8,
