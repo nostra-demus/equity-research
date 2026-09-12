@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T09:50:26Z",
+  "generated_at": "2026-09-12T10:00:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-134",
@@ -930,6 +930,55 @@
           "name": "Unknown",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-160",
+      "headline": "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) taken or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SEDEMAC2007_12092026134909_20260912-ClosureofGSTSearch.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T08:19:31Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "SEDEMAC Mechatronics Limited reported regulatory or legal enforcement actions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "SEDEMAC Mechatronics Limited reported regulatory or legal enforcement actions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEDEMAC Mechatronics Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1886,55 +1935,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-109",
-      "headline": "MAN SANG INT'L (00938): CHANGE OF CHIEF FINANCIAL OFFICER, COMPANY SECRETARY AND AUTHORISED REPRESENTATIVE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101477.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T11:57:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The company announced a change of its CFO and company secretary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company announced a change of its CFO and company secretary.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAN SANG INT'L",
-          "ticker": "00938",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154982,9 +154982,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6107655,
-    "news_picked_today": 217,
-    "news_dropped_today": 5087
+    "news_seen_today": 6187869,
+    "news_picked_today": 221,
+    "news_dropped_today": 5155
   },
   "book_momentum": {
     "live_count": 8,
