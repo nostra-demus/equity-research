@@ -1,22 +1,22 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-31T09:15:39Z",
+  "archived_at": "2026-09-12T12:40:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-080389da3464",
-    "idea_version": "IDEAV-c9d2c2d58b1e41a6",
-    "idea_version_started_at": "2026-08-29T17:43:44Z",
-    "ticker": "08270",
-    "company": "CHINA CBM",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-488ad3e42649",
+    "idea_version": "IDEAV-f6e5f16dab3afcde",
+    "idea_version_started_at": "2026-09-09T16:22:05Z",
+    "ticker": "PVRINOX",
+    "company": "PVR INOX Limited",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "CHINA CBM issued a positive profit alert, indicating better-than-expected earnings for the period.",
-    "why_now": "The positive profit alert was filed on August 28, 2026, signaling an immediate upward revision to earnings expectations.",
+    "reason": "The company has initiated a buyback program, which will reduce the share count and provide price support for the stock.",
+    "why_now": "The settlement schedule for the buyback was announced on September 9, 2026.",
     "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
@@ -25,7 +25,7 @@
       "evidence": 25,
       "impact": 19,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2911d021f0ad"
+      "EVT-674bb1413181"
     ],
-    "primary_source_event_id": "EVT-2911d021f0ad",
+    "primary_source_event_id": "EVT-674bb1413181",
     "source_headlines": [
-      "CHINA CBM (08270): POSITIVE PROFIT ALERT"
+      "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED"
     ],
-    "source_headline": "CHINA CBM (08270): POSITIVE PROFIT ALERT",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0828/2026082800571.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED",
+    "source_url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260909-19/20260909-19.pdf",
+    "source_name": "BSE India — Notices (RSS)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-28T08:36:00Z",
+    "newest_source_at": "2026-09-09T11:54:50Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-29T17:43:44Z",
-    "updated_at": "2026-08-29T17:43:44Z",
-    "decay_at": "2026-08-29T20:36:00Z",
+    "surfaced_at": "2026-09-09T16:22:05Z",
+    "updated_at": "2026-09-09T16:22:05Z",
+    "decay_at": "2026-09-10T23:54:50Z",
     "status": "live",
     "promoted_signal_id": null
   }
