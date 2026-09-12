@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T22:55:37Z",
+  "generated_at": "2026-09-12T23:09:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -112946,76 +112946,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d0d8fb1cd912",
-      "idea_version": "IDEAV-4f8ee14c07bfaa81",
-      "idea_version_started_at": "2026-09-11T13:45:18Z",
-      "ticker": "KR",
-      "company": "Kroger",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Kroger lowered its annual sales forecast due to weakening consumer spending, signaling margin pressure and potential market share loss in a difficult retail environment.",
-      "why_now": "The guidance cut was announced on September 11, 2026, making it a live catalyst for immediate repricing.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bebed575cf2e"
-      ],
-      "primary_source_event_id": "EVT-bebed575cf2e",
-      "source_headlines": [
-        "Kroger cuts annual sales forecast as consumer spending sputters"
-      ],
-      "source_headline": "Kroger cuts annual sales forecast as consumer spending sputters",
-      "source_url": "https://www.reuters.com/business/retail-consumer/kroger-cuts-annual-sales-forecast-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T10:58:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T13:45:18Z",
-      "updated_at": "2026-09-11T13:45:18Z",
-      "decay_at": "2026-09-12T22:58:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -114507,6 +114437,76 @@
       "surfaced_at": "2026-09-11T23:59:41Z",
       "updated_at": "2026-09-11T23:59:41Z",
       "decay_at": "2026-09-12T08:42:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d0d8fb1cd912",
+      "idea_version": "IDEAV-4f8ee14c07bfaa81",
+      "idea_version_started_at": "2026-09-11T13:45:18Z",
+      "ticker": "KR",
+      "company": "Kroger",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Kroger lowered its annual sales forecast due to weakening consumer spending, signaling margin pressure and potential market share loss in a difficult retail environment.",
+      "why_now": "The guidance cut was announced on September 11, 2026, making it a live catalyst for immediate repricing.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bebed575cf2e"
+      ],
+      "primary_source_event_id": "EVT-bebed575cf2e",
+      "source_headlines": [
+        "Kroger cuts annual sales forecast as consumer spending sputters"
+      ],
+      "source_headline": "Kroger cuts annual sales forecast as consumer spending sputters",
+      "source_url": "https://www.reuters.com/business/retail-consumer/kroger-cuts-annual-sales-forecast-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T10:58:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T13:45:18Z",
+      "updated_at": "2026-09-11T13:45:18Z",
+      "decay_at": "2026-09-12T22:58:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117654,9 +117654,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 282,
@@ -117664,9 +117664,9 @@
         "hidden_count": 32
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -117685,6 +117685,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d0d8fb1cd912",
+        "idea_version": "IDEAV-4f8ee14c07bfaa81",
+        "idea_version_started_at": "2026-09-11T13:45:18Z",
+        "ticker": "KR",
+        "company": "Kroger",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Kroger lowered its annual sales forecast due to weakening consumer spending, signaling margin pressure and potential market share loss in a difficult retail environment.",
+        "why_now": "The guidance cut was announced on September 11, 2026, making it a live catalyst for immediate repricing.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bebed575cf2e"
+        ],
+        "primary_source_event_id": "EVT-bebed575cf2e",
+        "source_headlines": [
+          "Kroger cuts annual sales forecast as consumer spending sputters"
+        ],
+        "source_headline": "Kroger cuts annual sales forecast as consumer spending sputters",
+        "source_url": "https://www.reuters.com/business/retail-consumer/kroger-cuts-annual-sales-forecast-2026-09-11/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T10:58:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T13:45:18Z",
+        "updated_at": "2026-09-11T13:45:18Z",
+        "decay_at": "2026-09-12T22:58:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T22:58:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52bcd63c0c75",
         "idea_version": "IDEAV-0c8e6188e55c17b6",
@@ -154760,86 +154833,12 @@
         "archived_at": "2026-08-24T12:14:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7753d07644a3",
-        "idea_version": "IDEAV-00fd9897c7c24bba",
-        "idea_version_started_at": "2026-08-21T23:28:47Z",
-        "ticker": "01643",
-        "company": "MODERN CHI MED",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Profit warning indicates weaker earnings outlook, pressuring valuation.",
-        "why_now": "Profit warning released 2026-08-21, immediate catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2b820d2567d7"
-        ],
-        "primary_source_event_id": "EVT-2b820d2567d7",
-        "source_headlines": [
-          "MODERN CHI MED (01643): PROFIT WARNING"
-        ],
-        "source_headline": "MODERN CHI MED (01643): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101341.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T12:06:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T23:28:47Z",
-        "updated_at": "2026-08-21T23:28:47Z",
-        "decay_at": "2026-08-23T00:06:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T12:14:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 717,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154858,9 +154857,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11053038,
-    "news_picked_today": 672,
-    "news_dropped_today": 12024
+    "news_seen_today": 11121936,
+    "news_picked_today": 683,
+    "news_dropped_today": 12133
   },
   "book_momentum": {
     "live_count": 8,
