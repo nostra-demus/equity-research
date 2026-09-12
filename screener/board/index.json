@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T16:36:42Z",
+  "generated_at": "2026-09-12T16:45:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-211",
+      "headline": "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-brand-problems-force-161627412.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T16:16:27Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Lululemon issued a steep guidance downgrade, which directly impacts revenue and margin expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon issued a steep guidance downgrade, which directly impacts revenue and margin expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon Athletica Inc.",
+          "ticker": "LULU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,55 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-106",
-      "headline": "SKYFAME REALTY SKYFAME B2609 SKYFAME B3311 SKYFAME B2609B SKYFAME B3311B SKYFAME B3111B SKYFAME B3211 SKYFAME B3111 (00059 05310 05311 05367 05379 05567 05602 05855): THE OUTSTANDING HK$10,000,000 0.1 PER CENT BONDS DUE 2026 (TO BE CONSOLIDATED AND TO FORM A SINGLE SERIES WITH THE HK$60,000,000 0.1 PER CENT BONDS DUE 2026) (Debt Stock Code: 05367) ISSUED UNDER HK$3,300,000,000 MEDIUM TERM BOND PROGRAMME",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101511.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T12:08:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Skyfame Realty is issuing additional debt under its existing programme, reflecting ongoing liquidity management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Skyfame Realty is issuing additional debt under its existing programme, reflecting ongoing liquidity management.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skyfame Realty",
-          "ticker": "00059",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -112947,76 +112947,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-60732dd42a51",
-      "idea_version": "IDEAV-b0029cb88695f9ff",
-      "idea_version_started_at": "2026-09-11T09:09:59Z",
-      "ticker": "BHVN",
-      "company": "Biohaven Ltd.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The FDA clinical hold on their epilepsy drug pipeline asset creates a significant regulatory hurdle and delays potential commercialization.",
-      "why_now": "The news of the FDA hold broke today, immediately undermining the value proposition of their recent $350 million partnership deal.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35bf7eb95c47"
-      ],
-      "primary_source_event_id": "EVT-35bf7eb95c47",
-      "source_headlines": [
-        "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal"
-      ],
-      "source_headline": "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal",
-      "source_url": "https://www.fiercebiotech.com/biotech/biohaven-drug-suffers-fda-hold-days-after-attracting-350m-deal",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T04:37:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T09:09:59Z",
-      "updated_at": "2026-09-11T09:09:59Z",
-      "decay_at": "2026-09-12T16:37:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -115156,6 +115086,76 @@
       "surfaced_at": "2026-09-11T23:59:41Z",
       "updated_at": "2026-09-11T23:59:41Z",
       "decay_at": "2026-09-12T08:42:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-60732dd42a51",
+      "idea_version": "IDEAV-b0029cb88695f9ff",
+      "idea_version_started_at": "2026-09-11T09:09:59Z",
+      "ticker": "BHVN",
+      "company": "Biohaven Ltd.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The FDA clinical hold on their epilepsy drug pipeline asset creates a significant regulatory hurdle and delays potential commercialization.",
+      "why_now": "The news of the FDA hold broke today, immediately undermining the value proposition of their recent $350 million partnership deal.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35bf7eb95c47"
+      ],
+      "primary_source_event_id": "EVT-35bf7eb95c47",
+      "source_headlines": [
+        "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal"
+      ],
+      "source_headline": "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal",
+      "source_url": "https://www.fiercebiotech.com/biotech/biohaven-drug-suffers-fda-hold-days-after-attracting-350m-deal",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T04:37:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T09:09:59Z",
+      "updated_at": "2026-09-11T09:09:59Z",
+      "decay_at": "2026-09-12T16:37:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117516,9 +117516,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -117526,9 +117526,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -117547,6 +117547,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-60732dd42a51",
+        "idea_version": "IDEAV-b0029cb88695f9ff",
+        "idea_version_started_at": "2026-09-11T09:09:59Z",
+        "ticker": "BHVN",
+        "company": "Biohaven Ltd.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The FDA clinical hold on their epilepsy drug pipeline asset creates a significant regulatory hurdle and delays potential commercialization.",
+        "why_now": "The news of the FDA hold broke today, immediately undermining the value proposition of their recent $350 million partnership deal.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-35bf7eb95c47"
+        ],
+        "primary_source_event_id": "EVT-35bf7eb95c47",
+        "source_headlines": [
+          "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal"
+        ],
+        "source_headline": "Biohaven epilepsy drug suffers FDA hold days after attracting $350M deal",
+        "source_url": "https://www.fiercebiotech.com/biotech/biohaven-drug-suffers-fda-hold-days-after-attracting-350m-deal",
+        "source_name": "FierceBiotech",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T04:37:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T09:09:59Z",
+        "updated_at": "2026-09-11T09:09:59Z",
+        "decay_at": "2026-09-12T16:37:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T16:37:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6d25d5e62254",
         "idea_version": "IDEAV-c4a9a837d7e7abe7",
@@ -154626,86 +154699,12 @@
         "archived_at": "2026-08-24T12:14:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a641142ee312",
-        "idea_version": "IDEAV-2c6a9d58e6eac59f",
-        "idea_version_started_at": "2026-08-22T00:54:27Z",
-        "ticker": "01672",
-        "company": "Ascletis Pharma",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning suggests that the company's commercialization efforts or R&D pipeline are failing to meet revenue expectations, pressuring cash flow.",
-        "why_now": "The filing was released on August 21, 2026, and the market has yet to fully digest the implications for the company's burn rate.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c1f37bb93564"
-        ],
-        "primary_source_event_id": "EVT-c1f37bb93564",
-        "source_headlines": [
-          "ASCLETIS-B (01672): PROFIT WARNING"
-        ],
-        "source_headline": "ASCLETIS-B (01672): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101313.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T00:54:27Z",
-        "updated_at": "2026-08-22T00:54:27Z",
-        "decay_at": "2026-08-23T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T12:14:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 713,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154724,9 +154723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9361035,
-    "news_picked_today": 386,
-    "news_dropped_today": 8686
+    "news_seen_today": 9415361,
+    "news_picked_today": 389,
+    "news_dropped_today": 8851
   },
   "book_momentum": {
     "live_count": 8,
