@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T04:09:44Z",
+  "generated_at": "2026-09-12T04:29:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -787,6 +787,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-087",
+      "headline": "Krystal Integrated Services Limited: Krystal Integrated Services Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KISL123_12092026093433_Reg_30_intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-12T04:04:55Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Krystal Integrated Services Limited has secured new orders/contracts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Krystal Integrated Services Limited has secured new orders/contracts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Krystal Integrated Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1903,55 +1952,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-041",
-      "headline": "4 - IonQ, Inc. (0001824920) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1824920/000119312526389607/0001193125-26-389607-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:55:03Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Insider transaction filing for IonQ, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Insider transaction filing for IonQ, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IonQ, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154938,9 +154938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2703037,
-    "news_picked_today": 97,
-    "news_dropped_today": 2111
+    "news_seen_today": 2949782,
+    "news_picked_today": 99,
+    "news_dropped_today": 2301
   },
   "book_momentum": {
     "live_count": 8,
