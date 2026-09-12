@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T06:39:50Z",
+  "generated_at": "2026-09-12T06:49:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-110",
@@ -350,6 +350,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-113",
+      "headline": "Ukraine faces 'toughest winter' since Russia's full-scale invasion, UN official tells BBC",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cwyz59yyqk4o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T05:55:15Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The UN warns of the toughest winter for Ukraine, signaling significant energy and humanitarian infrastructure risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The UN warns of the toughest winter for Ukraine, signaling significant energy and humanitarian infrastructure risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1956,6 @@
           "name": "China Dongxiang",
           "ticker": "03818",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-031",
-      "headline": "CMO: Cosmo Expands Copper Prospective Portfolio in NSW - Updated [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMO?key=2924-03134797-6A1343516",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T09:07:24Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Cosmo Metals is expanding its copper exploration portfolio in New South Wales, which is a material operational development for a small-cap miner.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Cosmo Metals is expanding its copper exploration portfolio in New South Wales, which is a material operational development for a small-cap miner.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cosmo Metals",
-          "ticker": "CMO",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -155088,9 +155082,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4361528,
-    "news_picked_today": 152,
-    "news_dropped_today": 3400
+    "news_seen_today": 4449589,
+    "news_picked_today": 155,
+    "news_dropped_today": 3493
   },
   "book_momentum": {
     "live_count": 8,
