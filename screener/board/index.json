@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T05:34:50Z",
+  "generated_at": "2026-09-12T05:43:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -1528,6 +1528,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-100",
+      "headline": "China Southern announces India flight resumption after six-year hiatus ahead of Xi Jinping's BRICS visit",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/china-southern-announces-india-flight-resumption-after-six-year-hiatus-ahead-of-xi-jinpings-brics-visit-11789189703863.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T05:20:11Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Resumption of flights between China and India after a six-year hiatus indicates a potential thaw in bilateral commercial relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Resumption of flights between China and India after a six-year hiatus indicates a potential thaw in bilateral commercial relations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Southern Airlines",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-047",
       "headline": "U.S. Links Chinese Satellite Imagery to Iranian Strike That Killed Three Troops",
       "headline_en": null,
@@ -1897,49 +1946,6 @@
           "listing_country": "GB"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-073",
-      "headline": "From world's biggest LNG exporter to importer: How Iran war, Hormuz closure forced Qatar to turn to US gas",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/from-world-biggest-lng-exporter-to-importer-how-iran-war-strait-of-hormuz-closure-forced-qatar-to-turn-to-us-gas-11789180853376.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T02:51:26Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Geopolitical escalation in the Middle East and the closure of the Strait of Hormuz are disrupting global LNG supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Geopolitical escalation in the Middle East and the closure of the Strait of Hormuz are disrupting global LNG supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -10,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "generic_media",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -154852,9 +154858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3659277,
-    "news_picked_today": 125,
-    "news_dropped_today": 2875
+    "news_seen_today": 3750897,
+    "news_picked_today": 128,
+    "news_dropped_today": 2944
   },
   "book_momentum": {
     "live_count": 8,
