@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T01:54:44Z",
+  "generated_at": "2026-09-12T02:10:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -150,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-042",
+      "headline": "SCHEDULE 13D - Moore Ryan Dennis (0002149815) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2149815/000149315226042453/0001493152-26-042453-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:57:14Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Schedule 13D filing indicates a significant ownership stake change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Schedule 13D filing indicates a significant ownership stake change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moore Ryan Dennis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-034",
       "headline": "SCHEDULE 13D - Skinner Michael A. (0002043413) (Filed by)",
       "headline_en": null,
@@ -199,20 +248,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260912-035",
+      "inbox_id": "INB-20260912-043",
       "headline": "SCHEDULE 13D - Rainmaker Worldwide Inc. (0001872292) (Subject)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1872292/000149315226042451/0001493152-26-042451-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1872292/000149315226042453/0001493152-26-042453-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:43:11Z",
+      "found_at": "2026-09-12T01:57:14Z",
       "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Rainmaker Worldwide Inc. is the subject of a Schedule 13D filing.",
+      "prelim_note": "Schedule 13D filing indicates a significant ownership stake change.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Rainmaker Worldwide Inc. is the subject of a Schedule 13D filing.",
+      "triage_reason": "Schedule 13D filing indicates a significant ownership stake change.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -293,6 +342,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-044",
+      "headline": "SPL: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPL?key=2924-03134783-3A701612",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T08:33:04Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Becoming a substantial holder filing indicates a significant ownership stake change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Becoming a substantial holder filing indicates a significant ownership stake change.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -391,6 +489,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-040",
+      "headline": "VinFast’s Founder Hands CEO Role to Son Amid Expansion Push",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-12/vinfast-s-founder-hands-ceo-role-to-son-amid-expansion-push",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T01:38:27Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "VinFast founder Pham Nhat Vuong has taken over as CEO from Le Thi Thu Thuy to lead the next phase of global expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "VinFast founder Pham Nhat Vuong has taken over as CEO from Le Thi Thu Thuy to lead the next phase of global expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VinFast Auto Ltd.",
+          "ticker": "VFS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -832,6 +979,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-041",
+      "headline": "4 - IonQ, Inc. (0001824920) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1824920/000119312526389607/0001193125-26-389607-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-12T01:55:03Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Insider transaction filing for IonQ, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Insider transaction filing for IonQ, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IonQ, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1763,55 +1959,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-027",
-      "headline": "4 - CARLISLE COMPANIES INC (0000790051) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/790051/000162828026061512/0001628280-26-061512-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T18:39:49Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Routine insider transaction filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Routine insider transaction filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carlisle Companies Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114298,77 +114445,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b9865b660c27",
-      "idea_version": "IDEAV-4708c3a95e298cfb",
-      "idea_version_started_at": "2026-09-10T15:48:12Z",
-      "ticker": "01312",
-      "company": "Konta China",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The creditors' voluntary winding-up of Singapore subsidiaries signals significant financial distress and potential impairment of assets.",
-      "why_now": "The official exchange filing regarding the winding-up was released on 2026-09-10.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3942c0780fdb"
-      ],
-      "primary_source_event_id": "EVT-3942c0780fdb",
-      "source_headlines": [
-        "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES"
-      ],
-      "source_headline": "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001687.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T14:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T15:48:12Z",
-      "updated_at": "2026-09-10T15:48:12Z",
-      "decay_at": "2026-09-12T02:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7bad7e7a459f",
       "idea_version": "IDEAV-ab5c5bac32555c4b",
       "idea_version_started_at": "2026-09-11T11:59:49Z",
@@ -115915,6 +115991,77 @@
       "surfaced_at": "2026-09-10T15:48:12Z",
       "updated_at": "2026-09-11T23:19:39Z",
       "decay_at": "2026-09-12T01:33:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b9865b660c27",
+      "idea_version": "IDEAV-4708c3a95e298cfb",
+      "idea_version_started_at": "2026-09-10T15:48:12Z",
+      "ticker": "01312",
+      "company": "Konta China",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The creditors' voluntary winding-up of Singapore subsidiaries signals significant financial distress and potential impairment of assets.",
+      "why_now": "The official exchange filing regarding the winding-up was released on 2026-09-10.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3942c0780fdb"
+      ],
+      "primary_source_event_id": "EVT-3942c0780fdb",
+      "source_headlines": [
+        "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES"
+      ],
+      "source_headline": "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001687.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T14:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T15:48:12Z",
+      "updated_at": "2026-09-10T15:48:12Z",
+      "decay_at": "2026-09-12T02:02:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117652,9 +117799,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -117662,9 +117809,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -117683,6 +117830,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b9865b660c27",
+        "idea_version": "IDEAV-4708c3a95e298cfb",
+        "idea_version_started_at": "2026-09-10T15:48:12Z",
+        "ticker": "01312",
+        "company": "Konta China",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The creditors' voluntary winding-up of Singapore subsidiaries signals significant financial distress and potential impairment of assets.",
+        "why_now": "The official exchange filing regarding the winding-up was released on 2026-09-10.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3942c0780fdb"
+        ],
+        "primary_source_event_id": "EVT-3942c0780fdb",
+        "source_headlines": [
+          "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES"
+        ],
+        "source_headline": "KONTA CHINA (01312): INSIDE INFORMATION CREDITORS' VOLUNTARY WINDING-UP OF SINGAPORE SUBSIDIARIES",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001687.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-10T14:02:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T15:48:12Z",
+        "updated_at": "2026-09-10T15:48:12Z",
+        "decay_at": "2026-09-12T02:02:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T02:02:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3010c71d12cb",
         "idea_version": "IDEAV-54a3bf6b4847c273",
@@ -154772,86 +154993,12 @@
         "archived_at": "2026-08-24T12:14:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8699836a9eae",
-        "idea_version": "IDEAV-c479cf7f358e985b",
-        "idea_version_started_at": "2026-08-21T14:23:00Z",
-        "ticker": "06909",
-        "company": "BETTERLIFE HLDG",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning indicating deteriorating financial performance for the period.",
-        "why_now": "The filing was released today, August 21, 2026, signaling immediate negative earnings pressure.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-691540b37861"
-        ],
-        "primary_source_event_id": "EVT-691540b37861",
-        "source_headlines": [
-          "BETTERLIFE HLDG (06909): PROFIT WARNING"
-        ],
-        "source_headline": "BETTERLIFE HLDG (06909): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101029.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T10:54:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T14:23:00Z",
-        "updated_at": "2026-08-21T14:23:00Z",
-        "decay_at": "2026-08-22T22:54:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T12:14:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 699,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154861,7 +155008,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2324,
+    "inbox_unconsumed": 2327,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154870,9 +155017,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1200099,
-    "news_picked_today": 42,
-    "news_dropped_today": 942
+    "news_seen_today": 1379924,
+    "news_picked_today": 48,
+    "news_dropped_today": 1080
   },
   "book_momentum": {
     "live_count": 8,
