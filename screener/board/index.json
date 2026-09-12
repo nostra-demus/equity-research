@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T06:55:02Z",
+  "generated_at": "2026-09-12T07:14:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-110",
@@ -1080,6 +1080,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-117",
+      "headline": "SCHEDULE 13D/A - L.I.A. Pure Capital Ltd (0001749628) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1749628/000121390026098957/0001213900-26-098957-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-11T10:31:45Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in ownership stake by a significant investor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in ownership stake by a significant investor.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L.I.A. Pure Capital Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-044",
       "headline": "SPL: Becoming a substantial holder",
       "headline_en": null,
@@ -1909,56 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-107",
-      "headline": "CHINA DONGXIANG (03818): (1) PROPOSED OFF-MARKET SHARE BUY-BACKS; (2) PROPOSED SET-OFF; (3) PROPOSED LOAN WAIVER; AND (4) CONNECTED TRANSACTION DESPATCH OF CIRCULAR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101513.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T12:08:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "China Dongxiang announced a proposed off-market share buy-back and loan waiver, impacting capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "China Dongxiang announced a proposed off-market share buy-back and loan waiver, impacting capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Dongxiang",
-          "ticker": "03818",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -155082,9 +155081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4502201,
-    "news_picked_today": 156,
-    "news_dropped_today": 3540
+    "news_seen_today": 4670071,
+    "news_picked_today": 160,
+    "news_dropped_today": 4400
   },
   "book_momentum": {
     "live_count": 8,
