@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T17:27:00Z",
+  "generated_at": "2026-09-12T17:39:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -1629,6 +1629,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-220",
+      "headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T17:02:53Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "BioMarin reached a global patent settlement with Ascendis, resolving legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "BioMarin reached a global patent settlement with Ascendis, resolving legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BioMarin Pharmaceutical",
+          "ticker": "BMRN",
+          "listing_country": "US"
+        },
+        {
+          "name": "Ascendis Pharma",
+          "ticker": "ASND",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-056",
       "headline": "Nippon Steel makes $2bn contrarian bet on Japan's automotive market",
       "headline_en": null,
@@ -1919,55 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-108",
-      "headline": "CROCODILE (00122): DISCLOSEABLE TRANSACTION - DISPOSAL OF PROPERTY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101491.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T12:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The company is disposing of a property, which is a discloseable transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company is disposing of a property, which is a discloseable transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CROCODILE",
-          "ticker": "00122",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154729,9 +154734,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9563403,
-    "news_picked_today": 415,
-    "news_dropped_today": 9161
+    "news_seen_today": 9604558,
+    "news_picked_today": 421,
+    "news_dropped_today": 9251
   },
   "book_momentum": {
     "live_count": 8,
