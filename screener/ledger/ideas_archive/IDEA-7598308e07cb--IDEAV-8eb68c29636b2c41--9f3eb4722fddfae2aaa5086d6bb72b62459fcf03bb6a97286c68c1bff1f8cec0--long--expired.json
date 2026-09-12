@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-31T15:41:29Z",
+  "archived_at": "2026-09-12T21:36:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-c559ff4a8d85",
-    "idea_version": "IDEAV-fac930fbf4d23738",
-    "idea_version_started_at": "2026-08-30T00:06:22Z",
-    "ticker": "FLR",
-    "company": "Fluor Corporation",
+    "idea_id": "IDEA-7598308e07cb",
+    "idea_version": "IDEAV-8eb68c29636b2c41",
+    "idea_version_started_at": "2026-09-09T23:02:57Z",
+    "ticker": "ENB",
+    "company": "Enbridge",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,26 +15,25 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
-    "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
-    "conviction": 60,
+    "reason": "Enbridge is expanding its midstream footprint by acquiring the Tallgrass crude oil business for $2.55 billion, which should be accretive to cash flow once integrated.",
+    "why_now": "The acquisition was announced on 2026-09-09, providing a clear catalyst for the stock as it scales its asset base.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 60,
+    "trade_score": 62,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 21,
       "specificity": 15,
-      "timing": 6,
+      "timing": 10,
       "expression": 6,
-      "corroboration": 0,
+      "corroboration": 6,
       "learning_adjustment": 0
     },
     "trade_readiness": "needs_data",
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -51,26 +50,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-a225fc453d91"
+      "EVT-d02fd2c9091c",
+      "EVT-881a5898c57b"
     ],
-    "primary_source_event_id": "EVT-a225fc453d91",
+    "primary_source_event_id": "EVT-d02fd2c9091c",
     "source_headlines": [
-      "Fluor to wrap $5B Alabama plant construction"
+      "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+      "Enbridge to buy Tallgrass crude oil business for $2.55-billion"
     ],
-    "source_headline": "Fluor to wrap $5B Alabama plant construction",
-    "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
-    "source_name": "Construction Dive",
+    "source_headline": "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
+    "source_url": "https://www.nasdaq.com/articles/enbridge-acquire-tallgrass-crude-business-255-bln",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-28T15:27:09Z",
+    "newest_source_at": "2026-09-09T20:49:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-29T13:40:33Z",
-    "updated_at": "2026-08-30T00:06:22Z",
-    "decay_at": "2026-08-30T03:27:09Z",
+    "surfaced_at": "2026-09-09T23:02:57Z",
+    "updated_at": "2026-09-09T23:02:57Z",
+    "decay_at": "2026-09-11T08:49:52Z",
     "status": "live",
     "promoted_signal_id": null
   }
