@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T17:09:41Z",
+  "generated_at": "2026-09-12T17:18:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-214",
+      "headline": "This 5.8%-Yielding Dividend Stock Has Made 3 Deals -- Including Nearly $3.2 Billion in Acquisitions -- in the Last 2 Weeks. Should Income Investors Be Worried or Excited?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/58-yielding-dividend-stock-has-made-3-deals-including-nearly-32-billion-acquisitions-last",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T16:50:01Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The company has completed $3.2 billion in acquisitions over the last two weeks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has completed $3.2 billion in acquisitions over the last two weeks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nasdaq",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1826,6 +1875,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-218",
+      "headline": "Ciena’s (CIEN) Backlog Just Hit $8.5B and Keeps Climbing",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/ciena-cien-backlog-just-hit-164644198.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T16:46:44Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Ciena reported a record backlog of $8.5 billion, indicating strong future revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Ciena reported a record backlog of $8.5 billion, indicating strong future revenue visibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ciena",
+          "ticker": "CIEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-108",
       "headline": "CROCODILE (00122): DISCLOSEABLE TRANSACTION - DISPOSAL OF PROPERTY",
       "headline_en": null,
@@ -1870,98 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-067",
-      "headline": "BOJ set to raise interest rate to 1.25% next week",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/12/economy/boj-interest-rate/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T01:56:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The Bank of Japan is expected to raise interest rates to 1.25%, a significant shift in monetary policy for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Bank of Japan is expected to raise interest rates to 1.25%, a significant shift in monetary policy for the region.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-158",
-      "headline": "Notice of Lodging of Proposed Stipulation and Order of Settlement Under the Toxic Substances Control Act",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18628/notice-of-lodging-of-proposed-stipulation-and-order-of-settlement-under-the-toxic-substances-control",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-14T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "A settlement under the Toxic Substances Control Act indicates potential regulatory liability and legal risk for the involved party.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A settlement under the Toxic Substances Control Act indicates potential regulatory liability and legal risk for the involved party.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unknown",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114526,77 +114532,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6e438c26d39a",
-      "idea_version": "IDEAV-53af685bf4ae0e12",
-      "idea_version_started_at": "2026-09-11T09:09:59Z",
-      "ticker": "DIAMONDPOWER",
-      "company": "Diamond Power Infrastructure Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Exiting the NCLT insolvency framework a year early significantly improves the company's financial flexibility and operational outlook.",
-      "why_now": "The company filed the official notice of its exit from the restructuring framework today.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bba8b0f82c0d"
-      ],
-      "primary_source_event_id": "EVT-bba8b0f82c0d",
-      "source_headlines": [
-        "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\"."
-      ],
-      "source_headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DIACABS_11092026104334_Regulation30PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-11T05:13:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T09:09:59Z",
-      "updated_at": "2026-09-11T09:09:59Z",
-      "decay_at": "2026-09-12T17:13:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e47cc519db25",
       "idea_version": "IDEAV-f862280f5e7ad1b4",
       "idea_version_started_at": "2026-09-12T01:49:08Z",
@@ -116868,6 +116803,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6e438c26d39a",
+      "idea_version": "IDEAV-53af685bf4ae0e12",
+      "idea_version_started_at": "2026-09-11T09:09:59Z",
+      "ticker": "DIAMONDPOWER",
+      "company": "Diamond Power Infrastructure Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Exiting the NCLT insolvency framework a year early significantly improves the company's financial flexibility and operational outlook.",
+      "why_now": "The company filed the official notice of its exit from the restructuring framework today.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bba8b0f82c0d"
+      ],
+      "primary_source_event_id": "EVT-bba8b0f82c0d",
+      "source_headlines": [
+        "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\"."
+      ],
+      "source_headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DIACABS_11092026104334_Regulation30PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-11T05:13:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T09:09:59Z",
+      "updated_at": "2026-09-11T09:09:59Z",
+      "decay_at": "2026-09-12T17:13:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-36a3c1f30a16bfbb",
       "idea_version_started_at": "2026-09-11T06:39:59Z",
@@ -117517,14 +117523,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 262,
@@ -117548,6 +117554,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6e438c26d39a",
+        "idea_version": "IDEAV-53af685bf4ae0e12",
+        "idea_version_started_at": "2026-09-11T09:09:59Z",
+        "ticker": "DIAMONDPOWER",
+        "company": "Diamond Power Infrastructure Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Exiting the NCLT insolvency framework a year early significantly improves the company's financial flexibility and operational outlook.",
+        "why_now": "The company filed the official notice of its exit from the restructuring framework today.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bba8b0f82c0d"
+        ],
+        "primary_source_event_id": "EVT-bba8b0f82c0d",
+        "source_headlines": [
+          "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\"."
+        ],
+        "source_headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Diamond Power Exits the NCLT Framework a Full Year Ahead of Schedule\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DIACABS_11092026104334_Regulation30PressRelease.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-11T05:13:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T09:09:59Z",
+        "updated_at": "2026-09-11T09:09:59Z",
+        "decay_at": "2026-09-12T17:13:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-12T17:13:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-60732dd42a51",
         "idea_version": "IDEAV-b0029cb88695f9ff",
@@ -146470,81 +146550,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a499ce26ab02",
-        "idea_version": "IDEAV-58bd58802bb42ba6",
-        "idea_version_started_at": "2026-08-30T07:20:04Z",
-        "ticker": "SBIN",
-        "company": "State Bank of India",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "SBI and its subsidiary are set to monetize their holdings in the National Stock Exchange (NSE) through a massive Rs 30,000-crore IPO, providing a significant one-time capital gain and unlocking value from non-core assets.",
-        "why_now": "The dilution plan is tied to the imminent proposed public issue of the NSE.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d67a52b31198"
-        ],
-        "primary_source_event_id": "EVT-d67a52b31198",
-        "source_headlines": [
-          "NSE IPO: SBI, Subsidiary To Dilute 1% Stake In Proposed Rs 30,000-Crore Public Issue"
-        ],
-        "source_headline": "NSE IPO: SBI, Subsidiary To Dilute 1% Stake In Proposed Rs 30,000-Crore Public Issue",
-        "source_url": "https://www.ndtvprofit.com/markets/nse-ipo-sbi-subsidiary-to-dilute-1-stake-in-proposed-rs-30-000-crore-public-issue-11977232#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 97,
-        "newest_source_at": "2026-08-30T06:50:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T07:00:23Z",
-        "updated_at": "2026-08-30T07:20:04Z",
-        "decay_at": "2026-08-31T18:50:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-3bf20a51c926786c",
         "idea_version_started_at": "2026-08-30T07:20:04Z",
@@ -154705,7 +154710,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 713,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154724,9 +154729,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9500871,
-    "news_picked_today": 403,
-    "news_dropped_today": 9029
+    "news_seen_today": 9521864,
+    "news_picked_today": 412,
+    "news_dropped_today": 9092
   },
   "book_momentum": {
     "live_count": 8,
