@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T03:50:17Z",
+  "generated_at": "2026-09-12T04:04:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -733,6 +733,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-081",
+      "headline": "FDA delays approval decision for Exelixis' tyrosine kinase inhibitor in colorectal cancer",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/fda-delays-approval-exelixis-tyrosine-kinase-inhibitor-colorectal-cancer-analysts-believe",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:02:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The FDA has delayed the approval decision for Exelixis' tyrosine kinase inhibitor, creating uncertainty for a key pipeline asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The FDA has delayed the approval decision for Exelixis' tyrosine kinase inhibitor, creating uncertainty for a key pipeline asset.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Exelixis",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1762,6 +1811,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-082",
+      "headline": "Chutes & Ladders—Longtime Takeda R&D chief to depart next June",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/chutes-ladders-longtime-takeda-rd-chief-depart-next-june",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:02:05Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Takeda's R&D chief is departing, which may signal a shift in research strategy or leadership stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Takeda's R&D chief is departing, which may signal a shift in research strategy or leadership stability.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Takeda Pharmaceutical",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-080",
+      "headline": "Saudis shut down oil pipeline as Houthis tighten grip on Red Sea shipping",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/saudis-shut-down-oil-pipeline-as-houthis-tighten-grip-on-red-sea-shipping/article71459070.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T03:45:19Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The shutdown of a Saudi oil pipeline due to Houthi activity in the Red Sea represents a significant supply shock to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The shutdown of a Saudi oil pipeline due to Houthi activity in the Red Sea represents a significant supply shock to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-070",
       "headline": "US-Iran war: As conflict widens, more waterways become unsafe for oil exports, raising fears of energy crisis",
       "headline_en": null,
@@ -1798,142 +1939,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-069",
-      "headline": "Satellite image shows critical Saudi pipeline damaged in drone attack",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/9/12/saudi-arabia-east-west-oil-pipeline-drone-attack-iraq?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-12T02:18:52Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "A drone attack on a critical Saudi pipeline represents a significant supply shock risk to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "A drone attack on a critical Saudi pipeline represents a significant supply shock risk to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-065",
-      "headline": "Saudis shut down oil pipeline as Houthis tighten grip on Red Sea shipping",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/world/yemen%27s-houthis-reach-strategic-island-at-mouth-of-vital-shipping-lane7",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T01:33:09Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The shutdown of a major oil pipeline due to geopolitical conflict represents a significant supply shock to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The shutdown of a major oil pipeline due to geopolitical conflict represents a significant supply shock to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-049",
-      "headline": "Mint Explainer | How Supreme Court's 13 questions to FSSAI could shape front-of-pack food labels",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/fssai-warning-labels-supreme-court-fssai-11789113749199.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T01:30:44Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Supreme Court scrutiny of FSSAI labeling could lead to mandatory packaging changes for the entire Indian FMCG and food sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Supreme Court scrutiny of FSSAI labeling could lead to mandatory packaging changes for the entire Indian FMCG and food sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -154922,9 +154927,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2511925,
-    "news_picked_today": 89,
-    "news_dropped_today": 1999
+    "news_seen_today": 2664854,
+    "news_picked_today": 93,
+    "news_dropped_today": 2091
   },
   "book_momentum": {
     "live_count": 8,
