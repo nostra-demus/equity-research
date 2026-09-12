@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-12T01:24:58Z",
+  "generated_at": "2026-09-12T01:29:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260912-032",
+      "headline": "AN3: Suspension from Official Quotation - AN3HBC [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AN3?key=2924-03134795-3A701597",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:03:14Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "A suspension from official quotation is a material event indicating potential distress or regulatory issues for the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A suspension from official quotation is a material event indicating potential distress or regulatory issues for the issuer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A3D",
+          "ticker": "AN3",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260912-004",
       "headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
@@ -391,6 +440,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-031",
+      "headline": "CMO: Cosmo Expands Copper Prospective Portfolio in NSW - Updated [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMO?key=2924-03134797-6A1343516",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T09:07:24Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Cosmo Metals is expanding its copper exploration portfolio in New South Wales, which is a material operational development for a small-cap miner.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Cosmo Metals is expanding its copper exploration portfolio in New South Wales, which is a material operational development for a small-cap miner.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cosmo Metals",
+          "ticker": "CMO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154562,7 +154660,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2315,
+    "inbox_unconsumed": 2317,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154571,9 +154669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 938962,
-    "news_picked_today": 33,
-    "news_dropped_today": 735
+    "news_seen_today": 959135,
+    "news_picked_today": 35,
+    "news_dropped_today": 781
   },
   "book_momentum": {
     "live_count": 8,
