@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T04:43:07Z",
+  "generated_at": "2026-09-12T04:54:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -1755,6 +1755,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-092",
+      "headline": "Crude shock puts RBI on watch: Governor Sanjay Malhotra says MPC will reassess growth, inflation next month",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/crude-shock-puts-rbi-on-watch-governor-sanjay-malhotra-says-mpc-will-reassess-growth-inflation-next-month-11789183758821.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:35:21Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Rising crude oil prices are forcing the RBI to reassess growth and inflation outlooks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Rising crude oil prices are forcing the RBI to reassess growth and inflation outlooks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-083",
       "headline": "High oil prices could force ECB to raise rates further, warns top policymaker",
       "headline_en": null,
@@ -1892,55 +1935,6 @@
       "companies": [
         {
           "name": "Vorini Holdings Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-038",
-      "headline": "SCHEDULE 13D/A - Barron Gerard (0001878772) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1878772/000110465926107182/0001104659-26-107182-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-12T01:41:34Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Gerard Barron filed an amendment to a Schedule 13D.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Gerard Barron filed an amendment to a Schedule 13D.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gerard Barron",
           "ticker": null,
           "listing_country": null
         }
@@ -154932,9 +154926,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3138197,
-    "news_picked_today": 103,
-    "news_dropped_today": 2489
+    "news_seen_today": 3288008,
+    "news_picked_today": 106,
+    "news_dropped_today": 2582
   },
   "book_momentum": {
     "live_count": 8,
