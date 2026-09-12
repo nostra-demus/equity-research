@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T01:04:36Z",
+  "generated_at": "2026-09-12T01:15:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-004",
@@ -391,6 +391,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-029",
+      "headline": "Reliable Data Services Limited: board meeting 21-Sep-2026 — Fund Raising/Other business matters",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RELIABLE_11092026162025_noticetobse.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-11T10:50:44Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Reliable Data Services Limited announced a board meeting to discuss potential fund raising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Reliable Data Services Limited announced a board meeting to discuss potential fund raising.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliable Data Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154464,7 +154513,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2313,
+    "inbox_unconsumed": 2314,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154473,9 +154522,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 716545,
-    "news_picked_today": 30,
-    "news_dropped_today": 570
+    "news_seen_today": 817836,
+    "news_picked_today": 32,
+    "news_dropped_today": 664
   },
   "book_momentum": {
     "live_count": 8,
