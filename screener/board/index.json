@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T03:10:06Z",
+  "generated_at": "2026-09-12T03:19:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-071",
+      "headline": "Exxon's 2030 Targets Call for $35 Billion More in Cash Flow. Here's the Milestone That Tells You It's on Track By 2028.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/exxons-2030-targets-call-35-billion-more-cash-flow-heres-milestone-tells-you-its-track",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T02:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Exxon Mobil announced a target to increase annual cash flow by $35 billion by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Exxon Mobil announced a target to increase annual cash flow by $35 billion by 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Exxon Mobil",
+          "ticker": "XOM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1213,6 +1262,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-073",
+      "headline": "From world's biggest LNG exporter to importer: How Iran war, Hormuz closure forced Qatar to turn to US gas",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/from-world-biggest-lng-exporter-to-importer-how-iran-war-strait-of-hormuz-closure-forced-qatar-to-turn-to-us-gas-11789180853376.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T02:51:26Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Geopolitical escalation in the Middle East and the closure of the Strait of Hormuz are disrupting global LNG supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Geopolitical escalation in the Middle East and the closure of the Strait of Hormuz are disrupting global LNG supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -10,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "generic_media",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-057",
       "headline": "Japan's Astemo to boost US motor capacity as client Honda shifts to hybrids",
       "headline_en": null,
@@ -1834,98 +1926,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-023",
-      "headline": "MEILAN AIRPORT (00357): DELAY IN DESPATCH OF CIRCULAR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101687.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-11T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Routine delay in dispatch of circular for Meilan Airport.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine delay in dispatch of circular for Meilan Airport.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meilan Airport",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-058",
-      "headline": "China makes its vast market speak with one voice",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/opinion/china-makes-its-vast-market-speak-with-one-voice",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T02:11:54Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "China's government is asserting control over its market, which could have broad implications for businesses operating there.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "China's government is asserting control over its market, which could have broad implications for businesses operating there.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154912,9 +154912,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2067999,
-    "news_picked_today": 78,
-    "news_dropped_today": 1626
+    "news_seen_today": 2165188,
+    "news_picked_today": 83,
+    "news_dropped_today": 1693
   },
   "book_momentum": {
     "live_count": 8,
