@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T21:10:35Z",
+  "generated_at": "2026-09-12T21:26:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -198,6 +198,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-251",
+      "headline": "OpenAI’s Sam Altman says it would be ‘ill-advised’ to go public in 2026",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/openai-sam-altman-says-ill-201916714.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T20:19:16Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "OpenAI's CEO stating it would be ill-advised to go public in 2026 suggests potential challenges or a shift in strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI's CEO stating it would be ill-advised to go public in 2026 suggests potential challenges or a shift in strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-224",
       "headline": "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion",
       "headline_en": null,
@@ -247,6 +296,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-254",
+      "headline": "OpenAI’s Altman Says No IPO in 2026, Firm to Prioritize Safety",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-12/openai-ipo-won-t-happen-until-2027-sam-altman-tells-fortune",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T19:36:39Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "OpenAI's CEO stating no IPO in 2026 and prioritizing safety suggests potential challenges or a shift in strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI's CEO stating no IPO in 2026 and prioritizing safety suggests potential challenges or a shift in strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,104 +1968,6 @@
           "name": "Ascendis Pharma",
           "ticker": "ASND",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-056",
-      "headline": "Nippon Steel makes $2bn contrarian bet on Japan's automotive market",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/materials/nippon-steel-makes-2bn-contrarian-bet-on-japan-s-automotive-market",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T02:11:54Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Nippon Steel is making a significant $2bn investment in Japan's automotive market, indicating a strategic bet on its future growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Nippon Steel is making a significant $2bn investment in Japan's automotive market, indicating a strategic bet on its future growth.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nippon Steel",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-055",
-      "headline": "Sumitomo Metal launches Japan's first EV battery recycling plant",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/sumitomo-metal-launches-japan-s-first-ev-battery-recycling-plant",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T02:11:54Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Sumitomo Metal has launched Japan's first EV battery recycling plant, indicating a new investment and operational capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Sumitomo Metal has launched Japan's first EV battery recycling plant, indicating a new investment and operational capacity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo Metal",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -154944,9 +154944,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10540127,
-    "news_picked_today": 543,
-    "news_dropped_today": 11145
+    "news_seen_today": 10603607,
+    "news_picked_today": 561,
+    "news_dropped_today": 11343
   },
   "book_momentum": {
     "live_count": 8,
