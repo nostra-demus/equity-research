@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T04:04:47Z",
+  "generated_at": "2026-09-12T04:09:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-032",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-086",
+      "headline": "Nvidia in talks to invest in Anthropic’s mega IPO: sources",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/startups-tech/startups/nvidia-talks-invest-anthropics-mega-ipo-sources",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T03:55:26Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "Nvidia is reportedly in talks to invest in Anthropic's upcoming IPO, a significant strategic move involving two major AI players.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly in talks to invest in Anthropic's upcoming IPO, a significant strategic move involving two major AI players.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1130,6 +1184,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-084",
+      "headline": "MFS administrator steps down amid creditor pressure",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/4ac10680-bc93-4ab2-b010-d9844e7b8bdd?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:00:23Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "The administrator of MFS has stepped down due to creditor pressure, indicating potential distress or governance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The administrator of MFS has stepped down due to creditor pressure, indicating potential distress or governance issues.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MFS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-048",
       "headline": "Oracle's Larry Ellison adopts trading plan to sell up to $7.5 billion worth of stock",
       "headline_en": null,
@@ -1511,6 +1614,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260912-083",
+      "headline": "High oil prices could force ECB to raise rates further, warns top policymaker",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a83e620a-bb72-478a-ac77-10635ec653bd?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T04:00:33Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "A top ECB policymaker signaled that high oil prices could necessitate further interest rate hikes, impacting European monetary policy expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "A top ECB policymaker signaled that high oil prices could necessitate further interest rate hikes, impacting European monetary policy expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260912-057",
       "headline": "Japan's Astemo to boost US motor capacity as client Honda shifts to hybrids",
       "headline_en": null,
@@ -1806,141 +1952,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-082",
-      "headline": "Chutes & Ladders—Longtime Takeda R&D chief to depart next June",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/chutes-ladders-longtime-takeda-rd-chief-depart-next-june",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T04:02:05Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Takeda's R&D chief is departing, which may signal a shift in research strategy or leadership stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Takeda's R&D chief is departing, which may signal a shift in research strategy or leadership stability.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Takeda Pharmaceutical",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-080",
-      "headline": "Saudis shut down oil pipeline as Houthis tighten grip on Red Sea shipping",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/saudis-shut-down-oil-pipeline-as-houthis-tighten-grip-on-red-sea-shipping/article71459070.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T03:45:19Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "The shutdown of a Saudi oil pipeline due to Houthi activity in the Red Sea represents a significant supply shock to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The shutdown of a Saudi oil pipeline due to Houthi activity in the Red Sea represents a significant supply shock to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-070",
-      "headline": "US-Iran war: As conflict widens, more waterways become unsafe for oil exports, raising fears of energy crisis",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/usiran-war-as-conflict-widens-more-waterways-become-unsafe-for-oil-exports-raising-fears-of-energy-crisis-11789179665428.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T02:37:43Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Escalating geopolitical conflict in the Middle East threatens global oil supply chains and energy prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Escalating geopolitical conflict in the Middle East threatens global oil supply chains and energy prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154927,9 +154938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2664854,
-    "news_picked_today": 93,
-    "news_dropped_today": 2091
+    "news_seen_today": 2703037,
+    "news_picked_today": 97,
+    "news_dropped_today": 2111
   },
   "book_momentum": {
     "live_count": 8,
