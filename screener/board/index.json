@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T06:25:18Z",
+  "generated_at": "2026-09-12T06:25:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-110",
@@ -113445,6 +113445,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be16a3f18c55",
+      "idea_version": "IDEAV-a089795d329b4b8f",
+      "idea_version_started_at": "2026-09-12T06:25:31Z",
+      "ticker": "XOM",
+      "company": "Exxon Mobil",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Exxon's updated guidance projects an additional $35 billion in cash flow by 2030, signaling improved capital efficiency and potential for increased shareholder returns.",
+      "why_now": "The company just released its 2030 strategic targets and 2028 milestone markers.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c54b272b36de"
+      ],
+      "primary_source_event_id": "EVT-c54b272b36de",
+      "source_headlines": [
+        "Exxon's 2030 Targets Call for $35 Billion More in Cash Flow. Here's the Milestone That Tells You It's on Track By 2028."
+      ],
+      "source_headline": "Exxon's 2030 Targets Call for $35 Billion More in Cash Flow. Here's the Milestone That Tells You It's on Track By 2028.",
+      "source_url": "https://www.nasdaq.com/articles/exxons-2030-targets-call-35-billion-more-cash-flow-heres-milestone-tells-you-its-track",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T02:35:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T06:25:31Z",
+      "updated_at": "2026-09-12T06:25:31Z",
+      "decay_at": "2026-09-13T14:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cf866ad63dd3",
       "idea_version": "IDEAV-86af74d004e4beb1",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -114942,6 +115014,78 @@
       "surfaced_at": "2026-09-11T06:39:59Z",
       "updated_at": "2026-09-11T06:39:59Z",
       "decay_at": "2026-09-12T14:19:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5efadd64af04",
+      "idea_version": "IDEAV-83588b9d5243120d",
+      "idea_version_started_at": "2026-09-12T06:25:31Z",
+      "ticker": "8306",
+      "company": "Mitsubishi UFJ Financial Group",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "An increase in the Bank of Japan's benchmark interest rate to 1.25% expands net interest margins for major Japanese banks.",
+      "why_now": "The rate hike is scheduled for next week, creating a live catalyst for financial sector repricing.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2347c608c66a"
+      ],
+      "primary_source_event_id": "EVT-2347c608c66a",
+      "source_headlines": [
+        "BOJ set to raise interest rate to 1.25% next week"
+      ],
+      "source_headline": "BOJ set to raise interest rate to 1.25% next week",
+      "source_url": "https://www.japantimes.co.jp/business/2026/09/12/economy/boj-interest-rate/",
+      "source_name": "The Japan Times",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-12T01:56:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T06:25:31Z",
+      "updated_at": "2026-09-12T06:25:31Z",
+      "decay_at": "2026-09-13T13:56:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117218,78 +117362,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d6a9504a0851",
-      "idea_version": "IDEAV-0c68e0a5d951b7d3",
-      "idea_version_started_at": "2026-09-09T12:54:37Z",
-      "ticker": "AGSTRANS",
-      "company": "AGS Transact Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of the Corporate Insolvency Resolution Process indicates severe financial distress and likely equity wipeout for shareholders.",
-      "why_now": "The company filed the insolvency notice with the exchange on 2026-09-09.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e2463e9c59b"
-      ],
-      "primary_source_event_id": "EVT-3e2463e9c59b",
-      "source_headlines": [
-        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_09092026115101_Intimation_to_BSE_And_NSE_-_17th_Coc_meeting_-_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T06:21:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T12:54:37Z",
-      "updated_at": "2026-09-09T12:54:37Z",
-      "decay_at": "2026-09-10T18:21:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f9ace9bc692f",
       "idea_version": "IDEAV-cafb99fe763d9091",
       "idea_version_started_at": "2026-09-09T12:54:37Z",
@@ -117356,149 +117428,6 @@
       "surfaced_at": "2026-09-09T12:54:37Z",
       "updated_at": "2026-09-09T12:54:37Z",
       "decay_at": "2026-09-10T18:35:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3975e3dda8ac",
-      "idea_version": "IDEAV-ae89e3fda931f9f5",
-      "idea_version_started_at": "2026-09-09T12:37:14Z",
-      "ticker": "AGSTRA",
-      "company": "AGS Transact Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, which typically leads to significant equity dilution or total loss for shareholders.",
-      "why_now": "The filing was made on 2026-09-09, marking the formal start of insolvency proceedings.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e2463e9c59b"
-      ],
-      "primary_source_event_id": "EVT-3e2463e9c59b",
-      "source_headlines": [
-        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_09092026115101_Intimation_to_BSE_And_NSE_-_17th_Coc_meeting_-_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T06:21:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T12:37:14Z",
-      "updated_at": "2026-09-09T12:37:14Z",
-      "decay_at": "2026-09-10T18:21:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-574a3a3c46c3",
-      "idea_version": "IDEAV-807d7b11b49c2783",
-      "idea_version_started_at": "2026-09-09T12:37:14Z",
-      "ticker": "COCHINSHIP",
-      "company": "Cochin Shipyard Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The joint venture with Drydocks World Dubai FZCO provides a strategic expansion into international maritime markets and enhances the company's service capabilities.",
-      "why_now": "The board approval was officially filed on 2026-09-09.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24f2afac16e5"
-      ],
-      "primary_source_event_id": "EVT-24f2afac16e5",
-      "source_headlines": [
-        "Cochin Shipyard Limited: CSL Board approves the proposal for forming a joint venture with Drydocks World Dubai FZCO (DDW)"
-      ],
-      "source_headline": "Cochin Shipyard Limited: CSL Board approves the proposal for forming a joint venture with Drydocks World Dubai FZCO (DDW)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/Aswi4739_09092026113101_SE_Intimation_Cov_Pag_BM_Outcome_sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T06:03:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T12:37:14Z",
-      "updated_at": "2026-09-09T12:37:14Z",
-      "decay_at": "2026-09-10T18:03:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117941,33 +117870,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 262,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 10
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 126,
-      "oldest_retained_at": "2026-08-22T11:06:06Z",
+      "evicted_count": 129,
+      "oldest_retained_at": "2026-08-22T17:46:17Z",
       "side_counts": {
         "long": {
-          "evicted_count": 103,
+          "evicted_count": 104,
           "oldest_retained_at": "2026-08-29T19:51:44Z"
         },
         "short": {
-          "evicted_count": 23,
-          "oldest_retained_at": "2026-08-22T11:06:06Z"
+          "evicted_count": 25,
+          "oldest_retained_at": "2026-08-22T17:46:17Z"
         }
       }
     },
@@ -120633,8 +120562,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T18:21:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T06:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120708,8 +120637,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T18:21:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T06:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -120782,8 +120711,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-10T18:03:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-12T06:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -155139,8 +155068,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 703,
-    "live_count": 37,
+    "surfaced_total": 705,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
