@@ -1,4 +1,5 @@
-// The fund book: what we actually own, what we actually closed, and proof that it matches the broker.
+// The fund book: what we actually own, every trade that built it, what we actually closed, and proof
+// that it matches the broker.
 //
 // This is the REAL book — distinct from the engine's model paper-portfolio (`/research:size` →
 // `analyses/portfolio/*_sizing.json`), which answers what the research SAID to own. Both exist on
@@ -53,6 +54,9 @@ export interface BookLot {
    *  closing rate, which silently folds the currency move into the stock result — the one split a
    *  cross-border book most needs to see. */
   openFxRateToBase: number | null
+  /** False when the broker left the opening fill's commission blank. `commission` then counts that cost as
+   *  zero, so whatever the lot later realises omits it — see BookClosure.costsUnknown. */
+  commissionKnown: boolean
 }
 
 export interface BookClosure {
@@ -82,6 +86,84 @@ export interface BookClosure {
   openFxRateToBase: number | null
   closeFxRateToBase: number | null
   closeTradeID: string | null
+  /** True when the broker left the commission blank on either leg. Realised and commission above then count
+   *  that unknown cost as zero, so realised may be overstated by it, and every surface that shows this
+   *  figure as net of commission must say so. */
+  costsUnknown: boolean
+  /** True when this round trip belongs to a contract whose history the statements do not fully cover (see
+   *  BookExecution.partialHistory): FIFO may have matched the sale against the wrong opening lot, so its
+   *  realised is unproven. Set by buildBook; runFifo alone leaves it false. */
+  partialHistory: boolean
+}
+
+/** One broker execution, exactly as the lot engine applied it — the fund's trade blotter.
+ *
+ *  Closures answer "what did each sale realise". They cannot answer "what did we buy, when, and is it
+ *  still held": a buy that has not been sold never produces a closure, and an add to a held position
+ *  surfaces only as part of a closure once something sells it. On the real book that left 40 of 62 buys,
+ *  36 of them adds, with no row anywhere in the trade history. This is every fill, in the order the book
+ *  applied them, with what each one did to the position. */
+export interface BookExecution {
+  /** The broker's tradeID, else its transactionID — the identity a closure carries as closeTradeID. */
+  id: string | null
+  key: string
+  symbol: string | null
+  assetCategory: string | null
+  currency: string | null
+  executedAt: string | null
+  /** The trading day the broker booked the fill to: its trade date, else the day it executed. A statement's
+   *  period, and so its position snapshot, counts fills by this day — and an overnight-session fill executed
+   *  in the evening is booked to the next one. */
+  tradeDate: string | null
+  /** From the SIGN of the quantity, which is what the book acts on — not the free-text buySell label. */
+  side: 'buy' | 'sell'
+  /** ABSOLUTE size. The direction is in `side`. */
+  quantity: number
+  price: number
+  multiplier: number
+  /** Commission plus transaction taxes on this fill, negative as the broker states a cost. Null when the
+   *  broker left the commission blank: unknown, not zero. */
+  commission: number | null
+  /** Signed position in this contract immediately before and after the fill, as the lot engine holds it. */
+  positionBefore: number
+  positionAfter: number
+  /** What the fill did to the position. `unmatched` means none of it could be applied: a close with no
+   *  open lot behind it, because the statements begin after the position was opened. */
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** How much of this fill OPENED a lot (zero for a pure close), and how much of that is still open at the
+   *  end of the statements — so a buy reads as held, partly sold, or sold. */
+  openedQuantity: number
+  stillOpen: number
+  /** The part of a closing fill that found no open lot to close. Non-zero only beside that warning. */
+  unmatchedQuantity: number
+  /** What this fill realised by closing earlier lots, net of commission on both legs: the sum of the
+   *  closures it produced, so the blotter and the round trips can never disagree. Null when it closed
+   *  nothing. */
+  realizedLocal: number | null
+  /** True when a commission behind `realizedLocal` was blank (see BookClosure.costsUnknown). */
+  costsUnknown: boolean
+  /** True when the broker left the open/close flag blank AND the fill opened a position from flat or across
+   *  zero. The engine then closes what it can and opens the rest, which is a guess: when the statements
+   *  begin after a position was opened, the same sale may instead have closed that earlier position. An
+   *  explicit O or C is the broker's own word and is never inferred; an add to the side already held is
+   *  consistent with the position either way. */
+  inferred: boolean
+  /** Futures and similar contracts: quantity × price × multiplier is notional exposure, not cash. The same
+   *  rule the positions use (isDerivativeCategory). */
+  isDerivative: boolean
+  /** What the fill was worth, in its own currency. For a cash instrument, the money that changed hands
+   *  before costs: the broker's own proceeds. A bond or bill is priced as a percentage of par, so
+   *  quantity × price would overstate it about a hundredfold. For a derivative, its notional exposure,
+   *  since no cash moved. Null when neither can be established. */
+  value: number | null
+  /** True when these statements do not cover this contract's whole history, so what its fills did to the
+   *  position is reconstructed rather than established. Set by buildBook, which holds the broker's
+   *  snapshot (see the note where it is computed); runFifo alone cannot know and leaves it false. */
+  partialHistory: boolean
+  /** Whether this contract is held now, anchored to the broker: its snapshot quantity plus every fill after
+   *  it, which equals the rebuilt position when the history is complete. Without a snapshot it can only be
+   *  the rebuilt position. runFifo sets that; buildBook anchors it. */
+  openNow: boolean
 }
 
 export interface BookPosition {
@@ -172,6 +254,8 @@ export interface Book {
   positions: BookPosition[]
   openLots: BookLot[]
   closures: BookClosure[]
+  /** Every fill the book was built from, oldest first — the blotter. See BookExecution. */
+  executions: BookExecution[]
   flows: BookFlow[]
   income: BookIncome
   /** Accrued-but-unpaid income at `asOf`. Null where the statements cannot prove the balance. */
@@ -257,6 +341,14 @@ function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
 
 const EPS = 1e-9
 
+/** Instruments quoted as a percentage of par, for which quantity × price is not their value. */
+const PAR_PRICED = new Set(['BOND', 'BILL'])
+
+/** The signed quantity a contract's open lots add up to — the position as the lot engine holds it. */
+function netQuantity(lots: BookLot[]): number {
+  return lots.reduce((a, l) => a + l.quantity, 0)
+}
+
 /** Match closes against open lots, oldest first, recovering the structure the statement omits.
  *  Handles the `C;O` flip (close the existing side, then open the opposite one) and a short book
  *  symmetrically — a short opens a negative lot and closes with a buy. */
@@ -267,10 +359,14 @@ export function runFifo(
    *  it the reconciliation counted every such closure as un-valuable and refused to compare realised P&L
    *  on a single-currency book, while the broker side of the same check resolved fine through the grid. */
   rateFor?: (currency: string | null, date: string | null) => number | null,
-): { lots: BookLot[]; closures: BookClosure[]; warnings: string[] } {
+): { lots: BookLot[]; closures: BookClosure[]; executions: BookExecution[]; warnings: string[] } {
   const warnings: string[] = []
   const open = new Map<string, BookLot[]>()
   const closures: BookClosure[] = []
+  const executions: BookExecution[] = []
+  // Which execution opened each lot, so what is still open at the end is credited back to the fill that
+  // bought it. Keyed on the lot OBJECT rather than its tradeID: a fill with no broker id still owns its lot.
+  const openedBy = new Map<BookLot, BookExecution>()
 
   // Timestamp first; for fills sharing a second, keep the order the statement listed them in. Sorting
   // ids lexicographically would put "10" before "9" and could flip an open ahead of the close it
@@ -303,6 +399,13 @@ export function runFifo(
     const wantsClose = indicator.includes('C') || !explicit
     const wantsOpen = indicator.includes('O') || !explicit
     const lots = open.get(key) ?? []
+    const positionBefore = netQuantity(lots)
+    // The LOT's multiplier wins here for the same reason it wins in the close below.
+    const multiplier = lots[0]?.multiplier || t.multiplier || 1
+    let realized: number | null = null
+    let unmatched = 0
+    let opened: BookLot | null = null
+    let costsUnknown = false
     let remaining = qty
 
     // CLOSE first — `C;O` means close the existing side before opening the opposite one.
@@ -328,6 +431,11 @@ export function runFifo(
         const closeShare = Math.abs(qty) > 0 ? closeCost * (matched / Math.abs(qty)) : 0
         const commissionLocal = openShare + closeShare
         const realizedLocal = grossLocal + commissionLocal
+        realized = (realized ?? 0) + realizedLocal
+        // A blank commission on either leg was counted as zero just above. Record it, so no surface can
+        // present this net figure as if every cost were known.
+        const legCostUnknown = !lot.commissionKnown || t.ibCommission === null
+        if (legCostUnknown) costsUnknown = true
         const closedAt = t.dateTime ?? t.tradeDate
         const closeRate = t.fxRateToBase ?? (rateFor ? rateFor(t.currency ?? lot.currency, closedAt ? closedAt.slice(0, 10) : null) : null)
         closures.push({
@@ -356,6 +464,8 @@ export function runFifo(
           // execution that carries only a transactionID produced a closure with no identity at all,
           // and the UI declared that round trip permanently unlabellable.
           closeTradeID: t.tradeID ?? t.transactionID,
+          costsUnknown: legCostUnknown,
+          partialHistory: false,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched
@@ -364,12 +474,13 @@ export function runFifo(
       if (Math.abs(remaining) > EPS && !wantsOpen) {
         // A close with nothing left to close against — the history is starting mid-position.
         warnings.push(`close exceeds open quantity for ${t.symbol ?? key} (trade ${t.tradeID ?? '?'}) — history may start after this position was opened`)
+        unmatched = Math.abs(remaining)
         remaining = 0
       }
     }
 
     if (Math.abs(remaining) > EPS && wantsOpen) {
-      lots.push({
+      opened = {
         key,
         symbol: t.symbol,
         assetCategory: t.assetCategory,
@@ -382,15 +493,73 @@ export function runFifo(
         // Only the share of the opening commission belonging to the quantity that actually stays open.
         commission: ((t.ibCommission ?? 0) + (t.taxes ?? 0)) * (Math.abs(remaining) / Math.abs(qty)),
         openedQuantityAbs: Math.abs(remaining),
+        commissionKnown: t.ibCommission !== null,
         openFxRateToBase: t.fxRateToBase ?? (rateFor ? rateFor(t.currency, (t.dateTime ?? t.tradeDate)?.slice(0, 10) ?? null) : null),
-      })
+      }
+      lots.push(opened)
     }
     open.set(key, lots)
+
+    // WHAT THE FILL DID, read off the position the lot engine now holds rather than off the broker's
+    // open/close flag: the flag is blank for whole asset classes, and a C;O both closes and reopens.
+    // Nothing moving means the engine could apply none of it — a close with no open lot behind it.
+    const positionAfter = netQuantity(lots)
+    const effect: BookExecution['effect'] =
+      Math.abs(positionAfter - positionBefore) <= EPS ? 'unmatched'
+        : Math.abs(positionBefore) <= EPS ? 'open'
+          : Math.abs(positionAfter) <= EPS ? 'close'
+            : Math.sign(positionAfter) !== Math.sign(positionBefore) ? 'flip'
+              : Math.abs(positionAfter) > Math.abs(positionBefore) ? 'add' : 'reduce'
+    const isDerivative = isDerivativeCategory(t.assetCategory)
+    const execution: BookExecution = {
+      id: t.tradeID ?? t.transactionID,
+      key,
+      symbol: t.symbol,
+      assetCategory: t.assetCategory,
+      currency: t.currency,
+      executedAt: t.dateTime ?? t.tradeDate,
+      tradeDate: t.tradeDate ?? (t.dateTime ? t.dateTime.slice(0, 10) : null),
+      side: qty > 0 ? 'buy' : 'sell',
+      quantity: Math.abs(qty),
+      price,
+      multiplier,
+      commission: t.ibCommission === null ? null : t.ibCommission + (t.taxes ?? 0),
+      positionBefore,
+      positionAfter,
+      effect,
+      openedQuantity: opened ? Math.abs(opened.quantity) : 0,
+      stillOpen: 0,
+      unmatchedQuantity: unmatched,
+      realizedLocal: realized,
+      costsUnknown,
+      // A blank flag made the engine GUESS the open: from flat, or beyond the side it held.
+      inferred: !explicit && opened !== null && Math.sign(opened.quantity) !== Math.sign(positionBefore),
+      isDerivative,
+      value: isDerivative ? Math.abs(qty) * price * multiplier
+        : t.proceeds !== null ? Math.abs(t.proceeds)
+          : PAR_PRICED.has((t.assetCategory ?? '').toUpperCase()) ? null
+            : Math.abs(qty) * price * multiplier,
+      partialHistory: false,
+      openNow: false,
+    }
+    executions.push(execution)
+    if (opened) openedBy.set(opened, execution)
   }
 
   const lots: BookLot[] = []
-  for (const group of open.values()) for (const lot of group) if (Math.abs(lot.quantity) > EPS) lots.push(lot)
-  return { lots, closures, warnings }
+  for (const group of open.values()) for (const lot of group) {
+    if (Math.abs(lot.quantity) <= EPS) continue
+    lots.push(lot)
+    // Credited back to the fill that opened the lot: this is what lets a buy read as held, partly sold,
+    // or sold.
+    const by = openedBy.get(lot)
+    if (by) by.stillOpen += Math.abs(lot.quantity)
+  }
+  // Without a broker snapshot, "open now" can only be the rebuilt position; buildBook anchors it.
+  const finalByKey = new Map<string, number>()
+  for (const lot of lots) finalByKey.set(lot.key, (finalByKey.get(lot.key) ?? 0) + lot.quantity)
+  for (const e of executions) e.openNow = Math.abs(finalByKey.get(e.key) ?? 0) > EPS
+  return { lots, closures, executions, warnings }
 }
 
 function daysBetween(a: string | null, b: string | null): number | null {
@@ -629,7 +798,7 @@ export function buildBook(documents: FlexDocument[]): Book {
 
   // FIFO runs with the rate grid available, so a base-currency close (whose row carries no rate) values
   // at 1 rather than counting as unconvertible — see the note on runFifo's second parameter.
-  const { lots, closures, warnings: fifoWarnings } = runFifo(trades, (currency, date) => fx(currency, date))
+  const { lots, closures, executions, warnings: fifoWarnings } = runFifo(trades, (currency, date) => fx(currency, date))
   warnings.push(...fifoWarnings)
 
   const flows: BookFlow[] = cash
@@ -761,6 +930,68 @@ export function buildBook(documents: FlexDocument[]): Book {
   // different number with flows counted as performance. Withhold it rather than publish it.
   const twr = gaps.length > 0 ? null : computeTwr(navSeries, flowsByDate)
 
+  // THE BLOTTER, ANCHORED TO THE BROKER. runFifo rebuilds each contract's position from the fills in these
+  // statements alone. When they begin after a position was opened, or a blank open/close flag made the
+  // engine guess the wrong side, the rebuilt position is offset from the real one by a constant, and every
+  // effect in that contract (opened or added, trimmed or unmatched) is reconstructed rather than established.
+  // The broker's snapshot is the anchor: a contract whose rebuilt position disagrees with the snapshot, or
+  // that has a sale with nothing to close, has partial history on every fill. With no snapshot there is no
+  // anchor, so a contract whose history rests on a guess stays partial; and a hole between statements leaves
+  // every contract unanchored.
+  //
+  // AS OF THE SNAPSHOT, not at the end. A Trades-only export newer than the snapshot adds fills after it, so
+  // the rebuilt position is taken through the fills the snapshot already reflects. Comparing the final
+  // position instead flagged fully covered newer trading as partial, and let a stale quantity that happened
+  // to equal the final one clear a real mismatch. A zero offset at the snapshot carries forward: later fills
+  // move the rebuilt and the real position alike, and any later sale with nothing to close is flagged on its own.
+  //
+  // WHICH FILLS THE SNAPSHOT REFLECTS. Every one the snapshot's own statement or an older one lists, by broker
+  // id, and a restatement of one of those. A fill no statement up to the snapshot lists is decided by its trade
+  // date: on or before the snapshot's day, the broker had already booked it. That covers a newer export
+  // reaching back before the snapshot, and a snapshot exported without its trades — read by id alone, such a
+  // fill was applied a second time on top of a snapshot that already held it, so a contract the broker holds
+  // read as closed. The trade date, not the execution time: an overnight-session fill executed on the
+  // snapshot's day is booked to the next one, so the snapshot does not hold it.
+  const snapshotHeld = docs.some((d) => d.sectionsPresent.includes('OpenPositions')) || positions.length > 0
+  const partialKeys = new Set<string>()
+  for (const e of executions) {
+    if (e.unmatchedQuantity > EPS) partialKeys.add(e.key)
+    if (!snapshotHeld && e.inferred) partialKeys.add(e.key)
+  }
+  if (snapshotHeld) {
+    const held = new Map<string, number>()
+    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    const coveredIds = new Set<string>()
+    for (const d of docs.slice(0, docs.indexOf(positionSource) + 1)) {
+      for (const t of d.trades) { const id = t.tradeID ?? t.transactionID; if (id) coveredIds.add(id) }
+    }
+    // A restatement in a NEWER export replaces a fill the snapshot already saw. The replacement carries a new
+    // id, so it is followed through the same supersession relation the dedup acts on; without this the
+    // replaced fill fell out of the rebuilt position and a reconciling contract read as partial.
+    const replacedBy = supersessionMap(docs)
+    for (const id of [...coveredIds]) {
+      for (let next = replacedBy[id]; next && !coveredIds.has(next); next = replacedBy[next]) coveredIds.add(next)
+    }
+    const snapshotDay = positionSource.toDate
+    const rebuilt = new Map<string, number>()
+    // What the broker holds NOW: its snapshot plus every fill after it, which move the real position whatever
+    // the engine could match. Open positions reads this rather than the rebuilt position, so a contract held
+    // since before the statements is never reported closed.
+    const now = new Map(held)
+    for (const e of executions) {
+      const covered = (e.id !== null && coveredIds.has(e.id)) || (snapshotDay !== null && (e.tradeDate ?? '') <= snapshotDay)
+      if (covered) rebuilt.set(e.key, e.positionAfter)
+      else now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
+    }
+    for (const key of new Set([...held.keys(), ...rebuilt.keys()])) {
+      if (Math.abs((rebuilt.get(key) ?? 0) - (held.get(key) ?? 0)) > EPS) partialKeys.add(key)
+    }
+    for (const e of executions) e.openNow = Math.abs(now.get(e.key) ?? 0) > EPS
+  }
+  for (const e of executions) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
+  // The round trips carry the same qualifier: FIFO may have matched a sale against the wrong opening lot.
+  for (const c of closures) c.partialHistory = gaps.length > 0 || partialKeys.has(c.key)
+
   return {
     accountId: newest.accountId,
     baseCurrency,
@@ -776,6 +1007,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     positions,
     openLots: lots,
     closures,
+    executions,
     flows,
     income,
     accruals,
