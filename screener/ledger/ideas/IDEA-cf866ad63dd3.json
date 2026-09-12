@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-cf866ad63dd3",
+  "idea_version": "IDEAV-86af74d004e4beb1",
+  "idea_version_started_at": "2026-09-12T05:48:12Z",
+  "ticker": "AN3",
+  "company": "A3D",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A3D has been suspended from official quotation due to price-sensitive information, indicating potential financial distress or a significant negative event.",
+  "why_now": "The suspension from official quotation was announced on the ASX on September 11, 2026, signaling an immediate and severe negative event.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-0ce3920de11a"
+  ],
+  "primary_source_event_id": "EVT-0ce3920de11a",
+  "source_headlines": [
+    "AN3: Suspension from Official Quotation - AN3HBC [price-sensitive]"
+  ],
+  "source_headline": "AN3: Suspension from Official Quotation - AN3HBC [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AN3?key=2924-03134795-3A701597",
+  "source_name": "ASX (Australia Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-11T09:03:14Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-12T05:48:12Z",
+  "updated_at": "2026-09-12T05:48:12Z",
+  "decay_at": "2026-09-12T21:03:14Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

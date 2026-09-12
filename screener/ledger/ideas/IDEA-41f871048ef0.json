@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-41f871048ef0",
+  "idea_version": "IDEAV-f3c293fc84238a6c",
+  "idea_version_started_at": "2026-09-12T05:48:12Z",
+  "ticker": "ORCL",
+  "company": "Oracle",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Oracle plans to spend an additional $700 million on restructuring costs, which will negatively impact its near-term profitability and cash flow.",
+  "why_now": "Mint reported on September 11, 2026, that Oracle is increasing its restructuring costs, indicating a fresh financial burden.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-f8dfc074b216"
+  ],
+  "primary_source_event_id": "EVT-f8dfc074b216",
+  "source_headlines": [
+    "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending"
+  ],
+  "source_headline": "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending",
+  "source_url": "https://www.livemint.com/companies/oracle-to-spend-700-million-more-on-restructuring-costs-as-it-ramps-up-ai-spending-11789170579977.html",
+  "source_name": "Mint",
+  "materiality_max": 94,
+  "newest_source_at": "2026-09-11T23:49:39Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/ORCL_2026-08-14",
+    "latest_decision": "Watchlist",
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-09-12T05:48:12Z",
+  "updated_at": "2026-09-12T05:48:12Z",
+  "decay_at": "2026-09-13T11:49:39Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
