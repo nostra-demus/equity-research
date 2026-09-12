@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T16:58:44Z",
+  "generated_at": "2026-09-12T17:09:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260912-162",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260912-212",
+      "headline": "BRP (DOO) Posts A Quarterly Loss And Raises Its Outlook Anyway",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/brp-doo-posts-quarterly-loss-163212953.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T16:32:12Z",
+      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
+      "prelim_note": "BRP reported a quarterly loss but simultaneously raised its forward guidance, indicating a complex outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BRP reported a quarterly loss but simultaneously raised its forward guidance, indicating a complex outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BRP",
+          "ticker": "DOO",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1959,6 @@
           "name": "Unknown",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260912-096",
-      "headline": "Haywood Securities (USA) Inc.",
-      "headline_en": null,
-      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106333.pdf",
-      "source_name": "U.S. SEC (Administrative Proceedings)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T13:29:21Z",
-      "sweep_file": "screener/inbox/2026-09-12_sweep.json",
-      "prelim_note": "Haywood Securities (USA) Inc. is subject to SEC administrative proceedings, indicating potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Haywood Securities (USA) Inc. is subject to SEC administrative proceedings, indicating potential regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Haywood Securities (USA) Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -154723,9 +154724,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9469037,
-    "news_picked_today": 395,
-    "news_dropped_today": 8941
+    "news_seen_today": 9500871,
+    "news_picked_today": 403,
+    "news_dropped_today": 9029
   },
   "book_momentum": {
     "live_count": 8,
