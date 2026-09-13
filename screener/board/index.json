@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:54:45Z",
+  "generated_at": "2026-09-13T05:09:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1197,6 +1197,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-315",
+      "headline": "Saudi East-West ⁠oil pipeline was temporarily shut down after attacks: Report",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-east-west-oil-pipeline-was-temporarily-shut-down-after-attacks",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T18:53:30Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The Saudi East-West oil pipeline was temporarily shut down following attacks, posing a risk to regional energy supply.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The Saudi East-West oil pipeline was temporarily shut down following attacks, posing a risk to regional energy supply.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-129",
       "headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
       "headline_en": null,
@@ -1898,55 +1947,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "The RBI has rejected Tata Sons' request to surrender its NBFC license, forcing the company to proceed with a mandatory public listing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-039",
-      "headline": "India's central bank rejects Tata Sons request to avoid public listing, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-central-bank-rejects-tata-sons-request-avoid-public-listing-sources-say-2026-09-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T14:41:42Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The RBI has reportedly rejected Tata Sons' request to avoid a mandatory public listing, which could force a major corporate restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The RBI has reportedly rejected Tata Sons' request to avoid a mandatory public listing, which could force a major corporate restructuring.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -156421,9 +156421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 932411,
-    "news_picked_today": 611,
-    "news_dropped_today": 2077
+    "news_seen_today": 977232,
+    "news_picked_today": 638,
+    "news_dropped_today": 2170
   },
   "book_momentum": {
     "live_count": 8,
