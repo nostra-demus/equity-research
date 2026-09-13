@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-13T00:15:53Z",
+  "generated_at": "2026-09-13T00:25:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-030",
+      "headline": "Nvidia considers $10B investment in potential record Anthropic IPO: Reuters",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/nvidia-considers-10b-investment-in-anthropic-record-ipo-reuters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:12:40Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Nvidia is considering a $10B investment in Anthropic, a significant capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Nvidia is considering a $10B investment in Anthropic, a significant capital allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-010",
       "headline": "Nvidia in talks to invest in Anthropic’s mega IPO, sources say",
@@ -56,6 +110,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-029",
+      "headline": "Jim Cramer on Oracle: $664B Backlog Signals Major Shift in Company’s Growth Trajectory",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/12/jim-cramer-on-oracle-664b-backlog-signals-major-shift-in-companys-growth-trajectory/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:13:28Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Oracle reported a $664B backlog, indicating a significant shift in growth trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Oracle reported a $664B backlog, indicating a significant shift in growth trajectory.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-032",
+      "headline": "RBI Rejects Tata Sons' Bid To Surrender NBFC Licence, Setting Stage For Mandatory Listing",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/rbi-rejects-tata-sons-bid-to-surrender-nbfc-licence-setting-stage-for-mandatory-listing",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:08:07Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The RBI has rejected Tata Sons' request to surrender its NBFC license, forcing the company to proceed with a mandatory public listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The RBI has rejected Tata Sons' request to surrender its NBFC license, forcing the company to proceed with a mandatory public listing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-039",
+      "headline": "India's central bank rejects Tata Sons request to avoid public listing, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-central-bank-rejects-tata-sons-request-avoid-public-listing-sources-say-2026-09-12/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:41:42Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The RBI has reportedly rejected Tata Sons' request to avoid a mandatory public listing, which could force a major corporate restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The RBI has reportedly rejected Tata Sons' request to avoid a mandatory public listing, which could force a major corporate restructuring.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-033",
+      "headline": "Rivian Sacrificed Its 2027 Profit Target. Here's Why Investors Should Applaud.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/12/rivian-sacrificed-its-2027-profit-target-heres-why/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Rivian has abandoned its 2027 profit target, signaling operational challenges and a shift in financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Rivian has abandoned its 2027 profit target, signaling operational challenges and a shift in financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rivian",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-001",
       "headline": "Revolut Says Some Customer Data Were Exposed in Email-Based Scam",
       "headline_en": null,
@@ -100,6 +350,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-023",
+      "headline": "Tata Sons NRC may ask chairman Chandrasekaran to reconsider decision to leave",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-nrc-may-ask-chairman-chandrasekaran-to-reconsider-decision-to-leave/articleshow/134151694.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Potential leadership continuity uncertainty at Tata Sons involving the chairman.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Potential leadership continuity uncertainty at Tata Sons involving the chairman.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154,6 +453,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-040",
+      "headline": "Revolut confirms customer data breach through fake government requests",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/12/revolut-confirms-customer-data-breach-through-fake-government-requests/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Revolut confirmed a customer data breach, posing operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Revolut confirmed a customer data breach, posing operational and reputational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Revolut",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-006",
       "headline": "Mexicana Pemex prevé reparar en días ducto afectado por fuga de crudo en Golfo de México",
       "headline_en": null,
@@ -203,6 +551,191 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-031",
+      "headline": "UAE urges UN Security Council to expand Sudan arms embargo nationwide",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/us/2026/09/12/uae-urges-un-security-council-to-expand-sudan-arms-embargo-nationwide/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:14:58Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The UAE is pushing for a nationwide arms embargo in Sudan, which increases geopolitical risk in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "The UAE is pushing for a nationwide arms embargo in Sudan, which increases geopolitical risk in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-038",
+      "headline": "Trump is giving data centers a pass to pollute",
+      "headline_en": null,
+      "url": "https://www.theverge.com/ai-artificial-intelligence/994112/ai-data-center-pollution-health-epa",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:41:27Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Potential regulatory easing for data center operations regarding environmental compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Potential regulatory easing for data center operations regarding environmental compliance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-041",
+      "headline": "Smith & Wesson’s (SWBI) Profit Turnaround Comes With a Catch",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/smith-wesson-swbi-profit-turnaround-142440248.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:24:40Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Smith & Wesson reports a profit turnaround, but with caveats regarding the sustainability or quality of earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Smith & Wesson reports a profit turnaround, but with caveats regarding the sustainability or quality of earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Smith & Wesson",
+          "ticker": "SWBI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-024",
+      "headline": "(News Focus) Inside 42dot: Hyundai Motor accelerates autonomous driving push with AI data flywheel",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260911007900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:00:06Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Hyundai is accelerating its autonomous driving technology development via its 42dot subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Hyundai is accelerating its autonomous driving technology development via its 42dot subsidiary.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-009",
       "headline": "UAE strongly condemns attack on Saudi oil pipelines using drones from Iraq",
       "headline_en": null,
@@ -246,6 +779,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-028",
+      "headline": "Hyundai Motor to roll out in-house driver-assist system in 2029",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/hyundai-motor-roll-out-in-house-driver-assist-system-2029-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:02:21Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Hyundai Motor announces a long-term product roadmap for in-house driver-assist systems.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Hyundai Motor announces a long-term product roadmap for in-house driver-assist systems.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-015",
       "headline": "Your Advantage Plan’s Star Rating Counts Appeals Timing and Members Lost. CMS Just Decided to Drop Both.",
       "headline_en": null,
@@ -270,6 +852,49 @@
         "event": 4,
         "size": 0,
         "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-026",
+      "headline": "South Korea's expanded espionage law takes effect amid push to protect chip technology",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/south-koreas-expanded-espionage-law-takes-effect-amid-push-protect-chip-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:07:55Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "New espionage law in South Korea aims to protect semiconductor technology, impacting the tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "New espionage law in South Korea aims to protect semiconductor technology, impacting the tech sector.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -325,6 +950,98 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-037",
+      "headline": "NuScale Power Stock Jumps 15% in 1 Day. Here's How Nuclear Energy Investors Should Respond.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/12/nuscale-power-stock-jumps-nuclear-energy-invest/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "NuScale Power stock experienced a 15% jump, reflecting increased investor interest in the nuclear energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "NuScale Power stock experienced a 15% jump, reflecting increased investor interest in the nuclear energy sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NuScale Power",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-027",
+      "headline": "Swedes vote in election that could usher far right into government",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/swedes-vote-election-that-could-usher-far-right-into-government-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:05:44Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "National election in Sweden creates political uncertainty regarding future government policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "National election in Sweden creates political uncertainty regarding future government policy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -516,6 +1233,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-035",
+      "headline": "Island erwägt Verbot des kommerziellen Walfangs",
+      "headline_en": "Iceland considers ban on commercial whaling",
+      "url": "https://www.reuters.com/de/welt/kehrtwende-islands-regierung-will-kommerziellen-walfang-beenden-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:59:35Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Iceland is considering a ban on commercial whaling, which could impact the local fishing industry and international trade relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Iceland is considering a ban on commercial whaling, which could impact the local fishing industry and international trade relations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-018",
       "headline": "China’s anti-corruption law is going global. What does it mean for overseas firms?",
       "headline_en": null,
@@ -651,6 +1411,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-025",
+      "headline": "Centcom says US forces redirected 100 ships during ongoing blockade",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/centcom-says-us-forces-redirected-100-ships-during-ongoing-blockade",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:02:42Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Ongoing maritime blockade and redirection of 100 ships indicates significant supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Ongoing maritime blockade and redirection of 100 ships indicates significant supply chain disruption.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-013",
       "headline": "Roche’s collaborator MediLink announces phase III data for Tam-Peli showing significantly improved overall survival in Chinese patient population with relapsed small-cell lung cancer",
       "headline_en": null,
@@ -695,6 +1498,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-034",
+      "headline": "Boicot canadiense a productos EEUU obliga a supermercados a buscar nuevas fuentes de suministro",
+      "headline_en": "Canadian boycott of US products forces supermarkets to seek new sources of supply",
+      "url": "https://www.reuters.com/es/negocio/4B5ZDMSN2ZKVPJTLSP3D5MST2E-2026-09-12/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T15:03:47Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Canadian retailers are forced to find new supply sources due to a boycott of US products, indicating potential supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Canadian retailers are forced to find new supply sources due to a boycott of US products, indicating potential supply chain disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -768,6 +1614,49 @@
         "size": 0,
         "recency": 2,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-036",
+      "headline": "Israeli attack wounds nine Palestinians in southern Gaza",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-attack-wounds-nine-palestinians-southern-gaza",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T14:55:38Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "An Israeli attack in southern Gaza resulting in casualties represents a continued escalation of regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "An Israeli attack in southern Gaza resulting in casualties represents a continued escalation of regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -959,55 +1848,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-022",
-      "headline": "NuScale Power Stock Jumps 15% in 1 Day. Here's How Nuclear Energy Investors Should Respond.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nuscale-power-stock-jumps-15-1-day-heres-how-nuclear-energy-investors-should-respond",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Market commentary on a stock's price movement is not a fundamental company event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Market commentary on a stock's price movement is not a fundamental company event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NuScale Power",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -155859,7 +156699,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2349,
+    "inbox_unconsumed": 2367,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -155868,9 +156708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63869,
-    "news_picked_today": 22,
-    "news_dropped_today": 98
+    "news_seen_today": 95459,
+    "news_picked_today": 41,
+    "news_dropped_today": 175
   },
   "book_momentum": {
     "live_count": 8,
