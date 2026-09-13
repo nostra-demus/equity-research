@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T03:30:56Z",
+  "generated_at": "2026-09-13T03:36:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1301,6 +1301,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-254",
+      "headline": "STAT+: Scholar Rock wins FDA approval for first drug to target SMA muscle loss",
+      "headline_en": null,
+      "url": "https://www.statnews.com/2026/09/11/scholar-rock-spinal-muscular-atrophy-isembyld-clinical-trial-fda-approval/?utm_campaign=rss",
+      "source_name": "STAT News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T23:30:21Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Scholar Rock received FDA approval for its first drug, a major milestone for a biotech company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Scholar Rock received FDA approval for its first drug, a major milestone for a biotech company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Scholar Rock",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-032",
       "headline": "RBI Rejects Tata Sons' Bid To Surrender NBFC Licence, Setting Stage For Mandatory Listing",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-188",
-      "headline": "Revolut says some customer data were exposed in US e-mail-based scam",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/revolut-says-some-customer-data-were-exposed-us-e-mail-based-scam",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T02:22:11Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Revolut confirmed a customer data exposure resulting from a phishing scam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Revolut confirmed a customer data exposure resulting from a phishing scam.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolut",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115583,78 +115583,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7b08e8c1482d",
-      "idea_version": "IDEAV-f742c2d5684821a2",
-      "idea_version_started_at": "2026-09-11T23:59:41Z",
-      "ticker": "HDFCLIFE",
-      "company": "HDFC Life Insurance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A ₹3,365 crore tax demand and penalty creates a direct, unhedged hit to the company's net worth and earnings profile.",
-      "why_now": "The demand was reported on 2026-09-11 following an appeal order, creating immediate uncertainty regarding the company's tax liabilities.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-69cd7f595ce7"
-      ],
-      "primary_source_event_id": "EVT-69cd7f595ce7",
-      "source_headlines": [
-        "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order"
-      ],
-      "source_headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
-      "source_url": "https://www.cnbctv18.com/market/stocks/hdfc-life-insurance-share-price-faces-rs-3365-crore-gst-tax-demand-and-penalty-after-appeal-order-19989660.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T15:34:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:48:34Z",
-      "updated_at": "2026-09-11T23:59:41Z",
-      "decay_at": "2026-09-13T03:34:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fdd6333c0914",
       "idea_version": "IDEAV-5fcfac9900d2bdaa",
       "idea_version_started_at": "2026-09-11T23:39:38Z",
@@ -116853,6 +116781,78 @@
       "surfaced_at": "2026-09-12T05:48:12Z",
       "updated_at": "2026-09-12T05:48:12Z",
       "decay_at": "2026-09-12T21:03:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7b08e8c1482d",
+      "idea_version": "IDEAV-f742c2d5684821a2",
+      "idea_version_started_at": "2026-09-11T23:59:41Z",
+      "ticker": "HDFCLIFE",
+      "company": "HDFC Life Insurance",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A ₹3,365 crore tax demand and penalty creates a direct, unhedged hit to the company's net worth and earnings profile.",
+      "why_now": "The demand was reported on 2026-09-11 following an appeal order, creating immediate uncertainty regarding the company's tax liabilities.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-69cd7f595ce7"
+      ],
+      "primary_source_event_id": "EVT-69cd7f595ce7",
+      "source_headlines": [
+        "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order"
+      ],
+      "source_headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
+      "source_url": "https://www.cnbctv18.com/market/stocks/hdfc-life-insurance-share-price-faces-rs-3365-crore-gst-tax-demand-and-penalty-after-appeal-order-19989660.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T15:34:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T18:48:34Z",
+      "updated_at": "2026-09-11T23:59:41Z",
+      "decay_at": "2026-09-13T03:34:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -119085,9 +119085,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -119095,9 +119095,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -119116,6 +119116,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7b08e8c1482d",
+        "idea_version": "IDEAV-f742c2d5684821a2",
+        "idea_version_started_at": "2026-09-11T23:59:41Z",
+        "ticker": "HDFCLIFE",
+        "company": "HDFC Life Insurance",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A ₹3,365 crore tax demand and penalty creates a direct, unhedged hit to the company's net worth and earnings profile.",
+        "why_now": "The demand was reported on 2026-09-11 following an appeal order, creating immediate uncertainty regarding the company's tax liabilities.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-69cd7f595ce7"
+        ],
+        "primary_source_event_id": "EVT-69cd7f595ce7",
+        "source_headlines": [
+          "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order"
+        ],
+        "source_headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
+        "source_url": "https://www.cnbctv18.com/market/stocks/hdfc-life-insurance-share-price-faces-rs-3365-crore-gst-tax-demand-and-penalty-after-appeal-order-19989660.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T15:34:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T18:48:34Z",
+        "updated_at": "2026-09-11T23:59:41Z",
+        "decay_at": "2026-09-13T03:34:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T03:34:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-75765a74602d",
         "idea_version": "IDEAV-4b58c0f15db609aa",
@@ -156187,86 +156262,12 @@
         "archived_at": "2026-08-24T13:46:23Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5d42b81c604f",
-        "idea_version": "IDEAV-f8f5a096395b43ca",
-        "idea_version_started_at": "2026-08-22T19:15:06Z",
-        "ticker": "02772",
-        "company": "Zhongliang Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, reflecting ongoing operational or margin pressures.",
-        "why_now": "The filing was released on 2026-08-21.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e97fe54bf0f"
-        ],
-        "primary_source_event_id": "EVT-1e97fe54bf0f",
-        "source_headlines": [
-          "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101481.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T13:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T23:28:47Z",
-        "updated_at": "2026-08-22T19:15:06Z",
-        "decay_at": "2026-08-23T01:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T13:46:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 718,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156285,9 +156286,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 709860,
-    "news_picked_today": 409,
-    "news_dropped_today": 1535
+    "news_seen_today": 724321,
+    "news_picked_today": 421,
+    "news_dropped_today": 1571
   },
   "book_momentum": {
     "live_count": 8,
