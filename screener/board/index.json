@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T06:26:19Z",
+  "generated_at": "2026-09-13T06:35:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1849,6 +1849,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-397",
+      "headline": "Chubu Electric Chiefs to Quit Over Nuclear Data Fraud, NHK Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-13/chubu-electric-chiefs-to-quit-over-nuclear-data-fraud-nhk-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T06:05:25Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The departure of top executives due to a data fraud scandal creates significant management and operational risk for Chubu Electric.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The departure of top executives due to a data fraud scandal creates significant management and operational risk for Chubu Electric.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric Power",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-122",
       "headline": "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue",
       "headline_en": null,
@@ -1947,55 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-258",
-      "headline": "NSE reduces public offer size to 22.6k crore, issue opens Sept 17",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/nse-reduces-public-offer-size-to-22-6k-crore-issue-opens-sept-17/articleshow/134095529.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T22:27:43Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The National Stock Exchange of India has set the final size for its public offer at 22.6 billion INR, with the issue opening on September 17.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The National Stock Exchange of India has set the final size for its public offer at 22.6 billion INR, with the issue opening on September 17.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156440,9 +156441,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1163114,
-    "news_picked_today": 830,
-    "news_dropped_today": 2674
+    "news_seen_today": 1184816,
+    "news_picked_today": 850,
+    "news_dropped_today": 2726
   },
   "book_momentum": {
     "live_count": 8,
