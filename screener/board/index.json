@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T06:14:19Z",
+  "generated_at": "2026-09-13T06:26:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1790,6 +1790,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-396",
+      "headline": "Chemours, DuPont, Corteva reach $455 PFAS settlement with North Carolina",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/dupont-chemours-corteva-eidp-pfas-settlement-north-carolina-2026/830080/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:30:40Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Chemours, DuPont, and Corteva reached a $455 million settlement regarding PFAS contamination in North Carolina.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Chemours, DuPont, and Corteva reached a $455 million settlement regarding PFAS contamination in North Carolina.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chemours",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "DuPont",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Corteva",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-122",
       "headline": "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue",
       "headline_en": null,
@@ -1937,50 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-184",
-      "headline": "UN Security Council given one month to consider US push for Sudan-wide arms embargo",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/09/12/un-security-council-given-one-month-to-consider-us-push-for-sudan-wide-arms-embargo/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T07:27:12Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The UN Security Council is considering a US-led arms embargo on Sudan, which would significantly escalate geopolitical risk in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The UN Security Council is considering a US-led arms embargo on Sudan, which would significantly escalate geopolitical risk in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156425,9 +156440,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1140572,
-    "news_picked_today": 814,
-    "news_dropped_today": 2618
+    "news_seen_today": 1163114,
+    "news_picked_today": 830,
+    "news_dropped_today": 2674
   },
   "book_momentum": {
     "live_count": 8,
