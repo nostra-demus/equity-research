@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T13:59:27Z",
+  "generated_at": "2026-09-13T14:06:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-623",
+      "headline": "LIV Golf’s $5 Billion Path to Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-13/liv-golf-s-5-billion-path-to-bankruptcy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T14:00:25Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "LIV Golf is facing a potential bankruptcy scenario involving a $5 billion valuation path.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf is facing a potential bankruptcy scenario involving a $5 billion valuation path.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,56 +1986,6 @@
           "name": "Microsoft",
           "ticker": "MSFT",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-091",
-      "headline": "Exclusive: Tata sons will have to list as RBI rejects firm’s deregistration application: sources",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/exclusive-rbi-rejects-tata-sons-deregistration-plea-will-have-to-list-sources-19989875.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:34:39Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "RBI's rejection of Tata Sons' deregistration application forces a mandatory public listing of the holding company, a major capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "RBI's rejection of Tata Sons' deregistration application forces a mandatory public listing of the holding company, a major capital structure event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -156844,9 +156843,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1458080,
-    "news_picked_today": 1610,
-    "news_dropped_today": 4997
+    "news_seen_today": 1458116,
+    "news_picked_today": 1619,
+    "news_dropped_today": 5024
   },
   "book_momentum": {
     "live_count": 8,
