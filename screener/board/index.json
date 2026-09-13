@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-09-13T10:21:08Z",
+  "generated_at": "2026-09-13T10:26:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-566",
+      "headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T10:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The company is issuing RMB 20.14 billion in convertible bonds, representing significant dilution and debt load.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is issuing RMB 20.14 billion in convertible bonds, representing significant dilution and debt load.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Z.AI",
+          "ticker": "02513",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-571",
+      "headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T10:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The company has received a winding-up petition, which is a severe threat to its going-concern status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has received a winding-up petition, which is a severe threat to its going-concern status.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XH NEWS MEDIA",
+          "ticker": "00309",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-562",
       "headline": "Bank Of America To Infuse ₹18,268 Crore In Jio Credit To Boost Growth & Expand Lending Business",
@@ -1888,107 +1987,6 @@
           "name": "Fluidstack",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-104",
-      "headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hpes-76-billion-ai-backlog-waiting-memory-supply-catch",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "HPE's $7.6 billion AI backlog waiting on memory supply indicates a significant supply chain constraint impacting revenue realization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "HPE's $7.6 billion AI backlog waiting on memory supply indicates a significant supply chain constraint impacting revenue realization.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HPE",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-106",
-      "headline": "ET Exclusive: RBI blocks Tata Sons' bid to stay private, forcing listing of Rs 2.01 lakh crore giant",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/et-exclusive-rbi-rejects-tata-sons-application-for-voluntary-surrender-as-a-cic-paves-way-for-listing/articleshow/134129933.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:03:51Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "RBI blocking Tata Sons' bid to stay private forces the listing of a Rs 2.01 lakh crore giant, a significant event impacting its capital structure and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "RBI blocking Tata Sons' bid to stay private forces the listing of a Rs 2.01 lakh crore giant, a significant event impacting its capital structure and operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "operations",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -156284,9 +156282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1447541,
-    "news_picked_today": 1365,
-    "news_dropped_today": 4227
+    "news_seen_today": 1448153,
+    "news_picked_today": 1374,
+    "news_dropped_today": 4266
   },
   "book_momentum": {
     "live_count": 8,
