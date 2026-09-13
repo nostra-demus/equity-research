@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T05:30:11Z",
+  "generated_at": "2026-09-13T05:34:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -352,6 +352,55 @@
           "name": "Ford Motor Company",
           "ticker": "F",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-324",
+      "headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T17:58:01Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Colgate is considering a $1 billion divestment of its mass-market personal care brands.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Colgate is considering a $1 billion divestment of its mass-market personal care brands.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Colgate-Palmolive",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-312",
-      "headline": "Musk’s secretive backer builds $40bn SpaceX stake",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/c765f312-e698-4d31-bf71-f64a656ad6f4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T04:00:03Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "A $40bn valuation stake in SpaceX by a secretive backer provides a significant data point for the company's private valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A $40bn valuation stake in SpaceX by a secretive backer provides a significant data point for the company's private valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156421,9 +156421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1031542,
-    "news_picked_today": 689,
-    "news_dropped_today": 2287
+    "news_seen_today": 1042863,
+    "news_picked_today": 697,
+    "news_dropped_today": 2327
   },
   "book_momentum": {
     "live_count": 8,
