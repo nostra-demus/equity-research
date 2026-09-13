@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:24:58Z",
+  "generated_at": "2026-09-13T04:29:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -957,6 +957,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-277",
+      "headline": "Larry Ellison cancels plan to sell Oracle stock worth up to $7.5 billion",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/larry-ellison-cancels-plan-to-sell-oracle-stock-worth-up-to-7-5-billion/articleshow/134176993.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T04:09:07Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential supply pressure on Oracle shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential supply pressure on Oracle shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": "ORCL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-103",
       "headline": "Nano-X (NNOX) Imaging Slashes Costs As Cash Clock Keeps Ticking",
       "headline_en": null,
@@ -1483,55 +1532,6 @@
         {
           "name": "Oracle",
           "ticker": "ORCL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-209",
-      "headline": "Larry Ellison cancels plan to sell $7.5 billion worth of Oracle stock",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/larry-ellison-cancels-plan-to-sell-7-5-billion-worth-of-oracle-stock-11789266726806.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T02:55:23Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Larry Ellison cancelled a planned $7.5 billion sale of Oracle stock, reducing potential market supply pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Larry Ellison cancelled a planned $7.5 billion sale of Oracle stock, reducing potential market supply pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -156425,9 +156425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 849843,
-    "news_picked_today": 508,
-    "news_dropped_today": 1844
+    "news_seen_today": 863289,
+    "news_picked_today": 515,
+    "news_dropped_today": 1861
   },
   "book_momentum": {
     "live_count": 8,
