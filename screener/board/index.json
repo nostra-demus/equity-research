@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:35:49Z",
+  "generated_at": "2026-09-13T01:40:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -955,6 +955,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-138",
+      "headline": "Tata Sons faces IPO deadline with RBI decision. What happens next?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/rbi-tata-sons-ipo-listing-tata-trusts-noel-tata-11789227983193.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T01:30:43Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Tata Sons faces a regulatory deadline regarding its potential IPO, which is a significant event for the conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Tata Sons faces a regulatory deadline regarding its potential IPO, which is a significant event for the conglomerate.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-065",
       "headline": "‘Ill-advised moment’: OpenAI’s Altman rules out 2026 IPO amid AI safety fears",
       "headline_en": null,
@@ -1551,6 +1600,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-142",
+      "headline": "Kia's PV5 sales surpass 50,000 units in 13 months",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260913000700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T01:14:06Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Kia's PV5 sales reaching 50,000 units in 13 months indicates strong product adoption and revenue growth for the model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Kia's PV5 sales reaching 50,000 units in 13 months indicates strong product adoption and revenue growth for the model.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-040",
       "headline": "Revolut confirms customer data breach through fake government requests",
       "headline_en": null,
@@ -1874,115 +1972,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-059",
-      "headline": "Qualcomm Lost Apple’s Modem Business. Amazon Just Offered a $60 Billion Escape Route.",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/12/qualcomm-lost-apples-modem-business-amazon-just-offered-a-60-billion-escape-route/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:37:09Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Qualcomm faces a significant loss of Apple modem business, partially offset by a potential $60 billion partnership with Amazon.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Qualcomm faces a significant loss of Apple modem business, partially offset by a potential $60 billion partnership with Amazon.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-114",
-      "headline": "VW Anhui refreshes ID. UNYX 08 SUV with lower prices just 5 months after launch",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/09/12/vw-anhui-refreshes-id-unyx-08-suv/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T11:52:24Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Volkswagen Anhui is cutting prices on the ID. UNYX 08 SUV shortly after launch, signaling potential demand weakness or intense competitive pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Volkswagen Anhui is cutting prices on the ID. UNYX 08 SUV shortly after launch, signaling potential demand weakness or intense competitive pressure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156280,9 +156269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 334575,
-    "news_picked_today": 171,
-    "news_dropped_today": 669
+    "news_seen_today": 340287,
+    "news_picked_today": 179,
+    "news_dropped_today": 709
   },
   "book_momentum": {
     "live_count": 8,
