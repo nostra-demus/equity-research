@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T22:41:04Z",
+  "generated_at": "2026-09-13T22:55:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-679",
+      "headline": "TTT: Titomic awarded US$5.0 million U.S. defense contract [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTT?key=2924-03134942-3A701649",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T22:50:04Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Company secured a US$5.0 million defense contract, providing revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company secured a US$5.0 million defense contract, providing revenue visibility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titomic",
+          "ticker": "TTT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-657",
       "headline": "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]",
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-449",
-      "headline": "Stellantis to Invest More Than €1 Billion to Build Van in France",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/stellantis-to-invest-more-than-1-billion-to-build-van-in-france",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T15:27:02Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Stellantis is investing over €1 billion to build a new van production facility in France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stellantis is investing over €1 billion to build a new van production facility in France.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stellantis",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115717,76 +115717,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c7c3c3693e6e",
-      "idea_version": "IDEAV-38f366266b568ca0",
-      "idea_version_started_at": "2026-09-13T06:54:12Z",
-      "ticker": "AZN",
-      "company": "AstraZeneca",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure of a late-stage breast cancer drug trial removes a key pipeline asset and potential future revenue stream, negatively impacting the company's long-term growth outlook.",
-      "why_now": "The trial failure was reported on 2026-09-12, creating an immediate negative catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e20ca352585c"
-      ],
-      "primary_source_event_id": "EVT-e20ca352585c",
-      "source_headlines": [
-        "AstraZeneca's breast cancer drug fails in late-stage trial"
-      ],
-      "source_headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
-      "source_url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/astrazenecas-breast-cancer-drug-fails-in-late-stage-trial/articleshow/134125851.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-12T10:54:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T06:54:12Z",
-      "updated_at": "2026-09-13T06:54:12Z",
-      "decay_at": "2026-09-13T22:54:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-edc85f5d856234ae",
       "idea_version_started_at": "2026-09-13T06:54:12Z",
@@ -118139,6 +118069,76 @@
       "surfaced_at": "2026-09-11T09:09:59Z",
       "updated_at": "2026-09-11T09:09:59Z",
       "decay_at": "2026-09-12T15:15:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c7c3c3693e6e",
+      "idea_version": "IDEAV-38f366266b568ca0",
+      "idea_version_started_at": "2026-09-13T06:54:12Z",
+      "ticker": "AZN",
+      "company": "AstraZeneca",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of a late-stage breast cancer drug trial removes a key pipeline asset and potential future revenue stream, negatively impacting the company's long-term growth outlook.",
+      "why_now": "The trial failure was reported on 2026-09-12, creating an immediate negative catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e20ca352585c"
+      ],
+      "primary_source_event_id": "EVT-e20ca352585c",
+      "source_headlines": [
+        "AstraZeneca's breast cancer drug fails in late-stage trial"
+      ],
+      "source_headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
+      "source_url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/astrazenecas-breast-cancer-drug-fails-in-late-stage-trial/articleshow/134125851.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-12T10:54:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T06:54:12Z",
+      "updated_at": "2026-09-13T06:54:12Z",
+      "decay_at": "2026-09-13T22:54:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -120867,9 +120867,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -120877,9 +120877,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -120898,6 +120898,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c7c3c3693e6e",
+        "idea_version": "IDEAV-38f366266b568ca0",
+        "idea_version_started_at": "2026-09-13T06:54:12Z",
+        "ticker": "AZN",
+        "company": "AstraZeneca",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The failure of a late-stage breast cancer drug trial removes a key pipeline asset and potential future revenue stream, negatively impacting the company's long-term growth outlook.",
+        "why_now": "The trial failure was reported on 2026-09-12, creating an immediate negative catalyst for the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e20ca352585c"
+        ],
+        "primary_source_event_id": "EVT-e20ca352585c",
+        "source_headlines": [
+          "AstraZeneca's breast cancer drug fails in late-stage trial"
+        ],
+        "source_headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
+        "source_url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/astrazenecas-breast-cancer-drug-fails-in-late-stage-trial/articleshow/134125851.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-12T10:54:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T06:54:12Z",
+        "updated_at": "2026-09-13T06:54:12Z",
+        "decay_at": "2026-09-13T22:54:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T22:54:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c1baa82e33e",
         "idea_version": "IDEAV-76f47ca581613aff",
@@ -157972,85 +158045,12 @@
         "archived_at": "2026-08-25T21:28:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d524f33198fb",
-        "idea_version": "IDEAV-225621e1913ec241",
-        "idea_version_started_at": "2026-08-22T17:48:11Z",
-        "ticker": "LOGI",
-        "company": "Logitech International S.A.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Logitech faces a lawsuit alleging it withheld $61 million in tariff refunds from customers and extracted up to $97 million through tariff-justified price increases, which could lead to significant legal costs and reputational damage.",
-        "why_now": "The lawsuit is a live event reported on August 22, 2026, creating immediate legal and financial uncertainty for the company.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-58735c1f1545"
-        ],
-        "primary_source_event_id": "EVT-58735c1f1545",
-        "source_headlines": [
-          "Logitech faces lawsuit for withholding $61M in tariff refunds from customers — lawsuit claims company extracted up to $97M from consumers in 2026 through tariff-justified price increases"
-        ],
-        "source_headline": "Logitech faces lawsuit for withholding $61M in tariff refunds from customers — lawsuit claims company extracted up to $97M from consumers in 2026 through tariff-justified price increases",
-        "source_url": "https://www.tomshardware.com/peripherals/logitech-faces-lawsuit-for-withholding-usd61m-in-tariff-refunds-from-customers-lawsuit-claims-company-extracted-up-to-usd97m-from-consumers-in-2026-through-tariff-justified-price-increases",
-        "source_name": "Tom's Hardware",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-22T14:13:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T17:48:11Z",
-        "updated_at": "2026-08-22T17:48:11Z",
-        "decay_at": "2026-08-24T02:13:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-25T14:44:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 757,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -158069,9 +158069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459682,
-    "news_picked_today": 1956,
-    "news_dropped_today": 6253
+    "news_seen_today": 1459734,
+    "news_picked_today": 1985,
+    "news_dropped_today": 6276
   },
   "book_momentum": {
     "live_count": 8,
