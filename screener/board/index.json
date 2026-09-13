@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T05:55:53Z",
+  "generated_at": "2026-09-13T06:00:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1447,6 +1447,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-368",
+      "headline": "Elgi Equipments Limited: Elgi Equipments Limited has informed the Exchange about Credit Rating",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ELGIEQUIP_13092026111134_Intimation_-_Niche99_ESG_Ratings.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T05:41:51Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Company announced a credit rating update, which is a material disclosure for debt and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Company announced a credit rating update, which is a material disclosure for debt and capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elgi Equipments",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-129",
       "headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
       "headline_en": null,
@@ -1933,55 +1982,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-332",
-      "headline": "South East Water to Regroup on Debt Plan After Bond Talks Stall",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-11/south-east-water-to-regroup-on-debt-plan-after-bond-talks-stall",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T17:32:26Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "South East Water is facing debt restructuring after bond talks stalled, indicating potential distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "South East Water is facing debt restructuring after bond talks stalled, indicating potential distress.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South East Water",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156426,9 +156426,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1097290,
-    "news_picked_today": 759,
-    "news_dropped_today": 2505
+    "news_seen_today": 1100732,
+    "news_picked_today": 773,
+    "news_dropped_today": 2539
   },
   "book_momentum": {
     "live_count": 8,
