@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T03:50:57Z",
+  "generated_at": "2026-09-13T04:05:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -505,6 +505,55 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-265",
+      "headline": "Oracle posts 30% revenue growth fueled by AI cloud demand as debts hits $125 billion",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T22:11:10Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Oracle reported 30% revenue growth driven by AI cloud demand, though debt levels remain high at $125 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Oracle reported 30% revenue growth driven by AI cloud demand, though debt levels remain high at $125 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1933,55 +1982,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-138",
-      "headline": "Tata Sons faces IPO deadline with RBI decision. What happens next?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/rbi-tata-sons-ipo-listing-tata-trusts-noel-tata-11789227983193.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T01:30:43Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Tata Sons faces a regulatory deadline regarding its potential IPO, which is a significant event for the conglomerate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Tata Sons faces a regulatory deadline regarding its potential IPO, which is a significant event for the conglomerate.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114720,77 +114720,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0f963912a562",
-      "idea_version": "IDEAV-b6f16dc9eebc7f4a",
-      "idea_version_started_at": "2026-09-11T23:59:41Z",
-      "ticker": "AXGN",
-      "company": "Axogen",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
-      "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8af0835f4f57",
-        "EVT-9482923fd716"
-      ],
-      "primary_source_event_id": "EVT-8af0835f4f57",
-      "source_headlines": [
-        "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-        "Axogen to buy BioCircuit Technologies for $200M"
-      ],
-      "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T16:00:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T18:09:40Z",
-      "updated_at": "2026-09-11T23:59:41Z",
-      "decay_at": "2026-09-13T04:00:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -116070,6 +115999,77 @@
       "surfaced_at": "2026-09-10T23:13:56Z",
       "updated_at": "2026-09-12T00:19:51Z",
       "decay_at": "2026-09-12T08:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0f963912a562",
+      "idea_version": "IDEAV-b6f16dc9eebc7f4a",
+      "idea_version_started_at": "2026-09-11T23:59:41Z",
+      "ticker": "AXGN",
+      "company": "Axogen",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
+      "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8af0835f4f57",
+        "EVT-9482923fd716"
+      ],
+      "primary_source_event_id": "EVT-8af0835f4f57",
+      "source_headlines": [
+        "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
+        "Axogen to buy BioCircuit Technologies for $200M"
+      ],
+      "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T16:00:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T18:09:40Z",
+      "updated_at": "2026-09-11T23:59:41Z",
+      "decay_at": "2026-09-13T04:00:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -119080,14 +119080,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 264,
@@ -119111,6 +119111,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0f963912a562",
+        "idea_version": "IDEAV-b6f16dc9eebc7f4a",
+        "idea_version_started_at": "2026-09-11T23:59:41Z",
+        "ticker": "AXGN",
+        "company": "Axogen",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
+        "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8af0835f4f57",
+          "EVT-9482923fd716"
+        ],
+        "primary_source_event_id": "EVT-8af0835f4f57",
+        "source_headlines": [
+          "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
+          "Axogen to buy BioCircuit Technologies for $200M"
+        ],
+        "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
+        "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T16:00:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T18:09:40Z",
+        "updated_at": "2026-09-11T23:59:41Z",
+        "decay_at": "2026-09-13T04:00:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T04:00:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7b08e8c1482d",
         "idea_version": "IDEAV-f742c2d5684821a2",
@@ -147647,79 +147721,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3d9be100b359",
-        "idea_version": "IDEAV-52d7e610638c04e4",
-        "idea_version_started_at": "2026-08-30T15:25:18Z",
-        "ticker": "MU",
-        "company": "Micron Technology",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Micron's massive 250 million dollar capital expenditure commitment to AI-focused memory infrastructure positions it to capture high-margin demand for next-generation high-bandwidth memory (HBM).",
-        "why_now": "The capital deployment signals immediate operational scaling for the next phase of AI hardware demand.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "sector_cycle",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-696927f90ab1"
-        ],
-        "primary_source_event_id": "EVT-696927f90ab1",
-        "source_headlines": [
-          "Micron's Huge $250M AI Bet Signals a Critical Next Phase for Memory"
-        ],
-        "source_headline": "Micron's Huge $250M AI Bet Signals a Critical Next Phase for Memory",
-        "source_url": "https://www.nasdaq.com/articles/microns-huge-250m-ai-bet-signals-critical-next-phase-memory",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T14:50:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T15:25:18Z",
-        "updated_at": "2026-08-30T15:25:18Z",
-        "decay_at": "2026-09-01T02:50:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T17:26:08Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-91e5824ed7dd",
         "idea_version": "IDEAV-96812f8704292485",
         "idea_version_started_at": "2026-08-30T16:55:17Z",
@@ -156262,7 +156263,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 718,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156281,9 +156282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 762305,
-    "news_picked_today": 454,
-    "news_dropped_today": 1658
+    "news_seen_today": 808790,
+    "news_picked_today": 480,
+    "news_dropped_today": 1728
   },
   "book_momentum": {
     "live_count": 8,
