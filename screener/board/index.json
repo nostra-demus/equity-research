@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:20:11Z",
+  "generated_at": "2026-09-13T04:24:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -554,6 +554,55 @@
           "name": "Oracle",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-276",
+      "headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/astrazenecas-breast-cancer-drug-fails-late-stage-trial-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T20:58:43Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "A late-stage trial failure for a key drug significantly impacts the company's revenue pipeline and R&D valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A late-stage trial failure for a key drug significantly impacts the company's revenue pipeline and R&D valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1394,6 +1443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-273",
+      "headline": "Oracle's Larry Ellison Cancels $7.5 Bln Stock Sale Plan",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/oracles-larry-ellison-cancels-75-bln-stock-sale-plan",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T03:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential selling pressure on Oracle shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential selling pressure on Oracle shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": "ORCL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-209",
       "headline": "Larry Ellison cancels plan to sell $7.5 billion worth of Oracle stock",
       "headline_en": null,
@@ -1885,109 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-202",
-      "headline": "SP Group chairman Shapoor Mistry seeks ₹25,000 crore from Tata Sons over next two years: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/sp-group-chairman-shapoor-mistry-seeks-rs-25000-crore-from-tata-sons-over-next-two-years-report-555054-2026-09-12?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T04:29:41Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Shapoor Mistry is seeking 25000 crore from Tata Sons, representing a significant potential capital outflow or legal dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Shapoor Mistry is seeking 25000 crore from Tata Sons, representing a significant potential capital outflow or legal dispute.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "SP Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-185",
-      "headline": "Tata Sons listing may be inevitable after RBI rejection to deregister as CIC",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/india/story/tata-sons-listing-may-be-inevitable-after-rbi-rejection-to-deregister-as-cic-555212-2026-09-13?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T01:59:55Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Tata Sons may be forced to list following the RBI's rejection of its application to deregister as a Core Investment Company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tata Sons may be forced to list following the RBI's rejection of its application to deregister as a Core Investment Company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156430,9 +156425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 840807,
-    "news_picked_today": 498,
-    "news_dropped_today": 1806
+    "news_seen_today": 849843,
+    "news_picked_today": 508,
+    "news_dropped_today": 1844
   },
   "book_momentum": {
     "live_count": 8,
