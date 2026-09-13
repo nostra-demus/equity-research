@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T10:04:13Z",
+  "generated_at": "2026-09-13T10:05:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-548",
@@ -115569,6 +115569,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-873ef929baef",
+      "idea_version": "IDEAV-d75682712376f2ea",
+      "idea_version_started_at": "2026-09-13T10:05:21Z",
+      "ticker": "FPR",
+      "company": "FleetPartners Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the $860 million acquisition bid by Element Fleet Management removes the takeover premium that was supporting the share price.",
+      "why_now": "The deal collapse was reported on 2026-09-13, creating an immediate repricing event.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16a7f723c448"
+      ],
+      "primary_source_event_id": "EVT-16a7f723c448",
+      "source_headlines": [
+        "Canada’s Element cuts a U-turn at $860m auction for FleetPartners"
+      ],
+      "source_headline": "Canada’s Element cuts a U-turn at $860m auction for FleetPartners",
+      "source_url": "https://www.afr.com/street-talk/canada-s-element-cuts-a-u-turn-at-860m-auction-for-fleetpartners-20260913-p60wxy?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T08:09:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T10:05:21Z",
+      "updated_at": "2026-09-13T10:05:21Z",
+      "decay_at": "2026-09-14T20:09:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-535e529d3ef7",
       "idea_version": "IDEAV-4ba21f28b4e39830",
       "idea_version_started_at": "2026-09-13T03:27:04Z",
@@ -118427,149 +118499,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d053e3e206d2",
-      "idea_version": "IDEAV-459985086a659826",
-      "idea_version_started_at": "2026-09-10T12:37:06Z",
-      "ticker": "00491",
-      "company": "Emperor Culture Group Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert confirming a turnaround to net profit, signaling a material improvement in operational performance.",
-      "why_now": "The filing was released on 2026-09-10, making the earnings surprise actionable immediately.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e32318c449d8"
-      ],
-      "primary_source_event_id": "EVT-e32318c449d8",
-      "source_headlines": [
-        "EMPEROR CULTURE (00491): Positive Profit Alert - Turnaround to Net Profit"
-      ],
-      "source_headline": "EMPEROR CULTURE (00491): Positive Profit Alert - Turnaround to Net Profit",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T10:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T12:37:06Z",
-      "updated_at": "2026-09-10T12:37:06Z",
-      "decay_at": "2026-09-11T22:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8f16db69a39a",
-      "idea_version": "IDEAV-0410155f4f26b31c",
-      "idea_version_started_at": "2026-09-10T11:30:54Z",
-      "ticker": "P911",
-      "company": "Porsche AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The sale of the Bugatti stake for €1 billion provides a direct cash infusion and allows for an upward revision of the company's cash flow guidance.",
-      "why_now": "The news of the stake sale and guidance upgrade broke on 2026-09-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-913e5412ec0c"
-      ],
-      "primary_source_event_id": "EVT-913e5412ec0c",
-      "source_headlines": [
-        "Porsche to generate €1 billion by selling Bugatti stake, raises cash flow forecast"
-      ],
-      "source_headline": "Porsche to generate €1 billion by selling Bugatti stake, raises cash flow forecast",
-      "source_url": "https://www.cnbctv18.com/business/companies/porsche-to-generate-e1-billion-by-selling-bugatti-stake-raises-cash-flow-forecast-19988476.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T09:26:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T11:30:54Z",
-      "updated_at": "2026-09-10T11:30:54Z",
-      "decay_at": "2026-09-11T21:26:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7bad7e7a459f",
       "idea_version": "IDEAV-ab5c5bac32555c4b",
       "idea_version_started_at": "2026-09-11T11:59:49Z",
@@ -119148,14 +119077,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 25
       },
       "short": {
         "total_count": 263,
@@ -119165,12 +119094,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 157,
+      "evicted_count": 159,
       "oldest_retained_at": "2026-08-22T22:13:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 125,
-          "oldest_retained_at": "2026-08-31T12:56:14Z"
+          "evicted_count": 127,
+          "oldest_retained_at": "2026-08-31T13:54:29Z"
         },
         "short": {
           "evicted_count": 32,
@@ -122068,8 +121997,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T22:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T10:05:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -122143,8 +122072,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T21:26:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T10:05:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -156330,8 +156259,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 723,
-    "live_count": 24,
+    "surfaced_total": 724,
+    "live_count": 25,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
