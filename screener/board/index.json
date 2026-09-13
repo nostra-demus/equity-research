@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T23:31:18Z",
+  "generated_at": "2026-09-13T23:31:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-679",
@@ -116209,6 +116209,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-bbbd64fda534",
+      "idea_version": "IDEAV-f9f3424fc3eba63b",
+      "idea_version_started_at": "2026-09-13T23:31:34Z",
+      "ticker": "BWIN",
+      "company": "Baldwin Insurance Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is the target of a potential take-private acquisition by Michael Dell's family office, which typically trades at a premium to the current market price.",
+      "why_now": "The report of the deal nearing completion surfaced on 2026-09-13.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f6f282eaf94"
+      ],
+      "primary_source_event_id": "EVT-3f6f282eaf94",
+      "source_headlines": [
+        "Michael Dell's DFO Management nears take-private deal for Baldwin Insurance Group, FT reports"
+      ],
+      "source_headline": "Michael Dell's DFO Management nears take-private deal for Baldwin Insurance Group, FT reports",
+      "source_url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:24:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T23:31:34Z",
+      "updated_at": "2026-09-13T23:31:34Z",
+      "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-90d2e717f9fb",
       "idea_version": "IDEAV-7faa398130edd38e",
       "idea_version_started_at": "2026-09-13T04:17:17Z",
@@ -120574,77 +120645,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-20aa195678e4",
-      "idea_version": "IDEAV-22abcdab3b885ad5",
-      "idea_version_started_at": "2026-09-11T02:58:52Z",
-      "ticker": "01477",
-      "company": "Ocumension-B",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The NMPA acceptance of the new drug application for OT-301 is a significant regulatory milestone that de-risks the product pipeline and improves the company's commercial outlook.",
-      "why_now": "The announcement was made on 2026-09-10, providing a fresh catalyst for re-rating.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c1dae90b30c9"
-      ],
-      "primary_source_event_id": "EVT-c1dae90b30c9",
-      "source_headlines": [
-        "OCUMENSION-B (01477): VOLUNTARY ANNOUNCEMENT NEW DRUG APPLICATION OF OT-301 ACCEPTED BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION"
-      ],
-      "source_headline": "OCUMENSION-B (01477): VOLUNTARY ANNOUNCEMENT NEW DRUG APPLICATION OF OT-301 ACCEPTED BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100055.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-10T23:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T02:58:52Z",
-      "updated_at": "2026-09-11T02:58:52Z",
-      "decay_at": "2026-09-12T11:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0ee45ba091ad",
       "idea_version": "IDEAV-0d03b849cead4409",
       "idea_version_started_at": "2026-09-12T09:18:30Z",
@@ -120867,14 +120867,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 27
       },
       "short": {
         "total_count": 264,
@@ -120884,12 +120884,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 168,
+      "evicted_count": 169,
       "oldest_retained_at": "2026-08-22T23:16:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 132,
-          "oldest_retained_at": "2026-08-31T17:10:39Z"
+          "evicted_count": 133,
+          "oldest_retained_at": "2026-08-31T17:18:08Z"
         },
         "short": {
           "evicted_count": 36,
@@ -124013,8 +124013,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T11:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T23:31:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158049,8 +158049,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 758,
-    "live_count": 46,
+    "surfaced_total": 759,
+    "live_count": 47,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
