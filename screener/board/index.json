@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:06:11Z",
+  "generated_at": "2026-09-13T01:10:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1819,6 +1819,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-112",
+      "headline": "Tesla Is Reclaiming the U.S. EV Market as Legacy Automakers Retreat",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/tesla-is-reclaiming-the-u-s-ev-market-as-legacy-automakers-retreat-71ec2053?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Tesla is gaining market share in the US EV sector as competitors pull back.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Tesla is gaining market share in the US EV sector as competitors pull back.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-057",
       "headline": "DH Evening Brief | BRICS adopts New Delhi Declaration with consensus; Harish Rawat quits Congress posts after ED raid on aide",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-056",
-      "headline": "Ollie's 2026 Outlook: Continued National Expansion Meets a Once-in-a-Decade Valuation",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/moneyball/2026/09/12/ollie-s-2026-outlook-continued-national-expansion-meets-a-once-in-a-decade-valuation/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:46:58Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Ollie's is projecting continued national expansion, which is a key growth indicator for the retailer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Ollie's is projecting continued national expansion, which is a key growth indicator for the retailer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ollie's Bargain Outlet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156253,9 +156253,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230045,
-    "news_picked_today": 121,
-    "news_dropped_today": 479
+    "news_seen_today": 247759,
+    "news_picked_today": 123,
+    "news_dropped_today": 501
   },
   "book_momentum": {
     "live_count": 8,
