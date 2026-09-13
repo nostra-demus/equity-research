@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:45:56Z",
+  "generated_at": "2026-09-13T04:52:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1589,6 +1589,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-308",
+      "headline": "CVC faces shareholder revolt over €10.7bn Recordati take-private",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a4a22443-2082-409b-96e1-650c44a40f44?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T04:00:12Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "CVC Capital Partners faces a shareholder revolt regarding a €10.7bn take-private deal for Recordati, creating significant execution risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "CVC Capital Partners faces a shareholder revolt regarding a €10.7bn take-private deal for Recordati, creating significant execution risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVC Capital Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Recordati",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-257",
       "headline": "Iraqi military commander dismissed after drone attacks against Saudi Arabia, prime minister's office says",
       "headline_en": null,
@@ -1780,6 +1835,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-312",
+      "headline": "Musk’s secretive backer builds $40bn SpaceX stake",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c765f312-e698-4d31-bf71-f64a656ad6f4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T04:00:03Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "A $40bn valuation stake in SpaceX by a secretive backer provides a significant data point for the company's private valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A $40bn valuation stake in SpaceX by a secretive backer provides a significant data point for the company's private valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-032",
       "headline": "RBI Rejects Tata Sons' Bid To Surrender NBFC Licence, Setting Stage For Mandatory Listing",
       "headline_en": null,
@@ -1843,105 +1947,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "The RBI has reportedly rejected Tata Sons' request to avoid a mandatory public listing, which could force a major corporate restructuring.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-058",
-      "headline": "Omkam Aviations Announces Landmark Push For 50 Russian IL-114-300 Aircraft With Local Assembly Line To Revolutionize Tier 2 And Tier 3 Regional Connectivity",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/focused-view/omkam-aviations-announces-landmark-push-for-50-russian-il-114-300-aircraft-with-local-assembly-line-to-revolutionize-tier-2-and-tier-3-regional-connectivity",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:40:11Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Omkam Aviations announced a major procurement and local assembly plan for 50 aircraft to expand regional connectivity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Omkam Aviations announced a major procurement and local assembly plan for 50 aircraft to expand regional connectivity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Omkam Aviations",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-075",
-      "headline": "RBI rejects Tata Sons’ CIC deregistration bid, makes stock market listing mandatory: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/rbi-rejects-tata-sons-cic-deregistration-bid-makes-stock-market-listing-mandatory-report-555171-2026-09-12?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The RBI has mandated that Tata Sons must list on the stock exchange, forcing a significant change in capital structure and regulatory status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The RBI has mandated that Tata Sons must list on the stock exchange, forcing a significant change in capital structure and regulatory status.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -156414,9 +156419,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 919909,
-    "news_picked_today": 585,
-    "news_dropped_today": 2031
+    "news_seen_today": 924113,
+    "news_picked_today": 607,
+    "news_dropped_today": 2057
   },
   "book_momentum": {
     "live_count": 8,
