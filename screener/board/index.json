@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-13T07:11:43Z",
+  "generated_at": "2026-09-13T08:30:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-548",
+      "headline": "Canada’s Element cuts a U-turn at $860m auction for FleetPartners",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/canada-s-element-cuts-a-u-turn-at-860m-auction-for-fleetpartners-20260913-p60wxy?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T08:09:46Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Element Fleet Management terminated an $860 million auction process for FleetPartners, impacting potential deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Element Fleet Management terminated an $860 million auction process for FleetPartners, impacting potential deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Element Fleet Management",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "FleetPartners",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-111",
       "headline": "TotalEnergies Plans $10B in Angola Oil Investments",
@@ -1938,55 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-370",
-      "headline": "‎Al Kathiri taps Estidamah Capital for 91.46% capital cut",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1935905",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T08:46:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Al Kathiri is proposing a 91.46% capital reduction, which is a major event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Al Kathiri is proposing a 91.46% capital reduction, which is a major event for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Al Kathiri",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156425,9 +156430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1241321,
-    "news_picked_today": 1118,
-    "news_dropped_today": 3466
+    "news_seen_today": 1358096,
+    "news_picked_today": 1125,
+    "news_dropped_today": 3507
   },
   "book_momentum": {
     "live_count": 8,
