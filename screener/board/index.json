@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-13T10:05:35Z",
+  "generated_at": "2026-09-13T10:21:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-562",
+      "headline": "Bank Of America To Infuse ₹18,268 Crore In Jio Credit To Boost Growth & Expand Lending Business",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/bank-of-america-to-infuse-18268-crore-in-jio-credit-to-boost-growth-expand-lending-business",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T09:17:08Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Bank of America is infusing 18,268 crore rupees into Jio Credit to expand its lending business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America is infusing 18,268 crore rupees into Jio Credit to expand its lending business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": "BAC",
+          "listing_country": "US"
+        },
+        {
+          "name": "Jio Credit",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-548",
       "headline": "Canada’s Element cuts a U-turn at $860m auction for FleetPartners",
@@ -1938,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-194",
-      "headline": "Saudi Arabia condemns Iraq-launched drone attack on East-West Pipeline",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/gulf/saudi/saudi-arabia-condemns-iraq-launched-drone-attack-on-east-west-pipeline-1.500671890",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T06:14:02Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Drone attack on critical energy infrastructure (East-West Pipeline) represents a supply risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Drone attack on critical energy infrastructure (East-West Pipeline) represents a supply risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156279,9 +156284,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1440037,
-    "news_picked_today": 1327,
-    "news_dropped_today": 4145
+    "news_seen_today": 1447541,
+    "news_picked_today": 1365,
+    "news_dropped_today": 4227
   },
   "book_momentum": {
     "live_count": 8,
