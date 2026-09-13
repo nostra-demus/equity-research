@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T12:51:21Z",
+  "generated_at": "2026-09-13T13:01:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-622",
+      "headline": "Manar Al Omran unveils SR1.2 billion industrial complex to take Saudi-made scaffolding to global markets",
+      "headline_en": null,
+      "url": "https://saudigazette.com.sa/article/664532/business/manar-al-omran-unveils-sr12-billion-industrial-complex-to-take-saudi-made-scaffolding-to-global-markets",
+      "source_name": "Saudi Gazette — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T12:39:42Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Company unveils a SR1.2 billion industrial complex for manufacturing expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company unveils a SR1.2 billion industrial complex for manufacturing expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manar Al Omran",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,55 +1987,6 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-265",
-      "headline": "Oracle posts 30% revenue growth fueled by AI cloud demand as debts hits $125 billion",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T22:11:10Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Oracle reported 30% revenue growth driven by AI cloud demand, though debt levels remain high at $125 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Oracle reported 30% revenue growth driven by AI cloud demand, though debt levels remain high at $125 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -156775,9 +156775,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1457902,
-    "news_picked_today": 1576,
-    "news_dropped_today": 4853
+    "news_seen_today": 1457926,
+    "news_picked_today": 1579,
+    "news_dropped_today": 4874
   },
   "book_momentum": {
     "live_count": 8,
