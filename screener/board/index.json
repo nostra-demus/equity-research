@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:15:55Z",
+  "generated_at": "2026-09-13T04:17:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -114726,6 +114726,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-57e82f2564ba4498",
+      "idea_version_started_at": "2026-09-13T04:17:17Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company increased its total addressable market projection for 2030 to $3 trillion, signaling higher long-term growth potential in the AI hardware space.",
+      "why_now": "The guidance update was released on 2026-09-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beb8c44a410b",
+        "EVT-d1a90b78b995"
+      ],
+      "primary_source_event_id": "EVT-beb8c44a410b",
+      "source_headlines": [
+        "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
+        "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion"
+      ],
+      "source_headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
+      "source_url": "https://www.fool.com/investing/2026/09/12/amd-just-raised-the-top-of-the-company-s-2030-market-to-usd3-trillion/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-12T12:39:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T04:17:17Z",
+      "updated_at": "2026-09-13T04:17:17Z",
+      "decay_at": "2026-09-14T00:39:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -115071,6 +115142,77 @@
       "surfaced_at": "2026-09-12T17:39:44Z",
       "updated_at": "2026-09-12T17:39:44Z",
       "decay_at": "2026-09-14T05:02:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-90d2e717f9fb",
+      "idea_version": "IDEAV-7faa398130edd38e",
+      "idea_version_started_at": "2026-09-13T04:17:17Z",
+      "ticker": "HPE",
+      "company": "Hewlett Packard Enterprise",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is unable to convert its $7.6 billion AI backlog into revenue due to persistent memory supply constraints, which will pressure near-term margins and growth.",
+      "why_now": "The supply bottleneck was reported as a live operational constraint on 2026-09-12.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7eeafb5d25bd"
+      ],
+      "primary_source_event_id": "EVT-7eeafb5d25bd",
+      "source_headlines": [
+        "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up"
+      ],
+      "source_headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
+      "source_url": "https://www.nasdaq.com/articles/hpes-76-billion-ai-backlog-waiting-memory-supply-catch",
+      "source_name": "Nasdaq",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-12T12:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T04:17:17Z",
+      "updated_at": "2026-09-13T04:17:17Z",
+      "decay_at": "2026-09-14T00:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156268,8 +156410,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 718,
-    "live_count": 19,
+    "surfaced_total": 720,
+    "live_count": 21,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
