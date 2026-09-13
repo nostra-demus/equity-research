@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:15:57Z",
+  "generated_at": "2026-09-13T01:35:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -43,6 +43,61 @@
           "name": "TotalEnergies",
           "ticker": null,
           "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-128",
+      "headline": "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/anthropic-eyes-record-100-billion-ipo-as-nvidia-considers-10-billion-investment",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T10:57:58Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Anthropic is targeting a $100 billion IPO with a potential $10 billion investment from Nvidia, signaling massive capital deployment in AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is targeting a $100 billion IPO with a potential $10 billion investment from Nvidia, signaling massive capital deployment in AI.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -404,52 +459,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260913-030",
-      "headline": "Nvidia considers $10B investment in potential record Anthropic IPO: Reuters",
+      "inbox_id": "INB-20260913-129",
+      "headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
       "headline_en": null,
-      "url": "https://cointelegraph.com/news/nvidia-considers-10b-investment-in-anthropic-record-ipo-reuters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/astrazenecas-breast-cancer-drug-fails-in-late-stage-trial/articleshow/134125851.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:12:40Z",
+      "found_at": "2026-09-12T10:54:26Z",
       "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Nvidia is considering a $10B investment in Anthropic, a significant capital allocation.",
+      "prelim_note": "AstraZeneca's late-stage trial failure for a breast cancer drug represents a significant R&D setback and loss of potential future revenue.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Nvidia is considering a $10B investment in Anthropic, a significant capital allocation.",
-      "region": "US",
+      "triage_reason": "AstraZeneca's late-stage trial failure for a breast cancer drug represents a significant R&D setback and loss of potential future revenue.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "scope": 6,
+        "event": 0,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": null,
         "size_bucket": "mega"
       },
       "event_types": [
-        "mna"
+        "product"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nvidia",
+          "name": "AstraZeneca",
           "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -458,20 +508,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260913-107",
+      "inbox_id": "INB-20260913-122",
       "headline": "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/12/dell-booked-more-ai-server-orders-in-3-months-than-it-recorded-in-total-revenue/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/dell-booked-more-ai-server-orders-3-months-it-recorded-total-revenue",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-13T00:33:01Z",
+      "found_at": "2026-09-13T00:53:01Z",
       "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant demand growth.",
+      "prelim_note": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant growth in its AI segment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant demand growth.",
+      "triage_reason": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant growth in its AI segment.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1151,6 +1201,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-123",
+      "headline": "Bank of India plans to raise $1 billion via overseas borrowings by December",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/bank-of-india-1-billion-fundraise-ofcbs-hedging-subsidy-fcnr-b-deposits-swap-facility-11789119013655.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T11:37:12Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Bank of India plans to raise $1 billion via overseas borrowings by December.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bank of India plans to raise $1 billion via overseas borrowings by December.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-132",
+      "headline": "Apple's A20 Pro shatters Geekbench 7 single-core record — 2nm chip beats desktop Intel Core i9 and AMD Ryzen 9 by up to 32%",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/pc-components/cpus/apples-a20-pro-shatters-geekbench-7-single-core-record-2nm-chip-beats-desktop-intel-core-i9-and-amd-ryzen-9-by-up-to-32-percent",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T10:48:32Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Apple's new chip performance metrics suggest a competitive advantage in the high-end processor market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Apple's new chip performance metrics suggest a competitive advantage in the high-end processor market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-007",
       "headline": "Tata Sons faces pressure to list after RBI rejects its de-registration as CIC",
       "headline_en": null,
@@ -1348,6 +1496,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-136",
+      "headline": "‎CEER to launch first EVs in Saudi Arabia on Sept. 21",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935834",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T10:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "CEER launching its first EVs in Saudi Arabia marks a significant operational milestone for the company and the regional EV market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "CEER launching its first EVs in Saudi Arabia marks a significant operational milestone for the company and the regional EV market.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CEER",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1785,178 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-115",
-      "headline": "'Attack on CPI-M, not me': Pinarayi Vijayan breaks silence on ED move",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/asia/india/attack-on-cpi-m-not-me-pinarayi-vijayan-breaks-silence-on-ed-move-1.500671993",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T11:51:51Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The Enforcement Directorate (ED) is taking action against a political figure, which can create local regulatory and political uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "The Enforcement Directorate (ED) is taking action against a political figure, which can create local regulatory and political uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-031",
-      "headline": "UAE urges UN Security Council to expand Sudan arms embargo nationwide",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/us/2026/09/12/uae-urges-un-security-council-to-expand-sudan-arms-embargo-nationwide/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:14:58Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The UAE is pushing for a nationwide arms embargo in Sudan, which increases geopolitical risk in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "The UAE is pushing for a nationwide arms embargo in Sudan, which increases geopolitical risk in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-038",
-      "headline": "Trump is giving data centers a pass to pollute",
-      "headline_en": null,
-      "url": "https://www.theverge.com/ai-artificial-intelligence/994112/ai-data-center-pollution-health-epa",
-      "source_name": "The Verge",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T14:41:27Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Potential regulatory easing for data center operations regarding environmental compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Potential regulatory easing for data center operations regarding environmental compliance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-049",
-      "headline": "Quality concerns prompt further tests on concrete used in 3 public housing blocks",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/hong-kong/society/article/3367319/quality-concerns-prompt-further-tests-concrete-used-3-public-housing-blocks?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T14:10:08Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Quality concerns in public housing construction pose operational and regulatory risks for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Quality concerns in public housing construction pose operational and regulatory risks for the sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115978,77 +116004,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e47cc519db25",
-      "idea_version": "IDEAV-f862280f5e7ad1b4",
-      "idea_version_started_at": "2026-09-12T01:49:08Z",
-      "ticker": "09996",
-      "company": "Peijia Medical",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "NMPA approval for the GeminiOne system provides a new revenue stream in the transcatheter edge-to-edge repair market, a high-growth segment in China.",
-      "why_now": "The regulatory approval was announced on 2026-09-11.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-42096feebc61"
-      ],
-      "primary_source_event_id": "EVT-42096feebc61",
-      "source_headlines": [
-        "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM"
-      ],
-      "source_headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101743.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-11T13:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T01:49:08Z",
-      "updated_at": "2026-09-12T01:49:08Z",
-      "decay_at": "2026-09-13T01:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5efadd64af04",
       "idea_version": "IDEAV-83588b9d5243120d",
       "idea_version_started_at": "2026-09-12T06:25:31Z",
@@ -118544,6 +118499,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e47cc519db25",
+      "idea_version": "IDEAV-f862280f5e7ad1b4",
+      "idea_version_started_at": "2026-09-12T01:49:08Z",
+      "ticker": "09996",
+      "company": "Peijia Medical",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NMPA approval for the GeminiOne system provides a new revenue stream in the transcatheter edge-to-edge repair market, a high-growth segment in China.",
+      "why_now": "The regulatory approval was announced on 2026-09-11.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-42096feebc61"
+      ],
+      "primary_source_event_id": "EVT-42096feebc61",
+      "source_headlines": [
+        "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM"
+      ],
+      "source_headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101743.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-11T13:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T01:49:08Z",
+      "updated_at": "2026-09-12T01:49:08Z",
+      "decay_at": "2026-09-13T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-36a3c1f30a16bfbb",
       "idea_version_started_at": "2026-09-11T06:39:59Z",
@@ -119051,14 +119077,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 262,
@@ -119082,6 +119108,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e47cc519db25",
+        "idea_version": "IDEAV-f862280f5e7ad1b4",
+        "idea_version_started_at": "2026-09-12T01:49:08Z",
+        "ticker": "09996",
+        "company": "Peijia Medical",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "NMPA approval for the GeminiOne system provides a new revenue stream in the transcatheter edge-to-edge repair market, a high-growth segment in China.",
+        "why_now": "The regulatory approval was announced on 2026-09-11.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-42096feebc61"
+        ],
+        "primary_source_event_id": "EVT-42096feebc61",
+        "source_headlines": [
+          "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM"
+        ],
+        "source_headline": "PEIJIA-B (09996): VOLUNTARY ANNOUNCEMENT - NMPA APPROVAL FOR REGISTRATION APPLICATION OF GeminiOne TRANSCATHETER EDGE-TO-EDGE REPAIR SYSTEM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101743.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-11T13:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T01:49:08Z",
+        "updated_at": "2026-09-12T01:49:08Z",
+        "decay_at": "2026-09-13T01:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T01:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d0d8fb1cd912",
         "idea_version": "IDEAV-4f8ee14c07bfaa81",
@@ -147620,80 +147720,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c5f3a906c673",
-        "idea_version": "IDEAV-f6d31f1c9f43306b",
-        "idea_version_started_at": "2026-08-30T12:50:24Z",
-        "ticker": "00670",
-        "company": "China Eastern Airlines",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The interim results offer a definitive update on the airline's operational efficiency and revenue trends.",
-        "why_now": "The report was filed on 2026-08-30 and provides immediate clarity on the company's financial health.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-116cb7c64f82"
-        ],
-        "primary_source_event_id": "EVT-116cb7c64f82",
-        "source_headlines": [
-          "CHINA EAST AIR (00670): 2026 INTERIM RESULTS ANNOUNCEMENT"
-        ],
-        "source_headline": "CHINA EAST AIR (00670): 2026 INTERIM RESULTS ANNOUNCEMENT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000477.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-30T11:41:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T12:50:24Z",
-        "updated_at": "2026-08-30T12:50:24Z",
-        "decay_at": "2026-08-31T23:41:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3c363bafcc89",
         "idea_version": "IDEAV-af66c9580bcc89c5",
         "idea_version_started_at": "2026-08-30T11:59:45Z",
@@ -156235,7 +156261,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 717,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156254,9 +156280,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 253654,
-    "news_picked_today": 136,
-    "news_dropped_today": 536
+    "news_seen_today": 334575,
+    "news_picked_today": 171,
+    "news_dropped_today": 669
   },
   "book_momentum": {
     "live_count": 8,
