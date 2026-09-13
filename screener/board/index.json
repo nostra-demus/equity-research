@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T03:09:06Z",
+  "generated_at": "2026-09-13T03:19:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -355,6 +355,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-219",
+      "headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T03:23:18Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Colgate is exploring the sale of personal care brands in a $1 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Colgate is exploring the sale of personal care brands in a $1 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Colgate-Palmolive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,55 +1979,6 @@
         {
           "name": "Cochin Shipyard Ltd",
           "ticker": "COCHINSHIP",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-197",
-      "headline": "Drydocks World, Cochin Shipyard Form JV In Ship Repair Sector",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/drydocks-world-cochin-shipyard-form-jv-in-ship-repair-sector",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T04:59:17Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Cochin Shipyard formed a joint venture with Drydocks World to expand ship repair capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Cochin Shipyard formed a joint venture with Drydocks World to expand ship repair capabilities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cochin Shipyard",
-          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -156275,9 +156275,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 640205,
-    "news_picked_today": 334,
-    "news_dropped_today": 1346
+    "news_seen_today": 675362,
+    "news_picked_today": 356,
+    "news_dropped_today": 1420
   },
   "book_momentum": {
     "live_count": 8,
