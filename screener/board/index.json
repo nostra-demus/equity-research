@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T11:26:37Z",
+  "generated_at": "2026-09-13T11:36:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-605",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 7th (seventh) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_13092026165844_IntimationofOutcomeofVotingResultof7thCoCMeeing13092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T11:29:07Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a corporate insolvency resolution process, which is a material distress event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a corporate insolvency resolution process, which is a material distress event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-573",
       "headline": "TRIGIANT (01300): POSSIBLE DISCLOSEABLE TRANSACTION - PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN QINGHAI ZHONGLI OPTICAL FIBRE TECHNOLOGY CO., LTD.",
@@ -1942,55 +1991,6 @@
         {
           "name": "Oracle",
           "ticker": "ORCL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-086",
-      "headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/amd-just-raised-top-companys-2030-market-3-trillion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:39:01Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "AMD raised its total addressable market projection for the AI chip industry to $3 trillion by 2030, significantly boosting long-term growth expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "AMD raised its total addressable market projection for the AI chip industry to $3 trillion by 2030, significantly boosting long-term growth expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Advanced Micro Devices, Inc.",
-          "ticker": "AMD",
           "listing_country": "US"
         }
       ],
@@ -156214,9 +156214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1457638,
-    "news_picked_today": 1508,
-    "news_dropped_today": 4657
+    "news_seen_today": 1457679,
+    "news_picked_today": 1521,
+    "news_dropped_today": 4685
   },
   "book_momentum": {
     "live_count": 8,
