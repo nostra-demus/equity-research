@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T08:59:25Z",
+  "generated_at": "2026-09-13T09:04:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-548",
@@ -1450,6 +1450,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-555",
+      "headline": "Oracle jumps 7% after reporting 30% revenue growth fueled by AI cloud demand",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T13:04:19Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Oracle reported 30% revenue growth, significantly beating expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Oracle reported 30% revenue growth, significantly beating expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": "ORCL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-086",
       "headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
       "headline_en": null,
@@ -1938,60 +1987,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-365",
-      "headline": "Poste Italiane secures 66.6% of Telecom Italia at end of offer period",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/poste-italiane-secures-666-telecom-italia-end-offer-period-2026-09-11/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T16:55:45Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Poste Italiane has secured a 66.6% stake in Telecom Italia, representing a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Poste Italiane has secured a 66.6% stake in Telecom Italia, representing a major M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poste Italiane",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Telecom Italia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156430,9 +156425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1391247,
-    "news_picked_today": 1176,
-    "news_dropped_today": 3696
+    "news_seen_today": 1395475,
+    "news_picked_today": 1185,
+    "news_dropped_today": 3735
   },
   "book_momentum": {
     "live_count": 8,
