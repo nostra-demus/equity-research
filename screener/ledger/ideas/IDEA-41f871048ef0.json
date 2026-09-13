@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-41f871048ef0",
-  "idea_version": "IDEAV-f3c293fc84238a6c",
-  "idea_version_started_at": "2026-09-12T05:48:12Z",
+  "idea_version": "IDEAV-8ea5234b0e555647",
+  "idea_version_started_at": "2026-09-13T17:10:20Z",
   "ticker": "ORCL",
-  "company": "Oracle",
+  "company": "Oracle Corporation",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,26 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Oracle plans to spend an additional $700 million on restructuring costs, which will negatively impact its near-term profitability and cash flow.",
-  "why_now": "Mint reported on September 11, 2026, that Oracle is increasing its restructuring costs, indicating a fresh financial burden.",
-  "conviction": 55,
+  "reason": "Oracle expects another $700 million of restructuring charges while AI data-centre investment strains cash flow, pressuring near-term earnings and free cash flow.",
+  "why_now": "The Sept. 12, 2026 update is fresh, but no implementation timetable is given, so the timing of the cash-flow hit is unproven.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 60,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 19,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
+    "price and market expectations",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,22 +42,28 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f8dfc074b216"
+    "EVT-26ddad135b5c",
+    "EVT-3b03b0b0b122",
+    "EVT-6112b70ebfef",
+    "EVT-6a4d35d8514f"
   ],
-  "primary_source_event_id": "EVT-f8dfc074b216",
+  "primary_source_event_id": "EVT-26ddad135b5c",
   "source_headlines": [
-    "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending"
+    "Oracle to spend an additional US$700 million on more job cuts",
+    "Oracle to spend $700mn more on restructuring costs as it ramps up AI spending",
+    "Oracle To Spend $700 Million To Expand Job Cuts As AI Data Centre Investments Pressure Cash Flow",
+    "Oracle to spend an additional $700 million on more job cuts"
   ],
-  "source_headline": "Oracle to spend $700 million more on restructuring costs as it ramps up AI spending",
-  "source_url": "https://www.livemint.com/companies/oracle-to-spend-700-million-more-on-restructuring-costs-as-it-ramps-up-ai-spending-11789170579977.html",
-  "source_name": "Mint",
-  "materiality_max": 94,
-  "newest_source_at": "2026-09-11T23:49:39Z",
+  "source_headline": "Oracle to spend an additional US$700 million on more job cuts",
+  "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/oracle-spend-additional-us700-million-more-job-cuts",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-12T15:54:00Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/ORCL_2026-08-14",
@@ -65,8 +71,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-09-12T05:48:12Z",
-  "updated_at": "2026-09-12T05:48:12Z",
-  "decay_at": "2026-09-13T11:49:39Z",
+  "updated_at": "2026-09-13T17:10:20Z",
+  "decay_at": "2026-09-14T03:54:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
