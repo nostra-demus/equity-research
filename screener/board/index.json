@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T02:35:55Z",
+  "generated_at": "2026-09-13T02:45:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -555,6 +555,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-194",
+      "headline": "Saudi Arabia condemns Iraq-launched drone attack on East-West Pipeline",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/gulf/saudi/saudi-arabia-condemns-iraq-launched-drone-attack-on-east-west-pipeline-1.500671890",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T06:14:02Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Drone attack on critical energy infrastructure (East-West Pipeline) represents a supply risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Drone attack on critical energy infrastructure (East-West Pipeline) represents a supply risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1248,6 +1297,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-191",
+      "headline": "Federal judge rules Trump plan for 50% FEMA staffing cuts was unlawful",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/federal-judge-rules-trump-dhs-plan-for-50-fema-staffing-cuts-was-unlawful",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T02:21:15Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "A federal judge ruled that a proposed 50% cut to FEMA staffing was unlawful, impacting federal emergency management operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A federal judge ruled that a proposed 50% cut to FEMA staffing was unlawful, impacting federal emergency management operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-138",
       "headline": "Tata Sons faces IPO deadline with RBI decision. What happens next?",
       "headline_en": null,
@@ -1879,110 +1971,6 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-109",
-      "headline": "GM plans U.S. battery development as Trump's DOT attacks Ford for China ties",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/12/gm-us-battery-development-ford-china-ties.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:00:01Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "General Motors is expanding U.S. battery development while facing political scrutiny regarding supply chain ties to China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "General Motors is expanding U.S. battery development while facing political scrutiny regarding supply chain ties to China.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "General Motors",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Ford Motor",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-121",
-      "headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/12/hpe-billion-ai-backlog-waiting-memory-supply/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T11:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "HPE reports a significant $7.6 billion AI backlog, indicating strong demand despite supply chain constraints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "HPE reports a significant $7.6 billion AI backlog, indicating strong demand despite supply chain constraints.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hewlett Packard Enterprise",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -114724,76 +114712,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6c411243ff00",
-      "idea_version": "IDEAV-e63d21a8b1a1011e",
-      "idea_version_started_at": "2026-09-12T01:49:08Z",
-      "ticker": "NFE",
-      "company": "New Fortress Energy",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company successfully completed a restructuring that significantly reduces its debt burden to $700 million, improving its balance sheet solvency.",
-      "why_now": "The restructuring was announced as completed on 2026-09-11.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cba92ef88340"
-      ],
-      "primary_source_event_id": "EVT-cba92ef88340",
-      "source_headlines": [
-        "New Fortress completes restructuring, cuts debt to $700 million"
-      ],
-      "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
-      "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T14:42:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:09:01Z",
-      "updated_at": "2026-09-12T01:49:08Z",
-      "decay_at": "2026-09-13T02:42:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0f963912a562",
       "idea_version": "IDEAV-b6f16dc9eebc7f4a",
       "idea_version_started_at": "2026-09-11T23:59:41Z",
@@ -116149,6 +116067,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-6c411243ff00",
+      "idea_version": "IDEAV-e63d21a8b1a1011e",
+      "idea_version_started_at": "2026-09-12T01:49:08Z",
+      "ticker": "NFE",
+      "company": "New Fortress Energy",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company successfully completed a restructuring that significantly reduces its debt burden to $700 million, improving its balance sheet solvency.",
+      "why_now": "The restructuring was announced as completed on 2026-09-11.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cba92ef88340"
+      ],
+      "primary_source_event_id": "EVT-cba92ef88340",
+      "source_headlines": [
+        "New Fortress completes restructuring, cuts debt to $700 million"
+      ],
+      "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
+      "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T14:42:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-11T18:09:01Z",
+      "updated_at": "2026-09-12T01:49:08Z",
+      "decay_at": "2026-09-13T02:42:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-4fb23c12ca36",
@@ -119080,14 +119068,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 262,
@@ -119111,6 +119099,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6c411243ff00",
+        "idea_version": "IDEAV-e63d21a8b1a1011e",
+        "idea_version_started_at": "2026-09-12T01:49:08Z",
+        "ticker": "NFE",
+        "company": "New Fortress Energy",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company successfully completed a restructuring that significantly reduces its debt burden to $700 million, improving its balance sheet solvency.",
+        "why_now": "The restructuring was announced as completed on 2026-09-11.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cba92ef88340"
+        ],
+        "primary_source_event_id": "EVT-cba92ef88340",
+        "source_headlines": [
+          "New Fortress completes restructuring, cuts debt to $700 million"
+        ],
+        "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
+        "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T14:42:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T18:09:01Z",
+        "updated_at": "2026-09-12T01:49:08Z",
+        "decay_at": "2026-09-13T02:42:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T02:42:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-45095adaca6b",
         "idea_version": "IDEAV-6173d3cf987c20ec",
@@ -147496,82 +147557,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-94673fd188cf",
-        "idea_version": "IDEAV-6612f3ddaaf6c670",
-        "idea_version_started_at": "2026-08-30T14:35:23Z",
-        "ticker": "HNGIL",
-        "company": "Hindusthan National Glass & Industries Ltd",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Hindusthan National Glass & Industries Ltd (HNGIL) is pursuing a default notice against Bira 91 for ₹11.77 crore, which could improve HNGIL's financial position if successful.",
-        "why_now": "HNGIL has issued a default notice to Bira 91 and plans to move to the NCLT, indicating an active legal process to recover funds.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eda6160582c5",
-          "EVT-ba840434a00f"
-        ],
-        "primary_source_event_id": "EVT-eda6160582c5",
-        "source_headlines": [
-          "HNGIL issues default notice to Bira 91, plans to move NCLT",
-          "Bira 91 beer maker in more trouble? HNGIL slaps B9 Beverages with ₹11.77 crore default notice, plans to move NCLT"
-        ],
-        "source_headline": "HNGIL issues default notice to Bira 91, plans to move NCLT",
-        "source_url": "https://www.cnbctv18.com/business/companies/hngil-issues-default-notice-to-bira-91-plans-to-move-nclt-19979848.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T13:17:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T14:35:23Z",
-        "updated_at": "2026-08-30T14:35:23Z",
-        "decay_at": "2026-09-01T01:17:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T17:26:08Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-91e5824ed7dd",
         "idea_version": "IDEAV-96812f8704292485",
         "idea_version_started_at": "2026-08-30T16:55:17Z",
@@ -156262,7 +156247,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 717,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156281,9 +156266,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 537268,
-    "news_picked_today": 285,
-    "news_dropped_today": 1131
+    "news_seen_today": 563388,
+    "news_picked_today": 298,
+    "news_dropped_today": 1190
   },
   "book_momentum": {
     "live_count": 8,
