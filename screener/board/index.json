@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T11:26:08Z",
+  "generated_at": "2026-09-13T11:26:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-573",
@@ -114523,6 +114523,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-5f98ab3738c2",
+      "idea_version": "IDEAV-e2386087865e7a40",
+      "idea_version_started_at": "2026-09-13T11:26:21Z",
+      "ticker": "JNJ",
+      "company": "Johnson & Johnson",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Potential divestiture of its $20 billion orthopedics unit would allow the company to streamline its portfolio and focus on higher-margin pharmaceutical and medtech segments.",
+      "why_now": "Reports of Apollo's interest emerged on 2026-09-12.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 22,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7a24c671e1d4"
+      ],
+      "primary_source_event_id": "EVT-7a24c671e1d4",
+      "source_headlines": [
+        "J&J orthopedics unit draws Apollo interest in potential $20 billion deal, Bloomberg News reports"
+      ],
+      "source_headline": "J&J orthopedics unit draws Apollo interest in potential $20 billion deal, Bloomberg News reports",
+      "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/apollo-global-talks-acquire-jjs-orthopedics-unit-bloomberg-news-reports-2026-09-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T00:11:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T05:48:12Z",
+      "updated_at": "2026-09-13T11:26:21Z",
+      "decay_at": "2026-09-13T12:11:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2c6e860326a2",
       "idea_version": "IDEAV-c2e55c55a4c9d956",
       "idea_version_started_at": "2026-09-13T06:54:12Z",
@@ -114734,16 +114804,16 @@
     },
     {
       "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-57e82f2564ba4498",
-      "idea_version_started_at": "2026-09-13T04:17:17Z",
+      "idea_version": "IDEAV-46bc954d6d75a1dc",
+      "idea_version_started_at": "2026-09-13T11:26:21Z",
       "ticker": "AMD",
-      "company": "Advanced Micro Devices",
+      "company": "Advanced Micro Devices, Inc.",
       "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company increased its total addressable market projection for 2030 to $3 trillion, signaling higher long-term growth potential in the AI hardware space.",
+      "reason": "The company raised its 2030 total addressable market forecast to $3 trillion, signaling significant long-term growth potential in AI and data center hardware.",
       "why_now": "The guidance update was released on 2026-09-12.",
-      "conviction": 60,
+      "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
@@ -114753,13 +114823,14 @@
         "specificity": 15,
         "timing": 10,
         "expression": 6,
-        "corroboration": 6,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -114776,17 +114847,15 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-beb8c44a410b",
         "EVT-d1a90b78b995"
       ],
-      "primary_source_event_id": "EVT-beb8c44a410b",
+      "primary_source_event_id": "EVT-d1a90b78b995",
       "source_headlines": [
-        "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
         "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion"
       ],
       "source_headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
-      "source_url": "https://www.fool.com/investing/2026/09/12/amd-just-raised-the-top-of-the-company-s-2030-market-to-usd3-trillion/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "source_url": "https://www.nasdaq.com/articles/amd-just-raised-top-companys-2030-market-3-trillion",
+      "source_name": "Nasdaq",
       "materiality_max": 97,
       "newest_source_at": "2026-09-12T12:39:01Z",
       "prior_coverage": {
@@ -114796,7 +114865,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-13T04:17:17Z",
-      "updated_at": "2026-09-13T04:17:17Z",
+      "updated_at": "2026-09-13T11:26:21Z",
       "decay_at": "2026-09-14T00:39:01Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -116228,76 +116297,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
-    },
-    {
-      "idea_id": "IDEA-5f98ab3738c2",
-      "idea_version": "IDEAV-a641add8d63d1b37",
-      "idea_version_started_at": "2026-09-12T05:48:12Z",
-      "ticker": "JNJ",
-      "company": "Johnson & Johnson",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Johnson & Johnson is reportedly in talks to sell its orthopedics unit to Apollo Global, which could streamline its business and improve capital allocation.",
-      "why_now": "Bloomberg News reported on September 11, 2026, that Apollo Global is in talks to acquire the unit, making this a live M&A catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ef3c794a441f"
-      ],
-      "primary_source_event_id": "EVT-ef3c794a441f",
-      "source_headlines": [
-        "Apollo Global in talks to acquire J&J's orthopedics unit, Bloomberg News reports"
-      ],
-      "source_headline": "Apollo Global in talks to acquire J&J's orthopedics unit, Bloomberg News reports",
-      "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/apollo-global-talks-acquire-jjs-orthopedics-unit-bloomberg-news-reports-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T22:54:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T05:48:12Z",
-      "updated_at": "2026-09-12T05:48:12Z",
-      "decay_at": "2026-09-13T10:54:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     },
     {
       "idea_id": "IDEA-6c411243ff00",
@@ -118363,78 +118362,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7f435f03c9a1",
-      "idea_version": "IDEAV-6b414f39b9cea62e",
-      "idea_version_started_at": "2026-09-10T14:12:20Z",
-      "ticker": "SSG",
-      "company": "Shoe Station Group",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shoe Station Group cut its annual guidance, which is likely to negatively impact its revenue and profitability expectations.",
-      "why_now": "The company announced the guidance cut on September 10, 2026, leading to a significant pre-market stock decline.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-209c78e11b33"
-      ],
-      "primary_source_event_id": "EVT-209c78e11b33",
-      "source_headlines": [
-        "Shoe Station Group Cuts Annual Guidance; Stock Down Over 22% In Pre-Market"
-      ],
-      "source_headline": "Shoe Station Group Cuts Annual Guidance; Stock Down Over 22% In Pre-Market",
-      "source_url": "https://www.nasdaq.com/articles/shoe-station-group-cuts-annual-guidance-stock-down-over-22-pre-market",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T11:04:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T14:12:20Z",
-      "updated_at": "2026-09-10T14:12:20Z",
-      "decay_at": "2026-09-11T23:04:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-843296e89987",
       "idea_version": "IDEAV-7f373bab79431030",
       "idea_version_started_at": "2026-09-10T14:12:20Z",
@@ -119085,110 +119012,37 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 159,
-      "oldest_retained_at": "2026-08-22T22:13:00Z",
+      "evicted_count": 160,
+      "oldest_retained_at": "2026-08-22T22:14:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 127,
           "oldest_retained_at": "2026-08-31T13:54:29Z"
         },
         "short": {
-          "evicted_count": 32,
-          "oldest_retained_at": "2026-08-22T22:13:00Z"
+          "evicted_count": 33,
+          "oldest_retained_at": "2026-08-22T22:14:00Z"
         }
       }
     },
     "rows": [
-      {
-        "idea_id": "IDEA-5f98ab3738c2",
-        "idea_version": "IDEAV-a641add8d63d1b37",
-        "idea_version_started_at": "2026-09-12T05:48:12Z",
-        "ticker": "JNJ",
-        "company": "Johnson & Johnson",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Johnson & Johnson is reportedly in talks to sell its orthopedics unit to Apollo Global, which could streamline its business and improve capital allocation.",
-        "why_now": "Bloomberg News reported on September 11, 2026, that Apollo Global is in talks to acquire the unit, making this a live M&A catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ef3c794a441f"
-        ],
-        "primary_source_event_id": "EVT-ef3c794a441f",
-        "source_headlines": [
-          "Apollo Global in talks to acquire J&J's orthopedics unit, Bloomberg News reports"
-        ],
-        "source_headline": "Apollo Global in talks to acquire J&J's orthopedics unit, Bloomberg News reports",
-        "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/apollo-global-talks-acquire-jjs-orthopedics-unit-bloomberg-news-reports-2026-09-11/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T22:54:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T05:48:12Z",
-        "updated_at": "2026-09-12T05:48:12Z",
-        "decay_at": "2026-09-13T10:54:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T10:54:29Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
       {
         "idea_id": "IDEA-fdd6333c0914",
         "idea_version": "IDEAV-5fcfac9900d2bdaa",
@@ -122004,8 +121858,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-11T23:04:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T11:26:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -147726,6 +147580,79 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-cd9532d864b1",
+        "idea_version": "IDEAV-c959bbe94b436257",
+        "idea_version_started_at": "2026-08-30T15:45:17Z",
+        "ticker": "AON",
+        "company": "Aon",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+        "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T15:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T15:45:17Z",
+        "updated_at": "2026-08-30T15:45:17Z",
+        "decay_at": "2026-09-01T03:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T17:26:08Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-91e5824ed7dd",
         "idea_version": "IDEAV-96812f8704292485",
         "idea_version_started_at": "2026-08-30T16:55:17Z",
@@ -156268,7 +156195,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 724,
-    "live_count": 24,
+    "live_count": 25,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
