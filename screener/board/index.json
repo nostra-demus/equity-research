@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T15:19:30Z",
+  "generated_at": "2026-09-13T15:36:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-637",
+      "headline": "HP Raises Outlook as Premium AI PCs and Tariff Refunds Boost Results",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/hp-raises-outlook-premium-ai-150158423.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T15:01:58Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "HP raised its financial outlook driven by AI PC demand and tariff refunds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HP raised its financial outlook driven by AI PC demand and tariff refunds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HP",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-404",
-      "headline": "SpaceX signs compute contract valued at $13.3bn annually",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/spacex-signs-compute-contract-valued-at-133bn-annually/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T16:02:26Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "SpaceX signed a compute contract valued at $13.3bn annually, representing a massive commercial commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SpaceX signed a compute contract valued at $13.3bn annually, representing a massive commercial commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115569,76 +115569,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f07c70da5bc7",
-      "idea_version": "IDEAV-c20db35577e295e2",
-      "idea_version_started_at": "2026-09-13T11:45:45Z",
-      "ticker": "CL",
-      "company": "Colgate-Palmolive",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Divesting lower-growth mass-market personal care brands would improve the company's overall organic growth profile and margin structure.",
-      "why_now": "The strategic review of these assets was reported on 2026-09-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9a26f5c672bf"
-      ],
-      "primary_source_event_id": "EVT-9a26f5c672bf",
-      "source_headlines": [
-        "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report"
-      ],
-      "source_headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report",
-      "source_url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-12T03:23:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T11:45:45Z",
-      "updated_at": "2026-09-13T11:45:45Z",
-      "decay_at": "2026-09-13T15:23:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-494bd6333cab",
       "idea_version": "IDEAV-b229deed07566c1c",
       "idea_version_started_at": "2026-09-12T17:39:44Z",
@@ -117553,6 +117483,76 @@
       "surfaced_at": "2026-09-12T05:48:12Z",
       "updated_at": "2026-09-12T05:48:12Z",
       "decay_at": "2026-09-13T11:49:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f07c70da5bc7",
+      "idea_version": "IDEAV-c20db35577e295e2",
+      "idea_version_started_at": "2026-09-13T11:45:45Z",
+      "ticker": "CL",
+      "company": "Colgate-Palmolive",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Divesting lower-growth mass-market personal care brands would improve the company's overall organic growth profile and margin structure.",
+      "why_now": "The strategic review of these assets was reported on 2026-09-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9a26f5c672bf"
+      ],
+      "primary_source_event_id": "EVT-9a26f5c672bf",
+      "source_headlines": [
+        "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report"
+      ],
+      "source_headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report",
+      "source_url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-12T03:23:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T11:45:45Z",
+      "updated_at": "2026-09-13T11:45:45Z",
+      "decay_at": "2026-09-13T15:23:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -119499,14 +119499,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 260,
@@ -119530,6 +119530,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f07c70da5bc7",
+        "idea_version": "IDEAV-c20db35577e295e2",
+        "idea_version_started_at": "2026-09-13T11:45:45Z",
+        "ticker": "CL",
+        "company": "Colgate-Palmolive",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Divesting lower-growth mass-market personal care brands would improve the company's overall organic growth profile and margin structure.",
+        "why_now": "The strategic review of these assets was reported on 2026-09-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9a26f5c672bf"
+        ],
+        "primary_source_event_id": "EVT-9a26f5c672bf",
+        "source_headlines": [
+          "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report"
+        ],
+        "source_headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report",
+        "source_url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-12T03:23:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T11:45:45Z",
+        "updated_at": "2026-09-13T11:45:45Z",
+        "decay_at": "2026-09-13T15:23:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T15:23:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be16a3f18c55",
         "idea_version": "IDEAV-a089795d329b4b8f",
@@ -147770,80 +147843,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e4ed75682f29",
-        "idea_version": "IDEAV-8389e44ba16654c1",
-        "idea_version_started_at": "2026-08-30T22:04:42Z",
-        "ticker": "ATM",
-        "company": "Aneka Tambang",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company posted a strong Rp6.91 trillion net profit for the first half of 2026, demonstrating robust operational performance and commodity pricing tailwinds.",
-        "why_now": "The official 1H26 financial results were filed on the ASX on August 30, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b855548d2e3e"
-        ],
-        "primary_source_event_id": "EVT-b855548d2e3e",
-        "source_headlines": [
-          "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26"
-        ],
-        "source_headline": "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATM?key=2924-03128717-2A1693463",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T21:53:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T22:04:42Z",
-        "updated_at": "2026-08-30T22:04:42Z",
-        "decay_at": "2026-09-01T09:53:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T22:22:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23b0a390c1be",
         "idea_version": "IDEAV-e009b9fcd4d76c95",
         "idea_version_started_at": "2026-08-30T22:04:42Z",
@@ -156682,7 +156681,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 735,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156701,9 +156700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1458367,
-    "news_picked_today": 1677,
-    "news_dropped_today": 5217
+    "news_seen_today": 1458405,
+    "news_picked_today": 1688,
+    "news_dropped_today": 5244
   },
   "book_momentum": {
     "live_count": 8,
