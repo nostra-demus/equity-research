@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T12:16:07Z",
+  "generated_at": "2026-09-13T12:24:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-618",
+      "headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
+      "headline_en": null,
+      "url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
+      "source_name": "FiercePharma",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T12:23:32Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Sandoz announced a $300M facility build as part of a new strategy to develop 100 biosimilars by 2040.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sandoz announced a $300M facility build as part of a new strategy to develop 100 biosimilars by 2040.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sandoz",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-521",
-      "headline": "Skyborn secures more than $3.5bn to build 976.5MW Gennaker Wind Farm",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/skyborn-secures-more-3-5bn-143246596.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T14:32:46Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Skyborn secured $3.5bn in funding for a 976.5MW wind farm project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Skyborn secured $3.5bn in funding for a 976.5MW wind farm project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skyborn Renewables",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156634,9 +156634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1457814,
-    "news_picked_today": 1556,
-    "news_dropped_today": 4785
+    "news_seen_today": 1457845,
+    "news_picked_today": 1565,
+    "news_dropped_today": 4807
   },
   "book_momentum": {
     "live_count": 8,
