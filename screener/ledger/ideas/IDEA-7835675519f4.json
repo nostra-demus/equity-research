@@ -1,19 +1,19 @@
 {
-  "idea_id": "IDEA-d0d8fb1cd912",
-  "idea_version": "IDEAV-05de43ebe0ff1fc9",
+  "idea_id": "IDEA-7835675519f4",
+  "idea_version": "IDEAV-c3217fb556211f27",
   "idea_version_started_at": "2026-09-13T12:04:53Z",
-  "ticker": "KR",
-  "company": "Kroger",
-  "exchange": "NYSE",
+  "ticker": "GEHC",
+  "company": "GE HealthCare",
+  "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "Kroger lost $12 billion due to a shift in customer behavior, indicating a significant negative impact on its revenue and market valuation.",
-  "why_now": "The news of the $12 billion loss due to customer behavior changes was reported on September 13, 2026, suggesting an immediate negative impact.",
-  "conviction": 65,
+  "reason": "GE HealthCare is reportedly in talks to acquire Sofie Biosciences for $1 billion, which would expand its portfolio in cancer diagnostics and radiopharmaceuticals.",
+  "why_now": "News of the acquisition talks broke on September 13, 2026, presenting a fresh M&A catalyst.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,26 +46,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-e8b7822b6c49"
+    "EVT-4b3ff767bb59",
+    "EVT-46a2aebd5c00"
   ],
-  "primary_source_event_id": "EVT-e8b7822b6c49",
+  "primary_source_event_id": "EVT-4b3ff767bb59",
   "source_headlines": [
-    "Kroger loses $12 billion as customer behavior takes a turn"
+    "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals",
+    "GE HealthCare in talks over possible $1 billion deal for Sofie Biosciences, FT reports"
   ],
-  "source_headline": "Kroger loses $12 billion as customer behavior takes a turn",
-  "source_url": "https://www.thestreet.com/retail/kroger-loses-12-billion-cpg-spending-to-rivals",
-  "source_name": "TheStreet",
+  "source_headline": "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals",
+  "source_url": "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-13T11:07:00Z",
+  "newest_source_at": "2026-09-13T11:19:07Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-11T13:45:18Z",
+  "surfaced_at": "2026-09-13T12:04:53Z",
   "updated_at": "2026-09-13T12:04:53Z",
-  "decay_at": "2026-09-14T23:07:00Z",
+  "decay_at": "2026-09-14T23:19:07Z",
   "status": "live",
   "promoted_signal_id": null
 }
