@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T02:04:15Z",
+  "generated_at": "2026-09-13T02:20:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -155,6 +155,103 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-178",
+      "headline": "Schifffahrt: Hapag-Lloyd setzt trotz israelischem Veto auf ZIM-Übernahme",
+      "headline_en": null,
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/schifffahrt-hapag-lloyd-setzt-trotz-israelischem-veto-auf-zim-uebernahme/100254039.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T08:06:23Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Hapag-Lloyd is pursuing the acquisition of ZIM despite an Israeli veto, indicating a significant M&A event with potential financial and operational implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hapag-Lloyd is pursuing the acquisition of ZIM despite an Israeli veto, indicating a significant M&A event with potential financial and operational implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hapag-Lloyd",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "ZIM Integrated Shipping Services",
+          "ticker": "ZIM",
+          "listing_country": "IL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-181",
+      "headline": "Taking AI too far? New Mexico Supreme Court fines lawyer $5,000 for presenting ‘fake testimony’, ChatGPT-generated brief",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/taking-ai-too-far-new-mexico-supreme-court-fines-lawyer-5-000-for-presenting-fake-testimony-chatgpt-generated-brief-11789198936558.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T08:01:23Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "A lawyer being fined $5,000 for using AI-generated 'fake testimony' is a significant legal precedent with implications for the use of AI in legal proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A lawyer being fined $5,000 for using AI-generated 'fake testimony' is a significant legal precedent with implications for the use of AI in legal proceedings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -606,6 +703,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-184",
+      "headline": "UN Security Council given one month to consider US push for Sudan-wide arms embargo",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/12/un-security-council-given-one-month-to-consider-us-push-for-sudan-wide-arms-embargo/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T07:27:12Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The UN Security Council is considering a US-led arms embargo on Sudan, which would significantly escalate geopolitical risk in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The UN Security Council is considering a US-led arms embargo on Sudan, which would significantly escalate geopolitical risk in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1451,6 +1592,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-179",
+      "headline": "IBM just placed two very different tech bets in one day",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/ibm-tech-bets-quantum-lunar-ai",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T08:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "IBM making two distinct tech bets in one day suggests significant strategic shifts and potential future investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "IBM making two distinct tech bets in one day suggests significant strategic shifts and potential future investments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IBM",
+          "ticker": "IBM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-007",
       "headline": "Tata Sons faces pressure to list after RBI rejects its de-registration as CIC",
       "headline_en": null,
@@ -1796,213 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-040",
-      "headline": "Revolut confirms customer data breach through fake government requests",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/09/12/revolut-confirms-customer-data-breach-through-fake-government-requests/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T14:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Revolut confirmed a customer data breach, posing operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Revolut confirmed a customer data breach, posing operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolut",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-093",
-      "headline": "Revolut Handed Customers’ Passports and Bitcoin Records to a Fake Government Request. Are You Affected?",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/cryptocurrency/2026/09/12/revolut-handed-customers-passports-and-bitcoin-records-to-a-fake-government-request-are-you-affected/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:26:56Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Revolut's failure to verify a government request leading to the leak of customer passports and crypto records poses significant regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Revolut's failure to verify a government request leading to the leak of customer passports and crypto records poses significant regulatory and operational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolut",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-147",
-      "headline": "Bitcoin activity, passports exposed after Revolut falls for fake government request",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/tech/2026/09/12/bitcoin-activity-passports-exposed-after-revolut-falls-for-fake-government-request",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T10:11:01Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Revolut suffered a data breach exposing customer passports and activity due to a social engineering attack.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Revolut suffered a data breach exposing customer passports and activity due to a social engineering attack.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolut",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-158",
-      "headline": "Akeso, Summit’s ivonescimab tops Keytruda in lung cancer survival, with strong data in PD-L1-high patients",
-      "headline_en": null,
-      "url": "https://www.fiercepharma.com/pharma/akeso-summit-ivonescimab-tops-keytruda-lung-cancer-survival-strong-data-pd-l1-high-patients",
-      "source_name": "FiercePharma",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T01:53:22Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Akeso and Summit's ivonescimab outperformed Merck's Keytruda in a lung cancer trial, threatening Keytruda's market position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Akeso and Summit's ivonescimab outperformed Merck's Keytruda in a lung cancer trial, threatening Keytruda's market position.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Merck",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Akeso",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Summit Therapeutics",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156298,9 +156282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 424272,
-    "news_picked_today": 217,
-    "news_dropped_today": 863
+    "news_seen_today": 494837,
+    "news_picked_today": 258,
+    "news_dropped_today": 1038
   },
   "book_momentum": {
     "live_count": 8,
