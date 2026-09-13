@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T09:25:48Z",
+  "generated_at": "2026-09-13T09:34:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-548",
@@ -1793,6 +1793,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-558",
+      "headline": "Pentagon in talks to loan Fluidstack $5bn - report",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/pentagon-in-talks-to-loan-fluidstack-5bn-report/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T12:38:38Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Reported $5 billion loan from the Pentagon for data center infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Reported $5 billion loan from the Pentagon for data center infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fluidstack",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-104",
       "headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-321",
-      "headline": "USA Rare Earth breaks ground at $1.2B rare earth magnet manufacturing facility in South Carolina",
-      "headline_en": null,
-      "url": "https://www.mining.com/usa-rare-earth-breaks-ground-at-1-2b-rare-earth-magnet-manufacturing-facility-in-south-carolina/",
-      "source_name": "Mining.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T18:07:15Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The company has broken ground on a $1.2 billion manufacturing facility, representing a major capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company has broken ground on a $1.2 billion manufacturing facility, representing a major capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "USA Rare Earth",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156350,9 +156350,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1415000,
-    "news_picked_today": 1245,
-    "news_dropped_today": 3915
+    "news_seen_today": 1421345,
+    "news_picked_today": 1266,
+    "news_dropped_today": 3966
   },
   "book_momentum": {
     "live_count": 8,
