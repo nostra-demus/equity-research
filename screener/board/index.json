@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T19:06:08Z",
+  "generated_at": "2026-09-13T19:16:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-641",
+      "headline": "Egypt signs contract to establish EGP 2bn electric battery plant with CATL",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/09/13/egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl/?utm_source=rss&utm_medium=rss&utm_campaign=egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T18:54:51Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "CATL is establishing a new electric battery plant in Egypt with a contract value of EGP 2bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CATL is establishing a new electric battery plant in Egypt with a contract value of EGP 2bn.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Contemporary Amperex Technology Co. Limited",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
       "companies": [
         {
           "name": "Colgate-Palmolive",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-376",
-      "headline": "Microsoft Plans Data Center Push to Triple Its Computing Power",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-11/microsoft-plans-data-center-push-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T16:44:30Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Microsoft is planning a major data center expansion to triple computing power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Microsoft is planning a major data center expansion to triple computing power.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
           "ticker": null,
           "listing_country": "US"
         }
@@ -157268,9 +157268,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459015,
-    "news_picked_today": 1822,
-    "news_dropped_today": 5720
+    "news_seen_today": 1459053,
+    "news_picked_today": 1828,
+    "news_dropped_today": 5752
   },
   "book_momentum": {
     "live_count": 8,
