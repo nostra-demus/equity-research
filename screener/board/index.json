@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T05:14:20Z",
+  "generated_at": "2026-09-13T05:30:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1049,6 +1049,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-321",
+      "headline": "USA Rare Earth breaks ground at $1.2B rare earth magnet manufacturing facility in South Carolina",
+      "headline_en": null,
+      "url": "https://www.mining.com/usa-rare-earth-breaks-ground-at-1-2b-rare-earth-magnet-manufacturing-facility-in-south-carolina/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T18:07:15Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The company has broken ground on a $1.2 billion manufacturing facility, representing a major capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company has broken ground on a $1.2 billion manufacturing facility, representing a major capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USA Rare Earth",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-277",
       "headline": "Larry Ellison cancels plan to sell Oracle stock worth up to $7.5 billion",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "SpaceX",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-032",
-      "headline": "RBI Rejects Tata Sons' Bid To Surrender NBFC Licence, Setting Stage For Mandatory Listing",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/rbi-rejects-tata-sons-bid-to-surrender-nbfc-licence-setting-stage-for-mandatory-listing",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:08:07Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The RBI has rejected Tata Sons' request to surrender its NBFC license, forcing the company to proceed with a mandatory public listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The RBI has rejected Tata Sons' request to surrender its NBFC license, forcing the company to proceed with a mandatory public listing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -156421,9 +156421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 989117,
-    "news_picked_today": 653,
-    "news_dropped_today": 2203
+    "news_seen_today": 1031542,
+    "news_picked_today": 689,
+    "news_dropped_today": 2287
   },
   "book_momentum": {
     "live_count": 8,
