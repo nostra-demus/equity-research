@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:39:13Z",
+  "generated_at": "2026-09-13T04:45:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -355,6 +355,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-306",
+      "headline": "Russia Hits Ukraine's Port, Steel Plant As Air Strikes Kill 10, Injure Dozens",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/russia-hits-ukraines-port-steel-plant-as-air-strikes-kill-10-injure-dozens-12039646#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T04:31:39Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Military escalation involving strikes on critical infrastructure in Ukraine increases geopolitical risk and potential supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Military escalation involving strikes on critical infrastructure in Ukraine increases geopolitical risk and potential supply chain disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1942,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "The RBI has mandated that Tata Sons must list on the stock exchange, forcing a significant change in capital structure and regulatory status.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-078",
-      "headline": "RBI Rejects Tata Sons' Bid To Avoid Listing, Retains It As Upper Layer NBFC: Sources",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/rbi-rejects-tata-sons-bid-to-avoid-listing-retains-it-as-upper-layer-nbfc-sources-12037630#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:00:42Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The RBI has rejected Tata Sons' bid to avoid listing, confirming the requirement to list as an upper-layer NBFC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The RBI has rejected Tata Sons' bid to avoid listing, confirming the requirement to list as an upper-layer NBFC.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -156420,9 +156414,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 902974,
-    "news_picked_today": 569,
-    "news_dropped_today": 1999
+    "news_seen_today": 919909,
+    "news_picked_today": 585,
+    "news_dropped_today": 2031
   },
   "book_momentum": {
     "live_count": 8,
