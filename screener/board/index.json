@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T05:34:13Z",
+  "generated_at": "2026-09-13T05:39:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1835,6 +1835,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-325",
+      "headline": "Manipal Hospitals scouts for acquisitions in Andhra, Keralam, Delhi-NCR; bets on AI-led healthcare",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/manipal-hospitals-scouts-for-acquisitions-in-andhra-keralam-delhi-ncr-bets-on-ai-led-healthcare/articleshow/134179222.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T05:14:20Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Manipal Hospitals is actively seeking acquisitions to expand its footprint in multiple Indian regions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Manipal Hospitals is actively seeking acquisitions to expand its footprint in multiple Indian regions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manipal Hospitals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-273",
       "headline": "Oracle's Larry Ellison Cancels $7.5 Bln Stock Sale Plan",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-254",
-      "headline": "STAT+: Scholar Rock wins FDA approval for first drug to target SMA muscle loss",
-      "headline_en": null,
-      "url": "https://www.statnews.com/2026/09/11/scholar-rock-spinal-muscular-atrophy-isembyld-clinical-trial-fda-approval/?utm_campaign=rss",
-      "source_name": "STAT News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T23:30:21Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Scholar Rock received FDA approval for its first drug, a major milestone for a biotech company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Scholar Rock received FDA approval for its first drug, a major milestone for a biotech company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Scholar Rock",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156421,9 +156421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1042863,
-    "news_picked_today": 697,
-    "news_dropped_today": 2327
+    "news_seen_today": 1054032,
+    "news_picked_today": 701,
+    "news_dropped_today": 2347
   },
   "book_momentum": {
     "live_count": 8,
