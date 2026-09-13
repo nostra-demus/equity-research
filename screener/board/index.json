@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T13:01:03Z",
+  "generated_at": "2026-09-13T13:01:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -114518,6 +114518,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0c529d942ea8",
+      "idea_version": "IDEAV-0379b5db7a23168c",
+      "idea_version_started_at": "2026-09-13T13:01:40Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Alphabet's Google Cloud backlog reached $514 billion after 82% revenue growth last quarter, indicating strong and accelerating demand for its cloud services, which will drive future revenue.",
+      "why_now": "Sundar Pichai's statement about the cloud backlog and revenue growth was reported on September 13, 2026, highlighting a current and significant business driver.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-93d5f8bf42d3"
+      ],
+      "primary_source_event_id": "EVT-93d5f8bf42d3",
+      "source_headlines": [
+        "Sundar Pichai Says Alphabet's Cloud Backlog Hit $514 Billion After 82% Revenue Growth Last Quarter. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
+      ],
+      "source_headline": "Sundar Pichai Says Alphabet's Cloud Backlog Hit $514 Billion After 82% Revenue Growth Last Quarter. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
+      "source_url": "https://www.fool.com/investing/2026/09/13/sundar-pichai-alphabets-backlog-514-billion/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T12:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T13:01:40Z",
+      "updated_at": "2026-09-13T13:01:40Z",
+      "decay_at": "2026-09-15T00:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-02b343ab33c5",
       "idea_version": "IDEAV-0bd573bc6f75f01a",
       "idea_version_started_at": "2026-09-13T12:24:53Z",
@@ -156755,8 +156825,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 733,
-    "live_count": 33,
+    "surfaced_total": 734,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
