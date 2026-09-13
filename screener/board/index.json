@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T03:40:54Z",
+  "generated_at": "2026-09-13T03:50:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1061,6 +1061,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-258",
+      "headline": "NSE reduces public offer size to 22.6k crore, issue opens Sept 17",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/nse-reduces-public-offer-size-to-22-6k-crore-issue-opens-sept-17/articleshow/134095529.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T22:27:43Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The National Stock Exchange of India has set the final size for its public offer at 22.6 billion INR, with the issue opening on September 17.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The National Stock Exchange of India has set the final size for its public offer at 22.6 billion INR, with the issue opening on September 17.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-184",
       "headline": "UN Security Council given one month to consider US push for Sudan-wide arms embargo",
       "headline_en": null,
@@ -1198,6 +1247,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-257",
+      "headline": "Iraqi military commander dismissed after drone attacks against Saudi Arabia, prime minister's office says",
+      "headline_en": null,
+      "url": "https://www.al-monitor.com/originals/2026/09/iraqi-military-commander-dismissed-after-drone-attacks-against-saudi-arabia-prime",
+      "source_name": "Al-Monitor",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T22:46:31Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The dismissal of an Iraqi military commander following drone attacks against Saudi Arabia signals geopolitical instability and potential escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The dismissal of an Iraqi military commander following drone attacks against Saudi Arabia signals geopolitical instability and potential escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,104 +1979,6 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-065",
-      "headline": "‘Ill-advised moment’: OpenAI’s Altman rules out 2026 IPO amid AI safety fears",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/ill-advised-moment-openais-altman-rules-out-2026-ipo-amid-ai-safety-fears",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T00:34:43Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "OpenAI CEO Sam Altman explicitly ruled out an IPO for 2026, clarifying the company's capital strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "OpenAI CEO Sam Altman explicitly ruled out an IPO for 2026, clarifying the company's capital strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-033",
-      "headline": "Rivian Sacrificed Its 2027 Profit Target. Here's Why Investors Should Applaud.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/12/rivian-sacrificed-its-2027-profit-target-heres-why/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Rivian has abandoned its 2027 profit target, signaling operational challenges and a shift in financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Rivian has abandoned its 2027 profit target, signaling operational challenges and a shift in financial expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rivian",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -156286,9 +156281,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 738672,
-    "news_picked_today": 427,
-    "news_dropped_today": 1589
+    "news_seen_today": 762305,
+    "news_picked_today": 454,
+    "news_dropped_today": 1658
   },
   "book_momentum": {
     "live_count": 8,
