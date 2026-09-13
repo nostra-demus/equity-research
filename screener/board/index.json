@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T06:00:03Z",
+  "generated_at": "2026-09-13T06:14:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -458,6 +458,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-383",
+      "headline": "Bayer faces pivotal test of $7.25 billion Roundup settlement in Missouri court",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/bayer-faces-pivotal-test-725-billion-roundup-settlement-missouri-court-2026-09-11/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:38:15Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Bayer faces a pivotal court test regarding a $7.25 billion Roundup settlement, posing significant legal and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer faces a pivotal court test regarding a $7.25 billion Roundup settlement, posing significant legal and financial risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-306",
       "headline": "Russia Hits Ukraine's Port, Steel Plant As Air Strikes Kill 10, Injure Dozens",
       "headline_en": null,
@@ -653,6 +702,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-376",
+      "headline": "Microsoft Plans Data Center Push to Triple Its Computing Power",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-11/microsoft-plans-data-center-push-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:44:30Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Microsoft is planning a major data center expansion to triple computing power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Microsoft is planning a major data center expansion to triple computing power.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-091",
       "headline": "Exclusive: Tata sons will have to list as RBI rejects firm’s deregistration application: sources",
       "headline_en": null,
@@ -796,6 +894,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-381",
+      "headline": "Colgate-Palmolive explores sale of three personal care brands in $1 bn plus deal: Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/colgatepalmolive-explores-sale-of-three-personal-care-brands-in-1-bn-plus-deal-report-11789143028717.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:38:29Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Colgate-Palmolive is exploring the sale of three personal care brands in a deal valued at over $1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Colgate-Palmolive is exploring the sale of three personal care brands in a deal valued at over $1 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Colgate-Palmolive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1245,6 +1392,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-370",
+      "headline": "‎Al Kathiri taps Estidamah Capital for 91.46% capital cut",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935905",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T08:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Al Kathiri is proposing a 91.46% capital reduction, which is a major event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Al Kathiri is proposing a 91.46% capital reduction, which is a major event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Kathiri",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1783,203 +1979,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-196",
-      "headline": "India Solar Exports Hit By Steep US Duties, Combined Tariffs Cross 249%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/economy/india-solar-exports-hit-by-steep-us-duties-combined-tariffs-cross-249-12036023#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T04:59:47Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "US tariffs exceeding 249% on Indian solar exports represent a significant trade barrier and supply shock for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "US tariffs exceeding 249% on Indian solar exports represent a significant trade barrier and supply shock for the sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-215",
-      "headline": "Nvidia Eyes $10 Billion Stake In Anthropic As Claude-Parent Targets $2 Trillion Valuation: Report",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/nvidia-eyes-10-billion-stake-in-anthropic-as-claude-parent-targets-2-trillion-valuation-report-12035851#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T03:31:37Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Nvidia is reportedly considering a $10 billion investment in Anthropic, a major capital allocation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Nvidia is reportedly considering a $10 billion investment in Anthropic, a major capital allocation event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-308",
-      "headline": "CVC faces shareholder revolt over €10.7bn Recordati take-private",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/a4a22443-2082-409b-96e1-650c44a40f44?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T04:00:12Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "CVC Capital Partners faces a shareholder revolt regarding a €10.7bn take-private deal for Recordati, creating significant execution risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "CVC Capital Partners faces a shareholder revolt regarding a €10.7bn take-private deal for Recordati, creating significant execution risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVC Capital Partners",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Recordati",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-257",
-      "headline": "Iraqi military commander dismissed after drone attacks against Saudi Arabia, prime minister's office says",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/09/iraqi-military-commander-dismissed-after-drone-attacks-against-saudi-arabia-prime",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T22:46:31Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "The dismissal of an Iraqi military commander following drone attacks against Saudi Arabia signals geopolitical instability and potential escalation in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The dismissal of an Iraqi military commander following drone attacks against Saudi Arabia signals geopolitical instability and potential escalation in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -156426,9 +156425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1100732,
-    "news_picked_today": 773,
-    "news_dropped_today": 2539
+    "news_seen_today": 1140572,
+    "news_picked_today": 814,
+    "news_dropped_today": 2618
   },
   "book_momentum": {
     "live_count": 8,
