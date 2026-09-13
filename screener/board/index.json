@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:05:54Z",
+  "generated_at": "2026-09-13T04:15:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -704,6 +704,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-272",
+      "headline": "Oracle Boosts Layoffs Plan by $700 Million",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/oracle-boosts-layoffs-plan-by-700-million",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T21:13:29Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Oracle is increasing its restructuring and layoff costs by $700 million, impacting cash flow and operational outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Oracle is increasing its restructuring and layoff costs by $700 million, impacting cash flow and operational outlook.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,49 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-191",
-      "headline": "Federal judge rules Trump plan for 50% FEMA staffing cuts was unlawful",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/world/federal-judge-rules-trump-dhs-plan-for-50-fema-staffing-cuts-was-unlawful",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T02:21:15Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "A federal judge ruled that a proposed 50% cut to FEMA staffing was unlawful, impacting federal emergency management operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A federal judge ruled that a proposed 50% cut to FEMA staffing was unlawful, impacting federal emergency management operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156282,9 +156288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 808790,
-    "news_picked_today": 480,
-    "news_dropped_today": 1728
+    "news_seen_today": 836256,
+    "news_picked_today": 495,
+    "news_dropped_today": 1785
   },
   "book_momentum": {
     "live_count": 8,
