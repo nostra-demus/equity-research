@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T10:26:11Z",
+  "generated_at": "2026-09-13T10:45:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-573",
+      "headline": "TRIGIANT (01300): POSSIBLE DISCLOSEABLE TRANSACTION - PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN QINGHAI ZHONGLI OPTICAL FIBRE TECHNOLOGY CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T10:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Proposed 100% acquisition of a target company is a material transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed 100% acquisition of a target company is a material transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trigiant",
+          "ticker": "01300",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-566",
       "headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
@@ -1308,6 +1357,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-590",
+      "headline": "Microsoft targets 38GW of data center capacity in 2032 - report",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/microsoft-targets-38gw-of-data-center-capacity-in-2032-report/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T11:28:09Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Microsoft is reportedly targeting 38GW of data center capacity by 2032, indicating significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Microsoft is reportedly targeting 38GW of data center capacity by 2032, indicating significant capital expenditure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-091",
       "headline": "Exclusive: Tata sons will have to list as RBI rejects firm’s deregistration application: sources",
       "headline_en": null,
@@ -1892,104 +1990,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-525",
-      "headline": "Evonik schließt Standorte in Hamburg und Bitterfeld",
-      "headline_en": "Evonik closes sites in Hamburg and Bitterfeld",
-      "url": "https://www.reuters.com/de/firma/evonik-schliet-standorte-hamburg-und-bitterfeld-2026-09-11/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T14:30:30Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Evonik is closing manufacturing sites in Hamburg and Bitterfeld.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Evonik is closing manufacturing sites in Hamburg and Bitterfeld.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-558",
-      "headline": "Pentagon in talks to loan Fluidstack $5bn - report",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/pentagon-in-talks-to-loan-fluidstack-5bn-report/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T12:38:38Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Reported $5 billion loan from the Pentagon for data center infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Reported $5 billion loan from the Pentagon for data center infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fluidstack",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156282,9 +156282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1448153,
-    "news_picked_today": 1374,
-    "news_dropped_today": 4266
+    "news_seen_today": 1454137,
+    "news_picked_today": 1446,
+    "news_dropped_today": 4434
   },
   "book_momentum": {
     "live_count": 8,
