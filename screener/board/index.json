@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T23:54:26Z",
+  "generated_at": "2026-09-13T23:54:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-693",
@@ -116351,6 +116351,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ab459efb9fe1",
+      "idea_version": "IDEAV-00a856b78181616e",
+      "idea_version_started_at": "2026-09-13T23:54:40Z",
+      "ticker": "BLD",
+      "company": "Baldwin Insurance Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Michael Dell's DFO Management is nearing a take-private deal for the company.",
+      "why_now": "The Financial Times reported the deal is nearing completion.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f6f282eaf94"
+      ],
+      "primary_source_event_id": "EVT-3f6f282eaf94",
+      "source_headlines": [
+        "Michael Dell's DFO Management nears take-private deal for Baldwin Insurance Group, FT reports"
+      ],
+      "source_headline": "Michael Dell's DFO Management nears take-private deal for Baldwin Insurance Group, FT reports",
+      "source_url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:24:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T23:54:40Z",
+      "updated_at": "2026-09-13T23:54:40Z",
+      "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b492220bad93",
+      "idea_version": "IDEAV-d93324b4cc77a6d3",
+      "idea_version_started_at": "2026-09-13T23:54:40Z",
+      "ticker": "MI6",
+      "company": "MI6",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has agreed to an additional $200 million in funding from Franco-Nevada.",
+      "why_now": "This is a price-sensitive filing from the Australian Exchange.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7da017a6fed"
+      ],
+      "primary_source_event_id": "EVT-a7da017a6fed",
+      "source_headlines": [
+        "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]"
+      ],
+      "source_headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03135055-6A1343632",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:47:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T23:54:40Z",
+      "updated_at": "2026-09-13T23:54:40Z",
+      "decay_at": "2026-09-15T11:47:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b17f991e72d7",
       "idea_version": "IDEAV-c4f270e767de5e33",
       "idea_version_started_at": "2026-09-13T22:55:30Z",
@@ -119071,77 +119214,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-476dd0e4ec26",
-      "idea_version": "IDEAV-f7951067bd12f4ec",
-      "idea_version_started_at": "2026-09-11T23:19:39Z",
-      "ticker": "ASN",
-      "company": "ASN",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The receipt of a $212 million tax credit provides a significant, non-dilutive cash injection that strengthens the balance sheet and improves free cash flow metrics.",
-      "why_now": "The replacement announcement confirming the credit was filed on September 10, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b5e281c2fd34"
-      ],
-      "primary_source_event_id": "EVT-b5e281c2fd34",
-      "source_headlines": [
-        "ASN: Replacement Announcement - $212 mill Additional Tax Credit [price-sensitive]"
-      ],
-      "source_headline": "ASN: Replacement Announcement - $212 mill Additional Tax Credit [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASN?key=2924-03134428-6A1343352",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-10T23:31:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T23:19:39Z",
-      "updated_at": "2026-09-11T23:19:39Z",
-      "decay_at": "2026-09-12T11:31:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-75765a74602d",
       "idea_version": "IDEAV-4b58c0f15db609aa",
       "idea_version_started_at": "2026-09-11T23:19:39Z",
@@ -120503,77 +120575,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-054ed290ea3b",
-      "idea_version": "IDEAV-a010346fc878e3bb",
-      "idea_version_started_at": "2026-09-11T02:58:52Z",
-      "ticker": "01548",
-      "company": "GenScript Biotech",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a share placement under a general mandate, which will dilute existing shareholders and typically exerts downward pressure on the stock price in the near term.",
-      "why_now": "The filing was released on 2026-09-10, making the dilution event immediate and actionable.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d275f5255e58"
-      ],
-      "primary_source_event_id": "EVT-d275f5255e58",
-      "source_headlines": [
-        "GENSCRIPT BIO (01548): PLACING OF NEW SHARES UNDER THE GENERAL MANDATE"
-      ],
-      "source_headline": "GENSCRIPT BIO (01548): PLACING OF NEW SHARES UNDER THE GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100069.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-10T23:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T02:58:52Z",
-      "updated_at": "2026-09-11T02:58:52Z",
-      "decay_at": "2026-09-12T11:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7c1baa82e33e",
       "idea_version": "IDEAV-76f47ca581613aff",
       "idea_version_started_at": "2026-09-12T13:20:22Z",
@@ -120867,33 +120868,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 264,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 13
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 169,
-      "oldest_retained_at": "2026-08-22T23:16:00Z",
+      "evicted_count": 171,
+      "oldest_retained_at": "2026-08-22T23:58:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 133,
-          "oldest_retained_at": "2026-08-31T17:18:08Z"
+          "evicted_count": 134,
+          "oldest_retained_at": "2026-08-31T17:20:00Z"
         },
         "short": {
-          "evicted_count": 36,
-          "oldest_retained_at": "2026-08-22T23:16:00Z"
+          "evicted_count": 37,
+          "oldest_retained_at": "2026-08-22T23:58:00Z"
         }
       }
     },
@@ -123865,8 +123866,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T11:32:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T23:54:45Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123939,8 +123940,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T11:31:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-13T23:54:45Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158049,8 +158050,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 759,
-    "live_count": 47,
+    "surfaced_total": 761,
+    "live_count": 49,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
