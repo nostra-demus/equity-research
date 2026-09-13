@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T18:51:04Z",
+  "generated_at": "2026-09-13T18:51:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -116347,6 +116347,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d671968eea99",
+      "idea_version": "IDEAV-fb87869fb0ffed48",
+      "idea_version_started_at": "2026-09-13T18:51:17Z",
+      "ticker": "8190",
+      "company": "United Cooperative Assurance",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Riyadh court has formally accepted an application for the company's liquidation, signaling a total loss of equity value for shareholders.",
+      "why_now": "The court's acceptance of the liquidation application was announced on 2026-09-13.",
+      "conviction": 95,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c4188219bded"
+      ],
+      "primary_source_event_id": "EVT-c4188219bded",
+      "source_headlines": [
+        "‎Riyadh court accepts application for UCA’s liquidation proceedings"
+      ],
+      "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T17:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T18:51:17Z",
+      "updated_at": "2026-09-13T18:51:17Z",
+      "decay_at": "2026-09-15T05:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f10044ee35a3",
       "idea_version": "IDEAV-70cc29c1fe35cd26",
       "idea_version_started_at": "2026-09-13T18:31:35Z",
@@ -157175,8 +157248,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 742,
-    "live_count": 39,
+    "surfaced_total": 743,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
