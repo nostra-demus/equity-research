@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:29:03Z",
+  "generated_at": "2026-09-13T04:34:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1056,6 +1056,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-285",
+      "headline": "Saudi Arabia Shuts Down Pipeline That Was a Crucial Hormuz Bypass",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/middle-east/saudi-arabia-shuts-down-pipeline-that-was-a-crucial-hormuz-bypass-4fe29001?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T20:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The shutdown of a crucial Hormuz bypass pipeline creates a major supply chain and energy security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The shutdown of a crucial Hormuz bypass pipeline creates a major supply chain and energy security risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-129",
       "headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
       "headline_en": null,
@@ -1929,60 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-099",
-      "headline": "Chevron Already Committed $7 Billion to Venezuela. Trump Says Exxon Is Next. Here's the Big Difference Between the 2.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/12/chevron-already-committed-7-billion-to-venezuela-t/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Chevron has committed $7 billion to Venezuela, and Trump suggests Exxon is next, indicating significant investment in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Chevron has committed $7 billion to Venezuela, and Trump suggests Exxon is next, indicating significant investment in the region.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Exxon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156425,9 +156420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 863289,
-    "news_picked_today": 515,
-    "news_dropped_today": 1861
+    "news_seen_today": 881152,
+    "news_picked_today": 530,
+    "news_dropped_today": 1894
   },
   "book_momentum": {
     "live_count": 8,
