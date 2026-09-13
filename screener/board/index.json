@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T20:29:25Z",
+  "generated_at": "2026-09-13T20:51:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-654",
+      "headline": "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/liquidation-threat-looms-as-bathla-must-find-longer-term-funds-11789331850113.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T20:37:29Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Bathla is facing a liquidation threat due to a lack of long-term funding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bathla is facing a liquidation threat due to a lack of long-term funding.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,49 +1966,6 @@
       "launched_signal_id": null,
       "triage_score": 99,
       "triage_reason": "Active shelling in Lebanon represents a military escalation in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-306",
-      "headline": "Russia Hits Ukraine's Port, Steel Plant As Air Strikes Kill 10, Injure Dozens",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/russia-hits-ukraines-port-steel-plant-as-air-strikes-kill-10-injure-dozens-12039646#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T04:31:39Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Military escalation involving strikes on critical infrastructure in Ukraine increases geopolitical risk and potential supply chain disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Military escalation involving strikes on critical infrastructure in Ukraine increases geopolitical risk and potential supply chain disruption.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -157695,9 +157701,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459216,
-    "news_picked_today": 1861,
-    "news_dropped_today": 5882
+    "news_seen_today": 1459276,
+    "news_picked_today": 1869,
+    "news_dropped_today": 5934
   },
   "book_momentum": {
     "live_count": 8,
