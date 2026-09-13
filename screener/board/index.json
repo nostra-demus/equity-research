@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T15:09:23Z",
+  "generated_at": "2026-09-13T15:14:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-605",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-635",
+      "headline": "Kroger loses $12 billion as customer behavior takes a turn",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/economy/articles/kroger-loses-12-billion-customer-140700364.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T14:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Kroger experienced a $12 billion loss in market capitalization due to shifting consumer behavior impacting financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kroger experienced a $12 billion loss in market capitalization due to shifting consumer behavior impacting financial performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kroger",
+          "ticker": "KR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -638,55 +687,6 @@
           "name": "Sofie Biosciences",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-594",
-      "headline": "Kroger loses $12 billion as customer behavior takes a turn",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/kroger-loses-12-billion-cpg-spending-to-rivals",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T11:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Kroger reported a $12 billion loss, indicating a significant negative impact on financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger reported a $12 billion loss, indicating a significant negative impact on financial performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -156700,9 +156700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1458321,
-    "news_picked_today": 1661,
-    "news_dropped_today": 5187
+    "news_seen_today": 1458353,
+    "news_picked_today": 1672,
+    "news_dropped_today": 5208
   },
   "book_momentum": {
     "live_count": 8,
