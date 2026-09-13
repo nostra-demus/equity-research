@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T05:39:05Z",
+  "generated_at": "2026-09-13T05:55:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -404,6 +404,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-359",
+      "headline": "Abu Dhabi’s Oil Giant Inks Partnerships With German Energy, Industry Groups as Part of UAE’s $46.5 Billion Investment",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/abu-dhabis-oil-giant-inks-partnerships-with-german-energy-industry-groups-as-part-of-uaes-46-5-billion-investment-03dc5ace?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T17:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Abu Dhabi National Oil Company announced partnerships linked to a $46.5 billion investment plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abu Dhabi National Oil Company announced partnerships linked to a $46.5 billion investment plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abu Dhabi National Oil Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1147,6 +1196,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-365",
+      "headline": "Poste Italiane secures 66.6% of Telecom Italia at end of offer period",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/poste-italiane-secures-666-telecom-italia-end-offer-period-2026-09-11/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T16:55:45Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Poste Italiane has secured a 66.6% stake in Telecom Italia, representing a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Poste Italiane has secured a 66.6% stake in Telecom Italia, representing a major M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poste Italiane",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Telecom Italia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-277",
       "headline": "Larry Ellison cancels plan to sell Oracle stock worth up to $7.5 billion",
       "headline_en": null,
@@ -1835,148 +1938,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260913-325",
-      "headline": "Manipal Hospitals scouts for acquisitions in Andhra, Keralam, Delhi-NCR; bets on AI-led healthcare",
+      "inbox_id": "INB-20260913-332",
+      "headline": "South East Water to Regroup on Debt Plan After Bond Talks Stall",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/manipal-hospitals-scouts-for-acquisitions-in-andhra-keralam-delhi-ncr-bets-on-ai-led-healthcare/articleshow/134179222.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-11/south-east-water-to-regroup-on-debt-plan-after-bond-talks-stall",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-13T05:14:20Z",
+      "found_at": "2026-09-11T17:32:26Z",
       "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Manipal Hospitals is actively seeking acquisitions to expand its footprint in multiple Indian regions.",
+      "prelim_note": "South East Water is facing debt restructuring after bond talks stalled, indicating potential distress.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Manipal Hospitals is actively seeking acquisitions to expand its footprint in multiple Indian regions.",
-      "region": "IN",
+      "triage_score": 91,
+      "triage_reason": "South East Water is facing debt restructuring after bond talks stalled, indicating potential distress.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 6,
         "event": 9,
         "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": "default_distress",
         "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Manipal Hospitals",
+          "name": "South East Water",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-273",
-      "headline": "Oracle's Larry Ellison Cancels $7.5 Bln Stock Sale Plan",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/oracles-larry-ellison-cancels-75-bln-stock-sale-plan",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T03:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential selling pressure on Oracle shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Larry Ellison cancelled a planned $7.5 billion stock sale, reducing potential selling pressure on Oracle shares.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": "ORCL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-029",
-      "headline": "Jim Cramer on Oracle: $664B Backlog Signals Major Shift in Company’s Growth Trajectory",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/12/jim-cramer-on-oracle-664b-backlog-signals-major-shift-in-companys-growth-trajectory/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:13:28Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Oracle reported a $664B backlog, indicating a significant shift in growth trajectory.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Oracle reported a $664B backlog, indicating a significant shift in growth trajectory.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156421,9 +156426,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1054032,
-    "news_picked_today": 701,
-    "news_dropped_today": 2347
+    "news_seen_today": 1097290,
+    "news_picked_today": 759,
+    "news_dropped_today": 2505
   },
   "book_momentum": {
     "live_count": 8,
