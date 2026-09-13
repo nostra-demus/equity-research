@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T01:01:42Z",
+  "generated_at": "2026-09-13T01:05:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-111",
+      "headline": "TotalEnergies Plans $10B in Angola Oil Investments",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/wire/totalenergies_plans_10b_in_angola_oil_investments-12-sep-2026-184596-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "TotalEnergies announced a $10 billion investment in Angola, representing a major capital expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies announced a $10 billion investment in Angola, representing a major capital expenditure commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-043",
       "headline": "Nvidia May Invest Up to $10 Billion in Anthropic’s $2.3 Trillion IPO",
@@ -404,6 +453,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-107",
+      "headline": "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/12/dell-booked-more-ai-server-orders-in-3-months-than-it-recorded-in-total-revenue/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T00:33:01Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant demand growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Dell reported AI server orders exceeding total revenue for the quarter, indicating significant demand growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1151,6 +1249,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-109",
+      "headline": "GM plans U.S. battery development as Trump's DOT attacks Ford for China ties",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/12/gm-us-battery-development-ford-china-ties.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T12:00:01Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "General Motors is expanding U.S. battery development while facing political scrutiny regarding supply chain ties to China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "General Motors is expanding U.S. battery development while facing political scrutiny regarding supply chain ties to China.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ford Motor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-040",
       "headline": "Revolut confirms customer data breach through fake government requests",
       "headline_en": null,
@@ -1803,142 +1956,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-024",
-      "headline": "(News Focus) Inside 42dot: Hyundai Motor accelerates autonomous driving push with AI data flywheel",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260911007900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T00:00:06Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Hyundai is accelerating its autonomous driving technology development via its 42dot subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Hyundai is accelerating its autonomous driving technology development via its 42dot subsidiary.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-009",
-      "headline": "UAE strongly condemns attack on Saudi oil pipelines using drones from Iraq",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/news/uae-condemns-drone-attack-on-saudi-east-west-oil-pipeline-in-riyadh-and-medina-launched-from-iraq/5571",
-      "source_name": "Emirates 24|7 — Flash News (general)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:41:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "A drone attack on Saudi oil infrastructure represents a significant geopolitical escalation and potential supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A drone attack on Saudi oil infrastructure represents a significant geopolitical escalation and potential supply shock risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-053",
-      "headline": "Iran, UAE leaders discuss de-escalation as oil supply worries spike",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/china/diplomacy/article/3367318/iranian-president-abu-dhabi-crown-prince-meet-sidelines-brics-summit-india?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:59:21Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Leaders of Iran and UAE discuss de-escalation amid concerns over oil supply, which is a critical commodity market factor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Leaders of Iran and UAE discuss de-escalation amid concerns over oil supply, which is a critical commodity market factor.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156306,9 +156323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 218203,
-    "news_picked_today": 116,
-    "news_dropped_today": 460
+    "news_seen_today": 230045,
+    "news_picked_today": 121,
+    "news_dropped_today": 479
   },
   "book_momentum": {
     "live_count": 8,
