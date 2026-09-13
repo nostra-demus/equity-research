@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T23:49:25Z",
+  "generated_at": "2026-09-13T23:54:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-693",
+      "headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03135055-6A1343632",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:47:30Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Securing $200m in additional funding is a material capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Securing $200m in additional funding is a material capital event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MI6",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-679",
       "headline": "TTT: Titomic awarded US$5.0 million U.S. defense contract [price-sensitive]",
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-383",
-      "headline": "Bayer faces pivotal test of $7.25 billion Roundup settlement in Missouri court",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/bayer-faces-pivotal-test-725-billion-roundup-settlement-missouri-court-2026-09-11/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T16:38:15Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Bayer faces a pivotal court test regarding a $7.25 billion Roundup settlement, posing significant legal and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bayer faces a pivotal court test regarding a $7.25 billion Roundup settlement, posing significant legal and financial risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bayer",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158069,9 +158069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1460006,
-    "news_picked_today": 2072,
-    "news_dropped_today": 6461
+    "news_seen_today": 1460030,
+    "news_picked_today": 2082,
+    "news_dropped_today": 6475
   },
   "book_momentum": {
     "live_count": 8,
