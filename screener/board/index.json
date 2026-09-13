@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:55:28Z",
+  "generated_at": "2026-09-13T02:04:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -1949,50 +1949,60 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260913-006",
-      "headline": "Mexicana Pemex prevé reparar en días ducto afectado por fuga de crudo en Golfo de México",
+      "inbox_id": "INB-20260913-158",
+      "headline": "Akeso, Summit’s ivonescimab tops Keytruda in lung cancer survival, with strong data in PD-L1-high patients",
       "headline_en": null,
-      "url": "https://www.reuters.com/es/mundo/EHSNDY3L45JRHF3UQOTYD5WIAI-2026-09-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.fiercepharma.com/pharma/akeso-summit-ivonescimab-tops-keytruda-lung-cancer-survival-strong-data-pd-l1-high-patients",
+      "source_name": "FiercePharma",
       "input_nature": "news_headline",
-      "found_at": "2026-09-12T15:52:10Z",
+      "found_at": "2026-09-13T01:53:22Z",
       "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Pemex is working to repair a crude oil pipeline leak in the Gulf of Mexico, which may impact production and environmental compliance.",
+      "prelim_note": "Akeso and Summit's ivonescimab outperformed Merck's Keytruda in a lung cancer trial, threatening Keytruda's market position.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 82,
-      "triage_reason": "Pemex is working to repair a crude oil pipeline leak in the Gulf of Mexico, which may impact production and environmental compliance.",
-      "region": "OTHER",
+      "triage_reason": "Akeso and Summit's ivonescimab outperformed Merck's Keytruda in a lung cancer trial, threatening Keytruda's market position.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
         "materiality": 65,
         "source_tier": 0,
-        "scope": 6,
-        "event": 2,
+        "scope": 5,
+        "event": 0,
         "size": 2,
-        "recency": 2,
+        "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
+        "event_id": null,
+        "size_bucket": "mega"
       },
       "event_types": [
-        "operations"
+        "product"
       ],
-      "issuer_linkage": "primary",
+      "issuer_linkage": "secondary",
       "companies": [
         {
-          "name": "Pemex",
+          "name": "Merck",
           "ticker": null,
-          "listing_country": "MX"
+          "listing_country": "US"
+        },
+        {
+          "name": "Akeso",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Summit Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156288,9 +156298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 396522,
-    "news_picked_today": 207,
-    "news_dropped_today": 801
+    "news_seen_today": 424272,
+    "news_picked_today": 217,
+    "news_dropped_today": 863
   },
   "book_momentum": {
     "live_count": 8,
