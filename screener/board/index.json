@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-13T23:54:59Z",
+  "generated_at": "2026-09-13T23:59:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260913-695",
+      "headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03135062-3A701676",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:53:50Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "The company announced a $45.5 million contract, which is material to revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a $45.5 million contract, which is material to revenue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-693",
       "headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-359",
-      "headline": "Abu Dhabi’s Oil Giant Inks Partnerships With German Energy, Industry Groups as Part of UAE’s $46.5 Billion Investment",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/abu-dhabis-oil-giant-inks-partnerships-with-german-energy-industry-groups-as-part-of-uaes-46-5-billion-investment-03dc5ace?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T17:08:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Abu Dhabi National Oil Company announced partnerships linked to a $46.5 billion investment plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Abu Dhabi National Oil Company announced partnerships linked to a $46.5 billion investment plan.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abu Dhabi National Oil Company",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158070,9 +158070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1460030,
-    "news_picked_today": 2082,
-    "news_dropped_today": 6475
+    "news_seen_today": 1460046,
+    "news_picked_today": 2087,
+    "news_dropped_today": 6486
   },
   "book_momentum": {
     "live_count": 8,
