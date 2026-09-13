@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:34:16Z",
+  "generated_at": "2026-09-13T04:39:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -306,6 +306,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-305",
+      "headline": "Ford to invest $1B in Kentucky truck plant",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/ford-invest-1b-kentucky-truck-plant",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-11T20:20:05Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Ford is making a significant $1 billion capital investment in its Kentucky truck plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ford is making a significant $1 billion capital investment in its Kentucky truck plant.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ford Motor Company",
+          "ticker": "F",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "The RBI has rejected Tata Sons' bid to avoid listing, confirming the requirement to list as an upper-layer NBFC.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-079",
-      "headline": "RBI Rejects Tata Sons Plea to Nix Shadow Lender Tag, Reports Say",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-12/rbi-rejects-tata-sons-plea-to-nix-shadow-lender-tag-reports-say",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:00:08Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Confirmation that the RBI has rejected Tata Sons' plea to nix its shadow lender tag, forcing a listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Confirmation that the RBI has rejected Tata Sons' plea to nix its shadow lender tag, forcing a listing.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -156420,9 +156420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 881152,
-    "news_picked_today": 530,
-    "news_dropped_today": 1894
+    "news_seen_today": 902974,
+    "news_picked_today": 569,
+    "news_dropped_today": 1999
   },
   "book_momentum": {
     "live_count": 8,
