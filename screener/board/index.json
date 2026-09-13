@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T01:40:56Z",
+  "generated_at": "2026-09-13T01:55:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-111",
@@ -96,6 +96,60 @@
         },
         {
           "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-155",
+      "headline": "Shell Just Sold a $715 Million Stake in a Major New England Asset to Constellation Energy. Here's What Investors Need to Know.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/12/shell-just-sold-a-usd715-million-stake-in-a-major-new-england-asset-to-constellation-energy-here-s-what-investors-need-to-know/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T09:52:51Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Shell is divesting a $715 million asset to Constellation Energy, representing a significant capital reallocation for both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shell is divesting a $715 million asset to Constellation Energy, representing a significant capital reallocation for both companies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Constellation Energy",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1348,6 +1402,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-152",
+      "headline": "London Underground workers exposed to asbestos without protective masks, documents reveal",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/environment/2026/sep/12/london-underground-workers-exposed-to-asbestos-without-protective-masks-documents-reveal",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T10:00:32Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "London Underground faces potential legal and operational risk following reports of worker asbestos exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "London Underground faces potential legal and operational risk following reports of worker asbestos exposure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Underground",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-007",
       "headline": "Tata Sons faces pressure to list after RBI rejects its de-registration as CIC",
       "headline_en": null,
@@ -1600,6 +1703,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-143",
+      "headline": "Tesla to unveil long-delayed Roadster on Oct. 1, Musk says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/tesla-signals-oct-1-launch-long-delayed-roadster-2026-09-12/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T01:29:55Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Tesla announced a specific date for the unveiling of a long-delayed product, which may impact investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Tesla announced a specific date for the unveiling of a long-delayed product, which may impact investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-142",
       "headline": "Kia's PV5 sales surpass 50,000 units in 13 months",
       "headline_en": null,
@@ -1748,6 +1900,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260913-147",
+      "headline": "Bitcoin activity, passports exposed after Revolut falls for fake government request",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/tech/2026/09/12/bitcoin-activity-passports-exposed-after-revolut-falls-for-fake-government-request",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-12T10:11:01Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "Revolut suffered a data breach exposing customer passports and activity due to a social engineering attack.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Revolut suffered a data breach exposing customer passports and activity due to a social engineering attack.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Revolut",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260913-006",
       "headline": "Mexicana Pemex prevé reparar en días ducto afectado por fuga de crudo en Golfo de México",
       "headline_en": null,
@@ -1792,186 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-054",
-      "headline": "Brookfield Infrastructure's 2026 Outlook: Digital Data Segment Expansion Drives Growth",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/brookfield-infrastructures-2026-outlook-digital-135615227.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:56:15Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Brookfield Infrastructure is expanding its digital data segment, which is a key growth driver for its 2026 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Brookfield Infrastructure is expanding its digital data segment, which is a key growth driver for its 2026 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Infrastructure",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-118",
-      "headline": "Australia vows to bolster resilience of telco networks after Optus outage",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/australia-vows-bolster-resilience-telco-networks-after-optus-outage-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T01:04:53Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Australia is mandating increased resilience for telco networks following a major outage, which will likely increase compliance and infrastructure costs for providers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Australia is mandating increased resilience for telco networks following a major outage, which will likely increase compliance and infrastructure costs for providers.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-052",
-      "headline": "+++ USA +++: Trump drängt Staaten zur Abkehr vom Internationalen Strafgerichtshof",
-      "headline_en": "+++ USA +++: Trump urges states to turn away from the International Criminal Court",
-      "url": "https://www.handelsblatt.com/politik/international/trump-draengt-staaten-zur-abkehr-vom-internationalen-strafgerichtshof/29669594.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T00:22:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Donald Trump is pressuring states to withdraw from the International Criminal Court, signaling a potential shift in US foreign policy and international legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Donald Trump is pressuring states to withdraw from the International Criminal Court, signaling a potential shift in US foreign policy and international legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-074",
-      "headline": "Giant pizza dining chain's franchisee abruptly closes locations",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/dominos-pizza-franchisee-abruptly-closes-locations",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-12T13:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Abrupt closure of locations by a major franchisee indicates operational or financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Abrupt closure of locations by a major franchisee indicates operational or financial distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114851,76 +114872,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-45095adaca6b",
-      "idea_version": "IDEAV-6173d3cf987c20ec",
-      "idea_version_started_at": "2026-09-11T18:09:01Z",
-      "ticker": "M",
-      "company": "Macy's",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Macy's raised its guidance following strong Q2 results, indicating better-than-expected operational performance in a challenging retail environment.",
-      "why_now": "The guidance hike was announced today, September 11, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6b8e11144c6b"
-      ],
-      "primary_source_event_id": "EVT-6b8e11144c6b",
-      "source_headlines": [
-        "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious"
-      ],
-      "source_headline": "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/macy-m-raises-guidance-strong-134158247.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T13:41:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T12:37:06Z",
-      "updated_at": "2026-09-11T18:09:01Z",
-      "decay_at": "2026-09-13T01:41:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-f3c293fc84238a6c",
       "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -116341,6 +116292,76 @@
       "surfaced_at": "2026-09-11T23:59:41Z",
       "updated_at": "2026-09-11T23:59:41Z",
       "decay_at": "2026-09-12T08:42:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-45095adaca6b",
+      "idea_version": "IDEAV-6173d3cf987c20ec",
+      "idea_version_started_at": "2026-09-11T18:09:01Z",
+      "ticker": "M",
+      "company": "Macy's",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Macy's raised its guidance following strong Q2 results, indicating better-than-expected operational performance in a challenging retail environment.",
+      "why_now": "The guidance hike was announced today, September 11, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6b8e11144c6b"
+      ],
+      "primary_source_event_id": "EVT-6b8e11144c6b",
+      "source_headlines": [
+        "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious"
+      ],
+      "source_headline": "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/macy-m-raises-guidance-strong-134158247.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-11T13:41:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T12:37:06Z",
+      "updated_at": "2026-09-11T18:09:01Z",
+      "decay_at": "2026-09-13T01:41:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -119066,14 +119087,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 262,
@@ -119097,6 +119118,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-45095adaca6b",
+        "idea_version": "IDEAV-6173d3cf987c20ec",
+        "idea_version_started_at": "2026-09-11T18:09:01Z",
+        "ticker": "M",
+        "company": "Macy's",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Macy's raised its guidance following strong Q2 results, indicating better-than-expected operational performance in a challenging retail environment.",
+        "why_now": "The guidance hike was announced today, September 11, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6b8e11144c6b"
+        ],
+        "primary_source_event_id": "EVT-6b8e11144c6b",
+        "source_headlines": [
+          "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious"
+        ],
+        "source_headline": "Macy’s (M) Raises Guidance After Strong Q2 Results, But Investors Remain Cautious",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/macy-m-raises-guidance-strong-134158247.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T13:41:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-10T12:37:06Z",
+        "updated_at": "2026-09-11T18:09:01Z",
+        "decay_at": "2026-09-13T01:41:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-13T01:41:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e47cc519db25",
         "idea_version": "IDEAV-f862280f5e7ad1b4",
@@ -147485,81 +147579,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5647a867aaf8",
-        "idea_version": "IDEAV-07586e118c05932c",
-        "idea_version_started_at": "2026-08-30T12:50:24Z",
-        "ticker": "ADPORTS",
-        "company": "AD Ports Group",
-        "exchange": "ADX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The board's support for the ADQ offer signals a potential consolidation or privatization event that typically narrows the discount to intrinsic value.",
-        "why_now": "The board backing was announced on 2026-08-30.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3afceae830c7"
-        ],
-        "primary_source_event_id": "EVT-3afceae830c7",
-        "source_headlines": [
-          "‎AD Ports board backs ADQ offer"
-        ],
-        "source_headline": "‎AD Ports board backs ADQ offer",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1932606",
-        "source_name": "Argaam — UAE Main News (English)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-30T12:53:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T12:50:24Z",
-        "updated_at": "2026-08-30T12:50:24Z",
-        "decay_at": "2026-09-01T00:50:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T17:26:08Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-91e5824ed7dd",
         "idea_version": "IDEAV-96812f8704292485",
         "idea_version_started_at": "2026-08-30T16:55:17Z",
@@ -156250,7 +156269,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 717,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -156269,9 +156288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 340287,
-    "news_picked_today": 179,
-    "news_dropped_today": 709
+    "news_seen_today": 396522,
+    "news_picked_today": 207,
+    "news_dropped_today": 801
   },
   "book_momentum": {
     "live_count": 8,
