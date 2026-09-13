@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T22:19:24Z",
+  "generated_at": "2026-09-13T22:29:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260913-657",
@@ -244,6 +244,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260913-676",
+      "headline": "University of Iowa Health Care calls off $2B+ patient tower build",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/university-iowa-health-care-calls-2b-patient-tower-build",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T22:28:35Z",
+      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
+      "prelim_note": "University of Iowa Health Care cancelled a $2B+ capital project, impacting future capacity and construction-related revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "University of Iowa Health Care cancelled a $2B+ capital project, impacting future capacity and construction-related revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "University of Iowa Health Care",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1988,6 @@
           "name": "Stellantis",
           "ticker": null,
           "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260913-494",
-      "headline": "Kroger trims sales target as shoppers pull back, sticks to profit forecast",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/kroger-cuts-annual-sales-forecast-2026-09-11/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-11T14:55:46Z",
-      "sweep_file": "screener/inbox/2026-09-13_sweep.json",
-      "prelim_note": "Kroger lowered its annual sales growth target due to cautious consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kroger lowered its annual sales growth target due to cautious consumer spending.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -157998,9 +157998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459572,
-    "news_picked_today": 1927,
-    "news_dropped_today": 6172
+    "news_seen_today": 1459635,
+    "news_picked_today": 1941,
+    "news_dropped_today": 6221
   },
   "book_momentum": {
     "live_count": 8,
