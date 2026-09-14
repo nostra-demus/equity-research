@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T04:56:28Z",
+  "generated_at": "2026-09-14T05:06:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -144,6 +144,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-211",
+      "headline": "UAE’s Space42 and US firm Viasat sign deal to establish Equatys in $1 billion satellite push",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/uaes-space42-and-us-firm-viasat-sign-deal-to-establish-equatys-in-1-billion-satellite-push",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T05:02:29Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Space42 and Viasat are forming a joint venture, Equatys, backed by a $1 billion investment in satellite infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Space42 and Viasat are forming a joint venture, Equatys, backed by a $1 billion investment in satellite infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viasat",
+          "ticker": "VSAT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Space42",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1982,6 @@
           "name": "FAW",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-163",
-      "headline": "Firmus seeks $7b in IPO discussions as it meets Asian fundies",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/firmus-seeks-7b-in-ipo-discussions-as-it-meets-asian-fundies-20260914-p60x7j?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T03:56:01Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Firmus is in discussions for a $7 billion IPO, a major potential capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Firmus is in discussions for a $7 billion IPO, a major potential capital market event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -117767,76 +117773,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-494bd6333cab",
-      "idea_version": "IDEAV-b229deed07566c1c",
-      "idea_version_started_at": "2026-09-12T17:39:44Z",
-      "ticker": "BMRN",
-      "company": "BioMarin Pharmaceutical",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The patent settlement with Ascendis removes a significant legal overhang and competitive threat to BioMarin's core product franchise.",
-      "why_now": "The settlement was announced today, September 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5db213235e92"
-      ],
-      "primary_source_event_id": "EVT-5db213235e92",
-      "source_headlines": [
-        "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis"
-      ],
-      "source_headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-12T17:02:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T17:39:44Z",
-      "updated_at": "2026-09-12T17:39:44Z",
-      "decay_at": "2026-09-14T05:02:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1e21975df7c3",
       "idea_version": "IDEAV-f2882134d822e1f8",
       "idea_version_started_at": "2026-09-13T18:31:35Z",
@@ -121625,6 +121561,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-494bd6333cab",
+      "idea_version": "IDEAV-b229deed07566c1c",
+      "idea_version_started_at": "2026-09-12T17:39:44Z",
+      "ticker": "BMRN",
+      "company": "BioMarin Pharmaceutical",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The patent settlement with Ascendis removes a significant legal overhang and competitive threat to BioMarin's core product franchise.",
+      "why_now": "The settlement was announced today, September 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5db213235e92"
+      ],
+      "primary_source_event_id": "EVT-5db213235e92",
+      "source_headlines": [
+        "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis"
+      ],
+      "source_headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-12T17:02:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T17:39:44Z",
+      "updated_at": "2026-09-12T17:39:44Z",
+      "decay_at": "2026-09-14T05:02:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3832437dcd8b",
       "idea_version": "IDEAV-53a497c653ec5ba3",
       "idea_version_started_at": "2026-09-13T16:50:02Z",
@@ -123926,14 +123932,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 266,
@@ -123957,6 +123963,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-494bd6333cab",
+        "idea_version": "IDEAV-b229deed07566c1c",
+        "idea_version_started_at": "2026-09-12T17:39:44Z",
+        "ticker": "BMRN",
+        "company": "BioMarin Pharmaceutical",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The patent settlement with Ascendis removes a significant legal overhang and competitive threat to BioMarin's core product franchise.",
+        "why_now": "The settlement was announced today, September 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5db213235e92"
+        ],
+        "primary_source_event_id": "EVT-5db213235e92",
+        "source_headlines": [
+          "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis"
+        ],
+        "source_headline": "BioMarin Shares Jump 5% After Global Patent Settlement With Ascendis",
+        "source_url": "https://finance.yahoo.com/healthcare/articles/biomarin-shares-jump-5-global-170253036.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-12T17:02:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T17:39:44Z",
+        "updated_at": "2026-09-12T17:39:44Z",
+        "decay_at": "2026-09-14T05:02:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T05:02:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d60fac062166",
         "idea_version": "IDEAV-4b56528ac9954d8b",
@@ -152939,81 +153018,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-caa8876bf8f7",
-        "idea_version": "IDEAV-e02287dbb5047eb5",
-        "idea_version_started_at": "2026-08-31T02:21:42Z",
-        "ticker": "010140",
-        "company": "Samsung Heavy Industries",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Samsung Heavy Industries secured a new order worth 444.5 billion won for two container ships, which will directly boost its order backlog and future revenue.",
-        "why_now": "The new commercial deal was announced today, August 31, 2026, by Yonhap News Agency.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-182938c8ba76"
-        ],
-        "primary_source_event_id": "EVT-182938c8ba76",
-        "source_headlines": [
-          "Samsung Heavy wins 444.5 bln-won deal for 2 container ships"
-        ],
-        "source_headline": "Samsung Heavy wins 444.5 bln-won deal for 2 container ships",
-        "source_url": "https://en.yna.co.kr/view/AEN20260831002700320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-08-31T00:29:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T02:21:42Z",
-        "updated_at": "2026-08-31T02:21:42Z",
-        "decay_at": "2026-09-01T12:29:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ffe996f99401",
         "idea_version": "IDEAV-c985da1a198247a9",
         "idea_version_started_at": "2026-08-31T02:05:21Z",
@@ -161112,7 +161116,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 781,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -161131,9 +161135,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1131,
-    "news_picked_today": 299,
-    "news_dropped_today": 832
+    "news_seen_today": 1186,
+    "news_picked_today": 311,
+    "news_dropped_today": 875
   },
   "book_momentum": {
     "live_count": 8,
