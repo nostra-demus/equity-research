@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T03:51:31Z",
+  "generated_at": "2026-09-14T04:01:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-154",
@@ -931,6 +931,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-160",
+      "headline": "CAY: Notice of Conditions [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03135176-6A1343675",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T03:47:50Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The company has issued a price-sensitive notice regarding conditions, indicating a potential material development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company has issued a price-sensitive notice regarding conditions, indicating a potential material development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cayenne Capital",
+          "ticker": "CAY",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-003",
       "headline": "Shapoorji Pallonji Group rethinks 18.37% Tata stake sale, valued at Rs 2.3 lakh cr",
       "headline_en": null,
@@ -1380,6 +1429,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-163",
+      "headline": "Firmus seeks $7b in IPO discussions as it meets Asian fundies",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/firmus-seeks-7b-in-ipo-discussions-as-it-meets-asian-fundies-20260914-p60x7j?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T03:56:01Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Firmus is in discussions for a $7 billion IPO, a major potential capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Firmus is in discussions for a $7 billion IPO, a major potential capital market event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-162",
+      "headline": "Capgemini To Sell Capgemini Government Solutions",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/capgemini-sell-capgemini-government-solutions",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T03:02:51Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Capgemini is divesting its government solutions unit, a significant strategic disposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Capgemini is divesting its government solutions unit, a significant strategic disposal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capgemini",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-132",
       "headline": "Macquarie completes Maple InvIT stake buyout",
       "headline_en": null,
@@ -1571,6 +1718,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-165",
+      "headline": "SG Fleet, ORIX, Sumitomo raise bids for Australia's FleetPartners",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/sg-fleet-orix-sumitomo-raise-bids-australias-fleetpartners-2026-09-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T03:47:41Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Multiple parties (SG Fleet, ORIX, Sumitomo) have raised their bids for FleetPartners, indicating a competitive bidding process for the acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Multiple parties (SG Fleet, ORIX, Sumitomo) have raised their bids for FleetPartners, indicating a competitive bidding process for the acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FleetPartners",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1770,203 +1966,6 @@
           "name": "EVR",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-049",
-      "headline": "GNP: Genus Awarded Victorian BESS Project for Birdwood [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GNP?key=2924-03135086-6A1343647",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:30:50Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Genus awarded a battery energy storage system (BESS) project for Birdwood.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Genus awarded a battery energy storage system (BESS) project for Birdwood.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genus",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-035",
-      "headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:16:50Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "REZ received a cash R&D tax incentive refund of $428,000, which is material for a micro-cap explorer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "REZ received a cash R&D tax incentive refund of $428,000, which is material for a micro-cap explorer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Resources & Energy Investments",
-          "ticker": "REZ",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-138",
-      "headline": "FTC Launches Follow-Up Probe Into CJ Olive Young",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276849",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:27:21Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "The Korean FTC is launching a follow-up probe into CJ Olive Young, which could lead to potential fines or operational restrictions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The Korean FTC is launching a follow-up probe into CJ Olive Young, which could lead to potential fines or operational restrictions.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CJ Olive Young",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-158",
-      "headline": "Auto parts maker Victura picks Rothschild to help with $300-400 mn IPO process",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/victura-ipo-process-rothschild-auto-parts-makers-india-public-listing-11789351781890.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T03:37:03Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Victura is initiating an IPO process targeting $300-400 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Victura is initiating an IPO process targeting $300-400 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Victura",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -117264,79 +117263,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41f871048ef0",
-      "idea_version": "IDEAV-33f778609792c7da",
-      "idea_version_started_at": "2026-09-13T17:31:23Z",
-      "ticker": "ORCL",
-      "company": "Oracle",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is incurring an additional $700 million in restructuring costs to fund aggressive AI data center capital expenditures, signaling margin pressure and potential cash flow constraints.",
-      "why_now": "The announcement of these specific, incremental restructuring charges was made on September 12, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-26ddad135b5c",
-        "EVT-3b03b0b0b122",
-        "EVT-6112b70ebfef"
-      ],
-      "primary_source_event_id": "EVT-26ddad135b5c",
-      "source_headlines": [
-        "Oracle to spend an additional US$700 million on more job cuts",
-        "Oracle to spend $700mn more on restructuring costs as it ramps up AI spending",
-        "Oracle To Spend $700 Million To Expand Job Cuts As AI Data Centre Investments Pressure Cash Flow"
-      ],
-      "source_headline": "Oracle to spend an additional US$700 million on more job cuts",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/oracle-spend-additional-us700-million-more-job-cuts",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T15:54:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/ORCL_2026-08-14",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-12T05:48:12Z",
-      "updated_at": "2026-09-13T17:31:23Z",
-      "decay_at": "2026-09-14T03:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5f98ab3738c2",
       "idea_version": "IDEAV-6e5ad6dd9e074794",
       "idea_version_started_at": "2026-09-13T17:31:23Z",
@@ -120484,6 +120410,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-41f871048ef0",
+      "idea_version": "IDEAV-33f778609792c7da",
+      "idea_version_started_at": "2026-09-13T17:31:23Z",
+      "ticker": "ORCL",
+      "company": "Oracle",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is incurring an additional $700 million in restructuring costs to fund aggressive AI data center capital expenditures, signaling margin pressure and potential cash flow constraints.",
+      "why_now": "The announcement of these specific, incremental restructuring charges was made on September 12, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-26ddad135b5c",
+        "EVT-3b03b0b0b122",
+        "EVT-6112b70ebfef"
+      ],
+      "primary_source_event_id": "EVT-26ddad135b5c",
+      "source_headlines": [
+        "Oracle to spend an additional US$700 million on more job cuts",
+        "Oracle to spend $700mn more on restructuring costs as it ramps up AI spending",
+        "Oracle To Spend $700 Million To Expand Job Cuts As AI Data Centre Investments Pressure Cash Flow"
+      ],
+      "source_headline": "Oracle to spend an additional US$700 million on more job cuts",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/oracle-spend-additional-us700-million-more-job-cuts",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T15:54:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/ORCL_2026-08-14",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-12T05:48:12Z",
+      "updated_at": "2026-09-13T17:31:23Z",
+      "decay_at": "2026-09-14T03:54:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6c411243ff00",
       "idea_version": "IDEAV-e63d21a8b1a1011e",
       "idea_version_started_at": "2026-09-12T01:49:08Z",
@@ -123557,9 +123556,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -123567,9 +123566,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -123588,6 +123587,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-41f871048ef0",
+        "idea_version": "IDEAV-33f778609792c7da",
+        "idea_version_started_at": "2026-09-13T17:31:23Z",
+        "ticker": "ORCL",
+        "company": "Oracle",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is incurring an additional $700 million in restructuring costs to fund aggressive AI data center capital expenditures, signaling margin pressure and potential cash flow constraints.",
+        "why_now": "The announcement of these specific, incremental restructuring charges was made on September 12, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-26ddad135b5c",
+          "EVT-3b03b0b0b122",
+          "EVT-6112b70ebfef"
+        ],
+        "primary_source_event_id": "EVT-26ddad135b5c",
+        "source_headlines": [
+          "Oracle to spend an additional US$700 million on more job cuts",
+          "Oracle to spend $700mn more on restructuring costs as it ramps up AI spending",
+          "Oracle To Spend $700 Million To Expand Job Cuts As AI Data Centre Investments Pressure Cash Flow"
+        ],
+        "source_headline": "Oracle to spend an additional US$700 million on more job cuts",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/oracle-spend-additional-us700-million-more-job-cuts",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T15:54:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/ORCL_2026-08-14",
+          "latest_decision": "Watchlist",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-12T05:48:12Z",
+        "updated_at": "2026-09-13T17:31:23Z",
+        "decay_at": "2026-09-14T03:54:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T03:54:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-cc2ba786d316c153",
@@ -160664,87 +160739,12 @@
         "archived_at": "2026-08-26T04:01:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-83741fd2591e",
-        "idea_version": "IDEAV-c6b66d0e8c72d50a",
-        "idea_version_started_at": "2026-08-23T04:34:35Z",
-        "ticker": "9001",
-        "company": "Tobu Railway",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A police search following a fatal express train accident creates significant operational and legal risk, likely leading to increased costs and reputational damage.",
-        "why_now": "The police search was reported on 2026-08-23.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9555495034fb"
-        ],
-        "primary_source_event_id": "EVT-9555495034fb",
-        "source_headlines": [
-          "Police search Tobu Railway group company over fatal express train accident"
-        ],
-        "source_headline": "Police search Tobu Railway group company over fatal express train accident",
-        "source_url": "https://english.kyodonews.net/articles/-/82857",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 89,
-        "newest_source_at": "2026-08-23T02:01:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T04:34:35Z",
-        "updated_at": "2026-08-23T04:34:35Z",
-        "decay_at": "2026-08-24T14:01:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T02:16:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 775,
-    "live_count": 55,
+    "live_count": 54,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -160763,9 +160763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 858,
-    "news_picked_today": 223,
-    "news_dropped_today": 635
+    "news_seen_today": 891,
+    "news_picked_today": 230,
+    "news_dropped_today": 661
   },
   "book_momentum": {
     "live_count": 8,
