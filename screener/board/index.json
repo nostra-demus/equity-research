@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T01:11:04Z",
+  "generated_at": "2026-09-14T01:21:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -246,6 +246,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-082",
+      "headline": "Crude Oil Prices Jump 3% After Fresh Strikes On Strait of Hormuz; Brent Above $107 A Barrel",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/crude-oil-prices-jump-3-after-fresh-strikes-on-strait-of-hormuz-brent-above-107-a-barrel-12042875#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:08:28Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Geopolitical escalation in the Strait of Hormuz causing a 3% jump in crude oil prices to $107.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Geopolitical escalation in the Strait of Hormuz causing a 3% jump in crude oil prices to $107.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -846,6 +889,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-081",
+      "headline": "Tata Sons listing to improve SP Group bond outlook; yields seen tightening",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/sp-group-bond-yields-set-to-tighten-as-tata-sons-listing-improves-repayment-visibility/articleshow/134229864.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:50:34Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Potential listing of Tata Sons is expected to improve the credit outlook and tighten yields for SP Group bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Potential listing of Tata Sons is expected to improve the credit outlook and tighten yields for SP Group bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "SP Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-049",
       "headline": "GNP: Genus Awarded Victorian BESS Project for Birdwood [price-sensitive]",
       "headline_en": null,
@@ -1437,31 +1534,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-051",
-      "headline": "Amazon Pauses Operations With 21 Air After Miami Crash",
+      "inbox_id": "INB-20260914-091",
+      "headline": "Amazon pauses 21 Air operations after Miami crash, WSJ reports",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/airlines/amazon-pauses-operations-with-21-air-after-miami-crash-3374b9ef?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.reuters.com/business/retail-consumer/amazon-pauses-21-air-operations-after-miami-crash-wsj-reports-2026-09-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:35:00Z",
+      "found_at": "2026-09-14T01:07:32Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Amazon paused operations with 21 Air following a crash, creating a localized operational disruption.",
+      "prelim_note": "Amazon paused 21 Air operations following a crash, impacting logistics capacity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 85,
-      "triage_reason": "Amazon paused operations with 21 Air following a crash, creating a localized operational disruption.",
+      "triage_reason": "Amazon paused 21 Air operations following a crash, impacting logistics capacity.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 6,
         "event": 2,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1530,6 +1627,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-086",
+      "headline": "SEBI tightens scrutiny of Wall Street giants operating in India",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/wealth/invest/sebi-tightens-scrutiny-of-wall-street-giants-operating-in-india/articleshow/134099760.cms",
+      "source_name": "The Economic Times Wealth",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Increased regulatory scrutiny by SEBI on foreign institutional investors operating in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Increased regulatory scrutiny by SEBI on foreign institutional investors operating in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1628,6 +1768,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-092",
+      "headline": "Sweden's centre-left bloc leads close election against right-wing government",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/swedes-vote-election-that-could-usher-far-right-into-government-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:06:59Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Election results in Sweden impact the political and economic landscape.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Election results in Sweden impact the political and economic landscape.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1775,202 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-027",
-      "headline": "P1E: Venus-2H Drilling Complete Dewatering & Flow Testing Next",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.P1E?key=2924-03135069-2A1696908",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:01:20Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Completion of drilling and transition to flow testing is a key operational milestone for an exploration company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Completion of drilling and transition to flow testing is a key operational milestone for an exploration company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "P1E",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-046",
-      "headline": "RNV: Change in substantial holding - J Chick",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RNV?key=2924-03135091-6A1343648",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Routine disclosure of a change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Routine disclosure of a change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RNV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-079",
-      "headline": "Hyundai Bets on U.S. Hybrids, Kia Drives European EV Exports",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276826",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T04:11:33Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Hyundai and Kia are adjusting their regional product strategies to align with shifting demand for hybrids in the US and EVs in Europe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Hyundai and Kia are adjusting their regional product strategies to align with shifting demand for hybrids in the US and EVs in Europe.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Kia",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-042",
-      "headline": "Oil prices jump more than 2% after new strikes on Saudi, Strait of Hormuz",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/oil-prices-jump-more-than-2-after-new-strikes-on-saudi-strait-of-hormuz",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:26:44Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Strikes on Saudi Arabia and the Strait of Hormuz create a major supply shock, causing oil prices to jump over 2%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Strikes on Saudi Arabia and the Strait of Hormuz create a major supply shock, causing oil prices to jump over 2%.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160615,9 +160602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 275,
-    "news_picked_today": 84,
-    "news_dropped_today": 191
+    "news_seen_today": 329,
+    "news_picked_today": 97,
+    "news_dropped_today": 232
   },
   "book_momentum": {
     "live_count": 8,
