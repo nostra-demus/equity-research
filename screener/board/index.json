@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T02:11:05Z",
+  "generated_at": "2026-09-14T02:21:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-137",
+      "headline": "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:15:23Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Dell's DFO Management is leading a $7.7 billion take-private acquisition of Baldwin Insurance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell's DFO Management is leading a $7.7 billion take-private acquisition of Baldwin Insurance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Baldwin Insurance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1037,6 +1086,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-132",
+      "headline": "Macquarie completes Maple InvIT stake buyout",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/macquarie-completes-maple-invit-stake-buyout/articleshow/134230644.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:04:58Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Macquarie completed a stake buyout in Maple InvIT, representing a confirmed transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Macquarie completed a stake buyout in Maple InvIT, representing a confirmed transaction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-125",
       "headline": "SoftBank Shares Slide 13% After AI Chiefs Sound Alarm on Safety",
       "headline_en": null,
@@ -1874,105 +1972,6 @@
           "name": "Revolut",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-075",
-      "headline": "BREAKING NEWS: Chubu Electric mishandled whistleblower reports on nuclear data: report",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/84932",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:39:59Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Chubu Electric is reported to have mishandled whistleblower reports regarding nuclear data, further damaging management credibility and regulatory standing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Chubu Electric is reported to have mishandled whistleblower reports regarding nuclear data, further damaging management credibility and regulatory standing.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chubu Electric Power",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-045",
-      "headline": "ASX opens flat, Woodside gains after Cutifani resigns",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-oil-above-us100-20260914-p60x0u?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:32:52Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Woodside Energy shares gained following the resignation of board member Mark Cutifani.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Woodside Energy shares gained following the resignation of board member Mark Cutifani.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woodside Energy",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -160766,9 +160765,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 526,
-    "news_picked_today": 151,
-    "news_dropped_today": 375
+    "news_seen_today": 553,
+    "news_picked_today": 159,
+    "news_dropped_today": 394
   },
   "book_momentum": {
     "live_count": 8,
