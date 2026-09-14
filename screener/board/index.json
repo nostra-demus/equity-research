@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T09:16:02Z",
+  "generated_at": "2026-09-14T09:21:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-313",
@@ -242,6 +242,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-319",
+      "headline": "UAE’s Space42 and Viasat commit up to $1 billion to launch Equatys for global direct-to-device connectivity",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/uaes-space42-and-viasat-commit-up-to-1-billion-to-launch-equatys-for-global-direct-to-device-connectivity/?utm_source=rss&utm_medium=rss&utm_campaign=uaes-space42-and-viasat-commit-up-to-1-billion-to-launch-equatys-for-global-direct-to-device-connectivity",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T09:01:19Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Space42 and Viasat are committing $1 billion to launch a new joint venture for connectivity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Space42 and Viasat are committing $1 billion to launch a new joint venture for connectivity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viasat",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Space42",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +2006,6 @@
           "name": "Z.ai",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-146",
-      "headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260914002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T02:22:18Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Samsung Heavy Industries secured a 1.6 trillion won order for 6 vessels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Samsung Heavy Industries secured a 1.6 trillion won order for 6 vessels.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Heavy Industries",
-          "ticker": "010140",
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -161726,9 +161732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8931,
-    "news_picked_today": 729,
-    "news_dropped_today": 2062
+    "news_seen_today": 9795,
+    "news_picked_today": 735,
+    "news_dropped_today": 2080
   },
   "book_momentum": {
     "live_count": 8,
