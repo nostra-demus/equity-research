@@ -1,0 +1,36 @@
+{
+  "schema_version": "qualified-idea-admission/v1",
+  "admission_id": "AKAM-2026-09-14-3-6m|ed660739852f813a",
+  "status": "not_applicable",
+  "run_root": "analyses/AKAM_2026-09-14",
+  "frozen_at": "2026-09-14T13:55:04.702687Z",
+  "assessment": {
+    "schema_version": "idea-assessment/v1",
+    "assessment_id": "AKAM-2026-09-14-3-6m",
+    "run_root": "analyses/AKAM_2026-09-14",
+    "created_at": "2026-09-14T13:53:36Z",
+    "ticker": "AKAM",
+    "company": "Akamai Technologies, Inc.",
+    "status": "not_assessable",
+    "gaps": [
+      "Canonical market evidence is unavailable: no unambiguous provider-bound equity history for AKAM (history_missing).",
+      "decision_record.idea_valuation_bridge is null, so the 365-day source scenarios cannot be projected into a 90–183 day holding window."
+    ],
+    "candidate": null
+  },
+  "assessment_sha256": "ed660739852f813a26f31e8ad7d9c911034c95caf38222b7446e27cd93777dff",
+  "candidate": null,
+  "candidate_sha256": null,
+  "decision_authority": null,
+  "decision_authority_sha256": null,
+  "market_evidence_sha256": null,
+  "market_evidence": null,
+  "projection_manifest_sha256": "38771e5ce63f032220eb65dd026c25af6e9e7f5fde3ed9c975e1955c1f5e6253",
+  "integrity_evidence": null,
+  "integrity_evidence_sha256": null,
+  "gaps": [
+    "Canonical market evidence is unavailable: no unambiguous provider-bound equity history for AKAM (history_missing).",
+    "decision_record.idea_valuation_bridge is null, so the 365-day source scenarios cannot be projected into a 90–183 day holding window."
+  ],
+  "admission_sha256": "4400b729fb9bd2443bd5b184f98ddb6f1cc874536db755faade0e5b0aade4053"
+}
