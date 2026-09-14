@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T08:50:15Z",
+  "generated_at": "2026-09-14T08:56:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -964,6 +964,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-311",
+      "headline": "Space42, Viasat Agree To Co-found Equatys With $1 Bln Commitment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/space42-viasat-agree-co-found-equatys-1-bln-commitment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T06:29:37Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Space42 and Viasat to co-found Equatys with a 1 billion USD commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Space42 and Viasat to co-found Equatys with a 1 billion USD commitment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Space42",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "Viasat",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-218",
       "headline": "Viasat, UAE's Space42 commit up to $1 billion to satellite connectivity venture",
       "headline_en": null,
@@ -1910,99 +1965,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-271",
-      "headline": "Uniper to Sell Stake in Opal Gas Pipe to Meet EU Bailout Demands",
+      "inbox_id": "INB-20260914-312",
+      "headline": "AstraZeneca: SERENA-4 Trial Of Etcamah Palbociclib Combination Fails To Meet Primary Objective",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-14/uniper-to-sell-stake-in-opal-gas-pipe-to-meet-eu-bailout-demands",
-      "source_name": "Bloomberg",
+      "url": "https://www.nasdaq.com/articles/astrazeneca-serena-4-trial-etcamah-palbociclib-combination-fails-meet-primary-objective",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-14T07:08:11Z",
+      "found_at": "2026-09-14T06:34:03Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Uniper is divesting a stake in the Opal gas pipeline to comply with EU state aid requirements.",
+      "prelim_note": "AstraZeneca's SERENA-4 trial failed to meet its primary objective, impacting drug development pipeline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Uniper is divesting a stake in the Opal gas pipeline to comply with EU state aid requirements.",
+      "triage_score": 97,
+      "triage_reason": "AstraZeneca's SERENA-4 trial failed to meet its primary objective, impacting drug development pipeline.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uniper",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-213",
-      "headline": "Z.ai shares tumble 10% after $5 billion fundraising plan",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/z-ai-share-price-tumbles-after-usd-5-billion-fundraising-plan-19990203.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:17:29Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Z.ai shares fell 10% following the announcement of a $5 billion fundraising plan, suggesting significant dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Z.ai shares fell 10% following the announcement of a $5 billion fundraising plan, suggesting significant dilution.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "mega"
       },
       "event_types": [
-        "capital_actions"
+        "product"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Z.ai",
+          "name": "AstraZeneca",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161726,9 +161732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5482,
-    "news_picked_today": 700,
-    "news_dropped_today": 1875
+    "news_seen_today": 6159,
+    "news_picked_today": 709,
+    "news_dropped_today": 1914
   },
   "book_momentum": {
     "live_count": 8,
