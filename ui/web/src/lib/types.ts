@@ -2176,8 +2176,14 @@ export interface PortfolioPosition {
   unrealizedLocal: number | null
   fxRateToBase: number | null
   multiplier: number | null
-  /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
+  /** Held against margin — futures, CFDs, future-style options — so never weighted like equity. Its value is a
+   *  future's notional exposure or a future-style option's premium, not a NAV allocation. */
   isDerivative: boolean
+  /** The contract's terms where it has them: expiry, strike and right. Two contracts sharing a symbol differ
+   *  here. Optional for an engine that predates them (DESIGN.md §5). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 export interface PortfolioClosure {
   symbol: string | null
@@ -2209,6 +2215,13 @@ export interface PortfolioClosure {
   /** The contract's history is only partly covered, so FIFO may have matched the wrong opening lot and
    *  realised is unproven. Optional for the same reason (DESIGN.md §5). */
   partialHistory?: boolean
+  /** The contract the round trip was in: the engine's position key, one per contract however many share a
+   *  symbol. Optional for an engine that predates it, whose round trips then fold by symbol (DESIGN.md §5). */
+  key?: string
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 
 /** One broker execution — every buy and sell the statements carry, open positions included. The round
@@ -2219,6 +2232,9 @@ export interface PortfolioExecution {
   /** Contract identity: one position per key, however many contracts share a symbol. */
   key: string
   symbol: string | null
+  /** The broker's asset category (STK, FUT, FSOPT…), which says what `value` measures. Optional for an engine
+   *  that predates it (DESIGN.md §5). */
+  assetCategory?: string | null
   currency: string | null
   executedAt: string | null
   side: 'buy' | 'sell'
@@ -2243,16 +2259,21 @@ export interface PortfolioExecution {
   costsUnknown: boolean
   /** A blank open/close flag made the engine infer the position this fill opened. */
   inferred: boolean
-  /** Quantity × price × multiplier is notional exposure, not cash (futures and the like). */
+  /** Held against margin (futures, CFDs, future-style options): quantity × price × multiplier is not cash. */
   isDerivative: boolean
-  /** What the fill was worth in its own currency: the broker's proceeds for a cash instrument, notional for
-   *  a derivative. Null when neither can be established (a bond with no proceeds is never guessed). */
+  /** What the fill was worth in its own currency: the broker's proceeds for a cash instrument; for a contract held
+   *  against margin, quantity × price × multiplier — a future's notional, a future-style option's premium. Null
+   *  when neither can be established (a bond with no proceeds is never guessed). */
   value: number | null
   /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
   partialHistory: boolean
   /** Whether the contract is held now, anchored to the broker's snapshot. Positive match only: absent means the
    *  screen falls back to the rebuilt position (DESIGN.md §5). */
   openNow?: boolean
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 
 export interface PortfolioBook {

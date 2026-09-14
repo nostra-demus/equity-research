@@ -5,7 +5,7 @@
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { PortfolioBook, PortfolioClosure, PortfolioManualRead } from '../../lib/types'
+import type { PortfolioBook, PortfolioClosure, PortfolioExecution, PortfolioManualRead, PortfolioPosition } from '../../lib/types'
 import { Holdings, Trades } from './PortfolioStage'
 
 // One FIFO lot, closed, in the shape the engine sends.
@@ -80,6 +80,53 @@ check('each bar and each currency row carries the qualifiers of its own trades, 
 check('the NAV bridge carries them on realised', () => {
   const html = holdingsHtml(book([clean, partial, blankCost]))
   assert.deepEqual(tags(piece(html, 'fundbook__bridge', 'Realised on closed trades')), { unproven: true, costUnknown: true })
+})
+
+// ---- derivatives: which contract, and what its value measures ----
+
+const execution = (o: Partial<PortfolioExecution> & { id: string; key: string }): PortfolioExecution => ({
+  symbol: 'CL', currency: 'USD', executedAt: '2026-01-06T10:00:00', side: 'buy', quantity: 1, price: 70, multiplier: 1000,
+  commission: -2, positionBefore: 0, positionAfter: 1, effect: 'open', openedQuantity: 1, stillOpen: 1, unmatchedQuantity: 0,
+  realizedLocal: null, costsUnknown: false, inferred: false, isDerivative: true, value: 70000, partialHistory: false, openNow: true,
+  assetCategory: 'FUT', ...o,
+})
+const fillRow = (html: string, name: string) => piece(html, 'fundbook__row fundbook__row--fills"', name)
+
+check('each derivative fill names its contract, and the filter offers each contract on its own', () => {
+  const html = tradesHtml({ ...book([]), executions: [
+    execution({ id: 'F1', key: 'k:mar', expiry: '2026-03-20' }),
+    execution({ id: 'F2', key: 'k:jun', expiry: '2026-06-22', executedAt: '2026-01-07T10:00:00' }),
+  ] })
+  assert.match(fillRow(html, '2026-03-20'), /CL<small class="fundbook__lots">2026-03-20<\/small>/)
+  assert.match(fillRow(html, '2026-06-22'), /CL<small class="fundbook__lots">2026-06-22<\/small>/)
+  assert.match(html, /<option value="k:mar">CL 2026-03-20 · 1 fill · held<\/option>/)
+  assert.match(html, /<option value="k:jun">CL 2026-06-22 · 1 fill · held<\/option>/)
+})
+
+check('a future-style option\u2019s value is labelled premium, and a future\u2019s notional', () => {
+  const html = tradesHtml({ ...book([]), executions: [
+    execution({ id: 'F1', key: 'k:fut', expiry: '2026-03-20' }),
+    execution({ id: 'O1', key: 'k:opt', assetCategory: 'FSOPT', expiry: '2026-03-17', strike: 75, putCall: 'C', quantity: 2, price: 3, value: 6000 }),
+  ] })
+  assert.match(fillRow(html, '75 C 2026-03-17'), />premium</)
+  assert.doesNotMatch(fillRow(html, '75 C 2026-03-17'), />notional</)
+  assert.match(fillRow(html, '>2026-03-20<'), />notional</)
+})
+
+check('a round trip names its contract too', () => {
+  const html = tradesHtml(book([closure({ symbol: 'CL', key: 'k:mar', expiry: '2026-03-20', closeTradeID: 'C9' })]))
+  assert.match(piece(html, 'fundbook__row fundbook__row--trades"', 'CL'), /CL<small class="fundbook__lots">2026-03-20<\/small>/)
+})
+
+check('a future-style option held names its contract, and its value is premium, not notional', () => {
+  const option: PortfolioPosition = {
+    symbol: 'CL', conid: null, assetCategory: 'FSOPT', subCategory: null, currency: 'USD', quantity: 2, markPrice: 3,
+    costBasisPrice: 2.5, costBasisMoney: 5000, positionValue: 6000, percentOfNAV: null, unrealizedLocal: 1000,
+    fxRateToBase: 1, multiplier: 1000, isDerivative: true, expiry: '2026-03-17', strike: 75, putCall: 'C',
+  }
+  const row = piece(holdingsHtml({ ...book([]), positions: [option] }), 'fundbook__row"', '75 C 2026-03-17')
+  assert.match(row, />premium</)
+  assert.doesNotMatch(row, />notional</)
 })
 
 console.log(`PortfolioStage: ${passed} passed`)

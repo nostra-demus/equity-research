@@ -3,7 +3,7 @@
 // presentation — every total must survive it untouched.
 // Run: npx tsx src/components/portfolio/tradeRows.test.ts
 import assert from 'node:assert/strict'
-import { fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, fillsOutsideBase, foldRoundTrips, groupByIdea } from './tradeRows'
+import { contractTerms, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills, fillsOutsideBase, foldRoundTrips, groupByIdea } from './tradeRows'
 import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 let passed = 0
@@ -18,7 +18,7 @@ let seq = 0
 function closure(o: Partial<PortfolioClosure> & { quantity: number; realizedBase: number }): PortfolioClosure {
   seq += 1
   return {
-    key: `k${seq}`, symbol: 'SGOV', assetCategory: 'STK', currency: 'USD', side: 'long',
+    key: `conid:${o.symbol ?? 'SGOV'}`, symbol: 'SGOV', assetCategory: 'STK', currency: 'USD', side: 'long',
     entryPrice: 100, exitPrice: 101, openedAt: '2026-05-04', closedAt: '2026-08-21',
     holdingDays: 109, realizedLocal: o.realizedBase, grossLocal: o.realizedBase, commissionLocal: 0,
     openFxRateToBase: 1, closeFxRateToBase: 1, closeTradeID: `t${seq}`,
@@ -382,7 +382,8 @@ check('two contracts sharing a symbol keep separate histories', () => {
     fill({ id: 'marx', symbol: 'CL', key: 'conid:10', executedAt: '2026-02-05T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
     fill({ id: 'jun', symbol: 'CL', key: 'conid:11', executedAt: '2026-02-06T10:00:00' }),
   ])
-  assert.deepEqual(filterFills(rows, 'open', 'CL').map((r) => r.id), ['jun'])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['jun'])
+  assert.deepEqual(filterFills(rows, 'all', 'conid:10').map((r) => r.id), ['marx', 'mar'], 'and picking one contract shows only its fills')
 })
 
 check('the name filter and the scope compose', () => {
@@ -390,8 +391,8 @@ check('the name filter and the scope compose', () => {
     fill({ id: 'g', executedAt: '2026-05-15T10:00:00' }),
     fill({ id: 'n', symbol: 'NHYDY', key: 'conid:5', executedAt: '2026-07-22T10:00:00' }),
   ])
-  assert.deepEqual(filterFills(rows, 'all', 'NHYDY').map((r) => r.id), ['n'])
-  assert.deepEqual(filterFills(rows, 'open', 'GLDM').map((r) => r.id), ['g'])
+  assert.deepEqual(filterFills(rows, 'all', 'conid:5').map((r) => r.id), ['n'])
+  assert.deepEqual(filterFills(rows, 'open', 'conid:1').map((r) => r.id), ['g'])
 })
 
 check('a buy reads as held, partly sold or sold from what is still open', () => {
@@ -427,7 +428,7 @@ check('the name list marks which names are still held', () => {
     fill({ id: 'c1', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-07T10:00:00' }),
     fill({ id: 'c2', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-20T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
   ])
-  assert.deepEqual(fillSymbols(rows), [{ symbol: 'CANE', fills: 2, held: false }, { symbol: 'GLDM', fills: 1, held: true }])
+  assert.deepEqual(fillNames(rows), [{ key: 'conid:3', label: 'CANE', fills: 2, held: false }, { key: 'conid:1', label: 'GLDM', fills: 1, held: true }])
 })
 
 check('a flip starts a new position: the long it closed is history', () => {
@@ -522,6 +523,47 @@ check('a round trip resting on partial history carries the count, and so does it
   ])
   assert.equal(rows[0]!.partial, 1)
   assert.equal(groupByIdea(rows, ideaBook([['t', 'T-bills']], { a: 't', b: 't' }))[0]!.partial, 1)
+})
+
+// ---- which contract, and what its value measures ----
+
+check('two contracts sharing a symbol are two entries in the name list, each labelled by its terms', () => {
+  // Two expiries of one future: one entry for the symbol merged them in the filter the engine keeps apart.
+  const rows = fillRows([
+    fill({ id: 'mar', symbol: 'CL', key: 'k:mar', executedAt: '2026-01-05T10:00:00', expiry: '2026-03-20', isDerivative: true }),
+    fill({ id: 'jun', symbol: 'CL', key: 'k:jun', executedAt: '2026-01-06T10:00:00', expiry: '2026-06-22', isDerivative: true }),
+  ])
+  assert.deepEqual(fillNames(rows).map((n) => [n.key, n.label]), [['k:mar', 'CL 2026-03-20'], ['k:jun', 'CL 2026-06-22']])
+  assert.deepEqual(filterFills(rows, 'all', 'k:jun').map((r) => r.id), ['jun'])
+})
+
+check('one symbol listed in two currencies is told apart by currency', () => {
+  const rows = fillRows([
+    fill({ id: 'l', symbol: 'SHEL', key: 'conid:20', currency: 'GBP', executedAt: '2026-01-05T10:00:00' }),
+    fill({ id: 'n', symbol: 'SHEL', key: 'conid:21', executedAt: '2026-01-06T10:00:00' }),
+  ])
+  assert.deepEqual(fillNames(rows).map((n) => n.label), ['SHEL GBP', 'SHEL USD'])
+})
+
+check('a contract\u2019s terms: strike and right for an option, expiry for either, nothing for a stock', () => {
+  assert.equal(contractTerms({ expiry: '2026-03-20', strike: null, putCall: null }), '2026-03-20')
+  assert.equal(contractTerms({ expiry: '2026-03-17', strike: 75, putCall: 'C' }), '75 C 2026-03-17')
+  assert.equal(contractTerms({ expiry: '2026-09-18', strike: 152.5, putCall: 'PUT' }), '152.5 P 2026-09-18')
+  assert.equal(contractTerms({}), null, 'a stock, or an engine that predates the terms, names nothing')
+})
+
+check('a future\u2019s value is its notional, a future-style option\u2019s its premium', () => {
+  assert.deepEqual(['FUT', 'CFD', 'FSOPT', 'FSFOP', null].map((c) => derivativeValueWord(c)), ['notional', 'notional', 'premium', 'premium', 'notional'])
+})
+
+check('round trips in two contracts sharing a symbol and dates stay two rows', () => {
+  // Two expiries of one future, opened and closed on the same days. Folded on the symbol they became one row of
+  // twice the size, priced across two different contracts.
+  const rows = foldRoundTrips([
+    closure({ symbol: 'CL', key: 'k:mar', quantity: 1, realizedBase: 2000, closeTradeID: 'a', expiry: '2026-03-20' }),
+    closure({ symbol: 'CL', key: 'k:jun', quantity: 1, realizedBase: -500, closeTradeID: 'b', expiry: '2026-06-22' }),
+  ])
+  assert.deepEqual(rows.map((r) => [r.terms, r.realized]).sort(), [['2026-03-20', 2000], ['2026-06-22', -500]])
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

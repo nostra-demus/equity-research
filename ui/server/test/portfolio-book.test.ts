@@ -1032,5 +1032,57 @@ check('a fill executed on the snapshot day but booked to the next one is after t
 })
 
 
+// ---------- review round 7: a restatement after the snapshot, and the contract behind each fill ----------
+
+// A 2:1 split restates the buy of 100 XSP as 200. `buyXsp` is the original, as the statements first carried it.
+const buyXsp = { ...doc.trades[0]!, tradeID: 'A1', transactionID: 'AX1', symbol: 'XSP', conid: '913', quantity: 100, tradePrice: 10, proceeds: -1000, openCloseIndicator: 'O', tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', levelOfDetail: 'EXECUTION' }
+const xspHeld = (position: number) => ({ ...doc.openPositions[0]!, symbol: 'XSP', conid: '913', position, positionValue: position * 10, costBasisMoney: 1000 })
+// A later Trades-only export: the split-restated buy, then a sale of the 200 after the split.
+const afterSplit = (fromDate: string) => ({
+  ...doc, fromDate, toDate: '2026-06-30', whenGenerated: '20260701;120000',
+  sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+  trades: [
+    { ...buyXsp, tradeID: 'A2', transactionID: 'AX2', quantity: 200, tradePrice: 5, origTradeID: 'A1', origTransactionID: 'AX1' },
+    { ...buyXsp, tradeID: 'A3', transactionID: 'AX3', quantity: -200, tradePrice: 6, proceeds: 1200, openCloseIndicator: 'C', tradeDate: '2026-03-10', dateTime: '2026-03-10T10:00:00' },
+  ],
+})
+const xspFills = (b: ReturnType<typeof buildBook>) => b.executions.filter((e) => e.symbol === 'XSP').map((e) => [e.id, e.quantity, e.partialHistory, e.openNow])
+
+check('a restatement after the snapshot rebases it, so selling the restated shares leaves nothing held', () => {
+  // The snapshot's own statement lists the buy of 100 and holds 100, so it counts pre-split shares. The restated
+  // 200 is the same holding: established, and the sale of the 200 after the split leaves nothing, not -100.
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, buyXsp] }, afterSplit('2026-01-05') as typeof doc])
+  assert.deepEqual(xspFills(b), [['A2', 200, false, false], ['A3', 200, false, false]])
+})
+
+check('a snapshot that may already count a restatement is not rebased by it a second time', () => {
+  // Only an OLDER statement lists the buy of 100. The snapshot's statement, taken after the split, holds 200 and
+  // lists neither version, so nothing says it counted the old shares: it stands as the broker stated it.
+  const older = { ...doc, trades: [...doc.trades, buyXsp], openPositions: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'OpenPositions') }
+  const snapshot = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-02-28', whenGenerated: '20260301;120000',
+    trades: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null, openPositions: [...doc.openPositions, xspHeld(200)],
+  }
+  const b = buildBook([older, snapshot, afterSplit('2026-03-01') as typeof doc])
+  assert.deepEqual(xspFills(b), [['A2', 200, false, false], ['A3', 200, false, false]])
+})
+
+check('a derivative fill and its round trip name the contract: expiry, strike and right travel with them', () => {
+  // Two expiries of one future and an option on it, all under the symbol CL and with no conid. The engine keeps
+  // three positions; the screen can only tell them apart if each fill and round trip carries what separates them.
+  const cl = { ...doc.trades[0]!, conid: null, symbol: 'CL', assetCategory: 'FUT', multiplier: 1000, proceeds: 0, levelOfDetail: 'EXECUTION', tradeDate: '2026-01-06', dateTime: '2026-01-06T10:00:00', strike: null, putCall: null }
+  const { executions, closures } = runFifo([
+    { ...cl, tradeID: 'F1', transactionID: 'FX1', quantity: 1, tradePrice: 70, openCloseIndicator: 'O', expiry: '2026-03-20' },
+    { ...cl, tradeID: 'F2', transactionID: 'FX2', quantity: 1, tradePrice: 71, openCloseIndicator: 'O', expiry: '2026-06-22' },
+    { ...cl, tradeID: 'F3', transactionID: 'FX3', quantity: -1, tradePrice: 72, openCloseIndicator: 'C', expiry: '2026-03-20', tradeDate: '2026-01-07', dateTime: '2026-01-07T10:00:00' },
+    { ...cl, tradeID: 'O1', transactionID: 'OX1', assetCategory: 'FSOPT', quantity: 2, tradePrice: 3, openCloseIndicator: 'O', expiry: '2026-03-17', strike: 75, putCall: 'C' },
+  ])
+  assert.deepEqual(executions.map((e) => [e.id, e.expiry, e.strike, e.putCall]),
+    [['F1', '2026-03-20', null, null], ['F2', '2026-06-22', null, null], ['O1', '2026-03-17', 75, 'C'], ['F3', '2026-03-20', null, null]])
+  assert.equal(new Set(executions.map((e) => e.key)).size, 3, 'three contracts, three positions')
+  assert.deepEqual(closures.map((c) => [c.closeTradeID, c.expiry, c.strike, c.putCall]), [['F3', '2026-03-20', null, null]])
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

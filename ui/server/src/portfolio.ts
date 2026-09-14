@@ -94,6 +94,11 @@ export interface BookClosure {
    *  BookExecution.partialHistory): FIFO may have matched the sale against the wrong opening lot, so its
    *  realised is unproven. Set by buildBook; runFifo alone leaves it false. */
   partialHistory: boolean
+  /** What tells this contract from another sharing its symbol — expiry for a future or option, strike and right
+   *  for an option — as the closing fill carries them. Null for a stock. */
+  expiry: string | null
+  strike: number | null
+  putCall: string | null
 }
 
 /** One broker execution, exactly as the lot engine applied it — the fund's trade blotter.
@@ -115,6 +120,12 @@ export interface BookExecution {
    *  period, and so its position snapshot, counts fills by this day — and an overnight-session fill executed
    *  in the evening is booked to the next one. */
   tradeDate: string | null
+  /** The contract's terms: expiry for a future or option, strike and right for an option. Two expiries of one
+   *  future share a symbol and are still two positions (the engine keys them apart), so without these the
+   *  screen shows two different contracts as one. Null for a stock. */
+  expiry: string | null
+  strike: number | null
+  putCall: string | null
   /** From the SIGN of the quantity, which is what the book acts on — not the free-text buySell label. */
   side: 'buy' | 'sell'
   /** ABSOLUTE size. The direction is in `side`. */
@@ -148,13 +159,15 @@ export interface BookExecution {
    *  explicit O or C is the broker's own word and is never inferred; an add to the side already held is
    *  consistent with the position either way. */
   inferred: boolean
-  /** Futures and similar contracts: quantity × price × multiplier is notional exposure, not cash. The same
-   *  rule the positions use (isDerivativeCategory). */
+  /** Held against margin — futures, CFDs, future-style options — by the rule the positions use
+   *  (isDerivativeCategory): quantity × price × multiplier is not cash that changed hands. For a future or CFD it
+   *  is the notional exposure; for a future-style option, whose price is its premium, it is the premium. */
   isDerivative: boolean
   /** What the fill was worth, in its own currency. For a cash instrument, the money that changed hands
    *  before costs: the broker's own proceeds. A bond or bill is priced as a percentage of par, so
-   *  quantity × price would overstate it about a hundredfold. For a derivative, its notional exposure,
-   *  since no cash moved. Null when neither can be established. */
+   *  quantity × price would overstate it about a hundredfold. For a contract held against margin, quantity ×
+   *  price × multiplier, since no cash moved: a future's notional exposure, a future-style option's premium.
+   *  Null when neither can be established. */
   value: number | null
   /** True when these statements do not cover this contract's whole history, so what its fills did to the
    *  position is reconstructed rather than established. Set by buildBook, which holds the broker's
@@ -466,6 +479,9 @@ export function runFifo(
           closeTradeID: t.tradeID ?? t.transactionID,
           costsUnknown: legCostUnknown,
           partialHistory: false,
+          expiry: t.expiry,
+          strike: t.strike,
+          putCall: t.putCall,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched
@@ -519,6 +535,9 @@ export function runFifo(
       currency: t.currency,
       executedAt: t.dateTime ?? t.tradeDate,
       tradeDate: t.tradeDate ?? (t.dateTime ? t.dateTime.slice(0, 10) : null),
+      expiry: t.expiry,
+      strike: t.strike,
+      putCall: t.putCall,
       side: qty > 0 ? 'buy' : 'sell',
       quantity: Math.abs(qty),
       price,
@@ -973,18 +992,52 @@ export function buildBook(documents: FlexDocument[]): Book {
       for (let next = replacedBy[id]; next && !coveredIds.has(next); next = replacedBy[next]) coveredIds.add(next)
     }
     const snapshotDay = positionSource.toDate
+    // A RESTATEMENT AFTER THE SNAPSHOT CAN CHANGE ITS UNITS. A split restates every earlier fill onto the new share
+    // count, so a snapshot taken before it holds 100 where the restated fills rebuild 200, and a sale of the 200
+    // afterwards left the broker "holding" -100. Where the snapshot's own statement lists the version a later
+    // export restated, the snapshot was taken on that version, so it is rebased by the difference, onto the
+    // contract the restatement names. Where its statement lists no version, nothing says which one the snapshot
+    // counted, so it stands as the broker stated it and a real difference shows as partial history. An older
+    // statement listing the old version is no evidence: the snapshot may have been taken after the split.
+    const listedBySnapshot = new Map<string, FlexTrade>()
+    for (const t of positionSource.trades) {
+      if (t.levelOfDetail && t.levelOfDetail.toUpperCase() !== 'EXECUTION') continue
+      const id = t.tradeID ?? t.transactionID
+      if (id) listedBySnapshot.set(id, t)
+    }
+    const replaces = new Map<string, string[]>()
+    for (const [original, replacement] of Object.entries(replacedBy)) replaces.set(replacement, [...(replaces.get(replacement) ?? []), original])
+    const base = new Map(held)
+    for (const e of executions) {
+      if (e.id === null || listedBySnapshot.has(e.id)) continue
+      // Back through the restatement chain to the version the snapshot's statement listed, if it listed one.
+      let was: FlexTrade | undefined
+      const queue = [...(replaces.get(e.id) ?? [])]
+      const visited = new Set<string>()
+      while (was === undefined && queue.length > 0) {
+        const id = queue.shift()!
+        if (visited.has(id)) continue
+        visited.add(id)
+        was = listedBySnapshot.get(id)
+        if (was === undefined) queue.push(...(replaces.get(id) ?? []))
+      }
+      if (was === undefined || was.quantity === null) continue
+      const wasKey = positionKey(was)
+      base.set(wasKey, (base.get(wasKey) ?? 0) - was.quantity)
+      base.set(e.key, (base.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
+    }
     const rebuilt = new Map<string, number>()
-    // What the broker holds NOW: its snapshot plus every fill after it, which move the real position whatever
-    // the engine could match. Open positions reads this rather than the rebuilt position, so a contract held
-    // since before the statements is never reported closed.
-    const now = new Map(held)
+    // What the broker holds NOW: its snapshot, in the units of the restated fills, plus every fill after it,
+    // which move the real position whatever the engine could match. Open positions reads this rather than the
+    // rebuilt position, so a contract held since before the statements is never reported closed.
+    const now = new Map(base)
     for (const e of executions) {
       const covered = (e.id !== null && coveredIds.has(e.id)) || (snapshotDay !== null && (e.tradeDate ?? '') <= snapshotDay)
       if (covered) rebuilt.set(e.key, e.positionAfter)
       else now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
     }
-    for (const key of new Set([...held.keys(), ...rebuilt.keys()])) {
-      if (Math.abs((rebuilt.get(key) ?? 0) - (held.get(key) ?? 0)) > EPS) partialKeys.add(key)
+    for (const key of new Set([...base.keys(), ...rebuilt.keys()])) {
+      if (Math.abs((rebuilt.get(key) ?? 0) - (base.get(key) ?? 0)) > EPS) partialKeys.add(key)
     }
     for (const e of executions) e.openNow = Math.abs(now.get(e.key) ?? 0) > EPS
   }

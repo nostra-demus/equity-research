@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, fillsOutsideBase, foldRoundTrips,
-  type FillRow, type FillScope, type TradeRowData,
+  contractTerms, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills,
+  fillsOutsideBase, foldRoundTrips, type FillRow, type FillScope, type TradeRowData,
 } from './tradeRows'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
@@ -598,7 +598,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
           )}
           {derivatives.length > 0 && (
             <>
-              <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, so these carry no weight</div>
+              <div className="fundbook__subhead">Derivatives — held against <b>margin</b>, so these carry no weight</div>
               {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} derivative />)}
             </>
           )}
@@ -827,7 +827,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
       <div className="fundbook__foot">
         No sector split: the statement carries an asset category and a sub-category and nothing else, and
         a sector guessed from a ticker would be an invention wearing the broker&rsquo;s authority.
-        {derivatives.length > 0 && ' Futures are excluded — notional is exposure against margin, not a share of NAV.'}
+        {derivatives.length > 0 && ' Derivatives are excluded — they are held against margin, so their value is not a share of NAV.'}
       </div>
     </div>
   )
@@ -902,6 +902,8 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
   p: PortfolioPosition; derivative?: boolean; isCash?: boolean
   ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
 }) {
+  // Two contracts sharing a symbol (two futures expiries) are told apart only by their terms.
+  const terms = contractTerms(p)
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
       {/* Symbol and idea on ONE line. Stacked, the picker added 22px to every assignable row (57px
@@ -909,6 +911,7 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
           the cash-equivalent rows visibly short. Inline, every row is the same height again. */}
       <strong className="mono fundbook__symcell">
         <span>{p.symbol ?? '—'}</span>
+        {terms && <small className="fundbook__lots">{terms}</small>}
         {ideas && !isCash && !derivative && p.symbol && (
           <IdeaPicker symbol={p.symbol} ideas={ideas} onChanged={onChanged} />
         )}
@@ -917,7 +920,7 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
       <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
       <span className="num">{fmtNum(p.markPrice)}</span>
-      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">notional</small>}</span>
+      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
       <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
       <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
       {/* Against COST, not against market value: the question is what this position has returned on the
@@ -1664,12 +1667,13 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
  *  it, so "did we buy more, and when" is one filter away. */
 function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecution[] | undefined; baseCurrency: string | null }) {
   const [scope, setScope] = useState<FillScope>('all')
-  const [symbol, setSymbol] = useState<string | null>(null)
+  const [picked, setPicked] = useState<string | null>(null)
   const rows = useMemo(() => fillRows(executions ?? []), [executions])
-  const symbols = useMemo(() => fillSymbols(rows), [rows])
+  // One entry per CONTRACT: two futures expiries share a symbol and are still two positions.
+  const names = useMemo(() => fillNames(rows), [rows])
   // A name picked before a re-import that no longer carries it would filter to nothing, silently.
-  const active = symbol !== null && symbols.some((s) => s.symbol === symbol) ? symbol : null
-  const shown = useMemo(() => filterFills(rows, scope, active), [rows, scope, active])
+  const active = names.find((n) => n.key === picked) ?? null
+  const shown = useMemo(() => filterFills(rows, scope, active?.key ?? null), [rows, scope, active])
   const summary = useMemo(() => fillSummary(shown), [shown])
   // Every figure in the table is in the trade's own currency, while the cards and round trips beside it
   // are in the base. Say so whenever any fill is not in the base, not only when the fills mix currencies.
@@ -1690,10 +1694,10 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
               <button type="button" className={`fundbook__range${scope === 'open' ? ' is-on' : ''}`} aria-pressed={scope === 'open'} onClick={() => setScope('open')}
                 title="Only the fills of positions still open, each since it was opened">Open positions</button>
             </div>
-            <select className="fundbook__select" aria-label="Show one name" value={active ?? ''} onChange={(e) => setSymbol(e.target.value || null)}>
+            <select className="fundbook__select" aria-label="Show one name" value={active?.key ?? ''} onChange={(e) => setPicked(e.target.value || null)}>
               <option value="">All names</option>
-              {symbols.map((s) => (
-                <option key={s.symbol} value={s.symbol}>{`${s.symbol} · ${plural(s.fills, 'fill')}${s.held ? ' · held' : ''}`}</option>
+              {names.map((n) => (
+                <option key={n.key} value={n.key}>{`${n.label} · ${plural(n.fills, 'fill')}${n.held ? ' · held' : ''}`}</option>
               ))}
             </select>
           </div>
@@ -1706,14 +1710,14 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
         <div className="fundbook__none">These statements carry no trades.</div>
       ) : shown.length === 0 ? (
         <div className="fundbook__none">
-          {active ? `${active} has no open position` : 'No position is open'} — choose All to see {active ? 'its' : 'every'} trade{active ? 's' : ''}.
+          {active ? `${active.label} has no open position` : 'No position is open'} — choose All to see {active ? 'its' : 'every'} trade{active ? 's' : ''}.
         </div>
       ) : (
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--fills fundbook__row--head">
             <span>Date</span><span>Symbol</span><span>Ccy</span><span>Trade</span>
             <span className="num">Qty</span><span className="num">Price</span>
-            <span className="num" title="The money that changed hands before costs, from the broker's proceeds. For futures and similar contracts, the notional exposure: quantity × price × multiplier.">Value</span>
+            <span className="num" title="The money that changed hands before costs, from the broker's proceeds. For a contract held against margin, quantity × price × multiplier: a future's notional exposure, or a future-style option's premium — the exposure of the future beneath that option is larger and not in the statement.">Value</span>
             <span className="num">Costs</span><span className="num">Position after</span>
             <span className="num">Realised</span>
             <span title="What is left of what this fill opened, as of the last statement">Status</span>
@@ -1775,10 +1779,14 @@ function FillLine({ r }: { r: FillRow }) {
   // Positive matches only (DESIGN.md §5): a qualifier the engine did not send is not asserted.
   const inferred = r.inferred === true
   const partial = r.partialHistory === true
+  const terms = contractTerms(r)
   return (
     <div className="fundbook__row fundbook__row--fills">
       <span className="dim mono">{(r.executedAt ?? '—').slice(0, 10)}</span>
-      <strong className="mono">{r.symbol ?? '—'}</strong>
+      <strong className="mono">
+        {r.symbol ?? '—'}
+        {terms && <small className="fundbook__lots">{terms}</small>}
+      </strong>
       <span className="dim">{r.currency ?? '—'}</span>
       <span title={unmatched ?? (partial ? PARTIAL_NOTE : inferred ? INFERRED_NOTE : undefined)}>
         <b className="fundbook__fillside">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
@@ -1789,10 +1797,11 @@ function FillLine({ r }: { r: FillRow }) {
       </span>
       <span className="num">{fmtQty(r.quantity)}</span>
       <span className="num dim">{fmtNum(r.price)}</span>
-      {/* The engine's value: the broker's proceeds for a cash instrument, notional exposure for a derivative. */}
+      {/* The engine's value: the broker's proceeds for a cash instrument; for a contract held against margin, a
+          future's notional exposure or a future-style option's premium, and the tag says which. */}
       <span className="num">
         {typeof r.value === 'number' ? fmtSmallMoney(r.value) : '—'}
-        {r.isDerivative === true && <small className="fundbook__notional">notional</small>}
+        {r.isDerivative === true && <small className="fundbook__notional">{derivativeValueWord(r.assetCategory)}</small>}
       </span>
       <span className="num dim">{fmtSmallMoney(r.commission)}</span>
       <span className="num" title={partial ? PARTIAL_NOTE : undefined}>{fmtQty(r.positionAfter)}</span>
@@ -1816,6 +1825,7 @@ function TradeRow({ c, grossRealised, ideas, onChanged }: {
     <div className="fundbook__row fundbook__row--trades">
       <strong className="mono">
         {c.symbol ?? '—'}
+        {c.terms && <small className="fundbook__lots">{c.terms}</small>}
         {(c.lots > 1 || c.fills > 1) && (
           <small
             className="fundbook__lots"

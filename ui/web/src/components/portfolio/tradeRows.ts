@@ -8,6 +8,11 @@ export interface TradeRowData {
   currency: string | null
   /** Long or short. Keyed on, because `quantity` is absolute and cannot tell the two apart. */
   side: 'long' | 'short'
+  /** The contract the round trip was in (the engine's position key) and its terms — expiry, strike, right —
+   *  where it has them. Two futures expiries share a symbol; on the symbol alone their round trips folded
+   *  together. Null key from an engine that predates it. */
+  key: string | null
+  terms: string | null
   quantity: number
   entryPrice: number
   exitPrice: number
@@ -56,6 +61,27 @@ function sumBase<T>(rows: T[], value: (row: T) => number | null): { total: numbe
   return { total, unvalued }
 }
 
+/** What tells one contract from another that shares its symbol: strike and right for an option, expiry for either.
+ *  Null for a contract with none — a stock, a CFD, or a row from an engine that predates the terms. The engine
+ *  keeps each contract its own position; on screen, without these, two expiries of one future read as one. */
+export function contractTerms(c: { expiry?: string | null; strike?: number | null; putCall?: string | null }): string | null {
+  const right = (c.putCall ?? '').trim().toUpperCase().charAt(0)
+  const terms = [
+    c.strike !== null && c.strike !== undefined ? String(c.strike) : '',
+    right === 'C' || right === 'P' ? right : '',
+    c.expiry ?? '',
+  ].filter(Boolean).join(' ')
+  return terms === '' ? null : terms
+}
+
+/** What quantity × price × multiplier measures for a contract held against margin. A future's or a CFD's price is
+ *  the underlying's, so the product is its NOTIONAL exposure. An option's price is its premium, so for a
+ *  future-style option the same product is the PREMIUM — the exposure of the future beneath it is many times
+ *  larger, and the statement does not carry it. */
+export function derivativeValueWord(assetCategory: string | null | undefined): 'notional' | 'premium' {
+  return /(OPT|FOP)$/.test((assetCategory ?? '').trim().toUpperCase()) ? 'premium' : 'notional'
+}
+
 export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
   const groups = new Map<string, PortfolioClosure[]>()
   closures.forEach((c, i) => {
@@ -74,6 +100,8 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       symbol: lots[0]!.symbol,
       currency: lots[0]!.currency,
       side: lots[0]!.side,
+      key: lots[0]!.key ?? null,
+      terms: contractTerms(lots[0]!),
       quantity: qty,
       entryPrice: wAvg((c) => c.entryPrice),
       exitPrice: wAvg((c) => c.exitPrice),
@@ -107,7 +135,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
   for (const r of merged) {
     const opened = (r.openedAt ?? '').slice(0, 10)
     const closed = (r.closedAt ?? '').slice(0, 10)
-    // TWO THINGS THE KEY HAS TO SEPARATE, because folding either would invent a position:
+    // THREE THINGS THE KEY HAS TO SEPARATE, because folding any of them would invent a position:
     //
     // SIDE. `quantity` is absolute, so a long and a short in the same name over the same two days look
     // identical to a key built from symbol and dates — they folded into one row of twice the size,
@@ -118,9 +146,14 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
     // trades and hide a loser inside a winner's row — the same miscount this fold exists to correct,
     // pointing the other way. So a same-day round trip keeps its own row; only the multi-day case,
     // where the duplicate rows actually appeared, folds.
+    //
+    // CONTRACT. Two futures expiries share a symbol, and over the same two days their round trips folded into
+    // one row priced across two different contracts. The engine's position key separates them; an engine that
+    // sends none falls back to the symbol.
+    const contract = r.key ?? r.symbol
     const key = opened !== '' && opened === closed
-      ? `daytrade|${r.symbol}|${r.currency}|${r.side}|${opened}|${byRoundTrip.size}`
-      : `${r.symbol}|${r.currency}|${r.side}|${opened}|${closed}`
+      ? `daytrade|${contract}|${r.currency}|${r.side}|${opened}|${byRoundTrip.size}`
+      : `${contract}|${r.currency}|${r.side}|${opened}|${closed}`
     const list = byRoundTrip.get(key)
     if (list) list.push(r); else byRoundTrip.set(key, [r])
   }
@@ -330,8 +363,9 @@ export function fillRows(executions: PortfolioExecution[]): FillRow[] {
     .reverse()
 }
 
-export function filterFills(rows: FillRow[], scope: FillScope, symbol: string | null): FillRow[] {
-  return rows.filter((r) => (scope === 'all' || r.current) && (symbol === null || r.symbol === symbol))
+/** The rows in scope, and of one contract when one is picked (its engine key, as fillNames offers it). */
+export function filterFills(rows: FillRow[], scope: FillScope, contract: string | null): FillRow[] {
+  return rows.filter((r) => (scope === 'all' || r.current) && (contract === null || r.key === contract))
 }
 
 /** Whether any fill is in a currency other than the book's base. The blotter shows every figure in the
@@ -342,17 +376,25 @@ export function fillsOutsideBase(rows: PortfolioExecution[], baseCurrency: strin
   return baseCurrency === null || rows.some((r) => r.currency !== baseCurrency)
 }
 
-/** The names the filter offers: how many fills each has, and whether any of them is still held. */
-export function fillSymbols(rows: FillRow[]): { symbol: string; fills: number; held: boolean }[] {
-  const by = new Map<string, { symbol: string; fills: number; held: boolean }>()
+/** The names the filter offers — one per CONTRACT, the position the engine keeps, since two futures expiries or
+ *  two option strikes share a symbol and are still different things. Each is labelled by its symbol and, where it
+ *  has them, its terms; two that would still read alike (one symbol listed in two currencies) add the currency.
+ *  With how many fills each has, and whether any of them is still held. */
+export function fillNames(rows: FillRow[]): { key: string; label: string; fills: number; held: boolean }[] {
+  const by = new Map<string, { key: string; label: string; currency: string | null; fills: number; held: boolean }>()
   for (const r of rows) {
     if (!r.symbol) continue
-    const cur = by.get(r.symbol) ?? { symbol: r.symbol, fills: 0, held: false }
+    const terms = contractTerms(r)
+    const cur = by.get(r.key) ?? { key: r.key, label: terms ? `${r.symbol} ${terms}` : r.symbol, currency: r.currency, fills: 0, held: false }
     cur.fills += 1
     if (r.current) cur.held = true
-    by.set(r.symbol, cur)
+    by.set(r.key, cur)
   }
-  return [...by.values()].sort((a, b) => a.symbol.localeCompare(b.symbol))
+  const alike = new Map<string, number>()
+  for (const n of by.values()) alike.set(n.label, (alike.get(n.label) ?? 0) + 1)
+  return [...by.values()]
+    .map((n) => ({ key: n.key, label: (alike.get(n.label) ?? 0) > 1 ? `${n.label} ${n.currency ?? '—'}` : n.label, fills: n.fills, held: n.held }))
+    .sort((a, b) => a.label.localeCompare(b.label))
 }
 
 /** What a fill did to the position, in words. */
