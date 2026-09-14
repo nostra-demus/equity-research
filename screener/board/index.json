@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T00:31:04Z",
+  "generated_at": "2026-09-14T00:41:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-053",
+      "headline": "SP Group weighs Rs 3,500 crore debt repayment options",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/shapoorji-pallonji-weighs-options-to-refinance-rs-3500-crore-debt-due-this-month/articleshow/134229719.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:13:11Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shapoorji Pallonji Group is actively managing repayment options for a significant Rs 3,500 crore debt obligation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shapoorji Pallonji Group is actively managing repayment options for a significant Rs 3,500 crore debt obligation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SP Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262,6 +311,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-047",
+      "headline": "HCW: Healthscope Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HCW?key=2924-03135090-2A1696915",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:34:05Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Company issued a price-sensitive operational update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company issued a price-sensitive operational update.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Healthscope",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-037",
       "headline": "Shapoorji Pallonji weighs options to refinance Rs 3,500 crore debt due this month",
       "headline_en": null,
@@ -311,6 +409,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-055",
+      "headline": "Calvary Health Care consortium wins the battle for Healthscope",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:29:02Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "A consortium has successfully acquired Healthscope, marking a significant change in ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A consortium has successfully acquired Healthscope, marking a significant change in ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Healthscope",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-048",
+      "headline": "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRM?key=2924-03135085-6A1343646",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:30:50Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Independent assessment of prospective resources at the Eyre Project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Independent assessment of prospective resources at the Eyre Project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PRM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-036",
       "headline": "MAT: Devon Gold Project and Corporate Update [price-sensitive]",
       "headline_en": null,
@@ -351,6 +547,55 @@
         {
           "name": "Matsa Resources Limited",
           "ticker": "MAT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-049",
+      "headline": "GNP: Genus Awarded Victorian BESS Project for Birdwood [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GNP?key=2924-03135086-6A1343647",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:30:50Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Genus awarded a battery energy storage system (BESS) project for Birdwood.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Genus awarded a battery energy storage system (BESS) project for Birdwood.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genus",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
@@ -606,6 +851,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-045",
+      "headline": "ASX opens flat, Woodside gains after Cutifani resigns",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-oil-above-us100-20260914-p60x0u?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:32:52Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Woodside Energy shares gained following the resignation of board member Mark Cutifani.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Woodside Energy shares gained following the resignation of board member Mark Cutifani.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-052",
+      "headline": "Test looms for Tata Sons board meet amid division in Tata Trusts",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-ipo-listing-discussion-tata-trusts-noel-tata-11789307136577.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:30:42Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Internal board division at Tata Trusts creates uncertainty for the governance of Tata Sons.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal board division at Tata Trusts creates uncertainty for the governance of Tata Sons.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-002",
       "headline": "Z.AI Plans $5.0 Billion Fundraising to Fuel AI Expansion",
       "headline_en": null,
@@ -650,6 +993,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-051",
+      "headline": "Amazon Pauses Operations With 21 Air After Miami Crash",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/airlines/amazon-pauses-operations-with-21-air-after-miami-crash-3374b9ef?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Amazon paused operations with 21 Air following a crash, creating a localized operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Amazon paused operations with 21 Air following a crash, creating a localized operational disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -851,6 +1243,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-057",
+      "headline": "Scandal-tainted Chubu Electric set to tap director Yasui as next president",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260914/p2g/00m/0bu/006000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:30:04Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Appointment of a new president following a scandal at a major utility company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Appointment of a new president following a scandal at a major utility company.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-027",
       "headline": "P1E: Venus-2H Drilling Complete Dewatering & Flow Testing Next",
       "headline_en": null,
@@ -890,6 +1331,55 @@
       "companies": [
         {
           "name": "P1E",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-046",
+      "headline": "RNV: Change in substantial holding - J Chick",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RNV?key=2924-03135091-6A1343648",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Routine disclosure of a change in substantial shareholding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Routine disclosure of a change in substantial shareholding.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RNV",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1165,6 +1655,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-054",
+      "headline": "Queensland realtor lobs bid for star-studded rival agency’s rent book",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/queensland-realtor-lobs-bid-for-star-studded-rival-agency-s-rent-book-20260914-p60x1u?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:29:50Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "A small-scale acquisition bid for a competitor's rent book.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "A small-scale acquisition bid for a competitor's rent book.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-005",
       "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INCREASE IN SHAREHOLDING BY CHAIRMAN OF THE BOARD",
       "headline_en": null,
@@ -1393,532 +1926,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-044",
-      "headline": "Oil extends gains as Mideast tensions deepen supply fears",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/oil-extends-gains-mideast-tensions-deepen-supply-fears",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:19:13Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Deepening Mideast tensions are driving oil price gains due to supply disruption fears.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Deepening Mideast tensions are driving oil price gains due to supply disruption fears.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-038",
-      "headline": "Crude pool drying up as Middle East conflict drags on, refiners wary",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/refiners-wary-as-crude-supply-pool-drying-up/articleshow/134221564.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Middle East conflict is dragging on, threatening crude supply and making refiners wary of shortages.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Middle East conflict is dragging on, threatening crude supply and making refiners wary of shortages.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-022",
-      "headline": "Bhopal Hostels Under Safety Cloud: 50,000 Students At Risk As Supreme Court Concern Adds Urgency",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/bhopal-hostels-under-safety-cloud-50000-students-at-risk-as-supreme-court-concern-adds-urgency",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-13T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Supreme Court concerns regarding hostel safety in Bhopal create potential regulatory and operational risks for local student housing providers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Supreme Court concerns regarding hostel safety in Bhopal create potential regulatory and operational risks for local student housing providers.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-004",
-      "headline": "[JPX,TOCOM,JSCC]Tokyo Commodity Exchange Welcomes ABN AMRO Clearing Tokyo Co., Ltd. as a Broker Member for Trading TOCOM Electricity (Power) and Other Energy Futures",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/corporate/news/news-releases/0060/20260914-01.html",
-      "source_name": "Japan Exchange Group (JPX) — News Release",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Routine addition of a broker member to the Tokyo Commodity Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Routine addition of a broker member to the Tokyo Commodity Exchange.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Tokyo Commodity Exchange",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "ABN AMRO Clearing Tokyo",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-019",
-      "headline": "Shanghai Electric получила первый зарубежный заказ на газовую турбину большой мощности для малазийского проекта на 500 МВт",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric--------------500--302876892.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-018",
-      "headline": "Shanghai Electric zdobywa pierwsze zagraniczne zamówienie na turbinę gazową dużej mocy dla malezyjskiego projektu o mocy 500 MW",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-zdobywa-pierwsze-zagraniczne-zamowienie-na-turbin-gazow-duej-mocy-dla-malezyjskiego-projektu-o-mocy-500-mw-302876392.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-012",
-      "headline": "Spoločnosť Shanghai Electric získala prvú zahraničnú objednávku na vysokovýkonné plynové turbíny pre malajzijský projekt s výkonom 500 MW",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
-      "url": "https://www.prnewswire.com/news-releases/spolonos-shanghai-electric-ziskala-prvu-zahraninu-objednavku-na-vysokovykonne-plynove-turbiny-pre-malajzijsky-projekt-s-vykonom-500-mw-302876893.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-017",
-      "headline": "Shanghai Electric sichert sich ersten Auftrag für eine Schwerlast-Gasturbine im Ausland für ein 500-MW-Projekt in Malaysia",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-sichert-sich-ersten-auftrag-fur-eine-schwerlast-gasturbine-im-ausland-fur-ein-500-mw-projekt-in-malaysia-302876309.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-014",
-      "headline": "Shanghai Electric Secures First Overseas Heavy-Duty Gas Turbine Order for 500 MW Malaysian Project",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-secures-first-overseas-heavy-duty-gas-turbine-order-for-500-mw-malaysian-project-302876154.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-016",
-      "headline": "Shanghai Electric consigue su primer pedido internacional de turbinas de gas de gran potencia",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-consigue-su-primer-pedido-internacional-de-turbinas-de-gas-de-gran-potencia-302876206.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-013",
-      "headline": "Shanghai Electric décroche sa première commande à l'international de turbines à gaz de forte puissance pour un projet malaisien de 500 MW",
-      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-decroche-sa-premiere-commande-a-linternational-de-turbines-a-gaz-de-forte-puissance-pour-un-projet-malaisien-de-500-mw-302876495.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117569,76 +117576,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-46bc954d6d75a1dc",
-      "idea_version_started_at": "2026-09-13T11:26:21Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2030 total addressable market forecast to $3 trillion, signaling significant long-term growth potential in AI and data center hardware.",
-      "why_now": "The guidance update was released on 2026-09-12.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1a90b78b995"
-      ],
-      "primary_source_event_id": "EVT-d1a90b78b995",
-      "source_headlines": [
-        "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion"
-      ],
-      "source_headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
-      "source_url": "https://www.nasdaq.com/articles/amd-just-raised-top-companys-2030-market-3-trillion",
-      "source_name": "Nasdaq",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-12T12:39:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T04:17:17Z",
-      "updated_at": "2026-09-13T11:26:21Z",
-      "decay_at": "2026-09-14T00:39:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-edc85f5d856234ae",
       "idea_version_started_at": "2026-09-13T06:54:12Z",
@@ -120286,6 +120223,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-46bc954d6d75a1dc",
+      "idea_version_started_at": "2026-09-13T11:26:21Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2030 total addressable market forecast to $3 trillion, signaling significant long-term growth potential in AI and data center hardware.",
+      "why_now": "The guidance update was released on 2026-09-12.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1a90b78b995"
+      ],
+      "primary_source_event_id": "EVT-d1a90b78b995",
+      "source_headlines": [
+        "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion"
+      ],
+      "source_headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
+      "source_url": "https://www.nasdaq.com/articles/amd-just-raised-top-companys-2030-market-3-trillion",
+      "source_name": "Nasdaq",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-12T12:39:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T04:17:17Z",
+      "updated_at": "2026-09-13T11:26:21Z",
+      "decay_at": "2026-09-14T00:39:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c7c3c3693e6e",
       "idea_version": "IDEAV-38f366266b568ca0",
       "idea_version_started_at": "2026-09-13T06:54:12Z",
@@ -122864,14 +122871,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 264,
@@ -122895,6 +122902,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-14d83f2c882e",
+        "idea_version": "IDEAV-46bc954d6d75a1dc",
+        "idea_version_started_at": "2026-09-13T11:26:21Z",
+        "ticker": "AMD",
+        "company": "Advanced Micro Devices, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2030 total addressable market forecast to $3 trillion, signaling significant long-term growth potential in AI and data center hardware.",
+        "why_now": "The guidance update was released on 2026-09-12.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1a90b78b995"
+        ],
+        "primary_source_event_id": "EVT-d1a90b78b995",
+        "source_headlines": [
+          "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion"
+        ],
+        "source_headline": "AMD Just Raised the Top of the Company's 2030 Market to $3 Trillion",
+        "source_url": "https://www.nasdaq.com/articles/amd-just-raised-top-companys-2030-market-3-trillion",
+        "source_name": "Nasdaq",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-12T12:39:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T04:17:17Z",
+        "updated_at": "2026-09-13T11:26:21Z",
+        "decay_at": "2026-09-14T00:39:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T00:39:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-90d2e717f9fb",
         "idea_version": "IDEAV-7faa398130edd38e",
@@ -151580,80 +151660,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d4a4fe64b7cf",
-        "idea_version": "IDEAV-eca743b9b21c287a",
-        "idea_version_started_at": "2026-08-31T01:31:36Z",
-        "ticker": "HTM",
-        "company": "HTM",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A 47% increase in the Mt Fisher mineral resource to 51,000oz of gold significantly enhances the project's valuation and potential mine life.",
-        "why_now": "The resource update was released in an official exchange filing on 2026-08-30.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ba473c0b5aaa"
-        ],
-        "primary_source_event_id": "EVT-ba473c0b5aaa",
-        "source_headlines": [
-          "HTM: MT FISHER MINERAL RESOURCE INCREASES 47% TO 51,000oz GOLD [price-sensitive]"
-        ],
-        "source_headline": "HTM: MT FISHER MINERAL RESOURCE INCREASES 47% TO 51,000oz GOLD [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HTM?key=2924-03129135-6A1341245",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-08-30T23:52:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T01:31:36Z",
-        "updated_at": "2026-08-31T01:31:36Z",
-        "decay_at": "2026-09-01T11:52:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23b0a390c1be",
         "idea_version": "IDEAV-e009b9fcd4d76c95",
         "idea_version_started_at": "2026-08-30T22:04:42Z",
@@ -160047,7 +160053,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 763,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -160066,9 +160072,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 134,
-    "news_picked_today": 44,
-    "news_dropped_today": 90
+    "news_seen_today": 178,
+    "news_picked_today": 59,
+    "news_dropped_today": 119
   },
   "book_momentum": {
     "live_count": 8,
