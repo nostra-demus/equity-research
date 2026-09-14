@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T18:36:12Z",
+  "generated_at": "2026-09-14T19:01:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-531",
+      "headline": "25-NSE - TEVA PHARMACEUTICAL INDUSTRIES LTD (0000818686) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/818686/000087666126000744/0000876661-26-000744-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-14T18:32:43Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Teva Pharmaceutical Industries Ltd filed a Form 25-NSE for delisting, indicating a potential change in listing status or exchange migration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Teva Pharmaceutical Industries Ltd filed a Form 25-NSE for delisting, indicating a potential change in listing status or exchange migration.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Teva Pharmaceutical Industries Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-516",
       "headline": "25-NSE - BARCLAYS PLC (0000312069) (Subject)",
@@ -1951,55 +2000,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-400",
-      "headline": "Firmus seeks $5bn raise in Australian IPO - report",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/firmus-seeks-5bn-raise-in-australian-ipo-report/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T10:50:35Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "A $5bn IPO raise is a significant capital markets event for the company and the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $5bn IPO raise is a significant capital markets event for the company and the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161929,9 +161929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 722869,
-    "news_picked_today": 1394,
-    "news_dropped_today": 5381
+    "news_seen_today": 780616,
+    "news_picked_today": 1416,
+    "news_dropped_today": 5671
   },
   "book_momentum": {
     "live_count": 8,
