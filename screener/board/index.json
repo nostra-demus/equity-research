@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T13:46:46Z",
+  "generated_at": "2026-09-14T13:51:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-427",
@@ -694,6 +694,50 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-434",
+      "headline": "UK government considering takeover of insolvent steelmaker",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T13:37:15Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Potential government takeover of an insolvent steelmaker indicates significant distress and sector risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Potential government takeover of an insolvent steelmaker indicates significant distress and sector risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1972,60 +2016,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-275",
-      "headline": "India's Essar's EET Retail to acquire UK forecourt operator SGN for 400 mn pounds",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/indias-essar-buys-uk-petrol-station-operator-sgn-retail-adds-118-sites/articleshow/134234808.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T06:39:26Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Essar's EET Retail is acquiring UK-based SGN for 400 million pounds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Essar's EET Retail is acquiring UK-based SGN for 400 million pounds.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Essar",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "SGN",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161955,9 +161945,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 169193,
-    "news_picked_today": 1191,
-    "news_dropped_today": 3856
+    "news_seen_today": 173623,
+    "news_picked_today": 1199,
+    "news_dropped_today": 3872
   },
   "book_momentum": {
     "live_count": 8,
