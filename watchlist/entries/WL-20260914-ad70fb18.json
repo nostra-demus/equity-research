@@ -18,10 +18,10 @@
   "triggers": [
     {
       "kind": "price_level",
+      "trigger_id": "TRG-9db25a713a10",
       "direction": "at_or_below",
-      "level": 11.7,
-      "currency": "USD",
-      "trigger_id": "TRG-9db25a713a10"
+      "level": 10.5,
+      "currency": "USD"
     }
   ],
   "attachments": [],
@@ -34,9 +34,15 @@
       "by": "banks@alloc8.xyz",
       "action": "created",
       "detail": ""
+    },
+    {
+      "at": "2026-09-14T13:01:30.044Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
     }
   ],
   "created_at": "2026-09-14T08:07:25.890Z",
   "created_by": "banks@alloc8.xyz",
-  "updated_at": "2026-09-14T08:07:25.890Z"
+  "updated_at": "2026-09-14T13:01:30.044Z"
 }
