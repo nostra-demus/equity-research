@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T02:05:00Z",
+  "generated_at": "2026-09-14T02:11:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -92,6 +92,55 @@
           "name": "HS Hyosung",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-128",
+      "headline": "Franco-Nevada Expands Bullabulling Support With A$200 Mln Royalty And Equity Investment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/franco-nevada-expands-bullabulling-support-200-mln-royalty-and-equity-investment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:26:57Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Franco-Nevada is investing A$200 million in royalty and equity to support the Bullabulling project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Franco-Nevada is investing A$200 million in royalty and equity to support the Bullabulling project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franco-Nevada",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1730,6 +1779,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-130",
+      "headline": "Capitec and Ninety One Assurance fined for administrative non-compliance",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/capitec-and-ninety-one-assurance-fined-for-administrative-non-compliancecapitec-and-ninety-one-assurance-limited-fined-for-administrative-non-compliance/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:03:52Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Capitec and Ninety One Assurance were fined for administrative non-compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Capitec and Ninety One Assurance were fined for administrative non-compliance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capitec",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Ninety One Assurance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-071",
       "headline": "Revolut attackers threaten daily customer data leaks",
       "headline_en": null,
@@ -1873,105 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-052",
-      "headline": "Test looms for Tata Sons board meet amid division in Tata Trusts",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-ipo-listing-discussion-tata-trusts-noel-tata-11789307136577.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:30:42Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Internal board division at Tata Trusts creates uncertainty for the governance of Tata Sons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal board division at Tata Trusts creates uncertainty for the governance of Tata Sons.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-072",
-      "headline": "Whyalla blast furnace restart fails, more than 500 jobs to be cut",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/manufacturing/whyalla-blast-furnace-restart-fails-more-than-500-jobs-to-be-cut-20260914-p60x1j?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:58:57Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "The failure of the Whyalla blast furnace restart will result in over 500 job cuts, indicating a significant operational setback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The failure of the Whyalla blast furnace restart will result in over 500 job cuts, indicating a significant operational setback.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GFG Alliance",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160762,9 +160766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 502,
-    "news_picked_today": 143,
-    "news_dropped_today": 359
+    "news_seen_today": 526,
+    "news_picked_today": 151,
+    "news_dropped_today": 375
   },
   "book_momentum": {
     "live_count": 8,
