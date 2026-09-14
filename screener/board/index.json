@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T02:21:44Z",
+  "generated_at": "2026-09-14T02:29:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-143",
+      "headline": "Calvary Health Care consortium wins battle for Healthscope",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:24:28Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "A consortium has won the battle to acquire Healthscope, representing a major M&A event in the healthcare sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A consortium has won the battle to acquire Healthscope, representing a major M&A event in the healthcare sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Healthscope",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -436,6 +485,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-146",
+      "headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260914002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:22:18Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Samsung Heavy Industries secured a 1.6 trillion won order for 6 vessels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Samsung Heavy Industries secured a 1.6 trillion won order for 6 vessels.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Heavy Industries",
+          "ticker": "010140",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1184,55 +1282,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-055",
-      "headline": "Calvary Health Care consortium wins the battle for Healthscope",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:29:02Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "A consortium has successfully acquired Healthscope, marking a significant change in ownership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A consortium has successfully acquired Healthscope, marking a significant change in ownership.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Healthscope",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260914-048",
       "headline": "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]",
       "headline_en": null,
@@ -1631,6 +1680,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-138",
+      "headline": "FTC Launches Follow-Up Probe Into CJ Olive Young",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276849",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T05:27:21Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The Korean FTC is launching a follow-up probe into CJ Olive Young, which could lead to potential fines or operational restrictions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The Korean FTC is launching a follow-up probe into CJ Olive Young, which could lead to potential fines or operational restrictions.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CJ Olive Young",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-094",
       "headline": "FleetPartners Shares Gain After Element Fleet Walks Away From Takeover Bid",
       "headline_en": null,
@@ -1872,109 +1971,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-130",
-      "headline": "Capitec and Ninety One Assurance fined for administrative non-compliance",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/capitec-and-ninety-one-assurance-fined-for-administrative-non-compliancecapitec-and-ninety-one-assurance-limited-fined-for-administrative-non-compliance/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T02:03:52Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Capitec and Ninety One Assurance were fined for administrative non-compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Capitec and Ninety One Assurance were fined for administrative non-compliance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capitec",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Ninety One Assurance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-071",
-      "headline": "Revolut attackers threaten daily customer data leaks",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:54:08Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Revolut is facing a credible threat of daily customer data leaks following a security breach, creating significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Revolut is facing a credible threat of daily customer data leaks following a security breach, creating significant operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolut",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -116847,77 +116843,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-560008c04b424a6d",
-      "idea_version_started_at": "2026-09-13T18:31:35Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nvidia's potential $10 billion investment in Anthropic's IPO secures its position as the primary compute partner for a leading OpenAI rival, ensuring long-term demand for its Blackwell chips.",
-      "why_now": "Reports of the $10 billion investment consideration emerged on September 12, 2024.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f548ba5cea09",
-        "EVT-2d9c8c33a512"
-      ],
-      "primary_source_event_id": "EVT-f548ba5cea09",
-      "source_headlines": [
-        "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
-        "Nvidia May Invest Up to $10 Billion in Anthropic’s $2.3 Trillion IPO"
-      ],
-      "source_headline": "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
-      "source_url": "https://www.freepressjournal.in/business/anthropic-eyes-record-100-billion-ipo-as-nvidia-considers-10-billion-investment",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T14:23:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T18:31:35Z",
-      "updated_at": "2026-09-13T18:31:35Z",
-      "decay_at": "2026-09-14T02:23:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-718ae923f1ce3fb9",
       "idea_version_started_at": "2026-09-13T18:15:10Z",
@@ -120632,6 +120557,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-560008c04b424a6d",
+      "idea_version_started_at": "2026-09-13T18:31:35Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia's potential $10 billion investment in Anthropic's IPO secures its position as the primary compute partner for a leading OpenAI rival, ensuring long-term demand for its Blackwell chips.",
+      "why_now": "Reports of the $10 billion investment consideration emerged on September 12, 2024.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f548ba5cea09",
+        "EVT-2d9c8c33a512"
+      ],
+      "primary_source_event_id": "EVT-f548ba5cea09",
+      "source_headlines": [
+        "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
+        "Nvidia May Invest Up to $10 Billion in Anthropic’s $2.3 Trillion IPO"
+      ],
+      "source_headline": "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
+      "source_url": "https://www.freepressjournal.in/business/anthropic-eyes-record-100-billion-ipo-as-nvidia-considers-10-billion-investment",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T14:23:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T18:31:35Z",
+      "updated_at": "2026-09-13T18:31:35Z",
+      "decay_at": "2026-09-14T02:23:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6c411243ff00",
       "idea_version": "IDEAV-e63d21a8b1a1011e",
       "idea_version_started_at": "2026-09-12T01:49:08Z",
@@ -123633,14 +123629,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 263,
@@ -123664,6 +123660,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-90b902d53889",
+        "idea_version": "IDEAV-560008c04b424a6d",
+        "idea_version_started_at": "2026-09-13T18:31:35Z",
+        "ticker": "NVDA",
+        "company": "Nvidia",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Nvidia's potential $10 billion investment in Anthropic's IPO secures its position as the primary compute partner for a leading OpenAI rival, ensuring long-term demand for its Blackwell chips.",
+        "why_now": "Reports of the $10 billion investment consideration emerged on September 12, 2024.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f548ba5cea09",
+          "EVT-2d9c8c33a512"
+        ],
+        "primary_source_event_id": "EVT-f548ba5cea09",
+        "source_headlines": [
+          "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
+          "Nvidia May Invest Up to $10 Billion in Anthropic’s $2.3 Trillion IPO"
+        ],
+        "source_headline": "Anthropic Eyes Record $100 Billion IPO As Nvidia Considers $10 Billion Investment",
+        "source_url": "https://www.freepressjournal.in/business/anthropic-eyes-record-100-billion-ipo-as-nvidia-considers-10-billion-investment",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T14:23:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T18:31:35Z",
+        "updated_at": "2026-09-13T18:31:35Z",
+        "decay_at": "2026-09-14T02:23:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T02:23:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-535e529d3ef7",
         "idea_version": "IDEAV-7547aea13d7cd217",
@@ -152424,80 +152494,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52c1133413b1",
-        "idea_version": "IDEAV-c53632c038afea90",
-        "idea_version_started_at": "2026-08-31T01:11:53Z",
-        "ticker": "00013",
-        "company": "HUTCHMED",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The SANOVO trial demonstrated significant progression-free survival benefits for ORPATHYS combined with TAGRISSO in lung cancer patients, validating the drug's clinical efficacy and potential for expanded market share in China.",
-        "why_now": "The positive trial results were announced on 2026-08-31, providing a clear catalyst for market re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dfcafbed04f0"
-        ],
-        "primary_source_event_id": "EVT-dfcafbed04f0",
-        "source_headlines": [
-          "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China"
-        ],
-        "source_headline": "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100249.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 91,
-        "newest_source_at": "2026-08-31T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T01:11:53Z",
-        "updated_at": "2026-08-31T01:11:53Z",
-        "decay_at": "2026-09-01T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23b0a390c1be",
         "idea_version": "IDEAV-e009b9fcd4d76c95",
         "idea_version_started_at": "2026-08-30T22:04:42Z",
@@ -160818,7 +160814,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 775,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -160837,9 +160833,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 553,
-    "news_picked_today": 159,
-    "news_dropped_today": 394
+    "news_seen_today": 587,
+    "news_picked_today": 168,
+    "news_dropped_today": 419
   },
   "book_momentum": {
     "live_count": 8,
