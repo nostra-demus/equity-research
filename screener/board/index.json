@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T01:36:09Z",
+  "generated_at": "2026-09-14T01:45:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -642,6 +642,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-105",
+      "headline": "BREAKING NEWS: Outside probe finds \"cover-up\" in Chubu Electric's Hamaoka data review",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/84939",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "An outside probe confirmed a data cover-up at Chubu Electric, creating significant regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "An outside probe confirmed a data cover-up at Chubu Electric, creating significant regulatory and reputational risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-076",
       "headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
       "headline_en": null,
@@ -1036,6 +1086,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-103",
+      "headline": "EVR: EVR Completes Rights Issue to Advance Antimony Production [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVR?key=2924-03135125-6A1343654",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T01:37:15Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "EVR completed a rights issue to fund antimony production expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "EVR completed a rights issue to fund antimony production expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EVR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1730,6 +1829,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-108",
+      "headline": "Amazon Halts Operations With 21 Air After Fatal Miami Crash",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-14/amazon-halts-operations-with-21-air-after-fatal-miami-crash",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:24:12Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Amazon has halted operations with 21 Air following a fatal crash, which will cause immediate operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Amazon has halted operations with 21 Air following a fatal crash, which will cause immediate operational disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "21 Air",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-008",
       "headline": "HSBC HOLDINGS (00005): ISSUANCE OF SENIOR UNSECURED NOTES",
       "headline_en": null,
@@ -1823,141 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-101",
-      "headline": "Okinawa gets 1st governor in 12 yrs backing US base relocation plan",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260913/p2g/00m/0na/031000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:25:48Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "The election of a governor supporting the US base relocation plan in Okinawa removes a long-standing political and regulatory hurdle for infrastructure projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The election of a governor supporting the US base relocation plan in Okinawa removes a long-standing political and regulatory hurdle for infrastructure projects.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-086",
-      "headline": "SEBI tightens scrutiny of Wall Street giants operating in India",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/wealth/invest/sebi-tightens-scrutiny-of-wall-street-giants-operating-in-india/articleshow/134099760.cms",
-      "source_name": "The Economic Times Wealth",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Increased regulatory scrutiny by SEBI on foreign institutional investors operating in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Increased regulatory scrutiny by SEBI on foreign institutional investors operating in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-098",
-      "headline": "Tim Goyder’s star mining bet Minerals 260 hunts for $250 million",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/tim-goyder-s-star-mining-bet-minerals-260-hunts-for-250-million-20260914-p60x4e?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:32:38Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Minerals 260 is seeking to raise $250 million in capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Minerals 260 is seeking to raise $250 million in capital.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Minerals 260",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -119753,150 +119771,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-535e529d3ef7",
-      "idea_version": "IDEAV-7547aea13d7cd217",
-      "idea_version_started_at": "2026-09-13T18:31:35Z",
-      "ticker": "TATASTEEL",
-      "company": "Tata Steel",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The decision for Tata Sons to proceed with a public listing following RBI directives will likely lead to a significant re-rating of listed Tata Group subsidiaries that hold equity stakes in the parent holding company.",
-      "why_now": "The suspense regarding the listing has ended as of September 12, 2024, with formal directions now issued to the RBI.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e030e63dc659"
-      ],
-      "primary_source_event_id": "EVT-e030e63dc659",
-      "source_headlines": [
-        "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
-      ],
-      "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
-      "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
-      "source_name": "Mint",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-12T13:37:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T03:27:04Z",
-      "updated_at": "2026-09-13T18:31:35Z",
-      "decay_at": "2026-09-14T01:37:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9151c385c64c",
-      "idea_version": "IDEAV-fb531805840aef11",
-      "idea_version_started_at": "2026-09-12T16:36:23Z",
-      "ticker": "SP",
-      "company": "Shapoorji Pallonji Group",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tata Sons' potential public listing could negatively impact the Shapoorji Pallonji Group, which has historical ties and financial entanglements.",
-      "why_now": "News of Tata Sons' public listing plans emerged today, September 12, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e030e63dc659"
-      ],
-      "primary_source_event_id": "EVT-e030e63dc659",
-      "source_headlines": [
-        "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
-      ],
-      "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
-      "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
-      "source_name": "Mint",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-12T13:37:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T16:36:23Z",
-      "updated_at": "2026-09-12T16:36:23Z",
-      "decay_at": "2026-09-14T01:37:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d891ca2abea",
       "idea_version": "IDEAV-76fb45fba3cf9012",
       "idea_version_started_at": "2026-09-13T19:16:47Z",
@@ -122607,6 +122481,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-535e529d3ef7",
+      "idea_version": "IDEAV-7547aea13d7cd217",
+      "idea_version_started_at": "2026-09-13T18:31:35Z",
+      "ticker": "TATASTEEL",
+      "company": "Tata Steel",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The decision for Tata Sons to proceed with a public listing following RBI directives will likely lead to a significant re-rating of listed Tata Group subsidiaries that hold equity stakes in the parent holding company.",
+      "why_now": "The suspense regarding the listing has ended as of September 12, 2024, with formal directions now issued to the RBI.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e030e63dc659"
+      ],
+      "primary_source_event_id": "EVT-e030e63dc659",
+      "source_headlines": [
+        "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
+      ],
+      "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
+      "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
+      "source_name": "Mint",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-12T13:37:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T03:27:04Z",
+      "updated_at": "2026-09-13T18:31:35Z",
+      "decay_at": "2026-09-14T01:37:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9151c385c64c",
+      "idea_version": "IDEAV-fb531805840aef11",
+      "idea_version_started_at": "2026-09-12T16:36:23Z",
+      "ticker": "SP",
+      "company": "Shapoorji Pallonji Group",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tata Sons' potential public listing could negatively impact the Shapoorji Pallonji Group, which has historical ties and financial entanglements.",
+      "why_now": "News of Tata Sons' public listing plans emerged today, September 12, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e030e63dc659"
+      ],
+      "primary_source_event_id": "EVT-e030e63dc659",
+      "source_headlines": [
+        "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
+      ],
+      "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
+      "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
+      "source_name": "Mint",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-12T13:37:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T16:36:23Z",
+      "updated_at": "2026-09-12T16:36:23Z",
+      "decay_at": "2026-09-14T01:37:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7bad7e7a459f",
       "idea_version": "IDEAV-ab5c5bac32555c4b",
       "idea_version_started_at": "2026-09-11T11:59:49Z",
@@ -123401,19 +123419,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -123432,6 +123450,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-535e529d3ef7",
+        "idea_version": "IDEAV-7547aea13d7cd217",
+        "idea_version_started_at": "2026-09-13T18:31:35Z",
+        "ticker": "TATASTEEL",
+        "company": "Tata Steel",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The decision for Tata Sons to proceed with a public listing following RBI directives will likely lead to a significant re-rating of listed Tata Group subsidiaries that hold equity stakes in the parent holding company.",
+        "why_now": "The suspense regarding the listing has ended as of September 12, 2024, with formal directions now issued to the RBI.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e030e63dc659"
+        ],
+        "primary_source_event_id": "EVT-e030e63dc659",
+        "source_headlines": [
+          "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
+        ],
+        "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
+        "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
+        "source_name": "Mint",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-12T13:37:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T03:27:04Z",
+        "updated_at": "2026-09-13T18:31:35Z",
+        "decay_at": "2026-09-14T01:37:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T01:37:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9151c385c64c",
+        "idea_version": "IDEAV-fb531805840aef11",
+        "idea_version_started_at": "2026-09-12T16:36:23Z",
+        "ticker": "SP",
+        "company": "Shapoorji Pallonji Group",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Tata Sons' potential public listing could negatively impact the Shapoorji Pallonji Group, which has historical ties and financial entanglements.",
+        "why_now": "News of Tata Sons' public listing plans emerged today, September 12, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e030e63dc659"
+        ],
+        "primary_source_event_id": "EVT-e030e63dc659",
+        "source_headlines": [
+          "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
+        ],
+        "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
+        "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
+        "source_name": "Mint",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-12T13:37:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T16:36:23Z",
+        "updated_at": "2026-09-12T16:36:23Z",
+        "decay_at": "2026-09-14T01:37:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T01:37:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14d83f2c882e",
         "idea_version": "IDEAV-46bc954d6d75a1dc",
@@ -152116,80 +152284,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-54e5db2972c0",
-        "idea_version": "IDEAV-71f01a7673f8dd8f",
-        "idea_version_started_at": "2026-08-31T02:21:42Z",
-        "ticker": "HWK",
-        "company": "HWK",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "HWK received a mining entry permit for its Olympus Scandium Project, which is a critical step towards commencing operations and generating revenue from the project.",
-        "why_now": "The price-sensitive mining entry permit approval was announced today, August 30, 2026, via an ASX filing.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cc6614ab334a"
-        ],
-        "primary_source_event_id": "EVT-cc6614ab334a",
-        "source_headlines": [
-          "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]"
-        ],
-        "source_headline": "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HWK?key=2924-03129140-6A1341248",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-08-30T23:54:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T02:21:42Z",
-        "updated_at": "2026-08-31T02:21:42Z",
-        "decay_at": "2026-09-01T11:54:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23b0a390c1be",
         "idea_version": "IDEAV-e009b9fcd4d76c95",
         "idea_version_started_at": "2026-08-30T22:04:42Z",
@@ -160505,85 +160599,12 @@
         "archived_at": "2026-08-25T21:28:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-28c6fa2c0111",
-        "idea_version": "IDEAV-fea05ced41d4a423",
-        "idea_version_started_at": "2026-08-22T17:48:11Z",
-        "ticker": "PNR",
-        "company": "Pentair plc",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Pentair plc is facing a securities fraud lawsuit, which could lead to significant legal costs, settlements, and reputational damage.",
-        "why_now": "The opportunity for investors to lead the lawsuit was announced on August 22, 2026, indicating an active and ongoing legal challenge.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d1bd8726691"
-        ],
-        "primary_source_event_id": "EVT-0d1bd8726691",
-        "source_headlines": [
-          "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit"
-        ],
-        "source_headline": "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit",
-        "source_url": "https://www.prnewswire.com/news-releases/pnr-investors-have-opportunity-to-lead-pentair-plc-securities-fraud-lawsuit-302854974.html",
-        "source_name": "PR Newswire — All News Releases",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-22T16:32:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T17:48:11Z",
-        "updated_at": "2026-08-22T17:48:11Z",
-        "decay_at": "2026-08-24T04:32:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-25T21:28:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 770,
-    "live_count": 55,
+    "live_count": 53,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -160602,9 +160623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 378,
-    "news_picked_today": 112,
-    "news_dropped_today": 266
+    "news_seen_today": 414,
+    "news_picked_today": 120,
+    "news_dropped_today": 294
   },
   "book_momentum": {
     "live_count": 8,
