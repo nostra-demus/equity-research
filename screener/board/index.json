@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T20:59:39Z",
+  "generated_at": "2026-09-14T21:08:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-531",
@@ -1044,6 +1044,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-540",
+      "headline": "Sysco to Raise $1 Billion in Share Sale for Jetro Acquisition",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-14/sysco-to-raise-1-billion-in-share-sale-for-jetro-acquisition",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T20:36:27Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Sysco is raising $1 billion in a share sale to fund the acquisition of Jetro.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sysco is raising $1 billion in a share sale to fund the acquisition of Jetro.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sysco",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-533",
       "headline": "Kyndryl Completes Acquisition Of Healthcare IT Leaders For Over $350 Mln",
       "headline_en": null,
@@ -1946,60 +1996,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-413",
-      "headline": "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/crane-buy-us-water-pump-business-trillium-flow-240-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T12:15:26Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Crane to acquire US water pump business from Trillium Flow for $240 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crane to acquire US water pump business from Trillium Flow for $240 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crane",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trillium Flow",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161646,9 +161642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 999480,
-    "news_picked_today": 1505,
-    "news_dropped_today": 6566
+    "news_seen_today": 1012602,
+    "news_picked_today": 1512,
+    "news_dropped_today": 6631
   },
   "book_momentum": {
     "live_count": 8,
