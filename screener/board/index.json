@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T08:06:10Z",
+  "generated_at": "2026-09-14T08:10:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -193,6 +193,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-300",
+      "headline": "Fluggesellschaft: AirBaltic flüchtet unter US-Insolvenzrecht – Flugbetrieb läuft weiter",
+      "headline_en": "Airline: AirBaltic flees under US bankruptcy law – flight operations continue",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/fluggesellschaft-airbaltic-fluechtet-unter-us-insolvenzrecht-flugbetrieb-laeuft-weiter/100254298.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T08:07:17Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "AirBaltic is filing for US Chapter 15 bankruptcy protection to restructure debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AirBaltic is filing for US Chapter 15 bankruptcy protection to restructure debt.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirBaltic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-301",
+      "headline": "Omnia receives R21.8bn buyout bid from Solar Industries",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/omnia-receives-r21-8bn-buyout-bid-from-solar-industries/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T07:56:04Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Omnia received a buyout bid of R21.8bn from Solar Industries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Omnia received a buyout bid of R21.8bn from Solar Industries.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omnia",
+          "ticker": null,
+          "listing_country": "ZA"
+        },
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1902,104 +2005,6 @@
           "name": "Deutsche Börse",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-069",
-      "headline": "China's Ligent seeks about $723 million in Hong Kong IPO, targets AI-related expansion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/chinas-ligent-technologies-seeks-723-million-hong-kong-ipo-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:41:07Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Ligent is seeking to raise approximately $723 million through an IPO in Hong Kong to fund AI-related expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Ligent is seeking to raise approximately $723 million through an IPO in Hong Kong to fund AI-related expansion.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ligent",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-181",
-      "headline": "Info Edge (India) Limited: Info Edge (India) Limited has informed the Exchange about appointment of Mr. Naresh Chand Gupta (DIN: 00172311) as an Additional Director to be designated as Non-Executive Independent Director and Cessation of Mr. Ambarish Raghuvanshi as Interim Chief Financial Officer and assuming of office by Mr. Himanshu Agarwal as Chief Financial Officer and Additional Director",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NAUKRI2_14092026095556_IEILSEIntimation14092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T04:26:08Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Change in CFO and board composition is a material management update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Change in CFO and board composition is a material management update.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Info Edge",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -162085,9 +162090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2383,
-    "news_picked_today": 638,
-    "news_dropped_today": 1721
+    "news_seen_today": 2415,
+    "news_picked_today": 648,
+    "news_dropped_today": 1735
   },
   "book_momentum": {
     "live_count": 8,
