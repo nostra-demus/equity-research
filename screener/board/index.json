@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T10:02:10Z",
+  "generated_at": "2026-09-14T10:06:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-323",
@@ -291,6 +291,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-332",
+      "headline": "Essar's EET Retail to acquire UK forecourt operator SGN for 400 million pounds",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/essars-eet-retail-to-acquire-uk-forecourt-operator-sgn-for-400-million-pounds/article71465596.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T09:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Essar's EET Retail is acquiring SGN for 400 million pounds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Essar's EET Retail is acquiring SGN for 400 million pounds.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essar",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "SGN",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1955,55 +2009,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-250",
-      "headline": "‎Arabian Drilling inks SAR 2B contract for 8 land rigs",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1936137",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T09:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Arabian Drilling secured a significant SAR 2 billion contract for 8 land rigs, directly impacting revenue backlog.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Arabian Drilling secured a significant SAR 2 billion contract for 8 land rigs, directly impacting revenue backlog.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arabian Drilling",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161727,9 +161732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16581,
-    "news_picked_today": 805,
-    "news_dropped_today": 2346
+    "news_seen_today": 17356,
+    "news_picked_today": 816,
+    "news_dropped_today": 2359
   },
   "book_momentum": {
     "live_count": 8,
