@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T01:26:06Z",
+  "generated_at": "2026-09-14T01:36:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -338,6 +338,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-095",
+      "headline": "GAC GROUP (02238): EXCHANGE NOTICE - TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400163.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T01:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "GAC Group shares are halted pending an announcement, which is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "GAC Group shares are halted pending an announcement, which is a material event for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC Group",
+          "ticker": "02238",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1090,6 +1139,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-094",
+      "headline": "FleetPartners Shares Gain After Element Fleet Walks Away From Takeover Bid",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fleetpartners-shares-gain-after-element-fleet-walks-away-takeover-bid",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:11:57Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Element Fleet Management terminated its takeover bid for FleetPartners, removing a potential acquisition premium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Element Fleet Management terminated its takeover bid for FleetPartners, removing a potential acquisition premium.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FleetPartners",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-021",
       "headline": "Tata Sons may be valued up to ₹12.5 lakh cr in IPO",
       "headline_en": null,
@@ -1681,6 +1779,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-102",
+      "headline": "Xpeng G9L China launch event set for September 17",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/09/14/xpeng-g9l-china-launch-sept-17/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:26:43Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Xpeng is launching a new vehicle model, which is a key driver for revenue growth and market share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Xpeng is launching a new vehicle model, which is a key driver for revenue growth and market share.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xpeng",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-101",
+      "headline": "Okinawa gets 1st governor in 12 yrs backing US base relocation plan",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260913/p2g/00m/0na/031000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T01:25:48Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The election of a governor supporting the US base relocation plan in Okinawa removes a long-standing political and regulatory hurdle for infrastructure projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The election of a governor supporting the US base relocation plan in Okinawa removes a long-standing political and regulatory hurdle for infrastructure projects.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-086",
       "headline": "SEBI tightens scrutiny of Wall Street giants operating in India",
       "headline_en": null,
@@ -1724,31 +1914,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-073",
-      "headline": "ASX opens flat, GenusPlus wins $160m battery contract",
+      "inbox_id": "INB-20260914-098",
+      "headline": "Tim Goyder’s star mining bet Minerals 260 hunts for $250 million",
       "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-oil-above-us100-20260914-p60x0u?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "url": "https://www.afr.com/street-talk/tim-goyder-s-star-mining-bet-minerals-260-hunts-for-250-million-20260914-p60x4e?ref=rss&utm_medium=rss&utm_source=rss_feed",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:56:36Z",
+      "found_at": "2026-09-14T01:32:38Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "GenusPlus has secured a $160 million battery contract, which is a material revenue-generating event for the company.",
+      "prelim_note": "Minerals 260 is seeking to raise $250 million in capital.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 80,
-      "triage_reason": "GenusPlus has secured a $160 million battery contract, which is a material revenue-generating event for the company.",
+      "triage_reason": "Minerals 260 is seeking to raise $250 million in capital.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1757,202 +1947,12 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "commercial"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GenusPlus Group",
-          "ticker": "GNP",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-006",
-      "headline": "AIA AIA-R AIA SDS4609-R (01299 81299 85169): Notice of Listing on The Stock Exchange of Hong Kong Limited - CNY2,000,000,000 2.875 per cent. Subordinated Dated Securities due 2046 (Stock code: 85169) under the US$18,000,000,000 Global Medium Term Note and Securities Programme of AIA Group Limited",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-13T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "AIA Group issued CNY 2 billion in subordinated securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "AIA Group issued CNY 2 billion in subordinated securities.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIA",
-          "ticker": "01299",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-092",
-      "headline": "Sweden's centre-left bloc leads close election against right-wing government",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/europe/swedes-vote-election-that-could-usher-far-right-into-government-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:06:59Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Election results in Sweden impact the political and economic landscape.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Election results in Sweden impact the political and economic landscape.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-040",
-      "headline": "NAB: Issue of JPY 15 billion Subordinated Notes Cleansing Notice",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NAB?key=2924-03135080-3A701678",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:19:50Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "National Australia Bank issued JPY 15 billion in subordinated notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "National Australia Bank issued JPY 15 billion in subordinated notes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Australia Bank",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-026",
-      "headline": "GTG: Quarterly Activities/Appendix 4C Cash Flow Report June 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GTG?key=2924-03135074-3A701663",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T00:07:25Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Quarterly cash flow reports are fundamental disclosures for assessing the liquidity and operational health of small-cap entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Quarterly cash flow reports are fundamental disclosures for assessing the liquidity and operational health of small-cap entities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GTG",
+          "name": "Minerals 260",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -160602,9 +160602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 341,
-    "news_picked_today": 102,
-    "news_dropped_today": 239
+    "news_seen_today": 378,
+    "news_picked_today": 112,
+    "news_dropped_today": 266
   },
   "book_momentum": {
     "live_count": 8,
