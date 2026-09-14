@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-24T12:14:38Z",
+  "archived_at": "2026-09-14T19:12:09Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f49f3da3af4d",
-    "idea_version": "IDEAV-68328d9d257b0892",
-    "idea_version_started_at": "2026-08-22T19:15:06Z",
-    "ticker": "08337",
-    "company": "Directel",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-fdd6333c0914",
+    "idea_version": "IDEAV-5fcfac9900d2bdaa",
+    "idea_version_started_at": "2026-09-11T23:39:38Z",
+    "ticker": "CCR",
+    "company": "C&C Group",
+    "exchange": "LSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company issued a profit warning, signaling a decline in profitability.",
-    "why_now": "The filing was released on 2026-08-21.",
-    "conviction": 60,
+    "reason": "Acquiring Asahi UK's wholesale business strengthens C&C Group's distribution network and market share in the UK beverage sector, providing immediate scale and synergy potential.",
+    "why_now": "The acquisition was reported on 2026-09-11.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-11139abee399"
+      "EVT-01a6183756fd"
     ],
-    "primary_source_event_id": "EVT-11139abee399",
+    "primary_source_event_id": "EVT-01a6183756fd",
     "source_headlines": [
-      "DIRECTEL (08337): PROFIT WARNING"
+      "C&C Group to acquire Asahi UK’s wholesale business"
     ],
-    "source_headline": "DIRECTEL (08337): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0821/2026082101349.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "C&C Group to acquire Asahi UK’s wholesale business",
+    "source_url": "https://finance.yahoo.com/small-business/articles/c-c-group-acquire-asahi-165428446.html",
+    "source_name": "Yahoo Finance",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-21T12:08:00Z",
+    "newest_source_at": "2026-09-11T16:54:28Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-21T23:28:47Z",
-    "updated_at": "2026-08-22T19:15:06Z",
-    "decay_at": "2026-08-23T00:08:00Z",
+    "surfaced_at": "2026-09-11T20:03:47Z",
+    "updated_at": "2026-09-11T23:39:38Z",
+    "decay_at": "2026-09-13T04:54:28Z",
     "status": "live",
     "promoted_signal_id": null
   }

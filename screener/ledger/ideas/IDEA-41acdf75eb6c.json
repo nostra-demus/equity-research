@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-41acdf75eb6c",
-  "idea_version": "IDEAV-d36e927c285fcb38",
-  "idea_version_started_at": "2026-09-14T12:31:25Z",
+  "idea_version": "IDEAV-9e64c7ec16a5db22",
+  "idea_version_started_at": "2026-09-14T19:12:02Z",
   "ticker": "HUBG",
   "company": "Hub Group",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company pre-announced an operating loss for H1, reflecting deteriorating margins and operational headwinds.",
-  "why_now": "The announcement was made on 2026-09-14, and the market has yet to fully digest the implications of the operating loss and management transition.",
-  "conviction": 70,
+  "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
+  "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 20,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -43,21 +43,21 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "balance_sheet_survival",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-350141b78036"
+    "EVT-0bb8559a6352"
   ],
-  "primary_source_event_id": "EVT-350141b78036",
+  "primary_source_event_id": "EVT-0bb8559a6352",
   "source_headlines": [
-    "Hub Group To Post Operating Loss In H1 Before One-time Charges; Names David Yeager Chairman & CEO"
+    "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
   ],
-  "source_headline": "Hub Group To Post Operating Loss In H1 Before One-time Charges; Names David Yeager Chairman & CEO",
-  "source_url": "https://www.nasdaq.com/articles/hub-group-post-operating-loss-h1-one-time-charges-names-david-yeager-chairman-ceo",
-  "source_name": "Nasdaq",
+  "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-14T11:47:08Z",
+  "newest_source_at": "2026-09-14T14:26:43Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-14T12:31:25Z",
-  "updated_at": "2026-09-14T12:31:25Z",
-  "decay_at": "2026-09-15T23:47:08Z",
+  "updated_at": "2026-09-14T19:12:02Z",
+  "decay_at": "2026-09-16T02:26:43Z",
   "status": "live",
   "promoted_signal_id": null
 }

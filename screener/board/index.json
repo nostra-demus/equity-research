@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T19:11:25Z",
+  "generated_at": "2026-09-14T19:12:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-531",
@@ -116522,6 +116522,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-41acdf75eb6c",
+      "idea_version": "IDEAV-9e64c7ec16a5db22",
+      "idea_version_started_at": "2026-09-14T19:12:02Z",
+      "ticker": "HUBG",
+      "company": "Hub Group",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
+      "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0bb8559a6352"
+      ],
+      "primary_source_event_id": "EVT-0bb8559a6352",
+      "source_headlines": [
+        "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
+      ],
+      "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T14:26:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T12:31:25Z",
+      "updated_at": "2026-09-14T19:12:02Z",
+      "decay_at": "2026-09-16T02:26:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-ae646f7e42b2e218",
       "idea_version_started_at": "2026-09-14T13:46:28Z",
@@ -116726,76 +116796,6 @@
       "surfaced_at": "2026-09-14T13:16:04Z",
       "updated_at": "2026-09-14T13:16:04Z",
       "decay_at": "2026-09-16T00:19:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-41acdf75eb6c",
-      "idea_version": "IDEAV-d36e927c285fcb38",
-      "idea_version_started_at": "2026-09-14T12:31:25Z",
-      "ticker": "HUBG",
-      "company": "Hub Group",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company pre-announced an operating loss for H1, reflecting deteriorating margins and operational headwinds.",
-      "why_now": "The announcement was made on 2026-09-14, and the market has yet to fully digest the implications of the operating loss and management transition.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-350141b78036"
-      ],
-      "primary_source_event_id": "EVT-350141b78036",
-      "source_headlines": [
-        "Hub Group To Post Operating Loss In H1 Before One-time Charges; Names David Yeager Chairman & CEO"
-      ],
-      "source_headline": "Hub Group To Post Operating Loss In H1 Before One-time Charges; Names David Yeager Chairman & CEO",
-      "source_url": "https://www.nasdaq.com/articles/hub-group-post-operating-loss-h1-one-time-charges-names-david-yeager-chairman-ceo",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T11:47:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T12:31:25Z",
-      "updated_at": "2026-09-14T12:31:25Z",
-      "decay_at": "2026-09-15T23:47:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -118201,6 +118201,79 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4f0e3a3e17fb",
+      "idea_version": "IDEAV-0b4d25817559d3bf",
+      "idea_version_started_at": "2026-09-14T19:12:02Z",
+      "ticker": "8848",
+      "company": "Leopalace21",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A consortium including Hikari Tsushin and MBK Partners has launched a $1.7 billion buyout offer for the company, providing a clear floor for the share price.",
+      "why_now": "The buyout offer was announced on 2026-09-14.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a8f157318ad3"
+      ],
+      "primary_source_event_id": "EVT-a8f157318ad3",
+      "source_headlines": [
+        "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21"
+      ],
+      "source_headline": "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21",
+      "source_url": "https://asia.nikkei.com/business/business-deals/hikari-tsushin-mbk-nec-unit-launch-1.7bn-buyout-for-japan-s-leopalace212",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T16:18:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T19:12:02Z",
+      "updated_at": "2026-09-14T19:12:02Z",
+      "decay_at": "2026-09-16T04:18:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -122377,147 +122450,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6c411243ff00",
-      "idea_version": "IDEAV-e63d21a8b1a1011e",
-      "idea_version_started_at": "2026-09-12T01:49:08Z",
-      "ticker": "NFE",
-      "company": "New Fortress Energy",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company successfully completed a restructuring that significantly reduces its debt burden to $700 million, improving its balance sheet solvency.",
-      "why_now": "The restructuring was announced as completed on 2026-09-11.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cba92ef88340"
-      ],
-      "primary_source_event_id": "EVT-cba92ef88340",
-      "source_headlines": [
-        "New Fortress completes restructuring, cuts debt to $700 million"
-      ],
-      "source_headline": "New Fortress completes restructuring, cuts debt to $700 million",
-      "source_url": "https://www.reuters.com/business/energy/new-fortress-completes-restructuring-cuts-debt-700-million-2026-09-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T14:42:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:09:01Z",
-      "updated_at": "2026-09-12T01:49:08Z",
-      "decay_at": "2026-09-13T02:42:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0f963912a562",
-      "idea_version": "IDEAV-b6f16dc9eebc7f4a",
-      "idea_version_started_at": "2026-09-11T23:59:41Z",
-      "ticker": "AXGN",
-      "company": "Axogen",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
-      "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8af0835f4f57",
-        "EVT-9482923fd716"
-      ],
-      "primary_source_event_id": "EVT-8af0835f4f57",
-      "source_headlines": [
-        "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-        "Axogen to buy BioCircuit Technologies for $200M"
-      ],
-      "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T16:00:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-10T18:09:40Z",
-      "updated_at": "2026-09-11T23:59:41Z",
-      "decay_at": "2026-09-13T04:00:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-46bc954d6d75a1dc",
       "idea_version_started_at": "2026-09-13T11:26:21Z",
@@ -123789,294 +123721,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7b08e8c1482d",
-      "idea_version": "IDEAV-f742c2d5684821a2",
-      "idea_version_started_at": "2026-09-11T23:59:41Z",
-      "ticker": "HDFCLIFE",
-      "company": "HDFC Life Insurance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A ₹3,365 crore tax demand and penalty creates a direct, unhedged hit to the company's net worth and earnings profile.",
-      "why_now": "The demand was reported on 2026-09-11 following an appeal order, creating immediate uncertainty regarding the company's tax liabilities.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-69cd7f595ce7"
-      ],
-      "primary_source_event_id": "EVT-69cd7f595ce7",
-      "source_headlines": [
-        "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order"
-      ],
-      "source_headline": "HDFC Life Insurance faces ₹3,365 crore GST tax demand and penalty after appeal order",
-      "source_url": "https://www.cnbctv18.com/market/stocks/hdfc-life-insurance-share-price-faces-rs-3365-crore-gst-tax-demand-and-penalty-after-appeal-order-19989660.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T15:34:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:48:34Z",
-      "updated_at": "2026-09-11T23:59:41Z",
-      "decay_at": "2026-09-13T03:34:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fdd6333c0914",
-      "idea_version": "IDEAV-5fcfac9900d2bdaa",
-      "idea_version_started_at": "2026-09-11T23:39:38Z",
-      "ticker": "CCR",
-      "company": "C&C Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Acquiring Asahi UK's wholesale business strengthens C&C Group's distribution network and market share in the UK beverage sector, providing immediate scale and synergy potential.",
-      "why_now": "The acquisition was reported on 2026-09-11.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-01a6183756fd"
-      ],
-      "primary_source_event_id": "EVT-01a6183756fd",
-      "source_headlines": [
-        "C&C Group to acquire Asahi UK’s wholesale business"
-      ],
-      "source_headline": "C&C Group to acquire Asahi UK’s wholesale business",
-      "source_url": "https://finance.yahoo.com/small-business/articles/c-c-group-acquire-asahi-165428446.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T16:54:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T20:03:47Z",
-      "updated_at": "2026-09-11T23:39:38Z",
-      "decay_at": "2026-09-13T04:54:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-75765a74602d",
-      "idea_version": "IDEAV-4b58c0f15db609aa",
-      "idea_version_started_at": "2026-09-11T23:19:39Z",
-      "ticker": "VIJAYA",
-      "company": "Vijaya Diagnostic Centre Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is expanding its footprint in the North East Indian market through the strategic acquisition of Arya Wellness Centre, which will likely drive incremental revenue growth and regional market share.",
-      "why_now": "The Board approved the Business Transfer Agreement on September 11, 2026, making this a fresh inorganic growth catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b9aee66b3a5",
-        "EVT-c1f642d752ea"
-      ],
-      "primary_source_event_id": "EVT-8b9aee66b3a5",
-      "source_headlines": [
-        "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
-        "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange about General Updates - Investor Presentation - 100% Acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Asssam."
-      ],
-      "source_headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026195905_Stx_BM_Outcome_Acquisition_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T15:27:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T23:19:39Z",
-      "updated_at": "2026-09-11T23:19:39Z",
-      "decay_at": "2026-09-13T03:27:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bcdb35c76a25",
-      "idea_version": "IDEAV-ae19cf706889b129",
-      "idea_version_started_at": "2026-09-11T18:09:01Z",
-      "ticker": "01406",
-      "company": "Clarity Medical",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The disclosure of key findings from a forensic investigation into IPO allegations suggests significant governance and accounting risks that could lead to regulatory penalties or further share price erosion.",
-      "why_now": "The filing regarding the forensic investigation was released today, September 11, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6223cfe79717"
-      ],
-      "primary_source_event_id": "EVT-6223cfe79717",
-      "source_headlines": [
-        "CLARITY MEDICAL (01406): KEY FINDINGS OF FORENSIC INVESTIGATION IN CONNECTION WITH IPO ALLEGATIONS"
-      ],
-      "source_headline": "CLARITY MEDICAL (01406): KEY FINDINGS OF FORENSIC INVESTIGATION IN CONNECTION WITH IPO ALLEGATIONS",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101943.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T14:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T18:09:01Z",
-      "updated_at": "2026-09-11T18:09:01Z",
-      "decay_at": "2026-09-13T02:53:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-535e529d3ef7",
       "idea_version": "IDEAV-7547aea13d7cd217",
       "idea_version_started_at": "2026-09-13T18:31:35Z",
@@ -124731,33 +124375,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 18
       },
       "short": {
-        "total_count": 264,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 190,
-      "oldest_retained_at": "2026-08-23T00:06:00Z",
+      "evicted_count": 196,
+      "oldest_retained_at": "2026-08-23T01:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 148,
-          "oldest_retained_at": "2026-09-01T00:50:26Z"
+          "evicted_count": 152,
+          "oldest_retained_at": "2026-09-01T03:40:00Z"
         },
         "short": {
-          "evicted_count": 42,
-          "oldest_retained_at": "2026-08-23T00:06:00Z"
+          "evicted_count": 44,
+          "oldest_retained_at": "2026-08-23T01:00:00Z"
         }
       }
     },
@@ -127051,8 +126695,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T04:54:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -127125,8 +126769,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T04:00:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -127200,8 +126844,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T03:34:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -127276,8 +126920,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T03:27:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -127350,8 +126994,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T02:53:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -127423,8 +127067,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-13T02:42:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T19:12:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -161909,8 +161553,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 806,
-    "live_count": 78,
+    "surfaced_total": 807,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
