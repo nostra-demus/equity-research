@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T13:41:10Z",
+  "generated_at": "2026-09-14T13:46:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-427",
@@ -694,6 +694,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-430",
+      "headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T13:32:47Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Oracle is increasing layoffs, resulting in an additional $700 million in restructuring costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle is increasing layoffs, resulting in an additional $700 million in restructuring costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1977,61 +2026,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-311",
-      "headline": "Space42, Viasat Agree To Co-found Equatys With $1 Bln Commitment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/space42-viasat-agree-co-found-equatys-1-bln-commitment",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T06:29:37Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Space42 and Viasat to co-found Equatys with a 1 billion USD commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Space42 and Viasat to co-found Equatys with a 1 billion USD commitment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Space42",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Viasat",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -162108,9 +162102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 162683,
-    "news_picked_today": 1186,
-    "news_dropped_today": 3837
+    "news_seen_today": 169193,
+    "news_picked_today": 1191,
+    "news_dropped_today": 3856
   },
   "book_momentum": {
     "live_count": 8,
