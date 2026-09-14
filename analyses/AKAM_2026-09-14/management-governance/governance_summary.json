@@ -1,0 +1,82 @@
+{
+  "ticker": "AKAM",
+  "as_of_date": "2026-09-14",
+  "verdict": "Misaligned or weak stewardship",
+  "gate": {
+    "result": "PASS",
+    "tripping_fact": null,
+    "coverage": "116/179 answered"
+  },
+  "hard_disqualifier": {
+    "flagged": false,
+    "verbatim": "No disqualifier triggered."
+  },
+  "run_mode": "full expanded formula; all specialists 07-12 present",
+  "scores": {
+    "management_quality": 56,
+    "capital_allocation": 38,
+    "incentive_alignment": 43,
+    "shareholder_friendliness": 60,
+    "disclosure_candor": 54,
+    "people_network_integrity": 59,
+    "audit_assurance_quality": 51,
+    "rpt_leakage_risk_higher_worse": 45,
+    "contingent_liability_risk_higher_worse": 37,
+    "accounting_forensics_risk_higher_worse": 38,
+    "legal_regulatory_risk_higher_worse": 40,
+    "governance_risk_higher_worse": 60,
+    "data_quality": 58,
+    "overall_usefulness": 68,
+    "confidence": 65
+  },
+  "checklist_risk": {
+    "value": 45,
+    "formula": "max(45,37,38,40)",
+    "binding_component": "RPT & leakage risk"
+  },
+  "governance_score": {
+    "value": 50,
+    "unrounded_value": 50.29,
+    "formula": "0.14*38 + 0.11*43 + 0.11*60 + 0.10*54 + 0.11*56 + 0.09*51 + 0.11*59 + 0.11*(100-60) + 0.12*(100-45)"
+  },
+  "confidence_adjusted_governance_score": {
+    "value": 33,
+    "unrounded_value": 32.69,
+    "formula": "50.29*65/100"
+  },
+  "governance_rating": "Weak",
+  "red_flags": {
+    "count": 6,
+    "critical_count": 0,
+    "ids": [
+      "RF-CAP-004",
+      "RF-SHR-001",
+      "RF-DISC-002",
+      "RF-AUD-007",
+      "RF-FIN-003",
+      "RF-CL-001"
+    ]
+  },
+  "checklist_coverage": {
+    "answered": 116,
+    "total": 179,
+    "percent": 64.8,
+    "green": 40,
+    "amber": 67,
+    "red": 9,
+    "not_applicable": 21,
+    "insufficient_data": 42,
+    "not_available_or_insufficient": 63
+  },
+  "applied_caps": [
+    "No frozen proxy/compensation disclosure: Incentive max 50; usefulness max 70",
+    "No complete ownership/insider data: Shareholder friendliness max 60",
+    "No auditor-fee detail: Audit max 65; confidence max 80",
+    "Coverage-limited legal sweep: People max 65; LegalRisk floor 40; confidence max 70",
+    "No quantifiable RPT ledger: RPTRisk floor 40; confidence max 80",
+    "Serial acquirer: CapAlloc max 50; GovRisk floor 60",
+    "Query budget exhausted with declared boundaries: People max 65; confidence max 75"
+  ],
+  "biggest_finding": "FY2021–FY2025 cash acquisitions were $598.8m + $872.1m + $106.2m + $434.1m + $55.1m = $2.066bn, plus $205m for LayerX, without disclosed deal-level return proof.",
+  "highest_value_next_data": "FY2026 DEF 14A added to the frozen evidence generation"
+}
