@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T06:19:31Z",
+  "generated_at": "2026-09-14T06:26:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -889,6 +889,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-246",
+      "headline": "‎Arabian Drilling wins SAR 2B contract with SLB for 8 land rigs",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1936137",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Arabian Drilling secured a SAR 2 billion contract, providing significant revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Arabian Drilling secured a SAR 2 billion contract, providing significant revenue visibility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arabian Drilling",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SLB",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-200",
-      "headline": "HD현대이앤에프, 대산단지 LNG 열병합발전소 준공",
-      "headline_en": "HD Hyundai E&F completes construction of LNG cogeneration plant in Daesan complex",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276865",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T04:11:24Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "HD Hyundai E&F completed construction of an LNG cogeneration plant in the Daesan industrial complex, increasing operational capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HD Hyundai E&F completed construction of an LNG cogeneration plant in the Daesan industrial complex, increasing operational capacity.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HD Hyundai E&F",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161704,9 +161709,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1613,
-    "news_picked_today": 413,
-    "news_dropped_today": 1200
+    "news_seen_today": 1638,
+    "news_picked_today": 422,
+    "news_dropped_today": 1216
   },
   "book_momentum": {
     "live_count": 8,
