@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T07:39:29Z",
+  "generated_at": "2026-09-14T07:44:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -244,6 +244,110 @@
           "name": "Omnia Holdings",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-279",
+      "headline": "Solar Industries to acquire South Africa’s Omnia for Rs 12,951 crore in biggest global expansion push",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining/solar-industries-to-acquire-south-africas-omnia-for-rs-12951-crore-in-biggest-global-expansion-push/articleshow/134235620.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T07:26:45Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Solar Industries is acquiring Omnia for Rs 12,951 crore, representing a major international expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries is acquiring Omnia for Rs 12,951 crore, representing a major international expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Omnia",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-281",
+      "headline": "Australia’s Ailing Whyalla Steelworks to Shut Furnace, Cut Jobs",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-14/australia-s-ailing-whyalla-steelworks-to-shut-furnace-cut-jobs",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T07:20:20Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shutdown of a furnace and job cuts at Whyalla Steelworks indicates significant operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shutdown of a furnace and job cuts at Whyalla Steelworks indicates significant operational distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whyalla Steelworks",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -1900,104 +2004,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-117",
-      "headline": "SoftBank Gets Upsized $11.9 Billion Loan in OpenAI Funding Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-14/softbank-gets-upsized-11-9-billion-loan-in-openai-funding-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:42:42Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "SoftBank secured an upsized $11.9 billion loan to support its investment in OpenAI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SoftBank secured an upsized $11.9 billion loan to support its investment in OpenAI.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-147",
-      "headline": "ROG: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ROG?key=2924-03135145-3A701694",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T02:26:15Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "A trading halt pending an announcement is a material event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A trading halt pending an announcement is a material event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ROG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117362,76 +117368,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5f98ab3738c2",
-      "idea_version": "IDEAV-6e5ad6dd9e074794",
-      "idea_version_started_at": "2026-09-13T17:31:23Z",
-      "ticker": "JNJ",
-      "company": "Johnson & Johnson",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Divesting the orthopedics business for $20 billion allows the company to streamline its portfolio and focus on higher-growth pharmaceutical and medtech segments.",
-      "why_now": "The potential $20 billion deal was reported as being in active talks on September 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46002ac3cbb6"
-      ],
-      "primary_source_event_id": "EVT-46002ac3cbb6",
-      "source_headlines": [
-        "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion"
-      ],
-      "source_headline": "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion",
-      "source_url": "https://www.wsj.com/business/deals/j-j-is-in-talks-to-sell-its-hips-and-knees-business-to-apollo-for-20-billion-3018cc4e?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T19:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T05:48:12Z",
-      "updated_at": "2026-09-13T17:31:23Z",
-      "decay_at": "2026-09-14T07:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7835675519f4",
       "idea_version": "IDEAV-bfddf05a76e37850",
       "idea_version_started_at": "2026-09-13T17:31:23Z",
@@ -121594,6 +121530,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5f98ab3738c2",
+      "idea_version": "IDEAV-6e5ad6dd9e074794",
+      "idea_version_started_at": "2026-09-13T17:31:23Z",
+      "ticker": "JNJ",
+      "company": "Johnson & Johnson",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Divesting the orthopedics business for $20 billion allows the company to streamline its portfolio and focus on higher-growth pharmaceutical and medtech segments.",
+      "why_now": "The potential $20 billion deal was reported as being in active talks on September 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46002ac3cbb6"
+      ],
+      "primary_source_event_id": "EVT-46002ac3cbb6",
+      "source_headlines": [
+        "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion"
+      ],
+      "source_headline": "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion",
+      "source_url": "https://www.wsj.com/business/deals/j-j-is-in-talks-to-sell-its-hips-and-knees-business-to-apollo-for-20-billion-3018cc4e?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T19:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T05:48:12Z",
+      "updated_at": "2026-09-13T17:31:23Z",
+      "decay_at": "2026-09-14T07:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6c411243ff00",
       "idea_version": "IDEAV-e63d21a8b1a1011e",
       "idea_version_started_at": "2026-09-12T01:49:08Z",
@@ -124807,14 +124813,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 266,
@@ -124838,6 +124844,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5f98ab3738c2",
+        "idea_version": "IDEAV-6e5ad6dd9e074794",
+        "idea_version_started_at": "2026-09-13T17:31:23Z",
+        "ticker": "JNJ",
+        "company": "Johnson & Johnson",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Divesting the orthopedics business for $20 billion allows the company to streamline its portfolio and focus on higher-growth pharmaceutical and medtech segments.",
+        "why_now": "The potential $20 billion deal was reported as being in active talks on September 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46002ac3cbb6"
+        ],
+        "primary_source_event_id": "EVT-46002ac3cbb6",
+        "source_headlines": [
+          "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion"
+        ],
+        "source_headline": "J&J Is In Talks to Sell Its Hips-and-Knees Business to Apollo for $20 Billion",
+        "source_url": "https://www.wsj.com/business/deals/j-j-is-in-talks-to-sell-its-hips-and-knees-business-to-apollo-for-20-billion-3018cc4e?siteid=yhoof2&yptr=yahoo",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T19:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T05:48:12Z",
+        "updated_at": "2026-09-13T17:31:23Z",
+        "decay_at": "2026-09-14T07:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T07:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1e21975df7c3",
         "idea_version": "IDEAV-f2882134d822e1f8",
@@ -153591,79 +153670,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-97064c0977c4",
-        "idea_version": "IDEAV-345686aa95ae9753",
-        "idea_version_started_at": "2026-08-31T03:02:38Z",
-        "ticker": "OKE",
-        "company": "ONEOK",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Brazos Midstream's Permian Midland Basin assets for $4.43 billion expands the company's footprint in a high-growth production region, likely increasing long-term fee-based cash flows.",
-        "why_now": "The acquisition was announced on 2026-08-31.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-110ee9a8016a"
-        ],
-        "primary_source_event_id": "EVT-110ee9a8016a",
-        "source_headlines": [
-          "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion"
-        ],
-        "source_headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
-        "source_url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T01:40:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T03:02:38Z",
-        "updated_at": "2026-08-31T03:02:38Z",
-        "decay_at": "2026-09-01T13:40:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1f1e1ddecae9",
         "idea_version": "IDEAV-086f83c221577d76",
         "idea_version_started_at": "2026-08-31T03:20:55Z",
@@ -161989,7 +161995,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 794,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -162008,9 +162014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2171,
-    "news_picked_today": 575,
-    "news_dropped_today": 1596
+    "news_seen_today": 2192,
+    "news_picked_today": 584,
+    "news_dropped_today": 1608
   },
   "book_momentum": {
     "live_count": 8,
