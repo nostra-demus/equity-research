@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T17:55:38Z",
+  "generated_at": "2026-09-14T18:16:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-516",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-523",
+      "headline": "HFCL Limited: HFCL Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press Release on approval of Additional Investment of Approximately ₹820 crore for expansion of Optical Fiber, Optical Fiber Cable and Preform manufacturing capacities \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AHMED_14092026211015_STX_Announcement_BM_September14_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T15:40:51Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "HFCL Limited announced a major capacity expansion investment of approximately INR 820 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HFCL Limited announced a major capacity expansion investment of approximately INR 820 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HFCL Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,55 +1995,6 @@
       "companies": [
         {
           "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-343",
-      "headline": "Miral to invest $3.27 billion to shape the next phase of Yas Island’s growth",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/miral-to-invest-3-27-billion-to-shape-the-next-phase-of-yas-islands-growth/?utm_source=rss&utm_medium=rss&utm_campaign=miral-to-invest-3-27-billion-to-shape-the-next-phase-of-yas-islands-growth",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T10:43:54Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Miral announced a $3.27 billion investment for the next phase of Yas Island development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Miral announced a $3.27 billion investment for the next phase of Yas Island development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Miral",
           "ticker": null,
           "listing_country": null
         }
@@ -161929,9 +161929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 629265,
-    "news_picked_today": 1367,
-    "news_dropped_today": 5000
+    "news_seen_today": 676714,
+    "news_picked_today": 1389,
+    "news_dropped_today": 5338
   },
   "book_momentum": {
     "live_count": 8,
