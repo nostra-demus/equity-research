@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T09:31:09Z",
+  "generated_at": "2026-09-14T09:36:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-313",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-320",
+      "headline": "Solar Industries arm to acquire South Africa’s Omnia Holdings for ₹12,951 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/solar-industries-arm-to-acquire-south-africas-omnia-holdings-for-12951-crore-rupee-share-price-19990287.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T09:27:21Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Solar Industries is acquiring Omnia Holdings for 129.51 billion INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries is acquiring Omnia Holdings for 129.51 billion INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -503,60 +552,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-277",
-      "headline": "India's Solar Industries to buy South Africa's Omnia for $1.36 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-solar-industries-buy-south-africas-omnia-136-billion-2026-09-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T07:33:17Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Solar Industries is acquiring Omnia for $1.36 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solar Industries is acquiring Omnia for $1.36 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Omnia Holdings",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161658,9 +161653,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11347,
-    "news_picked_today": 759,
-    "news_dropped_today": 2176
+    "news_seen_today": 12171,
+    "news_picked_today": 770,
+    "news_dropped_today": 2213
   },
   "book_momentum": {
     "live_count": 8,
