@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T03:37:38Z",
+  "generated_at": "2026-09-14T03:41:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-154",
+      "headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KEC_14092026090455_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T03:36:13Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "KEC International secured new orders worth Rs. 1,303 crores, which is a significant contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KEC International secured new orders worth Rs. 1,303 crores, which is a significant contract win.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-001",
       "headline": "NICHE-TECH SEMI (08490): INSIDE INFORMATION - BANKRUPTCY PETITIONS PRESENTED AGAINST THE EXECUTIVE CHAIRMAN AND EXECUTIVE DIRECTORS OF THE COMPANY",
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-094",
-      "headline": "FleetPartners Shares Gain After Element Fleet Walks Away From Takeover Bid",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fleetpartners-shares-gain-after-element-fleet-walks-away-takeover-bid",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:11:57Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Element Fleet Management terminated its takeover bid for FleetPartners, removing a potential acquisition premium.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Element Fleet Management terminated its takeover bid for FleetPartners, removing a potential acquisition premium.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FleetPartners",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160763,9 +160763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 792,
-    "news_picked_today": 212,
-    "news_dropped_today": 580
+    "news_seen_today": 832,
+    "news_picked_today": 215,
+    "news_dropped_today": 617
   },
   "book_momentum": {
     "live_count": 8,
