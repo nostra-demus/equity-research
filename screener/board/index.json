@@ -1,6 +1,65 @@
 {
-  "generated_at": "2026-09-14T11:56:09Z",
+  "generated_at": "2026-09-14T12:01:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-401",
+      "headline": "CICC (03908): MAJOR TRANSACTION AND SPECIFIC MANDATE TO ISSUE CICC A SHARES FOR THE PROPOSED MERGERS OF CICC, DONGXING SECURITIES AND CINDA SECURITIES - REMINDER ON THE EXERCISE OF PUT OPTION FOR CICC H SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401115.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "CICC announced a major transaction involving the issuance of A shares for the proposed mergers with Dongxing Securities and Cinda Securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CICC announced a major transaction involving the issuance of A shares for the proposed mergers with Dongxing Securities and Cinda Securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CICC",
+          "ticker": "03908",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Dongxing Securities",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Cinda Securities",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-347",
       "headline": "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1965,55 +2024,6 @@
           "name": "HS Hyosung",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-128",
-      "headline": "Franco-Nevada Expands Bullabulling Support With A$200 Mln Royalty And Equity Investment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/franco-nevada-expands-bullabulling-support-200-mln-royalty-and-equity-investment",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:26:57Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Franco-Nevada is investing A$200 million in royalty and equity to support the Bullabulling project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Franco-Nevada is investing A$200 million in royalty and equity to support the Bullabulling project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Franco-Nevada",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -161670,9 +161680,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 67325,
-    "news_picked_today": 1029,
-    "news_dropped_today": 3202
+    "news_seen_today": 70210,
+    "news_picked_today": 1036,
+    "news_dropped_today": 3243
   },
   "book_momentum": {
     "live_count": 8,
