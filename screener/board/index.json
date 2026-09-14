@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T07:26:11Z",
+  "generated_at": "2026-09-14T07:27:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -118133,6 +118133,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-37801473907d",
+      "idea_version": "IDEAV-5c217deaa8216cd2",
+      "idea_version_started_at": "2026-09-14T07:26:54Z",
+      "ticker": "CER",
+      "company": "Cerillion",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Cerillion shares are tumbling after the company issued a warning on revenue due to slipping customer orders, directly impacting near-term top-line growth and operating margins.",
+      "why_now": "The revenue warning was just announced on September 14, 2026, triggering immediate downward revisions to financial forecasts.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1aefa1f6075c"
+      ],
+      "primary_source_event_id": "EVT-1aefa1f6075c",
+      "source_headlines": [
+        "Cerillion shares tumble after warning on revenue as customer orders slip"
+      ],
+      "source_headline": "Cerillion shares tumble after warning on revenue as customer orders slip",
+      "source_url": "https://ukinvestormagazine.co.uk/cerillion-shares-tumble-after-warning-on-revenue-as-customer-orders-slip/",
+      "source_name": "UK Investor Magazine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T07:13:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T07:26:54Z",
+      "updated_at": "2026-09-14T07:26:54Z",
+      "decay_at": "2026-09-15T19:13:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-68a27a8cac04",
       "idea_version": "IDEAV-ca854ec96ee953a9",
       "idea_version_started_at": "2026-09-14T07:05:50Z",
@@ -161910,8 +161983,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 793,
-    "live_count": 68,
+    "surfaced_total": 794,
+    "live_count": 69,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
