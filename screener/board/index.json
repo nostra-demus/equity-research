@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T22:06:50Z",
+  "generated_at": "2026-09-14T22:16:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-542",
+      "headline": "NWL: Netwealth to acquire Paradino (Investor Presentation) [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NWL?key=2924-03135358-3A701726",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T21:59:49Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Netwealth is acquiring Paradino, representing a strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netwealth is acquiring Paradino, representing a strategic expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netwealth",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-531",
       "headline": "25-NSE - TEVA PHARMACEUTICAL INDUSTRIES LTD (0000818686) (Subject)",
@@ -1044,6 +1093,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-546",
+      "headline": "Treasury hits Russia's VTB Bank with new sanctions over Iran ties",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/14/treasury-bessent-russia-vtb-bank-iran-sanctions.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T21:53:20Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The US Treasury imposed new sanctions on VTB Bank due to Iran ties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US Treasury imposed new sanctions on VTB Bank due to Iran ties.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VTB Bank",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-541",
       "headline": "Veracyte Acquires Convergent Genomics For $150 Mln In Cash",
       "headline_en": null,
@@ -1893,109 +1992,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-430",
-      "headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T13:32:47Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Oracle is increasing layoffs, resulting in an additional $700 million in restructuring costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oracle is increasing layoffs, resulting in an additional $700 million in restructuring costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-412",
-      "headline": "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/addus-homecare-buy-personal-care-division-accentcare-about-275-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T12:19:36Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Addus HomeCare to acquire AccentCare's personal care division for $275 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Addus HomeCare to acquire AccentCare's personal care division for $275 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Addus HomeCare",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AccentCare",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -120580,77 +120576,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-140d0f792e92",
-      "idea_version": "IDEAV-c9f2072c0f774a5a",
-      "idea_version_started_at": "2026-09-13T16:50:02Z",
-      "ticker": "2513",
-      "company": "Z.AI",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a massive capital raise through a concurrent share placement and a $20.14 billion RMB-settled zero-coupon convertible bond issue, which creates significant equity dilution and potential hedging pressure.",
-      "why_now": "The filing was released on September 13, 2026, ahead of the market open for these specific new instruments.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-17f1554c21aa"
-      ],
-      "primary_source_event_id": "EVT-17f1554c21aa",
-      "source_headlines": [
-        "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T10:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T16:50:02Z",
-      "updated_at": "2026-09-13T16:50:02Z",
-      "decay_at": "2026-09-14T22:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f15353e10064",
       "idea_version": "IDEAV-d5e1360839a4cfa0",
       "idea_version_started_at": "2026-09-13T12:04:53Z",
@@ -120716,78 +120641,6 @@
       "surfaced_at": "2026-09-13T12:04:53Z",
       "updated_at": "2026-09-13T12:04:53Z",
       "decay_at": "2026-09-14T22:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-da1862708a71",
-      "idea_version": "IDEAV-bdf5dbe1ba14f119",
-      "idea_version_started_at": "2026-09-13T11:45:45Z",
-      "ticker": "02513",
-      "company": "Z.AI",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The concurrent issuance of new shares and a massive RMB 20.14 billion convertible bond creates significant equity dilution and balance sheet leverage concerns.",
-      "why_now": "The official exchange filing was released on 2026-09-13.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-17f1554c21aa"
-      ],
-      "primary_source_event_id": "EVT-17f1554c21aa",
-      "source_headlines": [
-        "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T10:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T11:45:45Z",
-      "updated_at": "2026-09-13T11:45:45Z",
-      "decay_at": "2026-09-14T22:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -123642,6 +123495,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-140d0f792e92",
+      "idea_version": "IDEAV-c9f2072c0f774a5a",
+      "idea_version_started_at": "2026-09-13T16:50:02Z",
+      "ticker": "2513",
+      "company": "Z.AI",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a massive capital raise through a concurrent share placement and a $20.14 billion RMB-settled zero-coupon convertible bond issue, which creates significant equity dilution and potential hedging pressure.",
+      "why_now": "The filing was released on September 13, 2026, ahead of the market open for these specific new instruments.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-17f1554c21aa"
+      ],
+      "primary_source_event_id": "EVT-17f1554c21aa",
+      "source_headlines": [
+        "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T10:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T16:50:02Z",
+      "updated_at": "2026-09-13T16:50:02Z",
+      "decay_at": "2026-09-14T22:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-873ef929baef",
       "idea_version": "IDEAV-a194d74fda54b6c8",
       "idea_version_started_at": "2026-09-13T16:50:02Z",
@@ -123850,6 +123774,78 @@
       "surfaced_at": "2026-09-13T12:04:53Z",
       "updated_at": "2026-09-13T12:04:53Z",
       "decay_at": "2026-09-14T22:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-da1862708a71",
+      "idea_version": "IDEAV-bdf5dbe1ba14f119",
+      "idea_version_started_at": "2026-09-13T11:45:45Z",
+      "ticker": "02513",
+      "company": "Z.AI",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The concurrent issuance of new shares and a massive RMB 20.14 billion convertible bond creates significant equity dilution and balance sheet leverage concerns.",
+      "why_now": "The official exchange filing was released on 2026-09-13.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-17f1554c21aa"
+      ],
+      "primary_source_event_id": "EVT-17f1554c21aa",
+      "source_headlines": [
+        "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T10:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T11:45:45Z",
+      "updated_at": "2026-09-13T11:45:45Z",
+      "decay_at": "2026-09-14T22:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124728,9 +124724,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 33,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -124738,9 +124734,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 265,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -124759,6 +124755,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-140d0f792e92",
+        "idea_version": "IDEAV-c9f2072c0f774a5a",
+        "idea_version_started_at": "2026-09-13T16:50:02Z",
+        "ticker": "2513",
+        "company": "Z.AI",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is executing a massive capital raise through a concurrent share placement and a $20.14 billion RMB-settled zero-coupon convertible bond issue, which creates significant equity dilution and potential hedging pressure.",
+        "why_now": "The filing was released on September 13, 2026, ahead of the market open for these specific new instruments.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-17f1554c21aa"
+        ],
+        "primary_source_event_id": "EVT-17f1554c21aa",
+        "source_headlines": [
+          "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
+        ],
+        "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T10:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T16:50:02Z",
+        "updated_at": "2026-09-13T16:50:02Z",
+        "decay_at": "2026-09-14T22:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T22:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-da1862708a71",
+        "idea_version": "IDEAV-bdf5dbe1ba14f119",
+        "idea_version_started_at": "2026-09-13T11:45:45Z",
+        "ticker": "02513",
+        "company": "Z.AI",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The concurrent issuance of new shares and a massive RMB 20.14 billion convertible bond creates significant equity dilution and balance sheet leverage concerns.",
+        "why_now": "The official exchange filing was released on 2026-09-13.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-17f1554c21aa"
+        ],
+        "primary_source_event_id": "EVT-17f1554c21aa",
+        "source_headlines": [
+          "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
+        ],
+        "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T10:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T11:45:45Z",
+        "updated_at": "2026-09-13T11:45:45Z",
+        "decay_at": "2026-09-14T22:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T22:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8d1552f59ea8",
         "idea_version": "IDEAV-97db41660754a5bd",
@@ -161753,161 +161898,12 @@
         "archived_at": "2026-08-27T04:20:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6ae80c60359d",
-        "idea_version": "IDEAV-7df99974729aad2c",
-        "idea_version_started_at": "2026-08-24T08:35:35Z",
-        "ticker": "PARADEEP",
-        "company": "Paradeep Phosphates",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a penalty and confiscation exceeding its quarterly profit, which will severely impact net income and cash reserves.",
-        "why_now": "The news of the penalty was reported on August 24, 2026, creating an immediate negative earnings shock.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-05110ac39a20"
-        ],
-        "primary_source_event_id": "EVT-05110ac39a20",
-        "source_headlines": [
-          "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit"
-        ],
-        "source_headline": "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit",
-        "source_url": "https://www.cnbctv18.com/market/stocks/paradeep-phosphates-faces-penalty-and-confiscation-worth-more-than-its-quarterly-profit-19975301.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T03:05:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T08:35:35Z",
-        "updated_at": "2026-08-24T08:35:35Z",
-        "decay_at": "2026-08-25T15:05:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T03:07:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-69441c9f6035",
-        "idea_version": "IDEAV-9c1860334765f3b7",
-        "idea_version_started_at": "2026-08-24T08:35:35Z",
-        "ticker": "BABA",
-        "company": "Alibaba Group",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A $10.2 billion share placement represents significant equity dilution for existing shareholders to fund capital-intensive AI initiatives.",
-        "why_now": "The announcement occurred on August 24, 2026, and the market is currently reacting to the dilutive impact.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-efb1958a37f3",
-          "EVT-e2a751b0bff4"
-        ],
-        "primary_source_event_id": "EVT-efb1958a37f3",
-        "source_headlines": [
-          "Alibaba shares plunge after $10bn new share placement to fund AI spending",
-          "Alibaba plunges after announcing $10.2 billion share placement to fund AI push"
-        ],
-        "source_headline": "Alibaba shares plunge after $10bn new share placement to fund AI spending",
-        "source_url": "https://asia.nikkei.com/business/technology/alibaba-shares-plunge-after-10bn-new-share-placement-to-fund-ai-spending",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T02:55:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T09:21:12Z",
-        "updated_at": "2026-08-24T08:35:35Z",
-        "decay_at": "2026-08-25T14:55:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T03:07:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 812,
-    "live_count": 81,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -161926,9 +161922,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1120373,
-    "news_picked_today": 1597,
-    "news_dropped_today": 7074
+    "news_seen_today": 1140375,
+    "news_picked_today": 1602,
+    "news_dropped_today": 7165
   },
   "book_momentum": {
     "live_count": 8,
