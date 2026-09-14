@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T07:05:02Z",
+  "generated_at": "2026-09-14T07:06:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -118128,6 +118128,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-68a27a8cac04",
+      "idea_version": "IDEAV-ca854ec96ee953a9",
+      "idea_version_started_at": "2026-09-14T07:05:50Z",
+      "ticker": "SOLARINDS",
+      "company": "Solar Industries India Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Solar Industries India Limited is proposing to acquire Omnia Holdings Limited, which could expand its market reach and product offerings.",
+      "why_now": "The company issued a press release on September 14, 2026, detailing the proposed acquisition.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b80737f10cda"
+      ],
+      "primary_source_event_id": "EVT-b80737f10cda",
+      "source_headlines": [
+        "Solar Industries India Limited: Solar Industries India Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press release on proposed acquisition of Omnia Holdings Limited by Solar SA Investments Proprietary Limited\"."
+      ],
+      "source_headline": "Solar Industries India Limited: Solar Industries India Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press release on proposed acquisition of Omnia Holdings Limited by Solar SA Investments Proprietary Limited\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SOLARINDS_14092026122254_signed_pressrelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T06:53:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T07:05:50Z",
+      "updated_at": "2026-09-14T07:05:50Z",
+      "decay_at": "2026-09-15T18:53:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cd3cba919b04",
       "idea_version": "IDEAV-34c422c48b1976fd",
       "idea_version_started_at": "2026-09-14T05:51:52Z",
@@ -161834,8 +161905,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 792,
-    "live_count": 67,
+    "surfaced_total": 793,
+    "live_count": 68,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
