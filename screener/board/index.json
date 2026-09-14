@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T09:01:03Z",
+  "generated_at": "2026-09-14T09:06:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-313",
+      "headline": "VISION VALUES (00862): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T08:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Vision Values issued a profit warning, indicating a decline in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vision Values issued a profit warning, indicating a decline in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vision Values",
+          "ticker": "00862",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-261",
       "headline": "Solar Industries India Limited: Solar Industries India Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press release on proposed acquisition of Omnia Holdings Limited by Solar SA Investments Proprietary Limited\".",
@@ -1957,55 +2006,6 @@
           "name": "SoftBank Group",
           "ticker": "9984",
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-312",
-      "headline": "AstraZeneca: SERENA-4 Trial Of Etcamah Palbociclib Combination Fails To Meet Primary Objective",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/astrazeneca-serena-4-trial-etcamah-palbociclib-combination-fails-meet-primary-objective",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T06:34:03Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "AstraZeneca's SERENA-4 trial failed to meet its primary objective, impacting drug development pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "AstraZeneca's SERENA-4 trial failed to meet its primary objective, impacting drug development pipeline.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AstraZeneca",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -161732,9 +161732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6688,
-    "news_picked_today": 714,
-    "news_dropped_today": 1933
+    "news_seen_today": 7320,
+    "news_picked_today": 719,
+    "news_dropped_today": 1976
   },
   "book_momentum": {
     "live_count": 8,
