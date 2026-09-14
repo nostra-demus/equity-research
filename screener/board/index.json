@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T02:21:08Z",
+  "generated_at": "2026-09-14T02:21:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -117905,6 +117905,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f5969d840a7d",
+      "idea_version": "IDEAV-a7bdb209abc0610a",
+      "idea_version_started_at": "2026-09-14T02:21:22Z",
+      "ticker": "9502.T",
+      "company": "Chubu Electric Power",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Chubu Electric Power is facing scrutiny and reports of data falsification related to its nuclear restart pressure and corporate culture, which could lead to regulatory action and reputational damage.",
+      "why_now": "Reports detailing the falsification and cultural issues emerged on September 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-62ad197896e6",
+        "EVT-747588c7f190"
+      ],
+      "primary_source_event_id": "EVT-62ad197896e6",
+      "source_headlines": [
+        "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+        "BREAKING NEWS: Chubu Electric's culture encouraged data falsification: probe report"
+      ],
+      "source_headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+      "source_url": "https://english.kyodonews.net/articles/-/84931",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-14T00:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:21:22Z",
+      "updated_at": "2026-09-14T02:21:22Z",
+      "decay_at": "2026-09-15T12:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0c6d82b4b0e4",
       "idea_version": "IDEAV-f8e1b98137b8b9f0",
       "idea_version_started_at": "2026-09-13T17:10:20Z",
@@ -120132,6 +120204,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5161e4ad3826",
+      "idea_version": "IDEAV-ae051b7ac3b536b5",
+      "idea_version_started_at": "2026-09-14T02:21:22Z",
+      "ticker": "PRM",
+      "company": "PRM",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "An independent assessment indicates prospective resources at PRM's Eyre Project, suggesting potential upside for the company.",
+      "why_now": "The assessment results were filed on September 14, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6920d0057836"
+      ],
+      "primary_source_event_id": "EVT-6920d0057836",
+      "source_headlines": [
+        "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]"
+      ],
+      "source_headline": "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRM?key=2924-03135085-6A1343646",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-14T00:30:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:21:22Z",
+      "updated_at": "2026-09-14T02:21:22Z",
+      "decay_at": "2026-09-15T12:30:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5f7f48248919",
       "idea_version": "IDEAV-9f8e2e53bbb3734f",
       "idea_version_started_at": "2026-09-14T01:06:30Z",
@@ -120268,6 +120411,78 @@
       "surfaced_at": "2026-09-14T01:06:30Z",
       "updated_at": "2026-09-14T01:06:30Z",
       "decay_at": "2026-09-15T12:30:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-03259272947f",
+      "idea_version": "IDEAV-34fc153de52c06ff",
+      "idea_version_started_at": "2026-09-14T02:21:22Z",
+      "ticker": "REVOLUT",
+      "company": "Revolut",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Revolut is reportedly facing threats of daily customer data leaks, indicating a significant cybersecurity vulnerability that could lead to customer attrition and regulatory fines.",
+      "why_now": "The threat of data leaks was reported on September 14, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cae1018010e5"
+      ],
+      "primary_source_event_id": "EVT-cae1018010e5",
+      "source_headlines": [
+        "Revolut attackers threaten daily customer data leaks"
+      ],
+      "source_headline": "Revolut attackers threaten daily customer data leaks",
+      "source_url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-14T00:54:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:21:22Z",
+      "updated_at": "2026-09-14T02:21:22Z",
+      "decay_at": "2026-09-15T12:54:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -122551,78 +122766,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5d986322cea5",
-      "idea_version": "IDEAV-4b27c23c93432c01",
-      "idea_version_started_at": "2026-09-11T06:19:56Z",
-      "ticker": "COFORGE",
-      "company": "Coforge",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allegations of the chairman concealing audit findings from the board suggest severe governance failures and potential accounting irregularities.",
-      "why_now": "The report of the board-level conflict surfaced on September 11, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8ee1378ff7bd"
-      ],
-      "primary_source_event_id": "EVT-8ee1378ff7bd",
-      "source_headlines": [
-        "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members"
-      ],
-      "source_headline": "Coforge says chairman OP Bhatt instructed to hide audit findings from other board members",
-      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/coforge-says-chairman-op-bhatt-instructed-to-hide-audit-findings-from-other-board-members-kpmg-audit-dk-singh-nrc/articleshow/134040634.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T02:14:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T01:49:16Z",
-      "updated_at": "2026-09-11T06:19:56Z",
-      "decay_at": "2026-09-12T14:14:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-535e529d3ef7",
       "idea_version": "IDEAV-7547aea13d7cd217",
       "idea_version_started_at": "2026-09-13T18:31:35Z",
@@ -123047,77 +123190,6 @@
       "surfaced_at": "2026-09-12T01:49:08Z",
       "updated_at": "2026-09-12T01:49:08Z",
       "decay_at": "2026-09-13T01:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-02a86175523b",
-      "idea_version": "IDEAV-36a3c1f30a16bfbb",
-      "idea_version_started_at": "2026-09-11T06:39:59Z",
-      "ticker": "PAR",
-      "company": "Paradigm Biopharmaceuticals",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is drawing down on a convertible note facility, which signals ongoing cash burn and will result in shareholder dilution.",
-      "why_now": "The exchange filing was released today, September 11, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ad4fc32ae1e7"
-      ],
-      "primary_source_event_id": "EVT-ad4fc32ae1e7",
-      "source_headlines": [
-        "PAR: Drawdown of Tranche 4 under the Convertible Note Facility [price-sensitive]"
-      ],
-      "source_headline": "PAR: Drawdown of Tranche 4 under the Convertible Note Facility [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03134515-3A701570",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-11T02:19:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T06:39:59Z",
-      "updated_at": "2026-09-11T06:39:59Z",
-      "decay_at": "2026-09-12T14:19:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -123561,9 +123633,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -123571,23 +123643,23 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 265,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 13
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 172,
-      "oldest_retained_at": "2026-08-22T23:58:00Z",
+      "evicted_count": 174,
+      "oldest_retained_at": "2026-08-23T00:00:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 135,
           "oldest_retained_at": "2026-08-31T17:33:39Z"
         },
         "short": {
-          "evicted_count": 37,
-          "oldest_retained_at": "2026-08-22T23:58:00Z"
+          "evicted_count": 39,
+          "oldest_retained_at": "2026-08-23T00:00:00Z"
         }
       }
     },
@@ -126706,8 +126778,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T14:19:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T02:21:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126781,8 +126853,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T14:14:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T02:21:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160745,8 +160817,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 772,
-    "live_count": 55,
+    "surfaced_total": 775,
+    "live_count": 58,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
