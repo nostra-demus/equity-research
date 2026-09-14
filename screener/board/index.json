@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T05:41:03Z",
+  "generated_at": "2026-09-14T05:46:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -144,6 +144,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-218",
+      "headline": "Viasat, UAE's Space42 commit up to $1 billion to satellite connectivity venture",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/viasat-uaes-space42-commit-up-1-billion-satellite-connectivity-venture-2026-09-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T05:35:13Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Viasat and Space42 are committing up to $1 billion to a new satellite connectivity venture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viasat and Space42 are committing up to $1 billion to a new satellite connectivity venture.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viasat",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Space42",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1982,6 @@
           "name": "Chubu Electric Power",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-037",
-      "headline": "Shapoorji Pallonji weighs options to refinance Rs 3,500 crore debt due this month",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/shapoorji-pallonji-weighs-options-to-refinance-rs-3500-crore-debt-due-this-month/articleshow/134229719.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:13:11Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shapoorji Pallonji is weighing options to refinance Rs 3,500 crore in debt maturing this month.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Shapoorji Pallonji is weighing options to refinance Rs 3,500 crore in debt maturing this month.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shapoorji Pallonji Group",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -161273,9 +161278,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1332,
-    "news_picked_today": 342,
-    "news_dropped_today": 990
+    "news_seen_today": 1346,
+    "news_picked_today": 346,
+    "news_dropped_today": 1000
   },
   "book_momentum": {
     "live_count": 8,
