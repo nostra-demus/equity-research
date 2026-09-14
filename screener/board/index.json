@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T10:51:07Z",
+  "generated_at": "2026-09-14T10:56:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-339",
@@ -340,6 +340,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-343",
+      "headline": "Miral to invest $3.27 billion to shape the next phase of Yas Island’s growth",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/miral-to-invest-3-27-billion-to-shape-the-next-phase-of-yas-islands-growth/?utm_source=rss&utm_medium=rss&utm_campaign=miral-to-invest-3-27-billion-to-shape-the-next-phase-of-yas-islands-growth",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T10:43:54Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Miral announced a $3.27 billion investment for the next phase of Yas Island development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Miral announced a $3.27 billion investment for the next phase of Yas Island development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Miral",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-340",
+      "headline": "Brookfield in Talks to Acquire PGP Glass From Blackstone for Up to $1.5 Billion, ET Reports",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/brookfield-talks-acquire-pgp-glass-101626923.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T10:16:26Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Brookfield is in talks to acquire PGP Glass from Blackstone for up to $1.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is in talks to acquire PGP Glass from Blackstone for up to $1.5 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Asset Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,103 +2022,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-316",
-      "headline": "Chief economist discusses the effect of the Iran war on the global economy",
-      "headline_en": null,
-      "url": "https://www.npr.org/2026/09/14/nx-s1-5966596/chief-economist-discusses-the-effect-of-the-iran-war-on-the-global-economy",
-      "source_name": "NPR — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T08:41:58Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Escalation of conflict in Iran poses a significant risk to global economic stability and commodity prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Escalation of conflict in Iran poses a significant risk to global economic stability and commodity prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-251",
-      "headline": "Brave Bison raises System1 bid again to £47.5m",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/brave-bison-raises-system1-bid-again-to-47-5m/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T06:42:44Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Brave Bison increased its takeover bid for System1 to £47.5m.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Brave Bison increased its takeover bid for System1 to £47.5m.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brave Bison",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "System1",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161669,9 +161675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 33872,
-    "news_picked_today": 880,
-    "news_dropped_today": 2751
+    "news_seen_today": 35580,
+    "news_picked_today": 884,
+    "news_dropped_today": 2771
   },
   "book_momentum": {
     "live_count": 8,
