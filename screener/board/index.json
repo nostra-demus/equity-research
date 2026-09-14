@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T05:36:33Z",
+  "generated_at": "2026-09-14T05:41:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -1433,6 +1433,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-214",
+      "headline": "BREAKING NEWS: Scandal-tainted Chubu Electric announces resignations of president, chair",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/84994",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T05:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The president and chair of Chubu Electric are resigning following a scandal, creating significant leadership uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The president and chair of Chubu Electric are resigning following a scandal, creating significant leadership uncertainty.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric Power",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-003",
       "headline": "Shapoorji Pallonji Group rethinks 18.37% Tata stake sale, valued at Rs 2.3 lakh cr",
       "headline_en": null,
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-093",
-      "headline": "EGA: Venus-2H Drilling Operations Complete",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGA?key=2924-03135117-2A1696928",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T01:17:35Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Completion of drilling operations is a key operational milestone for an exploration company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Completion of drilling operations is a key operational milestone for an exploration company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EGA",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161273,9 +161273,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1318,
-    "news_picked_today": 336,
-    "news_dropped_today": 982
+    "news_seen_today": 1332,
+    "news_picked_today": 342,
+    "news_dropped_today": 990
   },
   "book_momentum": {
     "live_count": 8,
