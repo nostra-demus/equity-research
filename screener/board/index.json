@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T11:46:41Z",
+  "generated_at": "2026-09-14T11:51:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-347",
@@ -536,6 +536,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-400",
+      "headline": "Firmus seeks $5bn raise in Australian IPO - report",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/firmus-seeks-5bn-raise-in-australian-ipo-report/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T10:50:35Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "A $5bn IPO raise is a significant capital markets event for the company and the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $5bn IPO raise is a significant capital markets event for the company and the sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1967,49 +2016,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-067",
-      "headline": "Michael Dell’s family office leads $7.7bn deal to take insurance broker private",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5495d88b-b457-498a-bedd-64a954b538cd?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:45:21Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "A $7.7 billion deal to take an insurance broker private is a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $7.7 billion deal to take an insurance broker private is a major M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -161664,9 +161670,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63355,
-    "news_picked_today": 962,
-    "news_dropped_today": 3101
+    "news_seen_today": 65423,
+    "news_picked_today": 1020,
+    "news_dropped_today": 3187
   },
   "book_momentum": {
     "live_count": 8,
