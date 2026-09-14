@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-4cc18e7635ee",
-  "idea_version": "IDEAV-b4fbacb43b980ad0",
-  "idea_version_started_at": "2026-09-14T02:04:41Z",
+  "idea_version": "IDEAV-fb3e9b00bd7d324f",
+  "idea_version_started_at": "2026-09-14T06:26:20Z",
   "ticker": "9502",
   "company": "Chubu Electric Power",
   "exchange": "TSE",
@@ -11,8 +11,8 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Reports of regulatory falsification regarding nuclear restart pressure create significant operational risk and potential for punitive regulatory action or delays to the Hamaoka plant restart.",
-  "why_now": "The news of the falsification report broke on 2026-09-14.",
+  "reason": "The president and chairman of Chubu Electric have resigned following a severe earthquake data-tampering scandal, exposing the utility to regulatory penalties and reputational damage.",
+  "why_now": "The resignations were announced on September 14, 2026, following the breaking scandal.",
   "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
@@ -23,7 +23,7 @@
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -45,21 +44,23 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "governance_turnaround",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-62ad197896e6"
+    "EVT-08fa7dc4b15c",
+    "EVT-6a7ca518f683"
   ],
-  "primary_source_event_id": "EVT-62ad197896e6",
+  "primary_source_event_id": "EVT-6a7ca518f683",
   "source_headlines": [
-    "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report"
+    "Japan’s Chubu Electric bosses resign over quake data-tampering scandal",
+    "BREAKING NEWS: Scandal-tainted Chubu Electric announces resignations of president, chair"
   ],
-  "source_headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
-  "source_url": "https://english.kyodonews.net/articles/-/84931",
-  "source_name": "Kyodo News (Japan Wire)",
-  "materiality_max": 92,
-  "newest_source_at": "2026-09-14T00:39:00Z",
+  "source_headline": "Japan’s Chubu Electric bosses resign over quake data-tampering scandal",
+  "source_url": "https://www.scmp.com/news/asia/east-asia/article/3367418/japans-chubu-electric-bosses-resign-over-quake-data-tampering-scandal?utm_source=rss_feed",
+  "source_name": "South China Morning Post",
+  "materiality_max": 95,
+  "newest_source_at": "2026-09-14T06:11:37Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-14T02:04:41Z",
-  "updated_at": "2026-09-14T02:04:41Z",
-  "decay_at": "2026-09-15T12:39:00Z",
+  "updated_at": "2026-09-14T06:26:20Z",
+  "decay_at": "2026-09-15T18:11:37Z",
   "status": "live",
   "promoted_signal_id": null
 }
