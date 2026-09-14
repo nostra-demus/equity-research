@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T04:16:12Z",
+  "generated_at": "2026-09-14T04:26:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-179",
+      "headline": "GAC GROUP (02238): TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400231.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T04:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "A trading halt on a major exchange is a significant event requiring immediate attention.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A trading halt on a major exchange is a significant event requiring immediate attention.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC GROUP",
+          "ticker": "02238",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-154",
       "headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
@@ -691,50 +740,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-095",
-      "headline": "GAC GROUP (02238): EXCHANGE NOTICE - TRADING HALT",
+      "inbox_id": "INB-20260914-177",
+      "headline": "Info Edge (India) Limited: Info Edge (India) Limited has informed the Exchange regarding Cessation of Mr. Ambarish Raghuvanshi as Interim Chief Financial Officer..",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400163.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/NAUKRI2_14092026094804_IEILSEIntimation14092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T01:31:00Z",
+      "found_at": "2026-09-14T04:19:37Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "GAC Group shares are halted pending an announcement, which is a material event for investors.",
+      "prelim_note": "The departure of an interim CFO is a notable management change.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "GAC Group shares are halted pending an announcement, which is a material event for investors.",
-      "region": "CN",
+      "triage_reason": "The departure of an interim CFO is a notable management change.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 2,
+        "event": 5,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GAC Group",
-          "ticker": "02238",
-          "listing_country": "CN"
+          "name": "Info Edge (India) Limited",
+          "ticker": "532777",
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,56 +1963,6 @@
       "companies": [
         {
           "name": "FleetPartners",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-116",
-      "headline": "Calvary wins battle for Healthscope; 500 Whyalla jobs to be cut; AI titans show something’s gone very wrong",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/calvary-wins-battle-for-healthscope-500-whyalla-jobs-to-be-cut-ai-titans-show-something-s-gone-very-wrong-20260914-p60x5l?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:57:17Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Calvary acquired Healthscope and announced 500 job cuts in Whyalla.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Calvary acquired Healthscope and announced 500 job cuts in Whyalla.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Healthscope",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -117827,77 +117826,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0c6d82b4b0e4",
-      "idea_version": "IDEAV-f8e1b98137b8b9f0",
-      "idea_version_started_at": "2026-09-13T17:10:20Z",
-      "ticker": "LULU",
-      "company": "Lululemon Athletica",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Lululemon's brand problems have triggered another steep guidance downgrade, lowering expected sales and earnings and putting pressure on its valuation multiple.",
-      "why_now": "Lululemon's Sept. 12, 2026 downgrade is live news, but the headline gives no exact revised figures or restart catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-67a21f484c0d"
-      ],
-      "primary_source_event_id": "EVT-67a21f484c0d",
-      "source_headlines": [
-        "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade"
-      ],
-      "source_headline": "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-brand-problems-force-161627412.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T16:16:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T17:39:44Z",
-      "updated_at": "2026-09-13T17:10:20Z",
-      "decay_at": "2026-09-14T04:16:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-494bd6333cab",
       "idea_version": "IDEAV-b229deed07566c1c",
       "idea_version_started_at": "2026-09-12T17:39:44Z",
@@ -121114,6 +121042,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0c6d82b4b0e4",
+      "idea_version": "IDEAV-f8e1b98137b8b9f0",
+      "idea_version_started_at": "2026-09-13T17:10:20Z",
+      "ticker": "LULU",
+      "company": "Lululemon Athletica",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Lululemon's brand problems have triggered another steep guidance downgrade, lowering expected sales and earnings and putting pressure on its valuation multiple.",
+      "why_now": "Lululemon's Sept. 12, 2026 downgrade is live news, but the headline gives no exact revised figures or restart catalyst.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-67a21f484c0d"
+      ],
+      "primary_source_event_id": "EVT-67a21f484c0d",
+      "source_headlines": [
+        "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade"
+      ],
+      "source_headline": "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-brand-problems-force-161627412.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T16:16:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T17:39:44Z",
+      "updated_at": "2026-09-13T17:10:20Z",
+      "decay_at": "2026-09-14T04:16:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-cc2ba786d316c153",
       "idea_version_started_at": "2026-09-12T16:36:23Z",
@@ -123556,9 +123555,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -123566,9 +123565,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -123587,6 +123586,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0c6d82b4b0e4",
+        "idea_version": "IDEAV-f8e1b98137b8b9f0",
+        "idea_version_started_at": "2026-09-13T17:10:20Z",
+        "ticker": "LULU",
+        "company": "Lululemon Athletica",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Lululemon's brand problems have triggered another steep guidance downgrade, lowering expected sales and earnings and putting pressure on its valuation multiple.",
+        "why_now": "Lululemon's Sept. 12, 2026 downgrade is live news, but the headline gives no exact revised figures or restart catalyst.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-67a21f484c0d"
+        ],
+        "primary_source_event_id": "EVT-67a21f484c0d",
+        "source_headlines": [
+          "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade"
+        ],
+        "source_headline": "Lululemon’s (LULU) Brand Problems Force Another Steep Guidance Downgrade",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-brand-problems-force-161627412.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T16:16:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T17:39:44Z",
+        "updated_at": "2026-09-13T17:10:20Z",
+        "decay_at": "2026-09-14T04:16:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T04:16:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-41f871048ef0",
         "idea_version": "IDEAV-33f778609792c7da",
@@ -160664,87 +160737,12 @@
         "archived_at": "2026-08-26T04:01:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f6eef3d9efe7",
-        "idea_version": "IDEAV-808d69ed14455fb8",
-        "idea_version_started_at": "2026-08-23T05:09:09Z",
-        "ticker": "FFM",
-        "company": "FireFly Metals",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A $180 million equity raise represents significant dilution for existing shareholders in a mid-cap mining firm.",
-        "why_now": "The company has hired a broker to initiate the capital raise as of August 23, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d560c6619a05"
-        ],
-        "primary_source_event_id": "EVT-d560c6619a05",
-        "source_headlines": [
-          "FireFly Metals readies $180m equity raising; hires broker"
-        ],
-        "source_headline": "FireFly Metals readies $180m equity raising; hires broker",
-        "source_url": "https://www.afr.com/street-talk/firefly-metals-readies-180m-equity-raising-hires-broker-20260823-p60qqe?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T03:39:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T05:09:09Z",
-        "updated_at": "2026-08-23T05:09:09Z",
-        "decay_at": "2026-08-24T15:39:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T04:01:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 775,
-    "live_count": 54,
+    "live_count": 53,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -160763,9 +160761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 972,
-    "news_picked_today": 253,
-    "news_dropped_today": 719
+    "news_seen_today": 1014,
+    "news_picked_today": 265,
+    "news_dropped_today": 749
   },
   "book_momentum": {
     "live_count": 8,
