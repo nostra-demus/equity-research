@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T10:35:23Z",
+  "generated_at": "2026-09-14T10:42:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-339",
+      "headline": "KWAN YONG (09998): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400877.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T10:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Kwan Yong issued a positive profit alert indicating expected growth in earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kwan Yong issued a positive profit alert indicating expected growth in earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kwan Yong Holdings Limited",
+          "ticker": "09998",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-323",
       "headline": "VENUS MEDTECH-B (02500): (1) PROPOSED SUBSCRIPTION OF NEW SHARES AND NEW CONVERTIBLE BONDS UNDER SPECIFIC MANDATE AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1825,6 +1874,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-336",
+      "headline": "CGN NEW ENERGY (01811): (1) MAJOR TRANSACTIONS AND CONTINUING CONNECTED TRANSACTIONS FINANCIAL SERVICES FRAMEWORK AGREEMENTS; AND (2) NOTICE OF SPECIAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400889.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "CGN New Energy announced major and continuing connected transactions regarding financial services framework agreements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "CGN New Energy announced major and continuing connected transactions regarding financial services framework agreements.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CGN New Energy",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-316",
       "headline": "Chief economist discusses the effect of the Iran war on the global economy",
       "headline_en": null,
@@ -1917,98 +2016,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-082",
-      "headline": "Crude Oil Prices Jump 3% After Fresh Strikes On Strait of Hormuz; Brent Above $107 A Barrel",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/crude-oil-prices-jump-3-after-fresh-strikes-on-strait-of-hormuz-brent-above-107-a-barrel-12042875#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:08:28Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Geopolitical escalation in the Strait of Hormuz causing a 3% jump in crude oil prices to $107.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geopolitical escalation in the Strait of Hormuz causing a 3% jump in crude oil prices to $107.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-326",
-      "headline": "CHAODA MODERN (00682): MAJOR AND CONNECTED TRANSACTIONS ACQUISITIONS OF AN AGGREGATE OF 34% EQUITY INTEREST IN A NON-WHOLLY OWNED SUBSIDIARY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400734.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T09:51:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Company announced the acquisition of a 34% equity interest in a subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company announced the acquisition of a 34% equity interest in a subsidiary.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chaoda Modern Agriculture (Holdings) Limited",
-          "ticker": "00682",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117090,77 +117097,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e38b2231c234",
-      "idea_version": "IDEAV-a6e1dba8e77d6940",
-      "idea_version_started_at": "2026-09-13T18:15:10Z",
-      "ticker": "GE",
-      "company": "GE Aerospace",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
-      "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8cff733d76dc",
-        "EVT-ab951b64b3c4"
-      ],
-      "primary_source_event_id": "EVT-8cff733d76dc",
-      "source_headlines": [
-        "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-        "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
-      ],
-      "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T22:38:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-12T16:36:23Z",
-      "updated_at": "2026-09-13T18:15:10Z",
-      "decay_at": "2026-09-14T10:38:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0c529d942ea8",
       "idea_version": "IDEAV-9f930044c15c16a8",
       "idea_version_started_at": "2026-09-13T17:56:30Z",
@@ -117365,77 +117301,6 @@
       "surfaced_at": "2026-09-11T13:45:18Z",
       "updated_at": "2026-09-13T17:56:30Z",
       "decay_at": "2026-09-15T02:07:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f736026666d7",
-      "idea_version": "IDEAV-42897a3daa1b9aca",
-      "idea_version_started_at": "2026-09-13T17:56:30Z",
-      "ticker": "GE",
-      "company": "GE Aerospace",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "GE Aerospace's $12 billion acquisition of CPP is a significant capital allocation that will test its growth strategy and could introduce integration risks.",
-      "why_now": "The $12 billion acquisition has just been announced, making its financial and strategic implications immediate.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8cff733d76dc",
-        "EVT-ab951b64b3c4"
-      ],
-      "primary_source_event_id": "EVT-8cff733d76dc",
-      "source_headlines": [
-        "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-        "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
-      ],
-      "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T22:38:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T17:56:30Z",
-      "updated_at": "2026-09-13T17:56:30Z",
-      "decay_at": "2026-09-14T10:38:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -121821,6 +121686,148 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e38b2231c234",
+      "idea_version": "IDEAV-a6e1dba8e77d6940",
+      "idea_version_started_at": "2026-09-13T18:15:10Z",
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
+      "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8cff733d76dc",
+        "EVT-ab951b64b3c4"
+      ],
+      "primary_source_event_id": "EVT-8cff733d76dc",
+      "source_headlines": [
+        "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+        "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
+      ],
+      "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T22:38:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-12T16:36:23Z",
+      "updated_at": "2026-09-13T18:15:10Z",
+      "decay_at": "2026-09-14T10:38:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f736026666d7",
+      "idea_version": "IDEAV-42897a3daa1b9aca",
+      "idea_version_started_at": "2026-09-13T17:56:30Z",
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "GE Aerospace's $12 billion acquisition of CPP is a significant capital allocation that will test its growth strategy and could introduce integration risks.",
+      "why_now": "The $12 billion acquisition has just been announced, making its financial and strategic implications immediate.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8cff733d76dc",
+        "EVT-ab951b64b3c4"
+      ],
+      "primary_source_event_id": "EVT-8cff733d76dc",
+      "source_headlines": [
+        "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+        "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
+      ],
+      "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T22:38:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T17:56:30Z",
+      "updated_at": "2026-09-13T17:56:30Z",
+      "decay_at": "2026-09-14T10:38:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-41f871048ef0",
       "idea_version": "IDEAV-33f778609792c7da",
       "idea_version_started_at": "2026-09-13T17:31:23Z",
@@ -124460,19 +124467,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -124491,6 +124498,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e38b2231c234",
+        "idea_version": "IDEAV-a6e1dba8e77d6940",
+        "idea_version_started_at": "2026-09-13T18:15:10Z",
+        "ticker": "GE",
+        "company": "GE Aerospace",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
+        "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8cff733d76dc",
+          "EVT-ab951b64b3c4"
+        ],
+        "primary_source_event_id": "EVT-8cff733d76dc",
+        "source_headlines": [
+          "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+          "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
+        ],
+        "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T22:38:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-12T16:36:23Z",
+        "updated_at": "2026-09-13T18:15:10Z",
+        "decay_at": "2026-09-14T10:38:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T10:38:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f736026666d7",
+        "idea_version": "IDEAV-42897a3daa1b9aca",
+        "idea_version_started_at": "2026-09-13T17:56:30Z",
+        "ticker": "GE",
+        "company": "GE Aerospace",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "GE Aerospace's $12 billion acquisition of CPP is a significant capital allocation that will test its growth strategy and could introduce integration risks.",
+        "why_now": "The $12 billion acquisition has just been announced, making its financial and strategic implications immediate.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8cff733d76dc",
+          "EVT-ab951b64b3c4"
+        ],
+        "primary_source_event_id": "EVT-8cff733d76dc",
+        "source_headlines": [
+          "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+          "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
+        ],
+        "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T22:38:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T17:56:30Z",
+        "updated_at": "2026-09-13T17:56:30Z",
+        "decay_at": "2026-09-14T10:38:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T10:38:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5f98ab3738c2",
         "idea_version": "IDEAV-6e5ad6dd9e074794",
@@ -153243,80 +153398,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-efa0efb703fc",
-        "idea_version": "IDEAV-3545ad255904655b",
-        "idea_version_started_at": "2026-08-31T04:01:48Z",
-        "ticker": "PEL",
-        "company": "Piramal Enterprises Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants, significantly strengthening its capital adequacy and lending capacity.",
-        "why_now": "The capital raise was officially announced via exchange filing on August 31, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4d48851efa47"
-        ],
-        "primary_source_event_id": "EVT-4d48851efa47",
-        "source_headlines": [
-          "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
-        ],
-        "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T02:01:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T04:01:48Z",
-        "updated_at": "2026-08-31T04:01:48Z",
-        "decay_at": "2026-09-01T14:01:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T03:15:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1f1e1ddecae9",
         "idea_version": "IDEAV-086f83c221577d76",
         "idea_version_started_at": "2026-08-31T03:20:55Z",
@@ -161564,85 +161645,12 @@
         "archived_at": "2026-08-26T10:48:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0448efa62005",
-        "idea_version": "IDEAV-ac1b6f2cd7106abd",
-        "idea_version_started_at": "2026-08-23T05:09:09Z",
-        "ticker": "AAPL",
-        "company": "Apple",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Reducing the EU App Store commission from 30% to 26% directly impacts high-margin services revenue.",
-        "why_now": "The policy change was announced on August 23, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a8cd52692346"
-        ],
-        "primary_source_event_id": "EVT-a8cd52692346",
-        "source_headlines": [
-          "Apple Cut Its Standard EU App Store Commission From 30% to 26%"
-        ],
-        "source_headline": "Apple Cut Its Standard EU App Store Commission From 30% to 26%",
-        "source_url": "https://www.nasdaq.com/articles/apple-cut-its-standard-eu-app-store-commission-30-26",
-        "source_name": "Nasdaq.com (per-symbol RSS)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-08-23T03:43:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T05:09:09Z",
-        "updated_at": "2026-08-23T05:09:09Z",
-        "decay_at": "2026-08-24T15:43:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T04:01:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 799,
-    "live_count": 73,
+    "live_count": 71,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -161661,9 +161669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 28773,
-    "news_picked_today": 846,
-    "news_dropped_today": 2545
+    "news_seen_today": 31113,
+    "news_picked_today": 866,
+    "news_dropped_today": 2693
   },
   "book_momentum": {
     "live_count": 8,
