@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T03:41:07Z",
+  "generated_at": "2026-09-14T03:51:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-154",
@@ -1926,50 +1926,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-150",
-      "headline": "SoftBank shares plunge 14% as AI safety concerns trigger selloff",
+      "inbox_id": "INB-20260914-158",
+      "headline": "Auto parts maker Victura picks Rothschild to help with $300-400 mn IPO process",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/softbank-share-price-plunges-as-ai-safety-concerns-trigger-selloff-anthropic-openai-19990158.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.livemint.com/companies/news/victura-ipo-process-rothschild-auto-parts-makers-india-public-listing-11789351781890.html",
+      "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-09-14T02:53:12Z",
+      "found_at": "2026-09-14T03:37:03Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "SoftBank shares fell 14% due to AI safety concerns, indicating significant market volatility for the company.",
+      "prelim_note": "Victura is initiating an IPO process targeting $300-400 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "SoftBank shares fell 14% due to AI safety concerns, indicating significant market volatility for the company.",
-      "region": "JP",
+      "triage_reason": "Victura is initiating an IPO process targeting $300-400 million.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "macro_sector"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SoftBank",
+          "name": "Victura",
           "ticker": null,
-          "listing_country": "JP"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160763,9 +160763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 832,
-    "news_picked_today": 215,
-    "news_dropped_today": 617
+    "news_seen_today": 858,
+    "news_picked_today": 223,
+    "news_dropped_today": 635
   },
   "book_momentum": {
     "live_count": 8,
