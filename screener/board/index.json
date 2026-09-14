@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T15:21:32Z",
+  "generated_at": "2026-09-14T15:41:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-455",
@@ -194,6 +194,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-465",
+      "headline": "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401239.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T13:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Zhongke Group proposed an increase in authorized share capital and the issuance of convertible bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhongke Group proposed an increase in authorized share capital and the issuance of convertible bonds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhongke Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1970,56 +2020,6 @@
           "name": "Omnia",
           "ticker": null,
           "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-281",
-      "headline": "Australia’s Ailing Whyalla Steelworks to Shut Furnace, Cut Jobs",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-14/australia-s-ailing-whyalla-steelworks-to-shut-furnace-cut-jobs",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T07:20:20Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shutdown of a furnace and job cuts at Whyalla Steelworks indicates significant operational distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shutdown of a furnace and job cuts at Whyalla Steelworks indicates significant operational distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Whyalla Steelworks",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -161952,9 +161952,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 307836,
-    "news_picked_today": 1279,
-    "news_dropped_today": 4440
+    "news_seen_today": 340317,
+    "news_picked_today": 1297,
+    "news_dropped_today": 4542
   },
   "book_momentum": {
     "live_count": 8,
