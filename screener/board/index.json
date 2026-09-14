@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T16:46:29Z",
+  "generated_at": "2026-09-14T17:26:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-455",
@@ -889,6 +889,109 @@
           "name": "NICHE-TECH SEMI",
           "ticker": "08490",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-500",
+      "headline": "Apollo rumoured to be eyeing $20bn takeover of J&J’s orthopaedics business",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/apollo-rumoured-eyeing-20bn-takeover-164216185.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T16:42:16Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Apollo Global Management is reportedly considering a $20 billion acquisition of Johnson & Johnson's orthopaedics unit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo Global Management is reportedly considering a $20 billion acquisition of Johnson & Johnson's orthopaedics unit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Johnson & Johnson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-507",
+      "headline": "AirBaltic files for Chapter 11 bankruptcy as Iran war costs bite",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/733283/business/airbaltic-files-for-chapter-11-bankruptcy-as-iran-war-costs-bite",
+      "source_name": "Gulf Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T16:26:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "AirBaltic has filed for Chapter 11 bankruptcy protection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AirBaltic has filed for Chapter 11 bankruptcy protection.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirBaltic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1904,115 +2007,6 @@
           "name": "Solar Industries",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-319",
-      "headline": "UAE’s Space42 and Viasat commit up to $1 billion to launch Equatys for global direct-to-device connectivity",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/uaes-space42-and-viasat-commit-up-to-1-billion-to-launch-equatys-for-global-direct-to-device-connectivity/?utm_source=rss&utm_medium=rss&utm_campaign=uaes-space42-and-viasat-commit-up-to-1-billion-to-launch-equatys-for-global-direct-to-device-connectivity",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T09:01:19Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Space42 and Viasat are committing $1 billion to launch a new joint venture for connectivity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Space42 and Viasat are committing $1 billion to launch a new joint venture for connectivity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viasat",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Space42",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-305",
-      "headline": "Solar Industries to buy South Africa’s Omnia for $1.36 billion",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/solar-industries-to-buy-south-africas-omnia-for-136-billion/article71465621.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T08:34:58Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Solar Industries announced a $1.36 billion acquisition of Omnia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solar Industries announced a $1.36 billion acquisition of Omnia.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Omnia",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -161945,9 +161939,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 478640,
-    "news_picked_today": 1334,
-    "news_dropped_today": 4697
+    "news_seen_today": 565719,
+    "news_picked_today": 1349,
+    "news_dropped_today": 4778
   },
   "book_momentum": {
     "live_count": 8,
