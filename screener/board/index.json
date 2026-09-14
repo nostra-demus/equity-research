@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T22:27:45Z",
+  "generated_at": "2026-09-14T22:32:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-548",
+      "headline": "NHC: Full Year Results 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHC?key=2924-03135424-2A1697124",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T22:20:59Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Full year financial results release for New Hope Corporation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Full year financial results release for New Hope Corporation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Hope Corporation",
+          "ticker": "NHC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-542",
       "headline": "NWL: Netwealth to acquire Paradino (Investor Presentation) [price-sensitive]",
@@ -1932,61 +1981,6 @@
       "companies": [
         {
           "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-437",
-      "headline": "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/nextera-energy-dominion-energy-propose-expanded-state-benefits-to-support-merger-94a4f2d2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T13:59:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "NextEra Energy reaffirmed 2026 guidance while progressing on a $67 billion merger with Dominion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextEra Energy reaffirmed 2026 guidance while progressing on a $67 billion merger with Dominion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextEra Energy",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Dominion Energy",
           "ticker": null,
           "listing_country": "US"
         }
@@ -161923,9 +161917,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1175203,
-    "news_picked_today": 1603,
-    "news_dropped_today": 7284
+    "news_seen_today": 1180178,
+    "news_picked_today": 1615,
+    "news_dropped_today": 7296
   },
   "book_momentum": {
     "live_count": 8,
