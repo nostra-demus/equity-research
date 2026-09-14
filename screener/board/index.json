@@ -1,6 +1,1083 @@
 {
-  "generated_at": "2026-09-13T23:59:26Z",
+  "generated_at": "2026-09-14T00:06:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-001",
+      "headline": "NICHE-TECH SEMI (08490): INSIDE INFORMATION - BANKRUPTCY PETITIONS PRESENTED AGAINST THE EXECUTIVE CHAIRMAN AND EXECUTIVE DIRECTORS OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0914/2026091400103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Bankruptcy petitions presented against the executive chairman and executive directors represent a severe governance and continuity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bankruptcy petitions presented against the executive chairman and executive directors represent a severe governance and continuity risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NICHE-TECH SEMI",
+          "ticker": "08490",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-003",
+      "headline": "Shapoorji Pallonji Group rethinks 18.37% Tata stake sale, valued at Rs 2.3 lakh cr",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/shapoorji-pallonji-group-rethinks-18-37-tata-stake-sale-valued-at-rs-2-3-lakh-cr/articleshow/134220228.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shapoorji Pallonji Group is rethinking the sale of its 18.37% stake in Tata, valued at Rs 2.3 lakh crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Shapoorji Pallonji Group is rethinking the sale of its 18.37% stake in Tata, valued at Rs 2.3 lakh crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shapoorji Pallonji Group",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-021",
+      "headline": "Tata Sons may be valued up to ₹12.5 lakh cr in IPO",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-may-be-valued-up-to-12-5-lakh-cr-in-ipo/articleshow/134219460.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Tata Sons is reportedly preparing for an IPO with a potential valuation of ₹12.5 lakh crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tata Sons is reportedly preparing for an IPO with a potential valuation of ₹12.5 lakh crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-009",
+      "headline": "160 HEALTH (02656): VOLUNTARY ANNOUNCEMENT INTRODUCTION OF A NEW BUSINESS INTEGRATING HEALTHCARE WITH AI COMPUTING POWER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T22:26:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "160 Health is diversifying into AI computing power integration, a new business line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "160 Health is diversifying into AI computing power integration, a new business line.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "160 Health",
+          "ticker": "02656",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-010",
+      "headline": "LIGENT (09856): GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T22:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Ligent is proceeding with a global offering, indicating a capital raise or listing event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Ligent is proceeding with a global offering, indicating a capital raise or listing event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ligent",
+          "ticker": "09856",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-011",
+      "headline": "FORMS SYNTRON (06700): Global Offering",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T22:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Forms Syntron is proceeding with a global offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Forms Syntron is proceeding with a global offering.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Forms Syntron",
+          "ticker": "06700",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-002",
+      "headline": "Z.AI Plans $5.0 Billion Fundraising to Fuel AI Expansion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/z-ai-plans-5-0-billion-fundraising-to-fuel-ai-expansion-56da16dc?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T23:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Z.AI plans a $5.0 billion fundraising to support its AI expansion, indicating significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Z.AI plans a $5.0 billion fundraising to support its AI expansion, indicating significant capital deployment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Z.AI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-008",
+      "headline": "HSBC HOLDINGS (00005): ISSUANCE OF SENIOR UNSECURED NOTES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400089.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "HSBC Holdings issued senior unsecured notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "HSBC Holdings issued senior unsecured notes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC HOLDINGS",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-006",
+      "headline": "AIA AIA-R AIA SDS4609-R (01299 81299 85169): Notice of Listing on The Stock Exchange of Hong Kong Limited - CNY2,000,000,000 2.875 per cent. Subordinated Dated Securities due 2046 (Stock code: 85169) under the US$18,000,000,000 Global Medium Term Note and Securities Programme of AIA Group Limited",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "AIA Group issued CNY 2 billion in subordinated securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "AIA Group issued CNY 2 billion in subordinated securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIA",
+          "ticker": "01299",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-020",
+      "headline": "Widening Mideast Instability Squeezes Global Oil Supplies",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/middle-east/widening-mideast-instability-squeezes-global-oil-supplies-0cd316ad?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Widening Mideast instability is causing a supply shock to global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Widening Mideast instability is causing a supply shock to global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-005",
+      "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INCREASE IN SHAREHOLDING BY CHAIRMAN OF THE BOARD",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400111.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Voluntary increase in shareholding by the chairman.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Voluntary increase in shareholding by the chairman.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INSILICO",
+          "ticker": "03696",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-023",
+      "headline": "XRP News: Will the CLARITY Act Pass on Tuesday? Senate Democrats Meet Tonight and Republicans Need Nine of Them",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/cryptocurrency/2026/09/13/will-the-clarity-act-pass-on-tuesday-senate-democrats-meet-tonight-and-republicans-need-nine-of-them/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T22:12:01Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The potential passage of the CLARITY Act could impact the regulatory environment for XRP and the broader cryptocurrency sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The potential passage of the CLARITY Act could impact the regulatory environment for XRP and the broader cryptocurrency sector.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "XRP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-022",
+      "headline": "Bhopal Hostels Under Safety Cloud: 50,000 Students At Risk As Supreme Court Concern Adds Urgency",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/bhopal-hostels-under-safety-cloud-50000-students-at-risk-as-supreme-court-concern-adds-urgency",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-13T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Supreme Court concerns regarding hostel safety in Bhopal create potential regulatory and operational risks for local student housing providers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Supreme Court concerns regarding hostel safety in Bhopal create potential regulatory and operational risks for local student housing providers.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-004",
+      "headline": "[JPX,TOCOM,JSCC]Tokyo Commodity Exchange Welcomes ABN AMRO Clearing Tokyo Co., Ltd. as a Broker Member for Trading TOCOM Electricity (Power) and Other Energy Futures",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/corporate/news/news-releases/0060/20260914-01.html",
+      "source_name": "Japan Exchange Group (JPX) — News Release",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Routine addition of a broker member to the Tokyo Commodity Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine addition of a broker member to the Tokyo Commodity Exchange.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Tokyo Commodity Exchange",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABN AMRO Clearing Tokyo",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-019",
+      "headline": "Shanghai Electric получила первый зарубежный заказ на газовую турбину большой мощности для малазийского проекта на 500 МВт",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric--------------500--302876892.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-018",
+      "headline": "Shanghai Electric zdobywa pierwsze zagraniczne zamówienie na turbinę gazową dużej mocy dla malezyjskiego projektu o mocy 500 MW",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-zdobywa-pierwsze-zagraniczne-zamowienie-na-turbin-gazow-duej-mocy-dla-malezyjskiego-projektu-o-mocy-500-mw-302876392.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-012",
+      "headline": "Spoločnosť Shanghai Electric získala prvú zahraničnú objednávku na vysokovýkonné plynové turbíny pre malajzijský projekt s výkonom 500 MW",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
+      "url": "https://www.prnewswire.com/news-releases/spolonos-shanghai-electric-ziskala-prvu-zahraninu-objednavku-na-vysokovykonne-plynove-turbiny-pre-malajzijsky-projekt-s-vykonom-500-mw-302876893.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-017",
+      "headline": "Shanghai Electric sichert sich ersten Auftrag für eine Schwerlast-Gasturbine im Ausland für ein 500-MW-Projekt in Malaysia",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-sichert-sich-ersten-auftrag-fur-eine-schwerlast-gasturbine-im-ausland-fur-ein-500-mw-projekt-in-malaysia-302876309.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-014",
+      "headline": "Shanghai Electric Secures First Overseas Heavy-Duty Gas Turbine Order for 500 MW Malaysian Project",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-secures-first-overseas-heavy-duty-gas-turbine-order-for-500-mw-malaysian-project-302876154.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-016",
+      "headline": "Shanghai Electric consigue su primer pedido internacional de turbinas de gas de gran potencia",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-consigue-su-primer-pedido-internacional-de-turbinas-de-gas-de-gran-potencia-302876206.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-013",
+      "headline": "Shanghai Electric décroche sa première commande à l'international de turbines à gaz de forte puissance pour un projet malaisien de 500 MW",
+      "headline_en": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW Malaysian project",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-decroche-sa-premiere-commande-a-linternational-de-turbines-a-gaz-de-forte-puissance-pour-un-projet-malaisien-de-500-mw-302876495.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Shanghai Electric secured its first overseas order for heavy-duty gas turbines for a 500 MW project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-007",
+      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-13T23:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Routine share buyback transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Routine share buyback transaction.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 20,
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC HOLDINGS",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260913-695",
       "headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
@@ -115857,76 +116934,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-190511cb49a3",
-      "idea_version": "IDEAV-1d5f3d60e4479a01",
-      "idea_version_started_at": "2026-09-13T18:31:35Z",
-      "ticker": "TTE",
-      "company": "TotalEnergies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A massive $10 billion capital commitment to Angola oil projects signals a significant expansion of long-term production capacity and reserve replacement.",
-      "why_now": "The announcement of the $10B investment plan was confirmed on September 12, 2024.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-be007f04e005"
-      ],
-      "primary_source_event_id": "EVT-be007f04e005",
-      "source_headlines": [
-        "TotalEnergies Plans $10B in Angola Oil Investments"
-      ],
-      "source_headline": "TotalEnergies Plans $10B in Angola Oil Investments",
-      "source_url": "https://www.rigzone.com/news/wire/totalenergies_plans_10b_in_angola_oil_investments-12-sep-2026-184596-article/?rss=true",
-      "source_name": "Rigzone",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-12T12:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T18:31:35Z",
-      "updated_at": "2026-09-13T18:31:35Z",
-      "decay_at": "2026-09-14T00:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0c6d82b4b0e4",
       "idea_version": "IDEAV-f8e1b98137b8b9f0",
       "idea_version_started_at": "2026-09-13T17:10:20Z",
@@ -116274,77 +117281,6 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-90d2e717f9fb",
-      "idea_version": "IDEAV-7faa398130edd38e",
-      "idea_version_started_at": "2026-09-13T04:17:17Z",
-      "ticker": "HPE",
-      "company": "Hewlett Packard Enterprise",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is unable to convert its $7.6 billion AI backlog into revenue due to persistent memory supply constraints, which will pressure near-term margins and growth.",
-      "why_now": "The supply bottleneck was reported as a live operational constraint on 2026-09-12.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7eeafb5d25bd"
-      ],
-      "primary_source_event_id": "EVT-7eeafb5d25bd",
-      "source_headlines": [
-        "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up"
-      ],
-      "source_headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
-      "source_url": "https://www.nasdaq.com/articles/hpes-76-billion-ai-backlog-waiting-memory-supply-catch",
-      "source_name": "Nasdaq",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-12T12:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T04:17:17Z",
-      "updated_at": "2026-09-13T04:17:17Z",
-      "decay_at": "2026-09-14T00:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -118430,6 +119366,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-190511cb49a3",
+      "idea_version": "IDEAV-1d5f3d60e4479a01",
+      "idea_version_started_at": "2026-09-13T18:31:35Z",
+      "ticker": "TTE",
+      "company": "TotalEnergies",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A massive $10 billion capital commitment to Angola oil projects signals a significant expansion of long-term production capacity and reserve replacement.",
+      "why_now": "The announcement of the $10B investment plan was confirmed on September 12, 2024.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-be007f04e005"
+      ],
+      "primary_source_event_id": "EVT-be007f04e005",
+      "source_headlines": [
+        "TotalEnergies Plans $10B in Angola Oil Investments"
+      ],
+      "source_headline": "TotalEnergies Plans $10B in Angola Oil Investments",
+      "source_url": "https://www.rigzone.com/news/wire/totalenergies_plans_10b_in_angola_oil_investments-12-sep-2026-184596-article/?rss=true",
+      "source_name": "Rigzone",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-12T12:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T18:31:35Z",
+      "updated_at": "2026-09-13T18:31:35Z",
+      "decay_at": "2026-09-14T00:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-574ddee0f271",
       "idea_version": "IDEAV-44e721b3ac376643",
       "idea_version_started_at": "2026-09-12T08:35:39Z",
@@ -118774,6 +119780,77 @@
       "surfaced_at": "2026-09-13T09:21:46Z",
       "updated_at": "2026-09-13T09:21:46Z",
       "decay_at": "2026-09-13T20:06:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-90d2e717f9fb",
+      "idea_version": "IDEAV-7faa398130edd38e",
+      "idea_version_started_at": "2026-09-13T04:17:17Z",
+      "ticker": "HPE",
+      "company": "Hewlett Packard Enterprise",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is unable to convert its $7.6 billion AI backlog into revenue due to persistent memory supply constraints, which will pressure near-term margins and growth.",
+      "why_now": "The supply bottleneck was reported as a live operational constraint on 2026-09-12.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7eeafb5d25bd"
+      ],
+      "primary_source_event_id": "EVT-7eeafb5d25bd",
+      "source_headlines": [
+        "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up"
+      ],
+      "source_headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
+      "source_url": "https://www.nasdaq.com/articles/hpes-76-billion-ai-backlog-waiting-memory-supply-catch",
+      "source_name": "Nasdaq",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-12T12:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T04:17:17Z",
+      "updated_at": "2026-09-13T04:17:17Z",
+      "decay_at": "2026-09-14T00:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -120868,19 +121945,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -120899,6 +121976,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-90d2e717f9fb",
+        "idea_version": "IDEAV-7faa398130edd38e",
+        "idea_version_started_at": "2026-09-13T04:17:17Z",
+        "ticker": "HPE",
+        "company": "Hewlett Packard Enterprise",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is unable to convert its $7.6 billion AI backlog into revenue due to persistent memory supply constraints, which will pressure near-term margins and growth.",
+        "why_now": "The supply bottleneck was reported as a live operational constraint on 2026-09-12.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7eeafb5d25bd"
+        ],
+        "primary_source_event_id": "EVT-7eeafb5d25bd",
+        "source_headlines": [
+          "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up"
+        ],
+        "source_headline": "HPE's $7.6 Billion AI Backlog Is Waiting on Memory Supply to Catch Up",
+        "source_url": "https://www.nasdaq.com/articles/hpes-76-billion-ai-backlog-waiting-memory-supply-catch",
+        "source_name": "Nasdaq",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-12T12:05:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T04:17:17Z",
+        "updated_at": "2026-09-13T04:17:17Z",
+        "decay_at": "2026-09-14T00:05:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T00:05:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-190511cb49a3",
+        "idea_version": "IDEAV-1d5f3d60e4479a01",
+        "idea_version_started_at": "2026-09-13T18:31:35Z",
+        "ticker": "TTE",
+        "company": "TotalEnergies",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A massive $10 billion capital commitment to Angola oil projects signals a significant expansion of long-term production capacity and reserve replacement.",
+        "why_now": "The announcement of the $10B investment plan was confirmed on September 12, 2024.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-be007f04e005"
+        ],
+        "primary_source_event_id": "EVT-be007f04e005",
+        "source_headlines": [
+          "TotalEnergies Plans $10B in Angola Oil Investments"
+        ],
+        "source_headline": "TotalEnergies Plans $10B in Angola Oil Investments",
+        "source_url": "https://www.rigzone.com/news/wire/totalenergies_plans_10b_in_angola_oil_investments-12-sep-2026-184596-article/?rss=true",
+        "source_name": "Rigzone",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-12T12:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T18:31:35Z",
+        "updated_at": "2026-09-13T18:31:35Z",
+        "decay_at": "2026-09-14T00:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T00:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c7c3c3693e6e",
         "idea_version": "IDEAV-38f366266b568ca0",
@@ -149511,80 +150735,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9a6eb98f01bf",
-        "idea_version": "IDEAV-72265654d421d764",
-        "idea_version_started_at": "2026-08-31T00:54:02Z",
-        "ticker": "4DS",
-        "company": "4DS Memory",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Jenesys provides a strategic expansion of the company's technology portfolio, which is a positive catalyst for growth.",
-        "why_now": "The acquisition was announced on 2026-08-30.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-be1868365560"
-        ],
-        "primary_source_event_id": "EVT-be1868365560",
-        "source_headlines": [
-          "4DS: 4DS to Acquire Jenesys [price-sensitive]"
-        ],
-        "source_headline": "4DS: 4DS to Acquire Jenesys [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.4DS?key=2924-03129128-6A1341239",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T23:52:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T00:54:02Z",
-        "updated_at": "2026-08-31T00:54:02Z",
-        "decay_at": "2026-09-01T11:52:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23b0a390c1be",
         "idea_version": "IDEAV-e009b9fcd4d76c95",
         "idea_version_started_at": "2026-08-30T22:04:42Z",
@@ -157973,85 +159123,12 @@
         "archived_at": "2026-08-25T21:28:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-373f07b62282",
-        "idea_version": "IDEAV-4fb0b9d2aa633672",
-        "idea_version_started_at": "2026-08-22T17:48:11Z",
-        "ticker": "UBER",
-        "company": "Uber Technologies, Inc.",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Uber has been fined ₹9,226 crore (approximately $1.1 billion USD) for suspending driver accounts without human review, indicating a significant regulatory and operational misstep that will directly impact its financials.",
-        "why_now": "The fine was announced on August 22, 2026, making this a fresh and material financial hit for Uber.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-837b7c8a6c88"
-        ],
-        "primary_source_event_id": "EVT-837b7c8a6c88",
-        "source_headlines": [
-          "Uber fined ₹9,226 crore over driver account suspensions without human review: 'Serious infringements'"
-        ],
-        "source_headline": "Uber fined ₹9,226 crore over driver account suspensions without human review: 'Serious infringements'",
-        "source_url": "https://www.livemint.com/companies/news/uber-fined-9-226-crore-over-driver-account-suspensions-without-human-review-serious-infringements-11787408386581.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-22T14:56:13Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/UBER_2026-08-09",
-          "latest_decision": "Watchlist",
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-08-22T17:48:11Z",
-        "updated_at": "2026-08-22T17:48:11Z",
-        "decay_at": "2026-08-24T02:56:13Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-25T21:28:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 761,
-    "live_count": 49,
+    "live_count": 47,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -158061,7 +159138,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2367,
+    "inbox_unconsumed": 2389,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -158070,9 +159147,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1460046,
-    "news_picked_today": 2087,
-    "news_dropped_today": 6486
+    "news_seen_today": 55,
+    "news_picked_today": 23,
+    "news_dropped_today": 32
   },
   "book_momentum": {
     "live_count": 8,
