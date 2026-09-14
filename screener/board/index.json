@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T15:11:21Z",
+  "generated_at": "2026-09-14T15:21:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-455",
@@ -896,6 +896,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-463",
+      "headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T14:26:43Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Hub Group received a Nasdaq delisting notice and reported an operating loss for H1.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hub Group received a Nasdaq delisting notice and reported an operating loss for H1.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hub Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1974,55 +2023,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-274",
-      "headline": "Cerillion shares tumble after warning on revenue as customer orders slip",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/cerillion-shares-tumble-after-warning-on-revenue-as-customer-orders-slip/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T07:13:07Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Cerillion issued a revenue warning due to slipping customer orders, causing a share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cerillion issued a revenue warning due to slipping customer orders, causing a share price decline.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerillion",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161952,9 +161952,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 294358,
-    "news_picked_today": 1265,
-    "news_dropped_today": 4382
+    "news_seen_today": 307836,
+    "news_picked_today": 1279,
+    "news_dropped_today": 4440
   },
   "book_momentum": {
     "live_count": 8,
