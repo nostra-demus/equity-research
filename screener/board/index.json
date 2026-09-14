@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T11:41:09Z",
+  "generated_at": "2026-09-14T11:46:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-347",
+      "headline": "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CMICABLES_14092026170353_Notice_48.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T11:34:01Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The company has entered a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMI Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-345",
       "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBI CIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON 31.08.2026",
@@ -1961,55 +2010,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-053",
-      "headline": "SP Group weighs Rs 3,500 crore debt repayment options",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/shapoorji-pallonji-weighs-options-to-refinance-rs-3500-crore-debt-due-this-month/articleshow/134229719.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:13:11Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Shapoorji Pallonji Group is actively managing repayment options for a significant Rs 3,500 crore debt obligation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shapoorji Pallonji Group is actively managing repayment options for a significant Rs 3,500 crore debt obligation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SP Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -161664,9 +161664,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 60395,
-    "news_picked_today": 955,
-    "news_dropped_today": 3060
+    "news_seen_today": 63355,
+    "news_picked_today": 962,
+    "news_dropped_today": 3101
   },
   "book_momentum": {
     "live_count": 8,
