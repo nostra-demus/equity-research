@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T02:49:44Z",
+  "generated_at": "2026-09-14T03:00:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -1828,6 +1828,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-150",
+      "headline": "SoftBank shares plunge 14% as AI safety concerns trigger selloff",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/softbank-share-price-plunges-as-ai-safety-concerns-trigger-selloff-anthropic-openai-19990158.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T02:53:12Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "SoftBank shares fell 14% due to AI safety concerns, indicating significant market volatility for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "SoftBank shares fell 14% due to AI safety concerns, indicating significant market volatility for the company.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-094",
       "headline": "FleetPartners Shares Gain After Element Fleet Walks Away From Takeover Bid",
       "headline_en": null,
@@ -1921,56 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-009",
-      "headline": "160 HEALTH (02656): VOLUNTARY ANNOUNCEMENT INTRODUCTION OF A NEW BUSINESS INTEGRATING HEALTHCARE WITH AI COMPUTING POWER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-13T22:26:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "160 Health is diversifying into AI computing power integration, a new business line.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "160 Health is diversifying into AI computing power integration, a new business line.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "160 Health",
-          "ticker": "02656",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160834,9 +160833,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 655,
-    "news_picked_today": 184,
-    "news_dropped_today": 471
+    "news_seen_today": 681,
+    "news_picked_today": 189,
+    "news_dropped_today": 492
   },
   "book_momentum": {
     "live_count": 8,
