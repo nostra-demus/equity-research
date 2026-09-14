@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T01:06:51Z",
+  "generated_at": "2026-09-14T01:11:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -1878,6 +1878,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-079",
+      "headline": "Hyundai Bets on U.S. Hybrids, Kia Drives European EV Exports",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276826",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T04:11:33Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Hyundai and Kia are adjusting their regional product strategies to align with shifting demand for hybrids in the US and EVs in Europe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Hyundai and Kia are adjusting their regional product strategies to align with shifting demand for hybrids in the US and EVs in Europe.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-042",
       "headline": "Oil prices jump more than 2% after new strikes on Saudi, Strait of Hormuz",
       "headline_en": null,
@@ -1903,49 +1958,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-033",
-      "headline": "Oil prices rise sharply as Middle East escalation risks disruption to supplies",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/oil-prices-rise-sharply-middle-east-escalation-risks-disruption-supplies",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:12:38Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Sharp rise in oil prices due to Middle East escalation poses a systemic risk to global inflation and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Sharp rise in oil prices due to Middle East escalation poses a systemic risk to global inflation and margins.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -160603,9 +160615,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 249,
-    "news_picked_today": 80,
-    "news_dropped_today": 169
+    "news_seen_today": 275,
+    "news_picked_today": 84,
+    "news_dropped_today": 191
   },
   "book_momentum": {
     "live_count": 8,
