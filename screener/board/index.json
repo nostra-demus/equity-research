@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T08:10:03Z",
+  "generated_at": "2026-09-14T08:29:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -198,37 +198,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260914-300",
-      "headline": "Fluggesellschaft: AirBaltic flüchtet unter US-Insolvenzrecht – Flugbetrieb läuft weiter",
-      "headline_en": "Airline: AirBaltic flees under US bankruptcy law – flight operations continue",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/fluggesellschaft-airbaltic-fluechtet-unter-us-insolvenzrecht-flugbetrieb-laeuft-weiter/100254298.html",
-      "source_name": "Handelsblatt",
+      "inbox_id": "INB-20260914-303",
+      "headline": "AirBaltic flüchtet unter US-Insolvenzrecht - Flugbetrieb läuft weiter",
+      "headline_en": null,
+      "url": "https://www.reuters.com/de/firma/airbaltic-flchtet-unter-us-insolvenzrecht-flugbetrieb-luft-weiter-2026-09-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-14T08:07:17Z",
+      "found_at": "2026-09-14T08:09:04Z",
       "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "AirBaltic is filing for US Chapter 15 bankruptcy protection to restructure debt.",
+      "prelim_note": "AirBaltic is seeking protection under US insolvency law.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "AirBaltic is filing for US Chapter 15 bankruptcy protection to restructure debt.",
-      "region": "GLOBAL",
+      "triage_reason": "AirBaltic is seeking protection under US insolvency law.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 9,
-        "size": 1,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "default_distress",
-        "size_bucket": "mid"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "default_distress"
@@ -238,10 +238,10 @@
         {
           "name": "AirBaltic",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "LV"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -162090,9 +162090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2415,
-    "news_picked_today": 648,
-    "news_dropped_today": 1735
+    "news_seen_today": 3210,
+    "news_picked_today": 663,
+    "news_dropped_today": 1768
   },
   "book_momentum": {
     "live_count": 8,
