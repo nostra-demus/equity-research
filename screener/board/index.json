@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T05:59:32Z",
+  "generated_at": "2026-09-14T06:04:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -198,6 +198,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-237",
+      "headline": "Microsoft to triple data centre capacity: What it means for investors",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/microsoft-to-triple-data-centre-capacity-what-it-means-for-investors/slideshow/134233857.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T05:16:29Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Microsoft is tripling its data center capacity, representing a massive capital expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft is tripling its data center capacity, representing a massive capital expenditure commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,56 +1978,6 @@
       "companies": [
         {
           "name": "Chubu Electric",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-076",
-      "headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/84931",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:39:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Pressure to restart the Hamaoka nuclear plant is identified as the driver for Chubu Electric's data falsification, creating significant operational and safety-related regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Pressure to restart the Hamaoka nuclear plant is identified as the driver for Chubu Electric's data falsification, creating significant operational and safety-related regulatory risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chubu Electric Power",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -161563,9 +161562,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1438,
-    "news_picked_today": 367,
-    "news_dropped_today": 1071
+    "news_seen_today": 1524,
+    "news_picked_today": 391,
+    "news_dropped_today": 1133
   },
   "book_momentum": {
     "live_count": 8,
