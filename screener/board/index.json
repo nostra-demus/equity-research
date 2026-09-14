@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T11:31:07Z",
+  "generated_at": "2026-09-14T11:36:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-345",
+      "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBI CIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON 31.08.2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MTNL_14092026165447_SD_SE_14092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T11:25:06Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "MTNL reported a default on principal and interest payments to banks as of 31.08.2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MTNL reported a default on principal and interest payments to banks as of 31.08.2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-344",
       "headline": "HATCHER GROUP (08365): DISCLOSEABLE TRANSACTION ACQUISITION OF 20% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUANCE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
@@ -1962,65 +2011,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-034",
-      "headline": "Brookfield looks to buy PGP Glass for up to $1.5 bn from Blackstone",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/paper-/-wood-/-glass/-plastic/-marbles/brookfield-looks-to-buy-pgp-glass-for-up-to-1-5-bn-from-blackstone/articleshow/134219911.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Brookfield is looking to acquire PGP Glass from Blackstone for up to $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is looking to acquire PGP Glass from Blackstone for up to $1.5 billion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": "BAM",
-          "listing_country": "US"
-        },
-        {
-          "name": "Blackstone Inc.",
-          "ticker": "BX",
-          "listing_country": "US"
-        },
-        {
-          "name": "PGP Glass",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161674,9 +161664,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 54940,
-    "news_picked_today": 935,
-    "news_dropped_today": 3008
+    "news_seen_today": 57556,
+    "news_picked_today": 944,
+    "news_dropped_today": 3023
   },
   "book_momentum": {
     "live_count": 8,
