@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T12:01:25Z",
+  "generated_at": "2026-09-14T12:06:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-401",
@@ -595,6 +595,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-405",
+      "headline": "Essar Energy Transition Retail Acquires UK Forecourt Operator SGN Retail For £250 Million",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/essar-energy-transition-retail-acquires-uk-forecourt-operator-sgn-retail-for-250-million",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T11:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Essar Energy Transition Retail acquired SGN Retail for £250 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Essar Energy Transition Retail acquired SGN Retail for £250 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essar Energy Transition Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1975,55 +2024,6 @@
           "name": "Baldwin Insurance",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-113",
-      "headline": "HS효성, 울산에 1조2000억 투자…배터리 소재 거점 구축",
-      "headline_en": "HS Hyosung invests 1.2 trillion KRW in Ulsan to build a battery material hub",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276842",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T01:35:20Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "HS Hyosung announced a 1.2 trillion KRW investment to build a battery material hub in Ulsan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HS Hyosung announced a 1.2 trillion KRW investment to build a battery material hub in Ulsan.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HS Hyosung",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -161680,9 +161680,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 70210,
-    "news_picked_today": 1036,
-    "news_dropped_today": 3243
+    "news_seen_today": 73326,
+    "news_picked_today": 1046,
+    "news_dropped_today": 3281
   },
   "book_momentum": {
     "live_count": 8,
