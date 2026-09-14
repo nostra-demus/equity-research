@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T21:08:43Z",
+  "generated_at": "2026-09-14T21:17:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-531",
@@ -1044,6 +1044,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-541",
+      "headline": "Veracyte Acquires Convergent Genomics For $150 Mln In Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/veracyte-acquires-convergent-genomics-150-mln-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T20:37:19Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Veracyte is acquiring Convergent Genomics for $150 million in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Veracyte is acquiring Convergent Genomics for $150 million in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Veracyte",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Convergent Genomics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-540",
       "headline": "Sysco to Raise $1 Billion in Share Sale for Jetro Acquisition",
       "headline_en": null,
@@ -1942,60 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-426",
-      "headline": "Solar Industries To Acquire South Africa’s Omnia Holdings For $1.36 Billion To Expand Global Mining Business",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/solar-industries-to-acquire-south-africas-omnia-holdings-for-136-billion-to-expand-global-mining-business",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T12:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Solar Industries is acquiring Omnia Holdings for $1.36 billion to expand its global mining business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solar Industries is acquiring Omnia Holdings for $1.36 billion to expand its global mining business.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Omnia Holdings",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161642,9 +161642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1012602,
-    "news_picked_today": 1512,
-    "news_dropped_today": 6631
+    "news_seen_today": 1026221,
+    "news_picked_today": 1524,
+    "news_dropped_today": 6691
   },
   "book_momentum": {
     "live_count": 8,
