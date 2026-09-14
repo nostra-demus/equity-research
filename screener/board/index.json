@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T13:26:17Z",
+  "generated_at": "2026-09-14T13:36:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-427",
+      "headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED SATISFACTION OF PRE-CONDITIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401247.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T13:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Fu Shou Yuan International Group Limited announced the satisfaction of pre-conditions for a voluntary cash partial offer to acquire up to 115,000,000 shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fu Shou Yuan International Group Limited announced the satisfaction of pre-conditions for a voluntary cash partial offer to acquire up to 115,000,000 shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fu Shou Yuan International Group Limited",
+          "ticker": "01448",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-415",
       "headline": "SHIFANG HLDG (01831): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 30 JUNE 2026 AND DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; AND (2) SUSPENSION OF TRADING",
@@ -1980,60 +2029,6 @@
           "name": "Viasat",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-218",
-      "headline": "Viasat, UAE's Space42 commit up to $1 billion to satellite connectivity venture",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/viasat-uaes-space42-commit-up-1-billion-satellite-connectivity-venture-2026-09-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:35:13Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Viasat and Space42 are committing up to $1 billion to a new satellite connectivity venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Viasat and Space42 are committing up to $1 billion to a new satellite connectivity venture.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viasat",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Space42",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -162113,9 +162108,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 143906,
-    "news_picked_today": 1174,
-    "news_dropped_today": 3729
+    "news_seen_today": 156265,
+    "news_picked_today": 1182,
+    "news_dropped_today": 3793
   },
   "book_momentum": {
     "live_count": 8,
