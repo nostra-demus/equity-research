@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T14:51:17Z",
+  "generated_at": "2026-09-14T14:56:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-455",
+      "headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T14:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The company released findings from an independent forensic investigation and internal control review, which often signals material accounting or governance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released findings from an independent forensic investigation and internal control review, which often signals material accounting or governance issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TIANJUDIHE",
+          "ticker": "02479",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-439",
       "headline": "Premier Payment Solutions Ltd enters liquidation",
@@ -1954,55 +2003,6 @@
         "size": 1,
         "recency": 4,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Baltic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-276",
-      "headline": "Air Baltic Files for Chapter 11 to Help Restructure Debts",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-14/air-baltic-files-for-chapter-11-to-help-restructure-debts",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T07:08:38Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Air Baltic has filed for Chapter 11 bankruptcy protection to restructure its debts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Air Baltic has filed for Chapter 11 bankruptcy protection to restructure its debts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -161951,9 +161951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 266054,
-    "news_picked_today": 1255,
-    "news_dropped_today": 4272
+    "news_seen_today": 271221,
+    "news_picked_today": 1260,
+    "news_dropped_today": 4291
   },
   "book_momentum": {
     "live_count": 8,
