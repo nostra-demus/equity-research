@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T08:39:35Z",
+  "generated_at": "2026-09-14T08:44:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-261",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-305",
+      "headline": "Solar Industries to buy South Africa’s Omnia for $1.36 billion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/solar-industries-to-buy-south-africas-omnia-for-136-billion/article71465621.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T08:34:58Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Solar Industries announced a $1.36 billion acquisition of Omnia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries announced a $1.36 billion acquisition of Omnia.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Omnia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -557,6 +611,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-307",
+      "headline": "Latvian Carrier Air Baltic Seeks Chapter 11 Restructuring",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-14/air-baltic-files-for-chapter-11-to-help-restructure-debts",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T07:08:38Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Air Baltic is seeking Chapter 11 restructuring, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Air Baltic is seeking Chapter 11 restructuring, indicating severe financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Baltic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-276",
       "headline": "Air Baltic Files for Chapter 11 to Help Restructure Debts",
       "headline_en": null,
@@ -802,60 +905,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-265",
-      "headline": "Solar Industries Bids $1.4 Billion for South Africa’s Omnia",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-14/solar-industries-bids-1-4-billion-for-south-africa-s-omnia",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T06:40:22Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Solar Industries has made a $1.4 billion bid to acquire Omnia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solar Industries has made a $1.4 billion bid to acquire Omnia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Omnia",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,60 +2003,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-176",
-      "headline": "Euronext open to ‘big bang’ deal with rival Deutsche Börse",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/cf0ee7e3-8634-4c1d-8a44-3b71acee1417?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T04:00:05Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Euronext expresses openness to a potential merger with Deutsche Börse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Euronext expresses openness to a potential merger with Deutsche Börse.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Euronext",
-          "ticker": null,
-          "listing_country": "NL"
-        },
-        {
-          "name": "Deutsche Börse",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -162090,9 +162085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4210,
-    "news_picked_today": 681,
-    "news_dropped_today": 1822
+    "news_seen_today": 4780,
+    "news_picked_today": 697,
+    "news_dropped_today": 1854
   },
   "book_momentum": {
     "live_count": 8,
