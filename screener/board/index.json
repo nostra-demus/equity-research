@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T17:36:03Z",
+  "generated_at": "2026-09-14T17:55:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-516",
+      "headline": "25-NSE - BARCLAYS PLC (0000312069) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/312069/000087666126000742/0000876661-26-000742-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-14T17:29:34Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Barclays PLC filed a 25-NSE delisting notification, indicating a delisting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barclays PLC filed a 25-NSE delisting notification, indicating a delisting event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barclays PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-455",
       "headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
@@ -1951,60 +2000,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-340",
-      "headline": "Brookfield in Talks to Acquire PGP Glass From Blackstone for Up to $1.5 Billion, ET Reports",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/brookfield-talks-acquire-pgp-glass-101626923.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T10:16:26Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Brookfield is in talks to acquire PGP Glass from Blackstone for up to $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is in talks to acquire PGP Glass from Blackstone for up to $1.5 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161934,9 +161929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 589340,
-    "news_picked_today": 1356,
-    "news_dropped_today": 4867
+    "news_seen_today": 629265,
+    "news_picked_today": 1367,
+    "news_dropped_today": 5000
   },
   "book_momentum": {
     "live_count": 8,
