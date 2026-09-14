@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-14T13:16:28Z",
+  "generated_at": "2026-09-14T13:21:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-415",
+      "headline": "SHIFANG HLDG (01831): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 30 JUNE 2026 AND DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; AND (2) SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401229.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T13:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Delay in annual results and suspension of trading indicate severe financial or operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delay in annual results and suspension of trading indicate severe financial or operational distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHIFANG HLDG",
+          "ticker": "01831",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-401",
       "headline": "CICC (03908): MAJOR TRANSACTION AND SPECIFIC MANDATE TO ISSUE CICC A SHARES FOR THE PROPOSED MERGERS OF CICC, DONGXING SECURITIES AND CINDA SECURITIES - REMINDER ON THE EXERCISE OF PUT OPTION FOR CICC H SHARES",
@@ -649,6 +699,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-426",
+      "headline": "Solar Industries To Acquire South Africa’s Omnia Holdings For $1.36 Billion To Expand Global Mining Business",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/solar-industries-to-acquire-south-africas-omnia-holdings-for-136-billion-to-expand-global-mining-business",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T12:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Solar Industries is acquiring Omnia Holdings for $1.36 billion to expand its global mining business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries is acquiring Omnia Holdings for $1.36 billion to expand its global mining business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Omnia Holdings",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,110 +2034,6 @@
           "name": "Space42",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-237",
-      "headline": "Microsoft to triple data centre capacity: What it means for investors",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/microsoft-to-triple-data-centre-capacity-what-it-means-for-investors/slideshow/134233857.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:16:29Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Microsoft is tripling its data center capacity, representing a massive capital expenditure commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Microsoft is tripling its data center capacity, representing a massive capital expenditure commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-211",
-      "headline": "UAE’s Space42 and US firm Viasat sign deal to establish Equatys in $1 billion satellite push",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/uaes-space42-and-us-firm-viasat-sign-deal-to-establish-equatys-in-1-billion-satellite-push",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:02:29Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Space42 and Viasat are forming a joint venture, Equatys, backed by a $1 billion investment in satellite infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Space42 and Viasat are forming a joint venture, Equatys, backed by a $1 billion investment in satellite infrastructure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viasat",
-          "ticker": "VSAT",
-          "listing_country": "US"
-        },
-        {
-          "name": "Space42",
-          "ticker": null,
-          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -162113,9 +162113,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 131763,
-    "news_picked_today": 1136,
-    "news_dropped_today": 3647
+    "news_seen_today": 137798,
+    "news_picked_today": 1166,
+    "news_dropped_today": 3689
   },
   "book_momentum": {
     "live_count": 8,
