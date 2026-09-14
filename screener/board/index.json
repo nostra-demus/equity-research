@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T06:26:40Z",
+  "generated_at": "2026-09-14T06:31:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-179",
@@ -796,6 +796,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260914-250",
+      "headline": "‎Arabian Drilling inks SAR 2B contract for 8 land rigs",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1936137",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Arabian Drilling secured a significant SAR 2 billion contract for 8 land rigs, directly impacting revenue backlog.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Arabian Drilling secured a significant SAR 2 billion contract for 8 land rigs, directly impacting revenue backlog.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arabian Drilling",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260914-221",
       "headline": "Z.ai completes around US$5 billion financing for next-generation GLM models",
       "headline_en": null,
@@ -889,60 +938,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-246",
-      "headline": "‎Arabian Drilling wins SAR 2B contract with SLB for 8 land rigs",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1936137",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T09:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Arabian Drilling secured a SAR 2 billion contract, providing significant revenue visibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Arabian Drilling secured a SAR 2 billion contract, providing significant revenue visibility.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arabian Drilling",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "SLB",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161781,9 +161776,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1638,
-    "news_picked_today": 422,
-    "news_dropped_today": 1216
+    "news_seen_today": 1664,
+    "news_picked_today": 428,
+    "news_dropped_today": 1236
   },
   "book_momentum": {
     "live_count": 8,
