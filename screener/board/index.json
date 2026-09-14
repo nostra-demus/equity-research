@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-14T09:51:09Z",
+  "generated_at": "2026-09-14T09:56:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260914-323",
+      "headline": "VENUS MEDTECH-B (02500): (1) PROPOSED SUBSCRIPTION OF NEW SHARES AND NEW CONVERTIBLE BONDS UNDER SPECIFIC MANDATE AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400630.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T09:28:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "Venus Medtech-B announced a proposed subscription of new shares and convertible bonds to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Venus Medtech-B announced a proposed subscription of new shares and convertible bonds to raise capital.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Venus Medtech-B",
+          "ticker": "02500",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260914-313",
       "headline": "VISION VALUES (00862): PROFIT WARNING",
@@ -1952,55 +2001,6 @@
           "name": "National Stock Exchange of India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-221",
-      "headline": "Z.ai completes around US$5 billion financing for next-generation GLM models",
-      "headline_en": null,
-      "url": "https://technode.com/2026/09/14/z-ai-completes-around-us5-billion-financing-for-next-generation-glm-models/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T05:53:07Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Z.ai secured a significant $5 billion financing round to scale its AI model development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Z.ai secured a significant $5 billion financing round to scale its AI model development.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Z.ai",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -161655,9 +161655,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14670,
-    "news_picked_today": 787,
-    "news_dropped_today": 2292
+    "news_seen_today": 15622,
+    "news_picked_today": 799,
+    "news_dropped_today": 2328
   },
   "book_momentum": {
     "live_count": 8,
