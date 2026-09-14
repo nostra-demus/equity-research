@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T00:16:12Z",
+  "generated_at": "2026-09-14T00:16:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-001",
@@ -117753,6 +117753,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5364e3f8a882",
+      "idea_version": "IDEAV-bba840764a0da905",
+      "idea_version_started_at": "2026-09-14T00:16:27Z",
+      "ticker": "SOP",
+      "company": "SOP",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SOP announced a financial and operational update on a $45.5 million contract with ANSTO, indicating positive progress on a significant commercial agreement.",
+      "why_now": "The company filed a price-sensitive update on 2026-09-13, making this news live and actionable.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fda8f5d0e6aa"
+      ],
+      "primary_source_event_id": "EVT-fda8f5d0e6aa",
+      "source_headlines": [
+        "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]"
+      ],
+      "source_headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03135062-3A701676",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:53:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T00:16:27Z",
+      "updated_at": "2026-09-14T00:16:27Z",
+      "decay_at": "2026-09-15T11:53:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab459efb9fe1",
       "idea_version": "IDEAV-00a856b78181616e",
       "idea_version_started_at": "2026-09-13T23:54:40Z",
@@ -119404,6 +119475,80 @@
       "surfaced_at": "2026-09-13T19:16:47Z",
       "updated_at": "2026-09-13T19:16:47Z",
       "decay_at": "2026-09-14T02:39:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7c7191296ccd",
+      "idea_version": "IDEAV-6a447ade8019cff7",
+      "idea_version_started_at": "2026-09-14T00:16:27Z",
+      "ticker": "TATA",
+      "company": "Tata Sons",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Sons is reportedly considering an IPO that could value the company up to ₹12.5 lakh crore, which would unlock significant value for shareholders.",
+      "why_now": "News reports on 2026-09-14 indicate active discussions around the IPO valuation and the potential sale of a large stake by Shapoorji Pallonji Group, providing a near-term catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beafc7178f0b",
+        "EVT-00e9b3e49a30"
+      ],
+      "primary_source_event_id": "EVT-beafc7178f0b",
+      "source_headlines": [
+        "Shapoorji Pallonji Group rethinks 18.37% Tata stake sale, valued at Rs 2.3 lakh cr",
+        "Tata Sons may be valued up to ₹12.5 lakh cr in IPO"
+      ],
+      "source_headline": "Shapoorji Pallonji Group rethinks 18.37% Tata stake sale, valued at Rs 2.3 lakh cr",
+      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/shapoorji-pallonji-group-rethinks-18-37-tata-stake-sale-valued-at-rs-2-3-lakh-cr/articleshow/134220228.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-14T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T00:16:27Z",
+      "updated_at": "2026-09-14T00:16:27Z",
+      "decay_at": "2026-09-15T12:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -121546,77 +121691,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-55ab00141a90",
-      "idea_version": "IDEAV-58fc8125faed4fe3",
-      "idea_version_started_at": "2026-09-11T03:30:01Z",
-      "ticker": "VR8",
-      "company": "Vanadium Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company successfully raised capital through an oversubscribed placement to fund the development of its V-Iron plant, reducing financing risk.",
-      "why_now": "The announcement was filed on 2026-09-11, confirming the funding is secured to advance the project.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4b266c8df3e2"
-      ],
-      "primary_source_event_id": "EVT-4b266c8df3e2",
-      "source_headlines": [
-        "VR8: Oversubscribed Placement to Advance V-Iron Plant Pathway [price-sensitive]"
-      ],
-      "source_headline": "VR8: Oversubscribed Placement to Advance V-Iron Plant Pathway [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VR8?key=2924-03134448-6A1343345",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-11T00:01:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-11T03:30:01Z",
-      "updated_at": "2026-09-11T03:30:01Z",
-      "decay_at": "2026-09-12T12:01:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7bad7e7a459f",
       "idea_version": "IDEAV-ab5c5bac32555c4b",
       "idea_version_started_at": "2026-09-11T11:59:49Z",
@@ -122411,14 +122485,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 264,
@@ -122428,12 +122502,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 171,
+      "evicted_count": 172,
       "oldest_retained_at": "2026-08-22T23:58:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 134,
-          "oldest_retained_at": "2026-08-31T17:20:00Z"
+          "evicted_count": 135,
+          "oldest_retained_at": "2026-08-31T17:33:39Z"
         },
         "short": {
           "evicted_count": 37,
@@ -125482,8 +125556,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-12T12:01:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-14T00:16:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159593,8 +159667,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 761,
-    "live_count": 47,
+    "surfaced_total": 763,
+    "live_count": 49,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
