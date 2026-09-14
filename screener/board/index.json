@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T11:36:09Z",
+  "generated_at": "2026-09-14T11:41:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-345",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-346",
+      "headline": "Department of War Announces a $450 Million Investment in The Elmet Group to Secure America's Tungsten Supply Chain",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4599882/department-of-war-announces-a-450-million-investment-in-the-elmet-group-to-secu/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-14T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The Department of War is investing $450 million into The Elmet Group to expand tungsten production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Department of War is investing $450 million into The Elmet Group to expand tungsten production capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Elmet Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2011,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-024",
-      "headline": "Kennedy Center on brink of bankruptcy, could close as early as Tuesday, Washington Post reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/us/kennedy-center-brink-bankruptcy-could-close-early-tuesday-washington-post-2026-09-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T00:10:48Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "The Kennedy Center faces an imminent risk of bankruptcy and closure, representing a total loss of operational viability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Kennedy Center faces an imminent risk of bankruptcy and closure, representing a total loss of operational viability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kennedy Center",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161664,9 +161664,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57556,
-    "news_picked_today": 944,
-    "news_dropped_today": 3023
+    "news_seen_today": 60395,
+    "news_picked_today": 955,
+    "news_dropped_today": 3060
   },
   "book_momentum": {
     "live_count": 8,
