@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T12:21:08Z",
+  "generated_at": "2026-09-14T12:31:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260914-401",
@@ -595,6 +595,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260914-407",
+      "headline": "Hub Group To Post Operating Loss In H1 Before One-time Charges; Names David Yeager Chairman & CEO",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hub-group-post-operating-loss-h1-one-time-charges-names-david-yeager-chairman-ceo",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T11:47:08Z",
+      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
+      "prelim_note": "The company announced an operating loss for H1 and a change in leadership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced an operating loss for H1 and a change in leadership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hub Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1978,55 +2028,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260914-137",
-      "headline": "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T02:15:23Z",
-      "sweep_file": "screener/inbox/2026-09-14_sweep.json",
-      "prelim_note": "Dell's DFO Management is leading a $7.7 billion take-private acquisition of Baldwin Insurance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell's DFO Management is leading a $7.7 billion take-private acquisition of Baldwin Insurance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baldwin Insurance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161823,9 +161824,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 81919,
-    "news_picked_today": 1073,
-    "news_dropped_today": 3350
+    "news_seen_today": 92190,
+    "news_picked_today": 1080,
+    "news_dropped_today": 3415
   },
   "book_momentum": {
     "live_count": 8,
