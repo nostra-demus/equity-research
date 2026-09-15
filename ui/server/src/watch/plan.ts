@@ -497,9 +497,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (!label) { left.push({ what, why: 'no label' }); continue }
     const source = sourceFor(what, d?.file, d?.quote)
     if (!source) continue
-    const quoteWords = new Set(normalizeForMatch(source.quote ?? '').match(/[\p{L}\p{N}]+/gu) ?? [])
-    const labelWords = normalizeForMatch(label).match(/[\p{L}\p{N}]+/gu) ?? []
-    if (!labelWords.length || !labelWords.every((word) => quoteWords.has(word))) {
+    if (!wordsInQuote(label, source)) {
       left.push({ what, why: 'its label is not in the cited quote, so a neutral label is shown' })
       label = 'Research event'
     }
@@ -533,8 +531,10 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     }
     // A month/window is prose, not a verified exact day. Show the source's complete timing statement so
     // 'not before January' cannot become the opposite 'before January' through model summarization.
-    if (!date) window = source.quote
-    else if (fromWindow) window = source.quote
+    // An earliest possible day is not an event date: it cannot truthfully become an 'event passed' alert.
+    const earliestOnly = /\b(?:not|no)\s+(?:(?:expected|anticipated|forecast|likely)\s+)?before\b|\bno earlier than\b/i.test(source.quote ?? '')
+    if (earliestOnly) { date = null; estimated = false }
+    if (!date || fromWindow || estimated) window = source.quote
     const key = `date|${label.toLowerCase()}|${date}|${source.quote}`
     if (seen.has(key)) continue
     seen.add(key)

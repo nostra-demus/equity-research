@@ -308,12 +308,12 @@ check('a day the research only estimates is still the day to watch — kept with
     ],
   }, { sources, currency: 'INR', entryPrice: null })
   assert.deepEqual(r.items.map((i: any) => [i.label, i.date, i.estimated]), [
-    ['Q2 FY27 results', '2026-10-21', true],
+    ['Research event', '2026-10-21', true],
     ['Q2 2026 print', '2026-08-10', true],
     ['H1 2026 interim results', '2026-08-27', true],
     ['Research event', null, false],
     ['Q3 FY2026 earnings', '2026-11-03', true],
-    ['FQ2 2026 results', '2026-07-22', false],
+    ['Research event', '2026-07-22', false],
     ['CNY 6,000mn buyback', '2027-03-26', false],
   ])
   for (const item of r.items) if (item.kind === 'date' && item.window) assert.equal(item.window, item.source.quote,
@@ -388,6 +388,25 @@ check('source currency cannot be sliced away by the model quote', () => {
     { sources: new Map([['final_thesis.md', text]]), currency: 'USD', entryPrice: 100 })
   assert.equal(r.items.length, 0)
   assert.match(r.left_out[0].why, /HKD/)
+})
+
+check('an exact earliest date and its negation never become an expected event date', () => {
+  const quote = 'Approval is not expected before October 23, 2026.'
+  const r = validateReaderOutput({ dates: [{ label: 'Approval expected', date: '2026-10-23',
+    window: 'before October 23, 2026', quote, file: 'final_thesis.md' }] },
+    { sources: new Map([['final_thesis.md', quote]]), currency: 'USD', entryPrice: 100 })
+  const date = r.items.find((i) => i.kind === 'date')!
+  assert.equal(date.label, 'Research event')
+  assert.equal(date.date, null, 'an earliest bound does not claim the event occurs that day')
+  assert.equal(date.window, quote)
+  const estimatedQuote = 'Approval is expected on October 23, 2026, subject to a vote.'
+  const e = validateReaderOutput({ dates: [{ label: 'Approval', date: '2026-10-23',
+    window: 'October 23, 2026', quote: estimatedQuote, file: 'final_thesis.md' }] },
+    { sources: new Map([['final_thesis.md', estimatedQuote]]), currency: 'USD', entryPrice: 100 })
+  const estimated = e.items.find((i) => i.kind === 'date')!
+  assert.equal(estimated.date, '2026-10-23')
+  assert.equal(estimated.window, estimatedQuote)
+  assert.equal(estimated.estimated, true)
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
