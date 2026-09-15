@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T12:43:30Z",
+  "generated_at": "2026-09-15T12:53:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-459",
+      "headline": "WATER INDUSTRY (01129): QUARTERLY UPDATE ANNOUNCEMENT (1) APPOINTMENT OF LIQUIDATORS; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DELAY IN DESPATCH OF 2026 INTERIM REPORT; (3) RESUMPTION GUIDANCE AND UPDATE ON RESUMPTION PROGRESS; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501169.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T12:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company is in liquidation, has suspended trading, and is delaying financial reporting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is in liquidation, has suspended trading, and is delaying financial reporting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WATER INDUSTRY",
+          "ticker": "01129",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-429",
       "headline": "SMC ELECTRIC (02381): JOINT ANNOUNCEMENT DESPATCH OF THE COMPOSITE DOCUMENT IN RELATION TO MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES)",
@@ -442,6 +491,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-468",
+      "headline": "Grab to buy most of Singapore firm Atome for $1.9b in fintech bid",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/grab-to-buy-most-of-singapore-tech-firm-atome-for-1-9b",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:34:34Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Grab to acquire Atome for $1.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grab to acquire Atome for $1.9 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grab",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-440",
       "headline": "Grab to buy most of Singapore tech firm Atome for $1.9b",
       "headline_en": null,
@@ -733,60 +831,6 @@
           "name": "Grab",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-426",
-      "headline": "Grab to Buy Control of Atome for $1.5 Billion in Fintech Bet",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/grab-to-buy-most-of-atome-for-1-49-billion-to-spur-lending-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T10:17:08Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Grab is acquiring control of Atome for $1.5 billion, a significant fintech expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grab is acquiring control of Atome for $1.5 billion, a significant fintech expansion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grab",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Atome",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1931,55 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-420",
-      "headline": "GTPL Hathway Limited: GTPL Hathway Limited has informed the Exchange about update on acquisition of Cable Television Business of various companies belonging to ACT Group.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GTPLHL_15092026164842_Disclosure_Reg_30_Acqusition_ACT_Group_-_Completion_1509.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T11:19:19Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "GTPL Hathway is progressing with the acquisition of the cable television business of the ACT Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "GTPL Hathway is progressing with the acquisition of the cable television business of the ACT Group.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GTPL Hathway Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164129,9 +164124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3429217,
-    "news_picked_today": 872,
-    "news_dropped_today": 5752
+    "news_seen_today": 3522493,
+    "news_picked_today": 892,
+    "news_dropped_today": 5828
   },
   "book_momentum": {
     "live_count": 8,
