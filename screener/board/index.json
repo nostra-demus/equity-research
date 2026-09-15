@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T02:36:51Z",
+  "generated_at": "2026-09-15T02:44:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -396,6 +396,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-187",
+      "headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:00:39Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Lockheed Martin secured a $1.2 billion defense contract for Army production, directly impacting revenue backlog.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Lockheed Martin secured a $1.2 billion defense contract for Army production, directly impacting revenue backlog.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-066",
       "headline": "SpaceX Signing Several Multi-Billion-Dollar Deals!",
       "headline_en": null,
@@ -440,6 +489,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-173",
+      "headline": "Muthoot Microfin Limited: Muthoot Microfin Limited has informed the Exchange regarding a press release dated September 15, 2026, titled \"Muthoot Microfin Secures ₹250 Crore Through NCDs to DriveGrowth Plans\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/muthootmicrofin_15092026075737_PressReleaseSep152026SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T02:31:40Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Muthoot Microfin raised 250 crore rupees through non-convertible debentures to fund growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Muthoot Microfin raised 250 crore rupees through non-convertible debentures to fund growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Muthoot Microfin Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1822,140 +1920,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260915-001",
-      "headline": "EVN: Capital management [price-sensitive]",
+      "inbox_id": "INB-20260915-176",
+      "headline": "China targets offshore operations of brokerages in crackdown on pay loopholes, corruption",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03135570-2A1697186",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T23:46:24Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Evolution Mining announced a capital management initiative, which typically involves dividends or buybacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Evolution Mining announced a capital management initiative, which typically involves dividends or buybacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evolution Mining",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-102",
-      "headline": "Driscoll’s Gave China Its Blueberries—Then China Swiped the Secret to Growing Them",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/driscolls-berry-farms-china-competition-b0b49f04?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.scmp.com/business/banking-finance/article/3367465/china-targets-offshore-operations-brokerages-crackdown-pay-loopholes-corruption?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
       "input_nature": "news_headline",
-      "found_at": "2026-09-15T01:00:00Z",
+      "found_at": "2026-09-15T00:00:11Z",
       "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Driscoll's faces potential loss of competitive advantage in the Chinese market due to intellectual property theft.",
+      "prelim_note": "China is targeting offshore brokerage operations to curb pay loopholes and corruption, increasing regulatory risk for the sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Driscoll's faces potential loss of competitive advantage in the Chinese market due to intellectual property theft.",
+      "triage_score": 82,
+      "triage_reason": "China is targeting offshore brokerage operations to curb pay loopholes and corruption, increasing regulatory risk for the sector.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Driscoll's",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-065",
-      "headline": "Supreme Court rejects Trump bid to lift block on U.S. Postal Service mail-in ballots rule",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/14/supreme-court-trump-mail-ballots-midterms.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:48:36Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Supreme Court ruling on mail-in ballots impacts electoral process and political risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Supreme Court ruling on mail-in ballots impacts electoral process and political risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 2,
-        "event": 4,
+        "event": 6,
         "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": "regulatory",
+        "event_id": "litigation_enforcement",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "regulatory",
+        "litigation_enforcement"
       ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -164297,9 +164298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 343850,
-    "news_picked_today": 226,
-    "news_dropped_today": 926
+    "news_seen_today": 357083,
+    "news_picked_today": 244,
+    "news_dropped_today": 980
   },
   "book_momentum": {
     "live_count": 8,
