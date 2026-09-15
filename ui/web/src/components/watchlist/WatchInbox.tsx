@@ -54,10 +54,10 @@ export function WatchInbox({ onPick }: { onPick: (listingKey: string) => void })
         className={`btn btn--mini btn--ghost wl__msgbtn${open ? ' is-open' : ''}`}
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-label={unread.length ? `Messages, ${unread.length} new` : 'Messages'}
+        aria-label={error ? 'Messages, refresh failed' : unread.length ? `Messages, ${unread.length} new` : 'Messages'}
         onClick={() => setOpen((o) => !o)}
       >
-        Messages
+        Messages{error ? ' · refresh failed' : ''}
         {unread.length > 0 && <span className="wl__msgcount">{unread.length}</span>}
       </button>
       {open && (
@@ -76,6 +76,12 @@ export function WatchInbox({ onPick }: { onPick: (listingKey: string) => void })
             )
           ) : (
             <>
+              {error && (
+                <div className="winbox__err" role="status">
+                  Could not refresh messages ({error}). These messages and counts may be out of date.
+                  <button className="btn btn--mini" onClick={() => void load()}>Try again</button>
+                </div>
+              )}
               <div className="winbox__head">
                 <span className="winbox__title">Messages</span>
                 <span className="winbox__count">{unread.length ? `${unread.length} new` : 'nothing new'}</span>

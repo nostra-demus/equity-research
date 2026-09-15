@@ -325,6 +325,42 @@ async function main() {
     assert.deepEqual(reads, ['d', 'e'], 'a corrected report is read again')
   })
 
+  await check('idle drains reads queued by an in-flight tick and stop prevents another read', async () => {
+    const row = engineRow('TEST', 'USD', 'NYSE', 'TEST_2026-09-15')
+    let allowRows!: () => void
+    let finishRead!: () => void
+    let announceRead!: () => void
+    const rowsReady = new Promise<void>((resolve) => { allowRows = resolve })
+    const readDone = new Promise<void>((resolve) => { finishRead = resolve })
+    const readStarted = new Promise<void>((resolve) => { announceRead = resolve })
+    let reads = 0
+    const m = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-drain-')), manual: true, today: () => '2026-09-15',
+      loadEngineRows: async () => { await rowsReady; return [row] }, loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async () => { reads++; announceRead(); await readDone; return { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0 } },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }), sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const tick = m.tick()
+    let drained = false
+    const drain = m.idle().then(() => { drained = true })
+    allowRows()
+    await readStarted
+    await tick
+    await new Promise((resolve) => setImmediate(resolve))
+    assert.equal(drained, false, 'the read was queued after idle began, and is still running')
+    m.stop()
+    finishRead()
+    await drain
+    await m.tick()
+    assert.equal(reads, 1)
+    const server = fs.readFileSync(new URL('../src/server.ts', import.meta.url), 'utf8')
+    const shutdown = server.slice(server.indexOf('async function shutdown('), server.indexOf('function installProcessHandlers('))
+    assert.ok(shutdown.indexOf('watchMonitor.stop()') >= 0)
+    assert.match(shutdown, /await Promise\.all\(\[watchMonitor\.idle\(\), drainIbkrPaperAutoSync\(\)\]\)/)
+    assert.ok(shutdown.indexOf('watchMonitor.idle()') < shutdown.indexOf('process.exit(code)'))
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

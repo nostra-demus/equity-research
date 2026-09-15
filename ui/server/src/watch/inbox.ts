@@ -150,7 +150,7 @@ export class WatchInbox {
   /**
    * Add what just happened to one name. Joins the newest UNREAD message for that name if it began less than
    * 30 minutes ago; otherwise starts a new message. A message you already read is never grown behind your
-   * back — new items after that start a new, unread one.
+   * back, and an answered message keeps exactly the evidence that was judged — later items start a new one.
    */
   addForName(
     name: { listing_key: string; ticker: string; company_name: string | null },
@@ -162,7 +162,7 @@ export class WatchInbox {
     if (!items.length) return null
     const at = now.toISOString()
     const open = this.messages.find((m) =>
-      m.kind === 'name' && m.listing_key === name.listing_key && !m.read_at && !m.deleted_at
+      m.kind === 'name' && m.listing_key === name.listing_key && !m.read_at && !m.deleted_at && !m.feedback
       && now.getTime() - Date.parse(m.created_at) < GROUP_WINDOW_MS)
     if (open) {
       const have = new Set(open.items.map((i) => i.id))

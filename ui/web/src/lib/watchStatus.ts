@@ -7,6 +7,12 @@ export const STATUS_ORDER: readonly WatchStatusWord[] = ['warning', 'buy_price_r
 /** The statuses that mean a person should look now — the table's "Needs you" group. */
 export const NEEDS_YOU: ReadonlySet<WatchStatusWord> = new Set<WatchStatusWord>(['warning', 'buy_price_reached', 'getting_close', 'check_now'])
 
+/** A bad-case warning alone does not replace the optional scenario-target workflow. */
+export function hasResearchPrice(plan: WatchPlanView | null | undefined): boolean {
+  return !!plan?.items.some((i) => i.kind === 'price' && i.role !== 'bad_case')
+}
+
+
 export function isStatusWord(v: unknown): v is WatchStatusWord {
   return typeof v === 'string' && (STATUS_ORDER as readonly string[]).includes(v)
 }

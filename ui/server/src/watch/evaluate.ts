@@ -201,7 +201,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
   const pricedIn = facts.currency
   if (facts.price == null || facts.stale) {
     const needsPrice = prices.length > 0 || input.triggers.some((x) => x.kind !== 'event_date')
-    add({
+    if (needsPrice) add({
       id: 'cant_check:price', type: 'cant_check', title: 'No usable price',
       detail: facts.stale
         ? `The newest price is not current (last checked ${facts.as_of ?? 'a while ago'}), so nothing is checked against it.`
@@ -333,7 +333,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
         detail: `${d.label} ${when}.${d.what_to_check ? ` What to look for: ${d.what_to_check}` : ''}`,
         quote: quoteOf(d), source: sourceLabel(d), line: null,
       })
-    } else if (td < 0 && (!decisionDay || d.date > decisionDay)) {
+    } else if (td < 0 && (!decisionDay || d.date >= decisionDay)) {
       // A date the research was waiting for has passed, and no newer research has replaced this plan
       // (a new run would have brought a new plan). Stays on until the research is run again.
       add({
@@ -376,7 +376,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     }
     if (e.state === 'condition_met' && price != null) {
       add({
-        id: `your_level_reached:${e.trigger_id}`, type: 'your_level_reached', title: 'Reached your price',
+        id: `your_level_reached:${e.trigger_id}:${e.target?.value ?? ''}:${'direction' in trig ? trig.direction : 'at_or_below'}`, type: 'your_level_reached', title: 'Reached your price',
         detail: e.detail, quote: trig.note ?? null, source: 'your watchlist entry', line: e.target?.value ?? null,
         rises: 'direction' in trig && trig.direction === 'at_or_above',
       })

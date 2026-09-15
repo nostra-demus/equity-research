@@ -6,7 +6,7 @@
 // Run: npx tsx src/lib/watchStatus.test.ts
 import assert from 'node:assert/strict'
 import type { WatchMessage, WatchRow } from './types'
-import { dateParts, dateWords, emailWords, gapWords, messageSignal, priceItemText, quoteNote, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
+import { dateParts, dateWords, emailWords, gapWords, hasResearchPrice, messageSignal, priceItemText, quoteNote, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -150,6 +150,17 @@ check('a price always says how fresh it is', () => {
   assert.equal(quoteNote({ as_of_is_close: false, delayed: true, stale: false }, -2.1), '−2.1% today · delayed')
   assert.equal(quoteNote({ as_of_is_close: true, delayed: false, stale: false }, null), 'last close')
   assert.equal(quoteNote({ as_of_is_close: false, delayed: false, stale: true }, 3), 'price now · not current', 'a stale price never shows a move')
+})
+
+check('a ready plan without an action price keeps scenario targets available', () => {
+  const p: any = { state: 'ready', items: [] }
+  assert.equal(hasResearchPrice(null), false)
+  assert.equal(hasResearchPrice(p), false)
+  p.items = [{ kind: 'date' }, { kind: 'deal_breaker' }, { kind: 'price', role: 'bad_case' }]
+  assert.equal(hasResearchPrice(p), false)
+  for (const role of ['buy', 'look_again', 'fair']) {
+    assert.equal(hasResearchPrice({ ...p, items: [{ kind: 'price', role }] } as any), true)
+  }
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

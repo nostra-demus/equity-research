@@ -1,6 +1,6 @@
 // The watcher's own price record (src/watch/prices.ts). The feed's "previous close" cannot be trusted on
 // about half of exchanges, so the day move is measured against the last price this record saw in an
-// earlier session — and a listing's market is the one its currency trades in.
+// earlier session — and a listing's venue identifies its market, with currency for ambiguous descriptions.
 // Run: npx tsx test/watch-prices.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
@@ -46,8 +46,12 @@ async function main() {
     assert.equal(sessionMove(rec, 'B|USD', 9, '2026-09-15'), null)
   })
 
-  await check("a listing's market is the one its currency trades in", () => {
+  await check("a listing's venue identifies its market, with currency for ambiguous descriptions", () => {
     assert.equal(marketIndexFor('NasdaqGS', 'USD')?.symbol, '.SPX')
+    assert.equal(marketIndexFor('LSE', 'USD'), null, 'a foreign-currency London line is not the S&P 500')
+    assert.equal(marketIndexFor('TSX', 'USD'), null, 'a foreign-currency Toronto line is not the S&P 500')
+    assert.equal(marketIndexFor('HKEX', 'USD')?.symbol, '.HSI')
+    assert.equal(marketIndexFor('SHSE (also HKEX-listed)', 'EUR'), null, 'ambiguity without a matching currency stays unknown')
     assert.equal(marketIndexFor('SHSE:600690 (also HKEX-listed)', 'CNY')?.symbol, '.SSEC')
     assert.equal(marketIndexFor('DFM', 'AED')?.symbol, '.DFMGI')
     assert.equal(marketIndexFor('Oslo Børs (OB:NHY)', 'NOK')?.symbol, '.OSEAX')

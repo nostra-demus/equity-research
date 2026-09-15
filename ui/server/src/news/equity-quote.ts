@@ -174,7 +174,7 @@ const EXCHANGE_COUNTRY: [string, string][] = [
   ['nasdaq', 'US'], ['nyse', 'US'], ['new york stock exchange', 'US'], ['cboe', 'US'], ['otc', 'US'], ['amex', 'US'], ['bats', 'US'],
   ['national stock exchange of india', 'IN'], ['bombay stock exchange', 'IN'], ['nse', 'IN'], ['bse', 'IN'], ['india', 'IN'],
   ['oslo', 'NO'], ['london', 'GB'], ['lse', 'GB'], ['aim', 'GB'],
-  ['tokyo', 'JP'], ['hong kong', 'HK'], ['hkex', 'HK'], ['sehk', 'HK'],
+  ['tokyo', 'JP'], ['shanghai', 'CN'], ['shse', 'CN'], ['shenzhen', 'CN'], ['szse', 'CN'], ['hong kong', 'HK'], ['hkex', 'HK'], ['sehk', 'HK'],
   ['xetra', 'DE'], ['frankfurt', 'DE'], ['deutsche', 'DE'], ['euronext paris', 'FR'], ['paris', 'FR'],
   ['euronext amsterdam', 'NL'], ['amsterdam', 'NL'], ['euronext brussels', 'BE'], ['brussels', 'BE'],
   ['euronext lisbon', 'PT'], ['lisbon', 'PT'], ['borsa italiana', 'IT'], ['milan', 'IT'],
@@ -216,13 +216,17 @@ export function countryFromExchange(exchange: string | null | undefined): string
 }
 
 /**
- * The home market of a listing: the country its CURRENCY belongs to, else its exchange's. The currency wins
- * because it names the line actually priced — "SHSE:600690 (also HKEX-listed)" priced in CNY trades in
- * Shanghai, whichever venue the exchange string happens to mention. The euro names no country, so a euro
- * listing falls through to its exchange.
+ * A single recognized exchange identifies the listing's market, even when its currency is foreign.
+ * If the description names venues in multiple countries, use the currency only to disambiguate them;
+ * if no venue is recognized, currency is the fallback. An unresolved multi-market description is unknown.
  */
 export function listingCountry(exchange: string | null | undefined, currency: string | null | undefined): string | null {
-  return CURRENCY_COUNTRY[normCurrency(currency)] ?? countryFromExchange(exchange)
+  const e = String(exchange ?? '').trim().toLowerCase()
+  const countries = new Set(EXCHANGE_COUNTRY.filter(([frag]) => e.includes(frag)).map(([, cc]) => cc))
+  const fromCurrency = CURRENCY_COUNTRY[normCurrency(currency)] ?? null
+  if (countries.size === 1) return [...countries][0]
+  if (countries.size > 1) return fromCurrency && countries.has(fromCurrency) ? fromCurrency : null
+  return fromCurrency
 }
 
 /**

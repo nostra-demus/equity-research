@@ -165,6 +165,17 @@ async function main() {
     assert.equal(box.pendingEmail().length, 0)
   })
 
+  await check('feedback freezes the judged message and its tally attribution', () => {
+    const box = freshInbox()
+    const a = box.addForName(AMZN, 'getting_close', [item('near', 'getting_close', false)], ON, t0)!
+    box.feedback(a.id, 'no', 'too early', 'CK', plus(1))
+    const b = box.addForName(AMZN, 'warning', [item('broken', 'bad_case_broken', true)], ON, plus(2))!
+    assert.notEqual(b.id, a.id)
+    assert.deepEqual(box.get(a.id)!.items.map((i) => i.type), ['getting_close'])
+    assert.equal(b.feedback, null)
+    assert.deepEqual(box.tally(), [{ type: 'getting_close', yes: 0, no: 1 }])
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

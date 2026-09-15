@@ -71,7 +71,7 @@ export function stepAlerts(
   const nowIds = new Set(current.map((c) => c.id))
   for (const c of current) {
     const had = prev.fired[c.id]
-    if (had) fired[c.id] = had
+    if (had && had.line === c.line && !!had.rises === !!c.rises) fired[c.id] = had
     else { fired[c.id] = entry(c, at); events.push(c) }
   }
   for (const [id, had] of Object.entries(prev.fired)) {

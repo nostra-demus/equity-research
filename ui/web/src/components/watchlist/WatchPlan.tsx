@@ -87,6 +87,7 @@ export function WatchPlanSection({ row }: { row: WatchRow }) {
           {deals.map((i) => (
             <li key={i.id} className="wplan__item">
               <span className="wplan__text">{i.text}</span>
+              <Source src={i.source} />
               {i.check_where && <span className="wplan__src">Check in: {i.check_where}</span>}
             </li>
           ))}

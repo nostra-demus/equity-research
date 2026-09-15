@@ -101,6 +101,7 @@ Answer with ONE JSON object and nothing else:
 How to fill it:
 - quote: copied word for word from the named file — one sentence or less, never paraphrased, never stitched together from two places. Every number and every date you give must appear in its own quote. When the number sits under a label — a bullet such as "Target entry zone: $185–$200", or a table row — start the quote at that label, so the quote shows what the number is for.
 - file: exactly one of the file names listed in the input.
+- what_to_check, waiting_for.text and news.topic: copy a contiguous phrase from that item's own quote, preserving its direction and qualifiers. Do not paraphrase or borrow evidence from another part of the report; return null or omit the item if the quote cannot support it.
 - prices: only prices the report ties to an action on THIS stock.
   - "buy" only when the report says to buy, enter or re-enter at that price.
   - "look_again" when it says to revisit, look again, re-rate, re-underwrite or reconsider at that price.

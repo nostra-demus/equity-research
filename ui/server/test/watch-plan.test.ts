@@ -168,13 +168,13 @@ check('a date keeps its day only when the quote writes that day', () => {
   const [a, b] = r.items as any[]
   assert.equal(a.date, '2026-10-21')
   assert.equal(b.date, null)
-  assert.equal(b.window, '~Jan-2027')
-  assert.match(r.left_out[0].why, /exact day is not written/)
+  assert.equal(b.window, 'Q3 FY27 ~Jan-2027')
+  assert.ok(r.left_out.some((l) => /exact day is not written/.test(l.why)))
 })
 
 check('waiting-for and news items need a verbatim quote too', () => {
   const r = validateReaderOutput({
-    waiting_for: [{ text: 'net adds positive two quarters running', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' }],
+    waiting_for: [{ text: 'net adds turn positive for 2 consecutive quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' }],
     news: [
       { topic: 'Layoffs', quote: 'Watch for layoffs announced at the AGM.', file: 'final_thesis.md' },
       { topic: 'Rating cut', quote: 'A downgrade would matter a great deal.', file: 'final_thesis.md' },
@@ -274,10 +274,12 @@ check("a date's timing is shown only in words its quote writes", () => {
       { label: 'Globalstar close', date: null, window: '~2027 (expected close)', what_to_check: null, quote: 'Globalstar close expected 2027 subject to regulatory approvals.', file: 'final_thesis.md' },
     ],
   }, amznCtx)
-  const byLabel = new Map(r.items.map((i: any) => [i.label, i]))
-  assert.equal(byLabel.get('FTC decision').window, 'no exact day given', 'a year the quote never names is not shown')
-  assert.equal(byLabel.get('Leo launch').window, 'no exact day given', 'nor months it never names')
-  assert.equal(byLabel.get('Globalstar close').window, '~2027 (expected close)')
+  const dates = r.items.filter((i) => i.kind === 'date')
+  assert.equal(dates.length, 3)
+  assert.equal(dates[0].window, 'FTC investigations into fulfillment practices and Prime are active with no disclosed hearing date or decision deadline.')
+  assert.equal(dates[1].label, 'Research event', 'an unsupported proper name is not invented')
+  assert.equal(dates[1].window, 'CFO committed to Q3 2026 commercial launch')
+  assert.equal(dates[2].window, 'Globalstar close expected 2027 subject to regulatory approvals.')
   assert.equal(r.left_out.filter((l) => /timing is not written/.test(l.why)).length, 2)
 })
 
@@ -305,15 +307,17 @@ check('a day the research only estimates is still the day to watch — kept with
       { label: 'CNY 6,000mn buyback', date: null, window: 'Through 2027-03-26', what_to_check: null, quote: '| Through 2027-03-26 | CNY 6,000mn buyback (24.8% complete as of Jun-2026) |', file: 'final_thesis.md' },
     ],
   }, { sources, currency: 'INR', entryPrice: null })
-  assert.deepEqual(r.items.map((i: any) => [i.label, i.date, i.window, i.estimated]), [
-    ['Q2 FY27 results', '2026-10-21', '~21-Oct-2026', true],
-    ['Q2 2026 print', '2026-08-10', 'est. 10 Aug', true],
-    ['H1 2026 interim results', '2026-08-27', '2026-08-27/28', true],
-    ['Q3 FY27 results', null, '~Jan-2027', false],
-    ['Q3 FY2026 earnings', '2026-11-03', null, true],
-    ['FQ2 2026 results', '2026-07-22', null, false],
-    ['CNY 6,000mn buyback', '2027-03-26', 'Through 2027-03-26', false],
+  assert.deepEqual(r.items.map((i: any) => [i.label, i.date, i.estimated]), [
+    ['Q2 FY27 results', '2026-10-21', true],
+    ['Q2 2026 print', '2026-08-10', true],
+    ['H1 2026 interim results', '2026-08-27', true],
+    ['Research event', null, false],
+    ['Q3 FY2026 earnings', '2026-11-03', true],
+    ['FQ2 2026 results', '2026-07-22', false],
+    ['CNY 6,000mn buyback', '2027-03-26', false],
   ])
+  for (const item of r.items) if (item.kind === 'date' && item.window) assert.equal(item.window, item.source.quote,
+    'a window retains the original source statement and its qualifiers')
 })
 
 check("the model's JSON is read fenced or bare, and anything else is refused", () => {
@@ -322,23 +326,59 @@ check("the model's JSON is read fenced or bare, and anything else is refused", (
   assert.equal(parseReaderJson('[1,2]'), null)
 })
 
-check("the model's own words beside a quote carry no number the research does not", () => {
-  const thesis = 'Q2 FY27 results on 21-Oct-2026 will show whether EBITDA margin holds near 35.35%. We would change our view if net adds turn positive for 2 consecutive quarters.'
+check("supporting words must be in their own quote, including metric, direction and qualifiers", () => {
+  const fullQuote = 'Q2 FY27 results on 21-Oct-2026 will show whether EBITDA margin holds near 35.35%.'
+  const thesis = fullQuote + ' We would change our view if net adds turn positive for 2 consecutive quarters. Watch for a guidance cut. Revenue grew 12%.'
   const r = validateReaderOutput({
     dates: [
-      { label: 'Q2 FY27 results', date: '2026-10-21', window: null, what_to_check: 'whether EBITDA margin holds near 35.35%', quote: 'Q2 FY27 results on 21-Oct-2026', file: 'final_thesis.md' },
-      { label: 'Q2 FY27 results (again)', date: '2026-10-21', window: null, what_to_check: 'whether margin falls below 12%', quote: 'Q2 FY27 results on 21-Oct-2026', file: 'final_thesis.md' },
+      { label: 'Results', date: '2026-10-21', what_to_check: 'whether EBITDA margin holds near 35.35%', quote: fullQuote, file: 'final_thesis.md' },
+      { label: 'Unsupported metric', date: '2026-10-21', what_to_check: 'whether margin falls below 12%', quote: fullQuote, file: 'final_thesis.md' },
+      { label: 'Unsupported words', date: '2026-10-21', what_to_check: 'management resigns', quote: fullQuote, file: 'final_thesis.md' },
+      { label: 'Wrong excerpt', date: '2026-10-21', what_to_check: 'whether EBITDA margin holds near 35.35%', quote: 'Q2 FY27 results on 21-Oct-2026', file: 'final_thesis.md' },
     ],
     waiting_for: [
-      { text: 'net adds positive for 2 consecutive quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
-      { text: 'net adds positive for 3 quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
+      { text: 'net adds turn positive for 2 consecutive quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
+      { text: 'net adds turn negative for 2 consecutive quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
+    ],
+    news: [
+      { topic: 'a guidance cut', quote: 'Watch for a guidance cut.', file: 'final_thesis.md' },
+      { topic: 'an accounting fraud', quote: 'Watch for a guidance cut.', file: 'final_thesis.md' },
     ],
   }, { sources: new Map([['final_thesis.md', thesis]]), currency: 'INR', entryPrice: null })
-  const dates = r.items.filter((i: any) => i.kind === 'date') as any[]
-  assert.equal(dates[0].what_to_check, 'whether EBITDA margin holds near 35.35%', 'a number the research writes is kept')
-  assert.equal(dates[1].what_to_check, null, 'an invented threshold is not shown')
-  assert.equal(r.items.filter((i: any) => i.kind === 'waiting_for').length, 1, 'a condition with an invented number is left out')
-  assert.ok(r.left_out.some((l) => /not in the research/.test(l.why)))
+  const dates = r.items.filter((i) => i.kind === 'date')
+  assert.deepEqual(dates.map((d) => d.what_to_check), ['whether EBITDA margin holds near 35.35%', null, null])
+  assert.equal(r.items.filter((i) => i.kind === 'waiting_for').length, 1)
+  assert.equal(r.items.filter((i) => i.kind === 'news').length, 1)
+  assert.ok(r.left_out.filter((l) => /not in the cited quote/.test(l.why)).length >= 5)
+})
+
+check('avoid and without instructions never become urgent review-price lines', () => {
+  for (const quote of ['Avoid buying at $100.', 'Proceed without buying at $100.', 'Do not initiate at $100.', 'Never accumulate at $100.', 'Avoid **buying** at $100.']) {
+    const r = validateReaderOutput({ prices: [{ role: 'buy', low: 100, high: null, quote, file: 'final_thesis.md' }] },
+      { sources: new Map([['final_thesis.md', quote]]), currency: 'USD', entryPrice: null })
+    assert.equal(r.items.length, 0, quote)
+    assert.match(r.left_out[0].why, /not to buy/)
+  }
+  assert.equal(negatedAt('Avoid buying at $100. Revisit at $90.', 90), false)
+})
+
+check('a model excerpt cannot cut source negation or reverse timing constraints', () => {
+  const prohibited = 'Do not buy at $80 before earnings are checked.'
+  const p = validateReaderOutput({ prices: [{ role: 'buy', low: 80, high: null,
+    quote: 'buy at $80 before earnings are checked.', file: 'final_thesis.md' }] },
+    { sources: new Map([['final_thesis.md', prohibited]]), currency: 'USD', entryPrice: 100 })
+  assert.equal(p.items.length, 0)
+  assert.match(p.left_out[0].why, /negation/)
+  const timing = 'Approval is not expected before January 2027.'
+  const maturity = 'The bond maturity is expected on October 23, 2026.'
+  const d = validateReaderOutput({ dates: [
+    { label: 'Approval', date: null, window: 'before January 2027', quote: timing, file: 'final_thesis.md' },
+    { label: 'Dividend payment confirmed', date: '2026-10-23', quote: maturity, file: 'final_thesis.md' },
+  ] }, { sources: new Map([['final_thesis.md', timing + '\n' + maturity]]), currency: 'USD', entryPrice: 100 })
+  const dates = d.items.filter((i) => i.kind === 'date')
+  assert.equal(dates[0].window, timing)
+  assert.equal(dates[1].label, 'Research event')
+  assert.equal(dates[1].estimated, true)
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

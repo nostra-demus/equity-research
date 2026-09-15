@@ -102,4 +102,20 @@ check('a line reached by a RISE re-arms after a clear move back BELOW it', () =>
   assert.equal(s.events.length, 1, 'rising past it again is news')
 })
 
+check('editing a fired trigger resets its line and direction even when its id is preserved', () => {
+  const old = cond('your_level_reached:T1', 'your_level_reached', 100)
+  let s = step(undefined, [old], 99, 0)
+  s = step(s.state, [], 95, 5)
+  assert.equal(s.state.fired[old.id].line, 100, 'the old condition is still latched')
+  const edited = { ...old, line: 90 }
+  s = step(s.state, [edited], 89, 10)
+  assert.deepEqual(s.events, [edited], 'the new crossing is not suppressed by its old id')
+  assert.equal(s.state.fired[old.id].line, 90)
+  const reversed = { ...edited, rises: true }
+  s = step(s.state, [reversed], 91, 15)
+  assert.deepEqual(s.events, [reversed], 'a changed direction is a new condition too')
+  s = step(s.state, [reversed], 92, 20)
+  assert.deepEqual(s.events, [])
+})
+
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

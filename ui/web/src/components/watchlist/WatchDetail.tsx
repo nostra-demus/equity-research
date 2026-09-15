@@ -11,7 +11,7 @@ import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
-import { dateWords, gapWords, quoteNote, rowSignal, rowStatus } from '../../lib/watchStatus'
+import { dateWords, gapWords, hasResearchPrice, quoteNote, rowSignal, rowStatus } from '../../lib/watchStatus'
 import { WatchPlanSection } from './WatchPlan'
 
 /** A trigger's chip state — the three-valued vocabulary, so a refusal never renders as "not met". */
@@ -403,7 +403,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
 
       {/* Offered only where a decision record exists and no watch plan already watches its prices. Adopting
           is still a human act: the click records that YOU chose this number on this date. */}
-      {!isArchived && !staticMode && w?.plan?.state !== 'ready' && (
+      {!isArchived && !staticMode && !hasResearchPrice(w?.plan) && (
         <ScenarioAdopt
           row={row}
           onUse={(sc, currency) =>

@@ -253,11 +253,11 @@ export function saysBuy(quote: string): boolean {
 
 /** Is this price named only to say NOT to act at it? ("Do not buy at $153.94.") */
 export function negatedAt(quote: string, value: number): boolean {
-  const q = String(quote ?? '')
+  const q = String(quote ?? '').replace(/[*_]/g, '')
   for (const m of q.matchAll(/(?<![\d.,])\d+(?:,\d+)*(?:\.\d+)?/g)) {
     if (Math.abs(Number(m[0].replace(/,/g, '')) - value) > 1e-9 * Math.max(1, value)) continue
-    const before = q.slice(Math.max(0, (m.index ?? 0) - 40), m.index ?? 0)
-    if (/\b(not|no|never|don'?t)\s+(buy|initiate|enter|add|own)\b[^.;]*$/i.test(before)) return true
+    const before = q.slice(Math.max(0, (m.index ?? 0) - 80), m.index ?? 0)
+    if (/\b(not|no|never|don['’]?t|avoid|without)\s+(?:[\w'-]+\s+){0,2}(?:buy(?:ing)?|initiat(?:e|ing)|enter(?:ing)?|add(?:ing)?|own(?:ing)?|accumulat(?:e|ing))\b[^.;]*$/i.test(before)) return true
   }
   return false
 }
@@ -369,6 +369,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
   const items: PlanItem[] = []
   const left: LeftOut[] = []
   const seen = new Set<string>()
+  const contexts = new Map<PlanSource, string[]>()
 
   const sourceFor = (what: string, file: unknown, quote: unknown): PlanSource | null => {
     if (typeof quote !== 'string' || !quote.trim()) { left.push({ what, why: 'no quote from the research came with it' }); return null }
@@ -376,17 +377,30 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const text = ctx.sources.get(name)
     if (text == null) { left.push({ what, why: `it names a file that was not read (${name || 'none'})` }); return null }
     if (!quoteFound(text, quote)) { left.push({ what, why: 'its quote is not in the research word for word' }); return null }
-    return { file: name, quote: quote.trim().replace(/\s+/g, ' '), field: null }
+    // Validate the source's context, not just the model-selected excerpt. A substring beginning after
+    // "Do not" would otherwise turn the source's prohibition into a buy instruction.
+    const hay = normalizeForMatch(text)
+    const parts = quote.split(/\s*(?:\.\.\.|…)\s*/).map(normalizeForMatch).filter(Boolean)
+    const spans: string[] = []
+    let from = 0
+    for (const part of parts) {
+      const at = hay.indexOf(part, from)
+      const prefix = hay.slice(Math.max(0, at - 100), at)
+      if (/\b(?:not|no|never|don'?t|avoid|without)\s+(?:[\w'-]+\s+){0,3}$/.test(prefix)) {
+        left.push({ what, why: 'its quote cuts away a negation from the source sentence' })
+        return null
+      }
+      spans.push(hay.slice(Math.max(0, at - 100), at + part.length + 100))
+      from = at + part.length
+    }
+    const source = { file: name, quote: quote.trim().replace(/\s+/g, ' '), field: null }
+    contexts.set(source, spans)
+    return source
   }
-  // The model's own words beside a checked quote — what a date should show, what the research is waiting for —
-  // are shown as the research's, so every number in them must be written in the file they came from. An invented
-  // threshold ("margin below 12%") is never published; words without numbers are the model's summary of its quote.
-  const fileNumbers = new Map<string, number[]>()
-  const numbersInFile = (words: string, file: string): boolean => {
-    if (!fileNumbers.has(file)) fileNumbers.set(file, numbersIn(ctx.sources.get(file) ?? ''))
-    const have = fileNumbers.get(file) as number[]
-    return numbersIn(words).every((n) => have.some((v) => Math.abs(v - n) <= 1e-9 * Math.max(1, Math.abs(n))))
-  }
+  // Supporting words must be an excerpt of the displayed quote. A number elsewhere in the report cannot
+  // support a new metric, direction or qualifier invented beside this event (§3 / §5).
+  const wordsInQuote = (words: string, source: PlanSource): boolean =>
+    !!normalizeForMatch(words) && normalizeForMatch(source.quote ?? '').includes(normalizeForMatch(words))
 
   for (const p of arr(out.prices).slice(0, 8)) {
     const role = String(p?.role ?? '')
@@ -406,8 +420,8 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (!ctx.currency) { left.push({ what, why: 'the research does not say which currency the stock trades in' }); continue }
     const clash = currencyConflict(quote, ctx.currency)
     if (clash) { left.push({ what, why: `its quote prices it in ${clash}, but this listing trades in ${ctx.currency}` }); continue }
-    if (negatedAt(quote, lo) || (hi != null && negatedAt(quote, hi))) { left.push({ what, why: 'the research names this price only to say not to buy at it' }); continue }
-    if (risingAt(quote, lo) || (hi != null && risingAt(quote, hi))) { left.push({ what, why: 'the research ties this price to the stock rising past it, and every line here is reached by a fall' }); continue }
+    if ([quote, ...(contexts.get(source) ?? [])].some((text) => negatedAt(text, lo) || (hi != null && negatedAt(text, hi)))) { left.push({ what, why: 'the research names this price only to say not to buy at it' }); continue }
+    if ([quote, ...(contexts.get(source) ?? [])].some((text) => risingAt(text, lo) || (hi != null && risingAt(text, hi)))) { left.push({ what, why: 'the research ties this price to the stock rising past it, and every line here is reached by a fall' }); continue }
     const line = hi ?? lo
     if (ctx.entryPrice && role !== 'fair' && Math.abs(line - ctx.entryPrice) / ctx.entryPrice < 0.005) {
       left.push({ what, why: 'this is the price when the research was written, not a level to act at' })
@@ -465,11 +479,17 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     && [...words.toLowerCase().matchAll(MONTH_WORD)].every((m) => new RegExp(`\\b${m[1].slice(0, 3)}`).test(quote.toLowerCase()))
 
   for (const d of arr(out.dates).slice(0, 16)) {
-    const label = str(d?.label, 120)
+    let label = str(d?.label, 120)
     const what = `date: ${label ?? '(no label)'}`
     if (!label) { left.push({ what, why: 'no label' }); continue }
     const source = sourceFor(what, d?.file, d?.quote)
     if (!source) continue
+    const quoteWords = new Set(normalizeForMatch(source.quote ?? '').match(/[\p{L}\p{N}]+/gu) ?? [])
+    const labelWords = normalizeForMatch(label).match(/[\p{L}\p{N}]+/gu) ?? []
+    if (!labelWords.length || !labelWords.every((word) => quoteWords.has(word))) {
+      left.push({ what, why: 'its label is not in the cited quote, so a neutral label is shown' })
+      label = 'Research event'
+    }
     let date: string | null = typeof d?.date === 'string' && ISO_DAY.test(d.date.trim()) ? d.date.trim() : null
     let window = str(d?.window, 80)
     if (date && !datesIn(source.quote as string).includes(date)) {
@@ -498,17 +518,20 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
         estimated = days.length > 1 || estimateWord.test(window) || quoteEstimates
       }
     }
-    if (!date && !window) window = 'no exact day given'
-    const key = `date|${label.toLowerCase()}|${date}`
+    // A month/window is prose, not a verified exact day. Show the source's complete timing statement so
+    // 'not before January' cannot become the opposite 'before January' through model summarization.
+    if (!date) window = source.quote
+    else if (fromWindow) window = source.quote
+    const key = `date|${label.toLowerCase()}|${date}|${source.quote}`
     if (seen.has(key)) continue
     seen.add(key)
     let whatToCheck = str(d?.what_to_check, 300)
-    if (whatToCheck && !numbersInFile(whatToCheck, source.file)) {
-      left.push({ what: `${what} — what to look for`, why: 'a number in it is not in the research, so it is not shown' })
+    if (whatToCheck && !wordsInQuote(whatToCheck, source)) {
+      left.push({ what: `${what} — what to look for`, why: 'its words are not in the cited quote, so it is not shown' })
       whatToCheck = null
     }
     items.push({
-      kind: 'date', id: itemId('date', [date, label.toLowerCase()]), label, date, window: date && !fromWindow && !estimated ? null : window, estimated,
+      kind: 'date', id: itemId('date', [date, label.toLowerCase(), source.quote]), label, date, window: date && !fromWindow && !estimated ? null : window, estimated,
       what_to_check: whatToCheck, source,
     })
   }
@@ -519,7 +542,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (!text) { left.push({ what, why: 'empty' }); continue }
     const source = sourceFor(what, w?.file, w?.quote)
     if (!source) continue
-    if (!numbersInFile(text, source.file)) { left.push({ what, why: 'a number in it is not in the research' }); continue }
+    if (!wordsInQuote(text, source)) { left.push({ what, why: 'its words are not in the cited quote' }); continue }
     const key = `wait|${text.toLowerCase()}`
     if (seen.has(key)) continue
     seen.add(key)
@@ -532,6 +555,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (!topic) { left.push({ what, why: 'empty' }); continue }
     const source = sourceFor(what, n?.file, n?.quote)
     if (!source) continue
+    if (!wordsInQuote(topic, source)) { left.push({ what, why: 'its words are not in the cited quote' }); continue }
     const key = `news|${topic.toLowerCase()}`
     if (seen.has(key)) continue
     seen.add(key)

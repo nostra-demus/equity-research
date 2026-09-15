@@ -559,8 +559,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
 
   /** Resolves once every queued report read and any check in progress have finished. */
   async function idle(): Promise<void> {
-    await readChain
+    // A tick can queue reads after it awaits prices. Drain that producer before its read queue.
     if (ticking) await ticking
+    await readChain
   }
 
   /** The list's rows with what each one says right now — evaluated fresh against the prices the request

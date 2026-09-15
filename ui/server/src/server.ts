@@ -8114,6 +8114,7 @@ let shuttingDown = false
 async function shutdown(signal: string, code = 0) {
   if (shuttingDown) return
   shuttingDown = true
+  watchMonitor.stop()
   if (pendingAdmissionTimer) { clearInterval(pendingAdmissionTimer); pendingAdmissionTimer = null }
   // eslint-disable-next-line no-console
   console.log(`[swarm-cockpit] ${signal} — draining ${liveResponses.size} live stream(s), exit ${code}`)
@@ -8134,8 +8135,7 @@ async function shutdown(signal: string, code = 0) {
     // Provider and paper-sync writers own durable research state, so they always drain before optional
     // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
     await drainProviderRunsForShutdown()
-    watchMonitor.stop()
-    await drainIbkrPaperAutoSync()
+    await Promise.all([watchMonitor.idle(), drainIbkrPaperAutoSync()])
   } catch (error) {
     // Fail closed: never release the process-wide lock while a detached writer may still be alive.
     // eslint-disable-next-line no-console

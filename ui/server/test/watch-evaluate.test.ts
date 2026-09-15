@@ -241,4 +241,37 @@ check('your own at-or-above price is marked as reached by a rise, so it re-arms 
   assert.equal(c.line, 400)
 })
 
+check('a catalyst on the research day stays eligible after that day passes', () => {
+  const date: PlanItem = { kind: 'date', id: 'same-day', label: 'Results', date: TODAY, window: null,
+    what_to_check: null, source: src('Results on 2026-09-15') }
+  assert.ok(types(run([date], facts(100), { decision_date: TODAY })).includes('coming_up'))
+  assert.ok(types(run([date], facts(100), { decision_date: TODAY }, '2026-09-16')).includes('results_out'))
+  assert.ok(!types(run([date], facts(100), { decision_date: '2026-09-16' }, '2026-09-16')).includes('results_out'))
+})
+
+check('date-only research and manual triggers remain checkable without a quote', () => {
+  const date: PlanItem = { kind: 'date', id: 'd-only', label: 'Results', date: TODAY, window: null,
+    what_to_check: null, source: src('Results on 2026-09-15') }
+  for (const stale of [false, true]) {
+    const ev = run([date], facts(null, { stale }))
+    assert.ok(!types(ev).includes('cant_check'))
+    assert.equal(ev.status, 'coming_up')
+  }
+  const trigger: WatchTrigger = { kind: 'event_date', trigger_id: 'manual-date', due_date: TODAY, label: 'Meeting', acknowledged_at: null }
+  const ev = evaluateName({ plan: null, triggers: [trigger], evals: [evaluateTrigger(trigger, { quote: null, quoteReason: 'unknown_symbol', today: TODAY })], facts: facts(null), today: TODAY })
+  assert.ok(!ev.conditions.some((c) => c.type === 'cant_check'))
+  assert.ok(types(run([buy], facts(null))).includes('cant_check'), 'price-dependent plans still warn')
+})
+
+check('editing a manual threshold changes its message identity within a grouping window', () => {
+  const trigger: WatchTrigger = { kind: 'price_level', trigger_id: 'editable', direction: 'at_or_below', level: 100, currency: 'USD' }
+  const quote: LiveQuote = { ticker: 'A', symbol: 'A', name: 'A', exchange: 'NYSE', currency: 'USD', price: 89,
+    as_of: '2026-09-15T15:00:00Z', as_of_is_close: false, delayed: false, source: 'cnbc', stale: false }
+  const evalFor = (t: WatchTrigger) => evaluateName({ plan: null, triggers: [t],
+    evals: [evaluateTrigger(t, { quote, quoteReason: null, today: TODAY })], facts: facts(89), today: TODAY })
+  const old = evalFor(trigger).conditions.find((c) => c.type === 'your_level_reached')!
+  const edited = evalFor({ ...trigger, level: 90 }).conditions.find((c) => c.type === 'your_level_reached')!
+  assert.notEqual(old.id, edited.id, 'grouping cannot discard the edited crossing as a duplicate item')
+})
+
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
