@@ -106,7 +106,8 @@ export interface NextLine {
   /** Signed move still needed, % of today's price. Negative = it must fall. Null without a price. */
   gap_pct: number | null
 }
-export interface NextDate { label: string; date: string; days_to: number }
+/** `estimated`: the research only estimates this day ("~21-Oct-2026"), so the screen marks it. */
+export interface NextDate { label: string; date: string; days_to: number; estimated: boolean }
 
 export interface NameEvaluation {
   status: StatusWord
@@ -223,6 +224,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
   let nearLine: { p: PlanPrice; line: number } | null = null
 
   if (price != null) {
+    const actionPrice = prices.some((p) => p.role === 'buy' || p.role === 'look_again')
     for (const p of prices) {
       if (p.currency.toUpperCase() !== String(pricedIn ?? '').toUpperCase()) {
         add({
@@ -252,7 +254,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
           title: p.role === 'buy' ? 'Reached its buy price' : p.role === 'look_again' ? 'Reached its look-again price' : 'Reached its fair price',
           detail: `${here}, it is ${p.high != null && price >= p.low ? 'inside' : 'at or under'} the research's ${ROLE_LABEL[p.role].toLowerCase()} of ${priceText(p)}.`
             + (p.role === 'look_again' ? ' The research said to look again here, not to buy.' : '')
-            + (p.role === 'fair' ? ' The research gave no buy price.' : '')
+            + (p.role === 'fair' && !actionPrice ? ' The research gave no buy price.' : '')
             + (bigDrop ? ` ${dropText}` : ''),
           quote: quoteOf(p), source: sourceLabel(p), line,
         })
@@ -261,6 +263,15 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
       if ((p.role === 'buy' || p.role === 'look_again') && price <= line * (1 + t.nearPct / 100)) {
         if (!nearLine || line > nearLine.line) nearLine = { p, line }
       }
+    }
+    // The strongest line reached speaks for the price. Research often names overlapping levels (AMZN:
+    // "Track at $190-200 for re-entry" beside a "$185–$200" target zone), and one price must not be both
+    // "Buy price reached" and "look again here, not buy" in the same message.
+    const REACHED: ConditionType[] = ['buy_price_reached', 'look_again_reached', 'fair_reached']
+    const top = REACHED.findIndex((type) => out.some((c) => c.type === type))
+    if (top >= 0) {
+      const weaker = new Set(REACHED.slice(top + 1))
+      for (let i = out.length - 1; i >= 0; i--) if (weaker.has(out[i].type)) out.splice(i, 1)
     }
   }
 
@@ -296,19 +307,27 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     if (!d.date) continue
     const td = tradingDaysUntil(today, d.date)
     if (td == null) continue
+    // A day the research only estimates says so wherever it appears ("expected 21-Oct-2026"): no message claims
+    // more than the research did (CLAUDE.md §3).
+    const estimated = d.estimated === true
+    const when = estimated
+      ? `expected ${d.window ? String(d.window).replace(/^\s*(?:~|(?:est(?:imated)?|expected)\b\.?)\s*/i, '') : d.date}`
+      : `on ${d.date}`
     if (td >= 0 && td <= t.comingUpTradingDays) {
       add({
         id: `coming_up:${d.id}`, type: 'coming_up',
-        title: td === 0 ? `${d.label} — today` : `${d.label} in ${td} trading day${td === 1 ? '' : 's'}`,
-        detail: `${d.label} on ${d.date}.${d.what_to_check ? ` What the research said to look for: ${d.what_to_check}` : ''}`,
+        title: `${td === 0 ? `${d.label} — today` : `${d.label} in ${td} trading day${td === 1 ? '' : 's'}`}${estimated ? ' (expected)' : ''}`,
+        detail: `${d.label} ${when}.${d.what_to_check ? ` What the research said to look for: ${d.what_to_check}` : ''}`,
         quote: quoteOf(d), source: sourceLabel(d), line: null,
       })
     } else if (td < 0 && (!decisionDay || d.date > decisionDay)) {
       // A date the research was waiting for has passed, and no newer research has replaced this plan
       // (a new run would have brought a new plan). Stays on until the research is run again.
       add({
-        id: `results_out:${d.id}`, type: 'results_out', title: 'The results this research was waiting for are out',
-        detail: `${d.label} was on ${d.date}, and no research has run since.${checklist ? ` The research's tests to check by hand:\n${checklist}` : ''}`,
+        id: `results_out:${d.id}`, type: 'results_out',
+        // Any dated event — results, a vote, a deadline, a maturity — so the words name the date, not "results".
+        title: `${d.label}: the ${estimated ? 'expected ' : ''}date has passed`,
+        detail: `${d.label} was ${when}, and no research has run since.${checklist ? ` The research's tests to check by hand:\n${checklist}` : ''}`,
         quote: quoteOf(d), source: sourceLabel(d), line: null,
       })
     }
@@ -389,12 +408,12 @@ function nextLine(prices: PlanPrice[], input: EvaluateInput, price: number | nul
 
 function nextDate(dates: PlanDate[], input: EvaluateInput, today: string): NextDate | null {
   let best: NextDate | null = null
-  const consider = (label: string, date: string) => {
+  const consider = (label: string, date: string, estimated: boolean) => {
     const d = daysBetween(today, date)
     if (d == null || d < 0) return
-    if (!best || d < best.days_to) best = { label, date, days_to: d }
+    if (!best || d < best.days_to) best = { label, date, days_to: d, estimated }
   }
-  for (const d of dates) if (d.date) consider(d.label, d.date)
-  for (const trig of input.triggers) if (trig.kind === 'event_date' && !trig.acknowledged_at) consider(trig.label, trig.due_date)
+  for (const d of dates) if (d.date) consider(d.label, d.date, d.estimated === true)
+  for (const trig of input.triggers) if (trig.kind === 'event_date' && !trig.acknowledged_at) consider(trig.label, trig.due_date, false)
   return best
 }

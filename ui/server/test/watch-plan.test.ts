@@ -7,7 +7,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import {
   badCase, currencyConflict, datesIn, hasNumber, negatedAt, numbersIn, parseReaderJson, quoteFound, recordItems,
-  saysBuy, validateReaderOutput,
+  risingAt, saysBuy, validateReaderOutput,
 } from '../src/watch/plan'
 
 let passed = 0
@@ -182,6 +182,134 @@ check('waiting-for and news items need a verbatim quote too', () => {
   }, ctx('INR', 1784.6))
   assert.equal(r.items.filter((i) => i.kind === 'waiting_for').length, 1)
   assert.equal(r.items.filter((i) => i.kind === 'news').length, 1)
+})
+
+// Verbatim from the committed AMZN report (final_thesis.md — its entry levels, a fair-value line, and three
+// events whose timing a model restated in its own words on the first real read).
+const AMZN_ZONE = '- **Target entry zone:** $185–$200 (at or below the $210 base fair value, giving a modest positive margin of safety)'
+const AMZN_CONVICTION = '- **Conviction entry:** Below $185 provides a genuine margin of safety and moves the risk/reward above 1.0x'
+const AMZN_MORE = [
+  AMZN_ZONE, AMZN_CONVICTION,
+  'Margin of safety -13.5% = ((210 - 238.34) / 210) × 100 from base-case fair value $210.',
+  'CFO committed to Q3 2026 commercial launch; cost capitalization begins Q4, removing ~$1B/quarter drag.',
+  'FTC investigations into fulfillment practices and Prime are active with no disclosed hearing date or decision deadline.',
+  'Globalstar close expected 2027 subject to regulatory approvals.',
+].join('\n')
+const amznCtx = { sources: new Map([['final_thesis.md', AMZN_MORE]]), currency: 'USD', entryPrice: 238.34 }
+
+check('buy: an entry level the research labels as one is a buy, however the label is emphasised', () => {
+  assert.equal(saysBuy('Conviction entry: Below $185 provides a genuine margin of safety'), true)
+  assert.equal(saysBuy(AMZN_CONVICTION), true)
+  assert.equal(saysBuy('**Conviction entry**: Below $185'), true)
+  assert.equal(saysBuy(AMZN_ZONE), true)
+  assert.equal(saysBuy('No entry: the setup is balanced at $150'), false)
+  assert.equal(saysBuy('high barriers to entry protect the $50bn franchise'), false)
+})
+
+check('a fair value beside a price to act at is left out, with the reason; on its own it is kept', () => {
+  const both = validateReaderOutput({
+    prices: [
+      { role: 'buy', low: 185, high: null, quote: 'Conviction entry: Below $185 provides a genuine margin of safety', file: 'final_thesis.md' },
+      { role: 'fair', low: 210, high: null, quote: 'from base-case fair value $210.', file: 'final_thesis.md' },
+    ],
+  }, amznCtx)
+  assert.deepEqual(both.items.map((i: any) => `${i.role}:${i.low}`), ['buy:185'])
+  assert.match(both.left_out.map((l) => l.why).join(' | '), /price to act at/)
+  const alone = validateReaderOutput({ prices: [{ role: 'fair', low: 210, high: null, quote: 'from base-case fair value $210.', file: 'final_thesis.md' }] }, amznCtx)
+  assert.deepEqual(alone.items.map((i: any) => `${i.role}:${i.low}`), ['fair:210'])
+})
+
+check('a fair value the stock was already under when the research was written is not a line to wait for', () => {
+  // Verbatim from the committed UBER report: the research saw the gap and still said wait for events.
+  const quote = 'Base-case fair value $74.77/share vs. $68.18 price (8.82% margin of safety).'
+  const uber = { sources: new Map([['final_thesis.md', quote]]), currency: 'USD', entryPrice: 68.18 }
+  const r = validateReaderOutput({ prices: [{ role: 'fair', low: 74.77, high: null, quote, file: 'final_thesis.md' }] }, uber)
+  assert.equal(r.items.length, 0)
+  assert.match(r.left_out[0].why, /already under it when the research was written/)
+  // ORCL's fair value sat BELOW its price, so reaching it is news.
+  const orcl = 'Base-case fair value: $133.77/share (13.1% below the $153.94 current price).'
+  const o = validateReaderOutput({ prices: [{ role: 'fair', low: 133.77, high: null, quote: orcl, file: 'final_thesis.md' }] }, { sources: new Map([['final_thesis.md', orcl]]), currency: 'USD', entryPrice: 153.94 })
+  assert.deepEqual(o.items.map((i: any) => `${i.role}:${i.low}`), ['fair:133.77'])
+})
+
+check('a price the research ties to the stock RISING past it is left out — every line here is reached by a fall', () => {
+  // Verbatim from the committed BG report: above ~$115 moves the call toward Avoid; below ~$100 is a look-again.
+  const rise = 'A confirmed pool price materially above ~$115 with no change in earnings power (moves the call from Watchlist toward Avoid).'
+  const fall = "Re-rate to 'Starter Position Only' only on a pool-confirmed price below ~$100, or on a clean post-Viterra FY2026 cash-conversion print."
+  const r = validateReaderOutput({
+    prices: [
+      { role: 'look_again', low: 115, high: null, quote: rise, file: 'final_thesis.md' },
+      { role: 'look_again', low: 100, high: null, quote: fall, file: 'final_thesis.md' },
+    ],
+  }, { sources: new Map([['final_thesis.md', `${rise}\n${fall}`]]), currency: 'USD', entryPrice: null })
+  assert.deepEqual(r.items.map((i: any) => `${i.role}:${i.low}`), ['look_again:100'])
+  assert.match(r.left_out[0].why, /rising past it/)
+  assert.equal(risingAt('Track at $190-200 for re-entry (>12% margin of safety on base fair value $210).', 210), false)
+})
+
+check('one line, one price: a level the research states twice is kept once, the strongest role first', () => {
+  // The real AMZN reads: its thesis zone and its record's re-entry range both trigger at $200.
+  const sources = new Map([['final_thesis.md', `${AMZN_MORE}\n${AMZN}`]])
+  const r = validateReaderOutput({
+    prices: [
+      { role: 'look_again', low: 185, high: 200, quote: '$185–$200 (at or below the $210 base fair value', file: 'final_thesis.md' },
+      { role: 'buy', low: 185, high: 200, quote: '**Target entry zone:** $185–$200 (at or below the $210 base fair value', file: 'final_thesis.md' },
+      { role: 'buy', low: 185, high: null, quote: 'Conviction entry: Below $185 provides a genuine margin of safety', file: 'final_thesis.md' },
+      { role: 'buy', low: 190, high: 200, quote: 'Track at $190-200 for re-entry', file: 'final_thesis.md' },
+    ],
+  }, { sources, currency: 'USD', entryPrice: 238.34 })
+  assert.deepEqual(r.items.map((i: any) => `${i.role}:${i.low}-${i.high}`), ['buy:185-200', 'buy:185-null'])
+  assert.equal(r.left_out.filter((l) => /same line as the buy price 185–200 already kept/.test(l.why)).length, 2)
+})
+
+check("a date's timing is shown only in words its quote writes", () => {
+  const r = validateReaderOutput({
+    dates: [
+      { label: 'FTC decision', date: null, window: '~2026–2027 (no fixed date)', what_to_check: null, quote: 'FTC investigations into fulfillment practices and Prime are active with no disclosed hearing date or decision deadline.', file: 'final_thesis.md' },
+      { label: 'Leo launch', date: null, window: '~Q3 2026 (July–September 2026)', what_to_check: null, quote: 'CFO committed to Q3 2026 commercial launch', file: 'final_thesis.md' },
+      { label: 'Globalstar close', date: null, window: '~2027 (expected close)', what_to_check: null, quote: 'Globalstar close expected 2027 subject to regulatory approvals.', file: 'final_thesis.md' },
+    ],
+  }, amznCtx)
+  const byLabel = new Map(r.items.map((i: any) => [i.label, i]))
+  assert.equal(byLabel.get('FTC decision').window, 'no exact day given', 'a year the quote never names is not shown')
+  assert.equal(byLabel.get('Leo launch').window, 'no exact day given', 'nor months it never names')
+  assert.equal(byLabel.get('Globalstar close').window, '~2027 (expected close)')
+  assert.equal(r.left_out.filter((l) => /timing is not written/.test(l.why)).length, 2)
+})
+
+check('a day the research only estimates is still the day to watch — kept with its own words', () => {
+  // Verbatim from the committed INDIAMART, EMAAR and HAIER reports; the real reads returned these as windows.
+  const sources = new Map([['final_thesis.md', [
+    'Nearest dated catalyst (one line): Q2 FY27 (Jul–Sep 2026) results, CIQ-modeled at ~21-Oct-2026 — no NSE/BSE board-meeting intimation filed yet as of 14-Aug-2026',
+    'Track the Q2 2026 print (est. 10 Aug) for the Dubai demand signal',
+    'the nearest one that can actually move the stock is the H1 2026 interim results due 2026-08-27/28, about two weeks from today',
+    'Q3 FY27 ~Jan-2027',
+    // UBER: the model gave the exact day — but its quote calls it an estimate. NHY: a plain dated result.
+    'The nearest dated catalyst is Q3 FY2026 earnings, estimated November 3, 2026, which tests whether a four-quarter EBITDA-guidance-beat streak survives',
+    "Nearest dated catalyst (one line): Second-quarter (FQ2) 2026 results, 22-Jul-2026 — three days from this report's date",
+    // HAIER: a window holding an exact, contractual end date — watched on that day, and never called an estimate.
+    '| Through 2027-03-26 | CNY 6,000mn buyback (24.8% complete as of Jun-2026) | Self-limiting capital-return program |',
+  ].join('\n')]])
+  const r = validateReaderOutput({
+    dates: [
+      { label: 'Q2 FY27 results', date: null, window: '~21-Oct-2026', what_to_check: null, quote: 'Q2 FY27 (Jul–Sep 2026) results, CIQ-modeled at ~21-Oct-2026 — no NSE/BSE board-meeting intimation filed yet as of 14-Aug-2026', file: 'final_thesis.md' },
+      { label: 'Q2 2026 print', date: null, window: 'est. 10 Aug', what_to_check: null, quote: 'Track the Q2 2026 print (est. 10 Aug) for the Dubai demand signal', file: 'final_thesis.md' },
+      { label: 'H1 2026 interim results', date: null, window: '2026-08-27/28', what_to_check: null, quote: 'the H1 2026 interim results due 2026-08-27/28, about two weeks from today', file: 'final_thesis.md' },
+      { label: 'Q3 FY27 results', date: null, window: '~Jan-2027', what_to_check: null, quote: 'Q3 FY27 ~Jan-2027', file: 'final_thesis.md' },
+      { label: 'Q3 FY2026 earnings', date: '2026-11-03', window: null, what_to_check: null, quote: 'Q3 FY2026 earnings, estimated November 3, 2026, which tests whether a four-quarter EBITDA-guidance-beat streak survives', file: 'final_thesis.md' },
+      { label: 'FQ2 2026 results', date: '2026-07-22', window: null, what_to_check: null, quote: "Second-quarter (FQ2) 2026 results, 22-Jul-2026 — three days from this report's date", file: 'final_thesis.md' },
+      { label: 'CNY 6,000mn buyback', date: null, window: 'Through 2027-03-26', what_to_check: null, quote: '| Through 2027-03-26 | CNY 6,000mn buyback (24.8% complete as of Jun-2026) |', file: 'final_thesis.md' },
+    ],
+  }, { sources, currency: 'INR', entryPrice: null })
+  assert.deepEqual(r.items.map((i: any) => [i.label, i.date, i.window, i.estimated]), [
+    ['Q2 FY27 results', '2026-10-21', '~21-Oct-2026', true],
+    ['Q2 2026 print', '2026-08-10', 'est. 10 Aug', true],
+    ['H1 2026 interim results', '2026-08-27', '2026-08-27/28', true],
+    ['Q3 FY27 results', null, '~Jan-2027', false],
+    ['Q3 FY2026 earnings', '2026-11-03', null, true],
+    ['FQ2 2026 results', '2026-07-22', null, false],
+    ['CNY 6,000mn buyback', '2027-03-26', 'Through 2027-03-26', false],
+  ])
 })
 
 check("the model's JSON is read fenced or bare, and anything else is refused", () => {

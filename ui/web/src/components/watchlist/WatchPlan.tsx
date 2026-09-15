@@ -53,7 +53,7 @@ export function WatchPlanSection({ row }: { row: WatchRow }) {
               <li key={i.id} className="wplan__item">
                 <span className="wplan__line">
                   <span className="wplan__text"><b>{i.label}</b></span>
-                  <span className="wplan__val">{i.date ? shortDate(i.date) : i.window ?? 'no exact day'}</span>
+                  <span className="wplan__val">{i.window ?? (i.date ? `${i.estimated ? '~' : ''}${shortDate(i.date)}` : 'no exact day')}</span>
                 </span>
                 {i.what_to_check && <span className="wplan__text">Look for: {i.what_to_check}</span>}
                 <Source src={i.source} />

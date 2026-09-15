@@ -120,6 +120,19 @@ check('a fair price reached is only information', () => {
   assert.equal(e.conditions[0].urgent, false)
 })
 
+check('one price, one instruction: a buy price reached silences a look-again or fair line at the same price', () => {
+  // AMZN's report names "Track at $190-200 for re-entry" AND a "$185–$200" target zone; a model may keep both.
+  const zone: PlanItem = { kind: 'price', id: 'p-zone', role: 'look_again', low: 185, high: 200, currency: 'USD', source: src('$185–$200 (at or below the $210 base fair value'), note: null }
+  const fair: PlanItem = { kind: 'price', id: 'p-fair', role: 'fair', low: 210, high: null, currency: 'USD', source: src('from base-case fair value $210.'), note: null }
+  const e = run([buy, zone, fair], facts(199))
+  assert.deepEqual(types(e), ['buy_price_reached'])
+  assert.ok(!/not to buy/.test(e.conditions.map((c) => c.detail).join(' ')))
+  // Between the buy line and the fair value only the fair line is reached — it must not claim there is no buy price.
+  const f = run([buy, fair], facts(205))
+  assert.ok(types(f).includes('fair_reached'))
+  assert.ok(!/gave no buy price/.test(f.conditions.find((c) => c.type === 'fair_reached')!.detail))
+})
+
 check('a line in one currency is never compared with a price in another', () => {
   const e = run([buy], facts(199.5, { currency: 'CNY' }))
   assert.ok(!types(e).includes('buy_price_reached'))
@@ -149,6 +162,22 @@ check('dates: coming up within two trading days; out once passed, if after the r
   const res = e.conditions.find((c) => c.type === 'results_out')!
   assert.match(res.detail, /AWS margin under 30%/)
   assert.equal(e.next_date?.date, '2026-09-17')
+})
+
+check('a day the research only estimates says "expected", before and after', () => {
+  const soon: PlanItem = { kind: 'date', id: 'd-est', label: 'Q2 FY27 results', date: '2026-09-17', window: '~17-Sep-2026', estimated: true, what_to_check: null, source: src('results CIQ-modeled at ~17-Sep-2026') }
+  const gone: PlanItem = { kind: 'date', id: 'd-gone', label: 'Q2 2026 print', date: '2026-08-10', window: 'est. 10 Aug', estimated: true, what_to_check: null, source: src('Track the Q2 2026 print (est. 10 Aug) for the Dubai demand signal') }
+  const e = run([soon, gone], facts(230))
+  const up = e.conditions.find((c) => c.type === 'coming_up')!
+  assert.match(up.title, /\(expected\)$/)
+  assert.match(up.detail, /expected 17-Sep-2026/)
+  const out = e.conditions.find((c) => c.type === 'results_out')!
+  assert.equal(out.title, 'Q2 2026 print: the expected date has passed')
+  assert.match(out.detail, /was expected 10 Aug/)
+  assert.equal(e.next_date?.estimated, true)
+  // An estimated day with no window words of its own (UBER: "estimated November 3, 2026") still says expected.
+  const quoted: PlanItem = { kind: 'date', id: 'd-q', label: 'Q3 FY2026 earnings', date: '2026-09-16', window: null, estimated: true, what_to_check: null, source: src('Q3 FY2026 earnings, estimated September 16, 2026') }
+  assert.match(run([quoted], facts(230)).conditions.find((c) => c.type === 'coming_up')!.detail, /expected 2026-09-16/)
 })
 
 check('research older than 90 days is "Check now"', () => {

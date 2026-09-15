@@ -102,10 +102,11 @@ export function shortDate(iso: string): string {
   return new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' })
 }
 
-export function dateWords(d: { label: string; date: string; days_to: number } | null | undefined): string | null {
+export function dateWords(d: { label: string; date: string; days_to: number; estimated?: boolean } | null | undefined): string | null {
   if (!d) return null
   const when = d.days_to === 0 ? 'today' : d.days_to === 1 ? 'tomorrow' : `in ${d.days_to} days`
-  return `${d.label} · ${shortDate(d.date)} · ${when}`
+  // A day the research only estimates is marked, as the research wrote it ("~21-Oct-2026").
+  return `${d.label} · ${d.estimated ? '~' : ''}${shortDate(d.date)} · ${when}`
 }
 
 /** Where the name's watch plan stands, in words. */

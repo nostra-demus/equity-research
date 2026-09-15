@@ -3464,7 +3464,7 @@ export interface WatchPlanSource { file: string; quote: string | null; field: st
 
 export type WatchPlanItem =
   | { kind: 'price'; id: string; role: 'buy' | 'look_again' | 'fair' | 'bad_case'; low: number; high: number | null; currency: string; source: WatchPlanSource; note: string | null }
-  | { kind: 'date'; id: string; label: string; date: string | null; window: string | null; what_to_check: string | null; source: WatchPlanSource }
+  | { kind: 'date'; id: string; label: string; date: string | null; window: string | null; estimated?: boolean; what_to_check: string | null; source: WatchPlanSource }
   | { kind: 'deal_breaker'; id: string; text: string; check_where: string | null; source: WatchPlanSource }
   | { kind: 'waiting_for'; id: string; text: string; source: WatchPlanSource }
   | { kind: 'news'; id: string; topic: string; source: WatchPlanSource }
@@ -3499,7 +3499,8 @@ export interface WatchRowWatch {
   conditions: WatchCondition[]
   /** The nearest price the name is waiting for. `gap_pct` is signed: negative = the price must fall. */
   next_line: { role: string; label: string; text: string; gap_pct: number | null } | null
-  next_date: { label: string; date: string; days_to: number } | null
+  /** `estimated`: the research only estimates this day ("~21-Oct-2026"). Absent from an older engine. */
+  next_date: { label: string; date: string; days_to: number; estimated?: boolean } | null
   day_move_pct: number | null
   market: { label: string; move_pct: number } | null
   plan: WatchPlanView | null

@@ -16,8 +16,8 @@ import { resolveAllowedChatModel } from '../chat-models'
 import { UsdBudget } from '../news/triage/budget'
 import type { WatchListing } from '../watchlist'
 import {
-  WATCH_PLAN_SCHEMA, parseReaderJson, recordItems, sha256, sourceDigest, validateReaderOutput,
-  type PlanItem, type PlanSourceFile, type WatchPlan,
+  WATCH_PLAN_SCHEMA, parseReaderJson, priceLine, recordItems, sha256, sourceDigest, validateReaderOutput,
+  type PlanItem, type PlanPrice, type PlanSourceFile, type WatchPlan,
 } from './plan'
 
 export const READER_FILES = ['decision_record.json', 'final_thesis.md', 'catalyst/99_catalyst-synthesis.md'] as const
@@ -99,16 +99,16 @@ Answer with ONE JSON object and nothing else:
 }
 
 How to fill it:
-- quote: copied word for word from the named file — one sentence or less, never paraphrased, never stitched together from two places. Every number and every date you give must appear in its own quote.
+- quote: copied word for word from the named file — one sentence or less, never paraphrased, never stitched together from two places. Every number and every date you give must appear in its own quote. When the number sits under a label — a bullet such as "Target entry zone: $185–$200", or a table row — start the quote at that label, so the quote shows what the number is for.
 - file: exactly one of the file names listed in the input.
 - prices: only prices the report ties to an action on THIS stock.
   - "buy" only when the report says to buy, enter or re-enter at that price.
   - "look_again" when it says to revisit, look again, re-rate, re-underwrite or reconsider at that price.
-  - "fair" for the report's own fair value or base case when it gives no action price.
+  - "fair" for the report's own fair value or base case — only when the report gives no buy or look_again price.
   - A range like "$190-200" is low 190, high 200. A single price has high null.
-  - Leave out: scenario prices (bull, bear, tail), the price the stock traded at when the report was written, any price the report says NOT to buy at, and prices of other companies.
-- dates: dated events the report says to watch — results, filings, meetings, votes, court or regulator decisions, a financing or deal deadline. "date" is the exact day only when the quote gives the day; otherwise "date" is null and "window" holds the quote's own words for when (for example "~Jan-2027" or "by end-Sep-2026"). "what_to_check" says, in the report's words, what that event should show.
-- waiting_for: what the report says must happen before it would change its view (for example "net adds turn positive for 2 consecutive quarters").
+  - Leave out: scenario prices (bull, bear, tail), the price the stock traded at when the report was written, any price the report says NOT to buy at, any price the report ties to the stock RISING past it (for example "above ~$115 moves the call toward Avoid"), and prices of other companies.
+- dates: dated events the report says to watch — results, filings, meetings, votes, court or regulator decisions, a financing or deal deadline. "date" is the exact day only when the quote gives the day; otherwise "date" is null and "window" holds the words for when, copied exactly from the quote and adding nothing (for example "~Jan-2027", "by end-Sep-2026" or "expected 2027"). "what_to_check" says, in the report's words, what that event should show.
+- waiting_for: what the report says must happen before it would change its view (for example "net adds turn positive for 2 consecutive quarters"). Price levels belong in prices, not here.
 - news: kinds of news the report says would matter (for example layoffs, financing terms, a guidance cut, a lawsuit ruling).
 - If the report gives nothing for a list, return an empty list. Never invent an item to fill one.`
 
@@ -270,11 +270,21 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   const parsed = parseReaderJson(text)
   if (!parsed) return failed('The answer was not the list that was asked for.', cost, model.id)
 
-  const { items, left_out } = validateReaderOutput(parsed, {
+  const checked = validateReaderOutput(parsed, {
     sources: new Map(src.files.map((f) => [f.file, f.text])),
     currency: base.currency,
     entryPrice: base.entry_price,
   })
+  // A look-again or fair price at the research's own bad case IS that line — already watched, and already
+  // saying "check the research again first" (HAIER: "a move toward the bear-cyclical level (CNY 16.79) should
+  // trigger a full re-underwrite"). One price, one line. A buy price there stays: it is another instruction.
+  const bad = base.items.find((i): i is PlanPrice => i.kind === 'price' && i.role === 'bad_case')
+  const atBad = (i: PlanItem): i is PlanPrice =>
+    !!bad && i.kind === 'price' && i.role !== 'buy' && Math.abs(priceLine(i) - bad.low) / bad.low < 0.005
+  const items = checked.items.filter((i) => !atBad(i))
+  const left_out = [...checked.left_out, ...checked.items.filter(atBad).map((i) => ({
+    what: `${i.role.replace('_', '-')} ${i.low}`, why: "the same price as the research's bad case, which is already watched",
+  }))]
   const plan: WatchPlan = {
     ...base,
     items: orderItems([...items, ...base.items]),

@@ -1458,7 +1458,12 @@ export class UsdBudget {
    *  add a second soft-cap overshoot past the operator's daily governor (Codex review, PR #316). */
   remaining(): number {
     this.refreshCurrentDay()
-    return this.ownsCurrentState() && this.ledgerReadable ? Math.max(0, this.capUsd - this.state.usd) : 0
+    if (!this.ownsCurrentState() || !this.ledgerReadable) return 0
+    // In the ledger's own fixed units, so all that is left is exactly what tryReserve admits. The float
+    // `cap - usd` (20 - 3.066286 = 16.933714000000002) rounds UP one unit past the ceiling and is refused.
+    const cap = fixedUsdUnits(this.capUsd, false)
+    const used = fixedUsdUnits(this.state.usd, true)
+    return cap === null || used === null || used >= cap ? 0 : usdUnitsToNumber(cap - used)
   }
 
   record(usd: number): void {

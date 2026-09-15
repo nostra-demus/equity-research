@@ -69,6 +69,7 @@ check('what a name waits for, and when its next date is', () => {
   assert.equal(waitingText(row('A')), null)
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 0 }), 'Q3 results · 3 Nov · today')
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 12 }), 'Q3 results · 3 Nov · in 12 days')
+  assert.equal(dateWords({ label: 'Q2 FY27 results', date: '2026-10-21', days_to: 36, estimated: true }), 'Q2 FY27 results · ~21 Oct · in 36 days', 'an estimated day is marked, as the research wrote it')
 })
 
 check('a price range keeps its currency and an en dash', () => {

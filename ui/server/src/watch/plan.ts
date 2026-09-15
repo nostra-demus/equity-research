@@ -43,9 +43,13 @@ export interface PlanDate {
   kind: 'date'
   id: string
   label: string
-  /** The exact day when the source gives one; otherwise null and `window` carries the source's words. */
+  /** The day to watch — exact, or only estimated (`estimated`). Null when the source names no day at all. */
   date: string | null
+  /** The source's own words for when, whenever it gives no exact day — kept beside an estimated day. */
   window: string | null
+  /** The source only estimates this day ("~21-Oct-2026", "estimated November 3, 2026"): everything said about
+   *  it says "expected" (CLAUDE.md §3). */
+  estimated?: boolean
   what_to_check: string | null
   source: PlanSource
 }
@@ -215,16 +219,20 @@ export function currencyConflict(quote: string, listingCurrency: string): string
   return null
 }
 
-const BUY_PHRASE = /\b(re-?entry|re-?enter|buy(?:ing)?|accumulate|initiate|entry (?:point|price|level|zone|range)|add(?:ing)? (?:at|below|under|on))\b/gi
+// "entry" counts when it names a level ("entry zone", "entry price") or labels one ("Conviction entry: Below
+// $185", "entry at $190") — the forms the research writes its entry levels in.
+const BUY_PHRASE = /\b(?:re-?entry\b|re-?enter\b|buy(?:ing)?\b|accumulate\b|initiate\b|entry(?:\s+(?:point|price|level|zone|range|at|below|under|near|around)\b|\s*:)|add(?:ing)?\s+(?:at|below|under|on)\b)/gi
 const NEGATION_BEFORE = /\b(not|no|never|don'?t|avoid|without)\s+(?:[\w'-]+\s+){0,2}$/i
 
 /**
- * Does this sentence tell the reader to BUY? "Track at $190-200 for re-entry" does; "revisit toward the
- * base fair value" does not; "Do not buy at $153.94" is a negation, not a buy. Only a sentence that passes
- * this may make a price a buy price — everything else is at most a look-again price (§18).
+ * Does this sentence tell the reader to BUY? "Track at $190-200 for re-entry" and "Conviction entry: Below
+ * $185" do; "revisit toward the base fair value" does not; "Do not buy at $153.94" is a negation, not a buy.
+ * Only a sentence that passes this may make a price a buy price — everything else is at most a look-again
+ * price (§18).
  */
 export function saysBuy(quote: string): boolean {
-  const q = String(quote ?? '')
+  // Markdown emphasis is not part of what a sentence says ("**Conviction entry**: Below $185").
+  const q = String(quote ?? '').replace(/[*_]/g, '')
   for (const m of q.matchAll(BUY_PHRASE)) {
     const at = m.index ?? 0
     if (NEGATION_BEFORE.test(q.slice(Math.max(0, at - 40), at))) continue
@@ -246,6 +254,19 @@ export function negatedAt(quote: string, value: number): boolean {
     if (Math.abs(Number(m[0].replace(/,/g, '')) - value) > 1e-9 * Math.max(1, value)) continue
     const before = q.slice(Math.max(0, (m.index ?? 0) - 40), m.index ?? 0)
     if (/\b(not|no|never|don'?t)\s+(buy|initiate|enter|add|own)\b[^.;]*$/i.test(before)) return true
+  }
+  return false
+}
+
+/** Is this price named for the stock RISING past it? ("A confirmed pool price materially above ~$115 … moves
+ *  the call from Watchlist toward Avoid.") Every price line here is a level a FALLING price reaches, so reading a
+ *  rise as one would announce the opposite of what the research said. */
+export function risingAt(quote: string, value: number): boolean {
+  const q = String(quote ?? '')
+  for (const m of q.matchAll(/(?<![\d.,])\d+(?:,\d+)*(?:\.\d+)?/g)) {
+    if (Math.abs(Number(m[0].replace(/,/g, '')) - value) > 1e-9 * Math.max(1, value)) continue
+    const before = q.slice(Math.max(0, (m.index ?? 0) - 30), m.index ?? 0)
+    if (/\b(above|over|exceed(?:s|ing)?|higher than|more than|rises?|rallies|climbs?)\b[^.;\d]*$/i.test(before)) return true
   }
   return false
 }
@@ -369,6 +390,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const clash = currencyConflict(quote, ctx.currency)
     if (clash) { left.push({ what, why: `its quote prices it in ${clash}, but this listing trades in ${ctx.currency}` }); continue }
     if (negatedAt(quote, lo) || (hi != null && negatedAt(quote, hi))) { left.push({ what, why: 'the research names this price only to say not to buy at it' }); continue }
+    if (risingAt(quote, lo) || (hi != null && risingAt(quote, hi))) { left.push({ what, why: 'the research ties this price to the stock rising past it, and every line here is reached by a fall' }); continue }
     const line = hi ?? lo
     if (ctx.entryPrice && role !== 'fair' && Math.abs(line - ctx.entryPrice) / ctx.entryPrice < 0.005) {
       left.push({ what, why: 'this is the price when the research was written, not a level to act at' })
@@ -376,6 +398,12 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     }
     if (ctx.entryPrice && (line / ctx.entryPrice < 0.2 || line / ctx.entryPrice > 5)) {
       left.push({ what, why: 'far out of scale with the price when the research was written — likely the wrong units' })
+      continue
+    }
+    // A fair value the stock was already under when the research was written is no line to wait for: the
+    // research saw it and still said wait (UBER: $74.77 fair value against a $68.18 price, waiting on events).
+    if (role === 'fair' && ctx.entryPrice && ctx.entryPrice <= line) {
+      left.push({ what, why: 'the price was already under it when the research was written, and the research still said to wait' })
       continue
     }
     let finalRole = role as PriceRole
@@ -389,6 +417,35 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     seen.add(key)
     items.push({ kind: 'price', id: itemId('price', [finalRole, lo, hi]), role: finalRole, low: lo, high: hi, currency: ctx.currency, source, note })
   }
+  // A fair value is its own line only when the research names no price to act at (the prompt asks for that;
+  // this makes it so). Beside a buy price it would read as the nearer target and pull the eye away from it.
+  if (items.some((i) => i.kind === 'price' && (i.role === 'buy' || i.role === 'look_again'))) {
+    for (let i = items.length - 1; i >= 0; i--) {
+      const it = items[i]
+      if (it.kind !== 'price' || it.role !== 'fair') continue
+      left.push({ what: `fair ${it.low}${it.high != null ? `–${it.high}` : ''}`, why: 'the research also names a price to act at, so its fair value is not a separate line' })
+      items.splice(i, 1)
+    }
+  }
+  // One line, one price: research often states a level twice (AMZN: "Target entry zone: $185–$200" in the
+  // thesis and "Track at $190-200 for re-entry" in the record — both reached at $200). The strongest role keeps
+  // the line; a repeat is listed as left out rather than sent twice.
+  const ROLE_RANK: Record<PriceRole, number> = { buy: 0, look_again: 1, fair: 2, bad_case: 3 }
+  const lines: PlanPrice[] = []
+  const priceText = (x: PlanPrice) => `${x.low}${x.high != null ? `–${x.high}` : ''}`
+  for (const p of items.filter((i): i is PlanPrice => i.kind === 'price').sort((a, b) => ROLE_RANK[a.role] - ROLE_RANK[b.role])) {
+    const twin = lines.find((k) => Math.abs(priceLine(k) - priceLine(p)) <= 0.005 * priceLine(k))
+    if (!twin) { lines.push(p); continue }
+    left.push({ what: `${p.role.replace('_', '-')} ${priceText(p)}`, why: `the same line as the ${ROLE_LABEL[twin.role].toLowerCase()} ${priceText(twin)} already kept` })
+    items.splice(items.indexOf(p), 1)
+  }
+
+  // A window's words are shown as the research's timing, so every number and month in them must be written
+  // in its quote: "~2026–2027" beside a quote that names no year is invented; "expected 2027" is not.
+  const MONTH_WORD = /\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/g
+  const timingInQuote = (words: string, quote: string): boolean =>
+    numbersIn(words).every((n) => hasNumber(quote, n))
+    && [...words.toLowerCase().matchAll(MONTH_WORD)].every((m) => new RegExp(`\\b${m[1].slice(0, 3)}`).test(quote.toLowerCase()))
 
   for (const d of arr(out.dates).slice(0, 16)) {
     const label = str(d?.label, 120)
@@ -402,12 +459,34 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
       left.push({ what: `${what} (${date})`, why: 'that exact day is not written in its quote, so it is kept without a day' })
       date = null
     }
+    if (window && !timingInQuote(window, source.quote as string)) {
+      left.push({ what: `${what} (${window})`, why: 'its timing is not written in its quote, so no time is shown' })
+      window = null
+    }
+    // A day its quote calls an estimate ("estimated November 3, 2026", "CIQ-modeled at ~21-Oct-2026") keeps that
+    // qualifier: shown as expected, never as a fixed date (CLAUDE.md §3). Read only when the quote names one day.
+    const estimateWord = /~|\best(?:\.|imated?\b)|\bexpected\b|\bapprox(?:imately|\.)?|\bmodell?ed\b|\binferred\b|\bunconfirmed\b|\bnot (?:yet )?confirmed\b|\btentative\b/i
+    const quoteEstimates = estimateWord.test(source.quote as string) && datesIn(source.quote as string).length === 1
+    let estimated = !!date && quoteEstimates
+    // A window may still name the day to watch ("~21-Oct-2026", "(est. 10 Aug)", "due 2026-08-27/28", "Through
+    // 2027-03-26"): take it when the window's own words name one day its quote writes — or two or three
+    // neighbouring days, the first being when to start looking — and keep those words for the screen. It is an
+    // estimate only when the words say so, or leave the day open between neighbours.
+    let fromWindow = false
+    if (!date && window) {
+      const days = datesIn(source.quote as string).filter((day) => datesIn(`${window} ${day.slice(0, 4)}`).includes(day))
+      if (days.length && Date.parse(days[days.length - 1]) - Date.parse(days[0]) <= 3 * 86_400_000) {
+        date = days[0]
+        fromWindow = true
+        estimated = days.length > 1 || estimateWord.test(window) || quoteEstimates
+      }
+    }
     if (!date && !window) window = 'no exact day given'
     const key = `date|${label.toLowerCase()}|${date}`
     if (seen.has(key)) continue
     seen.add(key)
     items.push({
-      kind: 'date', id: itemId('date', [date, label.toLowerCase()]), label, date, window: date ? null : window,
+      kind: 'date', id: itemId('date', [date, label.toLowerCase()]), label, date, window: date && !fromWindow && !estimated ? null : window, estimated,
       what_to_check: str(d?.what_to_check, 300), source,
     })
   }

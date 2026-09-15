@@ -80,7 +80,8 @@ async function main() {
     assert.equal(out.status, 'ok')
     const items = out.plan!.items as any[]
     const prices = items.filter((i) => i.kind === 'price').map((i) => `${i.role}:${i.low}-${i.high}`)
-    assert.deepEqual(prices, ['buy:190-200', 'fair:210-null', 'bad_case:146-null'])
+    assert.deepEqual(prices, ['buy:190-200', 'bad_case:146-null'], 'a fair value is not its own line beside a buy price')
+    assert.ok(out.plan!.left_out.some((l) => /^fair 210/.test(l.what) && /price to act at/.test(l.why)))
     assert.equal(items.filter((i) => i.kind === 'date')[0].date, '2026-07-31')
     assert.equal(items.filter((i) => i.kind === 'deal_breaker').length, 1)
     assert.equal(items.filter((i) => i.kind === 'news').length, 1)
@@ -91,6 +92,21 @@ async function main() {
     assert.equal(calls[0].system, READER_SYSTEM)
     assert.match(calls[0].user, /=== FILE: final_thesis\.md ===/)
     assert.equal(loadPlan(RUN, state)?.reader.status, 'ok')
+  })
+
+  await check('the whole day stays readable: each read may use all that is left, and the next is still admitted', async () => {
+    // The real ledger, with the costs the first real reads reported. Holding "everything left" once rounded a
+    // hair past the ceiling (16.933714000000002 held as 16.933714001) and refused every read after the third.
+    const { UsdBudget } = await import('../src/news/triage/budget')
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-reader-budget-'))
+    const budget = UsdBudget.load(dir, 20, clock().getTime(), 'watchlist-reader-budget.json')
+    const statuses: string[] = []
+    for (const cost of [0.607286, 0.852412, 0.856512, 0.750076, 0.8]) {
+      const out = await readResearchPlan(row, { runTurn: answering(ANSWER, cost), budget, stateDir: dir, analysesDir: analyses, model: 'opus', now: clock, force: true })
+      statuses.push(out.status)
+    }
+    assert.deepEqual(statuses, ['ok', 'ok', 'ok', 'ok', 'ok'])
+    assert.ok(Math.abs(budget.usd - 3.866286) < 1e-9, `spent ${budget.usd}`)
   })
 
   await check('the same report is never read twice', async () => {
