@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T06:46:56Z",
+  "generated_at": "2026-09-15T06:51:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-303",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-321",
+      "headline": "Solar Industries shares crash 9% after acquisition of South Africa’s Omnia Holdings for Rs 12,951 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/solar-industries-shares-crash-9-after-acquisition-of-south-africas-omnia-holdings-for-rs-12951-crore/articleshow/134254076.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T06:27:15Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Solar Industries shares fell 9% following the announcement of a Rs 12,951 crore acquisition of Omnia Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries shares fell 9% following the announcement of a Rs 12,951 crore acquisition of Omnia Holdings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
       "companies": [
         {
           "name": "Maple Infrastructure Trust",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-220",
-      "headline": "Solar Industries share price can rise another 19%, Goldman Sachs says after ₹12,951 crore Omnia deal",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/solar-industries-share-price-omnia-acquisition-south-africa-benefits-goldman-sachs-buy-sell-target-upside-19990510.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:57:13Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Goldman Sachs projects 19% upside for Solar Industries following a ₹12,951 crore deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Goldman Sachs projects 19% upside for Solar Industries following a ₹12,951 crore deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -164453,9 +164453,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 993617,
-    "news_picked_today": 570,
-    "news_dropped_today": 2718
+    "news_seen_today": 1024655,
+    "news_picked_today": 585,
+    "news_dropped_today": 2751
   },
   "book_momentum": {
     "live_count": 8,
