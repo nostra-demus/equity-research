@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T12:53:06Z",
+  "generated_at": "2026-09-15T13:18:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-459",
@@ -1637,6 +1637,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-470",
+      "headline": "Tata Communications Limited: Tata Communications Limited has informed the Exchange about intimation regarding issuance, allotment and listing of Commercial Paper amounting to Rs. 400 crore",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_15092026181737_18508_-_Listing_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T12:47:46Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Communications Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-348",
       "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-187",
-      "headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
-      "headline_en": null,
-      "url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
-      "source_name": "Defense Daily",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:00:39Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Lockheed Martin secured a $1.2 billion defense contract for Army production, directly impacting revenue backlog.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Lockheed Martin secured a $1.2 billion defense contract for Army production, directly impacting revenue backlog.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122411,78 +122411,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-03259272947f",
-      "idea_version": "IDEAV-34fc153de52c06ff",
-      "idea_version_started_at": "2026-09-14T02:21:22Z",
-      "ticker": "REVOLUT",
-      "company": "Revolut",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Revolut is reportedly facing threats of daily customer data leaks, indicating a significant cybersecurity vulnerability that could lead to customer attrition and regulatory fines.",
-      "why_now": "The threat of data leaks was reported on September 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cae1018010e5"
-      ],
-      "primary_source_event_id": "EVT-cae1018010e5",
-      "source_headlines": [
-        "Revolut attackers threaten daily customer data leaks"
-      ],
-      "source_headline": "Revolut attackers threaten daily customer data leaks",
-      "source_url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-14T00:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:21:22Z",
-      "updated_at": "2026-09-14T02:21:22Z",
-      "decay_at": "2026-09-15T12:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1fab37e5db24",
       "idea_version": "IDEAV-038ebc68219e7030",
       "idea_version_started_at": "2026-09-15T01:17:59Z",
@@ -126684,6 +126612,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-03259272947f",
+      "idea_version": "IDEAV-34fc153de52c06ff",
+      "idea_version_started_at": "2026-09-14T02:21:22Z",
+      "ticker": "REVOLUT",
+      "company": "Revolut",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Revolut is reportedly facing threats of daily customer data leaks, indicating a significant cybersecurity vulnerability that could lead to customer attrition and regulatory fines.",
+      "why_now": "The threat of data leaks was reported on September 14, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cae1018010e5"
+      ],
+      "primary_source_event_id": "EVT-cae1018010e5",
+      "source_headlines": [
+        "Revolut attackers threaten daily customer data leaks"
+      ],
+      "source_headline": "Revolut attackers threaten daily customer data leaks",
+      "source_url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-14T00:54:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:21:22Z",
+      "updated_at": "2026-09-14T02:21:22Z",
+      "decay_at": "2026-09-15T12:54:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-85576f21dc9f",
       "idea_version": "IDEAV-5f32aeda55eb4426",
       "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -126907,9 +126907,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
         "total_count": 287,
@@ -126917,9 +126917,9 @@
         "hidden_count": 37
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -126938,6 +126938,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-03259272947f",
+        "idea_version": "IDEAV-34fc153de52c06ff",
+        "idea_version_started_at": "2026-09-14T02:21:22Z",
+        "ticker": "REVOLUT",
+        "company": "Revolut",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Revolut is reportedly facing threats of daily customer data leaks, indicating a significant cybersecurity vulnerability that could lead to customer attrition and regulatory fines.",
+        "why_now": "The threat of data leaks was reported on September 14, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cae1018010e5"
+        ],
+        "primary_source_event_id": "EVT-cae1018010e5",
+        "source_headlines": [
+          "Revolut attackers threaten daily customer data leaks"
+        ],
+        "source_headline": "Revolut attackers threaten daily customer data leaks",
+        "source_url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source_name": "Cointelegraph",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-14T00:54:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T02:21:22Z",
+        "updated_at": "2026-09-14T02:21:22Z",
+        "decay_at": "2026-09-15T12:54:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T12:54:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f5969d840a7d",
         "idea_version": "IDEAV-a7bdb209abc0610a",
@@ -164025,87 +164100,12 @@
         "archived_at": "2026-08-27T16:07:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a4c0ac39922d",
-        "idea_version": "IDEAV-e0f1ef97e94c311a",
-        "idea_version_started_at": "2026-08-24T19:00:25Z",
-        "ticker": "01622",
-        "company": "Redco Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning indicates that the company's financial performance is expected to be significantly worse than previously anticipated.",
-        "why_now": "The profit warning was issued on August 24, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-17e88cda411c"
-        ],
-        "primary_source_event_id": "EVT-17e88cda411c",
-        "source_headlines": [
-          "REDCO GROUP (01622): PROFIT WARNING"
-        ],
-        "source_headline": "REDCO GROUP (01622): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401707.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T13:52:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T19:00:25Z",
-        "updated_at": "2026-08-24T19:00:25Z",
-        "decay_at": "2026-08-26T01:52:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T14:03:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 57,
+    "live_count": 56,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164124,9 +164124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3522493,
-    "news_picked_today": 892,
-    "news_dropped_today": 5828
+    "news_seen_today": 3755954,
+    "news_picked_today": 912,
+    "news_dropped_today": 6024
   },
   "book_momentum": {
     "live_count": 8,
