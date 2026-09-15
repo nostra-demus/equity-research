@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T02:26:56Z",
+  "generated_at": "2026-09-15T02:36:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -244,6 +244,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-171",
+      "headline": "Abbott to pay S$489m to settle infant formula allegations",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/abbott-to-pay-s489m-to-settle-infant-formula-allegations",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company to pay S$489m to settle allegations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company to pay S$489m to settle allegations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbott",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -690,6 +739,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-159",
+      "headline": "Accenture to pay $25 million to settle US government allegations over DEI",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/accenture-to-pay-25-million-to-settle-us-government-allegations-over-dei/article71466535.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T02:12:36Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Accenture is paying a $25 million settlement to resolve US government allegations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Accenture is paying a $25 million settlement to resolve US government allegations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1381,6 +1479,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-170",
+      "headline": "Milford Mining gets $25M funding to expand Utah facilities",
+      "headline_en": null,
+      "url": "https://www.mining.com/milford-mining-gets-25m-funding-to-expand-utah-facilities/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T23:45:06Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company secured $25M in funding for facility expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Company secured $25M in funding for facility expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Milford Mining",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-028",
       "headline": "FDA 510(k) clearance — Modular Medical, Inc.: Pivot Insulin Delivery System",
       "headline_en": null,
@@ -1523,6 +1670,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-165",
+      "headline": "Hyosung Heavy secures 386.5 bln-won in deals from U.S. big tech firms amid chairman's AI push",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260915002800320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T02:09:47Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Hyosung Heavy secured 386.5 billion won in contracts from US tech firms, indicating strong demand for its infrastructure products.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Hyosung Heavy secured 386.5 billion won in contracts from US tech firms, indicating strong demand for its infrastructure products.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyosung Heavy Industries",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1762,201 +1958,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-041",
-      "headline": "Russia sanctions bill clears procedural House hurdle",
-      "headline_en": null,
-      "url": "https://www.politico.com/live-updates/2026/09/14/congress/russia-sanctions-bill-clears-procedural-house-hurdle-01076228",
-      "source_name": "POLITICO — Congress",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:32:01Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The bill represents a potential escalation in geopolitical and trade sanctions against Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The bill represents a potential escalation in geopolitical and trade sanctions against Russia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-099",
-      "headline": "Birkenstock's 2026 Outlook: Diversification Strategy Drives Growth in Closed-Toe Silhouettes",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/birkenstocks-2026-outlook-diversification-strategy-drives-growth-closed-toe-silhouettes",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T01:10:01Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company provided a specific outlook for 2026 regarding its growth strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Company provided a specific outlook for 2026 regarding its growth strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Birkenstock",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-096",
-      "headline": "Owkin, Servier ink oncology R&D deal to guide discovery and trial design",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/cro/owkin-servier-ink-oncology-rd-deal-guide-trial-design-and-discovery",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:49:03Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Owkin and Servier entered an oncology R&D partnership to improve drug discovery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Owkin and Servier entered an oncology R&D partnership to improve drug discovery.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Owkin",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Servier",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-088",
-      "headline": "Electra aims for $342M IPO to power inflammatory drug’s push through phase 3",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/electra-aims-342m-ipo-power-inflammatory-drugs-push-through-phase-3",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:49:03Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Electra is targeting a $342M IPO to fund phase 3 clinical trials.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Electra is targeting a $342M IPO to fund phase 3 clinical trials.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Electra",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164296,9 +164297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 321799,
-    "news_picked_today": 205,
-    "news_dropped_today": 875
+    "news_seen_today": 343850,
+    "news_picked_today": 226,
+    "news_dropped_today": 926
   },
   "book_momentum": {
     "live_count": 8,
