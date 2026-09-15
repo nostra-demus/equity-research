@@ -566,5 +566,12 @@ check('round trips in two contracts sharing a symbol and dates stay two rows', (
   assert.deepEqual(rows.map((r) => [r.terms, r.realized]).sort(), [['2026-03-20', 2000], ['2026-06-22', -500]])
 })
 
+check('an explicitly unknown holding stays visible even when the reconstructed position is flat', () => {
+  const rows = fillRows([fill({ id: 'unknown', executedAt: '2026-01-06T10:00:00', openNow: null,
+    partialHistory: true, effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 })])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['unknown'])
+  assert.equal(fillNames(rows)[0]!.held, null, 'the filter must not call an unknown holding held')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

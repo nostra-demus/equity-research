@@ -175,8 +175,9 @@ export interface BookExecution {
   partialHistory: boolean
   /** Whether this contract is held now, anchored to the broker: its snapshot quantity plus every fill after
    *  it, which equals the rebuilt position when the history is complete. Without a snapshot it can only be
-   *  the rebuilt position. runFifo sets that; buildBook anchors it. */
-  openNow: boolean
+   *  the rebuilt position. Null means the snapshot quantity, split basis, or ordering of later fills is
+   *  unknown; the UI keeps these contracts visible with an explicit qualifier. */
+  openNow: boolean | null
 }
 
 export interface BookPosition {
@@ -413,8 +414,9 @@ export function runFifo(
     const wantsOpen = indicator.includes('O') || !explicit
     const lots = open.get(key) ?? []
     const positionBefore = netQuantity(lots)
-    // The LOT's multiplier wins here for the same reason it wins in the close below.
-    const multiplier = lots[0]?.multiplier || t.multiplier || 1
+    // The fill's stated multiplier is evidence; a lot may carry only the default 1 from a blank opening
+    // row. Use the lot as a fallback when this fill omits it, for both the execution value and its P&L.
+    const multiplier = t.multiplier ?? lots[0]?.multiplier ?? 1
     let realized: number | null = null
     let unmatched = 0
     let opened: BookLot | null = null
@@ -429,9 +431,7 @@ export function runFifo(
         if (Math.sign(lot.quantity) === Math.sign(remaining)) break
         const matched = Math.min(Math.abs(lot.quantity), Math.abs(remaining))
         const signedMatched = matched * Math.sign(lot.quantity)
-        // The LOT's multiplier wins: a closing row that omits it would otherwise value a 100x contract
-        // at 1x and report one hundredth of the real P&L.
-        const contract = lot.multiplier || t.multiplier || 1
+        const contract = t.multiplier ?? lot.multiplier ?? 1
         const grossLocal = (price - lot.price) * signedMatched * contract
         // COMMISSION IS CHARGED ON BOTH LEGS. The broker's fifoPnlRealized is net of the closing
         // commission AND of the opening lot's commission apportioned to the quantity being closed —
@@ -966,7 +966,7 @@ export function buildBook(documents: FlexDocument[]): Book {
   //
   // WHICH FILLS THE SNAPSHOT REFLECTS. Every one the snapshot's own statement or an older one lists, by broker
   // id, and a restatement of one of those. A fill no statement up to the snapshot lists is decided by its trade
-  // date: on or before the snapshot's day, the broker had already booked it. That covers a newer export
+  // date and, for the same day, the snapshot's generation time. That covers a newer export
   // reaching back before the snapshot, and a snapshot exported without its trades — read by id alone, such a
   // fill was applied a second time on top of a snapshot that already held it, so a contract the broker holds
   // read as closed. The trade date, not the execution time: an overnight-session fill executed on the
@@ -978,8 +978,8 @@ export function buildBook(documents: FlexDocument[]): Book {
     if (!snapshotHeld && e.inferred) partialKeys.add(e.key)
   }
   if (snapshotHeld) {
-    const held = new Map<string, number>()
-    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    const held = new Map<string, number | null>()
+    for (const p of positions) held.set(positionKey(p), p.quantity)
     const coveredIds = new Set<string>()
     for (const d of docs.slice(0, docs.indexOf(positionSource) + 1)) {
       for (const t of d.trades) { const id = t.tradeID ?? t.transactionID; if (id) coveredIds.add(id) }
@@ -992,22 +992,21 @@ export function buildBook(documents: FlexDocument[]): Book {
       for (let next = replacedBy[id]; next && !coveredIds.has(next); next = replacedBy[next]) coveredIds.add(next)
     }
     const snapshotDay = positionSource.toDate
-    // A RESTATEMENT AFTER THE SNAPSHOT CAN CHANGE ITS UNITS. A split restates every earlier fill onto the new share
-    // count, so a snapshot taken before it holds 100 where the restated fills rebuild 200, and a sale of the 200
-    // afterwards left the broker "holding" -100. Where the snapshot's own statement lists the version a later
-    // export restated, the snapshot was taken on that version, so it is rebased by the difference, onto the
-    // contract the restatement names. Where its statement lists no version, nothing says which one the snapshot
-    // counted, so it stands as the broker stated it and a real difference shows as partial history. An older
-    // statement listing the old version is no evidence: the snapshot may have been taken after the split.
+    // A split changes the units of ALL shares in the snapshot, including those opened before these files.
+    // Infer a ratio only from consistent same-contract restatements with the inverse price change, and apply
+    // it once to the whole holding. A quantity correction, mixed ratios, or a contract migration does not
+    // establish that basis: preserve unknown open state instead of manufacturing a residual long or short.
+    // Only versions in the snapshot's OWN statement establish its units; an older file cannot show whether
+    // a newer snapshot already counts the split.
     const listedBySnapshot = new Map<string, FlexTrade>()
     for (const t of positionSource.trades) {
       if (t.levelOfDetail && t.levelOfDetail.toUpperCase() !== 'EXECUTION') continue
-      const id = t.tradeID ?? t.transactionID
-      if (id) listedBySnapshot.set(id, t)
+      for (const id of [t.tradeID, t.transactionID]) if (id) listedBySnapshot.set(id, t)
     }
     const replaces = new Map<string, string[]>()
     for (const [original, replacement] of Object.entries(replacedBy)) replaces.set(replacement, [...(replaces.get(replacement) ?? []), original])
     const base = new Map(held)
+    const rebases = new Map<string, { ratio: number; valid: boolean }>()
     for (const e of executions) {
       if (e.id === null || listedBySnapshot.has(e.id)) continue
       // Back through the restatement chain to the version the snapshot's statement listed, if it listed one.
@@ -1021,10 +1020,27 @@ export function buildBook(documents: FlexDocument[]): Book {
         was = listedBySnapshot.get(id)
         if (was === undefined) queue.push(...(replaces.get(id) ?? []))
       }
-      if (was === undefined || was.quantity === null) continue
+      if (was === undefined) continue
       const wasKey = positionKey(was)
-      base.set(wasKey, (base.get(wasKey) ?? 0) - was.quantity)
-      base.set(e.key, (base.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
+      const quantity = e.side === 'buy' ? e.quantity : -e.quantity
+      if (wasKey !== e.key || was.quantity === null || was.quantity === 0) {
+        base.set(wasKey, null)
+        base.set(e.key, null)
+        continue
+      }
+      const ratio = quantity / was.quantity
+      const previous = rebases.get(wasKey)
+      const priceMatches = ratio === 1 || (was.tradePrice !== null && was.tradePrice !== 0
+        && Math.abs(e.price * ratio - was.tradePrice) <= Math.max(EPS, Math.abs(was.tradePrice) * 1e-6))
+      rebases.set(wasKey, { ratio, valid: ratio > 0 && priceMatches
+        && (previous === undefined || (previous.valid && Math.abs(previous.ratio - ratio) <= EPS)) })
+    }
+    for (const [key, rebase] of rebases) {
+      // An unchanged fill in the same snapshot contradicts a uniform unit change. It may already have
+      // been post-split; without that boundary the carried quantity cannot be rebased safely.
+      const mixed = rebase.ratio !== 1 && executions.some((e) => e.key === key && e.id !== null && listedBySnapshot.has(e.id))
+      const quantity = base.get(key)
+      base.set(key, rebase.valid && !mixed && quantity !== null ? (quantity ?? 0) * rebase.ratio : null)
     }
     const rebuilt = new Map<string, number>()
     // What the broker holds NOW: its snapshot, in the units of the restated fills, plus every fill after it,
@@ -1032,14 +1048,32 @@ export function buildBook(documents: FlexDocument[]): Book {
     // rebuilt position, so a contract held since before the statements is never reported closed.
     const now = new Map(base)
     for (const e of executions) {
-      const covered = (e.id !== null && coveredIds.has(e.id)) || (snapshotDay !== null && (e.tradeDate ?? '') <= snapshotDay)
-      if (covered) rebuilt.set(e.key, e.positionAfter)
-      else now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
+      let covered: boolean | null = null
+      if (e.id !== null && coveredIds.has(e.id)) covered = true
+      else if (snapshotDay !== null && e.tradeDate !== null) {
+        if (e.tradeDate < snapshotDay) covered = true
+        else if (e.tradeDate > snapshotDay) covered = false
+        else {
+          const generated = positionSource.whenGenerated
+          // The booked day still wins for overnight sessions. On the snapshot day itself, however, a
+          // later execution could not be in an earlier export. Equal/missing times leave ordering unknown.
+          if (generated && generated.slice(0, 10) > snapshotDay) covered = true
+          else if (generated?.length === 19 && e.executedAt?.length === 19 && e.executedAt !== generated) {
+            covered = e.executedAt < generated
+          }
+        }
+      }
+      if (covered === true) rebuilt.set(e.key, e.positionAfter)
+      else if (covered === null) now.set(e.key, null)
+      else if (now.get(e.key) !== null) now.set(e.key, (now.get(e.key) ?? 0) + (e.side === 'buy' ? e.quantity : -e.quantity))
     }
     for (const key of new Set([...base.keys(), ...rebuilt.keys()])) {
-      if (Math.abs((rebuilt.get(key) ?? 0) - (base.get(key) ?? 0)) > EPS) partialKeys.add(key)
+      if (base.get(key) === null || Math.abs((rebuilt.get(key) ?? 0) - (base.get(key) ?? 0)) > EPS) partialKeys.add(key)
     }
-    for (const e of executions) e.openNow = Math.abs(now.get(e.key) ?? 0) > EPS
+    for (const e of executions) {
+      e.openNow = now.get(e.key) === null ? null : Math.abs(now.get(e.key) ?? 0) > EPS
+      if (e.openNow === null) partialKeys.add(e.key)
+    }
   }
   for (const e of executions) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
   // The round trips carry the same qualifier: FIFO may have matched a sale against the wrong opening lot.

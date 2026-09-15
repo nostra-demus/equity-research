@@ -129,4 +129,12 @@ check('a future-style option held names its contract, and its value is premium, 
   assert.doesNotMatch(row, />notional</)
 })
 
+check('unknown holdings are qualified on the fill and in the contract filter', () => {
+  const html = tradesHtml({ ...book([]), executions: [execution({ id: 'U1', key: 'k:unknown',
+    expiry: '2026-03-20', openNow: null, partialHistory: true, positionAfter: 0, stillOpen: 0 })] })
+  assert.match(fillRow(html, '2026-03-20'), />Unknown</)
+  assert.match(html, /CL 2026-03-20 · 1 fill · holding unknown<\/option>/)
+  assert.match(html, /Holdings marked Unknown stay visible/)
+})
+
 console.log(`PortfolioStage: ${passed} passed`)

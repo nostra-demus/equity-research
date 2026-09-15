@@ -2267,9 +2267,10 @@ export interface PortfolioExecution {
   value: number | null
   /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
   partialHistory: boolean
-  /** Whether the contract is held now, anchored to the broker's snapshot. Positive match only: absent means the
-   *  screen falls back to the rebuilt position (DESIGN.md §5). */
-  openNow?: boolean
+  /** Whether the contract is held now, anchored to the broker's snapshot. Null means the available snapshot
+   *  quantity, split basis, or fill ordering cannot establish it; keep visible with a qualifier. Only an
+   *  absent field falls back to the rebuilt position for an older engine (DESIGN.md §5). */
+  openNow?: boolean | null
   /** The contract's terms where it has them (see PortfolioPosition). */
   expiry?: string | null
   strike?: number | null

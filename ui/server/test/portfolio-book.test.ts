@@ -1084,5 +1084,93 @@ check('a derivative fill and its round trip name the contract: expiry, strike an
 })
 
 
+// ---------- snapshot uncertainty and incomplete split history ----------
+
+check('a split rebases carried shares too, even when only a small recent buy is in history', () => {
+  const recent = { ...buyXsp, quantity: 10, proceeds: -100 }
+  const later = afterSplit('2026-01-05')
+  later.trades[0] = { ...later.trades[0]!, quantity: 20, proceeds: -100 }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, recent] }, later as typeof doc])
+  // 90 carried + 10 bought = 100 before the split; all 200 are sold. The history remains partial.
+  assert.deepEqual(xspFills(b), [['A2', 20, true, false], ['A3', 200, true, false]])
+})
+
+check('a reverse split applies once to the whole carried position across several restated fills', () => {
+  const first = { ...buyXsp, quantity: 10 }
+  const second = { ...buyXsp, tradeID: 'B1', transactionID: 'BX1', quantity: 20 }
+  const later = afterSplit('2026-01-05')
+  later.trades = [
+    { ...later.trades[0]!, quantity: 5, tradePrice: 20 },
+    { ...later.trades[0]!, tradeID: 'B2', transactionID: 'BX2', origTradeID: 'B1', origTransactionID: 'BX1', quantity: 10, tradePrice: 20 },
+    { ...later.trades[1]!, quantity: -50 },
+  ]
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, first, second] }, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'XSP').every((e) => e.partialHistory && e.openNow === false))
+})
+
+check('conflicting restatement ratios do not assert whether a carried position is open', () => {
+  const first = { ...buyXsp, quantity: 10 }
+  const second = { ...buyXsp, tradeID: 'B1', transactionID: 'BX1', quantity: 10 }
+  const later = afterSplit('2026-01-05')
+  later.trades = [
+    { ...later.trades[0]!, quantity: 20, tradePrice: 5 },
+    { ...later.trades[0]!, tradeID: 'B2', transactionID: 'BX2', origTradeID: 'B1', origTransactionID: 'BX1', quantity: 30, tradePrice: 10 / 3 },
+  ]
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, first, second] }, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'XSP').every((e) => e.partialHistory && e.openNow === null))
+})
+
+const intradayBook = (generated: string | null, executedAt: string | null, quantity = 0, identified = true) => {
+  const snapshot = { ...doc, fromDate: '2026-01-01', toDate: '2026-01-04', whenGenerated: generated,
+    trades: [], openPositions: [xspHeld(quantity)], sectionsPresent: ['OpenPositions'],
+    equitySummary: [], cashTransactions: [], corporateActions: [], changeInNav: null }
+  const later = { ...snapshot, toDate: '2026-01-05', whenGenerated: '2026-01-06T10:00:00', sectionsPresent: ['Trades'], openPositions: [],
+    trades: [{ ...buyXsp, tradeID: identified ? 'SAME-DAY' : null, transactionID: null, quantity: 10, tradeDate: '2026-01-04', dateTime: executedAt }] }
+  return buildBook([snapshot, later]).executions[0]!
+}
+
+check('a same-day trade after snapshot generation moves the broker position, with or without an id', () => {
+  for (const identified of [true, false]) {
+    const fill = intradayBook('2026-01-04T10:00:00', '2026-01-04T15:00:00', 0, identified)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [false, true])
+  }
+})
+
+check('a same-day backfill before a proven snapshot cutoff is already covered', () => {
+  for (const generated of ['2026-01-04T16:00:00', '2026-01-05T10:00:00']) {
+    const fill = intradayBook(generated, '2026-01-04T15:00:00', 10)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [false, true])
+  }
+})
+
+check('missing or equal same-day times leave ordering and open state explicitly unknown', () => {
+  for (const [generated, executedAt] of [
+    [null, '2026-01-04T15:00:00'], ['2026-01-04T10:00:00', null],
+    ['2026-01-04', '2026-01-04T15:00:00'], ['2026-01-04T10:00:00', '2026-01-04T10:00:00'],
+  ]) {
+    const fill = intradayBook(generated!, executedAt!, 10)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [true, null])
+  }
+})
+
+check('a blank snapshot position remains unknown even when FIFO reconstructs a flat contract', () => {
+  const close = { ...buyXsp, tradeID: 'A9', transactionID: 'AX9', quantity: -100, openCloseIndicator: 'C', tradeDate: '2026-01-04', dateTime: '2026-01-04T10:00:00' }
+  const unknown = { ...xspHeld(0), position: null }
+  const b = buildBook([{ ...doc, openPositions: [unknown], trades: [buyXsp, close] }])
+  assert.ok(b.executions.every((e) => e.partialHistory && e.openNow === null))
+  assert.equal(b.positions[0]!.quantity, null)
+})
+
+check('a closing fill supplies its known multiplier when the opening fill omitted it', () => {
+  const first = { ...buyXsp, assetCategory: 'FUT', multiplier: null, quantity: 1, tradePrice: 50 }
+  const last = { ...first, tradeID: 'A9', dateTime: '2026-01-04T10:00:00', multiplier: 100, quantity: -1, tradePrice: 55, openCloseIndicator: 'C' }
+  const result = runFifo([first, last])
+  assert.equal(result.executions[1]!.multiplier, 100)
+  assert.equal(result.executions[1]!.value, 5500)
+  assert.equal(result.closures[0]!.grossLocal, 500)
+  const omitted = runFifo([{ ...first, multiplier: 100 }, { ...last, multiplier: null }])
+  assert.equal(omitted.executions[1]!.value, 5500, 'a known opening multiplier still covers a blank close')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

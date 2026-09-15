@@ -1692,12 +1692,12 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
             <div className="fundbook__ranges" role="group" aria-label="Which trades to show">
               <button type="button" className={`fundbook__range${scope === 'all' ? ' is-on' : ''}`} aria-pressed={scope === 'all'} onClick={() => setScope('all')}>All</button>
               <button type="button" className={`fundbook__range${scope === 'open' ? ' is-on' : ''}`} aria-pressed={scope === 'open'} onClick={() => setScope('open')}
-                title="Only the fills of positions still open, each since it was opened">Open positions</button>
+                title="Fills of positions still open, including qualified rows whose current holding is unknown">Open positions</button>
             </div>
             <select className="fundbook__select" aria-label="Show one name" value={active?.key ?? ''} onChange={(e) => setPicked(e.target.value || null)}>
               <option value="">All names</option>
               {names.map((n) => (
-                <option key={n.key} value={n.key}>{`${n.label} · ${plural(n.fills, 'fill')}${n.held ? ' · held' : ''}`}</option>
+                <option key={n.key} value={n.key}>{`${n.label} · ${plural(n.fills, 'fill')}${n.held === null ? ' · holding unknown' : n.held ? ' · held' : ''}`}</option>
               ))}
             </select>
           </div>
@@ -1729,7 +1729,8 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
         <div className="fundbook__foot">
           {plural(summary.fills, 'fill')}: {plural(summary.buys, 'buy')} and {plural(summary.sells, 'sell')}
           {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}.
-          {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was opened.`}
+          {scope === 'open' && ` That is the available history of the ${plural(summary.positions, 'position')} ${shown.some((r) => r.openNow === null) ? 'still open or not yet confirmed closed' : 'still open'}.`}
+          {shown.some((r) => r.openNow === null) && ' Holdings marked Unknown stay visible because the snapshot quantity, split basis, or timing of later fills does not establish whether the position is open.'}
           {summary.inferred > 0 && ` ${plural(summary.inferred, 'fill')} had no open/close flag from the broker, so what ${summary.inferred === 1 ? 'it' : 'they'} opened is inferred.`}
           {summary.costsUnknown > 0 && ` ${plural(summary.costsUnknown, 'sale')} closed against a blank commission, so ${summary.costsUnknown === 1 ? 'its' : 'their'} realised counts that cost as zero.`}
           {summary.partial > 0 && ` ${plural(summary.partial, 'fill')} ${summary.partial === 1 ? 'belongs' : 'belong'} to positions these statements do not fully cover, so what ${summary.partial === 1 ? 'it' : 'they'} did, what is left of ${summary.partial === 1 ? 'it' : 'them'} and what ${summary.partial === 1 ? 'it' : 'they'} realised are reconstructed.`}
@@ -1747,6 +1748,7 @@ const INFERRED_NOTE = 'The broker left the open/close flag blank, so the engine 
 const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of this trade, so realised counts that cost as zero and may be overstated by it.'
 /** Said wherever a fill's effect rests on history the statements do not cover (BookExecution.partialHistory). */
 const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position, what is left of it, and what a sale realised are reconstructed, not established.'
+const HOLDING_UNKNOWN_NOTE = 'The snapshot quantity, split basis, or timing of later fills is unknown. These statements do not establish whether this contract is currently held, so it stays visible under Open positions.'
 /** Said wherever a realised figure rests on partial history (BookClosure.partialHistory on the server). */
 const PARTIAL_REALISED_NOTE = 'The statements do not cover this position\u2019s whole history, so FIFO may have matched this sale against the wrong opening lot. What it realised, and the entry price, opening date and hold that come from that lot, are reconstructed; the broker\u2019s own figures may differ.'
 /** The same two, said of a figure built from several trades: a total, a count, a rate, an average, an extreme,
@@ -1770,7 +1772,7 @@ function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
   // A short is opened by a sale, so what remains of it is "short", and what closed it was a cover.
   const [open, gone] = r.side === 'buy' ? ['Held', 'Sold'] : ['Short', 'Covered']
-  const statusText = status === 'held' ? open
+  const statusText = r.openNow === null ? 'Unknown' : status === 'held' ? open
     : status === 'part' ? `${open} ${fmtQty(r.stillOpen)} of ${fmtQty(r.openedQuantity)}`
       : status === 'sold' ? gone : '—'
   const unmatched = r.unmatchedQuantity > 0
@@ -1809,7 +1811,7 @@ function FillLine({ r }: { r: FillRow }) {
         {fmtSmallMoney(r.realizedLocal)}
         <RealisedTags partial={partial && r.realizedLocal !== null} costsUnknown={r.costsUnknown === true} />
       </span>
-      <span className={status === 'held' || status === 'part' ? undefined : 'dim'} title={inferred ? INFERRED_NOTE : undefined}>{statusText}</span>
+      <span className={status === 'held' || status === 'part' ? undefined : 'dim'} title={r.openNow === null ? HOLDING_UNKNOWN_NOTE : inferred ? INFERRED_NOTE : undefined}>{statusText}</span>
     </div>
   )
 }

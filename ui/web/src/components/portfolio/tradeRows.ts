@@ -354,11 +354,12 @@ export function fillRows(executions: PortfolioExecution[]): FillRow[] {
   return executions
     .map((e, i) => {
       // OPEN NOW is the broker's word where the engine sends it, anchored to its snapshot. The rebuilt
-      // position only stands in for an engine that predates the field (DESIGN.md §5).
-      const openNow = typeof e.openNow === 'boolean' ? e.openNow : Math.abs(final.get(e.key) ?? 0) > QTY_EPS
+      // position only stands in for an engine that predates the field (DESIGN.md §5). Explicitly unknown
+      // holdings stay visible even if the incomplete fills reconstruct a flat position.
+      const openNow = e.openNow === undefined ? Math.abs(final.get(e.key) ?? 0) > QTY_EPS : e.openNow
       // With partial history the rebuilt flat points are offset from the real ones, so where the held position
       // began is unknown: every fill of that contract is shown, each tagged partial.
-      return { ...e, current: openNow && (e.partialHistory === true || i > (endedAt.get(e.key) ?? -1)) }
+      return { ...e, current: openNow === null || (openNow && (e.partialHistory === true || i > (endedAt.get(e.key) ?? -1))) }
     })
     .reverse()
 }
@@ -380,14 +381,15 @@ export function fillsOutsideBase(rows: PortfolioExecution[], baseCurrency: strin
  *  two option strikes share a symbol and are still different things. Each is labelled by its symbol and, where it
  *  has them, its terms; two that would still read alike (one symbol listed in two currencies) add the currency.
  *  With how many fills each has, and whether any of them is still held. */
-export function fillNames(rows: FillRow[]): { key: string; label: string; fills: number; held: boolean }[] {
-  const by = new Map<string, { key: string; label: string; currency: string | null; fills: number; held: boolean }>()
+export function fillNames(rows: FillRow[]): { key: string; label: string; fills: number; held: boolean | null }[] {
+  const by = new Map<string, { key: string; label: string; currency: string | null; fills: number; held: boolean | null }>()
   for (const r of rows) {
     if (!r.symbol) continue
     const terms = contractTerms(r)
     const cur = by.get(r.key) ?? { key: r.key, label: terms ? `${r.symbol} ${terms}` : r.symbol, currency: r.currency, fills: 0, held: false }
     cur.fills += 1
-    if (r.current) cur.held = true
+    if (r.openNow === null) cur.held = null
+    else if (r.current && cur.held !== null) cur.held = true
     by.set(r.key, cur)
   }
   const alike = new Map<string, number>()
