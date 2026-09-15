@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T04:56:50Z",
+  "generated_at": "2026-09-15T05:06:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-265",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-276",
+      "headline": "Solar Industries shares fall over 9% after ₹12,951 crore acquisition; Goldman Sachs sees 19%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/solar-industries-share-price-omnia-acquisition-south-africa-benefits-goldman-sachs-buy-sell-target-upside-19990510.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T04:42:04Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shares fell 9% following the announcement of a large ₹12,951 crore acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shares fell 9% following the announcement of a large ₹12,951 crore acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -445,6 +494,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-288",
+      "headline": "Doosan Fuel Cell Orders Top 1 Trillion Won on AI Power Demand",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276967",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T07:10:06Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Doosan Fuel Cell secured orders exceeding 1 trillion won, a significant revenue-impacting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Doosan Fuel Cell secured orders exceeding 1 trillion won, a significant revenue-impacting event.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Doosan Fuel Cell",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-108",
       "headline": "Hyosung Heavy Wins $286.7 Million in U.S. Big Tech Transformer Orders",
       "headline_en": null,
@@ -489,55 +587,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-267",
-      "headline": "Solar Industries shares fall over 6% after ₹12,951 crore acquisition; Goldman Sachs sees 19%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/solar-industries-share-price-omnia-acquisition-south-africa-benefits-goldman-sachs-buy-sell-target-upside-19990510.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T04:11:30Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Solar Industries announced a ₹12,951 crore acquisition, which triggered a share price decline despite analyst optimism.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Solar Industries announced a ₹12,951 crore acquisition, which triggered a share price decline despite analyst optimism.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -886,6 +935,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-277",
+      "headline": "Coforge shares fall over 3% as board exits weigh; FY27 guidance retained",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/coforge-share-price-fy27-guidance-retained-nrc-chairperson-quits-q2-deal-signings-record-target-buy-sell-19990487.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T04:45:07Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shares fell 3% due to board exits, despite guidance being retained.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Shares fell 3% due to board exits, despite guidance being retained.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-269",
       "headline": "Tata Sons’s Listed Shareholders Rally After RBI Renews IPO Push",
       "headline_en": null,
@@ -927,6 +1025,56 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-283",
+      "headline": "US Escalates Iran Pressure, Targets Russia’s VTB Over Sanctions Evasion",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/us-escalates-iran-pressure-targets-russias-vtb-over-sanctions-evasion-12047268#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T03:46:01Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The US is escalating sanctions pressure on VTB Bank, increasing operational and compliance risk for the entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The US is escalating sanctions pressure on VTB Bank, increasing operational and compliance risk for the entity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VTB Bank",
+          "ticker": null,
+          "listing_country": "RU"
         }
       ],
       "size_bucket": "large",
@@ -1236,6 +1384,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-274",
+      "headline": "Maharashtra Scooters Limited: Maharashtra Scooters Limited has informed the Exchange that Board of Directors at its meeting held on 15 September 2026, declared an Interim Dividend of Rs. 160/- per equity share.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MAHSCOOTER_15092026100921_MSL_-_SE_Intimation_15_September_2026-dsc.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T04:39:49Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company declared an interim dividend of Rs. 160 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company declared an interim dividend of Rs. 160 per share.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maharashtra Scooters Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1731,217 +1928,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260915-257",
-      "headline": "Tata Chemicals shares jump 20% on Tata Sons listing developments; Here's how others are faring",
+      "inbox_id": "INB-20260915-285",
+      "headline": "Stock Crash: PNC Infratech shares tank 18%, extend losses from 52-week high on this negative development",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-sons-listing-exclusive-rbi-application-chemicals-motors-power-indian-hotels-tcpl-investment-steel-share-price-19990494.htm",
+      "url": "https://www.cnbctv18.com/market/stock-crash-pnc-infratech-shares-tank-18-extend-losses-from-52-week-high-on-this-negative-development-19990573.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-09-15T03:51:38Z",
+      "found_at": "2026-09-15T04:08:17Z",
       "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Tata Chemicals shares rose 20% following news regarding the potential listing of Tata Sons.",
+      "prelim_note": "PNC Infratech shares dropped 18% following a negative regulatory or legal development.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Tata Chemicals shares rose 20% following news regarding the potential listing of Tata Sons.",
+      "triage_reason": "PNC Infratech shares dropped 18% following a negative regulatory or legal development.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-137",
-      "headline": "BRKZ secures $31 million to scale AI-powered construction procurement",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/brkz-secures-31-million-scale-ai-powered-construction-procurement",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:04:21Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "BRKZ securing $31 million to scale its AI-powered construction procurement is a significant funding round that will support the company's growth and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "BRKZ securing $31 million to scale its AI-powered construction procurement is a significant funding round that will support the company's growth and operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BRKZ",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-138",
-      "headline": "Synapse Analytics secures $13 million Series A led by Partech",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/synapse-analytics-secures-13-million-series-led-partech",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:04:21Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Synapse Analytics securing $13 million Series A led by Partech is a significant funding round that will support the company's growth and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Synapse Analytics securing $13 million Series A led by Partech is a significant funding round that will support the company's growth and operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Synapse Analytics",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-224",
-      "headline": "Winter is coming: airBaltic debt woes herald tough season ahead for smaller airlines",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/europe/winter-is-coming-airbaltic-debt-woes-herald-tough-season-ahead-smaller-airlines-2026-09-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:51:41Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "AirBaltic faces significant debt issues, signaling potential financial distress for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "AirBaltic faces significant debt issues, signaling potential financial distress for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "airBaltic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-194",
-      "headline": "SpaceX Spent $15.8 Billion on AI in a Quarter. Here's What Happens to the Stock if Orbital Data Centers Don't Work.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/spacex-spent-158-billion-ai-quarter-heres-what-happens-stock-if-orbital-data-centers-dont",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:32:07Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SpaceX reported $15.8 billion in AI-related spending in a single quarter, highlighting massive capital intensity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "SpaceX reported $15.8 billion in AI-related spending in a single quarter, highlighting massive capital intensity.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -1949,28 +1950,28 @@
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": 2,
-        "recency": 4,
+        "size": 1,
+        "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "capex"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SpaceX",
+          "name": "PNC Infratech",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164452,9 +164453,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 626955,
-    "news_picked_today": 464,
-    "news_dropped_today": 1888
+    "news_seen_today": 661458,
+    "news_picked_today": 484,
+    "news_dropped_today": 1940
   },
   "book_momentum": {
     "live_count": 8,
