@@ -449,6 +449,11 @@ check('fixture: RecommendedNeed carries the full ranked v2 need and operational 
   const stateDir = path.join(repo, '.state', 'pipeline')
   fs.mkdirSync(stateDir, { recursive: true })
   const sourceId = 'PIPE-20260814-aaaaaaaa'
+  // A lookup made a minute ago. Its staleness is judged by the clock of the process that reads it (the probe below
+  // runs in a child process), so a fixed date turned this fresh lookup stale 30 days after it was written.
+  const lookupMs = Math.floor(Date.now() / 1000) * 1000 - 60_000
+  const lookupCheckedAt = new Date(lookupMs).toISOString().replace('.000Z', 'Z')
+  const lookupStartedAt = new Date(lookupMs - 60_000).toISOString()
   fs.writeFileSync(path.join(stateDir, 'pipeline.ndjson'), [
     {
       pipeline_id: sourceId, kind: 'pipeline_source', subject: 'AAA', swarm: 'fixswarm', need_id: 'daily-units',
@@ -460,9 +465,9 @@ check('fixture: RecommendedNeed carries the full ranked v2 need and operational 
       pipeline_id: 'PIPE-20260814-bbbbbbbb', kind: 'pipeline_lookup', subject: 'AAA', swarm: 'fixswarm',
       need_id: 'daily-units', need_fingerprint: dataNeedFingerprint('daily-units', series),
       run_root: runRoot, decision_fingerprint: decisionFingerprint,
-      lookup_started_at: '2026-08-14T10:00:00.000Z',
+      lookup_started_at: lookupStartedAt,
       lookup_status: 'public_link_found', public_url: 'https://public.example.com/data', lookup_note: 'found',
-      source_pipeline_id: sourceId, user_id: 'u', submitted_at: '2026-08-14T10:01:00Z',
+      source_pipeline_id: sourceId, user_id: 'u', submitted_at: lookupCheckedAt,
     },
   ].map((row) => JSON.stringify(row)).join('\n') + '\n')
   const rec = probeRead(repo).recommended[0]
@@ -477,7 +482,7 @@ check('fixture: RecommendedNeed carries the full ranked v2 need and operational 
   })
   assert.deepEqual(rec.source_lookup, {
     lookup_status: 'public_link_found', public_url: 'https://public.example.com/data',
-    checked_at: '2026-08-14T10:01:00Z', lookup_note: 'found', stale: false,
+    checked_at: lookupCheckedAt, lookup_note: 'found', stale: false,
     access_basis: 'https_url_public_dns',
   })
 })

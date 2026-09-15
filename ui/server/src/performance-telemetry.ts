@@ -258,6 +258,9 @@ export interface PerformanceTelemetryOptions {
   maxPendingSamples?: number
   flushDelayMs?: number
   release?: string
+  /** The clock the store reads for its own decisions: the time of a sample recorded without one, and what has
+   *  aged out of retention. The server uses the real clock; a test pins it, so the test means the same on any day. */
+  now?: () => number
 }
 
 export class PerformanceTelemetry {
@@ -267,6 +270,7 @@ export class PerformanceTelemetry {
   private readonly maxPendingSamples: number
   private readonly flushDelayMs: number
   private readonly release: string
+  private readonly clock: () => number
   private queue: StoredPerformanceSample[] = []
   private flushTimer: NodeJS.Timeout | null = null
   private writer: Promise<void> | null = null
@@ -290,9 +294,10 @@ export class PerformanceTelemetry {
     this.maxPendingSamples = Math.max(MAX_BATCH, options.maxPendingSamples ?? 1_000)
     this.flushDelayMs = options.flushDelayMs ?? 2_000
     this.release = options.release ?? releaseId()
+    this.clock = options.now ?? Date.now
   }
 
-  recordServer(value: number, operation?: string, outcome: PerformanceOutcome = 'ok', ts = Date.now()): void {
+  recordServer(value: number, operation?: string, outcome: PerformanceOutcome = 'ok', ts = this.clock()): void {
     this.enqueue({ name: 'server.api_latency', value, unit: 'ms', operation, outcome, ts }, 'server')
   }
 
@@ -314,7 +319,7 @@ export class PerformanceTelemetry {
       name: sample.name,
       value: roundValue(sample.value, sample.unit),
       unit: sample.unit,
-      ts: sample.ts ?? Date.now(),
+      ts: sample.ts ?? this.clock(),
       source,
       ...(sample.operation ? { operation: sample.operation } : {}),
       outcome: sample.outcome ?? 'ok',
@@ -385,7 +390,7 @@ export class PerformanceTelemetry {
           return dropped + remaining
         }
       }
-      await this.pruneIfDue(Date.now())
+      await this.pruneIfDue(this.clock())
       return dropped
     } catch {
       return dropped + remaining
@@ -454,7 +459,7 @@ export class PerformanceTelemetry {
     }))
   }
 
-  private noteDropped(count: number, now = Date.now()): void {
+  private noteDropped(count: number, now = this.clock()): void {
     const bucket = Math.floor(now / DROP_BUCKET_MS) * DROP_BUCKET_MS
     const key = `${this.release}\0${bucket}`
     const existing = this.droppedByHour.get(key)
@@ -531,10 +536,10 @@ export class PerformanceTelemetry {
     if (!this.dropsDirty && this.dropsLoaded) return Promise.resolve()
     this.dropWriter = (async () => {
       await this.loadDroppedSamples()
-      if (this.pruneDroppedSamples(Date.now())) this.dropsDirty = true
+      if (this.pruneDroppedSamples(this.clock())) this.dropsDirty = true
       while (this.dropsDirty) {
         this.dropsDirty = false
-        this.pruneDroppedSamples(Date.now())
+        this.pruneDroppedSamples(this.clock())
         await fs.promises.mkdir(this.dir, { recursive: true, mode: 0o700 })
         const target = path.join(this.dir, DROP_STATE_FILE)
         const temp = `${target}.tmp-${process.pid}`
@@ -623,7 +628,7 @@ export class PerformanceTelemetry {
     return tracked
   }
 
-  async summary(windowHours = 24, now = Date.now()): Promise<PerformanceSummary> {
+  async summary(windowHours = 24, now = this.clock()): Promise<PerformanceSummary> {
     const hours = Math.max(1, Math.min(168, Math.round(windowHours)))
     const existing = this.summaryInFlight.get(hours)
     if (existing) return existing
