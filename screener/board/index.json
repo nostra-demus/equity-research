@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T15:29:49Z",
+  "generated_at": "2026-09-15T16:38:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-526",
@@ -733,6 +733,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-545",
+      "headline": "Creative Planning Set to Acquire $4.3T Institutional Investment Firm RVK",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/creative-planning-set-acquire-4-160118358.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T16:01:18Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Creative Planning is set to acquire RVK, a $4.3 trillion institutional investment firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creative Planning is set to acquire RVK, a $4.3 trillion institutional investment firm.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Creative Planning",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RVK",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,56 +1969,6 @@
       "companies": [
         {
           "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-095",
-      "headline": "J&J looking to offload orthopedics unit in $20B deal to Apollo: Bloomberg",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/medtech/jj-looking-offload-orthopedics-unit-20b-deal-apollo-bloomberg",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:49:03Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Johnson & Johnson is reportedly exploring a $20 billion divestiture of its orthopedics unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Johnson & Johnson is reportedly exploring a $20 billion divestiture of its orthopedics unit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson & Johnson",
           "ticker": null,
           "listing_country": "US"
         }
@@ -120823,150 +120827,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cd3cba919b04",
-      "idea_version": "IDEAV-34c422c48b1976fd",
-      "idea_version_started_at": "2026-09-14T05:51:52Z",
-      "ticker": "HWE.AX",
-      "company": "Whyalla Steel Works",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The blast furnace at the Whyalla steel mill has failed permanently, leading to significant job losses and operational closure.",
-      "why_now": "The permanent failure of the blast furnace was announced today, leading to immediate restructuring and job cuts.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d7fdaf5be854"
-      ],
-      "primary_source_event_id": "EVT-d7fdaf5be854",
-      "source_headlines": [
-        "Whyalla steel mill blast furnace fails for good, with 600 jobs to go"
-      ],
-      "source_headline": "Whyalla steel mill blast furnace fails for good, with 600 jobs to go",
-      "source_url": "https://www.afr.com/companies/manufacturing/whyalla-blast-furnace-restart-fails-600-jobs-cut-20260914-p60x1j?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T04:07:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:51:52Z",
-      "updated_at": "2026-09-14T05:51:52Z",
-      "decay_at": "2026-09-15T16:07:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3060680a62c4",
-      "idea_version": "IDEAV-b7f97f7a3b1186aa",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "KEC",
-      "company": "KEC International Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "KEC International Limited announced winning new orders worth Rs. 1,303 crores, which will directly contribute to its revenue and project pipeline.",
-      "why_now": "The order win was announced on September 14, 2026, providing a clear and immediate catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6da39680525"
-      ],
-      "primary_source_event_id": "EVT-e6da39680525",
-      "source_headlines": [
-        "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores"
-      ],
-      "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
-      "source_url": "https://nsearchives.nseindia.com/corporate/KEC_14092026090455_PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T03:36:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T15:36:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -121396,78 +121256,6 @@
       "surfaced_at": "2026-09-14T05:51:52Z",
       "updated_at": "2026-09-14T05:51:52Z",
       "decay_at": "2026-09-15T17:17:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ee2c34bed048",
-      "idea_version": "IDEAV-952488cd2340b593",
-      "idea_version_started_at": "2026-09-14T05:17:21Z",
-      "ticker": "ENX",
-      "company": "Euronext",
-      "exchange": "EPA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Euronext is open to a 'big bang' deal with rival Deutsche Börse, suggesting potential for significant M&A activity that could lead to synergies, market share gains, and increased profitability for Euronext.",
-      "why_now": "The Financial Times reported Euronext's openness to a deal on 2026-09-14, indicating active M&A speculation.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88758b37cfce"
-      ],
-      "primary_source_event_id": "EVT-88758b37cfce",
-      "source_headlines": [
-        "Euronext open to ‘big bang’ deal with rival Deutsche Börse"
-      ],
-      "source_headline": "Euronext open to ‘big bang’ deal with rival Deutsche Börse",
-      "source_url": "https://www.ft.com/content/cf0ee7e3-8634-4c1d-8a44-3b71acee1417?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-14T04:00:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:17:21Z",
-      "updated_at": "2026-09-14T05:17:21Z",
-      "decay_at": "2026-09-15T16:00:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124017,6 +123805,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cd3cba919b04",
+      "idea_version": "IDEAV-34c422c48b1976fd",
+      "idea_version_started_at": "2026-09-14T05:51:52Z",
+      "ticker": "HWE.AX",
+      "company": "Whyalla Steel Works",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The blast furnace at the Whyalla steel mill has failed permanently, leading to significant job losses and operational closure.",
+      "why_now": "The permanent failure of the blast furnace was announced today, leading to immediate restructuring and job cuts.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d7fdaf5be854"
+      ],
+      "primary_source_event_id": "EVT-d7fdaf5be854",
+      "source_headlines": [
+        "Whyalla steel mill blast furnace fails for good, with 600 jobs to go"
+      ],
+      "source_headline": "Whyalla steel mill blast furnace fails for good, with 600 jobs to go",
+      "source_url": "https://www.afr.com/companies/manufacturing/whyalla-blast-furnace-restart-fails-600-jobs-cut-20260914-p60x1j?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T04:07:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T05:51:52Z",
+      "updated_at": "2026-09-14T05:51:52Z",
+      "decay_at": "2026-09-15T16:07:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3060680a62c4",
+      "idea_version": "IDEAV-b7f97f7a3b1186aa",
+      "idea_version_started_at": "2026-09-14T04:51:58Z",
+      "ticker": "KEC",
+      "company": "KEC International Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "KEC International Limited announced winning new orders worth Rs. 1,303 crores, which will directly contribute to its revenue and project pipeline.",
+      "why_now": "The order win was announced on September 14, 2026, providing a clear and immediate catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6da39680525"
+      ],
+      "primary_source_event_id": "EVT-e6da39680525",
+      "source_headlines": [
+        "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores"
+      ],
+      "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
+      "source_url": "https://nsearchives.nseindia.com/corporate/KEC_14092026090455_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T03:36:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:51:58Z",
+      "updated_at": "2026-09-14T04:51:58Z",
+      "decay_at": "2026-09-15T15:36:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3c162423bb69",
       "idea_version": "IDEAV-c35bd18c0ffca97c",
       "idea_version_started_at": "2026-09-14T04:51:58Z",
@@ -125889,6 +125821,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ee2c34bed048",
+      "idea_version": "IDEAV-952488cd2340b593",
+      "idea_version_started_at": "2026-09-14T05:17:21Z",
+      "ticker": "ENX",
+      "company": "Euronext",
+      "exchange": "EPA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Euronext is open to a 'big bang' deal with rival Deutsche Börse, suggesting potential for significant M&A activity that could lead to synergies, market share gains, and increased profitability for Euronext.",
+      "why_now": "The Financial Times reported Euronext's openness to a deal on 2026-09-14, indicating active M&A speculation.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-88758b37cfce"
+      ],
+      "primary_source_event_id": "EVT-88758b37cfce",
+      "source_headlines": [
+        "Euronext open to ‘big bang’ deal with rival Deutsche Börse"
+      ],
+      "source_headline": "Euronext open to ‘big bang’ deal with rival Deutsche Börse",
+      "source_url": "https://www.ft.com/content/cf0ee7e3-8634-4c1d-8a44-3b71acee1417?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-14T04:00:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T05:17:21Z",
+      "updated_at": "2026-09-14T05:17:21Z",
+      "decay_at": "2026-09-15T16:00:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3f16c02405f0",
       "idea_version": "IDEAV-ffaeac1548d6cf7c",
       "idea_version_started_at": "2026-09-14T05:17:21Z",
@@ -126902,19 +126906,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 570,
     "shown_count": 500,
-    "hidden_count": 67,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 43
       },
       "short": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       }
     },
     "retention": {
@@ -126933,6 +126937,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cd3cba919b04",
+        "idea_version": "IDEAV-34c422c48b1976fd",
+        "idea_version_started_at": "2026-09-14T05:51:52Z",
+        "ticker": "HWE.AX",
+        "company": "Whyalla Steel Works",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The blast furnace at the Whyalla steel mill has failed permanently, leading to significant job losses and operational closure.",
+        "why_now": "The permanent failure of the blast furnace was announced today, leading to immediate restructuring and job cuts.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d7fdaf5be854"
+        ],
+        "primary_source_event_id": "EVT-d7fdaf5be854",
+        "source_headlines": [
+          "Whyalla steel mill blast furnace fails for good, with 600 jobs to go"
+        ],
+        "source_headline": "Whyalla steel mill blast furnace fails for good, with 600 jobs to go",
+        "source_url": "https://www.afr.com/companies/manufacturing/whyalla-blast-furnace-restart-fails-600-jobs-cut-20260914-p60x1j?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T04:07:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T05:51:52Z",
+        "updated_at": "2026-09-14T05:51:52Z",
+        "decay_at": "2026-09-15T16:07:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T16:07:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ee2c34bed048",
+        "idea_version": "IDEAV-952488cd2340b593",
+        "idea_version_started_at": "2026-09-14T05:17:21Z",
+        "ticker": "ENX",
+        "company": "Euronext",
+        "exchange": "EPA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Euronext is open to a 'big bang' deal with rival Deutsche Börse, suggesting potential for significant M&A activity that could lead to synergies, market share gains, and increased profitability for Euronext.",
+        "why_now": "The Financial Times reported Euronext's openness to a deal on 2026-09-14, indicating active M&A speculation.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-88758b37cfce"
+        ],
+        "primary_source_event_id": "EVT-88758b37cfce",
+        "source_headlines": [
+          "Euronext open to ‘big bang’ deal with rival Deutsche Börse"
+        ],
+        "source_headline": "Euronext open to ‘big bang’ deal with rival Deutsche Börse",
+        "source_url": "https://www.ft.com/content/cf0ee7e3-8634-4c1d-8a44-3b71acee1417?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-14T04:00:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T05:17:21Z",
+        "updated_at": "2026-09-14T05:17:21Z",
+        "decay_at": "2026-09-15T16:00:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T16:00:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3060680a62c4",
+        "idea_version": "IDEAV-b7f97f7a3b1186aa",
+        "idea_version_started_at": "2026-09-14T04:51:58Z",
+        "ticker": "KEC",
+        "company": "KEC International Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "KEC International Limited announced winning new orders worth Rs. 1,303 crores, which will directly contribute to its revenue and project pipeline.",
+        "why_now": "The order win was announced on September 14, 2026, providing a clear and immediate catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e6da39680525"
+        ],
+        "primary_source_event_id": "EVT-e6da39680525",
+        "source_headlines": [
+          "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores"
+        ],
+        "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
+        "source_url": "https://nsearchives.nseindia.com/corporate/KEC_14092026090455_PressRelease.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T03:36:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:51:58Z",
+        "updated_at": "2026-09-14T04:51:58Z",
+        "decay_at": "2026-09-15T15:36:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T15:36:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0f5a41d01622",
         "idea_version": "IDEAV-8d09f09cec5e66cc",
@@ -155116,80 +155345,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-db95bbb0a6ee",
-        "idea_version": "IDEAV-1ccb414f792d4338",
-        "idea_version_started_at": "2026-09-03T05:43:47Z",
-        "ticker": "SNOW",
-        "company": "Snowflake Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Snowflake raised its annual product revenue forecast, indicating accelerating consumption and net revenue retention in its data cloud platform.",
-        "why_now": "Guidance raise announced 2026-09-02; shares jumped ~22% on the news, but upward estimate revisions may sustain momentum.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1dce63f3c349",
-          "EVT-51acbab64dbc"
-        ],
-        "primary_source_event_id": "EVT-1dce63f3c349",
-        "source_headlines": [
-          "+++ Business Figures +++: Snowflake raises revenue forecast – stock jumps by 22 percent",
-          "Snowflake lifts annual product revenue forecast, shares soar"
-        ],
-        "source_headline": "+++ Geschäftszahlen +++: Snowflake hebt Umsatzprognose an – Aktie springt um 22 Prozent",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-snowflake-hebt-umsatzprognose-an-aktie-springt-um-22-prozent/24098412.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T20:32:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T05:43:47Z",
-        "updated_at": "2026-09-03T05:43:47Z",
-        "decay_at": "2026-09-04T08:32:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T20:32:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3b067fdb7522",
         "idea_version": "IDEAV-409221f160d2720a",
         "idea_version_started_at": "2026-09-03T05:43:47Z",
@@ -155404,79 +155559,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-05T20:32:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b6c0f11fb03b",
-        "idea_version": "IDEAV-6e2048200cf3a78a",
-        "idea_version_started_at": "2026-09-03T04:55:38Z",
-        "ticker": "CVX",
-        "company": "Chevron Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Chevron is committing $7 billion to double oil output in Venezuela over five years, a large incremental capex program that adds production volumes and cash flow if sanctions relief holds.",
-        "why_now": "The plan was announced on 2026-09-02 with a five-year execution window, making the capital commitment and production ramp a live, dated catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-69317d35a7e6"
-        ],
-        "primary_source_event_id": "EVT-69317d35a7e6",
-        "source_headlines": [
-          "Chevron expands Venezuela presence with $7 billion plan to double oil output in five years"
-        ],
-        "source_headline": "Chevron expands Venezuela presence with $7 billion plan to double oil output in five years",
-        "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/chevron-expands-venezuela-presence-with-7-billion-plan-to-double-oil-output-in-five-years/articleshow/133719199.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T19:08:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T04:55:38Z",
-        "updated_at": "2026-09-03T04:55:38Z",
-        "decay_at": "2026-09-04T07:08:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T19:30:14Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -164027,87 +164109,12 @@
         "archived_at": "2026-08-27T16:07:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d405caebf67e",
-        "idea_version": "IDEAV-504d292584970131",
-        "idea_version_started_at": "2026-08-24T16:50:38Z",
-        "ticker": "SHRENIK",
-        "company": "Shrenik Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of significant equity impairment.",
-        "why_now": "The exchange filing confirming the insolvency process was made on August 24, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aff62580c943"
-        ],
-        "primary_source_event_id": "EVT-aff62580c943",
-        "source_headlines": [
-          "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026204921_Disclosure_of_Constitution_of_CoC.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T15:19:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T16:50:38Z",
-        "updated_at": "2026-08-24T16:50:38Z",
-        "decay_at": "2026-08-26T03:19:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T16:07:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 50,
+    "live_count": 47,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164126,9 +164133,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4909069,
-    "news_picked_today": 1046,
-    "news_dropped_today": 6466
+    "news_seen_today": 5489170,
+    "news_picked_today": 1053,
+    "news_dropped_today": 6483
   },
   "book_momentum": {
     "live_count": 8,
