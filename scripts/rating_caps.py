@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Conviction/score-cap detectors: the §24 rejector filters (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24),
-the §13 cross-module forensic-mosaic cap (CLAUDE.md §13 / synthesizer.md Pre-Write Gate step 4B),
-and the §16 Sector Cycle Reality Test compounding cap (CLAUDE.md §16 / valuation/MODULE_RULES.md).
+"""Conviction/score-cap detectors: the §18 module verdict-lock caps (checks AA/AB — CLAUDE.md
+§18/§13), the §24 rejector filters (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24), the §13 cross-module
+forensic-mosaic cap (CLAUDE.md §13 / synthesizer.md Pre-Write Gate step 4B), and the §16 Sector
+Cycle Reality Test compounding cap (CLAUDE.md §16 / valuation/MODULE_RULES.md).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks
-AC/AD/AE/AF, and now AQ/BB) so the SAME detection functions can run in TWO places instead of one:
+AA/AB, AC/AD/AE/AF, and now AQ/BB) so the SAME detection functions can run in TWO places instead of one:
 
 1. **Retrospective** — `scripts/eval.py` imports these to grade already-committed runs
    (checks AC/AD/AE/AF), as it always has.
@@ -64,6 +65,178 @@ def isnum(v):
 # FROM it — eval.py imports FROM this module instead (see the module docstring). Both lists are
 # CLAUDE.md §18's four conviction-decision strings and must stay in sync if that set ever changes.
 HIGH_CONVICTION_DECISIONS = {"Strong Buy", "Buy", "Starter Position Only", "Short Candidate"}
+
+# ── Check AA (§18 module verdict-lock caps: balance-sheet-survival + management-governance) ────
+# CLAUDE.md §18 states two hard caps that, until this function existed, lived only in the
+# synthesizer's PROMPT: a balance-sheet-survival (BSS) synthesis verdict of "Distress risk", or a
+# management-governance (MG) synthesis verdict of "Serious governance concerns", must cap the
+# headline decision at Watchlist or lower. The BSS cap has one named exception — the thesis is an
+# explicit distressed/special-situation play (thesis_type includes "Balance-sheet survival") — the
+# MG cap has none. This reads each module's already-committed 99_*-synthesis.md, extracts its
+# `**Verdict:**` line, and returns a list of violations (empty = pass) or None (N/A).
+#
+# "Watchlist or lower" is DIRECTIONAL: in §18's decision list a Short Candidate ranks BELOW
+# Watchlist (it comes after Avoid), so a forensic short already satisfies "Watchlist or lower" and
+# these two caps must NOT fire on it — they guard conviction LONGS above Watchlist. synthesizer.md's
+# governance verdict-lock says exactly this: "a forensic short built on the same evidence remains a
+# valid 'Short Candidate' — the lock guards conviction longs, not a thesis that the governance is
+# broken." Both branches therefore test ABOVE_WATCHLIST_AA (the above-Watchlist conviction longs),
+# mirroring sibling rejector checks AC/AE (ABOVE_STARTER_*) and AF/AQ (ABOVE_WATCHLIST_AF) — every
+# one of which likewise exempts a forensic short. (Contrast AB below: the §13 disqualifier lock DOES
+# cap a short, for a different reason — a disqualified business's numbers are too unreliable to trust
+# in any direction.)
+# Landing date: 2026-06-23 (forward-looking; pre-gate runs are N/A so the golden suite stays green).
+AA_DATE = "2026-06-23"
+BSS_CAP_VERDICT = "Distress risk"
+MG_CAP_VERDICT = "Serious governance concerns"
+# Decisions that exceed the §18 "Watchlist or lower" ceiling — the conviction LONGS above Watchlist.
+# Short Candidate is intentionally excluded (it is below Watchlist, and a forensic short on the same
+# evidence stays valid; see above and synthesizer.md's governance verdict-lock). Mirrors ABOVE_WATCHLIST_AF.
+ABOVE_WATCHLIST_AA = {"Strong Buy", "Buy", "Starter Position Only"}
+
+
+def eval_aa_module_verdict_lock(decision, decision_date, bss_verdict, mg_verdict, thesis_type):
+    """Core of check AA. Returns list of violations (empty=pass) or None (N/A).
+    bss_verdict: extracted Solvency Verdict string from BSS 99_*-synthesis.md, or None (absent).
+    mg_verdict:  extracted Stewardship Verdict string from MG 99_*-synthesis.md, or None (absent).
+    thesis_type: decision_record.thesis_type list (the §14 classification).
+    Fires only on a conviction LONG above Watchlist (ABOVE_WATCHLIST_AA); a forensic Short Candidate
+    is exempt per §18's directional "Watchlist or lower" and synthesizer.md's governance verdict-lock.
+    Side-effect-free + module-level so `eval.py selftest` can exercise it without run fixtures."""
+    if not (isdate(decision_date) and decision_date >= AA_DATE):
+        return None  # forward-looking; pre-gate runs are N/A
+    if bss_verdict is None and mg_verdict is None:
+        return None  # neither module synthesis present; N/A
+    violations = []
+    if bss_verdict and BSS_CAP_VERDICT in bss_verdict:
+        # §18: "A balance-sheet 'Distress risk' verdict caps the headline at Watchlist or lower,
+        # unless the thesis is an explicit distressed or special-situation play." A forensic short on
+        # a distressed name is itself below Watchlist, so only a conviction long is capped here.
+        is_distress_play = isinstance(thesis_type, list) and "Balance-sheet survival" in thesis_type
+        if decision in ABOVE_WATCHLIST_AA and not is_distress_play:
+            violations.append(
+                f"BSS synthesis verdict contains '{BSS_CAP_VERDICT}' but decision={decision!r} "
+                f"is a conviction long above Watchlist — §18 caps the headline at Watchlist or lower "
+                f"(exception applies only when thesis_type includes 'Balance-sheet survival'; "
+                f"got {thesis_type!r})"
+            )
+    if mg_verdict and MG_CAP_VERDICT in mg_verdict:
+        # §18: "A governance hard disqualifier or critical flag caps the headline at Watchlist or lower."
+        # No thesis-type exception — but a forensic Short Candidate is not "above Watchlist" and stays
+        # valid (synthesizer.md governance verdict-lock: "the lock guards conviction longs").
+        if decision in ABOVE_WATCHLIST_AA:
+            violations.append(
+                f"MG synthesis verdict contains '{MG_CAP_VERDICT}' but decision={decision!r} "
+                f"is a conviction long above Watchlist — §18 caps the headline at Watchlist or lower "
+                f"(no thesis-type exception; a forensic short on the same evidence stays valid)"
+            )
+    return violations
+
+
+def extract_synthesis_verdict(text):
+    """Pull the verdict category from a module 99_*-synthesis.md body. Real committed syntheses
+    render the line THREE ways, all of which must be recognised (a missed extraction reads as
+    "absent" → N/A, silently skipping the cap on the very runs that need it):
+      1. `- **Verdict:** <category>`            — colon inside the bold, value outside (most common)
+      2. `- **Verdict: <category>**`            — colon AND value inside one bold span; emitted by
+                                                    35+ committed syntheses incl. INDIAMART_2026-08-22
+                                                    (MG "Serious governance concerns") and
+                                                    DHER_2026-08-12 (BM "Low-quality business")
+      3. `- **Verdict**: <category>`            — colon outside the bold
+    The value may itself be double-bolded (e.g. `- **Verdict:** **Adequate**`). We anchor on the
+    `**Verdict` label, swallow any run of the separators that can sit between it and the value
+    (`:`, `*`, spaces/tabs — NOT newlines, so a bare label with the value on the next line still
+    reads as absent), then capture the rest of the line. Surrounding markdown / trailing `**` is
+    left in place — callers substring-match the §18 category, so a trailing `**` is harmless.
+    `re.search` returns the FIRST match in the document, so the label must not fire on an unrelated
+    bolded phrase that merely starts with "Verdict" — e.g. a prose heading like `**Verdict-level
+    tension (the real one)**` (verbatim from a committed BSS dossier) sitting earlier in the file
+    than the real verdict line, which would otherwise hijack the match and mask or fabricate the
+    §18/§13 category. A negative lookahead rejects "Verdict" immediately followed by a word
+    character or hyphen, so only the bare label (followed by `:`, `*`, whitespace, or end of bold)
+    is treated as the verdict line.
+    Module-level + pure so the selftest drives the ACTUAL regex over real rendered lines (a
+    helper-only test can't catch a regex bug)."""
+    if not isinstance(text, str):
+        return None
+    # First captured char must be a real value char (not another separator), so a bare
+    # `**Verdict:**` with the value on the NEXT line reads as absent rather than grabbing a stray `*`.
+    # `(?![\w-])` rejects "Verdict" as a prefix of a longer word/phrase (e.g. "Verdict-level").
+    m = re.search(r'\*\*Verdict(?![\w-])[:*\t ]*([^\n:*\t ][^\n]*)', text)
+    return m.group(1).strip() if m else None
+
+
+# ── Check AB (§13 BM disqualifier verdict-lock) ─────────────────────────────────────────────────
+# CLAUDE.md §13 hard rule: "a critical governance, solvency, accounting, fraud, or going-concern
+# red flag must cap the final rating." The disqualifier-scan (01_disqualifier-scan.md) checks 8
+# hard facts that — when triggered — lock the business-model (BM) synthesis verdict to
+# "Low-quality business — avoid deeper work". Check AA covers BSS ("Distress risk") and MG
+# ("Serious governance concerns"); AB completes the module verdict-lock trilogy by covering the BM
+# disqualifier verdict-lock. No exception: unlike the BSS cap (which the distressed-play
+# thesis_type can bypass), a disqualified business cannot receive conviction in any direction — the
+# disqualifier identifies companies where data quality or fraud/going-concern risk is severe enough
+# that the analysis base is unreliable.
+# Landing date: 2026-06-24 (forward-looking; pre-gate golden fixtures predate → N/A → suite green).
+AB_DATE = "2026-06-24"
+BM_CAP_VERDICT = "Low-quality business"
+
+
+def extract_bm_disqualifier_triggered(text):
+    """Pull the explicit Y/N disqualifier-scan trigger flag from a BM 99_*-synthesis.md body.
+    Returns True (Y), False (N), or None (field absent / unparseable).
+    The verdict CATEGORY string alone is not proof the §13 disqualifier-scan actually fired: the BM
+    template's own Verdict block lists "Low-quality business — avoid deeper work" as one of five
+    ordinary picks an analyst may select on business-quality grounds alone, paired with its own
+    explicit `Disqualifier triggered: Y / N (if Y, name it/them)` field — the field, not the category
+    text, is the authoritative record of whether `01_disqualifier-scan.md` locked the verdict.
+    Recognises `- Disqualifier triggered: Y`, `- **Disqualifier triggered:** N`, and a bolded value
+    (`: **Y**`); tolerant of the `:`/`*`/whitespace separators the template's renderings use.
+    Module-level + pure so the selftest drives the ACTUAL regex over real rendered lines."""
+    if not isinstance(text, str):
+        return None
+    m = re.search(r'Disqualifier triggered[:*\s]*([YN])\b', text)
+    if not m:
+        return None
+    return m.group(1) == "Y"
+
+
+def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict, bm_disqualifier_triggered):
+    """Core of check AB. Returns list of violations (empty=pass) or None (N/A).
+    bm_verdict: extracted Business-model Verdict string from BM 99_*-synthesis.md, or None (absent).
+    bm_disqualifier_triggered: extracted explicit Y/N disqualifier-scan flag
+      (extract_bm_disqualifier_triggered) — True, False, or None (unparseable/absent). The verdict
+      CATEGORY text matching BM_CAP_VERDICT does not by itself prove the §13 disqualifier-scan lock
+      fired (see extract_bm_disqualifier_triggered docstring); AB only stands DOWN when the flag is
+      confirmed False (an analyst legitimately picked "Low-quality business" on business-quality
+      grounds with no disqualifier). An unparseable/absent flag (None) is treated conservatively as
+      NOT disproven — CLAUDE.md §4's conservative-default rule — so a stale run whose synthesis omits
+      the field still gets capped rather than silently waved through.
+    Side-effect-free + module-level so `eval.py selftest` exercises it without run fixtures."""
+    if not (isdate(decision_date) and decision_date >= AB_DATE):
+        return None  # forward-looking; pre-gate runs are N/A
+    if bm_verdict is None:
+        return None  # BM module did not run; cap cannot fire — N/A
+    violations = []
+    if BM_CAP_VERDICT in bm_verdict and bm_disqualifier_triggered is not False:
+        # Disqualifier-scan verdict-lock fired (or the explicit flag is missing/unparseable, treated
+        # conservatively as not disproven): BM synthesis says "Low-quality business" AND the
+        # disqualifier field does not read confirmed N. CLAUDE.md §13 caps conviction — no
+        # thesis-type exception (contrast BSS cap §18).
+        # NOTE: unlike AA, AB deliberately uses the full HIGH_CONVICTION_DECISIONS (it INCLUDES
+        # "Short Candidate"). AA exempts a forensic short because "Watchlist or lower" is directional;
+        # AB does not, because a §13 disqualifier means the analysis base itself is unreliable — you
+        # cannot trust the numbers enough to short it with conviction either. Different rationale, so
+        # different set: this asymmetry between AA and AB is intentional.
+        if decision in HIGH_CONVICTION_DECISIONS:
+            violations.append(
+                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier flag="
+                f"{bm_disqualifier_triggered!r}, not confirmed N) but decision={decision!r} is a "
+                f"conviction rating — a disqualified business must not receive a conviction rating; "
+                f"CLAUDE.md §13 caps at Watchlist or lower regardless of thesis type "
+                f"(disqualifier-scan: 'Low-quality business — avoid deeper work')"
+            )
+    return violations
+
 
 # ── Check AC (§24 Filter 2 turnaround conviction cap) ────────────────────────────────────
 # The synthesizer's Rating Cap Rules document that a "Governance turnaround" thesis_type is

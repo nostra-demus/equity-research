@@ -1,0 +1,61 @@
+{
+  "schema": "market-input-evidence/v1",
+  "run_root": "analyses/AKAM_2026-09-15",
+  "captured_on": "2026-09-15",
+  "source_snapshots": [
+    {
+      "path": "treasury-2026.html",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "retrieved_at": "2026-09-15T15:12:56.696673+00:00",
+      "sha256": "dfa13d660189077741d6fdafbfc24e85962c6987a0fff25f7f6ab2ffff69f57d",
+      "bytes": 1149432,
+      "http_status": 200
+    },
+    {
+      "path": "fed-h15.html",
+      "url": "https://www.federalreserve.gov/datadownload/Preview.aspx?pi=400&preview=H15%2FH15%2FRIFLGFCY10_N.B&rel=H15",
+      "retrieved_at": "2026-09-15T15:12:57.240617+00:00",
+      "sha256": "6037f0ff4c12f5b5c306a17271dce4d63a68eff7ad8bfaabc454b612f8f08145",
+      "bytes": 11442,
+      "http_status": 200
+    },
+    {
+      "path": "damodaran-erp.html",
+      "url": "https://pages.stern.nyu.edu/adamodar/New_Home_Page/datafile/histimpl.html",
+      "retrieved_at": "2026-09-15T15:12:59.797243+00:00",
+      "sha256": "53eee142149a6948bdfbca62fe4beb8d6aac7a12ba7b4c61d94fea60258ab5e9",
+      "bytes": 124304,
+      "http_status": 200
+    }
+  ],
+  "verified_facts": [
+    {
+      "source": "U.S. Treasury daily par yield curve rates",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "locator": "2026 table, 09/09/2026 row, 10 YR column",
+      "value": 4.83,
+      "units": "percent per annum",
+      "independent_crosscheck": "Federal Reserve H.15 daily 10-year Treasury constant maturity, 2026-09-09, 4.83"
+    },
+    {
+      "source": "U.S. Treasury same table",
+      "locator": "09/14/2026 row, 10 YR column",
+      "value": 4.97,
+      "units": "percent per annum",
+      "use": "dated-rate sensitivity only"
+    },
+    {
+      "source": "Damodaran Historical Implied Equity Risk Premiums",
+      "url": "https://pages.stern.nyu.edu/adamodar/New_Home_Page/datafile/histimpl.html",
+      "locator": "January 2026 update, 2025 row, implied ERP (FCFE) column",
+      "value": 4.23,
+      "units": "percent",
+      "use": "retained dated equity premium; choosing this vintage is an assumption"
+    }
+  ],
+  "assumptions": [
+    "Beta 1.00 is an analyst assumption; no claim that a raw 0.63 beta was verified.",
+    "Historical convertible interest and carrying-debt weights do not prove marginal economic WACC."
+  ],
+  "archive_note": "Whole public pages retained in the local review evidence archive; hashes allow correspondence checks. Only limited facts are republished. This does not claim those pages existed in the old frozen generation."
+}

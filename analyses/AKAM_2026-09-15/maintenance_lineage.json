@@ -1,0 +1,631 @@
+{
+  "schema": "targeted-maintenance-lineage/v1",
+  "run_root": "analyses/AKAM_2026-09-15",
+  "source_run": "analyses/AKAM_2026-09-14",
+  "scope": "New terminal adjudication and valuation correction; unaffected module evidence reused. No new full research invocation. See valuation outputs for explicitly refreshed files.",
+  "reused_inputs": [
+    {
+      "path": "balance-sheet-survival/balance-sheet-survival_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/balance-sheet-survival_memo.md",
+      "sha256": "7586be1a0dc612e91989f4edc56c00e392d65ddad0d099cafad7a6d1dbf2f01e",
+      "current_sha256": "7586be1a0dc612e91989f4edc56c00e392d65ddad0d099cafad7a6d1dbf2f01e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/03_liquidity-runway.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/03_liquidity-runway.md",
+      "sha256": "45f692aa7ff7cb30492e50162c163774eaf65c58ced6c17386600748c12c692b",
+      "current_sha256": "45f692aa7ff7cb30492e50162c163774eaf65c58ced6c17386600748c12c692b",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/01_capital-structure-and-leverage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/01_capital-structure-and-leverage.md",
+      "sha256": "b80354fd2fd1db4ba68839bc2d52d3b6230eac25eaf51a6c5ba5022cfb5b0b75",
+      "current_sha256": "b80354fd2fd1db4ba68839bc2d52d3b6230eac25eaf51a6c5ba5022cfb5b0b75",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/06_downside-stress-test.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/06_downside-stress-test.md",
+      "sha256": "e04e35b82cc9dacfa2cabac38d847763351abd6e1125c60a5261aa1b88f6fe94",
+      "current_sha256": "e04e35b82cc9dacfa2cabac38d847763351abd6e1125c60a5261aa1b88f6fe94",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/balance-sheet-survival_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/balance-sheet-survival_dossier.md",
+      "sha256": "e271abb95dd59a34b0162cb6a2b93960efbb4a368322c5fb9e4fc01ec3deb9f5",
+      "current_sha256": "e271abb95dd59a34b0162cb6a2b93960efbb4a368322c5fb9e4fc01ec3deb9f5",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/04_coverage-and-covenants.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/04_coverage-and-covenants.md",
+      "sha256": "0d0daac723006e8c45ebe60ee231e44f107ac2085133861fadd3351a041aaf88",
+      "current_sha256": "0d0daac723006e8c45ebe60ee231e44f107ac2085133861fadd3351a041aaf88",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/99_balance-sheet-survival-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/99_balance-sheet-survival-synthesis.md",
+      "sha256": "c0c3d06dd170b51387b33e5ca306aae8ad57919d8b2beb71a362c8769b22ee8b",
+      "current_sha256": "c0c3d06dd170b51387b33e5ca306aae8ad57919d8b2beb71a362c8769b22ee8b",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/02_maturity-wall-and-refinancing.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/02_maturity-wall-and-refinancing.md",
+      "sha256": "7ea7ffdd15f6221a8756dd8836612f7f087e7eea77392fad8ab5e63daababa3c",
+      "current_sha256": "7ea7ffdd15f6221a8756dd8836612f7f087e7eea77392fad8ab5e63daababa3c",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/00_solvency-data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/00_solvency-data-triage.md",
+      "sha256": "176c1c25ea4a915464adec8d19c6fc817dad6833caeb08a2d7c50cec12c27ad3",
+      "current_sha256": "176c1c25ea4a915464adec8d19c6fc817dad6833caeb08a2d7c50cec12c27ad3",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+      "reused_from": "analyses/AKAM_2026-09-14/balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+      "sha256": "7d312b1c3c44bd1aa68be9451beef4a58b6671d25b3cd62c945347c41a7f9271",
+      "current_sha256": "7d312b1c3c44bd1aa68be9451beef4a58b6671d25b3cd62c945347c41a7f9271",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/99_business-model-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/99_business-model-synthesis.md",
+      "sha256": "b2c36036a3e467ca40047f9ee68e2372e96d93bc99798e99bc60f0eafbc2860e",
+      "current_sha256": "b2c36036a3e467ca40047f9ee68e2372e96d93bc99798e99bc60f0eafbc2860e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/12_red-flags-sweep.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/12_red-flags-sweep.md",
+      "sha256": "8f956ce005624863e0b19b41aa997ff00c03e39a0274858297daf0c6f353c85e",
+      "current_sha256": "8f956ce005624863e0b19b41aa997ff00c03e39a0274858297daf0c6f353c85e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/business-model_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/business-model_dossier.md",
+      "sha256": "c3d3658bec40b2798c8f71ec29bb573d8afb9ab012a005420f3dccc31f5b0460",
+      "current_sha256": "c3d3658bec40b2798c8f71ec29bb573d8afb9ab012a005420f3dccc31f5b0460",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/10_external-dependency.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/10_external-dependency.md",
+      "sha256": "e8a6b47037045cacef9cfc912ad4af05c8dacbc8349cb1a05cc8070b5139b669",
+      "current_sha256": "e8a6b47037045cacef9cfc912ad4af05c8dacbc8349cb1a05cc8070b5139b669",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/business-model_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/business-model_memo.md",
+      "sha256": "2f4d49dbc1fa0878377f88db0c9c0d5f0e674bc88692ee9fb1c04e76ffb0aa0d",
+      "current_sha256": "2f4d49dbc1fa0878377f88db0c9c0d5f0e674bc88692ee9fb1c04e76ffb0aa0d",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/03_segment-map.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/03_segment-map.md",
+      "sha256": "eb847e050cd40038903f89157625b8f6034e9546ef8499d49d4dcafbd129faef",
+      "current_sha256": "eb847e050cd40038903f89157625b8f6034e9546ef8499d49d4dcafbd129faef",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/01_disqualifier-scan.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/01_disqualifier-scan.md",
+      "sha256": "e446c786927f59dbb9abf5ab69a73d3bb4091a5970202c3d30458883406fdf70",
+      "current_sha256": "e446c786927f59dbb9abf5ab69a73d3bb4091a5970202c3d30458883406fdf70",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/05_customer-geography.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/05_customer-geography.md",
+      "sha256": "f0113400f269de17c179eac4b035583d9036bc2ff24f1363c538a9499af800aa",
+      "current_sha256": "f0113400f269de17c179eac4b035583d9036bc2ff24f1363c538a9499af800aa",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/11_capital-allocation-governance.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/11_capital-allocation-governance.md",
+      "sha256": "2cffeedb2e4065caf41a8abcdfa6cc9aaf08ad7ebba55aa09c27375b2b16209b",
+      "current_sha256": "2cffeedb2e4065caf41a8abcdfa6cc9aaf08ad7ebba55aa09c27375b2b16209b",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/08_competitive-map.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/08_competitive-map.md",
+      "sha256": "81c64bf22d554e8adbbd63a928a0f7bb8f3886f0d830428672229c96f9154748",
+      "current_sha256": "81c64bf22d554e8adbbd63a928a0f7bb8f3886f0d830428672229c96f9154748",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/02_business-identity.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/02_business-identity.md",
+      "sha256": "8b4563cae66780a24678be858807e9ff62ac5c0eaf3a76dc7c553b42c4320770",
+      "current_sha256": "8b4563cae66780a24678be858807e9ff62ac5c0eaf3a76dc7c553b42c4320770",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/00_data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/00_data-triage.md",
+      "sha256": "7e1d6104403b735e39e3b6caf28073980f67a5e4a00f12efbfb5c5e8d322cdca",
+      "current_sha256": "7e1d6104403b735e39e3b6caf28073980f67a5e4a00f12efbfb5c5e8d322cdca",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/04_unit-economics.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/04_unit-economics.md",
+      "sha256": "a7ce7ec38f19d52fc314581dbf9062ec7a1cdfd35c53b63c8fb6e83c1ea9687d",
+      "current_sha256": "a7ce7ec38f19d52fc314581dbf9062ec7a1cdfd35c53b63c8fb6e83c1ea9687d",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/09_moat.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/09_moat.md",
+      "sha256": "1ae80b8543f3ef943c226459fc6e8081f63d9bea95856701983b422834b839ce",
+      "current_sha256": "1ae80b8543f3ef943c226459fc6e8081f63d9bea95856701983b422834b839ce",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/06_value-chain.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/06_value-chain.md",
+      "sha256": "7bc69f0e3549ff19f518b5ca59cb2642d0fe9f73bce3a0beda3d839253849407",
+      "current_sha256": "7bc69f0e3549ff19f518b5ca59cb2642d0fe9f73bce3a0beda3d839253849407",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "business-model/07_business-quality.md",
+      "reused_from": "analyses/AKAM_2026-09-14/business-model/07_business-quality.md",
+      "sha256": "70257bb257c5eea8557a3bb6080eaff75cfc633924aa174ab28797ba52b1948c",
+      "current_sha256": "70257bb257c5eea8557a3bb6080eaff75cfc633924aa174ab28797ba52b1948c",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "catalyst/catalyst_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/catalyst/catalyst_memo.md",
+      "sha256": "585d5c4a54a7c219fe9a634a3ecea01ed93ebace6f2cf380eadaaaa3ee1408c4",
+      "current_sha256": "585d5c4a54a7c219fe9a634a3ecea01ed93ebace6f2cf380eadaaaa3ee1408c4",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "catalyst/catalyst_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/catalyst/catalyst_dossier.md",
+      "sha256": "3e50bc0e5ebe217556049fb30f0d9aad6606ddc4af7626735bff1b638aadd3d2",
+      "current_sha256": "3e50bc0e5ebe217556049fb30f0d9aad6606ddc4af7626735bff1b638aadd3d2",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "catalyst/99_catalyst-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/catalyst/99_catalyst-synthesis.md",
+      "sha256": "572863a8d3ab80c115504453bf1f8e53954b81221fd85f99fb6a458998e2c4af",
+      "current_sha256": "572863a8d3ab80c115504453bf1f8e53954b81221fd85f99fb6a458998e2c4af",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "catalyst/01_catalyst-calendar.md",
+      "reused_from": "analyses/AKAM_2026-09-14/catalyst/01_catalyst-calendar.md",
+      "sha256": "b20855b18bfdb72041986b173bccd145571b5541e57583a4ab81723ca16a52d7",
+      "current_sha256": "b20855b18bfdb72041986b173bccd145571b5541e57583a4ab81723ca16a52d7",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "catalyst/00_catalyst-data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/catalyst/00_catalyst-data-triage.md",
+      "sha256": "52b8aa81b06febfd2d0ab2bc4656d7978c3a0a57f2b1b6953bc03ad41e00309f",
+      "current_sha256": "52b8aa81b06febfd2d0ab2bc4656d7978c3a0a57f2b1b6953bc03ad41e00309f",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/competitive-intel_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/competitive-intel_dossier.md",
+      "sha256": "72d611a3e845c769cad29e3123522c25bd37ba91d0344a31d5a73216ae4040ab",
+      "current_sha256": "72d611a3e845c769cad29e3123522c25bd37ba91d0344a31d5a73216ae4040ab",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/02_dimension-matrix.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/02_dimension-matrix.md",
+      "sha256": "db3ec68d5320790413c14e1c37068d866d9d5b7b947f2290a2d56c7e401c79cd",
+      "current_sha256": "db3ec68d5320790413c14e1c37068d866d9d5b7b947f2290a2d56c7e401c79cd",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/00_competitive-intel-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/00_competitive-intel-triage.md",
+      "sha256": "2547567e19f25e50323ef9d6afd17c0738d468803b96512cb77a59a23217056e",
+      "current_sha256": "2547567e19f25e50323ef9d6afd17c0738d468803b96512cb77a59a23217056e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/03_readthrough-to-subject.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/03_readthrough-to-subject.md",
+      "sha256": "b6a262a1851118e977a083d74e48c5e313a9017f821307b999507973f5890c9e",
+      "current_sha256": "b6a262a1851118e977a083d74e48c5e313a9017f821307b999507973f5890c9e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/01_peer-claim-extraction.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/01_peer-claim-extraction.md",
+      "sha256": "be67d229d3bfdb2aa29a5ad52f096aa726bed2e1587d6cabea24a485cbcd53d5",
+      "current_sha256": "be67d229d3bfdb2aa29a5ad52f096aa726bed2e1587d6cabea24a485cbcd53d5",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/competitive-intel_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/competitive-intel_memo.md",
+      "sha256": "618479c967eac1146c7a9cbba894c6f34d1978b2c11bda8c1af898a6491963e7",
+      "current_sha256": "618479c967eac1146c7a9cbba894c6f34d1978b2c11bda8c1af898a6491963e7",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/04_narrative-triangulation.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/04_narrative-triangulation.md",
+      "sha256": "47004e1dfa4e493eff02687da20ebece8a09e6aa8d8391e58f11c6474f4b910e",
+      "current_sha256": "47004e1dfa4e493eff02687da20ebece8a09e6aa8d8391e58f11c6474f4b910e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "competitive-intel/99_competitive-intel-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/competitive-intel/99_competitive-intel-synthesis.md",
+      "sha256": "00d5d4c8187aa31eba9134c03f10eab3d92505e117756e97c516752ab5b21508",
+      "current_sha256": "00d5d4c8187aa31eba9134c03f10eab3d92505e117756e97c516752ab5b21508",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/08_earnings-red-flags.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/08_earnings-red-flags.md",
+      "sha256": "086c04ae217dbe1341f0b8fba0b88a5146192d5708315a85bb752c4750bca3bd",
+      "current_sha256": "086c04ae217dbe1341f0b8fba0b88a5146192d5708315a85bb752c4750bca3bd",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/02_revenue-drivers.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/02_revenue-drivers.md",
+      "sha256": "193ef64cc621ba4270447afa2c1d161fc915163153ad882360dfca713883bd59",
+      "current_sha256": "193ef64cc621ba4270447afa2c1d161fc915163153ad882360dfca713883bd59",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/earnings_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/earnings_memo.md",
+      "sha256": "fbbb6be652f9f74535b6817886b36305ac582d4550e479d2172d0d3080e4cad7",
+      "current_sha256": "fbbb6be652f9f74535b6817886b36305ac582d4550e479d2172d0d3080e4cad7",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/01_historical-financials.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/01_historical-financials.md",
+      "sha256": "8c15395f30b9fbe638e7583188da047286e6f7173fda82339d053332361853f2",
+      "current_sha256": "8c15395f30b9fbe638e7583188da047286e6f7173fda82339d053332361853f2",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/06_earnings-quality.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/06_earnings-quality.md",
+      "sha256": "f8450b75e563661363b63e7d034ca5107094978fe878e1f11ded0816cc16d19b",
+      "current_sha256": "f8450b75e563661363b63e7d034ca5107094978fe878e1f11ded0816cc16d19b",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/05_beat-miss-setup.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/05_beat-miss-setup.md",
+      "sha256": "f5367bee29b3fc81828040e72019dd36342a3b72c79ea8e126b2cf0bd2179bbc",
+      "current_sha256": "f5367bee29b3fc81828040e72019dd36342a3b72c79ea8e126b2cf0bd2179bbc",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/07_earnings-sensitivity.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/07_earnings-sensitivity.md",
+      "sha256": "66e5f015562ee3d07cee6e543269d74a65e196973c1c2dcd2b43847ec8c606fc",
+      "current_sha256": "66e5f015562ee3d07cee6e543269d74a65e196973c1c2dcd2b43847ec8c606fc",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/99_earnings-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/99_earnings-synthesis.md",
+      "sha256": "dc0c607b0beb0bf0203f2ce71f67fb3792ca4da7f9dc86a6a60e1d44f99311e8",
+      "current_sha256": "dc0c607b0beb0bf0203f2ce71f67fb3792ca4da7f9dc86a6a60e1d44f99311e8",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/03_margin-drivers.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/03_margin-drivers.md",
+      "sha256": "a809e8b0b4bc05d492d2af484f9d816749adb619835cdcf287ef9fbd13c88614",
+      "current_sha256": "a809e8b0b4bc05d492d2af484f9d816749adb619835cdcf287ef9fbd13c88614",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/earnings_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/earnings_dossier.md",
+      "sha256": "3c70df41902f291b5a86aa2e38f6240171996a6f739a4ef9db0e1159428a0a4d",
+      "current_sha256": "3c70df41902f291b5a86aa2e38f6240171996a6f739a4ef9db0e1159428a0a4d",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/00_earnings-data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/00_earnings-data-triage.md",
+      "sha256": "3e917e9b4499e9752b0abbc07259f4bf07f00480bdff557a0f0d7a22fade93ac",
+      "current_sha256": "3e917e9b4499e9752b0abbc07259f4bf07f00480bdff557a0f0d7a22fade93ac",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "earnings/04_guidance-consensus.md",
+      "reused_from": "analyses/AKAM_2026-09-14/earnings/04_guidance-consensus.md",
+      "sha256": "742eb82f71ac38694733cf47e1ef2f5f9ff61faae9116d7f9ee33c95b16684f3",
+      "current_sha256": "742eb82f71ac38694733cf47e1ef2f5f9ff61faae9116d7f9ee33c95b16684f3",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/source_log.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/source_log.csv",
+      "sha256": "4475bb327b6cc6f3cc26263bfcc8a7feeadb7b0d729e83a5f479341d3c237886",
+      "current_sha256": "4475bb327b6cc6f3cc26263bfcc8a7feeadb7b0d729e83a5f479341d3c237886",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/governance_checklist.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/governance_checklist.csv",
+      "sha256": "79e7c7e22596fe313838b6d76e6a5b137e76f1e41b27474e09878830b9b5ab9f",
+      "current_sha256": "79e7c7e22596fe313838b6d76e6a5b137e76f1e41b27474e09878830b9b5ab9f",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/03_incentives-and-compensation.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/03_incentives-and-compensation.md",
+      "sha256": "484fa0bbc8d4e87fe83c7636d088f1359651258ab853141dcbde4b50d921df58",
+      "current_sha256": "484fa0bbc8d4e87fe83c7636d088f1359651258ab853141dcbde4b50d921df58",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/09_related-party-and-group-forensics.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/09_related-party-and-group-forensics.md",
+      "sha256": "dad746e875d9fdd3ecdad9635142248d4dc57ea9beec9b7c412b8c5ae011d43e",
+      "current_sha256": "dad746e875d9fdd3ecdad9635142248d4dc57ea9beec9b7c412b8c5ae011d43e",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/07_people-integrity-dossiers.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/07_people-integrity-dossiers.md",
+      "sha256": "b20ad5bce68f67019380667b22e979114c9c280ce370a6a02d2e2fc8328a72e9",
+      "current_sha256": "b20ad5bce68f67019380667b22e979114c9c280ce370a6a02d2e2fc8328a72e9",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/02_capital-allocation-scorecard.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/02_capital-allocation-scorecard.md",
+      "sha256": "5b9ecc58165ca7ce0e4c1d80d345c26288f6d1cb62fb4190a945a60e91c420d7",
+      "current_sha256": "5b9ecc58165ca7ce0e4c1d80d345c26288f6d1cb62fb4190a945a60e91c420d7",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/08_audit-and-assurance-quality.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/08_audit-and-assurance-quality.md",
+      "sha256": "622ba1fe183557922f331796cc71217fe9d7c9484a87105a107a880e4c42a25c",
+      "current_sha256": "622ba1fe183557922f331796cc71217fe9d7c9484a87105a107a880e4c42a25c",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/05_board-and-shareholder-rights.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/05_board-and-shareholder-rights.md",
+      "sha256": "047301594f04971e0850087c567138a68f4c28543227bb2fbe88569350f8093b",
+      "current_sha256": "047301594f04971e0850087c567138a68f4c28543227bb2fbe88569350f8093b",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/12_regulatory-legal-and-compliance.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/12_regulatory-legal-and-compliance.md",
+      "sha256": "e54047333048b417fd5b58054d39ce26ef54b000e4fc8c764f831509533247e1",
+      "current_sha256": "e54047333048b417fd5b58054d39ce26ef54b000e4fc8c764f831509533247e1",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/source_manifest.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/source_manifest.csv",
+      "sha256": "5830d59a656928e695fe0e8a5f21f80abc36d17bdcc718fb17567f80871be41a",
+      "current_sha256": "5830d59a656928e695fe0e8a5f21f80abc36d17bdcc718fb17567f80871be41a",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/00_governance-data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/00_governance-data-triage.md",
+      "sha256": "6a091906791cc6846cfc538093be780b78ba35e75e1921d9c826210e3d29de54",
+      "current_sha256": "6a091906791cc6846cfc538093be780b78ba35e75e1921d9c826210e3d29de54",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/red_flags.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/red_flags.csv",
+      "sha256": "44d2fdfdcf6a7907309cdf2e82d175789f901b4cf7d889cebc81d0282d941f75",
+      "current_sha256": "44d2fdfdcf6a7907309cdf2e82d175789f901b4cf7d889cebc81d0282d941f75",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/99_management-governance-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/99_management-governance-synthesis.md",
+      "sha256": "3fdb93476aa614cf79b372c70193ed408412eade8786b5c699b4a43b6a04e3bb",
+      "current_sha256": "3fdb93476aa614cf79b372c70193ed408412eade8786b5c699b4a43b6a04e3bb",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/06_candor-and-disclosure-quality.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/06_candor-and-disclosure-quality.md",
+      "sha256": "1860ac4fc5947414676f005455679e59c0a68f3eb8716e83ce6e15e9879089cc",
+      "current_sha256": "1860ac4fc5947414676f005455679e59c0a68f3eb8716e83ce6e15e9879089cc",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/management-governance_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/management-governance_dossier.md",
+      "sha256": "403c0c083212cd5ee16d3d6bfb0093a270fad7c7a78b3eacd8d2284dadebdb66",
+      "current_sha256": "403c0c083212cd5ee16d3d6bfb0093a270fad7c7a78b3eacd8d2284dadebdb66",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/people_register.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/people_register.csv",
+      "sha256": "9f500071cd6017b440611b0b89a087c8105bdd8d3b4327b014c534cb72461a6c",
+      "current_sha256": "9f500071cd6017b440611b0b89a087c8105bdd8d3b4327b014c534cb72461a6c",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/management-governance_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/management-governance_memo.md",
+      "sha256": "14695775e8c1f4c3da897968b5c4af16acc4a733cefd8c63d976dd5a321f0a61",
+      "current_sha256": "14695775e8c1f4c3da897968b5c4af16acc4a733cefd8c63d976dd5a321f0a61",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/governance_findings.csv",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/governance_findings.csv",
+      "sha256": "9848a045b1de0af0770c65be3a979adbbf24043271ef58616fe252c09f01257d",
+      "current_sha256": "9848a045b1de0af0770c65be3a979adbbf24043271ef58616fe252c09f01257d",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/10_contingent-liabilities-and-commitments.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/10_contingent-liabilities-and-commitments.md",
+      "sha256": "2ad1c3164e251c81666bd9b3852cbb5b4efb82f234889da86e1928ec6dd3c605",
+      "current_sha256": "2ad1c3164e251c81666bd9b3852cbb5b4efb82f234889da86e1928ec6dd3c605",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/governance_summary.json",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/governance_summary.json",
+      "sha256": "205a04b1bee91c450c58dcb0183c6dfe31ca6a838a06829cedc516342510e22a",
+      "current_sha256": "205a04b1bee91c450c58dcb0183c6dfe31ca6a838a06829cedc516342510e22a",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/01_management-and-track-record.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/01_management-and-track-record.md",
+      "sha256": "3b349b11ce983d2403c3ca22b30c15affcfb7e17ff5ac2d82686144f8f7f2231",
+      "current_sha256": "3b349b11ce983d2403c3ca22b30c15affcfb7e17ff5ac2d82686144f8f7f2231",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/04_ownership-and-insider-behavior.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/04_ownership-and-insider-behavior.md",
+      "sha256": "f089cf58c4b18c479d217e014c3ba9f6d6449000a1444d51baa40180aa9b83dd",
+      "current_sha256": "f089cf58c4b18c479d217e014c3ba9f6d6449000a1444d51baa40180aa9b83dd",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "management-governance/11_accounting-forensics.md",
+      "reused_from": "analyses/AKAM_2026-09-14/management-governance/11_accounting-forensics.md",
+      "sha256": "06144645f1bef9983e5fe5f7e19a823d873748d3df2a50b6c232bc5f39f1ab4f",
+      "current_sha256": "06144645f1bef9983e5fe5f7e19a823d873748d3df2a50b6c232bc5f39f1ab4f",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "valuation/06_sum-of-the-parts.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/06_sum-of-the-parts.md",
+      "sha256": "58b436e26ed447d367cbd4ae1aff940c2de930b3be7419e2f72425d3172ed177",
+      "current_sha256": "1b8d78f0ab6c7d2fbd81e5096a347d9c0482b637e22581991c53e1380e00bae9",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/05_reverse-dcf.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md",
+      "sha256": "5bcc65fb70f223a136466e86b24479bbe201838cbba25631861a876579f976a3",
+      "current_sha256": "3a442dee5c1befd436e6d8d9b95961e48c5495af5041d93655e998f26b48af38",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/07_scenario-and-fair-value.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/07_scenario-and-fair-value.md",
+      "sha256": "24d416d463e8ae807b604bc9f22ed2bdfee8c8986cae5a95123d7f235e39a99f",
+      "current_sha256": "0446d5997c8bc54b293d015c79464ae089d517cf32b3b130d482f888e1f41a58",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/03_relative-valuation-peers.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/03_relative-valuation-peers.md",
+      "sha256": "751bf8d61817f19b97ca1e76970847c993c0df1f802f9b758a7ce8e12e813bcd",
+      "current_sha256": "0947137c3bf422af0a0019677842985fdc1aef00625d7882e0a14a91d5ae7408",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/01_price-and-capital-structure.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/01_price-and-capital-structure.md",
+      "sha256": "4c1a78ec22e795f01e0e43fb93c5a5e9c5ddd7d15d7636b74b1ee8942bf61dfb",
+      "current_sha256": "1da5808a606c86e125dcf3865b9acaa9601c75bc04f1bca2c8295ed2dcb0b883",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/02_multiples-own-history.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/02_multiples-own-history.md",
+      "sha256": "71c62eed89eaedaef981212149317c83ae573d86788877db2bd1e6f73f525b34",
+      "current_sha256": "6525217b665dfd3d3b75132ffa1ae850941275059831ef23e9b54f3e5db978a4",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/04_intrinsic-dcf.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/04_intrinsic-dcf.md",
+      "sha256": "b630a4a6fde7ef1bfb3d3197e09ffcfa46c67610d073dda6a92b92532aa3cf22",
+      "current_sha256": "5beef89578d0267523192808f50855d4148820a2223f067880880d927f400e5c",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/valuation_memo.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/valuation_memo.md",
+      "sha256": "4a25a5bc8526a1189b976f63b53650231c574e5078a09e1f0073810bd836e835",
+      "current_sha256": "b841c12d00991d29edf4d64bcf5b01aefbbd2b87d8b01571936676c250d599ca",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/valuation_dossier.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/valuation_dossier.md",
+      "sha256": "8d5b89b5570cee18a9c12dce2a8009d5cf0b52736017e40b5cbdc2889526ba8c",
+      "current_sha256": "61a7bc79764066887a8e8ce103779d803c7dcd45738f688a952af04e3be5f940",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/99_valuation-synthesis.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/99_valuation-synthesis.md",
+      "sha256": "3b04c59b691bc9b12068e20d87c6889b1b67e48279769a38669fa9178ac64144",
+      "current_sha256": "b841c12d00991d29edf4d64bcf5b01aefbbd2b87d8b01571936676c250d599ca",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "valuation/00_valuation-data-triage.md",
+      "reused_from": "analyses/AKAM_2026-09-14/valuation/00_valuation-data-triage.md",
+      "sha256": "a77173c87ec5ac423b342b58b4a20d7f0f08b7ebca62cad1bf804cdc86ff3311",
+      "current_sha256": "610c07740ce20771156a3a06271ccc20ee57b3918a9ce3a78598047346df429d",
+      "disposition": "targeted correction or explicit historical-use annotation; original retained at reused_from"
+    },
+    {
+      "path": "intake/2026-09-14_intake_plan.json",
+      "reused_from": "analyses/AKAM_2026-09-14/intake/2026-09-14_intake_plan.json",
+      "sha256": "1b30a7e271c8c9e7a04adce250aa23aa1ed1a84344118d1d493407160b88a2f9",
+      "current_sha256": "1b30a7e271c8c9e7a04adce250aa23aa1ed1a84344118d1d493407160b88a2f9",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "intake/2026-09-14_intake_plan.md",
+      "reused_from": "analyses/AKAM_2026-09-14/intake/2026-09-14_intake_plan.md",
+      "sha256": "78fd1f8f995b52d66f90c717e6128108ce695671cff54848b1ee0c7bff2c7c91",
+      "current_sha256": "78fd1f8f995b52d66f90c717e6128108ce695671cff54848b1ee0c7bff2c7c91",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "intake/2026-09-14_intake_plan_v2.md",
+      "reused_from": "analyses/AKAM_2026-09-14/intake/2026-09-14_intake_plan_v2.md",
+      "sha256": "78fd1f8f995b52d66f90c717e6128108ce695671cff54848b1ee0c7bff2c7c91",
+      "current_sha256": "78fd1f8f995b52d66f90c717e6128108ce695671cff54848b1ee0c7bff2c7c91",
+      "disposition": "reused byte-identical"
+    },
+    {
+      "path": "intake/2026-09-14_intake_plan_v2.json",
+      "reused_from": "analyses/AKAM_2026-09-14/intake/2026-09-14_intake_plan_v2.json",
+      "sha256": "f19f7ff43d164713df2eb088792c37390de649248f440a51da29fab528b4a774",
+      "current_sha256": "f19f7ff43d164713df2eb088792c37390de649248f440a51da29fab528b4a774",
+      "disposition": "reused byte-identical"
+    }
+  ]
+}

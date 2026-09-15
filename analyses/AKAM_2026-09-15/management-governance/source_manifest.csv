@@ -1,0 +1,18 @@
+table,governance_need_or_source,best_available_source_or_period,period_or_as_of,confidence_1_to_5_or_age,missing_or_stale,replacement_source_or_impact
+source_coverage_matrix,Board composition,Form 10-K signatures — names only,2026-02-20,2,"Y — independence, committees, tenure and elections absent",FY2026 DEF 14A
+source_coverage_matrix,Compensation,Stock-plan documents only; no named-executive pay,FY2025 / January 2026 exhibits,1,Y,"FY2026 DEF 14A, CD&A and Summary Compensation Table"
+source_coverage_matrix,Ownership,None; CIQ ownership fields are missing,2026-09-14 frozen sidecar,1,Y,DEF 14A beneficial-ownership table; Schedule 13D/13G
+source_coverage_matrix,Insider trades,10b5-1 plan changes only,Q1/Q2 2026,2,Y — buys/sells and holdings absent,Form 4 export / CIQ insider-transactions export
+source_coverage_matrix,Related-party transactions,Item 13 proxy incorporation,FY2025,1,Y,"FY2026 DEF 14A, Certain Relationships and Related Transactions"
+source_coverage_matrix,Auditor report,PwC report; unqualified financial-statement and ICFR opinions,FY2025,5,N,N/A
+source_coverage_matrix,Secretarial / compliance report,Not applicable to US SEC issuer,FY2025,5,N/A,SEC compliance and 8-K history
+source_coverage_matrix,AGM voting,None,N/A,1,Y,FY2026 proxy and 8-K voting results
+source_coverage_matrix,Capital-allocation history,Audited 10-K plus latest 10-Q,FY2023–FY2025; H1 2026,5,N,N/A
+source_coverage_matrix,Legal / regulatory cases,Form 10-Q legal-proceedings disclosure; no independent database sweep,Q2 2026,4,Y — external sweep not yet performed,SEC/enforcement/court database sweep by 12
+data_freshness,FY2025 Form 10-K,FY ended 2025-12-31,Filed 2026-02-20,6.8 months since filing,No for audited history; incomplete for current proxy matters,"Supplies audit, three-year financial history, commitments and entity seed; cannot supply the proxy-incorporated fields"
+data_freshness,Q2 FY2026 Form 10-Q,Quarter ended 2026-06-30,2026-06-30,2.5 months from period end,No,"Latest filing for capital allocation, current officers' plan changes, legal proceedings, and LayerX acquisition"
+data_freshness,Q2 FY2026 earnings call,Q2 2026,2026-08-06,1.3 months,No,Current management commentary and named executive participants
+data_freshness,2026-09-09 Citi / Goldman conference transcripts,Company conference,2026-09-09,0.2 months,No,Fresh management commentary; not a substitute for proxy disclosure
+data_freshness,Capital IQ Financials workbook,LTM,2026-06-30,2.5 months from LTM end,No,Supporting financial and capital-structure history only
+data_freshness,Capital IQ Estimates workbook,FY2026 / FQ3 2026,Snapshot timestamp not supplied; current fields dated 2026-09-04 to 2026-09-07,≤0.3 months,No,Consensus enrichment only
+data_freshness,FY2026 proxy / ownership export,Required governance source,Not in pool,N/A,Missing,"Prevents a full incentive, ownership, board, RPT, voting, and auditor-fee assessment"

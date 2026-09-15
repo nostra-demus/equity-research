@@ -23,6 +23,8 @@ export function ViewToggle() {
   const webglOK = useStore((s) => s.webglOK)
   const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const metCount = useStore((s) => s.watchlistMetCount)
+  // Unread watchlist messages when the engine keeps them; an older engine counts conditions met instead.
+  const countsUnread = useStore((s) => typeof s.watchlist?.watch?.unread === 'number')
   const loadWatchlist = useStore((s) => s.loadWatchlist)
 
   // The badge is the whole point of showing a count here — it has to be right while you are looking at
@@ -65,10 +67,18 @@ export function ViewToggle() {
           onClick={() => setView(o.id)}
         >
           {o.label}
-          {/* How many conditions are met right now, so a fired trigger is visible from the other two
-              views rather than only once you go looking. Same badge the wire's refine control uses. */}
+          {/* Unread watchlist messages, so something that changed is visible from the other views rather
+              than only once you go looking (from an older engine: conditions met). Same badge the wire's
+              refine control uses. */}
           {o.id === 'watchlist' && metCount > 0 && (
-            <span className="evrefine__badge" title={`${metCount} watchlist ${metCount === 1 ? 'condition has' : 'conditions have'} been met`}>{metCount}</span>
+            <span
+              className="evrefine__badge"
+              title={countsUnread
+                ? `${metCount} unread watchlist ${metCount === 1 ? 'message' : 'messages'}`
+                : `${metCount} watchlist ${metCount === 1 ? 'condition has' : 'conditions have'} been met`}
+            >
+              {metCount}
+            </span>
           )}
         </button>
       ))}

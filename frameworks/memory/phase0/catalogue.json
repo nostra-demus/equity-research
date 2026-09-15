@@ -166,6 +166,12 @@
       "paths": [
         "analyses/*/RUN_METADATA.md",
         "analyses/*/agent_metrics.*.json",
+        "analyses/*/evidence_binding.json",
+        "analyses/*/maintenance_runtime_evidence.json",
+        "analyses/*/maintenance_lineage.json",
+        "analyses/*/valuation/treasury-2026-official-selected-rows.txt",
+        "analyses/*/valuation/damodaran-erp-official-selected-rows.txt",
+        "analyses/*/valuation/reproduce_model.py",
         "analyses/*/intake/*",
         "analyses/*/verification_report*.json",
         "analyses/*/pre_mortem*.json",
@@ -177,7 +183,7 @@
         "analyses/*/idea_3_6m.json",
         "analyses/*/.aborted"
       ],
-      "formats": ["json", "markdown", "marker"],
+      "formats": ["json", "markdown", "marker", "text", "python"],
       "observed_count": 225,
       "producer_ids": ["research-orchestrator", "master-synthesizer", "idea-admission-tools"],
       "reader_ids": ["completion-service", "evaluation-harness", "run-output-api", "ideas-service"],

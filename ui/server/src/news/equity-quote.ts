@@ -174,7 +174,7 @@ const EXCHANGE_COUNTRY: [string, string][] = [
   ['nasdaq', 'US'], ['nyse', 'US'], ['new york stock exchange', 'US'], ['cboe', 'US'], ['otc', 'US'], ['amex', 'US'], ['bats', 'US'],
   ['national stock exchange of india', 'IN'], ['bombay stock exchange', 'IN'], ['nse', 'IN'], ['bse', 'IN'], ['india', 'IN'],
   ['oslo', 'NO'], ['london', 'GB'], ['lse', 'GB'], ['aim', 'GB'],
-  ['tokyo', 'JP'], ['hong kong', 'HK'], ['hkex', 'HK'], ['sehk', 'HK'],
+  ['tokyo', 'JP'], ['shanghai', 'CN'], ['shse', 'CN'], ['shenzhen', 'CN'], ['szse', 'CN'], ['hong kong', 'HK'], ['hkex', 'HK'], ['sehk', 'HK'],
   ['xetra', 'DE'], ['frankfurt', 'DE'], ['deutsche', 'DE'], ['euronext paris', 'FR'], ['paris', 'FR'],
   ['euronext amsterdam', 'NL'], ['amsterdam', 'NL'], ['euronext brussels', 'BE'], ['brussels', 'BE'],
   ['euronext lisbon', 'PT'], ['lisbon', 'PT'], ['borsa italiana', 'IT'], ['milan', 'IT'],
@@ -213,6 +213,23 @@ export function countryFromExchange(exchange: string | null | undefined): string
     if (e.includes(frag) && (!best || frag.length > best.frag.length)) best = { frag, cc }
   }
   return best ? best.cc : null
+}
+
+/**
+ * A single recognized exchange identifies the listing's market, even when its currency is foreign.
+ * An explicit cross-listing description uses currency to disambiguate venues; otherwise the most specific
+ * exchange match wins (Nasdaq Helsinki is Finnish). Unknown venues may fall back to currency.
+ */
+export function listingCountry(exchange: string | null | undefined, currency: string | null | undefined): string | null {
+  const e = String(exchange ?? '').trim().toLowerCase()
+  const countries = new Set(EXCHANGE_COUNTRY.filter(([frag]) => e.includes(frag)).map(([, cc]) => cc))
+  const fromCurrency = CURRENCY_COUNTRY[normCurrency(currency)] ?? null
+  if (countries.size === 1) return [...countries][0]
+  if (countries.size > 1) {
+    const crossListed = /\b(?:also|dual|secondary|cross[ -]?listed)\b/.test(e)
+    return crossListed ? (fromCurrency && countries.has(fromCurrency) ? fromCurrency : null) : countryFromExchange(e)
+  }
+  return fromCurrency
 }
 
 /**

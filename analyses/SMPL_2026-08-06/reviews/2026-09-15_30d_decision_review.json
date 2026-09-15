@@ -1,0 +1,212 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "original_decision_date": "2026-08-06",
+  "review_date": "2026-09-15",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 11.33,
+  "tracking_price": null,
+  "review_price": 9.94,
+  "absolute_return_pct": -12.2683,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "SMPL's FQ4 FY2026 print (Oct-23-2026) lands within management's guided range ($322M-$332M net sales / $52M-$57M Adj. EBITDA)",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "SMPL-FCST-001"
+    },
+    {
+      "prediction": "A fourth consecutive-quarter goodwill/intangible impairment occurs in FQ4 FY2026 or FY2027",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "SMPL-FCST-002"
+    },
+    {
+      "prediction": "A third material (>$50M), debt-funded acquisition is announced before OWYN's 2-year post-impairment anniversary (mid-2028)",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "SMPL-FCST-003"
+    },
+    {
+      "prediction": "The September-2026 price increase's net effect (visible in the FQ1 FY2027 print) shows realized net revenue on the affected base within +/-1% of flat (elasticity near management's '1 or higher' fear, not clearly below it)",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "SMPL-FCST-004"
+    },
+    {
+      "prediction": "SMPL's stock price closes within the $13.76-$17.53 live-triangulating fair-value range (peers/DCF) within 12 months of this run",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "SMPL-FCST-005"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ4 FY2026 earnings + first formal FY2027 guide",
+      "status": "pending",
+      "evidence": "Original calendar window: Oct-23-2026 (proven, CIQ-derived, calendar-matched). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-06, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "High-single-digit list-price increase across most of the portfolio",
+      "status": "pending",
+      "evidence": "Original calendar window: September 2026 (proven trigger date; result unconfirmed). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-06, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "Next Annual General Meeting",
+      "status": "pending",
+      "evidence": "Original calendar window: ~Late Jan-2027 (Inference, not from filings). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-06, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "$400.0M Term Facility bullet maturity",
+      "status": "pending",
+      "evidence": "Original calendar window: Mar-17-2030 (background — outside 12-month window). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-06, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Serial-acquirer pattern; OWYN acquisition (~$280.2M, debt-funded, Jun-2024) 71% impaired within 24 months, incremental ROIC ~0% before the write-down",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Recurring 'one-off' non-GAAP add-backs; Adjusted EBITDA excludes a $391.9M impairment pattern recurring across 3 of the last 4 quarters; adjustments 56.3% of GAAP EBITDA in FY2025",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Turnaround claimed without >=2-3 years of delivered operating inflection; zero years proven",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Annual cash bonus (21-23% of target NEO pay) is 100% size-based, no ROIC/EPS/FCF-per-share/margin component",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "4 of 5 accrual-quality flags triggered — revenue outgrowing CFO, receivables/inventory outgrowing revenue/COGS, capitalized costs rising",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Three senior leadership changes (CEO, CFO's predecessor, Controller/CAO) in a single 12-month window, coincident with the largest-ever non-cash impairment",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Charter/bylaw stack denies shareholders the right to call a special meeting or act by written consent",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [SMPL_2026-08-06/decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "New acquisition-disclosure allegations in a plaintiffs' notice",
+      "status": "pending",
+      "evidence": "See E1. Complaint and court status still need verification; the notice does not prove misconduct.",
+      "as_of": "2026-09-15"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Review price 9.94 USD is the September 14 close, not the unfinished September 15 session. [Web: Stock Analysis Nasdaq SMPL historical close, 2026-09-14, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://stockanalysis.com/stocks/smpl/history/]",
+    "No matched benchmark/sector total-return series for the exact entry-to-review window was verified. Relative returns remain null; price change alone is not skill. The local data/_market feed was absent; the retrieved S&P 500 series excludes dividends and is not substituted for total return.",
+    "An allegation is a reason to obtain the court record, not a proven fraud finding.",
+    "Outcome facts dated after the original decision inform this review only; they are not evidence that the original analyst should have known the outcome.",
+    "On-track means unresolved/still playing out, not proven correct. Original provisional/evidence restrictions are not cleared by this review."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "The frozen module scores and verdict locks are retained; this checkpoint does not attribute the price move to a module.",
+    "most_accurate": "Not assessable from one short checkpoint.",
+    "missed_key_variable": "Not established from decision-time evidence.",
+    "process_assessment": "No hindsight regrading. Match original metric, period, evidence basis and trigger before scoring.",
+    "confidence_at_decision": "No retrospective numerical change. The original evidence restrictions remain binding; later disclosures do not establish what should have been known earlier."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist was not an entry instruction. The scheduled operating tests remain ahead. A plaintiffs' law-firm notice reports a securities class action; that is an allegation to verify, not proof of misconduct or a completed impairment test."
+  },
+  "confidence_update": {
+    "before": 30.0,
+    "after": null,
+    "change_reason": "Evidence supports a conditional action but not a newly calibrated numerical conviction score."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Q4 FY2026 results and pricing response",
+    "trigger": "Check the filed Q4 sales/adjusted EBITDA and impairment notes; then measure the September price increase in Q1 FY2027. The original October 23 results date is not newly confirmed."
+  },
+  "learning": {
+    "why_right_or_wrong": "Unresolved: The scheduled operating tests remain ahead. A plaintiffs' law-firm notice reports a securities class action; that is an allegation to verify, not proof of misconduct or a completed impairment test.",
+    "error_source": "",
+    "rule_for_future": "An allegation is a reason to obtain the court record, not a proven fraud finding.",
+    "future_research_check": "Recheck the docket, acquisition impairment notes and realized price elasticity before revisiting Watchlist."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/SMPL_2026-08-06/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The thesis is still playing out and the named killer risk has no resolved outcome; no credit or penalty is assigned."
+  },
+  "memo_delta": {
+    "summary": "The scheduled operating tests remain ahead. A plaintiffs' law-firm notice reports a securities class action; that is an allegation to verify, not proof of misconduct or a completed impairment test.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "SMPL remains a Watchlist review, with current action keep watching. The scheduled operating tests remain ahead. A plaintiffs' law-firm notice reports a securities class action; that is an allegation to verify, not proof of misconduct or a completed impairment test. The review keeps price movement separate from the operating thesis. It does not turn an uncompleted forecast or an unverified risk into a success. The original valuation and model have not been updated. Outstanding restrictions still need evidence before entry can be reconsidered. Check the filed Q4 sales/adjusted EBITDA and impairment notes; then measure the September price increase in Q1 FY2027. The original October 23 results date is not newly confirmed. This checkpoint supplies a dated comparison for the next analyst; it does not replace the frozen decision, assert a new target price, or authorize a trade. A matched benchmark series is still needed before judging relative performance.",
+    "changed_sections": [
+      {
+        "section": "Catalyst and governance evidence",
+        "original_claim": "The original catalyst chapter states that no litigation exists in the pool.",
+        "new_evidence": "The notice reports an October 13 lead-plaintiff application deadline and allegations concerning acquisition disclosures. A court finding was not established in this review.",
+        "evidence_source": "Web: Kahn Swick & Foti plaintiffs' notice via GlobeNewswire, 2026-09-02, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://www.globenewswire.com/news-release/2026/09/02/3354806/0/en/simply-good-foods-company-securities-fraud-class-action-result-of-undisclosed-acquisition-failures-and-over-27-stock-decline-investors-may-contact-lewis-kahn-esq-at-kahn-swick-foti.html",
+        "materiality_score": 60,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "management-governance"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "The original catalyst chapter had no litigation evidence. Obtain the complaint and case status before reassessing the acquisition-disclosure risk.",
+        "rerun_command": "/research:management-governance SMPL"
+      }
+    ],
+    "watch_items": [
+      "Check the filed Q4 sales/adjusted EBITDA and impairment notes; then measure the September price increase in Q1 FY2027. The original October 23 results date is not newly confirmed.",
+      "Verify the complaint and the reported October 13 lead-plaintiff deadline; allegations remain unproven.",
+      "Measure the September price increase in the next reported quarter; no outcome is established yet."
+    ],
+    "management_questions": [
+      "What does the filed complaint allege and what has the court decided?",
+      "Were any new impairment charges recorded?",
+      "What volume response followed the September price increase?"
+    ],
+    "memo_delta_file": "analyses/SMPL_2026-08-06/reviews/2026-09-15_30d_memo_delta.md"
+  },
+  "evidence_notes": [
+    {
+      "id": "E1",
+      "evidence": "The notice reports an October 13 lead-plaintiff application deadline and allegations concerning acquisition disclosures. A court finding was not established in this review. [Web: Kahn Swick & Foti plaintiffs' notice via GlobeNewswire, 2026-09-02, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://www.globenewswire.com/news-release/2026/09/02/3354806/0/en/simply-good-foods-company-securities-fraud-class-action-result-of-undisclosed-acquisition-failures-and-over-27-stock-decline-investors-may-contact-lewis-kahn-esq-at-kahn-swick-foti.html]"
+    }
+  ]
+}

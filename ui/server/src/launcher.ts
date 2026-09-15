@@ -52,6 +52,7 @@ import {
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
+import { nudgeWatchlistAfterRun } from './watch/hook'
 import type { PreSpendRetryAuthority, PreparedRunPlanTransaction } from './run-plan-transaction'
 import {
   createProviderSpawnGate,
@@ -1004,6 +1005,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   const finishClose = (status: RunStatus) => {
     finishRun(run, status)
     if (status === 'done') scheduleIbkrPaperAutoSyncAfterPublication(run)
+    // The watchlist re-reads the published calls itself; this only makes it look sooner.
+    if (status === 'done') nudgeWatchlistAfterRun({ runId: run.runId, ticker: run.ticker, kind: run.kind, swarmId: run.swarmId })
     // Clear the crash-recovery lease last. If the supervisor dies anywhere before the durable terminal
     // status/marker/publication above, startup still sees the lease and holds the root for recovery.
     if (!runProcessTreeAlive(run)) clearProviderProcessLease(run.runId)

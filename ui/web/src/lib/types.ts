@@ -2176,8 +2176,14 @@ export interface PortfolioPosition {
   unrealizedLocal: number | null
   fxRateToBase: number | null
   multiplier: number | null
-  /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
+  /** Held against margin — futures, CFDs, future-style options — so never weighted like equity. Its value is a
+   *  future's notional exposure or a future-style option's premium, not a NAV allocation. */
   isDerivative: boolean
+  /** The contract's terms where it has them: expiry, strike and right. Two contracts sharing a symbol differ
+   *  here. Optional for an engine that predates them (DESIGN.md §5). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 export interface PortfolioClosure {
   symbol: string | null
@@ -2203,6 +2209,72 @@ export interface PortfolioClosure {
   /** The closing execution this lot was matched against. One sell can consume several opening lots, so
    *  this is what groups the FIFO fragments back into the single trade the operator actually placed. */
   closeTradeID: string | null
+  /** A blank commission on either leg: realised counts it as zero. Optional, because an engine that
+   *  predates it sends nothing, and the screen then claims nothing either way (DESIGN.md §5). */
+  costsUnknown?: boolean
+  /** The contract's history is only partly covered, so FIFO may have matched the wrong opening lot and
+   *  realised is unproven. Optional for the same reason (DESIGN.md §5). */
+  partialHistory?: boolean
+  /** The contract the round trip was in: the engine's position key, one per contract however many share a
+   *  symbol. Optional for an engine that predates it, whose round trips then fold by symbol (DESIGN.md §5). */
+  key?: string
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
+}
+
+/** One broker execution — every buy and sell the statements carry, open positions included. The round
+ *  trips cannot list a buy that has not been sold, nor an add to a position still held. */
+export interface PortfolioExecution {
+  /** tradeID, else transactionID — the identity a closure carries as closeTradeID. */
+  id: string | null
+  /** Contract identity: one position per key, however many contracts share a symbol. */
+  key: string
+  symbol: string | null
+  /** The broker's asset category (STK, FUT, FSOPT…), which says what `value` measures. Optional for an engine
+   *  that predates it (DESIGN.md §5). */
+  assetCategory?: string | null
+  currency: string | null
+  executedAt: string | null
+  side: 'buy' | 'sell'
+  /** ABSOLUTE size; the direction is in `side`. */
+  quantity: number
+  price: number
+  multiplier: number
+  /** Commission plus taxes, negative as a cost. Null when the broker left it blank: unknown, not zero. */
+  commission: number | null
+  /** Signed position in the contract immediately before and after this fill. */
+  positionBefore: number
+  positionAfter: number
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** How much this fill opened, and how much of that is still open as of the last statement. */
+  openedQuantity: number
+  stillOpen: number
+  /** The part of a closing fill that had no open lot to close. */
+  unmatchedQuantity: number
+  /** Realised by the lots this fill closed, net of commission on both legs. Null when it closed nothing. */
+  realizedLocal: number | null
+  /** A blank commission on a leg this fill closed: realised counts that cost as zero. */
+  costsUnknown: boolean
+  /** A blank open/close flag made the engine infer the position this fill opened. */
+  inferred: boolean
+  /** Held against margin (futures, CFDs, future-style options): quantity × price × multiplier is not cash. */
+  isDerivative: boolean
+  /** What the fill was worth in its own currency: the broker's proceeds for a cash instrument; for a contract held
+   *  against margin, quantity × price × multiplier — a future's notional, a future-style option's premium. Null
+   *  when neither can be established (a bond with no proceeds is never guessed). */
+  value: number | null
+  /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
+  partialHistory: boolean
+  /** Whether the contract is held now, anchored to the broker's snapshot. Null means the available snapshot
+   *  quantity, split basis, or fill ordering cannot establish it; keep visible with a qualifier. Only an
+   *  absent field falls back to the rebuilt position for an older engine (DESIGN.md §5). */
+  openNow?: boolean | null
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 
 export interface PortfolioBook {
@@ -2213,8 +2285,12 @@ export interface PortfolioBook {
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: PortfolioPosition[]
-  /** Closed round trips, recovered by FIFO matching — the trade history. */
+  /** Closed round trips, recovered by FIFO matching — what each sale realised. */
   closures: PortfolioClosure[]
+  /** Every fill, oldest first: the trade history, open positions included. OPTIONAL on purpose
+   *  (DESIGN.md §5) — an engine that predates it sends nothing, and the screen must say so rather than
+   *  read the absence as "no trades". */
+  executions?: PortfolioExecution[]
   openLots: { symbol: string | null; quantity: number; price: number; openedAt: string | null }[]
   corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
@@ -3438,6 +3514,9 @@ export interface WatchRow {
   updated_at: string | null
   /** The engine's own call date, for a row you never touched. */
   engine_since: string | null
+  /** What the armed watchlist says about this name (server: watch/monitor.ts decorate). Absent from an older
+   *  engine and from the static showcase — the list then falls back to the row's own trigger state. */
+  watch?: WatchRowWatch
 }
 
 export interface WatchlistRead {
@@ -3447,6 +3526,115 @@ export interface WatchlistRead {
   unreadable: string[]
   quotes_enabled: boolean
   as_of: string
+  /** Present when the engine keeps watchlist messages; its unread count drives the pill's badge. */
+  watch?: { unread: number } | null
+}
+
+// ---- the armed watchlist (server: ui/server/src/watch/*.ts) ----
+
+/** The seven words the list uses, in priority order. */
+export type WatchStatusWord = 'warning' | 'buy_price_reached' | 'getting_close' | 'check_now' | 'coming_up' | 'cant_check' | 'waiting'
+
+/** Where a plan item came from: the research's own words (`quote`) or a structured field it stores (`field`). */
+export interface WatchPlanSource { file: string; quote: string | null; field: string | null }
+
+export type WatchPlanItem =
+  | { kind: 'price'; id: string; role: 'buy' | 'look_again' | 'fair' | 'bad_case'; low: number; high: number | null; currency: string; source: WatchPlanSource; note: string | null }
+  | { kind: 'date'; id: string; label: string; date: string | null; window: string | null; estimated?: boolean; what_to_check: string | null; source: WatchPlanSource }
+  | { kind: 'deal_breaker'; id: string; text: string; check_where: string | null; source: WatchPlanSource }
+  | { kind: 'waiting_for'; id: string; text: string; source: WatchPlanSource }
+  | { kind: 'news'; id: string; topic: string; source: WatchPlanSource }
+
+export interface WatchPlanView {
+  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
+  detail: string
+  run_root: string
+  decision: string | null
+  decision_date: string | null
+  items: WatchPlanItem[]
+  /** What the reader found but did not keep, and why — shown, never hidden. */
+  left_out: { what: string; why: string }[]
+  reader: { status: string; model: string | null; cost_usd: number; at: string | null; detail: string } | null
+}
+
+export interface WatchCondition {
+  id: string
+  type: string
+  /** A line was crossed. Only these are ever emailed — fixed by type on the server, never a judgement call. */
+  urgent: boolean
+  title: string
+  detail: string
+  quote: string | null
+  source: string | null
+  /** A passed date's tests to check by hand, apart from `detail` so the panel can fold them. Absent from an
+   *  older engine, whose `detail` carries them instead. */
+  checklist?: string[]
+}
+
+export interface WatchRowWatch {
+  status: WatchStatusWord
+  status_label: string
+  headline: string | null
+  conditions: WatchCondition[]
+  /** The nearest price the name is waiting for. `gap_pct` is signed: negative = the price must fall. */
+  next_line: { role: string; label: string; text: string; gap_pct: number | null } | null
+  /** `estimated`: the research only estimates this day ("~21-Oct-2026"). Absent from an older engine. */
+  next_date: { label: string; date: string; days_to: number; estimated?: boolean } | null
+  day_move_pct: number | null
+  market: { label: string; move_pct: number } | null
+  plan: WatchPlanView | null
+  email_paused: boolean
+  unread: number
+}
+
+export interface WatchMessageItem {
+  id: string
+  type: string
+  urgent: boolean
+  title: string
+  detail: string
+  quote: string | null
+  source: string | null
+  at: string
+  /** Set on the items of a summary, which covers several names. */
+  ticker?: string | null
+}
+
+export interface WatchMessage {
+  id: string
+  kind: 'name' | 'summary' | 'system'
+  listing_key: string | null
+  ticker: string | null
+  company_name: string | null
+  status: WatchStatusWord | null
+  title: string
+  urgent: boolean
+  items: WatchMessageItem[]
+  created_at: string
+  updated_at: string
+  read_at: string | null
+  read_by: string | null
+  deleted_at: string | null
+  feedback: { verdict: 'yes' | 'no'; note: string; at: string; by: string } | null
+  email: {
+    state: 'not_urgent' | 'pending' | 'sent' | 'failed' | 'off' | 'paused' | 'skipped'
+    sent_items: string[]
+    attempts: number
+    last_attempt_at: string | null
+    sent_at: string | null
+    detail: string
+  }
+}
+
+export interface WatchMessagesRead {
+  enabled: boolean
+  messages: WatchMessage[]
+  unread: number
+  feedback: { type: string; yes: number; no: number }[]
+  /** How many addresses — never the addresses themselves. */
+  email: { enabled: boolean; addresses: number; reason: string | null }
+  reading: { daily_limit_usd: number; spent_today_usd: number | null }
+  monitor: { last_tick_at: string | null; switched_on_at: string | null; summary_sent_at: string | null; last_error: string | null }
 }
 
 export interface WatchResolveCandidate {

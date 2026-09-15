@@ -30,28 +30,7 @@ PAPER_KW={"Selected":["paper long","small paper long","long"],"Watchlist":["no t
 SCHEMA_FILES={"decision_record.json","final_thesis.md","RUN_METADATA.md","verification_report.json","pre_mortem.json","expectations_gap.json","memo.md","audit_dossier.md"}
 # module roster for check R (rerun targets must be real modules) — self-discovered, never hardcoded (CLAUDE.md §26)
 ROSTER=set(os.path.basename(os.path.dirname(p)) for p in glob.glob(".claude/agents/*/99_*-synthesis.md"))
-# calibration summaries for check AG (Phase 6 calibration-feedback gate, DECISION_LEDGER.md §18) — repo-wide,
-# not per-run, so resolved once here rather than re-globbed per run.
-CALIB_SUMMARIES=sorted(glob.glob("analyses/performance/*_calibration_summary.json"))
-def _calib_summary_asof(decision_date):
-    """Latest calibration_summary.json dated on/before decision_date (a synthesizer can only act on
-    calibration history that existed when it ran), or None if none qualifies. Ties (same date, e.g. a
-    `_v2` correction) broken by filename so the versioned correction wins, matching the convention
-    /research:calibrate itself uses ("_v2 suffix if one already exists for today")."""
-    if not isdate(decision_date): return None
-    best=None; best_date=None
-    for p in CALIB_SUMMARIES:
-        m=re.match(r"(\d{4}-\d{2}-\d{2})_calibration_summary", os.path.basename(p))
-        if not m: continue
-        fdate=m.group(1)
-        if fdate>decision_date: continue
-        if best_date is None or fdate>best_date or (fdate==best_date and os.path.basename(p)>os.path.basename(best)):
-            best=p; best_date=fdate
-    if best is None: return None
-    try: return json.load(open(best))
-    except Exception: return None
-
-def isdate(s): 
+def isdate(s):
     try: datetime.date.fromisoformat(s); return True
     except: return False
 def isnum(v): return isinstance(v,(int,float)) and not isinstance(v,bool)  # bool is an int subclass — exclude it [review fix]
@@ -538,111 +517,19 @@ def eval_forecast_entry_completeness(entry):
         errs.append("missing or empty: evidence_today")
     return errs
 
-# ── Check AA (§18 module verdict-lock caps) — module-level so `eval.py selftest` can drive it ──
-# CLAUDE.md §18 mandates two hard verdict-lock caps that the master synthesizer's PROMPT states but
-# nothing mechanically verifies. Gap: when the balance-sheet-survival (BSS) module synthesis contains
-# "Distress risk", or the management-governance (MG) synthesis contains "Serious governance concerns",
-# the final decision must NOT be in HIGH_CONVICTION_DECISIONS — unless the BSS cap's §18 exception
-# applies (thesis_type includes "Balance-sheet survival"). The MG cap has no exception.
-# This check reads the committed synthesis files, extracts the first **Verdict:** line via regex,
-# and returns a list of violations (empty list = pass) or None (N/A).
-# Landing date: 2026-06-23 (forward-looking; pre-gate runs are N/A so the golden suite stays green).
-AA_DATE = "2026-06-23"
-BSS_CAP_VERDICT = "Distress risk"
-MG_CAP_VERDICT  = "Serious governance concerns"
-
-def eval_aa_module_verdict_lock(decision, decision_date, bss_verdict, mg_verdict, thesis_type):
-    """Core of check AA. Returns list of violations (empty=pass) or None (N/A).
-    bss_verdict: extracted Solvency Verdict string from BSS 99_*-synthesis.md, or None (absent).
-    mg_verdict:  extracted Stewardship Verdict string from MG 99_*-synthesis.md, or None (absent).
-    thesis_type: decision_record.thesis_type list (the §14 classification).
-    Side-effect-free + module-level so `eval.py selftest` can exercise it without run fixtures."""
-    if not (isdate(decision_date) and decision_date >= AA_DATE):
-        return None  # forward-looking; pre-gate runs are N/A
-    if bss_verdict is None and mg_verdict is None:
-        return None  # neither module synthesis present; N/A
-    violations = []
-    if bss_verdict and BSS_CAP_VERDICT in bss_verdict:
-        # §18: "A balance-sheet 'Distress risk' verdict caps the headline at Watchlist or lower,
-        # unless the thesis is an explicit distressed or special-situation play."
-        is_distress_play = isinstance(thesis_type, list) and "Balance-sheet survival" in thesis_type
-        if decision in HIGH_CONVICTION_DECISIONS and not is_distress_play:
-            violations.append(
-                f"BSS synthesis verdict contains '{BSS_CAP_VERDICT}' but decision={decision!r} "
-                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
-                f"(exception applies only when thesis_type includes 'Balance-sheet survival'; "
-                f"got {thesis_type!r})"
-            )
-    if mg_verdict and MG_CAP_VERDICT in mg_verdict:
-        # §18: "A governance hard disqualifier or critical flag caps the headline at Watchlist or lower."
-        # No exception: the governance cap applies regardless of thesis type.
-        if decision in HIGH_CONVICTION_DECISIONS:
-            violations.append(
-                f"MG synthesis verdict contains '{MG_CAP_VERDICT}' but decision={decision!r} "
-                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
-                f"(no exception: the governance cap applies regardless of thesis type)"
-            )
-    return violations
-
-def extract_synthesis_verdict(text):
-    """Pull the verdict category from a module 99_*-synthesis.md body. The synthesis renders it as
-    `- **Verdict:** <category>` — the colon is INSIDE the bold, and the value may itself be double-
-    bolded (e.g. `- **Verdict:** **Adequate**`). Returns the verdict text (surrounding markdown left
-    in place — callers substring-match the §18 category) or None. Module-level + pure so the selftest
-    drives the ACTUAL regex over real rendered lines (a helper-only test can't catch a regex bug)."""
-    if not isinstance(text, str):
-        return None
-    m = re.search(r'\*\*Verdict:?\*\*\s*:?\s*([^\n]+)', text)
-    return m.group(1).strip() if m else None
-
-# ── Check AB (§13 BM disqualifier verdict-lock) — module-level so `eval.py selftest` drives it ──
-# CLAUDE.md §13 hard rule: "a critical governance, solvency, accounting, fraud, or going-concern
-# red flag must cap the final rating." The disqualifier-scan (01_disqualifier-scan.md) checks 8
-# hard facts that — when triggered — lock the BM synthesis verdict to
-# "Low-quality business — avoid deeper work". Check AA covers BSS ("Distress risk") and MG
-# ("Serious governance concerns"); AB closes the gap by covering the BM disqualifier verdict-lock,
-# completing the module verdict-lock trilogy.
-#
-# No exception: unlike the BSS cap (which the distressed-play thesis_type can bypass), the BM
-# disqualifier cap has no exception — a disqualified company cannot receive conviction in any
-# direction. The disqualifier identifies companies where data quality or fraud/going-concern risk is
-# severe enough that the analysis base is unreliable; conviction in either direction must not ship.
-# This matches the MG cap treatment (no exception, consistent with HIGH_CONVICTION_DECISIONS logic).
-#
-# Landing date: 2026-06-24 (forward-looking; pre-gate golden fixtures predate → N/A → suite green).
-AB_DATE = "2026-06-24"
-BM_CAP_VERDICT = "Low-quality business"
-
-def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
-    """Core of check AB. Returns list of violations (empty=pass) or None (N/A).
-    bm_verdict: extracted Business-model Verdict string from BM 99_*-synthesis.md, or None (absent).
-    Side-effect-free + module-level so `eval.py selftest` exercises it without run fixtures."""
-    if not (isdate(decision_date) and decision_date >= AB_DATE):
-        return None  # forward-looking; pre-gate runs are N/A
-    if bm_verdict is None:
-        return None  # BM module did not run; cap cannot fire — N/A
-    violations = []
-    if BM_CAP_VERDICT in bm_verdict:
-        # Disqualifier-scan verdict-lock fired: BM synthesis says "Low-quality business".
-        # CLAUDE.md §13 caps conviction — no thesis-type exception (contrast BSS cap §18).
-        if decision in HIGH_CONVICTION_DECISIONS:
-            violations.append(
-                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier-scan verdict-lock) "
-                f"but decision={decision!r} is a conviction rating — a disqualified business must "
-                f"not receive a conviction rating; CLAUDE.md §13 caps at Watchlist or lower "
-                f"regardless of thesis type (disqualifier-scan: 'Low-quality business — avoid "
-                f"deeper work')"
-            )
-    return violations
-
-# ── Checks AC/AD/AE/AF (§24 rejector-filter conviction caps: Filters 2, 4+6, 5, 1) ─────────────
+# ── Checks AA/AB (§18/§13 module verdict-lock caps) and AC/AD/AE/AF (§24 rejector-filter
+# conviction caps: Filters 2, 4+6, 5, 1) ─────────────────────────────────────────────────────
 # Detection logic extracted to scripts/rating_caps.py (importable, side-effect-free) so the SAME
 # functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
-# not only when someone remembers to run this eval harness afterward. See rating_caps.py's module
-# docstring for the full doctrine rationale and the EMAAR_2026-07-03 case that motivated this.
+# not only when someone remembers to run this eval harness afterward. AA/AB were the last two
+# rejector/verdict-lock-family checks still defined only here (never movable into the live gate);
+# see rating_caps.py's module docstring for the full doctrine rationale and the EMAAR_2026-07-03
+# case that motivated this pattern for AC/AD/AE/AF.
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # rating_caps.py is the single source of the detection logic, imported by both callers.
 from rating_caps import (
+    AA_DATE, BSS_CAP_VERDICT, MG_CAP_VERDICT, eval_aa_module_verdict_lock, extract_synthesis_verdict,
+    AB_DATE, BM_CAP_VERDICT, eval_ab_bm_verdict_lock, extract_bm_disqualifier_triggered,
     AC_DATE, TURNAROUND_TYPE, ABOVE_STARTER_AC, eval_ac_turnaround_cap,
     AD_DATE, CAP4_TAG, CAP6_TAG, eval_ad_filter_4_6_cap,
     _tag_fired_standalone,
@@ -654,248 +541,18 @@ from rating_caps import (
     BE_DATE, REV_DECOMP_TAG, MARGIN_BRIDGE_TAG, BE_RECONCILE_TOLERANCE, eval_be_driver_attribution_residual,
 )
 
-AG_DATE = "2026-07-06"
-AG_FTYPE_DATE = "2026-07-23"  # forecast-type extension: scripts/calibrate.py has computed
-    # calibration_by_forecast_type since Phase 4, but the Phase-6 gate (DECISION_LEDGER.md §18,
-    # synthesizer.md step 4C) only ever consumed calibration_by_module — a forecast-type-level
-    # miscalibration (e.g. every module's "catalyst_or_estimate_revision" calls are overconfident)
-    # could never trigger the haircut. Gated by its own date so runs before the fix are not held to
-    # a schema field (flagged_forecast_types) that did not exist when they shipped.
-AG_TTYPE_DATE = "2026-07-27"  # thesis-type extension: scripts/calibrate.py now computes
-    # calibration_by_thesis_type (multi-label, per CLAUDE.md §14/§24 Filter 2), but until now nothing
-    # read it back — a thesis-type-level miscalibration (e.g. every "Governance turnaround" call the
-    # engine has made is overconfident) could never trigger the haircut, so §24 Filter 2's "turnaround
-    # base-rate penalty" only ever drew on a generic external base rate, never the engine's own record.
-    # Gated by its own date so runs before the fix are not held to a schema field
-    # (flagged_thesis_types) that did not exist when they shipped.
-AG_ERRTAX_DATE = "2026-07-29"  # error-taxonomy extension: scripts/calibrate.py has computed
-    # error_taxonomy_distribution (CLAUDE.md §20 flat tally of why past calls went wrong) since Phase 4,
-    # but it was read back only in the human-facing /research:calibrate narration (calibrate.md step 3:
-    # "the leading tag(s) if any count >= 2") — never by a gate that changes behavior on a LIVE run. This
-    # is a different shape of gap than the module/forecast-type/thesis-type slices above: those match a
-    # SLICE VALUE that appears in the current run; error taxonomy has no such per-run dimension — it is a
-    # standing "the engine's own #1 historical mistake is X" fact. The fix: for every leading category
-    # (count >= 2, the same threshold calibrate.md's own narration already uses), the synthesizer must
-    # name concrete evidence THIS run produced to guard against that exact failure mode recurring, or
-    # admit it has none — either way, proof the check ran, never a silent skip. Reuses the identical
-    # fixed 8-point non-additive haircut as a 4th trigger (no new magnitude invented — DECISION_LEDGER.md
-    # §18 already warns against a second, uncontrolled rating-cap mechanism). Gated by its own date so
-    # runs before the fix are not held to schema fields (leading_error_categories_flagged,
-    # error_defense_evidence) that did not exist when they shipped.
-AG_STATUSES = {"not_available","pre_data","checked_no_action","applied"}
-def _ag_leading_error_categories(calibration_summary):
-    """Categories in the as-of summary's error_taxonomy_distribution with count >= 2 — the same
-    threshold calibrate.md's own human-facing narration already uses ("leading tag(s) if any count >= 2").
-    Sorted for a deterministic violation message. Non-dict/non-numeric entries are ignored, never crash."""
-    dist = (calibration_summary or {}).get("error_taxonomy_distribution")
-    if not isinstance(dist, dict): return []
-    return sorted(cat for cat, n in dist.items() if isinstance(cat, str) and isnum(n) and n >= 2)
-def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None):
-    """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
-    did not silently skip reading back its own prior calibration data — the loop Phase 4 (/research:
-    calibrate) opened but nothing consumed until now. Returns None (N/A — pre-gate) or a list of
-    violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest can
-    drive it without real analyses/performance/ fixtures.
-    decision_date: the run's decision_date.
-    calibration_summary: the parsed as-of calibration_summary.json dict (see _calib_summary_asof), or
-    None if no qualifying file exists.
-    calibration_feedback: decision_record.json's "calibration_feedback" value, or None/missing.
-    This is a presence/consistency check, not a re-derivation of Brier scores or hit rates — eval.py
-    cannot re-run the synthesizer's judgment call on which module (or forecast type, on/after
-    AG_FTYPE_DATE; thesis type, on/after AG_TTYPE_DATE; or leading error-taxonomy category, on/after
-    AG_ERRTAX_DATE) is "flagged"; it can only verify the gate ran, recorded a valid status, and that
-    status matches what the as-of summary's own verdict implies was possible (not_available / pre_data /
-    checked-or-applied), and — once AG_FTYPE_DATE / AG_TTYPE_DATE / AG_ERRTAX_DATE apply — that an
-    "applied" haircut is traceable to at least one flagged module, forecast type, thesis type, or leading
-    error-taxonomy category, not left unexplained. For the error-taxonomy trigger it additionally checks
-    that every leading category (count >= 2) has a recorded, non-trivial defense statement in
-    error_defense_evidence — it cannot judge whether that statement is TRUE, only that one was written."""
-    if not (isdate(decision_date) and decision_date >= AG_DATE):
-        return None  # forward-looking; pre-gate runs N/A
-    verdict = (calibration_summary or {}).get("verdict") or ""
-    ftype_gate = isdate(decision_date) and decision_date >= AG_FTYPE_DATE
-    ttype_gate = isdate(decision_date) and decision_date >= AG_TTYPE_DATE
-    errtax_gate = isdate(decision_date) and decision_date >= AG_ERRTAX_DATE
-    # error_taxonomy_distribution is a flat, always-honest tally computed at ANY N (calibrate.md §3's own
-    # narration: "never gated by the floor") — unlike the module/forecast-type/thesis-type slices, a
-    # Pre-data verdict (the SLICE sample below its own floor) does not excuse skipping the error-taxonomy
-    # check. lec is computed here, before `expected`, so a Pre-data run that already has an actionable
-    # leading category is still required to run (and can still apply) the error-taxonomy check instead of
-    # being waved through as status='pre_data' (Codex r3671892072 — P1: the gate must not stay inactive
-    # during the exact early-data period calibrate.md designed this trigger to cover).
-    lec = _ag_leading_error_categories(calibration_summary) if errtax_gate else []
-    if calibration_summary is None:
-        expected = "not_available"
-    elif verdict.startswith("Pre-data") and not lec:
-        expected = "pre_data"
-    else:
-        expected = "checked"  # covers checked_no_action / applied — eval.py can't judge which is correct
-    if not isinstance(calibration_feedback, dict):
-        return [f"as-of calibration_summary={'present (verdict='+repr(verdict)+')' if calibration_summary is not None else 'absent'} "
-                f"but decision_record.json has no calibration_feedback object — the Phase 6 calibration-"
-                f"feedback gate (DECISION_LEDGER.md §18) was silently skipped"]
-    violations=[]
-    status = calibration_feedback.get("status")
-    if status not in AG_STATUSES:
-        violations.append(f"calibration_feedback.status={status!r} is not one of {sorted(AG_STATUSES)}")
-    elif expected=="not_available" and status!="not_available":
-        violations.append(f"no as-of calibration_summary.json exists (decision_date={decision_date}) but status={status!r} (expected 'not_available')")
-    elif expected=="pre_data" and status!="pre_data":
-        violations.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
-    elif expected=="checked" and status not in ("checked_no_action","applied"):
-        violations.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
-    if status=="applied":
-        hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
-        fft=calibration_feedback.get("flagged_forecast_types")
-        ftt=calibration_feedback.get("flagged_thesis_types")
-        lecf=calibration_feedback.get("leading_error_categories_flagged")
-        if not (isnum(hp) and hp==8):
-            violations.append(f"status='applied' but haircut_points={hp!r} is not the fixed 8-point constant "
-                              f"(DECISION_LEDGER.md §18: 'the fixed constant (8)' — a single, bounded, non-additive haircut)")
-        if ftype_gate or ttype_gate or errtax_gate:
-            mf_ok=isinstance(mf,list) and len(mf)>0
-            fft_ok=isinstance(fft,list) and len(fft)>0
-            ftt_ok=ttype_gate and isinstance(ftt,list) and len(ftt)>0
-            # A flagged category is only a traceable trigger if it names one the as-of summary's OWN
-            # error_taxonomy_distribution is actually leading (count >= 2) right now — flagging an
-            # unrelated or stale category must not grant a free pass (Codex r3671892091 — P2). Filtering
-            # to str entries first also means a malformed (non-string/unhashable) entry can never satisfy
-            # traceability, rather than crashing the gate (see the set()-crash fix below).
-            lecf_str=[x for x in lecf if isinstance(x,str)] if isinstance(lecf,list) else []
-            lecf_ok=errtax_gate and any(x in lec for x in lecf_str)
-            if not (mf_ok or fft_ok or ftt_ok or lecf_ok):
-                violations.append(f"status='applied' but none of modules_flagged={mf!r}, "
-                                   f"flagged_forecast_types={fft!r}"
-                                   + (f", flagged_thesis_types={ftt!r}" if ttype_gate else "")
-                                   + (f", leading_error_categories_flagged={lecf!r}" if errtax_gate else "")
-                                   + " is a non-empty list — the haircut must be traceable to at least "
-                                   "one flagged module, forecast type, thesis type, or leading error-taxonomy category")
-        elif not (isinstance(mf,list) and len(mf)>0):
-            violations.append(f"status='applied' but modules_flagged={mf!r} is empty/not a list")
-    if status=="checked_no_action":
-        mf=calibration_feedback.get("modules_flagged")
-        fft=calibration_feedback.get("flagged_forecast_types")
-        ftt=calibration_feedback.get("flagged_thesis_types")
-        lecf=calibration_feedback.get("leading_error_categories_flagged")
-        if isinstance(mf,list) and len(mf)>0:
-            violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
-        if ftype_gate and isinstance(fft,list) and len(fft)>0:
-            violations.append(f"status='checked_no_action' but flagged_forecast_types={fft!r} is non-empty")
-        if ttype_gate:
-            # PRESENCE, not just emptiness (Codex r3644... on this PR): DECISION_LEDGER.md §18's own
-            # regression paragraph promises that on/after AG_TTYPE_DATE a "checked_no_action" record
-            # "must carry an empty flagged_thesis_types" — an ABSENT field would otherwise pass
-            # identically to a present-and-empty one, so a synthesizer that never ran the thesis-type
-            # slice would be indistinguishable from one that ran it and found nothing. That is exactly
-            # the silent-skip this gate exists to prevent (the same reason status itself distinguishes
-            # 'checked_no_action' from a missing object). The synthesizer already emits the key
-            # unconditionally (`"flagged_thesis_types": []` in both schema blocks), so requiring it is
-            # the spec, not a new burden — and the date gate keeps every historical record untouched.
-            if not isinstance(ftt, list):
-                violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is missing/not a list "
-                                  f"— on/after {AG_TTYPE_DATE} the thesis-type slice must prove it ran by recording an "
-                                  f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
-            elif len(ftt)>0:
-                violations.append(f"status='checked_no_action' but flagged_thesis_types={ftt!r} is non-empty")
-        if errtax_gate:
-            # Same PRESENCE reasoning as the thesis-type block above, applied to the 4th trigger.
-            if not isinstance(lecf, list):
-                violations.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is missing/not a list "
-                                  f"— on/after {AG_ERRTAX_DATE} the error-taxonomy slice must prove it ran by recording an "
-                                  f"empty list (§18: a clean check must be distinguishable from a silently skipped one)")
-            elif len(lecf)>0:
-                violations.append(f"status='checked_no_action' but leading_error_categories_flagged={lecf!r} is non-empty")
-    if errtax_gate:
-        # Standalone structural validation of leading_error_categories_flagged, independent of status —
-        # runs whenever the field is present as a list at all, so it also catches malformed values inside
-        # 'applied' (checked_no_action already forces it empty above, so these are effectively no-ops there).
-        lecf_all = calibration_feedback.get("leading_error_categories_flagged")
-        if isinstance(lecf_all, list):
-            non_str = [x for x in lecf_all if not isinstance(x, str)]
-            if non_str:
-                # A malformed (non-string/unhashable) entry — e.g. a nested dict — must be reported, never
-                # crash the gate (Codex r3671892083 — P2: set(lecf) on an unhashable entry raised
-                # TypeError and aborted the ENTIRE eval run across every committed record).
-                violations.append(f"leading_error_categories_flagged contains non-string entr{'y' if len(non_str)==1 else 'ies'} "
-                                  f"{non_str!r} — every flagged category must be a string naming an "
-                                  f"error_taxonomy_distribution key")
-            bogus = [x for x in lecf_all if isinstance(x, str) and x not in lec]
-            if bogus:
-                # A flagged category that is not (or no longer) among the as-of summary's OWN leading
-                # categories must not be accepted as a real trigger (Codex r3671892091 — P2).
-                violations.append(f"leading_error_categories_flagged includes {bogus!r} which "
-                                  f"{'is' if len(bogus)==1 else 'are'} not among the as-of summary's actual "
-                                  f"leading categories {lec!r} (count >= 2) — a flagged category must be one "
-                                  f"currently leading, not an unrelated or stale one")
-    if errtax_gate and status in ("checked_no_action","applied"):
-        # The defense-evidence object is REQUIRED whenever the error-taxonomy gate applies — even when no
-        # category is currently leading (lec empty) — not only when `lec` is truthy (Gemini r3671874640 /
-        # Codex r3671892095 — P2: the old `and lec` guard let a missing/malformed object slip through
-        # undetected on a clean run, indistinguishable from a synthesizer that never wired the check at
-        # all — the same PRESENCE reasoning as the thesis-type/error-taxonomy list checks above). For
-        # every category the as-of summary's OWN error_taxonomy_distribution flags as leading (count >= 2),
-        # the synthesizer must have recorded a concrete, non-trivial defense — or the literal admission it
-        # has none, which is exactly what should have put that category in leading_error_categories_flagged.
-        # This cannot verify the defense is TRUE (that is a semantic judgment eval.py does not make, same
-        # limit as every other slice above); it can only verify one was written at all, and that a
-        # "flagged" category isn't simultaneously claiming a real defense (or vice versa).
-        ede = calibration_feedback.get("error_defense_evidence")
-        lecf = calibration_feedback.get("leading_error_categories_flagged")
-        flagged_set = set(x for x in lecf if isinstance(x, str)) if isinstance(lecf, list) else set()
-        if not isinstance(ede, dict):
-            violations.append(f"on/after {AG_ERRTAX_DATE} calibration_feedback.error_defense_evidence={ede!r} is "
-                              f"missing/not an object — every run must record a defense-evidence object (empty "
-                              f"'{{}}' when no category is currently leading) to prove the error-taxonomy slice "
-                              f"ran (§18)")
-        elif lec:
-            for cat in lec:
-                val = ede.get(cat)
-                val_s = val.strip().lower() if isinstance(val, str) else None
-                admits_none = (val_s == "no defense evidence found")
-                if cat in flagged_set:
-                    if not admits_none:
-                        violations.append(f"leading_error_categories_flagged includes {cat!r} but "
-                                          f"error_defense_evidence[{cat!r}]={val!r} is not the literal "
-                                          f"'no defense evidence found' — a flagged category must admit it has "
-                                          f"no defense, not carry a contradicting claim of one")
-                else:
-                    if val is None:
-                        violations.append(f"leading error-taxonomy category {cat!r} (count >= 2) has no entry in "
-                                          f"error_defense_evidence and is not in leading_error_categories_flagged — "
-                                          f"the check must be provably run on every leading category")
-                    elif admits_none:
-                        violations.append(f"error_defense_evidence[{cat!r}]='no defense evidence found' but {cat!r} "
-                                          f"is not in leading_error_categories_flagged — an admitted-no-defense "
-                                          f"category must be flagged, not silently passed")
-                    elif not (isinstance(val, str) and len(val.strip()) >= 20):
-                        violations.append(f"error_defense_evidence[{cat!r}]={val!r} is not a concrete, non-trivial "
-                                          f"defense statement (>= 20 chars) — a vague or empty entry is "
-                                          f"indistinguishable from no defense and must be flagged instead")
-    # Cross-record consistency (Codex r3635961178): the §18 haircut recorded in calibration_feedback must
-    # equal the value the confidence scorer actually consumed (confidence_inputs.calibration_haircut) —
-    # else an "applied" haircut is cosmetic (recorded but never subtracted from conviction by
-    # scripts/confidence.py), the exact "measured but never acted on" dead-end §18 exists to close. This is
-    # mechanical numeric equality against a doctrinal constant (applied ⇒ 8, else ⇒ 0; DECISION_LEDGER.md
-    # §18 line 699 + confidence.py ConfidenceInputs.calibration_haircut "8.0 if status=='applied', else 0"),
-    # NOT a re-derivation of which slice is flagged, so it stays inside this gate's stated remit. Only fires
-    # when confidence_inputs carries a numeric calibration_haircut (present for runs >= 2026-07-11 per §18);
-    # runs that omit confidence_inputs are left untouched (backward-compatible, forward-looking).
-    ci = confidence_inputs if isinstance(confidence_inputs, dict) else {}
-    ch = ci.get("calibration_haircut")
-    if status == "applied" and ci:
-        # An applied §18 haircut MUST be the numeric 8 the scorer consumes. Omitting the key or setting it
-        # null does NOT get a pass here: confidence.py then defaults it to 0, so conviction is scored UNCUT
-        # and the recorded haircut is never actually subtracted — the exact "measured but never acted on"
-        # dead-end §18 exists to close. Only enforced when a confidence_inputs object is present (runs that
-        # omit it entirely stay backward-compatible).
-        if not (isnum(ch) and ch == 8):
-            violations.append(f"status='applied' (haircut_points={calibration_feedback.get('haircut_points')!r}) but "
-                              f"confidence_inputs.calibration_haircut={ch!r} is not the numeric 8 the scorer must consume "
-                              f"— an omitted/null value leaves conviction uncut, so the recorded §18 haircut was never applied")
-    elif status in ("checked_no_action","pre_data","not_available") and isnum(ch) and ch != 0:
-        violations.append(f"status={status!r} applies no §18 haircut but confidence_inputs.calibration_haircut="
-                          f"{ch!r} != 0 — the scorer cut conviction for a haircut the gate did not record")
-    return violations  # empty list = pass
+# ── Check AG (§18 Phase 6 calibration-feedback gate) ─────────────────────────────────────────────
+# Detection logic extracted to scripts/calibration_gate_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See calibration_gate_checks.py's
+# module docstring for the full doctrine rationale.
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# calibration_gate_checks.py is the single source of the detection logic, imported by both callers.
+from calibration_gate_checks import (
+    CALIB_SUMMARIES, _calib_summary_asof,
+    AG_DATE, AG_FTYPE_DATE, AG_TTYPE_DATE, AG_ERRTAX_DATE, AG_STATUSES,
+    _ag_leading_error_categories, eval_ag_calibration_feedback_gate,
+)
 
 # ── Check AH (expectations-gap ship-time audit: existence + independent §7 edge consistency) ──
 # CLAUDE.md §7 bans "fake variant perception": a conviction rating (confidence_score > 60) must rest on
@@ -1651,11 +1308,14 @@ if scope=="selftest":
         ("Strong Buy","not-a-date","Distress risk",None,["Company-specific"],"na"),
         # both modules absent: N/A (neither ran, so neither cap can fire)
         ("Strong Buy","2026-06-23",None,None,["Company-specific"],"na"),
-        # BSS "Distress risk" + conviction decision → fail
+        # BSS "Distress risk" + conviction LONG above Watchlist → fail
         ("Strong Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
         ("Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
         ("Starter Position Only","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
-        ("Short Candidate","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        # Short Candidate intentionally NOT capped: §18's "Watchlist or lower" is directional and a
+        # Short ranks BELOW Watchlist; a forensic short on a distressed name is valid (cf. synthesizer.md
+        # governance verdict-lock + sibling checks AC/AE/AF/AQ, all of which exempt a forensic short).
+        ("Short Candidate","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
         # BSS "Distress risk" substring in a longer verdict string → fail (substring match)
         ("Buy","2026-06-23","Stretched / Distress risk",None,["Company-specific"],"fail"),
         # BSS "Distress risk" + distress-play exception → pass
@@ -1664,10 +1324,15 @@ if scope=="selftest":
         # BSS "Distress risk" + non-conviction decision → pass (below the Watchlist ceiling)
         ("Watchlist","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
         ("Avoid","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
-        # MG "Serious governance concerns" + conviction decision → fail
+        # MG "Serious governance concerns" + conviction LONG above Watchlist → fail
         ("Strong Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
         ("Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
-        ("Short Candidate","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        ("Starter Position Only","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        # Short Candidate intentionally NOT capped: synthesizer.md's governance verdict-lock says in as
+        # many words that "a forensic short built on the same evidence remains a valid 'Short Candidate'
+        # — the lock guards conviction longs". A Short is below Watchlist, so §18's "Watchlist or lower"
+        # is already satisfied (the exact bug that previously flagged a valid forensic governance short).
+        ("Short Candidate","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
         # MG "Serious governance concerns" + non-conviction decision → pass
         ("Watchlist","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
         ("Avoid","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
@@ -1689,8 +1354,12 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AA({dec_!r},{dt_!r},{bss_!r},{mg_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aabad
     # check AA EXTRACTOR — drive the ACTUAL verdict regex over real rendered lines. The aacases above
-    # pass pre-parsed strings and so CANNOT catch a regex bug; these lock the `- **Verdict:** <cat>`
-    # rendering contract (colon INSIDE the bold; value optionally double-bolded) the synthesis emits.
+    # pass pre-parsed strings and so CANNOT catch a regex bug; these lock the THREE verdict renderings
+    # real committed syntheses emit: `- **Verdict:** <cat>` (colon inside bold, value outside),
+    # `- **Verdict: <cat>**` (colon AND value inside one bold span), and `- **Verdict**: <cat>` (colon
+    # outside). The fully-bolded form is NOT hypothetical — 35+ committed syntheses use it, incl. the
+    # two real cap-triggering lines pinned below; missing it reads as "absent" → N/A → a silently
+    # skipped §18/§13 cap on exactly the runs that need it.
     EV=extract_synthesis_verdict
     evcases=[  # (markdown, expected substring in result, or None for "no verdict extracted")
         ("- **Verdict:** Distress risk", "Distress risk"),
@@ -1700,9 +1369,24 @@ if scope=="selftest":
         ("- **Verdict:** **Aligned & competent** (watch flag)", "Aligned & competent"),
         ("## 1. Solvency Verdict\n\n- **Verdict:** Distress risk\n- Net leverage 5x", "Distress risk"),
         ("- **Verdict**: Standard / mixed", "Standard / mixed"),  # tolerate colon OUTSIDE the bold too
+        # fully-bolded form `- **Verdict: <cat>**` — verbatim from committed artifacts
+        # (analyses/INDIAMART_2026-08-22 MG, analyses/DHER_2026-08-12 BM). MUST still extract the
+        # cap-triggering category, or the live gate silently skips the cap (regression for PR#688 review).
+        ("- **Verdict: Serious governance concerns** (gate-forced floor; closer to \"Standard / mixed\")", "Serious governance concerns"),
+        ("- **Verdict: Low-quality business — avoid deeper work** (disqualifier-lock, per `01_disqualifier-scan.md`)", "Low-quality business"),
+        ("- **Verdict: Mixed earnings setup**", "Mixed earnings setup"),
         ("## 6. What Would Change The Solvency Verdict?", None),  # a header is NOT the bolded verdict line
+        ("- **Verdict:**\n- Net leverage 5x", None),  # bare label, value on the NEXT line → absent (not a stray '*')
         ("no verdict here at all", None),
         (None, None),  # non-string input → None, no crash
+        # boundary fix (P2 review, PR#688): a bolded phrase that merely STARTS with "Verdict" must
+        # not hijack the match — verbatim from a committed BSS dossier's Reconciliation table, which
+        # sits BEFORE the real verdict line would in a hypothetical reordered document; re.search
+        # finds the FIRST match, so an unguarded label here would mask or fabricate the §18 category.
+        ("**Verdict-level tension (the real one)** | `02`, `03` and `06` all reach the bridge tenor", None),
+        # the real verdict line still extracts correctly when a "Verdict-..." false lead precedes it
+        ("**Verdict-level tension (the real one)** | some finding\n\n- **Verdict:** Distress risk",
+         "Distress risk"),
     ]
     evbad=0
     for txt_,exp in evcases:
@@ -1714,40 +1398,73 @@ if scope=="selftest":
     # check AB — BM disqualifier verdict-lock. Every committed fixture predates AB_DATE → N/A in
     # the main loop; drive all branches here: disqualifier BM verdict + conviction → fail;
     # non-conviction → pass; absent BM module (None) → N/A; pre-gate → N/A; clean verdict → pass.
+    # bm_disq drives the P2-review fix: the verdict CATEGORY text alone ("Low-quality business") is
+    # NOT proof the §13 disqualifier-scan lock fired — the BM template lists that category as one of
+    # five ordinary picks an analyst may choose on business-quality grounds, paired with its own
+    # `Disqualifier triggered: Y/N` field. AB fires unless that field reads confirmed False (N);
+    # True or None (unparseable/absent — conservative default per CLAUDE.md §4) still cap.
     AB=eval_ab_bm_verdict_lock
-    abcases=[  # (decision, decision_date, bm_verdict, expect: "na"|"pass"|"fail")
+    abcases=[  # (decision, decision_date, bm_verdict, bm_disq, expect: "na"|"pass"|"fail")
         # pre-gate: always N/A regardless of verdict
-        ("Strong Buy","2026-06-23","Low-quality business — avoid deeper work","na"),
-        ("Strong Buy","not-a-date","Low-quality business","na"),
+        ("Strong Buy","2026-06-23","Low-quality business — avoid deeper work",True,"na"),
+        ("Strong Buy","not-a-date","Low-quality business",True,"na"),
         # BM module absent (did not run in this analysis): N/A — cap cannot fire
-        ("Strong Buy","2026-06-24",None,"na"),
-        ("Watchlist","2026-06-24",None,"na"),
-        # "Low-quality business" + conviction decision → fail (no exception for any thesis type)
-        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Starter Position Only","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Short Candidate","2026-06-24","Low-quality business — avoid deeper work","fail"),  # no exception
+        ("Strong Buy","2026-06-24",None,None,"na"),
+        ("Watchlist","2026-06-24",None,None,"na"),
+        # "Low-quality business" + disqualifier confirmed Y + conviction decision → fail (no exception)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Buy","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Starter Position Only","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Short Candidate","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),  # no exception
         # substring match inside a longer or markdown-decorated verdict string
-        ("Buy","2026-06-24","**Low-quality business** — avoid deeper work","fail"),
-        ("Strong Buy","2026-06-24","Verdict: Low-quality business. Disqualifier: promoter pledge.","fail"),
-        # "Low-quality business" + non-conviction decision → pass
-        ("Watchlist","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Avoid","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Insufficient Data — Refuse To Rate","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Pair Trade / Hedge Required","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        ("Buy","2026-06-24","**Low-quality business** — avoid deeper work",True,"fail"),
+        ("Strong Buy","2026-06-24","Verdict: Low-quality business. Disqualifier: promoter pledge.",True,"fail"),
+        # disqualifier field UNPARSEABLE/ABSENT (None) — conservative default still caps (P2 fix:
+        # the old code capped on the verdict text alone; the new code must still cap here, since the
+        # field being missing is not proof of "no disqualifier" — only a confirmed N disproves it)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",None,"fail"),
+        # disqualifier field CONFIRMED N — analyst picked "Low-quality business" on ordinary
+        # business-quality grounds, no disqualifier-scan lock fired → AB must NOT cap (P2 fix: this
+        # is the exact false-positive the review flagged against the old text-only substring check)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",False,"pass"),
+        ("Buy","2026-06-24","Low-quality business — avoid deeper work",False,"pass"),
+        # "Low-quality business" + non-conviction decision → pass regardless of the disqualifier flag
+        ("Watchlist","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Avoid","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Insufficient Data — Refuse To Rate","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Pair Trade / Hedge Required","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
         # clean BM verdict + conviction → pass (no "Low-quality business" substring)
-        ("Strong Buy","2026-06-24","High-quality franchise — proceed","pass"),
-        ("Buy","2026-06-24","Cyclical business — worth deeper work only with timing edge","pass"),
-        ("Strong Buy","2026-06-24","","pass"),  # empty verdict → no substring match → pass
+        ("Strong Buy","2026-06-24","High-quality franchise — proceed",False,"pass"),
+        ("Buy","2026-06-24","Cyclical business — worth deeper work only with timing edge",False,"pass"),
+        ("Strong Buy","2026-06-24","",None,"pass"),  # empty verdict → no substring match → pass
     ]
     abbad=0
-    for dec_,dt_,bm_,exp in abcases:
-        raw=AB(dec_,dt_,bm_)
+    for dec_,dt_,bm_,disq_,exp in abcases:
+        raw=AB(dec_,dt_,bm_,disq_)
         got="na" if raw is None else ("pass" if not raw else "fail"); ok=(got==exp)
         if not ok: abbad+=1
         bm_r=(bm_[:40]+"…" if isinstance(bm_,str) and len(bm_)>40 else bm_)
-        print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+        print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r},{disq_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=abbad
+    # check AB EXTRACTOR — drive the ACTUAL disqualifier-flag regex over real rendered lines (the
+    # abcases above pass pre-parsed booleans and so cannot catch a regex bug in
+    # extract_bm_disqualifier_triggered itself).
+    EBD=extract_bm_disqualifier_triggered
+    ebdcases=[  # (markdown, expected)
+        ("- Disqualifier triggered: Y", True),
+        ("- Disqualifier triggered: N", False),
+        ("- **Disqualifier triggered:** N", False),
+        ("- Disqualifier triggered: **Y** — #1, auditor going-concern note", True),
+        ("no disqualifier field here", None),
+        (None, None),  # non-string input → None, no crash
+    ]
+    ebdbad=0
+    for txt_,exp in ebdcases:
+        got=EBD(txt_)
+        ok=(got is exp)
+        if not ok: ebdbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] EBD({(txt_ or '')[:42]!r}) -> {got!r}"+("" if ok else f"  EXPECTED {exp!r}"))
+    bad+=ebdbad
     # check AC — §24 Filter 2 turnaround conviction cap. All golden fixtures predate AC_DATE
     # → always N/A in the main loop; drive every branch here.
     AC=eval_ac_turnaround_cap
@@ -4511,11 +4228,14 @@ for drp in runs:
     #   synthesizer's PROMPT — this check closes the gap by reading the committed module synthesis files
     #   and FAILing when a capping verdict coexists with a conviction decision that §18 forbids.
     if isdate(ddte) and ddte>=AA_DATE:
-        def _read_synthesis_verdict(mod_dir):
+        def _read_synthesis_text(mod_dir):
             ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
             if not ss: return None
-            try: txt=open(ss[0],encoding="utf-8").read()
+            try: return open(ss[0],encoding="utf-8").read()
             except: return None
+        def _read_synthesis_verdict(mod_dir):
+            txt=_read_synthesis_text(mod_dir)
+            if txt is None: return None
             return extract_synthesis_verdict(txt)
         bss_v=_read_synthesis_verdict("balance-sheet-survival")
         mg_v =_read_synthesis_verdict("management-governance")
@@ -4539,16 +4259,22 @@ for drp in runs:
     #   can bypass), this cap has no exception — a disqualified company cannot receive conviction
     #   in any direction; the analysis base is unreliable and deeper work must come first.
     #   Since AB_DATE > AA_DATE, any run where ddte >= AB_DATE has already entered the AA block
-    #   above, so _read_synthesis_verdict() is defined and accessible here.
+    #   above, so _read_synthesis_verdict()/_read_synthesis_text() are defined and accessible here.
+    #   The verdict CATEGORY text alone does not prove the disqualifier-scan lock actually fired —
+    #   see extract_bm_disqualifier_triggered — so the explicit Y/N field is read from the same file
+    #   and passed alongside the verdict text; AB stands down only on a confirmed N.
     if isdate(ddte) and ddte>=AB_DATE:
         bm_v=_read_synthesis_verdict("business-model")
-        abresult=eval_ab_bm_verdict_lock(dec,ddte,bm_v)
+        bm_txt=_read_synthesis_text("business-model")
+        bm_disq=extract_bm_disqualifier_triggered(bm_txt) if bm_txt is not None else None
+        abresult=eval_ab_bm_verdict_lock(dec,ddte,bm_v,bm_disq)
         if abresult is None:
             add("AB_bm_disqualifier_lock",True,
-                f"BM verdict={bm_v!r}; BM module absent — N/A",na=True)
+                f"BM verdict={bm_v!r}; disqualifier flag={bm_disq!r}; BM module absent — N/A",na=True)
         elif not abresult:
             add("AB_bm_disqualifier_lock",True,
-                f"BM verdict={bm_v!r}; decision={dec!r} — BM disqualifier cap satisfied")
+                f"BM verdict={bm_v!r}; disqualifier flag={bm_disq!r}; decision={dec!r} — "
+                f"BM disqualifier cap satisfied")
         else:
             add("AB_bm_disqualifier_lock",False,"; ".join(abresult))
     else:

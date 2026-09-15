@@ -1,0 +1,541 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "run_root": "analyses/AKAM_2026-09-15",
+  "final_thesis_path": "analyses/AKAM_2026-09-15/final_thesis.md",
+  "decision_record_path": "analyses/AKAM_2026-09-15/decision_record.json",
+  "final_thesis_sha256": "4d1d3cfc91be8d04270408042ffc7419a3b2d81458d2a83e8be3d8458a95f32d",
+  "decision_record_sha256": "1f275f9a25fb1eaf88f185d01b54f90c42e3394e5135831d067f070e0570c490",
+  "verified_at": "2026-09-15T15:45:20.129268+00:00",
+  "verifier": "verify-evidence",
+  "claims_checked": 21,
+  "claim_checks": [
+    {
+      "claim": "AKAM price $106.79 and current shares 143.7m, as of 2026-09-14",
+      "citation": "Company Comparable Analysis Akamai Technologies Inc.xls, Financial Data, AKAM subject row, 2026-09-14",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Company-Comparable-Analysis-Akamai-Technologies-Inc__Financial-Data.txt",
+      "status": "verified",
+      "evidence": "comps:106.79: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; comps:143.7: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | Same issuer row and date. Current observed shares are distinguished from the quarterly weighted economic valuation proxy. The rounded current-share multiplication is $15,345.723m; the vendor unrounded-share market capitalization $15,347.5m is not silently substituted.",
+      "severity": "info"
+    },
+    {
+      "claim": "Carrying debt $7,562.828m, principal $7,640.000m, cash $1,480.257m; strict net debt $6,082.571m",
+      "citation": "Q2 2026 Form 10-Q, balance sheet pp.3–4 and Note 7 pp.17–20",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "q2:7,562,828: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; q2:7,640,000: corpus hit_count=1, scaled_hit_count=4, cited-source hit_count=1; q2:1,480,257: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; q2:77,172: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | Literal filing primitives are USD thousands. Divide by 1,000 deliberately: 7,640.000−77.172=7,562.828; subtract cash to obtain strict net debt 6,082.571. Principal-based strict net debt is 6,159.743. No investments are netted into either strict figure. Net-debt totals are recomputed values, not purported literal filing lines.",
+      "severity": "info"
+    },
+    {
+      "claim": "Economic working diluted shares 148.333m = 153.686m GAAP diluted less 5.353m note-related shares",
+      "citation": "Q2 2026 Form 10-Q, Note 13 p.25 and MD&A p.39 footnote (1) and following paragraph",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "q2:153,686: corpus hit_count=9, scaled_hit_count=0, cited-source hit_count=3; q2:5,353: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=2; q2:148,333: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=1; q2:144,660: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=2; q2:3,673: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | Filing table uses thousands of shares. 144.660+3.673+5.353=153.686; the non-GAAP bridge explicitly removes 5.353 for note hedges and displays 148.333. The current corrected run labels 148.333 as a Q2 weighted working proxy, retains note principal as debt, and does not claim this is the current point-in-time dilution count.",
+      "severity": "info"
+    },
+    {
+      "claim": "Note principal remains a cash claim; hedges offset conversion premiums; sold warrants must be tested separately",
+      "citation": "Q2 2026 Form 10-Q, Note 7, pp.18–20",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "verified",
+      "evidence": "q2:155.02: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; q2:178.74: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; q2:180.44: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; q2:247.35: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; q2:282.68: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; q2:18,546: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=2; q2:9,898: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=2; q2:10,015: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=2; q2:8,689: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=2; q2:9,171: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=2 | Read principal cash-settlement paragraph, hedge terms and sold-warrant table. Warrant counts in thousands correspond to 18.546/9.898/10.015/8.689/9.171m. All four corrected case prices remain below the lowest $155.02 strike, so intrinsic warrant claims are zero. This does not establish zero option time value or remove the disclosed quarterly-average award limitation.",
+      "severity": "info"
+    },
+    {
+      "claim": "GAAP-derived LTM EBITDA $1,184.094m, separate from vendor EBITDA $1,079.898m",
+      "citation": "FY2025 Form 10-K consolidated income/cash-flow statements pp.54–58; Q2 2026 Form 10-Q income and cash-flow statements pp.5–8; AKAM Financials.xls, Income Statement, LTM Jun-30-2026",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Income-Statement.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-2025.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "fy25:566,944: corpus hit_count=10, scaled_hit_count=2, cited-source hit_count=2; fy25:708,611: corpus hit_count=6, scaled_hit_count=1, cited-source hit_count=2; q2:306,044: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=2; q2:349,483: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=2; q2:194,778: corpus hit_count=8, scaled_hit_count=0, cited-source hit_count=2; q2:369,288: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=2; ciq_income:1079.898: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=1 | EBITDA is explicitly derived as operating income plus D&A: (566.944+708.611)−(306.044+349.483)+(194.778+369.288)=1,184.094. It is not represented as a literal GAAP EBITDA line. Exact vendor LTM EBITDA is 1,079.898 (rounded 1,079.9). Basis difference is visible throughout the active bridge.",
+      "severity": "info"
+    },
+    {
+      "claim": "LTM strict FCF $629.879m; historical FY2023 $618.399m and FY2025 $699.265m",
+      "citation": "FY2025 Form 10-K cash-flow statement; Q2 2026 Form 10-Q cash-flow statement; earnings/99 synthesis §cash conversion",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-2025.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "fy25:1,518,765: corpus hit_count=6, scaled_hit_count=0, cited-source hit_count=2; fy25:507,786: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=1; fy25:311,714: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=1; fy25:1,348,439: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=2; fy25:457,909: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; fy25:272,131: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; q2:638,774: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=2; q2:710,349: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; q2:246,613: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; q2:263,312: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; q2:170,987: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; q2:156,477: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | USD-thousand primitives converted to millions. LTM CFO=1,518.765−710.349+638.774=1,447.190. LTM total cash capex=819.500−419.789+417.600=817.311. Strict FCF=CFO−PP&E purchases−capitalized internal software=629.879. FY2023=1,348.439−457.909−272.131=618.399; FY2025=1,518.765−507.786−311.714=699.265. CFO already includes interest; enterprise-model use is transparently a conditional proxy, not fully unlevered FCFF.",
+      "severity": "info"
+    },
+    {
+      "claim": "Vendor cash conversion improves while vendor return on capital and margins decline",
+      "citation": "AKAM Financials.xls, Cash Flow/Income Statement/Ratios, FY2021 and LTM Jun-30-2026",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Cash-Flow.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Income-Statement.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Ratios.txt",
+      "status": "inference-labeled",
+      "evidence": "ciq_cash:1447.19: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_cash:1404.563: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=1; ciq_income:1193.668: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_income:1079.898: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=1; ciq_ratios:0.027028: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_ratios:0.069986: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_ratios:0.633379: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_ratios:0.574523: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=1 | 1,404.563/1,193.668=117.668% and 1,447.190/1,079.898=134.012% use vendor EBITDA. Ratios cells are decimal fractions: return on capital 6.9986%→2.7028%, gross margin 63.3379%→57.4523%. Rounded 7.0→2.7 and 63.3→57.5 are consistent. Master now names the contrary cash-conversion metric and uses the correct vendor denominator.",
+      "severity": "info"
+    },
+    {
+      "claim": "Vendor levered FCF $710.1m differs from strict CFO-minus-total-capex $629.879m",
+      "citation": "AKAM Financials.xls, Cash Flow, LTM Jun-30-2026",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Cash-Flow.txt",
+      "status": "inference-labeled",
+      "evidence": "ciq_cash:710.060125: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | Raw vendor value 710.060125 rounds to710.1. Its row says Levered Free Cash Flow; it is not the strict cash-flow definition. This is a labelled method difference, not an anchor conflict.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 Security and CIS growth offer real evidence against a uniformly deteriorating business",
+      "citation": "Q2 2026 Form 10-Q, MD&A revenue table pp.34–35; Q2 2026 earnings-call prepared remarks",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026-Earnings-Call-Aug-06-2026.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "q2:1,099,682: corpus hit_count=27, scaled_hit_count=1, cited-source hit_count=6; q2:604,436: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=2; q2:99,319: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=2; q2:395,927: corpus hit_count=5, scaled_hit_count=0, cited-source hit_count=2; q2call:39: corpus hit_count=66, scaled_hit_count=5, cited-source hit_count=1; q2call:10: corpus hit_count=531, scaled_hit_count=142, cited-source hit_count=5 | Revenue categories in USD thousands add exactly:604,436+99,319+395,927=1,099,682. The dated source describes Security +10%, CIS +39%, Delivery −6%. Revenue-category strength is not segment EBIT or cash profitability; the correction preserves that distinction and the lack of category-profit evidence.",
+      "severity": "info"
+    },
+    {
+      "claim": "Approximately $2.8bn signed multiyear CIS commitments are an upside catalyst, not booked current revenue",
+      "citation": "Q2 2026 earnings call, Aug-06-2026, CEO/CFO prepared remarks",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026-Earnings-Call-Aug-06-2026.txt",
+      "status": "verified",
+      "evidence": "q2call:2.8: corpus hit_count=22, scaled_hit_count=5, cited-source hit_count=2 | Two literal 2.8 hits occur in the customer-contract discussion. Contracts and capacity ramp provide a credible false-negative path; they do not establish timing of profitable cash collection or the model growth forecast.",
+      "severity": "info"
+    },
+    {
+      "claim": "SBC and acquisition spending support a conservative capital-allocation read",
+      "citation": "FY2025 Form 10-K cash flows; Q2 2026 Form 10-Q cash flows/Note 6; AKAM Financials.xls Cash Flow FY2021–FY2025",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc-NasdaqGS-AKAM-Financials__Cash-Flow.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-2025.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-Q2-2026.txt",
+      "status": "inference-labeled",
+      "evidence": "fy25:459,402: corpus hit_count=18, scaled_hit_count=1, cited-source hit_count=6; fy25:452,031: corpus hit_count=21, scaled_hit_count=12, cited-source hit_count=9; q2:274,971: corpus hit_count=16, scaled_hit_count=0, cited-source hit_count=6; q2:615,744: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; q2:205.0: corpus hit_count=10, scaled_hit_count=3, cited-source hit_count=1; ciq_cash:-598.8: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_cash:-872.1: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_cash:-106.2: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_cash:-434.1: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; ciq_cash:-55.1: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=1 | FY2025 SBC459.402 exceeds GAAP net income452.031; H1 SBC274.971 and cash buybacks615.744 are USDm after /1,000. Vendor net acquisition cash uses 598.8+872.1+106.2+434.1+55.1=2,066.3m, plus disclosed LayerX205.0m after quarter-end. Cash spending is not itself proof all deals destroyed value; the scorecard absence and cap remain judgments.",
+      "severity": "info"
+    },
+    {
+      "claim": "Lease gross commitment $2,331.0m is itemized and is not an additional undrawn-debt total",
+      "citation": "FY2025 Form 10-K, Liquidity and Capital Resources and Note 12 lease schedules",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/Akamai-Technologies-Inc.-2025.txt",
+      "status": "inference-labeled",
+      "evidence": "fy25:1,865.9: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1; fy25:278: corpus hit_count=15, scaled_hit_count=1, cited-source hit_count=4; fy25:187.1: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; fy25:164.7: corpus hit_count=2, scaled_hit_count=0, cited-source hit_count=1; fy25:566.5: corpus hit_count=1, scaled_hit_count=0, cited-source hit_count=1 | 1,865.9 existing commitments+278.0 uncommenced leases+187.1 final data-center tranche=2,331.0. Future sublease inflows164.7+566.5=731.2 are separate offsets, not guaranteed net debt reductions. 731.2 is derived, not a literal source hit. The active thesis states recognized lease liabilities overlap the commitment schedules and avoids adding the gross figure again to strict financial debt.",
+      "severity": "info"
+    },
+    {
+      "claim": "Treasury risk-free rates 4.83% on Sep-09 and4.97% on Sep-14; Jan2026 Damodaran FCFE implied ERP4.23%",
+      "citation": "US Treasury official 2026 daily par yield table, 10-year column, 2026-09-09 and2026-09-14; Damodaran historical implied ERP table,2025 row/Jan2026 update",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/raw/AKAM/damodaran-erp-official-selected-rows.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/raw/AKAM/treasury-2026-official-selected-rows.txt",
+      "status": "verified",
+      "evidence": "treasury:4.83: corpus hit_count=8, scaled_hit_count=0, cited-source hit_count=1; treasury:4.97: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=1; erp:4.23: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=1 | Bound literal excerpts match the archived original HTML. Independently parsed Treasury 10-year column and the2025 FCFE implied ERP column; Fed H15 archive independently corroborates Sep-09 4.83. The excerpts are official-source material, not evidence that beta1.00 is observed or that the blended model rate is a tradable debt yield.",
+      "severity": "info"
+    },
+    {
+      "claim": "Model WACC6.216848% is a conditional calculation; beta1.00 and debt cost are explicitly limited",
+      "citation": "valuation/04_intrinsic-dcf.md §§discount-rate inputs and conditional-rate sensitivity; Q2 2026 Form10-Q Note7 p.17; market_input_evidence.json",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/raw/AKAM/damodaran-erp-official-selected-rows.txt; /tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/raw/AKAM/treasury-2026-official-selected-rows.txt",
+      "status": "inference-labeled",
+      "evidence": "treasury:4.83: corpus hit_count=8, scaled_hit_count=0, cited-source hit_count=1; erp:4.23: corpus hit_count=4, scaled_hit_count=0, cited-source hit_count=1 | Equity cost=.0483+1.00*.0423=.0906. Weight equity15345.7/(15345.7+7562.8); debt proxy42.237/7640 with tax19%. The retained42.237m is an approximate annualization of Q2 tranche effective accounting rates (independently about42.2382m), not FY2025 interest expense or a current marginal debt yield. The run states unavailable current borrowing yield, arbitrary conservative beta, and conditional CFO-minus-capex enterprise method. Sep-14 Treasury sensitivity and hypothetical higher debt-cost sensitivities quantify these weaknesses.",
+      "severity": "info"
+    },
+    {
+      "claim": "AKAM consensus mean target153.31, median155; Q3 revenue1118.15293m, adjusted EPS1.68032, EBITDA434.24721m",
+      "citation": "AkamaiTechnologies,IncNasdaqGSAKAMEstimatesReport.xls, Consensus, target row and standalone Q3 FY2026 summary, undated export vintage",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/AkamaiTechnologies-IncNasdaqGSAKAMEstimatesReport__Consensus.txt",
+      "status": "verified",
+      "evidence": "consensus:153.31: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1; consensus:155: corpus hit_count=38, scaled_hit_count=1, cited-source hit_count=2; consensus:1118.15293: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; consensus:1.68032: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2; consensus:434.24721: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=2 | Verified source-specific AKAM cells and headings. Target row is23/23 estimates (read directly; the resolver is numeric and does not token-match the slash string). The master no longer invents a Sep-14 snapshot vintage. Analyst price targets are opinions, not an independently validated intrinsic method.",
+      "severity": "info"
+    },
+    {
+      "claim": "Matched DCF/reverse DCF and four-scenario prices are explicitly model inferences",
+      "citation": "valuation/04_intrinsic-dcf.md;05_reverse-dcf.md;07_scenario-and-fair-value.md; corrected_model.json; final_thesis.md scenario section",
+      "source_checked": "Exact-generation corpus and cited inherited module; no matching raw public document",
+      "status": "inference-labeled",
+      "evidence": "model:71.26391017001706: corpus hit_count=0, scaled_hit_count=0; model:153.39252570550417: corpus hit_count=0, scaled_hit_count=0; model:16.974450308275724: corpus hit_count=0, scaled_hit_count=0; model:78.63910317079147: corpus hit_count=0, scaled_hit_count=0 | These exact derived numbers have no literal filing/corpus hits and are not marked source-verified. Independently reproduced all published model fields and both inverse roots. Economic-share target EV21,923.05207 uses106.79*148.333+6082.571 consistently. Joint bull re-solves cash growth and cost of capital on the matched bridge. Scenario probabilities10/15/45/30 and the cash/rate paths are stated judgments, not source facts or empirically calibrated frequencies.",
+      "severity": "info"
+    },
+    {
+      "claim": "Raw confidence50, existing cumulative haircut10, effective confidence40; rating Avoid",
+      "citation": "decision_record.json confidence fields; final_thesis.md current verdict/confidence and maintenance scope",
+      "source_checked": "Exact-generation corpus and cited inherited module; no matching raw public document",
+      "status": "inference-labeled",
+      "evidence": " | Arithmetic50−10=40. Corrected valuation and external-rate evidence do not establish greater investment conviction. Analysis-confidence74 and source/evidence scores are different quantities, not substitutes for the canonical raw50 or effective40. Reused module scores remain inherited judgments, not a fresh specialist execution claim.",
+      "severity": "info"
+    },
+    {
+      "claim": "Governance checklist risk45 is the RPT/leakage maximum, with no critical governance or distress lock overlooked",
+      "citation": "management-governance/99_management-governance-synthesis.md §§1,6; final_thesis.md governance checklist",
+      "source_checked": "Exact-generation corpus and cited inherited module; no matching raw public document",
+      "status": "inference-labeled",
+      "evidence": " | Checked source summary: max(45,37,38,40)=45, set by missing RPT ledger;116/179=64.8% answered. Weighted governance score50.29 rounds50 and confidence-adjusted32.69 rounds33. Master now names45RPT risk. Serial-acquirer Watchlist cap and forensic Starter ceiling are already below long entry requirements; Avoid is more restrictive. Balance-sheet Adequate is not Distress risk. These are judgment/checklist outputs, not filing measurements.",
+      "severity": "info"
+    },
+    {
+      "claim": "Inherited stock-plan vote opposition41.9%",
+      "citation": "Original management-governance shareholder-rights public-source supplement; current final_thesis.md RF-SHR-001 and decision_record.json flag",
+      "source_checked": "Exact-generation corpus and cited inherited module; no matching raw public document",
+      "status": "unverified",
+      "evidence": "model:41.9: corpus hit_count=7, scaled_hit_count=0 | No matching raw public vote source is bound in this maintenance generation. A corpus-wide incidental numeric hit cannot verify issuer/event identity. Current output explicitly labels this as an inherited public-source observation, unverified in the current bound pool; it supplies no new rating lock or confidence increase. Secondary audit limitation retained, not falsely cleared.",
+      "severity": "low"
+    },
+    {
+      "claim": "Inherited2024 PwC censure and$2.75m penalty, no AKAM engagement link identified",
+      "citation": "Original management-governance auditor-quality public-source supplement; current final_thesis.md RF-AUD-007 and decision_record.json flag",
+      "source_checked": "Exact-generation corpus and cited inherited module; no matching raw public document",
+      "status": "unverified",
+      "evidence": "model:2.75: corpus hit_count=13, scaled_hit_count=1 | No corresponding PCAOB release is in the bound raw pool. The same digits occur as vendor EPS and cannot verify a regulatory penalty. Current output explicitly identifies inheritance, current-pool nonverification, and no AKAM engagement link. It is not new fraud/critical-lock evidence. Secondary audit limitation retained.",
+      "severity": "low"
+    },
+    {
+      "claim": "Deterministic CIQ estimate concepts conflict across AKAM and peer exports",
+      "citation": "Exact-generation ciq_facts.json conflicts; AKAM and Fortinet Consensus extracts",
+      "source_checked": "/tmp/equity-pr-audit-20260915/akam-audit-extracts/.extract-generations/4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a/AkamaiTechnologies-IncNasdaqGSAKAMEstimatesReport__Consensus.txt",
+      "status": "unverified",
+      "evidence": "consensus:153.31: corpus hit_count=3, scaled_hit_count=0, cited-source hit_count=1 | Seven estimate-sheet conflict entries name AKAM, Cloudflare, Fastly and Fortinet workbooks. The generated consensus_view162.36/165 is the Fortinet target row; exact AKAM row is153.31/155 and agrees with the thesis. All conflicted estimate summary fields were withheld as AKAM corroboration; claim checks use issuer-specific AKAM extracts. Present financial facts agree on matched period/basis. This is one low-severity extraction/data-hygiene limitation, not evidence the correct AKAM thesis number is wrong.",
+      "severity": "low"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Strict carrying net debt, USDm",
+      "reported": 6082.571,
+      "recomputed": 6082.571,
+      "ties": true,
+      "detail": "No investments netted; note principal stays a cash claim."
+    },
+    {
+      "quantity": "Principal net-debt sensitivity, USDm",
+      "reported": 6159.743,
+      "recomputed": 6159.743,
+      "ties": true,
+      "detail": "Difference77.172m financing costs implies0.520261843 per working share."
+    },
+    {
+      "quantity": "Economic working diluted shares, millions",
+      "reported": 148.333,
+      "recomputed": 148.333,
+      "ties": true,
+      "detail": "144.660 basic+3.673 award shares; quarterly-average proxy disclosed."
+    },
+    {
+      "quantity": "GAAP-derived LTM EBITDA, USDm",
+      "reported": 1184.094,
+      "recomputed": 1184.0939999999998,
+      "ties": true,
+      "detail": "Operating income plus D&A; not vendor EBITDA."
+    },
+    {
+      "quantity": "LTM CFO, USDm",
+      "reported": 1447.19,
+      "recomputed": 1447.19,
+      "ties": true,
+      "detail": "Annual less prior first half plus latest first half."
+    },
+    {
+      "quantity": "LTM cash PP&E plus capitalized-software capex, USDm",
+      "reported": 817.311,
+      "recomputed": 817.311,
+      "ties": true,
+      "detail": "Includes cash software capitalization."
+    },
+    {
+      "quantity": "LTM strict FCF, USDm",
+      "reported": 629.879,
+      "recomputed": 629.879,
+      "ties": true,
+      "detail": "CFO minus total cash capex."
+    },
+    {
+      "quantity": "FY2023–FY2025 strict-FCF CAGR, percent",
+      "reported": 6.34,
+      "recomputed": 6.337514811954725,
+      "ties": true,
+      "detail": "Matched cash metric; 2-year period."
+    },
+    {
+      "quantity": "LTM strict-FCF decline, percent",
+      "reported": -9.92,
+      "recomputed": -9.922704554067485,
+      "ties": true,
+      "detail": "VersusFY2025; not compared to vendor leveredFCF."
+    },
+    {
+      "quantity": "Strict leverage, times",
+      "reported": 5.14,
+      "recomputed": 5.136898759726845,
+      "ties": true,
+      "detail": "Debt carrying value less cash over derived LTM EBITDA."
+    },
+    {
+      "quantity": "Gross debt/EBITDA, times",
+      "reported": 6.39,
+      "recomputed": 6.387016571319506,
+      "ties": true,
+      "detail": "Distinct from net leverage."
+    },
+    {
+      "quantity": "Post-LayerX strict leverage, times",
+      "reported": 5.31,
+      "recomputed": 5.310026906647614,
+      "ties": true,
+      "detail": "Illustrative cash funding, not an assertion of a new balance-sheet filing."
+    },
+    {
+      "quantity": "EBITDA decline to6x warning threshold, percent",
+      "reported": 11.5,
+      "recomputed": 11.4995515558731,
+      "ties": true,
+      "detail": "Internal warning threshold, not covenant headroom."
+    },
+    {
+      "quantity": "Vendor CFO/EBITDA LTM, percent",
+      "reported": 134.0,
+      "recomputed": 134.01173073753262,
+      "ties": true,
+      "detail": "Correct vendor denominator; difference within stated about134%."
+    },
+    {
+      "quantity": "Vendor CFO/EBITDA FY2021, percent",
+      "reported": 117.7,
+      "recomputed": 117.66781047996598,
+      "ties": true,
+      "detail": "One-decimal rounding."
+    },
+    {
+      "quantity": "Acquisition cash-use cohort, USDm",
+      "reported": 2066.3,
+      "recomputed": 2066.3,
+      "ties": true,
+      "detail": "FY2021–FY2025 net acquisitions, not exact gross enterprise deal values."
+    },
+    {
+      "quantity": "Gross lease commitments, USDm",
+      "reported": 2331,
+      "recomputed": 2331.0,
+      "ties": true,
+      "detail": "Separate future sublease inflows164.7+566.5=731.2; recognized liabilities overlap."
+    },
+    {
+      "quantity": "Matched reverse target enterprise value, USDm",
+      "reported": 21923.05207,
+      "recomputed": 21923.05207,
+      "ties": true,
+      "detail": "Uses the same economic equity denominator as forward fair values."
+    },
+    {
+      "quantity": "Reverse growth forward price, USD/share",
+      "reported": 106.79,
+      "recomputed": 106.78999999999999,
+      "ties": true,
+      "detail": "Reproduced16.9744503% cash-growth solve."
+    },
+    {
+      "quantity": "Model WACC minus market-implied WACC, percentage points",
+      "reported": 1.26,
+      "recomputed": 1.2615232622566455,
+      "ties": true,
+      "detail": "6.2168483%−4.9553250%=1.2615233pp. No direct debt-yield claim."
+    },
+    {
+      "quantity": "bull_execution equity bridge, USDm",
+      "reported": 22753.17351547455,
+      "recomputed": 22753.17351547455,
+      "ties": true,
+      "detail": "No warrant intrinsic value at this case price."
+    },
+    {
+      "quantity": "bull_execution price, USD/share",
+      "reported": 153.39252570550417,
+      "recomputed": 153.39252570550417,
+      "ties": true,
+      "detail": "Same debt and share basis across cases."
+    },
+    {
+      "quantity": "bull_execution price return, percent",
+      "reported": 43.63940978135046,
+      "recomputed": 43.63940978135046,
+      "ties": true,
+      "detail": "12–18 month scenario set; excludes the separate24–36 month structural case."
+    },
+    {
+      "quantity": "bull_dcf_sensitivity equity bridge, USDm",
+      "reported": 16853.080177281958,
+      "recomputed": 16853.080177281958,
+      "ties": true,
+      "detail": "No warrant intrinsic value at this case price."
+    },
+    {
+      "quantity": "bull_dcf_sensitivity price, USD/share",
+      "reported": 113.61652617611696,
+      "recomputed": 113.61652617611696,
+      "ties": true,
+      "detail": "Same debt and share basis across cases."
+    },
+    {
+      "quantity": "bull_dcf_sensitivity price return, percent",
+      "reported": 6.392476988591578,
+      "recomputed": 6.392476988591578,
+      "ties": true,
+      "detail": "12–18 month scenario set; excludes the separate24–36 month structural case."
+    },
+    {
+      "quantity": "base equity bridge, USDm",
+      "reported": 10570.789587249143,
+      "recomputed": 10570.789587249143,
+      "ties": true,
+      "detail": "No warrant intrinsic value at this case price."
+    },
+    {
+      "quantity": "base price, USD/share",
+      "reported": 71.26391017001706,
+      "recomputed": 71.26391017001707,
+      "ties": true,
+      "detail": "Same debt and share basis across cases."
+    },
+    {
+      "quantity": "base price return, percent",
+      "reported": -33.26724396477474,
+      "recomputed": -33.26724396477474,
+      "ties": true,
+      "detail": "12–18 month scenario set; excludes the separate24–36 month structural case."
+    },
+    {
+      "quantity": "bear_cyclical equity bridge, USDm",
+      "reported": 7015.4646607705,
+      "recomputed": 7015.4646607705,
+      "ties": true,
+      "detail": "No warrant intrinsic value at this case price."
+    },
+    {
+      "quantity": "bear_cyclical price, USD/share",
+      "reported": 47.29537365771945,
+      "recomputed": 47.29537365771945,
+      "ties": true,
+      "detail": "Same debt and share basis across cases."
+    },
+    {
+      "quantity": "bear_cyclical price return, percent",
+      "reported": -55.71179543241929,
+      "recomputed": -55.71179543241929,
+      "ties": true,
+      "detail": "12–18 month scenario set; excludes the separate24–36 month structural case."
+    },
+    {
+      "quantity": "Scenario probabilities, percent",
+      "reported": 100,
+      "recomputed": 100.0,
+      "ties": true,
+      "detail": "Joint execution10 / rate sensitivity15 / base45 / cyclical bear30; judgments, not frequencies."
+    },
+    {
+      "quantity": "Probability-weighted value, USD/share",
+      "reported": 78.63910317079147,
+      "recomputed": 78.63910317079147,
+      "ties": true,
+      "detail": "78.63910317; joint bull153.3925257 is not simply an old-share scaling."
+    },
+    {
+      "quantity": "Expected return, percent",
+      "reported": -26.36098588745064,
+      "recomputed": -26.36098588745064,
+      "ties": true,
+      "detail": "−26.360985887 equals weighted scenario returns and weighted target/current−1."
+    },
+    {
+      "quantity": "Bear downside, percent",
+      "reported": 55.71179543241929,
+      "recomputed": 55.71179543241929,
+      "ties": true,
+      "detail": "55.711795432."
+    },
+    {
+      "quantity": "Risk/reward, weighted upside divided by bear loss",
+      "reported": -0.47316704986518704,
+      "recomputed": -0.47316704986518704,
+      "ties": true,
+      "detail": "Negative−0.47316705; upside-to-downside bull/bear0.78330647 separately defined."
+    },
+    {
+      "quantity": "Margin of safety versus base, percent",
+      "reported": -49.8514461881575,
+      "recomputed": -49.8514461881575,
+      "ties": true,
+      "detail": "−49.851446188%; not expected return."
+    },
+    {
+      "quantity": "Q2 2027 strict-FCF monitor, USDm",
+      "reported": 736.8,
+      "recomputed": 736.7974978572641,
+      "ties": true,
+      "detail": "One-year translation of corrected growth requirement; remains a proposed falsification threshold."
+    },
+    {
+      "quantity": "Canonical effective confidence",
+      "reported": 40,
+      "recomputed": 40.0,
+      "ties": true,
+      "detail": "Raw50−cumulative10=40. No resetting the existing haircut."
+    },
+    {
+      "quantity": "Entire published corrected-model document reproduced",
+      "reported": "all published keys match",
+      "recomputed": "all published keys match",
+      "ties": true,
+      "detail": "Executed committed reproduction program and compared recursively to every published JSON field at1e−12 relative/1e−10 absolute precision; checked distinct mathematical formulas above independently."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Strict debt/cash/net debt, USDm",
+      "values_by_module": {
+        "valuation": "7562.828 /1480.257 /6082.571",
+        "balance-sheet-survival": "7562.8 /1480.3 /6082.6",
+        "master": "7562.8 /1480.3 /6082.6"
+      },
+      "consistent": true,
+      "detail": "Rounding only. Labelled vendor gross lease-inclusive debt9339 and broad vendor net debt4722.7 use different scopes; not current strict anchors."
+    },
+    {
+      "anchor": "Diluted share bridge",
+      "values_by_module": {
+        "valuation": "148.333m economic Q2 working proxy",
+        "earnings": "153.686m GAAP quarterly weighted diluted",
+        "current market quote": "143.7m current reported shares",
+        "master/record": "148.333m active economic model"
+      },
+      "consistent": true,
+      "detail": "Different quantities deliberately identified. Legacy valuation00/02/03/06 are explicitly preserved and excluded historical artifacts, not current authorship or active153.686 double-charge instructions."
+    },
+    {
+      "anchor": "EBITDA/FCF",
+      "values_by_module": {
+        "earnings": "1184.094m derived EBITDA /629.879m strictFCF",
+        "balance-sheet-survival": "1184.1m derivedEBITDA",
+        "business-model": "1079.898m vendorEBITDA",
+        "valuation/master": "correctly differentiated derived/vendor bases"
+      },
+      "consistent": true,
+      "detail": "No active source laundering: vendor cash conversion134% uses vendorEBITDA, while5.14x strict leverage uses GAAP-derived1184.094m."
+    },
+    {
+      "anchor": "Price/EV basis",
+      "values_by_module": {
+        "master": "106.79 asofSep14",
+        "valuation": "21923.05207m reverse targetEV with148.333m economic shares",
+        "observed market": "21428.294m strict EV using143.7 rounded current shares"
+      },
+      "consistent": true,
+      "detail": "Model-implied target differs intentionally from observed current-share capitalization. Both bridges are stated; no mixed denominator in root solve."
+    },
+    {
+      "anchor": "Return on capital/cost of capital",
+      "values_by_module": {
+        "business-model": "vendorROIC2.7%",
+        "valuation": "conditional WACC6.2168483%; implied4.9553250%",
+        "master": "2.7% vendor ROIC with conditional model limitations"
+      },
+      "consistent": true,
+      "detail": "As-filed business returns are not directly estimated by the cost-of-capital formula. No missing marginal borrowing rate is represented as verified."
+    },
+    {
+      "anchor": "Governance caps and effective confidence",
+      "values_by_module": {
+        "governance": "RPT checklist45; CAP004 Watchlist ceiling; no Critical",
+        "balance-sheet-survival": "Adequate, noDistress lock",
+        "record/master": "Avoid; raw50; cumulativehaircut10; effective40"
+      },
+      "consistent": true,
+      "detail": "More restrictive Avoid survives existing module caps. Six other modules are inherited according to maintenance_lineage, not claimed newly rerun."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [],
+  "integrity_score": 91,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "Independent maintenance audit, memory-blind. Bound canonical immutable generation 4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a; manifestSHA256 5e16351af57d8d8d5c5bf655723712d9bb03b3466bd00a347aa7cd22346bcba5; corpusSHA256 5936221a550289a58e4b254eed5a7dabd6ed7c2c3b15a4cc691a6bb24886a78f. Canonical extractor generation integrity verified read-only;22 source documents,9 workbooks,66 tabs,77 extracts,0 failed sources.23 raw bindings include metadata and are not23 financial sources. Corpus and cited-source deterministic resolver results are included in each claim; derived/rounded numbers are not falsely called literal facts. Treasury/Fed/Damodaran archived originals were independently checked locally, without a new fetch. Exact-generation ciq_facts financial facts reconcile on comparable bases; conflicted peer estimate facts were not used as issuer truth. Score100−3−3−3=91 for two inherited public-source nonverification limits and one grouped issuer-conflict hygiene finding. No high/critical finding, core math break, active anchor conflict, or unaddressed same-family contradiction remains. Fidelity sweep checked debt/shares, proxyFCF/WACC, capital-allocation override, cash-conversion counterevidence, and cap propagation; active qualifiers are retained. Conditional enterpriseDCF, quarterly weighted dilution, terminal dependence, assumption probabilities and unproven edge are substantive disclosed investment limitations; passing arithmetic does not validate them empirically. Only this verification report and the separately authorized pre-mortem are added; no input or reused module is edited or freshly attributed. Git/PR/publication remains the parent release responsibility."
+}
