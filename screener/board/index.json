@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T04:53:10Z",
+  "generated_at": "2026-09-15T04:56:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-265",
@@ -1034,6 +1034,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-272",
+      "headline": "Global Market: SB Energy to sell up to $500 million worth of shares to Japanese investors ahead of US IPO",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/global-market-sb-energy-to-sell-up-to-500-million-worth-of-shares-to-japanese-investors-ahead-of-us-ipo/articleshow/134251818.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T04:25:30Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "SB Energy is selling up to $500 million in shares to Japanese investors ahead of a planned US IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "SB Energy is selling up to $500 million in shares to Japanese investors ahead of a planned US IPO.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SB Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-231",
       "headline": "FTC approves revised mileage integration plan for Korean Air, Asiana",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-012",
-      "headline": "HK ENT INTL (08291): PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD AT THE CLOSE OF BUSINESS ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091500017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T22:32:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Proposed non-underwritten rights issue at a 3:1 ratio is highly dilutive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Proposed non-underwritten rights issue at a 3:1 ratio is highly dilutive.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HK ENT INTL",
-          "ticker": "08291",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164452,9 +164452,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 622000,
-    "news_picked_today": 458,
-    "news_dropped_today": 1870
+    "news_seen_today": 626955,
+    "news_picked_today": 464,
+    "news_dropped_today": 1888
   },
   "book_momentum": {
     "live_count": 8,
