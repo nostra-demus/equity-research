@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T02:44:04Z",
+  "generated_at": "2026-09-15T02:51:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -989,6 +989,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-192",
+      "headline": "PE majors eye Orbicular Pharma stake, valuation seen up to $1.5 bn",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/orbicular-pharma-stake-sale-deal-valuation-warburg-pincus-cvc-capital-11789352026674.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:00:23Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Private equity firms are eyeing a stake in Orbicular Pharma at a valuation of up to $1.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Private equity firms are eyeing a stake in Orbicular Pharma at a valuation of up to $1.5 billion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orbicular Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-020",
       "headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
       "headline_en": null,
@@ -1180,6 +1229,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-194",
+      "headline": "SpaceX Spent $15.8 Billion on AI in a Quarter. Here's What Happens to the Stock if Orbital Data Centers Don't Work.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/spacex-spent-158-billion-ai-quarter-heres-what-happens-stock-if-orbital-data-centers-dont",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:32:07Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "SpaceX reported $15.8 billion in AI-related spending in a single quarter, highlighting massive capital intensity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "SpaceX reported $15.8 billion in AI-related spending in a single quarter, highlighting massive capital intensity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1675,6 +1773,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-188",
+      "headline": "BYD’s 600km electric semi takes aim at Europe’s diesel giants",
+      "headline_en": null,
+      "url": "https://gulfnews.com/auto/news/byds-600km-electric-semi-takes-aim-at-europes-diesel-giants-1.500674746",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T02:16:35Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "BYD is expanding its electric semi-truck product line into the European market to compete with diesel incumbents.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "BYD is expanding its electric semi-truck product line into the European market to compete with diesel incumbents.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-149",
       "headline": "Landmark NSE IPO Threatens to Hollow Out India Shadow Market",
       "headline_en": null,
@@ -1817,148 +1965,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-117",
-      "headline": "Australian coal miner New Hope gains on paying out highest dividend since 2022",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/australian-coal-miner-new-hope-gains-paying-out-highest-dividend-since-2022-2026-09-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T01:56:30Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "New Hope Corp announced its highest dividend payout since 2022, signaling strong cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "New Hope Corp announced its highest dividend payout since 2022, signaling strong cash flow.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New Hope",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-145",
-      "headline": "SB Energy to sell up to $500 million in shares to Japan investors as part of US IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/sb-energy-sell-up-500-million-shares-japan-investors-part-us-ipo-2026-09-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T01:33:58Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SB Energy plans to sell up to $500 million in shares to Japanese investors as part of its US IPO process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "SB Energy plans to sell up to $500 million in shares to Japanese investors as part of its US IPO process.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB Energy Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-176",
-      "headline": "China targets offshore operations of brokerages in crackdown on pay loopholes, corruption",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/banking-finance/article/3367465/china-targets-offshore-operations-brokerages-crackdown-pay-loopholes-corruption?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:00:11Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "China is targeting offshore brokerage operations to curb pay loopholes and corruption, increasing regulatory risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "China is targeting offshore brokerage operations to curb pay loopholes and corruption, increasing regulatory risk for the sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164298,9 +164304,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 357083,
-    "news_picked_today": 244,
-    "news_dropped_today": 980
+    "news_seen_today": 370159,
+    "news_picked_today": 259,
+    "news_dropped_today": 1013
   },
   "book_momentum": {
     "live_count": 8,
