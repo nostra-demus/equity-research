@@ -3449,159 +3449,197 @@ a { color: inherit; }
 /* ---- watchlist: the research stage's third view ---- */
 /* A cross-company list rather than a rendering of one company's swarm. Padding clears the stage-anchored
    view toggle (top:14px, ~30px tall) the same way the constellation's label block does. */
-.wl { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 58px 24px 20px; gap: 10px; }
-.wl__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wl { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 58px 24px 16px; gap: 8px; }
+/* One header line: what the list is, then its tools. The buttons are compact so the line does not wrap on a
+   laptop screen — every wrapped line is a line the names do not get. */
+.wl__head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wl__titleblock { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; min-width: 0; }
 .wl__title { font-size: 15px; font-weight: 600; }
 .wl__count { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 11.5px; color: var(--text-muted); }
 .wl__count b { color: var(--accent-bright); font-weight: 600; }
+.wl__head > .btn, .wl__inbox > .btn { height: 30px; padding: 0 11px; font-size: 12px; }
+.wl__head .fld--search { height: 30px; min-width: 170px; }
 .wl__spacer { flex: 1; }
-.wl__sub { font-size: 11px; color: var(--text-faint); }
-.wl__list { flex: 1; overflow: auto; display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
+.wl__list { flex: 1; min-height: 0; display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
 .wl__empty { color: var(--text-faint); font-size: 13px; padding: 44px 24px; text-align: center; line-height: 1.6; max-width: 62ch; margin: 0 auto; }
 
-/* The list is the app's standard .atable (sticky head, row hover) — the same table the activity log and
-   the screener's candidates use. It was briefly a bespoke grid; that was a needless second table style. */
-.wl__table { table-layout: fixed; }
-/* Widths measured from the widest real content, not guessed. Cells carry 20px of horizontal padding, so
-   each track is (content it must hold + 20). Undersizing the actions track is what let the button row
-   spill LEFT across the review date. */
-.wl__table th:nth-child(1), .wl__table td:nth-child(1) { width: 168px; }  /* ticker + company line */
-.wl__table th:nth-child(2), .wl__table td:nth-child(2) { width: 126px; }  /* "Short Candidate" is the longest verdict */
-.wl__table th:nth-child(4), .wl__table td:nth-child(4) { width: 148px; }  /* "price now · delayed" needs 117 */
-.wl__table th:nth-child(5), .wl__table td:nth-child(5) { width: 84px; }
-.wl__table th:nth-child(6), .wl__table td:nth-child(6) { width: 78px; }
-.wl__table th:nth-child(7), .wl__table td:nth-child(7) { width: 164px; } /* Thesis + Edit + ⋯ needs 139 */
-.wl__table td { vertical-align: top; }
-.wl__tr--met { background: var(--accent-wash); box-shadow: inset 2px 0 0 var(--accent); }
-.wl__tr--due { box-shadow: inset 2px 0 0 var(--text-muted); }
-.wl__tr--archived { opacity: 0.62; }
-
-.wl__sort { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; }
-.wl__sort:hover { color: var(--text-muted); }
-.wl__sort--on { color: var(--accent-bright); }
-.wl__caret { font-size: 7px; }
-
-.wl__td--name .sym { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; }
+/* A mark, not a column: this name is one you added yourself. */
 .wl__mine { color: var(--accent-bright); margin-inline-start: 3px; }
-.wl__co { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* the engine's own call — the most consequential thing on the row, and it was missing entirely */
+/* the engine's own call — the most consequential word in the panel's header */
 .wl__verdict { font-size: 11.5px; font-weight: 600; }
 .wl__verdict--none { color: var(--text-faint); font-weight: 400; }
-
-/* No max-width:0 here — that is an auto-layout trick, and under table-layout:fixed it collapses the
-   column to nothing. Fixed layout already gives an unsized column the remaining width. */
-.wl__td--why { overflow: hidden; }
-.wl__why { font-size: 12px; line-height: 1.45; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .wl__why--engine { color: var(--text-muted); font-style: italic; }
-.wl__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
-/* Trigger state and the review date are what you ACT on, so they carry the weight the ticker does.
-   Support text — the company line, "last close", the delayed flag — stays quiet on purpose: lifting
-   everything would leave no hierarchy at all, which is the same problem in the other direction. */
+/* Your own triggers' state chips in the detail panel. */
 .wl__trg { font-size: 10.5px; font-weight: 500; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); color: var(--text); white-space: nowrap; }
 .wl__trg--met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent); font-weight: 600; }
 .wl__trg--due { background: var(--surface-3); color: var(--text); }
 .wl__trg--armed { color: var(--text); background: var(--surface-3); }
 /* absence must LOOK different from a negative, never like a quiet pass */
 .wl__trg--unevaluable { color: var(--text-muted); border-style: dashed; border-color: var(--hairline); font-weight: 400; }
-.wl__trg--resurfaced { color: var(--rerun); border-color: var(--rerun); }
 .wl__trg--add { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; cursor: pointer; }
-.wl__trg--add:hover { background: var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) { .wl__trg--add:hover { background: var(--accent-wash); } }
 
-.wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); white-space: nowrap; }
-.wl__price--absent { color: var(--text-faint); }
-.wl__review { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 1px; font-size: 12px; color: var(--text); white-space: nowrap; }
-.wl__review--none { color: var(--text-faint); }
-.wl__review--set { color: var(--text-muted); }
-.wl__review--soon { color: var(--text); font-weight: 500; }
-.wl__review--today { color: var(--accent-bright); font-weight: 600; }
-/* a date you have already passed is the most actionable thing on the row */
-.wl__review--overdue { color: var(--bad); font-weight: 600; }
-.wl__reviewnote { font-size: 9px; font-weight: 400; letter-spacing: 0.2px; opacity: 0.85; }
+/* ── the one list: a signal per name, most urgent first ─────────────────────────
+   Each chip names what happened — "Below bad case", "In buy zone", "Near buy price", "Event soon" — in a colour
+   that always means the same thing: red is danger, green a buy, amber "look at this", blue a heads-up, grey
+   nothing to do, and a hollow dot on a dashed edge is "no price, so nothing is checked". The dot carries the
+   colour and the words are always written out, so neither has to be decoded (watchStatus.ts SIGNAL). */
+.wst { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px 0 8px; border-radius: var(--r-pill); border: 1px solid transparent; font-size: 11px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--text-muted); background: var(--surface-3); flex: none; }
+.wst::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.wst--red { color: var(--bad); border-color: var(--bad); background: var(--bad-wash); }
+.wst--green { color: var(--live); border-color: var(--live); background: var(--live-wash); }
+.wst--amber { color: var(--warn-ink); background: var(--warn-wash); }
+.wst--amber::before { background: var(--conv-warn); }
+.wst--blue { color: var(--info); background: var(--info-wash); }
+.wst--grey { color: var(--text-muted); font-weight: 500; }
+/* no price must LOOK different from a quiet "all fine" */
+.wst--off { color: var(--text-faint); background: transparent; border: 1px dashed var(--hairline-strong); font-weight: 500; }
+.wst--off::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
 
-.wl__meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* the only figure comparable DOWN the column — the price column holds six currencies */
-.wl__gap { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); }
-.wl__gap--met { color: var(--accent-bright); font-weight: 600; }
-.wl__gap--none { color: var(--text-faint); }
-
-/* One primary action per row, everything else in a menu — the density .atable is built for. */
-.wl__act { position: relative; display: flex; gap: 4px; justify-content: flex-end; white-space: nowrap; }
-.wl__act .btn { height: 24px; padding: 0 8px; font-size: 11px; }
-.wl__more { font-size: 13px; line-height: 1; padding: 0 7px; }
-.wl__menu {
-  position: absolute; top: calc(100% + 5px); right: 0; z-index: 30; min-width: 232px;
-  display: flex; flex-direction: column; padding: 5px; border-radius: var(--r-md);
-  background: var(--surface-2); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
-  transform-origin: top right; animation: evdropin 150ms var(--ease-out) both;
+/* ── the one table: a signal per name, the ones that need you first ─────────────────────────────────────
+   Two panes that scroll on their own — the names, and the one name picked — so neither can push the other off
+   the screen, however long a name's plan is. Every column is labelled; each cell puts its value on a quiet
+   label, and prices line up on the right like figures in any table. */
+.wlist { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; padding-top: 6px; }
+.wlist__main {
+  --wl-cols: 140px minmax(120px, 1fr) 108px minmax(170px, 1.7fr) minmax(128px, 1fr) 8px;
+  min-width: 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
 }
-.wl__opt {
-  display: block; width: 100%; text-align: left; padding: 6px 9px; border-radius: var(--r-md);
-  color: var(--text-muted); font-size: 11.5px; text-decoration: none;
-  transition: background var(--dur-fast), color var(--dur-fast);
+.wlist__cols {
+  position: sticky; top: 0; z-index: 1; display: grid; grid-template-columns: var(--wl-cols); gap: 14px; align-items: end;
+  padding: 7px 12px 6px; background: var(--app-bg); border-bottom: 1px solid var(--hairline-strong);
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint);
 }
-.wl__opt:hover { background: var(--surface-3); color: var(--text); }
-.wl__opt:disabled { opacity: 0.45; }
-.wl__opt--danger { color: var(--bad); }
-.wl__opt--armed { background: var(--bad-wash); color: var(--bad); font-weight: 600; }
-@media (prefers-reduced-motion: reduce) { .wl__menu { animation: none; } }
-
-/* ── the tile grid (the watchlist's default reading) ─────────────────────────
-   Fifty names as rows is four screens of prose; as tiles it is one screen of positions. The grid buys that
-   by showing one figure per name and moving everything else into the detail panel, so nothing here should
-   grow back toward a row: no why-text, no verdict wording, no second number. */
-.wgrid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; align-items: start; }
-.wgrid__tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 7px; align-content: start; }
-
-.wgrid__legend { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 8px 0 10px; font-size: 10.5px; color: var(--text-faint); }
-.wgrid__key { font-weight: 500; }
-.wgrid__key--met { color: var(--accent-bright); font-weight: 600; }
-.wgrid__key--due { color: var(--bad); font-weight: 600; }
-.wgrid__key--near { color: var(--conv-warn); font-weight: 600; }
-.wgrid__key--noeval { font-style: italic; }
-.wgrid__note { margin-left: auto; }
-.wgrid__note b { color: var(--text-muted); font-weight: 600; }
-
-.wtile {
-  display: flex; flex-direction: column; gap: 3px; align-items: stretch; text-align: left;
-  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md);
-  padding: 8px 9px 7px; min-height: 82px; font: inherit; color: inherit; cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+.wlist__num { text-align: right; }
+.wlist__grouphead { display: flex; align-items: baseline; gap: 7px; margin: 0; padding: 14px 12px 6px; font-size: 11.5px; font-weight: 600; color: var(--text); }
+.wlist__grouphead span { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 10.5px; font-weight: 500; color: var(--text-faint); }
+.wlist__rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+.wlist__loading { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; }
+.wrow {
+  width: 100%; display: grid; grid-template-columns: var(--wl-cols); gap: 14px; align-items: center;
+  padding: 8px 12px; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  background: transparent; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0;
 }
-.wtile:hover { border-color: var(--hairline-strong); background: var(--surface-3); }
-.wtile:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
-.wtile__top { display: flex; align-items: center; gap: 2px; font-size: 11.5px; }
-/* The ticker is the tile's identity and must outrank every other glyph on it — it used to render SMALLER
-   than the distance figure beneath it. Size and weight carry the emphasis, deliberately NOT colour: on this
-   grid colour already means state (accent = fired, warn = near, dashed = not evaluable), so tinting every
-   ticker would make a fired tile stop standing out from a waiting one. Identity by weight, state by hue. */
-.wtile__sym { font-family: var(--font-mono); font-size: 16px; font-weight: 700; letter-spacing: 0.3px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* the company the ticker stands for — quiet, but present rather than hidden in a tooltip */
-.wtile__co { font-size: 9.5px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: -1px; }
-.wtile__mine { color: var(--accent-bright); }
-.wtile__hot { color: var(--bad); font-size: 7px; margin-inline-start: auto; }
-.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; margin-top: 2px; }
-.wtile__big--met { color: var(--accent-bright); }
-.wtile__big--near { color: var(--conv-warn); }
-/* absence must LOOK different from a number, never like a quiet zero */
-.wtile__big--none { color: var(--text-faint); font-weight: 400; }
-.wtile__cap { font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wtile__foot { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--text-faint); margin-top: auto; }
-.wtile__vdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.wtile__rev { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { .wrow:hover { background: var(--surface-2); } }
+.wrow:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.wrow.is-sel { background: var(--accent-wash-soft); box-shadow: inset 2px 0 0 var(--accent); }
+.wrow__st { display: flex; min-width: 0; }
+.wrow__who { display: flex; flex-direction: column; min-width: 0; }
+.wrow__sym { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 0.2px; }
+.wrow__co { font-size: 10.5px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wrow__px { display: flex; flex-direction: column; align-items: flex-end; min-width: 0; text-align: right; }
+.wrow__pxval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.wrow__meta { font-size: 10px; color: var(--text-faint); white-space: nowrap; }
+.wrow__none { font-size: 11px; color: var(--text-faint); }
+/* What it waits for, and its next date: a quiet label, then the value that answers it. */
+.wrow__cell { display: flex; flex-direction: column; min-width: 0; }
+.wrow__label { font-size: 10px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wrow__value { font-size: 12px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wrow__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bright); }
+/* A narrower screen: the panel moves under the names, and the next date moves into it. */
+@media (max-width: 1080px) {
+  .wlist { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 42%); }
+  .wlist__main { --wl-cols: 140px minmax(104px, 1fr) 96px minmax(150px, 1.6fr) 8px; }
+  .wlist__col--date, .wrow__cell--date { display: none; }
+}
+/* A short screen cannot hold two scrolling panes — the cockpit's own bars take most of it, and split in two
+   neither pane shows a row. So the stage becomes one page that scrolls: the names first, then the panel, the
+   column labels still pinned at the top. */
+@media (max-height: 620px) {
+  .wl { overflow-y: auto; }
+  .wl__list { flex: none; }
+  .wlist { display: block; }
+  .wlist__main { overflow: visible; }
+  .wdet { max-height: none; margin-top: 14px; }
+}
 
-/* Band styling carries the same meaning as the table's row accents, so the two views never disagree. */
-.wtile--met { background: var(--accent-wash); border-color: var(--accent); }
-.wtile--met:hover { background: var(--accent-wash); border-color: var(--accent-bright); }
-.wtile--due { border-color: var(--hairline-strong); box-shadow: inset 2px 0 0 var(--bad); }
-.wtile--near { border-color: var(--conv-warn); }
-.wtile--noeval { border-style: dashed; }
-.wtile--noeval .wtile__sym { color: var(--text-muted); }
-.wtile--archived { opacity: 0.62; }
-.wtile--sel { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
+/* ── messages: behind the header's button, opening over the list rather than taking the screen above it ── */
+.wl__inbox { position: relative; }
+.wl__msgbtn { display: inline-flex; align-items: center; gap: 6px; }
+.wl__msgbtn.is-open { border-color: var(--accent); }
+.wl__msgcount {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: var(--r-pill); background: var(--accent); color: var(--accent-ink);
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 10.5px; font-weight: 700;
+}
+.winbox {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 45;
+  width: min(460px, calc(100vw - 48px)); max-height: min(72vh, 680px);
+  display: flex; flex-direction: column; gap: 8px; padding: 10px 12px;
+  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); box-shadow: var(--shadow-2);
+  transform-origin: top right; animation: dlmenu-in 160ms var(--ease-out) both;
+}
+.winbox .btn { height: 24px; padding: 0 8px; font-size: 11px; }
+.winbox__head { display: flex; align-items: center; gap: 8px; }
+.winbox__title { font-size: 12.5px; font-weight: 600; }
+.winbox__count { font-family: var(--font-mono); font-size: 11px; color: var(--accent-bright); }
+.winbox__email { font-size: 10.5px; color: var(--text-faint); }
+.winbox__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; overflow: auto; min-height: 0; overscroll-behavior: contain; }
+.winbox__empty { font-size: 11.5px; color: var(--text-faint); padding: 4px 2px; }
+.winbox__err { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--bad); }
+.winbox__skel { flex: none; height: 36px; border-radius: var(--r-md); background: var(--surface-2); animation: wskel 1.1s var(--ease) infinite alternate; }
+@keyframes wskel { from { opacity: 0.5; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .winbox { animation: none; } }
+.wmsg { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.wmsg--unread { border-color: var(--hairline-strong); box-shadow: inset 2px 0 0 var(--accent); }
+.wmsg--unread.wmsg--warn { box-shadow: inset 2px 0 0 var(--bad); }
+.wmsg__head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.wmsg__sym { flex: none; padding: 0; background: none; border: 0; font: inherit; font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text); cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .wmsg__sym:hover { color: var(--accent-bright); } }
+.wmsg__title { min-width: 0; font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wmsg__when { margin-inline-start: auto; flex: none; font-size: 10.5px; color: var(--text-faint); white-space: nowrap; }
+.wmsg__items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.wmsg__itemtitle { font-size: 11.5px; font-weight: 600; }
+.wmsg__detail { font-size: 11.5px; line-height: 1.5; color: var(--text-muted); white-space: pre-line; }
+.wmsg__quote { margin: 4px 0 0; padding: 2px 0 2px 9px; border-inline-start: 2px solid var(--hairline-strong); font-size: 11px; line-height: 1.45; color: var(--text); overflow-wrap: anywhere; }
+.wmsg__quote cite { display: block; margin-top: 2px; font-style: normal; font-size: 10px; color: var(--text-faint); }
+.wmsg__foot { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.wmsg__email, .wmsg__ask, .wmsg__answered { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--text-faint); }
+.wmsg__note { width: 220px; height: 24px; font-size: 11px; }
+/* ── the watch plan in the detail panel: every item with where it came from ── */
+.wdet__status { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wdet__headline { font-size: 12px; font-weight: 600; line-height: 1.4; }
+.wdet__conds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.wdet__cond b { font-size: 11.5px; }
+.wdet__condtext { font-size: 11px; line-height: 1.5; color: var(--text-muted); white-space: pre-line; margin-top: 2px; }
+/* A passed date's tests, folded: the same deal-breakers stand under every passed date, and the plan lists them once. */
+.wdet__tests { margin-top: 5px; font-size: 10.5px; color: var(--text-muted); }
+.wdet__tests > summary { cursor: pointer; color: var(--text-faint); }
+.wdet__tests ul { margin: 5px 0 0; padding-inline-start: 14px; display: flex; flex-direction: column; gap: 4px; line-height: 1.45; }
+.wplan__state { font-size: 10.5px; color: var(--text-faint); margin-bottom: 7px; }
+.wplan__state--bad { color: var(--conv-warn); }
+/* Each group folds behind its label and count; the prices above them stay open. */
+.wplan__group { margin-top: 8px; }
+.wplan__grouphead { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+.wplan__group > summary { display: flex; align-items: center; gap: 6px; margin-bottom: 0; list-style: none; cursor: pointer; }
+.wplan__group > summary::-webkit-details-marker { display: none; }
+.wplan__group > summary::before { content: '›'; display: inline-block; width: 8px; font-size: 12px; line-height: 1; transition: transform var(--dur-fast) var(--ease); }
+.wplan__group[open] > summary { margin-bottom: 6px; }
+.wplan__group[open] > summary::before { transform: rotate(90deg); }
+.wplan__count { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0; color: var(--text-muted); }
+@media (hover: hover) and (pointer: fine) { .wplan__group > summary:hover { color: var(--text-muted); } }
+@media (prefers-reduced-motion: reduce) { .wplan__group > summary::before { transition: none; } }
+.wplan__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.wplan__item { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.wplan__line { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+.wplan__role { font-size: 11px; font-weight: 600; }
+.wplan__role--buy { color: var(--accent-bright); }
+.wplan__role--bad_case { color: var(--bad); }
+.wplan__val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; }
+.wplan__text { font-size: 11px; line-height: 1.45; }
+.wplan__quote { font-size: 10.5px; line-height: 1.45; color: var(--text-muted); overflow-wrap: anywhere; }
+.wplan__src { font-size: 9.5px; color: var(--text-faint); overflow-wrap: anywhere; }
+.wplan__note { font-size: 10px; color: var(--conv-warn); }
+.wplan__left { margin-top: 9px; font-size: 10.5px; color: var(--text-faint); }
+.wplan__left summary { cursor: pointer; }
+.wplan__left li { margin-top: 3px; line-height: 1.45; }
+@media (prefers-reduced-motion: reduce) { .winbox__skel { animation: none; } }
 
-/* ── the detail panel: what one tile deliberately left out ── */
+/* ── the detail panel: what one row deliberately left out ──
+   A pane of its own: as tall as its content, never taller than the screen, scrolled on its own. */
 .wdet {
-  position: sticky; top: 8px; display: flex; flex-direction: column; gap: 9px;
+  align-self: start; max-height: 100%; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  display: flex; flex-direction: column; gap: 9px;
   background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); padding: 14px;
 }
 .wdet--empty { justify-content: center; min-height: 160px; }
@@ -3609,10 +3647,6 @@ a { color: inherit; }
 .wdet__head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .wdet__sym { font-family: var(--font-mono); font-size: 14px; font-weight: 600; }
 .wdet__co { font-size: 10.5px; color: var(--text-faint); }
-.wdet__pricerow { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.wdet__meta { font-size: 10px; color: var(--text-faint); }
-.wdet__dist { margin-left: auto; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text-muted); }
-.wdet__dist--met { color: var(--accent-bright); font-weight: 600; }
 .wdet__why { font-size: 12px; line-height: 1.5; color: var(--text); }
 .wdet__trigs { display: flex; flex-direction: column; gap: 6px; }
 .wdet__trig { display: flex; align-items: flex-start; gap: 6px; }
@@ -3669,14 +3703,6 @@ a { color: inherit; }
 .wdet__runrow { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
 .wdet__runnote { font-size: 10px; line-height: 1.5; color: var(--text-faint); margin: 6px 0 0; }
 .wdet__actions { display: flex; gap: 6px; flex-wrap: wrap; }
-
-/* One column under the dock width: the panel stops being a sidebar and becomes a header above the tiles,
-   which keeps the selected name visible instead of pushing it off the bottom of a narrow screen. */
-@media (max-width: 1080px) {
-  .wgrid { grid-template-columns: minmax(0, 1fr); }
-  .wdet { position: static; order: -1; }
-  .wgrid__note { margin-left: 0; }
-}
 
 /* ---- watchlist composer — the .activity panel shell, plus a form ---- */
 .wlc { width: min(580px, 56%); z-index: 56; }
@@ -3800,7 +3826,7 @@ a { color: inherit; }
 .taskcard__files a:hover { color: var(--accent-bright); }
 .taskcard__foot { display: flex; align-items: center; justify-content: space-between; padding: 7px 9px; border-top: 1px solid var(--hairline); }
 .taskperson { position: relative; display: inline-flex; align-items: center; }
-.taskperson > span, .wtile__owner, .wdet__owner > span { display: inline-flex; align-items: center; justify-content: center; gap: 3px; min-width: 28px; height: 24px; padding: 0 6px; border-radius: var(--r-pill); color: var(--accent-bright); background: var(--accent-wash); font-size: 9.5px; font-weight: 800; }
+.taskperson > span, .wdet__owner > span { display: inline-flex; align-items: center; justify-content: center; gap: 3px; min-width: 28px; height: 24px; padding: 0 6px; border-radius: var(--r-pill); color: var(--accent-bright); background: var(--accent-wash); font-size: 9.5px; font-weight: 800; }
 .taskperson i, .wdet__owner i { color: var(--text-faint); font-size: 8px; font-style: normal; }
 .taskperson select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
 .taskperson:focus-within, .wdet__owner:focus-within { border-radius: var(--r-pill); outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -3839,7 +3865,6 @@ a { color: inherit; }
 .taskmodal__foot { display: flex; align-items: center; justify-content: flex-end; gap: 9px; padding: 13px 20px; border-top: 1px solid var(--hairline); }
 .taskmodal__blocker { margin-right: auto; color: var(--bad); font-size: 10.5px; }
 
-.wtile__owner { margin-left: auto; min-width: 24px; height: 19px; padding: 0 4px; font-size: 8px; }
 .wdet__owner { position: relative; margin-left: auto; display: inline-flex; }
 .wdet__owner select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
 

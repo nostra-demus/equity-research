@@ -1542,6 +1542,33 @@ export const api = {
     return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/restore', { ticker, currency })
   },
 
+  // ---- watchlist messages (server: watch/inbox.ts) ----
+  // The showcase has no live watcher, so it has no messages: null, and the inbox stays hidden.
+  watchMessages: async (): Promise<import('./types').WatchMessagesRead | null> => {
+    if ((await ensureMode()) === 'static') return null
+    return get<import('./types').WatchMessagesRead>('/api/watchlist/messages', 15_000)
+  },
+  watchMessageRead: async (id: string, read: boolean) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; unread: number }>(`/api/watchlist/messages/${encodeURIComponent(id)}/read`, { read })
+  },
+  watchMessagesReadAll: async () => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; marked: number; unread: number }>('/api/watchlist/messages/read-all')
+  },
+  watchMessageDelete: async (id: string) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; unread: number }>(`/api/watchlist/messages/${encodeURIComponent(id)}/delete`)
+  },
+  watchMessageFeedback: async (id: string, verdict: 'yes' | 'no', note: string) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>(`/api/watchlist/messages/${encodeURIComponent(id)}/feedback`, { verdict, note })
+  },
+  watchEmailPause: async (ticker: string, currency: string | null, paused: boolean) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>('/api/watchlist/email-pause', { ticker, currency, paused })
+  },
+
   // ---- Tasks board ----
   tasks: async (): Promise<import('./types').TasksRead> => {
     if ((await ensureMode()) === 'static') return snap.tasks || { tasks: [], people: [

@@ -3514,6 +3514,9 @@ export interface WatchRow {
   updated_at: string | null
   /** The engine's own call date, for a row you never touched. */
   engine_since: string | null
+  /** What the armed watchlist says about this name (server: watch/monitor.ts decorate). Absent from an older
+   *  engine and from the static showcase — the list then falls back to the row's own trigger state. */
+  watch?: WatchRowWatch
 }
 
 export interface WatchlistRead {
@@ -3523,6 +3526,115 @@ export interface WatchlistRead {
   unreadable: string[]
   quotes_enabled: boolean
   as_of: string
+  /** Present when the engine keeps watchlist messages; its unread count drives the pill's badge. */
+  watch?: { unread: number } | null
+}
+
+// ---- the armed watchlist (server: ui/server/src/watch/*.ts) ----
+
+/** The seven words the list uses, in priority order. */
+export type WatchStatusWord = 'warning' | 'buy_price_reached' | 'getting_close' | 'check_now' | 'coming_up' | 'cant_check' | 'waiting'
+
+/** Where a plan item came from: the research's own words (`quote`) or a structured field it stores (`field`). */
+export interface WatchPlanSource { file: string; quote: string | null; field: string | null }
+
+export type WatchPlanItem =
+  | { kind: 'price'; id: string; role: 'buy' | 'look_again' | 'fair' | 'bad_case'; low: number; high: number | null; currency: string; source: WatchPlanSource; note: string | null }
+  | { kind: 'date'; id: string; label: string; date: string | null; window: string | null; estimated?: boolean; what_to_check: string | null; source: WatchPlanSource }
+  | { kind: 'deal_breaker'; id: string; text: string; check_where: string | null; source: WatchPlanSource }
+  | { kind: 'waiting_for'; id: string; text: string; source: WatchPlanSource }
+  | { kind: 'news'; id: string; topic: string; source: WatchPlanSource }
+
+export interface WatchPlanView {
+  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
+  detail: string
+  run_root: string
+  decision: string | null
+  decision_date: string | null
+  items: WatchPlanItem[]
+  /** What the reader found but did not keep, and why — shown, never hidden. */
+  left_out: { what: string; why: string }[]
+  reader: { status: string; model: string | null; cost_usd: number; at: string | null; detail: string } | null
+}
+
+export interface WatchCondition {
+  id: string
+  type: string
+  /** A line was crossed. Only these are ever emailed — fixed by type on the server, never a judgement call. */
+  urgent: boolean
+  title: string
+  detail: string
+  quote: string | null
+  source: string | null
+  /** A passed date's tests to check by hand, apart from `detail` so the panel can fold them. Absent from an
+   *  older engine, whose `detail` carries them instead. */
+  checklist?: string[]
+}
+
+export interface WatchRowWatch {
+  status: WatchStatusWord
+  status_label: string
+  headline: string | null
+  conditions: WatchCondition[]
+  /** The nearest price the name is waiting for. `gap_pct` is signed: negative = the price must fall. */
+  next_line: { role: string; label: string; text: string; gap_pct: number | null } | null
+  /** `estimated`: the research only estimates this day ("~21-Oct-2026"). Absent from an older engine. */
+  next_date: { label: string; date: string; days_to: number; estimated?: boolean } | null
+  day_move_pct: number | null
+  market: { label: string; move_pct: number } | null
+  plan: WatchPlanView | null
+  email_paused: boolean
+  unread: number
+}
+
+export interface WatchMessageItem {
+  id: string
+  type: string
+  urgent: boolean
+  title: string
+  detail: string
+  quote: string | null
+  source: string | null
+  at: string
+  /** Set on the items of a summary, which covers several names. */
+  ticker?: string | null
+}
+
+export interface WatchMessage {
+  id: string
+  kind: 'name' | 'summary' | 'system'
+  listing_key: string | null
+  ticker: string | null
+  company_name: string | null
+  status: WatchStatusWord | null
+  title: string
+  urgent: boolean
+  items: WatchMessageItem[]
+  created_at: string
+  updated_at: string
+  read_at: string | null
+  read_by: string | null
+  deleted_at: string | null
+  feedback: { verdict: 'yes' | 'no'; note: string; at: string; by: string } | null
+  email: {
+    state: 'not_urgent' | 'pending' | 'sent' | 'failed' | 'off' | 'paused' | 'skipped'
+    sent_items: string[]
+    attempts: number
+    last_attempt_at: string | null
+    sent_at: string | null
+    detail: string
+  }
+}
+
+export interface WatchMessagesRead {
+  enabled: boolean
+  messages: WatchMessage[]
+  unread: number
+  feedback: { type: string; yes: number; no: number }[]
+  /** How many addresses — never the addresses themselves. */
+  email: { enabled: boolean; addresses: number; reason: string | null }
+  reading: { daily_limit_usd: number; spent_today_usd: number | null }
+  monitor: { last_tick_at: string | null; switched_on_at: string | null; summary_sent_at: string | null; last_error: string | null }
 }
 
 export interface WatchResolveCandidate {

@@ -134,6 +134,9 @@ export function WatchComposer() {
   const triggerProblems = triggers.map((t) => triggerDraftProblem(t, currency))
   const blocker =
     !ticker.trim() ? 'Pick a listing first.'
+    // A row with no currency can never be priced, so it could never tell you anything (the server refuses
+    // a new one too). Picking a listing from the lookup brings its currency with it.
+    : !currency.trim() ? 'Pick a listing that shows a currency — without one its price can never be checked.'
     : !why.trim() ? 'Say why you are watching it.'
     : triggerProblems.find((p): p is string => !!p) ?? null
   const canSave = !blocker && !saving
@@ -155,8 +158,10 @@ export function WatchComposer() {
   }
 
   function addFiles(next: File[]) {
-    const pdfs = next.filter((f) => /\.pdf$/i.test(f.name))
-    setFiles((cur) => [...cur, ...pdfs].slice(0, 5))
+    // PDF or Markdown — the picker offers both and the server accepts both. This used to keep PDFs only, so
+    // a Markdown write-up was dropped without a word.
+    const accepted = next.filter((f) => /\.(pdf|md)$/i.test(f.name))
+    setFiles((cur) => [...cur, ...accepted].slice(0, 5))
   }
 
   // The companies the engine already has documents for, filtered by the same box. Prefix matches first,
