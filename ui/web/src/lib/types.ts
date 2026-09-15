@@ -2176,8 +2176,14 @@ export interface PortfolioPosition {
   unrealizedLocal: number | null
   fxRateToBase: number | null
   multiplier: number | null
-  /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
+  /** Held against margin — futures, CFDs, future-style options — so never weighted like equity. Its value is a
+   *  future's notional exposure or a future-style option's premium, not a NAV allocation. */
   isDerivative: boolean
+  /** The contract's terms where it has them: expiry, strike and right. Two contracts sharing a symbol differ
+   *  here. Optional for an engine that predates them (DESIGN.md §5). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 export interface PortfolioClosure {
   symbol: string | null
@@ -2203,6 +2209,72 @@ export interface PortfolioClosure {
   /** The closing execution this lot was matched against. One sell can consume several opening lots, so
    *  this is what groups the FIFO fragments back into the single trade the operator actually placed. */
   closeTradeID: string | null
+  /** A blank commission on either leg: realised counts it as zero. Optional, because an engine that
+   *  predates it sends nothing, and the screen then claims nothing either way (DESIGN.md §5). */
+  costsUnknown?: boolean
+  /** The contract's history is only partly covered, so FIFO may have matched the wrong opening lot and
+   *  realised is unproven. Optional for the same reason (DESIGN.md §5). */
+  partialHistory?: boolean
+  /** The contract the round trip was in: the engine's position key, one per contract however many share a
+   *  symbol. Optional for an engine that predates it, whose round trips then fold by symbol (DESIGN.md §5). */
+  key?: string
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
+}
+
+/** One broker execution — every buy and sell the statements carry, open positions included. The round
+ *  trips cannot list a buy that has not been sold, nor an add to a position still held. */
+export interface PortfolioExecution {
+  /** tradeID, else transactionID — the identity a closure carries as closeTradeID. */
+  id: string | null
+  /** Contract identity: one position per key, however many contracts share a symbol. */
+  key: string
+  symbol: string | null
+  /** The broker's asset category (STK, FUT, FSOPT…), which says what `value` measures. Optional for an engine
+   *  that predates it (DESIGN.md §5). */
+  assetCategory?: string | null
+  currency: string | null
+  executedAt: string | null
+  side: 'buy' | 'sell'
+  /** ABSOLUTE size; the direction is in `side`. */
+  quantity: number
+  price: number
+  multiplier: number
+  /** Commission plus taxes, negative as a cost. Null when the broker left it blank: unknown, not zero. */
+  commission: number | null
+  /** Signed position in the contract immediately before and after this fill. */
+  positionBefore: number
+  positionAfter: number
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** How much this fill opened, and how much of that is still open as of the last statement. */
+  openedQuantity: number
+  stillOpen: number
+  /** The part of a closing fill that had no open lot to close. */
+  unmatchedQuantity: number
+  /** Realised by the lots this fill closed, net of commission on both legs. Null when it closed nothing. */
+  realizedLocal: number | null
+  /** A blank commission on a leg this fill closed: realised counts that cost as zero. */
+  costsUnknown: boolean
+  /** A blank open/close flag made the engine infer the position this fill opened. */
+  inferred: boolean
+  /** Held against margin (futures, CFDs, future-style options): quantity × price × multiplier is not cash. */
+  isDerivative: boolean
+  /** What the fill was worth in its own currency: the broker's proceeds for a cash instrument; for a contract held
+   *  against margin, quantity × price × multiplier — a future's notional, a future-style option's premium. Null
+   *  when neither can be established (a bond with no proceeds is never guessed). */
+  value: number | null
+  /** The statements do not cover this contract's whole history, so what the fill did is reconstructed. */
+  partialHistory: boolean
+  /** Whether the contract is held now, anchored to the broker's snapshot. Null means the available snapshot
+   *  quantity, split basis, or fill ordering cannot establish it; keep visible with a qualifier. Only an
+   *  absent field falls back to the rebuilt position for an older engine (DESIGN.md §5). */
+  openNow?: boolean | null
+  /** The contract's terms where it has them (see PortfolioPosition). */
+  expiry?: string | null
+  strike?: number | null
+  putCall?: string | null
 }
 
 export interface PortfolioBook {
@@ -2213,8 +2285,12 @@ export interface PortfolioBook {
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: PortfolioPosition[]
-  /** Closed round trips, recovered by FIFO matching — the trade history. */
+  /** Closed round trips, recovered by FIFO matching — what each sale realised. */
   closures: PortfolioClosure[]
+  /** Every fill, oldest first: the trade history, open positions included. OPTIONAL on purpose
+   *  (DESIGN.md §5) — an engine that predates it sends nothing, and the screen must say so rather than
+   *  read the absence as "no trades". */
+  executions?: PortfolioExecution[]
   openLots: { symbol: string | null; quantity: number; price: number; openedAt: string | null }[]
   corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]

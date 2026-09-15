@@ -1,13 +1,18 @@
 // Turning FIFO bookkeeping back into trades. Extracted from the component so the arithmetic can be
 // tested directly: it is a two-stage aggregation over real money, and a fold that quietly drops or
 // double-counts a leg would misstate realised P&L on screen with nothing to catch it.
-import type { PortfolioClosure, PortfolioIdeaBook } from '../../lib/types'
+import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 export interface TradeRowData {
   symbol: string | null
   currency: string | null
   /** Long or short. Keyed on, because `quantity` is absolute and cannot tell the two apart. */
   side: 'long' | 'short'
+  /** The contract the round trip was in (the engine's position key) and its terms — expiry, strike, right —
+   *  where it has them. Two futures expiries share a symbol; on the symbol alone their round trips folded
+   *  together. Null key from an engine that predates it. */
+  key: string | null
+  terms: string | null
   quantity: number
   entryPrice: number
   exitPrice: number
@@ -30,6 +35,12 @@ export interface TradeRowData {
    *  the figure beside it is incomplete, and anything that adds it up has to say so rather than publish
    *  a plausible, understated total. */
   unvalued: number
+  /** Legs whose commission the broker left blank, so `realized` counts that cost as zero. Non-zero means
+   *  the figure is net of the KNOWN costs only. Absent on the wire counts as none, never as known. */
+  costsUnknown: number
+  /** Legs from a contract whose history the statements only partly cover: FIFO may have matched the wrong
+   *  opening lot, so `realized` is unproven. */
+  partial: number
   /** Every broker closeTradeID behind this row. This is the row's STABLE identity: an idea assignment
    *  is written against these, not against the symbol, so labelling this year's AMZN cannot relabel
    *  next year's. Empty when the broker gave no id — such a row cannot be labelled at all, which is
@@ -50,6 +61,27 @@ function sumBase<T>(rows: T[], value: (row: T) => number | null): { total: numbe
   return { total, unvalued }
 }
 
+/** What tells one contract from another that shares its symbol: strike and right for an option, expiry for either.
+ *  Null for a contract with none — a stock, a CFD, or a row from an engine that predates the terms. The engine
+ *  keeps each contract its own position; on screen, without these, two expiries of one future read as one. */
+export function contractTerms(c: { expiry?: string | null; strike?: number | null; putCall?: string | null }): string | null {
+  const right = (c.putCall ?? '').trim().toUpperCase().charAt(0)
+  const terms = [
+    c.strike !== null && c.strike !== undefined ? String(c.strike) : '',
+    right === 'C' || right === 'P' ? right : '',
+    c.expiry ?? '',
+  ].filter(Boolean).join(' ')
+  return terms === '' ? null : terms
+}
+
+/** What quantity × price × multiplier measures for a contract held against margin. A future's or a CFD's price is
+ *  the underlying's, so the product is its NOTIONAL exposure. An option's price is its premium, so for a
+ *  future-style option the same product is the PREMIUM — the exposure of the future beneath it is many times
+ *  larger, and the statement does not carry it. */
+export function derivativeValueWord(assetCategory: string | null | undefined): 'notional' | 'premium' {
+  return /(OPT|FOP)$/.test((assetCategory ?? '').trim().toUpperCase()) ? 'premium' : 'notional'
+}
+
 export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
   const groups = new Map<string, PortfolioClosure[]>()
   closures.forEach((c, i) => {
@@ -68,6 +100,8 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       symbol: lots[0]!.symbol,
       currency: lots[0]!.currency,
       side: lots[0]!.side,
+      key: lots[0]!.key ?? null,
+      terms: contractTerms(lots[0]!),
       quantity: qty,
       entryPrice: wAvg((c) => c.entryPrice),
       exitPrice: wAvg((c) => c.exitPrice),
@@ -84,6 +118,8 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         : lots.reduce((a, c) => a + c.commissionLocal * c.closeFxRateToBase!, 0),
       realized: sumBase(lots, baseRealised).total,
       unvalued: sumBase(lots, baseRealised).unvalued,
+      costsUnknown: lots.filter((c) => c.costsUnknown === true).length,
+      partial: lots.filter((c) => c.partialHistory === true).length,
       lots: lots.length,
       fills: 1,
       closeTradeIDs: [...new Set(lots.map((c) => c.closeTradeID).filter((v): v is string => !!v))],
@@ -99,7 +135,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
   for (const r of merged) {
     const opened = (r.openedAt ?? '').slice(0, 10)
     const closed = (r.closedAt ?? '').slice(0, 10)
-    // TWO THINGS THE KEY HAS TO SEPARATE, because folding either would invent a position:
+    // THREE THINGS THE KEY HAS TO SEPARATE, because folding any of them would invent a position:
     //
     // SIDE. `quantity` is absolute, so a long and a short in the same name over the same two days look
     // identical to a key built from symbol and dates — they folded into one row of twice the size,
@@ -110,9 +146,14 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
     // trades and hide a loser inside a winner's row — the same miscount this fold exists to correct,
     // pointing the other way. So a same-day round trip keeps its own row; only the multi-day case,
     // where the duplicate rows actually appeared, folds.
+    //
+    // CONTRACT. Two futures expiries share a symbol, and over the same two days their round trips folded into
+    // one row priced across two different contracts. The engine's position key separates them; an engine that
+    // sends none falls back to the symbol.
+    const contract = r.key ?? r.symbol
     const key = opened !== '' && opened === closed
-      ? `daytrade|${r.symbol}|${r.currency}|${r.side}|${opened}|${byRoundTrip.size}`
-      : `${r.symbol}|${r.currency}|${r.side}|${opened}|${closed}`
+      ? `daytrade|${contract}|${r.currency}|${r.side}|${opened}|${byRoundTrip.size}`
+      : `${contract}|${r.currency}|${r.side}|${opened}|${closed}`
     const list = byRoundTrip.get(key)
     if (list) list.push(r); else byRoundTrip.set(key, [r])
   }
@@ -136,6 +177,8 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         : group.reduce((a, r) => a + r.commissionBase!, 0),
       realized: group.reduce((a, r) => a + r.realized, 0),
       unvalued: group.reduce((a, r) => a + r.unvalued, 0),
+      costsUnknown: group.reduce((a, r) => a + r.costsUnknown, 0),
+      partial: group.reduce((a, r) => a + r.partial, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),
       closeTradeIDs: [...new Set(group.flatMap((r) => r.closeTradeIDs))],
@@ -166,6 +209,10 @@ export interface IdeaGroupRow {
    *  part only: a split exit with one missing FX rate would otherwise publish a believable but
    *  understated idea result with nothing on screen saying money was left out. */
   unvalued: number
+  /** Round-trip legs inside this idea whose commission was blank, so `realized` counts that cost as zero. */
+  costsUnknown: number
+  /** Round-trip legs inside this idea resting on partial history, so `realized` is unproven. */
+  partial: number
   /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
    *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
   isCash: boolean
@@ -215,11 +262,13 @@ export function groupByIdea(
     if (cash.has((r.symbol ?? '').toUpperCase()) && !ideaOfRow(r.closeTradeIDs, assigned).id) {
       const g = out.get('\u0000cash') ?? {
         ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
-        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0,
+        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0, costsUnknown: 0, partial: 0,
       }
       if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
       g.realized += r.realized
       g.unvalued += r.unvalued
+      g.costsUnknown += r.costsUnknown
+      g.partial += r.partial
       g.trades += 1
       const cl = (r.closedAt ?? '').slice(0, 10)
       if (cl) {
@@ -238,11 +287,13 @@ export function groupByIdea(
 
     const g = out.get(key) ?? {
       ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
-      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0,
+      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0, costsUnknown: 0, partial: 0,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
     g.realized += r.realized
     g.unvalued += r.unvalued
+    g.costsUnknown += r.costsUnknown
+    g.partial += r.partial
     g.trades += 1
     if (r.closeTradeIDs.length === 0) g.unlabellable += 1
     const closed = (r.closedAt ?? '').slice(0, 10)
@@ -263,4 +314,133 @@ export function groupByIdea(
   named.sort((a, b) => Math.abs(b.realized) - Math.abs(a.realized))
   rest.sort((a, b) => a.label.localeCompare(b.label))
   return [...named, ...rest]
+}
+
+// ---------------------------------------------------------------------------------------------
+// Every fill — the blotter the round trips cannot be.
+//
+// A round trip exists only once something has been SOLD, so the round-trip table can never show a buy
+// still held, nor an add to a held position. On the real book that hid 40 of 62 buys, 36 of them adds.
+// The engine now sends every execution with what it did to the position; these read it for the screen.
+
+const QTY_EPS = 1e-9
+
+export interface FillRow extends PortfolioExecution {
+  /** Part of a position still open now: filled since its contract last OPENED — after the fill that last
+   *  left it flat, or from the flip that last reversed it — in a contract that is not flat at the end. A
+   *  name bought in May, sold out in July and bought again in August has only its August fills here; a
+   *  long reversed into a short keeps only the reversing fill onward. The earlier trades are history, not
+   *  part of what is held. */
+  current: boolean
+}
+
+export type FillScope = 'all' | 'open'
+
+/** Newest first, each fill marked with whether it belongs to a position still open. Keyed on the
+ *  CONTRACT, not the symbol: two futures expiries share a root, and one going flat says nothing about
+ *  the other. */
+export function fillRows(executions: PortfolioExecution[]): FillRow[] {
+  // The index of the last fill that ENDED a position, per contract. A fill leaving it flat ends it. So
+  // does a flip, which closes one side and opens the other inside a single fill and never lands on zero:
+  // "last went flat" alone kept a long's buys under open positions after a C;O sale had reversed it. The
+  // flip itself opens the new position, so the end sits just before it.
+  const endedAt = new Map<string, number>()
+  const final = new Map<string, number>()
+  executions.forEach((e, i) => {
+    if (Math.abs(e.positionAfter) <= QTY_EPS) endedAt.set(e.key, i)
+    else if (e.effect === 'flip') endedAt.set(e.key, i - 1)
+    final.set(e.key, e.positionAfter)
+  })
+  return executions
+    .map((e, i) => {
+      // OPEN NOW is the broker's word where the engine sends it, anchored to its snapshot. The rebuilt
+      // position only stands in for an engine that predates the field (DESIGN.md §5). Explicitly unknown
+      // holdings stay visible even if the incomplete fills reconstruct a flat position.
+      const openNow = e.openNow === undefined ? Math.abs(final.get(e.key) ?? 0) > QTY_EPS : e.openNow
+      // With partial history the rebuilt flat points are offset from the real ones, so where the held position
+      // began is unknown: every fill of that contract is shown, each tagged partial.
+      return { ...e, current: openNow === null || (openNow && (e.partialHistory === true || i > (endedAt.get(e.key) ?? -1))) }
+    })
+    .reverse()
+}
+
+/** The rows in scope, and of one contract when one is picked (its engine key, as fillNames offers it). */
+export function filterFills(rows: FillRow[], scope: FillScope, contract: string | null): FillRow[] {
+  return rows.filter((r) => (scope === 'all' || r.current) && (contract === null || r.key === contract))
+}
+
+/** Whether any fill is in a currency other than the book's base. The blotter shows every figure in the
+ *  trade's own currency, beside round trips and cards stated in the base, so this is when it must say so.
+ *  Mixed currencies are not the test: a book trading only EUR on a USD base is single-currency and still
+ *  differs from every base figure around it. An unknown base or fill currency counts as different. */
+export function fillsOutsideBase(rows: PortfolioExecution[], baseCurrency: string | null): boolean {
+  return baseCurrency === null || rows.some((r) => r.currency !== baseCurrency)
+}
+
+/** The names the filter offers — one per CONTRACT, the position the engine keeps, since two futures expiries or
+ *  two option strikes share a symbol and are still different things. Each is labelled by its symbol and, where it
+ *  has them, its terms; two that would still read alike (one symbol listed in two currencies) add the currency.
+ *  With how many fills each has, and whether any of them is still held. */
+export function fillNames(rows: FillRow[]): { key: string; label: string; fills: number; held: boolean | null }[] {
+  const by = new Map<string, { key: string; label: string; currency: string | null; fills: number; held: boolean | null }>()
+  for (const r of rows) {
+    if (!r.symbol) continue
+    const terms = contractTerms(r)
+    const cur = by.get(r.key) ?? { key: r.key, label: terms ? `${r.symbol} ${terms}` : r.symbol, currency: r.currency, fills: 0, held: false }
+    cur.fills += 1
+    if (r.openNow === null) cur.held = null
+    else if (r.current && cur.held !== null) cur.held = true
+    by.set(r.key, cur)
+  }
+  const alike = new Map<string, number>()
+  for (const n of by.values()) alike.set(n.label, (alike.get(n.label) ?? 0) + 1)
+  return [...by.values()]
+    .map((n) => ({ key: n.key, label: (alike.get(n.label) ?? 0) > 1 ? `${n.label} ${n.currency ?? '—'}` : n.label, fills: n.fills, held: n.held }))
+    .sort((a, b) => a.label.localeCompare(b.label))
+}
+
+/** What a fill did to the position, in words. */
+export function fillAction(r: Pick<PortfolioExecution, 'side' | 'effect' | 'positionAfter'>): string {
+  switch (r.effect) {
+    case 'open': return r.side === 'sell' ? 'opened short' : 'opened'
+    case 'add': return 'added'
+    case 'reduce': return 'trimmed'
+    case 'close': return 'closed'
+    case 'flip': return r.positionAfter < 0 ? 'reversed to short' : 'reversed to long'
+    case 'unmatched': return 'no open lot'
+  }
+}
+
+/** What is left of what a fill opened: all of it, part of it, or none. Null for a fill that opened
+ *  nothing — a pure sale has no remainder to report. */
+export function fillStatus(r: Pick<PortfolioExecution, 'openedQuantity' | 'stillOpen'>): 'held' | 'part' | 'sold' | null {
+  if (r.openedQuantity <= QTY_EPS) return null
+  if (r.stillOpen >= r.openedQuantity - QTY_EPS) return 'held'
+  if (r.stillOpen > QTY_EPS) return 'part'
+  return 'sold'
+}
+
+/** The counts under the table, over exactly the rows shown. */
+export function fillSummary(rows: FillRow[]): {
+  fills: number; buys: number; sells: number; adds: number; positions: number; inferred: number; costsUnknown: number
+  partial: number
+} {
+  let buys = 0
+  let sells = 0
+  let adds = 0
+  let inferred = 0
+  let costsUnknown = 0
+  let partial = 0
+  const open = new Set<string>()
+  for (const r of rows) {
+    if (r.side === 'buy') buys += 1
+    else sells += 1
+    if (r.effect === 'add') adds += 1
+    if (r.current) open.add(r.key)
+    // Positive matches only: a qualifier the engine did not send is not counted (DESIGN.md §5).
+    if (r.inferred === true) inferred += 1
+    if (r.costsUnknown === true) costsUnknown += 1
+    if (r.partialHistory === true) partial += 1
+  }
+  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown, partial }
 }

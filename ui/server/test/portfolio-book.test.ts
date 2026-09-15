@@ -683,5 +683,494 @@ check('BASE_SUMMARY is a reporting label, not a currency', () => {
 })
 
 
+// ---------- the blotter: every fill, open positions included ----------
+// A round trip exists only once something is sold, so closures alone could never list a buy still held,
+// nor an add to a held position. The blotter is every fill the lot engine applied, in order.
+
+check('every fill is listed, open positions included, in the order the book applied them', () => {
+  // T1–T10 are executions; T-SUM is a SUMMARY row and is not a fill.
+  assert.deepEqual(book.executions.map((e) => e.id), ['T10', 'T1', 'T4', 'T2', 'T5', 'T7', 'T9', 'T3', 'T8', 'T6'])
+})
+
+check('each fill says what it did to the position', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  // AAA: buy 100 opens, buy 100 adds, sell 150 trims to 50.
+  assert.deepEqual([by.get('T1')!.effect, by.get('T2')!.effect, by.get('T3')!.effect], ['open', 'add', 'reduce'])
+  assert.deepEqual([by.get('T2')!.positionBefore, by.get('T2')!.positionAfter], [100, 200])
+  assert.deepEqual([by.get('T3')!.positionBefore, by.get('T3')!.positionAfter], [200, 50])
+  // DDD: a sell opens the short and a buy closes it.
+  assert.deepEqual([by.get('T7')!.side, by.get('T7')!.effect, by.get('T7')!.positionAfter], ['sell', 'open', -30])
+  assert.deepEqual([by.get('T8')!.side, by.get('T8')!.effect, by.get('T8')!.positionAfter], ['buy', 'close', 0])
+})
+
+check('a buy reads as held, partly sold or sold from what is still open', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  // The 150-share sale consumed all of T1 and half of T2, oldest first.
+  assert.deepEqual([by.get('T1')!.openedQuantity, by.get('T1')!.stillOpen], [100, 0])
+  assert.deepEqual([by.get('T2')!.openedQuantity, by.get('T2')!.stillOpen], [100, 50])
+  assert.deepEqual([by.get('T9')!.openedQuantity, by.get('T9')!.stillOpen], [200, 200], 'EEE was never sold')
+  assert.equal(by.get('T3')!.openedQuantity, 0, 'a pure sale opens nothing')
+})
+
+check('a sale carries what it realised, and the blotter ties to the round trips', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.ok(near(by.get('T3')!.realizedLocal!, 646.5, 1e-4), `AAA sale realised ${by.get('T3')!.realizedLocal}`)
+  assert.ok(near(by.get('T8')!.realizedLocal!, 148), `DDD cover realised ${by.get('T8')!.realizedLocal}`)
+  assert.ok(near(by.get('T6')!.realizedLocal!, 19992), `CCC sale realised ${by.get('T6')!.realizedLocal}`)
+  assert.equal(by.get('T1')!.realizedLocal, null, 'a buy realises nothing')
+  const blotter = book.executions.reduce((a, e) => a + (e.realizedLocal ?? 0), 0)
+  const trips = book.closures.reduce((a, c) => a + c.realizedLocal, 0)
+  assert.ok(near(blotter, trips), `blotter ${blotter} vs round trips ${trips}`)
+})
+
+check('what the blotter says is open is exactly what the lots and the broker hold', () => {
+  const lastByKey = new Map<string, number>()
+  const stillOpenByKey = new Map<string, number>()
+  for (const e of book.executions) {
+    lastByKey.set(e.key, e.positionAfter)
+    stillOpenByKey.set(e.key, (stillOpenByKey.get(e.key) ?? 0) + e.stillOpen)
+  }
+  const lotsByKey = new Map<string, number>()
+  for (const l of book.openLots) lotsByKey.set(l.key, (lotsByKey.get(l.key) ?? 0) + l.quantity)
+  assert.ok(lotsByKey.size > 0)
+  for (const [key, held] of lotsByKey) {
+    assert.ok(near(lastByKey.get(key)!, held), `${key}: the last fill leaves ${lastByKey.get(key)}, the lots hold ${held}`)
+    assert.ok(near(stillOpenByKey.get(key)!, Math.abs(held)), `${key}: fills credit ${stillOpenByKey.get(key)} as open, the lots hold ${held}`)
+  }
+  for (const p of book.positions.filter((x) => x.quantity !== null)) {
+    const last = lastByKey.get(`conid:${p.conid}`) ?? 0
+    assert.ok(near(last, p.quantity!), `${p.symbol}: blotter ${last} vs broker ${p.quantity}`)
+  }
+})
+
+check('a blank commission is unknown, not zero', () => {
+  assert.equal(book.executions.find((e) => e.id === 'T4')!.commission, null)
+  assert.equal(book.executions.find((e) => e.id === 'T1')!.commission, -1)
+})
+
+check('a C;O flip closes the long and reopens short, and the blotter says so', () => {
+  const base = { ...doc.trades[0]!, symbol: 'FLP', conid: '66', levelOfDetail: 'EXECUTION', multiplier: 1, ibCommission: 0, taxes: 0, fxRateToBase: 1 }
+  const { executions, closures } = runFifo([
+    { ...base, tradeID: 'F1', transactionID: 'FX1', quantity: 100, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'F2', transactionID: 'FX2', quantity: -150, tradePrice: 12, openCloseIndicator: 'C;O', dateTime: '2026-02-01T10:00:00' },
+  ])
+  const flip = executions[1]!
+  assert.equal(flip.effect, 'flip')
+  assert.deepEqual([flip.positionBefore, flip.positionAfter], [100, -50])
+  assert.deepEqual([flip.openedQuantity, flip.stillOpen], [50, 50], 'the new short is still open')
+  assert.ok(near(flip.realizedLocal!, closures[0]!.realizedLocal), 'and it carries what the closing half realised')
+  assert.ok(near(flip.realizedLocal!, 200), `100 x $2 with no costs = 200, got ${flip.realizedLocal}`)
+  assert.equal(executions[0]!.stillOpen, 0, 'the long it closed is gone')
+})
+
+check('a close with nothing to close is listed as unmatched, not dropped', () => {
+  const { executions } = runFifo([
+    { ...doc.trades[0]!, tradeID: 'Z1', symbol: 'ZZZ', conid: '99', quantity: -10, tradePrice: 5, openCloseIndicator: 'C', dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' },
+  ])
+  assert.equal(executions.length, 1, 'the fill still appears in the blotter')
+  assert.equal(executions[0]!.effect, 'unmatched')
+  assert.equal(executions[0]!.unmatchedQuantity, 10)
+  assert.deepEqual([executions[0]!.positionBefore, executions[0]!.positionAfter], [0, 0])
+  assert.equal(executions[0]!.realizedLocal, null)
+})
+
+check('a sale larger than the position closes what it can and reports the rest as unmatched', () => {
+  const base = { ...doc.trades[0]!, symbol: 'OVR', conid: '88', levelOfDetail: 'EXECUTION', multiplier: 1 }
+  const { executions } = runFifo([
+    { ...base, tradeID: 'O1', transactionID: 'OX1', quantity: 5, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'O2', transactionID: 'OX2', quantity: -8, tradePrice: 12, openCloseIndicator: 'C', dateTime: '2026-02-01T10:00:00' },
+  ])
+  assert.equal(executions[1]!.effect, 'close')
+  assert.equal(executions[1]!.unmatchedQuantity, 3)
+})
+
+check('with a blank open/close indicator the effect is read off the position', () => {
+  const buy = { ...doc.trades[0]!, tradeID: 'B1', symbol: 'BLK', conid: '55', quantity: 100, tradePrice: 10, openCloseIndicator: null, dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' }
+  const sell = { ...buy, tradeID: 'B2', quantity: -60, tradePrice: 15, dateTime: '2026-02-01T10:00:00' }
+  const { executions } = runFifo([buy, sell])
+  assert.deepEqual(executions.map((e) => e.effect), ['open', 'reduce'])
+  assert.equal(executions[0]!.stillOpen, 40)
+})
+
+check('a fill the broker gave no id still owns what it opened', () => {
+  // TWO id-less fills in different contracts. Keyed on the missing id they would share one slot: one fill
+  // would read the other's shares as its own while the other read as sold. The lot object is the only
+  // identity they have.
+  const base = { ...doc.trades[0]!, tradeID: null, transactionID: null, openCloseIndicator: 'O', levelOfDetail: 'EXECUTION' }
+  const { executions } = runFifo([
+    { ...base, symbol: 'NID', conid: '44', quantity: 7, tradePrice: 3, dateTime: '2026-01-01T10:00:00' },
+    { ...base, symbol: 'NID2', conid: '45', quantity: 20, tradePrice: 4, dateTime: '2026-01-02T10:00:00' },
+  ])
+  assert.deepEqual(executions.map((e) => [e.id, e.symbol, e.stillOpen]), [[null, 'NID', 7], [null, 'NID2', 20]])
+})
+
+check('a restated trade appears once, as its replacement', () => {
+  const pre = { ...doc.trades[0]!, tradeID: 'S-PRE', transactionID: 'SX-PRE', symbol: 'SPL', conid: '77', quantity: 100, tradePrice: 50, openCloseIndicator: 'O', dateTime: '2026-02-01T10:00:00', levelOfDetail: 'EXECUTION', origTradeID: null, origTransactionID: null }
+  const post = { ...pre, tradeID: 'S-POST', transactionID: 'SX-POST', quantity: 200, tradePrice: 25, origTradeID: 'S-PRE', origTransactionID: 'SX-PRE' }
+  const restated = buildBook([{ ...doc, trades: [pre, post], openPositions: [], cashTransactions: [], equitySummary: [], changeInNav: null }])
+  assert.deepEqual(restated.executions.map((e) => [e.id, e.quantity]), [['S-POST', 200]])
+})
+
+check('re-importing an overlapping export does not duplicate a fill', () => {
+  const twice = buildBook([doc, parseFlexXml(xml)])
+  assert.deepEqual(twice.executions.map((e) => e.id), book.executions.map((e) => e.id))
+})
+
+
+// ---------- review follow-ups: inferred opens, blank commissions, notional exposure ----------
+
+check('a blank-flag fill that opens from flat or across zero is marked inferred; the broker’s own flags never are', () => {
+  assert.ok(book.executions.every((e) => e.inferred === false), 'every fixture fill carries an explicit O or C')
+  const base = { ...doc.trades[0]!, symbol: 'BLK', conid: '55', openCloseIndicator: null, levelOfDetail: 'EXECUTION', multiplier: 1 }
+  // History starting mid-position: the first sale has nothing to close. The engine opens a short, but the
+  // same sale may instead have closed a long from before the statements. A guess, and flagged as one.
+  const { executions: start } = runFifo([{ ...base, tradeID: 'S1', transactionID: 'SX1', quantity: -10, tradePrice: 5, dateTime: '2026-01-01T10:00:00' }])
+  assert.deepEqual([start[0]!.effect, start[0]!.side, start[0]!.inferred], ['open', 'sell', true])
+  const { executions: seq } = runFifo([
+    { ...base, tradeID: 'B1', transactionID: 'BX1', quantity: 100, tradePrice: 10, dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'B2', transactionID: 'BX2', quantity: 50, tradePrice: 11, dateTime: '2026-01-02T10:00:00' },
+    { ...base, tradeID: 'B3', transactionID: 'BX3', quantity: -60, tradePrice: 12, dateTime: '2026-01-03T10:00:00' },
+    { ...base, tradeID: 'B4', transactionID: 'BX4', quantity: -150, tradePrice: 13, dateTime: '2026-01-04T10:00:00' },
+  ])
+  // opened from flat: inferred; added to the side held: not; trimmed a held long: not; reversed past zero: inferred
+  assert.deepEqual(seq.map((e) => [e.effect, e.inferred]), [['open', true], ['add', false], ['reduce', false], ['flip', true]])
+  const { executions: explicit } = runFifo([{ ...base, tradeID: 'E1', transactionID: 'EX1', quantity: -10, tradePrice: 5, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' }])
+  assert.equal(explicit[0]!.inferred, false, 'an explicit O is the broker’s word, not a guess')
+})
+
+check('a blank commission on either leg marks the realised figure as missing that cost', () => {
+  const base = { ...doc.trades[0]!, symbol: 'CST', conid: '33', levelOfDetail: 'EXECUTION', multiplier: 1, taxes: 0 }
+  const run = (openComm: number | null, closeComm: number | null) => runFifo([
+    { ...base, tradeID: 'C1', transactionID: 'CX1', quantity: 10, tradePrice: 10, openCloseIndicator: 'O', ibCommission: openComm, dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'C2', transactionID: 'CX2', quantity: -10, tradePrice: 12, openCloseIndicator: 'C', ibCommission: closeComm, dateTime: '2026-02-01T10:00:00' },
+  ])
+  const cases: [number | null, number | null, boolean][] = [[-1, -1, false], [null, -1, true], [-1, null, true]]
+  for (const [o, c, unknown] of cases) {
+    const { closures, executions } = run(o, c)
+    assert.equal(closures[0]!.costsUnknown, unknown, `open ${o} / close ${c}: the round trip`)
+    assert.equal(executions[1]!.costsUnknown, unknown, `open ${o} / close ${c}: the sale`)
+    assert.equal(executions[0]!.costsUnknown, false, 'a buy realises nothing, so nothing is missing from it')
+  }
+  assert.ok(book.closures.every((c) => c.costsUnknown === false), 'every fixture round trip has both commissions')
+})
+
+check('futures fills are marked as notional exposure; stock fills are not', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.deepEqual([by.get('T5')!.isDerivative, by.get('T6')!.isDerivative, by.get('T10')!.isDerivative], [true, true, true], 'CCC and FFF are futures')
+  assert.equal(by.get('T1')!.isDerivative, false)
+})
+
+
+// ---------- review round 3: the blotter anchored to the broker, and what a fill was worth ----------
+
+check('a contract whose rebuilt position disagrees with the broker snapshot has partial history', () => {
+  assert.ok(book.executions.every((e) => e.partialHistory === false), 'the fixture reconciles, so every fill is established')
+  // Carrying 100 AAA from before the statements: the snapshot says 150 where the fills rebuild 50. The first
+  // buy reads "open" but was really an add, so every AAA fill is reconstructed, and says so.
+  const carried = buildBook([{ ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: 150 } : p) }])
+  const aaa = carried.executions.filter((e) => e.symbol === 'AAA')
+  assert.ok(aaa.length === 3 && aaa.every((e) => e.partialHistory), 'every fill in the carried contract')
+  assert.ok(carried.executions.filter((e) => e.symbol !== 'AAA').every((e) => !e.partialHistory), 'and no other')
+})
+
+check('a sale with nothing to close marks its whole contract as partial history', () => {
+  const extra = [
+    { ...doc.trades[0]!, tradeID: 'Q1', transactionID: 'QX1', symbol: 'QQQ', conid: '707', quantity: 5, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' },
+    { ...doc.trades[0]!, tradeID: 'Q2', transactionID: 'QX2', symbol: 'QQQ', conid: '707', quantity: -8, tradePrice: 12, openCloseIndicator: 'C', dateTime: '2026-01-07T10:00:00', levelOfDetail: 'EXECUTION' },
+  ]
+  const b = buildBook([{ ...doc, trades: [...doc.trades, ...extra] }])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'QQQ').map((e) => [e.effect, e.partialHistory]), [['open', true], ['close', true]])
+})
+
+check('with no snapshot to check against, a contract resting on a guess stays partial', () => {
+  const blankSale = { ...doc.trades[0]!, tradeID: 'G1', transactionID: 'GX1', symbol: 'GSS', conid: '808', quantity: -10, tradePrice: 5, openCloseIndicator: null, dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }
+  const noSnapshot = { ...doc, openPositions: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'OpenPositions'), trades: [...doc.trades, blankSale] }
+  const b = buildBook([noSnapshot])
+  const guess = b.executions.find((e) => e.id === 'G1')!
+  assert.deepEqual([guess.inferred, guess.partialHistory], [true, true])
+  assert.equal(b.executions.find((e) => e.id === 'T1')!.partialHistory, false, 'explicit flags need no anchor to be read')
+})
+
+check('a hole between statements leaves every fill unanchored', () => {
+  const later = {
+    ...doc,
+    fromDate: '2028-01-01', toDate: '2028-12-31',
+    trades: [], cashTransactions: [], corporateActions: [], openPositions: [],
+    equitySummary: [{ reportDate: '2028-06-30', total: 500000, currency: 'USD', cash: null }],
+  }
+  const gapped = buildBook([doc, later as typeof doc])
+  assert.ok(gapped.executions.length > 0 && gapped.executions.every((e) => e.partialHistory))
+})
+
+check('a fill is worth its broker proceeds, a future its notional, and a par-priced bond never quantity x price', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.equal(by.get('T1')!.value, 1000, 'AAA: the broker’s own proceeds')
+  assert.equal(by.get('T5')!.value, 400000, 'CCC: 2 contracts x 2,000 x 100 of exposure, although no cash moved')
+  const base = { ...doc.trades[0]!, symbol: 'UST', conid: '909', assetCategory: 'BOND', multiplier: 1, openCloseIndicator: 'O', levelOfDetail: 'EXECUTION', dateTime: '2026-01-06T10:00:00' }
+  const bond = (proceeds: number | null) => runFifo([{ ...base, quantity: 10000, tradePrice: 98.5, proceeds }]).executions[0]!.value
+  assert.equal(bond(-9850), 9850, '10,000 face at 98.5 is 9,850, not 985,000')
+  assert.equal(bond(null), null, 'without proceeds a bond cannot be valued, so it is not guessed')
+  const { executions: stk } = runFifo([{ ...doc.trades[0]!, tradeID: 'P1', transactionID: 'PX1', symbol: 'PPP', conid: '910', quantity: 7, tradePrice: 3, proceeds: null, openCloseIndicator: 'O', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }])
+  assert.equal(stk[0]!.value, 21, 'a stock with no proceeds field falls back to quantity x price')
+})
+
+
+// ---------- review round 4: anchor against the snapshot the fills can actually be compared with ----------
+
+// A Trades-only export newer than the last position snapshot: the snapshot stays the older statement's, and
+// the new fills come after it. `buy` adds to a position; `snapshotAAA` overrides what the snapshot says.
+const newerTradesOnly = (buyQty: number, snapshotAAA: number | null = null) => {
+  const base = snapshotAAA === null ? doc
+    : { ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: snapshotAAA } : p) }
+  const later = {
+    ...doc,
+    fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [],
+    equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, tradeID: 'N1', transactionID: 'NX1', quantity: buyQty, tradePrice: 20, openCloseIndicator: 'O', tradeDate: '2026-05-01', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+  }
+  return buildBook([base, later as typeof doc])
+}
+
+check('trading after the last snapshot does not make a fully covered position partial', () => {
+  // The snapshot (50 AAA) matches the fills it saw; 10 more bought afterwards is new trading, not a gap.
+  const b = newerTradesOnly(10)
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => !e.partialHistory), 'AAA is anchored as of its snapshot')
+})
+
+check('a stale snapshot that happens to equal the final position cannot clear a real mismatch', () => {
+  // 100 AAA carried in from before the statements: the snapshot says 150 where the fills it saw rebuild 50.
+  // 100 more bought later brings the final position to 150, equal to that stale snapshot by coincidence.
+  const b = newerTradesOnly(100, 150)
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => e.partialHistory), 'still partial: the offset was there all along')
+})
+
+
+// ---------- review round 5: open-now anchored to the broker, unproven realised, restated fills ----------
+
+check('the broker snapshot decides which contracts are open now, whatever the fills rebuild', () => {
+  const openBy = new Map(book.executions.map((e) => [e.symbol, e.openNow]))
+  assert.deepEqual(['AAA', 'BBB', 'EEE', 'FFF', 'CCC', 'DDD'].map((x) => openBy.get(x)), [true, true, true, true, false, false])
+  // History starting mid-position: the broker holds 90 ZZZ, and the statements hold only a 10-share sale.
+  // The fills rebuild nothing, but the broker says the position is open, and the Open positions view must.
+  const zzz = { ...doc.openPositions[0]!, symbol: 'ZZZ', conid: '606', position: 90, positionValue: 900, costBasisMoney: 800 }
+  const sale = { ...doc.trades[0]!, tradeID: 'Z1', transactionID: 'ZX1', symbol: 'ZZZ', conid: '606', quantity: -10, tradePrice: 10, openCloseIndicator: 'C', dateTime: '2026-01-06T10:00:00', levelOfDetail: 'EXECUTION' }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, zzz], trades: [...doc.trades, sale] }])
+  const z = b.executions.find((e) => e.id === 'Z1')!
+  assert.deepEqual([z.effect, z.partialHistory, z.openNow], ['unmatched', true, true])
+})
+
+check('a sale after the snapshot that empties a position leaves it closed now', () => {
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, tradeID: 'S9', transactionID: 'SX9', quantity: -50, tradePrice: 20, openCloseIndicator: 'C', tradeDate: '2026-05-01', dateTime: '2026-05-01T10:00:00', levelOfDetail: 'EXECUTION' }],
+  }
+  const b = buildBook([doc, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'AAA').every((e) => e.openNow === false), 'the snapshot 50, less the 50 sold after it')
+})
+
+check('a round trip in a contract with partial history carries the qualifier, so its realised is unproven', () => {
+  assert.ok(book.closures.every((c) => c.partialHistory === false))
+  const carried = buildBook([{ ...doc, openPositions: doc.openPositions.map((p) => p.symbol === 'AAA' ? { ...p, position: 150 } : p) }])
+  const aaa = carried.closures.filter((c) => c.symbol === 'AAA')
+  assert.ok(aaa.length > 0 && aaa.every((c) => c.partialHistory), 'FIFO may have sold the wrong lot')
+  assert.ok(carried.closures.filter((c) => c.symbol !== 'AAA').every((c) => !c.partialHistory))
+})
+
+check('a newer export restating a fill the snapshot saw keeps the contract anchored', () => {
+  // EEE's only fill (T9) is restated in a later Trades-only export under a new id. The snapshot saw the
+  // original, so the replacement is covered through the supersession relation, and EEE still reconciles.
+  const t9 = doc.trades.find((t) => t.tradeID === 'T9')!
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...t9, tradeID: 'T9R', transactionID: 'X9R', origTradeID: 'T9', origTransactionID: 'X9' }],
+  }
+  const b = buildBook([doc, later as typeof doc])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'EEE').map((e) => [e.id, e.partialHistory, e.openNow]), [['T9R', false, true]])
+})
+
+
+// ---------- review round 6: what the snapshot already holds is decided by the day a fill was booked ----------
+
+// A snapshot exported without its trades, then a newer Trades-only export reaching back before it. Nothing up
+// to the snapshot lists the fill, but the broker had booked it by then, so the snapshot already reflects it.
+const backfilled = (fill: Record<string, unknown>) => {
+  const xxx = { ...doc.openPositions[0]!, symbol: 'XXX', conid: '911', position: 10, positionValue: 100, costBasisMoney: 100 }
+  const snapshot = { ...doc, trades: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'Trades'), openPositions: [...doc.openPositions, xxx] }
+  const later = {
+    ...doc, fromDate: '2025-12-01', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...doc.trades[0]!, symbol: 'XXX', conid: '911', tradePrice: 10, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', levelOfDetail: 'EXECUTION', ...fill }],
+  }
+  return buildBook([snapshot, later as typeof doc])
+}
+
+check('a fill before the snapshot that only a newer export carries is already in the snapshot', () => {
+  // The buy rebuilds the broker's 10 exactly: established, and 10 held, not 20.
+  const bought = backfilled({ tradeID: 'B1', transactionID: 'BX1', quantity: 10, openCloseIndicator: 'O' }).executions.find((e) => e.id === 'B1')!
+  assert.deepEqual([bought.effect, bought.partialHistory, bought.openNow], ['open', false, true])
+  // History starting mid-position: the snapshot already reflects this sale, so the broker's 10 are still held.
+  const sold = backfilled({ tradeID: 'B2', transactionID: 'BX2', quantity: -10, openCloseIndicator: 'C' }).executions.find((e) => e.id === 'B2')!
+  assert.deepEqual([sold.effect, sold.partialHistory, sold.openNow], ['unmatched', true, true])
+})
+
+check('a fill executed on the snapshot day but booked to the next one is after the snapshot', () => {
+  // An overnight-session fill carries the next trading day as its trade date, and a statement counts it there.
+  // The snapshot's own statement lists the buy of the 10 YYY it holds; a newer export sells them that evening.
+  const buy = { ...doc.trades[0]!, tradeID: 'Y1', transactionID: 'YX1', symbol: 'YYY', conid: '912', quantity: 10, tradePrice: 10, openCloseIndicator: 'O', tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', levelOfDetail: 'EXECUTION' }
+  const yyy = { ...doc.openPositions[0]!, symbol: 'YYY', conid: '912', position: 10, positionValue: 100, costBasisMoney: 100 }
+  const later = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-06-30', whenGenerated: '20260701;120000',
+    sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+    trades: [{ ...buy, tradeID: 'Y2', transactionID: 'YX2', quantity: -10, openCloseIndicator: 'C', tradeDate: '2026-01-05', dateTime: '2026-01-04T21:00:00' }],
+  }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, yyy], trades: [...doc.trades, buy] }, later as typeof doc])
+  assert.deepEqual(b.executions.filter((e) => e.symbol === 'YYY').map((e) => [e.id, e.tradeDate, e.partialHistory, e.openNow]),
+    [['Y1', '2026-01-03', false, false], ['Y2', '2026-01-05', false, false]], 'the snapshot held 10; the sale after it closed them')
+})
+
+
+// ---------- review round 7: a restatement after the snapshot, and the contract behind each fill ----------
+
+// A 2:1 split restates the buy of 100 XSP as 200. `buyXsp` is the original, as the statements first carried it.
+const buyXsp = { ...doc.trades[0]!, tradeID: 'A1', transactionID: 'AX1', symbol: 'XSP', conid: '913', quantity: 100, tradePrice: 10, proceeds: -1000, openCloseIndicator: 'O', tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', levelOfDetail: 'EXECUTION' }
+const xspHeld = (position: number) => ({ ...doc.openPositions[0]!, symbol: 'XSP', conid: '913', position, positionValue: position * 10, costBasisMoney: 1000 })
+// A later Trades-only export: the split-restated buy, then a sale of the 200 after the split.
+const afterSplit = (fromDate: string) => ({
+  ...doc, fromDate, toDate: '2026-06-30', whenGenerated: '20260701;120000',
+  sectionsPresent: ['Trades'], openPositions: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null,
+  trades: [
+    { ...buyXsp, tradeID: 'A2', transactionID: 'AX2', quantity: 200, tradePrice: 5, origTradeID: 'A1', origTransactionID: 'AX1' },
+    { ...buyXsp, tradeID: 'A3', transactionID: 'AX3', quantity: -200, tradePrice: 6, proceeds: 1200, openCloseIndicator: 'C', tradeDate: '2026-03-10', dateTime: '2026-03-10T10:00:00' },
+  ],
+})
+const xspFills = (b: ReturnType<typeof buildBook>) => b.executions.filter((e) => e.symbol === 'XSP').map((e) => [e.id, e.quantity, e.partialHistory, e.openNow])
+
+check('a restatement after the snapshot rebases it, so selling the restated shares leaves nothing held', () => {
+  // The snapshot's own statement lists the buy of 100 and holds 100, so it counts pre-split shares. The restated
+  // 200 is the same holding: established, and the sale of the 200 after the split leaves nothing, not -100.
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, buyXsp] }, afterSplit('2026-01-05') as typeof doc])
+  assert.deepEqual(xspFills(b), [['A2', 200, false, false], ['A3', 200, false, false]])
+})
+
+check('a snapshot that may already count a restatement is not rebased by it a second time', () => {
+  // Only an OLDER statement lists the buy of 100. The snapshot's statement, taken after the split, holds 200 and
+  // lists neither version, so nothing says it counted the old shares: it stands as the broker stated it.
+  const older = { ...doc, trades: [...doc.trades, buyXsp], openPositions: [], sectionsPresent: doc.sectionsPresent.filter((x) => x !== 'OpenPositions') }
+  const snapshot = {
+    ...doc, fromDate: '2026-01-05', toDate: '2026-02-28', whenGenerated: '20260301;120000',
+    trades: [], cashTransactions: [], corporateActions: [], equitySummary: [], changeInNav: null, openPositions: [...doc.openPositions, xspHeld(200)],
+  }
+  const b = buildBook([older, snapshot, afterSplit('2026-03-01') as typeof doc])
+  assert.deepEqual(xspFills(b), [['A2', 200, false, false], ['A3', 200, false, false]])
+})
+
+check('a derivative fill and its round trip name the contract: expiry, strike and right travel with them', () => {
+  // Two expiries of one future and an option on it, all under the symbol CL and with no conid. The engine keeps
+  // three positions; the screen can only tell them apart if each fill and round trip carries what separates them.
+  const cl = { ...doc.trades[0]!, conid: null, symbol: 'CL', assetCategory: 'FUT', multiplier: 1000, proceeds: 0, levelOfDetail: 'EXECUTION', tradeDate: '2026-01-06', dateTime: '2026-01-06T10:00:00', strike: null, putCall: null }
+  const { executions, closures } = runFifo([
+    { ...cl, tradeID: 'F1', transactionID: 'FX1', quantity: 1, tradePrice: 70, openCloseIndicator: 'O', expiry: '2026-03-20' },
+    { ...cl, tradeID: 'F2', transactionID: 'FX2', quantity: 1, tradePrice: 71, openCloseIndicator: 'O', expiry: '2026-06-22' },
+    { ...cl, tradeID: 'F3', transactionID: 'FX3', quantity: -1, tradePrice: 72, openCloseIndicator: 'C', expiry: '2026-03-20', tradeDate: '2026-01-07', dateTime: '2026-01-07T10:00:00' },
+    { ...cl, tradeID: 'O1', transactionID: 'OX1', assetCategory: 'FSOPT', quantity: 2, tradePrice: 3, openCloseIndicator: 'O', expiry: '2026-03-17', strike: 75, putCall: 'C' },
+  ])
+  assert.deepEqual(executions.map((e) => [e.id, e.expiry, e.strike, e.putCall]),
+    [['F1', '2026-03-20', null, null], ['F2', '2026-06-22', null, null], ['O1', '2026-03-17', 75, 'C'], ['F3', '2026-03-20', null, null]])
+  assert.equal(new Set(executions.map((e) => e.key)).size, 3, 'three contracts, three positions')
+  assert.deepEqual(closures.map((c) => [c.closeTradeID, c.expiry, c.strike, c.putCall]), [['F3', '2026-03-20', null, null]])
+})
+
+
+// ---------- snapshot uncertainty and incomplete split history ----------
+
+check('a split rebases carried shares too, even when only a small recent buy is in history', () => {
+  const recent = { ...buyXsp, quantity: 10, proceeds: -100 }
+  const later = afterSplit('2026-01-05')
+  later.trades[0] = { ...later.trades[0]!, quantity: 20, proceeds: -100 }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, recent] }, later as typeof doc])
+  // 90 carried + 10 bought = 100 before the split; all 200 are sold. The history remains partial.
+  assert.deepEqual(xspFills(b), [['A2', 20, true, false], ['A3', 200, true, false]])
+})
+
+check('a reverse split applies once to the whole carried position across several restated fills', () => {
+  const first = { ...buyXsp, quantity: 10 }
+  const second = { ...buyXsp, tradeID: 'B1', transactionID: 'BX1', quantity: 20 }
+  const later = afterSplit('2026-01-05')
+  later.trades = [
+    { ...later.trades[0]!, quantity: 5, tradePrice: 20 },
+    { ...later.trades[0]!, tradeID: 'B2', transactionID: 'BX2', origTradeID: 'B1', origTransactionID: 'BX1', quantity: 10, tradePrice: 20 },
+    { ...later.trades[1]!, quantity: -50 },
+  ]
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, first, second] }, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'XSP').every((e) => e.partialHistory && e.openNow === false))
+})
+
+check('conflicting restatement ratios do not assert whether a carried position is open', () => {
+  const first = { ...buyXsp, quantity: 10 }
+  const second = { ...buyXsp, tradeID: 'B1', transactionID: 'BX1', quantity: 10 }
+  const later = afterSplit('2026-01-05')
+  later.trades = [
+    { ...later.trades[0]!, quantity: 20, tradePrice: 5 },
+    { ...later.trades[0]!, tradeID: 'B2', transactionID: 'BX2', origTradeID: 'B1', origTransactionID: 'BX1', quantity: 30, tradePrice: 10 / 3 },
+  ]
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, xspHeld(100)], trades: [...doc.trades, first, second] }, later as typeof doc])
+  assert.ok(b.executions.filter((e) => e.symbol === 'XSP').every((e) => e.partialHistory && e.openNow === null))
+})
+
+const intradayBook = (generated: string | null, executedAt: string | null, quantity = 0, identified = true) => {
+  const snapshot = { ...doc, fromDate: '2026-01-01', toDate: '2026-01-04', whenGenerated: generated,
+    trades: [], openPositions: [xspHeld(quantity)], sectionsPresent: ['OpenPositions'],
+    equitySummary: [], cashTransactions: [], corporateActions: [], changeInNav: null }
+  const later = { ...snapshot, toDate: '2026-01-05', whenGenerated: '2026-01-06T10:00:00', sectionsPresent: ['Trades'], openPositions: [],
+    trades: [{ ...buyXsp, tradeID: identified ? 'SAME-DAY' : null, transactionID: null, quantity: 10, tradeDate: '2026-01-04', dateTime: executedAt }] }
+  return buildBook([snapshot, later]).executions[0]!
+}
+
+check('a same-day trade after snapshot generation moves the broker position, with or without an id', () => {
+  for (const identified of [true, false]) {
+    const fill = intradayBook('2026-01-04T10:00:00', '2026-01-04T15:00:00', 0, identified)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [false, true])
+  }
+})
+
+check('a same-day backfill before a proven snapshot cutoff is already covered', () => {
+  for (const generated of ['2026-01-04T16:00:00', '2026-01-05T10:00:00']) {
+    const fill = intradayBook(generated, '2026-01-04T15:00:00', 10)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [false, true])
+  }
+})
+
+check('missing or equal same-day times leave ordering and open state explicitly unknown', () => {
+  for (const [generated, executedAt] of [
+    [null, '2026-01-04T15:00:00'], ['2026-01-04T10:00:00', null],
+    ['2026-01-04', '2026-01-04T15:00:00'], ['2026-01-04T10:00:00', '2026-01-04T10:00:00'],
+  ]) {
+    const fill = intradayBook(generated!, executedAt!, 10)
+    assert.deepEqual([fill.partialHistory, fill.openNow], [true, null])
+  }
+})
+
+check('a blank snapshot position remains unknown even when FIFO reconstructs a flat contract', () => {
+  const close = { ...buyXsp, tradeID: 'A9', transactionID: 'AX9', quantity: -100, openCloseIndicator: 'C', tradeDate: '2026-01-04', dateTime: '2026-01-04T10:00:00' }
+  const unknown = { ...xspHeld(0), position: null }
+  const b = buildBook([{ ...doc, openPositions: [unknown], trades: [buyXsp, close] }])
+  assert.ok(b.executions.every((e) => e.partialHistory && e.openNow === null))
+  assert.equal(b.positions[0]!.quantity, null)
+})
+
+check('a closing fill supplies its known multiplier when the opening fill omitted it', () => {
+  const first = { ...buyXsp, assetCategory: 'FUT', multiplier: null, quantity: 1, tradePrice: 50 }
+  const last = { ...first, tradeID: 'A9', dateTime: '2026-01-04T10:00:00', multiplier: 100, quantity: -1, tradePrice: 55, openCloseIndicator: 'C' }
+  const result = runFifo([first, last])
+  assert.equal(result.executions[1]!.multiplier, 100)
+  assert.equal(result.executions[1]!.value, 5500)
+  assert.equal(result.closures[0]!.grossLocal, 500)
+  const omitted = runFifo([{ ...first, multiplier: 100 }, { ...last, multiplier: null }])
+  assert.equal(omitted.executions[1]!.value, 5500, 'a known opening multiplier still covers a blank close')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
