@@ -1,0 +1,261 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "original_decision_date": "2026-08-12",
+  "review_date": "2026-09-15",
+  "review_window": "30d",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 37.2,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FQ2 2026 reported revenue prints below EUR3,750m (the material-miss threshold), consistent with the CIQ-computed reported-currency growth trend rather than management's higher like-for-like framing.",
+      "status": "not assessable",
+      "evidence": "See E1 for the reported figures and source. The result is inside the explicitly inconclusive band.",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F01"
+    },
+    {
+      "prediction": "H1 2026 Adjusted EBITDA prints above EUR460m, consistent with an on-pace-for-upper-half FY2026 result.",
+      "status": "not assessable",
+      "evidence": "See E1 for the reported figures and source. The result is inside the explicitly inconclusive band.",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F02"
+    },
+    {
+      "prediction": "FY2026 reported (unadjusted) free cash flow misses the >EUR200m guided floor, repeating the same 'extraordinary items' exclusion pattern that produced a -EUR366m swing against guide in FY2025.",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F03"
+    },
+    {
+      "prediction": "The BaFin-approved Offer Document for Uber's tender is published within 2026, opening the WpUeG acceptance period.",
+      "status": "confirmed",
+      "evidence": "Offer document published after BaFin approval on August 27. [Web: Uber offer-document publication, 2026-08-27, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx]",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F04"
+    },
+    {
+      "prediction": "When published, the FY2025 audited Annual Report's Independent Auditor's Report retains the 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern' language on Glovo Spain rather than removing it.",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F05"
+    },
+    {
+      "prediction": "Uber's tender offer for Delivery Hero completes within the guided H2 2027 window at a per-share cash consideration at or above the currently reported (unverified) ~EUR41.50.",
+      "status": "still open",
+      "evidence": "The recorded outcome window remains open as of September 15; no early confirmation or falsification was established.",
+      "as_of": "2026-09-15",
+      "forecast_id": "DHER-2026-08-12-F06"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ2 2026 results",
+      "status": "materialized",
+      "evidence": "The results release was retrieved; see E1. Event occurrence does not resolve every forecast or confirm the thesis.",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "Taiwan business disposal, close",
+      "status": "pending",
+      "evidence": "Original calendar window: H2 2026 (vague window). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-12, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "EU Platform Work Directive transposition deadline",
+      "status": "pending",
+      "evidence": "Original calendar window: ~Nov 2026 (vague). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-12, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "Offer Document publication (BaFin approval)",
+      "status": "materialized",
+      "evidence": "Offer document published after BaFin approval on August 27. [Web: Uber offer-document publication, 2026-08-27, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "Uber acquisition — closing",
+      "status": "pending",
+      "evidence": "Original calendar window: H2 2027 (vague — no contractual close date). No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-12, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "catalyst": "Post-closing squeeze-out / domination agreement",
+      "status": "pending",
+      "evidence": "Original calendar window: Undated, contingent on deal close. No matched completion/trigger evidence was established at this checkpoint; pending means unresolved, including elapsed dates. [final_thesis.md, 2026-08-12, §7 Catalyst Calendar]",
+      "as_of": "2026-09-15"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Auditor going-concern note (KPMG) -- subsidiary-level 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern,' Glovo Spain rider-classification risk, contingent liability EUR440-770m; hard disqualifier locks the business-model verdict at 'Low-quality business -- avoid deeper work.'",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Governance risk floored at 80/100 via Disqualifier Deference on the same going-concern note; stewardship verdict capped at 'Serious governance concerns.'",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "FY2025 cash-conversion collapse (CFO/Adjusted EBITDA 8.8%) and the '+EUR250m FCF' headline exclude an implied ~EUR600-650m cash outflow tied to the same going-concern-adjacent Glovo Spain exposure -- the connection was made only by 08_earnings-red-flags, not by earnings agents 00-07.",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "The identical FCF-exclusion methodology stands as FY2026 guidance policy; a recurring outflow could let the FY2026 print look 'on guide' while cash generation disappoints.",
+      "status": "not assessable",
+      "evidence": "Original Critical flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Serial-acquirer pattern -- EUR2,054m cumulative goodwill impairment FY2021-2025 against the Woowa (~$4.0bn) and Glovo (EUR2.3bn) mega-deals; caps capital allocation at 50 and floors governance risk at 60 (superseded by the higher disqualifier floor of 80).",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Turnaround claimed without >=2-3 years delivered operating inflection on the statutory metric -- only 1 clean fiscal year (FY2025) of positive GAAP operating profit after 4 years of losses; management quality capped at 60.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Change-of-control provision fully and unconditionally vests all Management Board members' unvested equity on resignation within 3 months of a change of control -- a personal, price-independent incentive to see the pending Uber deal close.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "The absolute FY2025 statutory net loss (-EUR782.9m) was never spoken aloud on the earnings call; only the EUR183m YoY improvement was verbalized.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Goodwill impairment recorded in every one of the last 5 fiscal years; GAAP-to-Adjusted-EBITDA gap is 66% of the adjusted figure in FY2025 and exceeds 100% in FY2024.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Cash conversion (CFO/Adjusted EBITDA) at 8.8% FY2025; 2 of the last 3 fiscal years below 50%.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Spain rider-reclassification contingent liability: EUR520-860m unrecognized (FY2025) on top of EUR492.2m already provisioned (FY2024) and EUR524.0m already paid (FY2025) for the same matter.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Fast-changing industry / disruption risk (rate-of-change score 26/100, <=40 threshold, CLAUDE.md Section 24 Filter 5) -- thesis flagged as a sector/technology-cycle bet; the industry is still being sorted by live M&A (DoorDash-Deliveroo, Uber-DHER itself).",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    },
+    {
+      "risk": "Cross-module forensic mosaic per CLAUDE.md Section 13: RF-EQ-002 (earnings) + RF-OBS-001 (balance-sheet-survival) + RF-DISC-001 + RF-DISC-002 (management-governance) = 4 distinct tags across 3 modules. Compounds into a single High accounting-integrity flag. Does not further restrict the headline since 'Avoid' is already more conservative than the 'Starter Position Only' ceiling this cap would otherwise impose on a Buy-side rating.",
+      "status": "not assessable",
+      "evidence": "Original High flag remains a restriction; no new primary evidence clearing it was established. [DHER_2026-08-12/decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-09-15"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "No matched Xetra review close was established; retrieved venues disagreed. Review price and returns remain null.",
+    "No matched benchmark/sector total-return series for the exact entry-to-review window was verified. Relative returns remain null; price change alone is not skill. The local data/_market feed was absent; the retrieved S&P 500 series excludes dividends and is not substituted for total return.",
+    "Use identical reporting periods and cash-flow definitions; do not turn an inconclusive threshold band into a successful forecast.",
+    "Outcome facts dated after the original decision inform this review only; they are not evidence that the original analyst should have known the outcome.",
+    "On-track means unresolved/still playing out, not proven correct. Original provisional/evidence restrictions are not cleared by this review."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "The frozen module scores and verdict locks are retained; this checkpoint does not attribute the price move to a module.",
+    "most_accurate": "Not assessable from one short checkpoint.",
+    "missed_key_variable": "Not established from decision-time evidence.",
+    "process_assessment": "No hindsight regrading. Match original metric, period, evidence basis and trigger before scoring.",
+    "confidence_at_decision": "No retrospective numerical change. The original evidence restrictions remain binding; later disclosures do not establish what should have been known earlier."
+  },
+  "action_now": {
+    "label": "Stay away",
+    "reason": "The original Avoid was not an entry instruction. The offer document has been published and the company raised its annual outlook. The original Avoid call still needs a corrected evidence review; these developments weaken its near-term bearish case without proving that the deal will close."
+  },
+  "confidence_update": {
+    "before": 27.0,
+    "after": null,
+    "change_reason": "Evidence supports a conditional action but not a newly calibrated numerical conviction score."
+  },
+  "next_check": {
+    "date": "2026-11-05",
+    "label": "Offer acceptance and standalone cash-flow reconciliation",
+    "trigger": "Check tender acceptance at the November 5 deadline, regulatory conditions and statutory cash flow."
+  },
+  "learning": {
+    "why_right_or_wrong": "Unresolved: The offer document has been published and the company raised its annual outlook. The original Avoid call still needs a corrected evidence review; these developments weaken its near-term bearish case without proving that the deal will close.",
+    "error_source": "",
+    "rule_for_future": "Use identical reporting periods and cash-flow definitions; do not turn an inconclusive threshold band into a successful forecast.",
+    "future_research_check": "Recheck the final offer conditions and statutory cash flow before treating the original Avoid as current."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/DHER_2026-08-12/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 8.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The thesis is still playing out and the named killer risk has no resolved outcome; no credit or penalty is assigned."
+  },
+  "memo_delta": {
+    "summary": "The offer document has been published and the company raised its annual outlook. The original Avoid call still needs a corrected evidence review; these developments weaken its near-term bearish case without proving that the deal will close.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "DHER remains a Avoid review, with current action stay away. The offer document has been published and the company raised its annual outlook. The original Avoid call still needs a corrected evidence review; these developments weaken its near-term bearish case without proving that the deal will close. The review keeps price movement separate from the operating thesis. It does not turn an uncompleted forecast or an unverified risk into a success. The original valuation and model have not been updated. Outstanding restrictions still need evidence before entry can be reconsidered. Check tender acceptance at the November 5 deadline, regulatory conditions and statutory cash flow. This checkpoint supplies a dated comparison for the next analyst; it does not replace the frozen decision, assert a new target price, or authorize a trade. A matched benchmark series is still needed before judging relative performance.",
+    "changed_sections": [
+      {
+        "section": "Earnings / catalysts / risk",
+        "original_claim": "FQ2 2026 reported revenue prints below EUR3,750m (the material-miss threshold), consistent with the CIQ-computed reported-currency growth trend rather than management's higher like-for-like framing.",
+        "new_evidence": "Q2 revenue was EUR4,024.5m and H1 adjusted EBITDA EUR426.7m. Both sit inside the original forecasts' explicitly inconclusive bands. Full-year adjusted EBITDA guidance rose to EUR960m–1,000m from EUR910m–960m.",
+        "evidence_source": "Web: Delivery Hero Q2/H1 release, 2026-08-27, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth/",
+        "materiality_score": 65,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "The annual earnings guidance used in the old setup changed; refresh the earnings comparison and preserve the inconclusive quarterly trigger bands.",
+        "rerun_command": "/research:earnings DHER"
+      }
+    ],
+    "watch_items": [
+      "Check tender acceptance at the November 5 deadline, regulatory conditions and statutory cash flow.",
+      "Verify offer acceptance and remaining regulatory conditions; offer publication does not imply deal completion.",
+      "Reconcile statutory cash flow with the company figure before extraordinary items."
+    ],
+    "management_questions": [
+      "Which regulatory conditions remain outstanding?",
+      "What is the bridge from reported cash flow to the figure before extraordinary items?",
+      "Does the latest auditor report retain the subsidiary uncertainty?"
+    ],
+    "memo_delta_file": "analyses/DHER_2026-08-12/reviews/2026-09-15_30d_memo_delta.md"
+  },
+  "evidence_notes": [
+    {
+      "id": "E1",
+      "evidence": "Q2 revenue was EUR4,024.5m and H1 adjusted EBITDA EUR426.7m. Both sit inside the original forecasts' explicitly inconclusive bands. Full-year adjusted EBITDA guidance rose to EUR960m–1,000m from EUR910m–960m. [Web: Delivery Hero Q2/H1 release, 2026-08-27, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth/]"
+    }
+  ]
+}
