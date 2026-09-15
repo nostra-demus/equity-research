@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T11:16:35Z",
+  "generated_at": "2026-09-15T11:21:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-418",
+      "headline": "SMC ELECTRIC (02381): OMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T11:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "SMC Electric is subject to a mandatory unconditional cash offer by Mega Nova Holdings Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SMC Electric is subject to a mandatory unconditional cash offer by Mega Nova Holdings Limited.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SMC Electric",
+          "ticker": "02381",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-413",
       "headline": "CHINA PPT INV (00736): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO (I) THE ANNUAL REPORT FOR THE YEAR ENDED 31 MARCH 2026; AND (II) DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026",
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-289",
-      "headline": "Jubilant Foodworks Limited: Jubilant Foodworks Limited has informed the Exchange about Resignation of Director/KMP/SMP",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JUBLFOOD_ROID_98392_KMP_Doc.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T04:54:35Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jubilant Foodworks Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164117,9 +164117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2770209,
-    "news_picked_today": 757,
-    "news_dropped_today": 5099
+    "news_seen_today": 2799384,
+    "news_picked_today": 764,
+    "news_dropped_today": 5116
   },
   "book_momentum": {
     "live_count": 8,
