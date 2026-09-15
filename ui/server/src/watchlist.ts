@@ -383,6 +383,17 @@ export function deleteEntry(entryId: string, dir: string = WATCHLIST_ENTRIES_DIR
  *  Everything else is on watch. */
 const POSITION_BASKETS = new Set(['Selected', 'Short', 'Pair Trade'])
 
+/**
+ * Research calls that do not belong on the watchlist at all. Avoid is a decision NOT to own the name, so
+ * watching its price for an entry would contradict the research (operator decision, 2026-09-15: Avoid calls
+ * come off the list). A later run that changes the call brings the name back on its own, and a name you
+ * add yourself stays — as yours — whatever the engine thinks of it.
+ */
+const OFF_LIST_DECISIONS = new Set(['Avoid'])
+export function onTheWatchlist(decision: string | null | undefined): boolean {
+  return !OFF_LIST_DECISIONS.has(String(decision ?? '').trim())
+}
+
 interface SizingWatchRow { ticker?: unknown; decision?: unknown; size_in_trigger?: unknown; next_review?: unknown }
 
 /**
@@ -855,6 +866,9 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
   }
 
   for (const eng of input.engine) {
+    // An Avoid call is not on the list. Its row is skipped here, so an entry you made for that listing is
+    // not consumed below and shows as your own row instead.
+    if (!onTheWatchlist(eng.decision)) continue
     const entry = byKey.get(eng.listing.listing_key) ?? null
     if (entry) usedEntries.add(entry.entry_id)
     const row = build(eng.listing, entry, eng)

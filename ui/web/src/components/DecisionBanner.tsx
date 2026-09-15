@@ -631,12 +631,17 @@ export function DecisionBanner() {
                 }, onWatchlist.entry_id)
                 return
               }
+              // The research's own action sentence becomes the reason, quoted and dated, so the panel opens
+              // with what the research said to wait for instead of an empty box. (A Watchlist call needs none
+              // of this: it is on the list on its own, with its prices read from the report.)
+              const action = typeof decision.suggested_action === 'string' ? decision.suggested_action.trim() : ''
+              const said = [decision.decision, decision.decision_date].filter(Boolean).join(', ')
               openWatchComposer({
                 ticker: decision.ticker ?? '',
                 company_name: decision.company_name ?? null,
                 currency: decision.currency ?? null,
                 exchange: decision.exchange ?? null,
-                why: '',
+                why: action ? `Research${said ? ` (${said})` : ''}: “${action}”`.slice(0, 4000) : '',
                 review_date: decision.next_checkpoint?.due_date ?? null,
               })
             }}

@@ -1,16 +1,19 @@
-// The tile grid's detail panel: everything one tile deliberately left out.
+// The detail panel: everything one row deliberately left out.
 //
-// The grid trades completeness for glanceability, and this panel is the other half of that trade — the
-// why, every trigger with its arithmetic, the price and its provenance, and the actions. It shows ONE
-// name, which is the honest shape: a grid that tried to show fifty whys is the row list again.
+// The list trades completeness for glanceability, and this panel is the other half of that trade — the word
+// and what is behind it, what the name is waiting for in the research's own words, the price and its
+// provenance, your own reason and triggers, and the actions. It shows ONE name, which is the honest shape: a
+// list that tried to show fifty of these is the old table again.
 import { useEffect, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
+import { STATUS_KEY, STATUS_LABEL, STATUS_MEANING, dateWords, gapWords, rowStatus } from '../../lib/watchStatus'
+import { WatchPlanSection } from './WatchPlan'
 
-/** A trigger's chip state — the same three-valued vocabulary the table uses, so the two views agree. */
+/** A trigger's chip state — the three-valued vocabulary, so a refusal never renders as "not met". */
 function chipClass(e: WatchTriggerEval): string {
   if (e.state === 'condition_met') return 'wl__trg wl__trg--met'
   if (e.due) return 'wl__trg wl__trg--due'
@@ -18,10 +21,13 @@ function chipClass(e: WatchTriggerEval): string {
   return 'wl__trg wl__trg--armed'
 }
 
+const signed = (v: number) => `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v)}%`
+
 interface Scen { label: string; price_target: number; probability: number | null; source: string | null }
 
 /**
- * The scenario targets the engine's own run recorded, offered as a pre-filled trigger.
+ * The scenario targets the engine's own run recorded, offered as a pre-filled trigger — for a name whose
+ * research has no watch plan to arm it on its own (a research name with a plan already watches its prices).
  *
  * Three rules this obeys, each learned from the committed records rather than assumed:
  *  - It picks NOTHING. Labels are not a fixed vocabulary (`bear`, `bear_cyclical`, `bear_structural`,
@@ -93,6 +99,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const pending = useStore((s) => s.watchlistPending) === row?.ticker
   const loadWatchlist = useStore((s) => s.loadWatchlist)
   const setToast = useStore((s) => s.setToast)
+  const setEmailPaused = useStore((s) => s.setWatchEmailPaused)
+  const emailSetUp = useStore((s) => s.watchMessages?.email.enabled === true)
 
   const target = row ? nearestTarget(row) : null
   const pool = row ? tickers.find((t) => t.ticker === row.ticker) : undefined
@@ -102,11 +110,13 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   if (!row) {
     return (
       <aside className="wdet wdet--empty">
-        <div className="wdet__hint">Pick a name to see why it is on the list, what is being checked, and what to do about it.</div>
+        <div className="wdet__hint">Pick a name to see what it is waiting for, where it stands, and what to do about it.</div>
       </aside>
     )
   }
 
+  const w = row.watch
+  const status = rowStatus(row)
   const verdict = row.engine?.decision ?? null
   const reason = row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : '')
   const isArchived = !!row.archive && !row.resurfaced
@@ -127,8 +137,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const thesisFilename = firstAttachment?.filename
   const thesisIsMarkdown = !!thesisFilename && /\.md$/i.test(thesisFilename)
   const thesisTitle = thesisFilename ? `${row.ticker} — ${thesisFilename}` : ''
-  // Hoisted so TypeScript narrows it for the callback below — a closure cannot narrow a property access,
-  // which is the only reason the non-null assertion was there.
+  // Hoisted so TypeScript narrows it for the callback below — a closure cannot narrow a property access.
   const thesisPath = row.final_thesis_path
   const edit = () =>
     openComposer(
@@ -147,6 +156,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
     } catch (error: any) { setToast({ msg: error?.message || `Could not assign ${row.ticker}.`, tone: 'bad' }) }
     finally { setAssigning(false) }
   }
+  const next = w?.next_line ?? null
+  const nextDate = dateWords(w?.next_date)
 
   return (
     <aside className="wdet" aria-label={`Details for ${row.ticker}`}>
@@ -168,15 +179,39 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         )}
       </div>
       <div className="wdet__co">
-        {row.exchange ? `${row.exchange} · ` : ''}{row.currency ?? '—'}
-        {` · ${row.origin === 'engine' ? 'engine' : row.origin === 'both' ? 'engine + you' : 'you added this'}`}
+        {row.company_name ? `${row.company_name} · ` : ''}{row.exchange ? `${row.exchange} · ` : ''}{row.currency ?? '—'}
+        {` · ${row.origin === 'engine' ? 'from research' : row.origin === 'both' ? 'research + you' : 'you added this'}`}
         {row.conviction ? ` · conviction ${row.conviction}` : ''}
       </div>
 
-      {/* The three numbers, each LABELLED. They used to share one unlabelled line, so nothing said which
-          was the price and which was the distance — and the target appeared only inside a prose sentence.
-          Every figure here is read off the structured trigger, so the panel answers "where is it, where do
-          I want it, how far is that" without the reader parsing English. */}
+      {/* The word, and one line on what is behind it. */}
+      <div className="wdet__status">
+        <span className={`wst wst--${STATUS_KEY[status]}`} title={STATUS_MEANING[status]}>{STATUS_LABEL[status]}</span>
+        <span className="wdet__headline">{w?.headline ?? STATUS_MEANING[status]}</span>
+      </div>
+
+      {w && w.conditions.length > 0 && (
+        <section className="wdet__sec">
+          <h4 className="wdet__seclabel">{w.conditions.length === 1 ? 'What this means' : `What this means · ${w.conditions.length}`}</h4>
+          <ul className="wdet__conds">
+            {w.conditions.map((c) => (
+              <li key={c.id} className="wdet__cond">
+                <b>{c.title}</b>
+                <div className="wdet__condtext">{c.detail}</div>
+                {c.quote && (
+                  <blockquote className="wmsg__quote">
+                    “{c.quote}”
+                    {c.source && <cite>{c.source}</cite>}
+                  </blockquote>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* The three numbers, each LABELLED: where it is, where it is waiting to get to, and how far that is.
+          For a research name those come from its watch plan; for your own row, from your triggers. */}
       <section className="wdet__sec">
         <h4 className="wdet__seclabel">Where the price stands</h4>
         <div className="wdet__facts">
@@ -184,13 +219,12 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             <span className="wdet__factlabel">Price now</span>
             {row.quote ? (
               <>
-                {/* The number alone. The currency is stated once in the header line above, and repeating it
-                    inside each of the three figures is both redundant and expensive: "USD 369.45" does not
-                    fit an 83px column at this size, so the one value meant to stand out was the only one
-                    that wrapped. A price trigger in a different currency from the quote is refused as
-                    not_evaluable upstream, so within a row these figures always share the header's unit. */}
                 <span className="wdet__factval">{row.quote.price.toFixed(2)}</span>
-                <span className="wdet__factnote">{row.quote.as_of_is_close ? 'last close' : 'live'}</span>
+                <span className="wdet__factnote">
+                  {typeof w?.day_move_pct === 'number'
+                    ? `${signed(w.day_move_pct)} today${w.market ? ` · ${w.market.label} ${signed(w.market.move_pct)}` : ''}`
+                    : row.quote.as_of_is_close ? 'last close' : 'live'}
+                </span>
               </>
             ) : (
               <>
@@ -202,8 +236,13 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             )}
           </div>
           <div className="wdet__fact">
-            <span className="wdet__factlabel">Nearest target</span>
-            {target ? (
+            <span className="wdet__factlabel">{next ? next.label : 'Nearest target'}</span>
+            {next ? (
+              <>
+                <span className={`wdet__factval${NEEDS_ATTENTION(status) ? ' wdet__factval--met' : ''}`}>{next.text}</span>
+                <span className="wdet__factnote">from the research</span>
+              </>
+            ) : target ? (
               <>
                 <span className={`wdet__factval${row.state === 'condition_met' ? ' wdet__factval--met' : ''}`}>{target.value.toFixed(2)}</span>
                 <span className="wdet__factnote">{target.how}</span>
@@ -211,13 +250,22 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             ) : (
               <>
                 <span className="wdet__factval wdet__factval--none">—</span>
-                <span className="wdet__factnote">{row.evals?.some((e) => e.kind === 'event_date') ? 'a date, not a price' : 'no price target set'}</span>
+                <span className="wdet__factnote">{row.evals?.some((e) => e.kind === 'event_date') ? 'a date, not a price' : 'no price to wait for'}</span>
               </>
             )}
           </div>
-          {/* Distance AND caption are read off the same trigger `target` names (stillToMove), so the panel
-              can never pair the day-count of a nearer dated trigger with the price target shown above. */}
           {(() => {
+            // Distance AND caption are read off the same line as the figure beside them, so the panel can
+            // never pair one line's distance with another line's price.
+            if (next) {
+              return (
+                <div className="wdet__fact">
+                  <span className="wdet__factlabel">Still to move</span>
+                  <span className="wdet__factval">{gapWords(next.gap_pct) ?? '—'}</span>
+                  <span className="wdet__factnote">{next.gap_pct == null ? 'no price to measure from' : 'to that price'}</span>
+                </div>
+              )
+            }
             const move = stillToMove(row)
             return (
               <div className="wdet__fact">
@@ -230,75 +278,64 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         </div>
       </section>
 
+      {w && <WatchPlanSection row={row} />}
+
       <section className="wdet__sec">
         <h4 className="wdet__seclabel">Why you're watching</h4>
         <div className={`wdet__why${row.why ? '' : ' wl__why--engine'}`}>{reason || 'No reason recorded yet.'}</div>
       </section>
 
-      {/* Every trigger, with the arithmetic the server computed — "not met" stays checkable rather than
-          trusted (§15). The tile showed only the nearest one; this is the full set. */}
-      {/* The set — and it only earns a place when the set says something the facts row did not.
-          With exactly ONE trigger the facts row above is already that trigger, fully labelled, so listing
-          it again printed the same target and the same basis twice on one panel and left no hierarchy
-          about which to read first. So: two or more triggers, list them; exactly one, the facts row has
-          said it; none, offer to add one. The absence and resurfaced notes always show, because those are
-          statements the facts row cannot make. */}
-      <section className="wdet__sec">
-      {multi && <h4 className="wdet__seclabel">Triggers · {row.evals.length}</h4>}
-      <div className="wdet__trigs">
-        {multi ? row.evals.map((e) => (
-          /* Structured, not the server's sentence. That sentence reads "10% below USD 364.25 (2026-08-18)
-             = USD 327.83; now USD 370.36, up 1.7%" — which restates the price and the target the facts row
-             directly above already shows, so the panel said the same numbers twice and left no hierarchy
-             about which to read first. What this row adds instead is what the facts row CANNOT show: each
-             trigger's own target when there is more than one, the basis that makes it checkable (the frozen
-             reference and its date), and its state. The full sentence stays on hover, so the arithmetic is
-             still one gesture away rather than deleted. */
-          <div key={e.trigger_id} className="wdet__trig" title={e.detail}>
-            <span className={chipClass(e)}>
-              {e.kind === 'event_date' ? 'date' : e.kind === 'price_level' ? 'level' : e.kind === 'pct_drop' ? 'drop' : 'value'}
-            </span>
-            {e.target ? (
-              <span className="wdet__trigterms">
-                <span className="wdet__trigtarget">{money(e.target.currency, e.target.value)}</span>
-                <span className="wdet__trigbasis">{e.target.basis}</span>
-              </span>
-            ) : (
-              <span className="wdet__trigtext">{e.detail}</span>
+      {/* Your own triggers — listed only when there is more than one (with one, the facts row above is that
+          trigger), plus the absence and resurfaced notes, which the facts row cannot make. */}
+      {(multi || absent || row.resurfaced || !row.evals?.length) && (
+        <section className="wdet__sec">
+          {multi && <h4 className="wdet__seclabel">Your triggers · {row.evals.length}</h4>}
+          <div className="wdet__trigs">
+            {multi ? row.evals.map((e) => (
+              <div key={e.trigger_id} className="wdet__trig" title={e.detail}>
+                <span className={chipClass(e)}>
+                  {e.kind === 'event_date' ? 'date' : e.kind === 'price_level' ? 'level' : e.kind === 'pct_drop' ? 'drop' : 'value'}
+                </span>
+                {e.target ? (
+                  <span className="wdet__trigterms">
+                    <span className="wdet__trigtarget">{money(e.target.currency, e.target.value)}</span>
+                    <span className="wdet__trigbasis">{e.target.basis}</span>
+                  </span>
+                ) : (
+                  <span className="wdet__trigtext">{e.detail}</span>
+                )}
+                <span className="wdet__trigstate">
+                  {e.state === 'condition_met' ? 'met'
+                    : e.state === 'not_evaluable' ? 'not checkable'
+                    : e.days_to != null ? (e.days_to === 0 ? 'today' : `${e.days_to}d`)
+                    : e.gap_pct != null ? `${e.gap_pct > 0 ? '+' : ''}${e.gap_pct}%`
+                    : ''}
+                </span>
+              </div>
+            )) : row.evals?.length ? null : (
+              !isArchived && <button className="wl__trg wl__trg--add" onClick={edit}>+ your own trigger</button>
             )}
-            <span className="wdet__trigstate">
-              {e.state === 'condition_met' ? 'met'
-                : e.state === 'not_evaluable' ? 'not checkable'
-                : e.days_to != null ? (e.days_to === 0 ? 'today' : `${e.days_to}d`)
-                : e.gap_pct != null ? `${e.gap_pct > 0 ? '+' : ''}${e.gap_pct}%`
-                : ''}
-            </span>
+            {absent && !next && <div className="wdet__absent">{absent}</div>}
+            {row.resurfaced && (
+              <div className="wdet__absent">
+                Archived {row.archive?.at.slice(0, 10)} — the engine has since changed what it says, so it is back on the list.
+              </div>
+            )}
           </div>
-        )) : row.evals?.length ? null : (
-          <button className="wl__trg wl__trg--add" onClick={edit}>+ trigger</button>
-        )}
-        {absent && <div className="wdet__absent">{absent}</div>}
-        {row.resurfaced && (
-          <div className="wdet__absent">
-            Archived {row.archive?.at.slice(0, 10)} — the engine has since changed what it says, so it is back on the list.
-          </div>
-        )}
-      </div>
-      </section>
+        </section>
+      )}
 
       <section className="wdet__sec">
-        <h4 className="wdet__seclabel">Next look</h4>
+        <h4 className="wdet__seclabel">Next date</h4>
         <div className="wdet__next">
-          <span className="wdet__nextdate">{row.review_date ? shortDay(row.review_date) : 'no review date set'}</span>
-          {row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
+          <span className="wdet__nextdate">{nextDate ?? (row.review_date ? shortDay(row.review_date) : 'no date set')}</span>
+          {!nextDate && row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
         </div>
       </section>
 
-      {/* Offered only where a decision record exists — which today is a minority of runs, so most panels
-          are unchanged. Adopting is still a human act: the click is what records that YOU chose this
-          number on this date, so a later run changing its mind resurfaces the name rather than silently
-          rewriting a condition you are holding. */}
-      {!isArchived && !staticMode && (
+      {/* Offered only where a decision record exists and no watch plan already watches its prices. Adopting
+          is still a human act: the click records that YOU chose this number on this date. */}
+      {!isArchived && !staticMode && w?.plan?.state !== 'ready' && (
         <ScenarioAdopt
           row={row}
           onUse={(sc, currency) =>
@@ -309,8 +346,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                 triggers: [
                   ...(row.triggers ?? []),
                   // level and currency come from the record; DIRECTION is a draft the composer shows for
-                  // confirmation, never an inference — the schema is explicit that guessing it backwards
-                  // is how a short candidate's trigger ends up firing the wrong way.
+                  // confirmation, never an inference.
                   { kind: 'price_level', direction: 'at_or_below', level: sc.price_target, currency: currency || row.currency || '', note: `engine ${sc.label.replace(/_/g, ' ')} target${sc.source ? ` — ${sc.source}` : ' — the run recorded no source for this target'}` },
                 ],
               },
@@ -320,15 +356,9 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         />
       )}
 
-      {/* The rerun affordance the grid lost: it lived in the table row's ⋯ menu and was never carried into
-          this panel. Restored WITH the staleness facts beside it, because the old button only asked "does
-          this ticker have documents" — never whether anything had changed since the last run, so it would
-          happily re-read an unchanged pool and reach the same thesis.
-          What is NOT claimed here is a freshness verdict. The only per-ticker change stamp the client has
-          (`lastChangeAt`) is an in-memory fs-watcher value that is null after any server restart, so
-          "nothing new" would be a false negative most of the time. So the panel states the two DURABLE
-          facts — when the engine last ran, how many documents are in the pool — and makes the scoped
-          new-data analysis the primary action, which is the check that can actually answer it. */}
+      {/* The rerun affordance, WITH the two durable staleness facts beside it — when the engine last ran and
+          how many documents are in the pool — and the scoped new-data check as the primary action, because a
+          rerun over unchanged documents reads the same evidence and reaches the same thesis. */}
       {!isArchived && !staticMode && (
         <section className="wdet__sec">
           <h4 className="wdet__seclabel">Engine run</h4>
@@ -382,17 +412,25 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
               )
               : thesisHref && thesisFilename
               ? (
-                /* Opened IN the cockpit rather than navigated to. A top-level navigation to a PDF is what
-                   Chrome's "download PDFs instead of opening them" setting intercepts, and no response
-                   header overrides that — serving it `inline` is necessary but not sufficient. Embedding
-                   renders through the same viewer without the navigation, so it works whatever the
-                   reader's browser is set to. */
+                /* Opened IN the cockpit rather than navigated to: a top-level navigation to a PDF is what
+                   Chrome's "download PDFs instead of opening them" setting intercepts. */
                 <button className="btn btn--mini" title="Your write-up" onClick={() => openEmbeddedDoc(thesisTitle, thesisHref)}>Thesis</button>
               )
               : thesisPath
                 ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
                 : null}
             <button className="btn btn--mini" onClick={edit}>Edit</button>
+            {w && !staticMode && (
+              <button
+                className="btn btn--mini"
+                onClick={() => void setEmailPaused(row.ticker, row.currency, !w.email_paused)}
+                title={w.email_paused
+                  ? 'Email urgent messages about this name again'
+                  : 'Stop emailing about this name. Its messages still arrive here.'}
+              >
+                {w.email_paused ? 'Resume email' : 'Pause email'}
+              </button>
+            )}
             {/* Two-click confirm, and the wording restates the act rather than saying "confirm". */}
             <button
               className={`btn btn--mini${armed ? ' btn--armed' : ''}`}
@@ -405,6 +443,13 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           </>
         )}
       </div>
+      {w?.email_paused && <p className="wdet__runnote">Email is paused for {row.ticker}; its messages still arrive in the cockpit.</p>}
+      {w && !emailSetUp && <p className="wdet__runnote">Urgent messages are not emailed yet — email is not set up on this engine.</p>}
     </aside>
   )
+}
+
+/** A word that means the line in the facts row is the news, so it takes the accent. */
+function NEEDS_ATTENTION(s: string): boolean {
+  return s === 'buy_price_reached' || s === 'getting_close' || s === 'warning'
 }

@@ -1,0 +1,184 @@
+// What a watched name says right now (src/watch/evaluate.ts). The cases that matter are the ones where a
+// wrong word misleads: "Buy price reached" on a price the research only said to look again at, a big drop
+// that was really the whole market, a warning drowned out by a buy signal, a price compared across two
+// currencies, and a stale or implausible price acted on as if it were real.
+// Run: npx tsx test/watch-evaluate.test.ts
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+import assert from 'node:assert/strict'
+import { CONDITION_STATUS, URGENT_CONDITIONS, evaluateName, tradingDaysUntil, type PriceFacts } from '../src/watch/evaluate'
+import type { PlanItem, WatchPlan } from '../src/watch/plan'
+import { evaluateTrigger, type WatchTrigger } from '../src/watchlist'
+import type { LiveQuote } from '../src/news/equity-quote'
+
+let passed = 0
+function check(name: string, fn: () => void): void {
+  try {
+    fn()
+    passed++
+    console.log('  ok ', name)
+  } catch (e) {
+    console.error('  FAIL', name)
+    console.error('   ', e)
+    process.exitCode = 1
+  }
+}
+
+const TODAY = '2026-09-15' // a Tuesday
+const src = (quote: string) => ({ file: 'final_thesis.md', quote, field: null })
+function plan(items: PlanItem[], over: Partial<WatchPlan> = {}): WatchPlan {
+  return {
+    schema_version: 'watch-plan/v1', listing_key: 'AMZN|USD', ticker: 'AMZN', company_name: 'Amazon.com', currency: 'USD',
+    exchange: 'NasdaqGS', origin: 'research', run_root: 'analyses/AMZN_2026-07-10', decision: 'Watchlist',
+    decision_date: '2026-07-10', entry_price: 238.34, entry_price_as_of: '2026-07-01', sources: [], source_digest: 'x',
+    reader: { status: 'ok', model: 'opus', cost_usd: 0.3, at: null, detail: '' }, items, left_out: [],
+    created_at: '2026-07-10T00:00:00Z', ...over,
+  }
+}
+const buy: PlanItem = { kind: 'price', id: 'p-buy', role: 'buy', low: 190, high: 200, currency: 'USD', source: src('Track at $190-200 for re-entry'), note: null }
+const bad: PlanItem = { kind: 'price', id: 'p-bad', role: 'bad_case', low: 146, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }
+function facts(price: number | null, over: Partial<PriceFacts> = {}): PriceFacts {
+  return {
+    price, currency: 'USD', as_of: '2026-09-15T15:00:00Z', as_of_is_close: false, stale: false,
+    reason: price == null ? 'No price for this listing yet.' : null, day_move_pct: null, market: null, session: '2026-09-15', ...over,
+  }
+}
+const run = (items: PlanItem[], f: PriceFacts, planOver: Partial<WatchPlan> = {}, today = TODAY) =>
+  evaluateName({ plan: plan(items, planOver), triggers: [], evals: [], facts: f, today })
+const types = (e: ReturnType<typeof run>) => e.conditions.map((c) => c.type)
+
+check('inside the buy range: "Buy price reached", urgent', () => {
+  const e = run([buy, bad], facts(199.5))
+  assert.equal(e.status, 'buy_price_reached')
+  assert.equal(e.conditions[0].type, 'buy_price_reached')
+  assert.equal(e.conditions[0].urgent, true)
+  assert.match(e.conditions[0].detail, /inside/)
+  assert.equal(e.conditions[0].quote, 'Track at $190-200 for re-entry')
+})
+
+check('within 5% above the line: "Getting close", not urgent', () => {
+  const e = run([buy], facts(205))
+  assert.equal(e.status, 'getting_close')
+  assert.deepEqual(types(e), ['getting_close'])
+  assert.equal(e.conditions[0].urgent, false)
+})
+
+check('far away: "Waiting", with the signed distance to the line', () => {
+  const e = run([buy], facts(230))
+  assert.equal(e.status, 'waiting')
+  assert.equal(e.conditions.length, 0)
+  assert.equal(e.next_line?.gap_pct, -13)
+  assert.equal(e.next_line?.label, 'Buy price')
+})
+
+check('a big drop of its own that lands near the line is urgent', () => {
+  const e = run([buy], facts(205, { day_move_pct: -9, market: { label: 'S&P 500', move_pct: -0.5 } }))
+  assert.deepEqual(types(e), ['near_after_big_drop'])
+  assert.equal(e.conditions[0].urgent, true)
+  assert.equal(e.status, 'getting_close')
+  assert.match(e.conditions[0].detail, /S&P 500/)
+})
+
+check('a fall the whole market shared is not a big drop', () => {
+  const e = run([buy], facts(205, { day_move_pct: -9, market: { label: 'S&P 500', move_pct: -4 } }))
+  assert.deepEqual(types(e), ['getting_close'])
+})
+
+check('with no market to compare, the raw move counts and the message says so', () => {
+  const e = run([buy], facts(205, { day_move_pct: -9, market: null }))
+  assert.deepEqual(types(e), ['near_after_big_drop'])
+  assert.match(e.conditions[0].detail, /no market comparison/)
+})
+
+check('a big drop far from every price: "Check now", not urgent', () => {
+  const e = run([buy], facts(230, { day_move_pct: -12, market: { label: 'S&P 500', move_pct: 0.2 } }))
+  assert.deepEqual(types(e), ['big_drop'])
+  assert.equal(e.conditions[0].urgent, false)
+  assert.equal(e.status, 'check_now')
+})
+
+check('under the bad case is a Warning, and it leads even beside a buy price', () => {
+  const e = run([buy, bad], facts(140))
+  assert.equal(e.status, 'warning')
+  assert.equal(e.conditions[0].type, 'bad_case_broken')
+  assert.ok(types(e).includes('buy_price_reached'))
+  assert.match(e.conditions[0].detail, /not a buy signal/)
+})
+
+check('a look-again price reached is "Check now" — never "Buy price reached" — and urgent', () => {
+  const look: PlanItem = { kind: 'price', id: 'p-look', role: 'look_again', low: 1699, high: null, currency: 'INR', source: src('revisit if price falls toward the ₹1,699 base fair value'), note: null }
+  const e = run([look], facts(1666.5, { currency: 'INR' }), { currency: 'INR', listing_key: 'INDIAMART|INR' })
+  assert.deepEqual(types(e), ['look_again_reached'])
+  assert.equal(e.status, 'check_now')
+  assert.equal(e.conditions[0].urgent, true)
+  assert.match(e.conditions[0].detail, /not to buy/)
+})
+
+check('a fair price reached is only information', () => {
+  const fair: PlanItem = { kind: 'price', id: 'p-fair', role: 'fair', low: 133.77, high: null, currency: 'USD', source: src('no margin of safety against the $133.77 base case'), note: null }
+  const e = run([fair], facts(130))
+  assert.deepEqual(types(e), ['fair_reached'])
+  assert.equal(e.conditions[0].urgent, false)
+})
+
+check('a line in one currency is never compared with a price in another', () => {
+  const e = run([buy], facts(199.5, { currency: 'CNY' }))
+  assert.ok(!types(e).includes('buy_price_reached'))
+  assert.equal(e.status, 'cant_check')
+  assert.match(e.conditions[0].detail, /exchange rate/)
+})
+
+check("no price, or a stale one: \"Can't check\", and nothing is checked against it", () => {
+  assert.equal(run([buy], facts(null)).status, 'cant_check')
+  const stale = run([buy, bad], facts(140, { stale: true }))
+  assert.deepEqual(types(stale), ['cant_check'])
+})
+
+check('a one-session jump of 40% or more is held, not acted on', () => {
+  const e = run([buy, bad], facts(120, { day_move_pct: -45 }))
+  assert.deepEqual(types(e), ['cant_check'])
+  assert.match(e.conditions[0].detail, /split or a data error/)
+})
+
+check('dates: coming up within two trading days; out once passed, if after the research', () => {
+  const soon: PlanItem = { kind: 'date', id: 'd-soon', label: 'Q3 results', date: '2026-09-17', window: null, what_to_check: 'AWS margin', source: src('results on 2026-09-17 matter') }
+  const out: PlanItem = { kind: 'date', id: 'd-out', label: 'Q2 results', date: '2026-07-31', window: null, what_to_check: null, source: src('July 31 Q2 2026 earnings') }
+  const before: PlanItem = { kind: 'date', id: 'd-old', label: 'Q1 results', date: '2026-05-01', window: null, what_to_check: null, source: src('the 2026-05-01 print') }
+  const deal: PlanItem = { kind: 'deal_breaker', id: 'k1', text: 'AWS margin under 30%', check_where: null, source: { file: 'decision_record.json', quote: null, field: 'kill_criteria[0]' } }
+  const e = run([soon, out, before, deal], facts(230))
+  assert.deepEqual(types(e).sort(), ['coming_up', 'results_out'])
+  const res = e.conditions.find((c) => c.type === 'results_out')!
+  assert.match(res.detail, /AWS margin under 30%/)
+  assert.equal(e.next_date?.date, '2026-09-17')
+})
+
+check('research older than 90 days is "Check now"', () => {
+  const e = run([buy], facts(230), { decision_date: '2026-06-01' })
+  assert.deepEqual(types(e), ['research_old'])
+})
+
+check('your own triggers: your price reached is urgent; your date is information', () => {
+  const quote: LiveQuote = { ticker: 'V', symbol: 'V', name: 'Visa', exchange: 'NYSE', currency: 'USD', price: 49, as_of: '2026-09-15T15:00:00Z', as_of_is_close: false, delayed: true, source: 'cnbc', stale: false }
+  const triggers: WatchTrigger[] = [
+    { kind: 'price_level', trigger_id: 'T1', direction: 'at_or_below', level: 50, currency: 'USD' },
+    { kind: 'event_date', trigger_id: 'T2', due_date: '2026-09-14', label: 'Look again' },
+  ]
+  const evals = triggers.map((tr) => evaluateTrigger(tr, { quote, quoteReason: null, today: TODAY }))
+  const e = evaluateName({ plan: null, triggers, evals, facts: facts(49), today: TODAY })
+  const byType = new Map(e.conditions.map((c) => [c.type, c]))
+  assert.equal(byType.get('your_level_reached')?.urgent, true)
+  assert.equal(byType.get('your_date_due')?.urgent, false)
+})
+
+check('the fixed urgent list — exactly the crossed lines, nothing else', () => {
+  assert.deepEqual([...URGENT_CONDITIONS].sort(), ['bad_case_broken', 'buy_price_reached', 'look_again_reached', 'near_after_big_drop', 'your_level_reached'])
+  const informational = Object.keys(CONDITION_STATUS).filter((k) => !URGENT_CONDITIONS.has(k as any)).sort()
+  assert.deepEqual(informational, ['big_drop', 'cant_check', 'coming_up', 'fair_reached', 'getting_close', 'research_old', 'results_out', 'your_date_coming', 'your_date_due'])
+})
+
+check('trading days skip weekends', () => {
+  assert.equal(tradingDaysUntil('2026-09-18', '2026-09-22'), 2)
+  assert.equal(tradingDaysUntil(TODAY, TODAY), 0)
+  assert.equal(tradingDaysUntil(TODAY, '2026-09-14'), -1)
+})
+
+console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

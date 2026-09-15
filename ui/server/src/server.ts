@@ -18,7 +18,7 @@ import { providerDeployIntentPath, providerDeployPending, readDeploymentStatus }
 import { readActivity, ACTIVITY_FILTER_KINDS, ACTIVITY_FILTER_STATUSES } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR, TOOLS, WATCH, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { listTickers } from './data-status'
 import { dataScans } from './data-scan'
@@ -89,6 +89,12 @@ import {
   type StandingCall, type WatchEntry, type WatchTrigger,
   readRunScenarios,
 } from './watchlist'
+import { createWatchMonitor } from './watch/monitor'
+import { readResearchPlan, watchReaderBudget } from './watch/reader'
+import { deliverWatchEmail, watchEmailConfig } from './watch/email'
+import { fetchIndexLevels, quoteListings } from './watch/prices'
+import { MESSAGE_ID_RE } from './watch/inbox'
+import { onFinishedRun } from './watch/hook'
 import {
   TASKS_DIR, TASK_MAX_ATTACHMENTS, TASK_PEOPLE, isTaskId, newTaskId, readTasks,
   syncTaskWatchlist, syncWatchAssigneeToTask, taskPath, taskTickerIdentity, taskTickerInput, writeTask,
@@ -4838,49 +4844,125 @@ async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unkno
   }
 }
 
+// The armed watchlist (watch/*.ts): one monitor per process. It reads each research name's report once,
+// checks prices, drops and dates on a timer, and writes cockpit messages; only urgent ones are emailed. It
+// never buys, sells or launches research.
+const watchMonitor = createWatchMonitor({
+  stateDir: STATE_DIR,
+  today: todayISO,
+  loadEngineRows: async () => readEngineWatch(await standingCalls(), readSizingDecoration()),
+  loadEntries: () => readEntries().entries,
+  quote: (subjects) => quoteListings(subjects, (s) => getQuotes(s)),
+  indexLevels: (symbols) => fetchIndexLevels(symbols, { timeoutMs: NEWS.quoteTimeoutMs, maxAgeDays: NEWS.quoteMaxAgeDays, now: new Date() }),
+  readPlan: (row) => readResearchPlan(row),
+  emailConfig: watchEmailConfig,
+  sendEmail: (batch, cfg) => deliverWatchEmail(batch, cfg),
+  thresholds: {
+    bigDropPct: WATCH.bigDropPct, nearPct: WATCH.nearPct, rearmPct: WATCH.rearmPct,
+    researchOldDays: 90, comingUpTradingDays: 2, unusualJumpPct: 40,
+  },
+  tickMs: WATCH.tickMin * 60_000,
+  log: (msg) => console.log(msg), // eslint-disable-line no-console
+})
+
 async function buildWatchlist() {
   const { entries, unreadable } = readEntries()
   const decoration = readSizingDecoration()
   const engine = readEngineWatch(await standingCalls(), decoration)
-
-  // One batched quote call for the whole list — but getQuotes keys its result Map on the TICKER alone
-  // (equity-quote.ts), so two listings of the SAME ticker in one batch collide and the survivor could be
-  // the other currency's answer: the GBP row would show the USD listing's price. Group by ticker and run
-  // one round per collision depth. With distinct tickers — the normal case, and what today's data is —
-  // that is exactly one call, so the batching is preserved.
-  type Subj = { ticker: string; currency: string | null; exchange: string | null; companyName: string | null; entryPrice: number | null }
-  const byTicker = new Map<string, { key: string; subj: Subj }[]>()
-  const seenKeys = new Set<string>()
-  const consider = (key: string, ticker: string, currency: string | null, exchange: string | null, companyName: string | null, entryPrice: number | null) => {
-    if (!currency || seenKeys.has(key)) return
-    seenKeys.add(key)
-    const list = byTicker.get(ticker) ?? []
-    list.push({ key, subj: { ticker, currency, exchange, companyName, entryPrice } })
-    byTicker.set(ticker, list)
-  }
-  for (const e of engine) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, e.entry_price)
-  for (const e of entries) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, null)
-
-  const quotes = new Map<string, { quote: any; reason: any }>()
-  const depth = Math.max(0, ...[...byTicker.values()].map((g) => g.length))
-  for (let round = 0; round < depth; round++) {
-    const batch = [...byTicker.values()].map((g) => g[round]).filter(Boolean)
-    if (!batch.length) continue
-    const outcomes = await getQuotes(batch.map((b) => b.subj))
-    for (const b of batch) quotes.set(b.key, outcomes.get(b.subj.ticker) ?? { quote: null, reason: null })
-  }
-
+  // One batched quote call for the whole list — grouped by ticker so two listings of one ticker can never
+  // swap prices (see quoteListings).
+  const quotes = await quoteListings([
+    ...engine.map((e) => ({ key: e.listing.listing_key, ticker: e.listing.ticker, currency: e.listing.currency, exchange: e.listing.exchange, companyName: e.listing.company_name, entryPrice: e.entry_price })),
+    ...entries.map((e) => ({ key: e.listing.listing_key, ticker: e.listing.ticker, currency: e.listing.currency, exchange: e.listing.exchange, companyName: e.listing.company_name, entryPrice: null })),
+  ], (s) => getQuotes(s))
   const merged = mergeWatchlist({ entries, engine, quotes, today: todayISO() })
   return {
     ...merged,
+    // Each row carries what it is waiting for and where it stands. Absent when the watcher is switched off,
+    // so the client shows the plain list (DESIGN.md §5: an absent field means the feature is off).
+    rows: WATCH.enabled ? watchMonitor.decorate(merged.rows) : merged.rows,
     engine_source: { file: decoration.file, generated_at: decoration.generated_at },
     unreadable,
     quotes_enabled: NEWS.quoteEnabled,
     as_of: new Date().toISOString(),
+    watch: WATCH.enabled ? { unread: watchMonitor.inbox.unreadCount() } : null,
   }
 }
 
 app.get('/api/watchlist', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => buildWatchlist())
+
+// ---- watchlist messages: read, delete, "was this right?", and email per name ----
+function watchMessagesRead() {
+  const email = watchEmailConfig()
+  let spent: number | null = null
+  try { spent = Math.round(watchReaderBudget().usd * 100) / 100 } catch { spent = null }
+  return {
+    enabled: WATCH.enabled,
+    messages: watchMonitor.inbox.list().slice(0, 300),
+    unread: watchMonitor.inbox.unreadCount(),
+    feedback: watchMonitor.inbox.tally(),
+    // The number of addresses, never the addresses themselves.
+    email: { enabled: email.enabled, addresses: email.recipients.length, reason: email.reason },
+    reading: { daily_limit_usd: WATCH.dailyUsd, spent_today_usd: spent },
+    monitor: watchMonitor.status(),
+  }
+}
+
+app.get('/api/watchlist/messages', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => watchMessagesRead())
+
+const WatchMessageRead = z.object({ read: z.boolean().default(true) }).strip()
+const WatchMessageFeedback = z.object({ verdict: z.enum(['yes', 'no']), note: z.string().max(1000).default('') }).strip()
+const WatchEmailPause = z.object({ ticker: z.string().trim().min(1).max(15), currency: z.string().trim().max(8).nullable(), paused: z.boolean() }).strip()
+
+function watchMessageId(req: FastifyRequest): string | null {
+  const id = String((req.params as any)?.id ?? '')
+  return MESSAGE_ID_RE.test(id) ? id : null
+}
+
+app.post('/api/watchlist/messages/:id/read', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = watchMessageId(req)
+  if (!id) return reply.code(400).send({ error: 'bad id' })
+  const body = WatchMessageRead.safeParse(req.body ?? {})
+  if (!body.success) return reply.code(400).send({ error: 'invalid body' })
+  const m = watchMonitor.inbox.markRead(id, body.data.read, identify(req).user, new Date())
+  if (!m) return reply.code(404).send({ error: 'no such message' })
+  return { ok: true, message: m, unread: watchMonitor.inbox.unreadCount() }
+})
+
+app.post('/api/watchlist/messages/read-all', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const marked = watchMonitor.inbox.readAll(identify(req).user, new Date())
+  return { ok: true, marked, unread: watchMonitor.inbox.unreadCount() }
+})
+
+app.post('/api/watchlist/messages/:id/delete', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = watchMessageId(req)
+  if (!id) return reply.code(400).send({ error: 'bad id' })
+  const m = watchMonitor.inbox.remove(id, identify(req).user, new Date())
+  if (!m) return reply.code(404).send({ error: 'no such message' })
+  return { ok: true, unread: watchMonitor.inbox.unreadCount() }
+})
+
+app.post('/api/watchlist/messages/:id/feedback', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = watchMessageId(req)
+  if (!id) return reply.code(400).send({ error: 'bad id' })
+  const body = WatchMessageFeedback.safeParse(req.body ?? {})
+  if (!body.success) return reply.code(400).send({ error: 'invalid body' })
+  const m = watchMonitor.inbox.feedback(id, body.data.verdict, body.data.note, identify(req).user, new Date())
+  if (!m) return reply.code(404).send({ error: 'no such message' })
+  return { ok: true, message: m }
+})
+
+app.post('/api/watchlist/email-pause', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = WatchEmailPause.safeParse(req.body ?? {})
+  if (!body.success) return reply.code(400).send({ error: 'invalid body' })
+  watchMonitor.setEmailPaused(listingKey(body.data.ticker, body.data.currency), body.data.paused)
+  return { ok: true }
+})
 
 /**
  * Resolve a typed ticker to real, PRICED listings so the composer never asks a person to type a currency.
@@ -4951,6 +5033,11 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   const { entries } = readEntries()
   const existing = pickEntryForListing(entries, listing.listing_key)
   if (existing && !existing.archive) return reply.code(409).send({ error: 'already on the watchlist' })
+  // A new row with no currency could never be priced, so it could never tell you anything. Refuse it with the
+  // fix, rather than save a row that silently checks nothing. (An archived row being re-added keeps its own.)
+  if (!existing && !listing.currency) {
+    return reply.code(400).send({ error: 'Pick a listing that shows a currency — without one its price can never be checked. If prices could not be fetched just now, look it up again in a minute.' })
+  }
   // The cap only makes sense against a genuinely NEW row. Re-adding an archived listing restores an
   // EXISTING file in place — the same transition the dedicated /restore endpoint performs — so at a full
   // book this branch was refusing a request that adds no row at all, from the ordinary re-add path off
@@ -8046,6 +8133,7 @@ async function shutdown(signal: string, code = 0) {
     // Provider and paper-sync writers own durable research state, so they always drain before optional
     // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
     await drainProviderRunsForShutdown()
+    watchMonitor.stop()
     await drainIbkrPaperAutoSync()
   } catch (error) {
     // Fail closed: never release the process-wide lock while a detached writer may still be alive.
@@ -8156,6 +8244,16 @@ async function start() {
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()
+    // The armed watchlist: prices, drops and dates on a timer, each research report read once. It never buys
+    // and never launches research. ENGINE_WATCH_MONITOR=0 keeps it dark.
+    if (WATCH.enabled) {
+      onFinishedRun((run) => {
+        if (run.swarmId !== 'research') return
+        callsCache = null // see the new call on the next check, not after the cache ages out
+        watchMonitor.nudge()
+      })
+      watchMonitor.start()
+    }
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
     startConvictionLoop(async ({ thesisId, checkpointId, selection, onTerminal }) => {

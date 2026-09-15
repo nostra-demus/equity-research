@@ -642,6 +642,33 @@ export const CHAT = {
   parserBudgetUsd: capNum(process.env.ENGINE_CHAT_PARSER_BUDGET_USD, 0.25),
 }
 
+// ---- the armed watchlist (watch/*.ts) ----
+// Every research name on the watchlist gets a watch plan read from its report ONCE — a model call on the
+// same Claude/Codex plan research and chat use, no API key — and then a timer checks prices, drops and dates
+// for free and turns what changed into cockpit messages; only urgent ones are emailed. The ONE spending limit
+// is a daily total for all reading (operator decision, 2026-09-15: $20 a day, no stop per read). On the
+// subscription path no card is charged: the dollar figure is the plan's own meter, i.e. how much of the
+// allowance research also draws on.
+export const WATCH = {
+  // Master switch for the timer and the reader. ENGINE_WATCH_MONITOR=0 turns every check and read off.
+  enabled: process.env.ENGINE_WATCH_MONITOR !== '0',
+  tickMin: capNum(process.env.ENGINE_WATCH_TICK_MIN, 5),
+  dailyUsd: capNum(process.env.ENGINE_WATCH_DAILY_USD, 20),
+  readerModel: (process.env.ENGINE_WATCH_READER_MODEL || 'opus').trim().toLowerCase(),
+  readerTimeoutMs: capNum(process.env.ENGINE_WATCH_READER_TIMEOUT_MS, 8 * 60_000),
+  readerThinkingTokens: capNumOrZero(process.env.ENGINE_WATCH_READER_THINKING_TOKENS, 4_000),
+  // Codex plan turns report no per-read cost, so each Codex read is counted at this estimate against the
+  // same daily total (40 reads a day at the $20 default).
+  codexReadEstimateUsd: capNum(process.env.ENGINE_WATCH_CODEX_READ_ESTIMATE_USD, 0.5),
+  bigDropPct: capNum(process.env.ENGINE_WATCH_BIG_DROP_PCT, 8),
+  nearPct: capNum(process.env.ENGINE_WATCH_NEAR_PCT, 5),
+  rearmPct: capNum(process.env.ENGINE_WATCH_REARM_PCT, 3),
+  // Email for urgent messages only: off unless at least one address is named here AND the email sender
+  // (FEEDBACK_EMAIL above) is configured. ENGINE_WATCH_EMAIL=0 forces it off.
+  emailEnabled: process.env.ENGINE_WATCH_EMAIL !== '0',
+  emailTo: String(process.env.ENGINE_WATCH_EMAIL_TO || '').split(/[\s,;]+/).map((s) => s.trim()).filter(Boolean),
+}
+
 // ---- autonomous news ingester (screener swarm) ----
 // The "forever-living" front door of the screener: pull a free news firehose (GDELT, keyless),
 // score each item with a FREE LLM (Groq) as a cheap brain, and fill a RANKED inbox — all at ~$0.

@@ -216,6 +216,16 @@ export function countryFromExchange(exchange: string | null | undefined): string
 }
 
 /**
+ * The home market of a listing: the country its CURRENCY belongs to, else its exchange's. The currency wins
+ * because it names the line actually priced — "SHSE:600690 (also HKEX-listed)" priced in CNY trades in
+ * Shanghai, whichever venue the exchange string happens to mention. The euro names no country, so a euro
+ * listing falls through to its exchange.
+ */
+export function listingCountry(exchange: string | null | undefined, currency: string | null | undefined): string | null {
+  return CURRENCY_COUNTRY[normCurrency(currency)] ?? countryFromExchange(exchange)
+}
+
+/**
  * The ordered CNBC symbol candidates for a listing, most specific first. A US listing is the bare
  * ticker; everything else is `<TICKER>-<CC>`. The bare ticker is appended LAST for non-US listings as a
  * final fallback — safe only because the gates below reject a same-spelling foreign listing.

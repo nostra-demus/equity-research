@@ -4,7 +4,7 @@ import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { coerceViewForWebgl, isPersistableView, normalizeStoredView, type ResearchView } from './researchView'
-import type { WatchRowInput, WatchlistRead } from './types'
+import type { WatchMessagesRead, WatchRowInput, WatchlistRead } from './types'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
 import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
@@ -124,14 +124,6 @@ function saveRead(s: Set<string>): void {
 const VIEW_KEY = 'nsw.researchView'
 function loadView(): ResearchView {
   try { return normalizeStoredView(localStorage.getItem(VIEW_KEY)) } catch { return 'constellation' }
-}
-// How the watchlist is drawn. Unlike the stage view this IS a home: whichever way you read the list is the
-// way you want it next time, so an explicit choice persists and anything unrecognized falls back to the
-// grid rather than to a stored value we cannot interpret.
-const WL_LAYOUT_KEY = 'nsw.watchlistLayout'
-export type WatchlistLayout = 'grid' | 'table'
-function loadWatchlistLayout(): WatchlistLayout {
-  try { return localStorage.getItem(WL_LAYOUT_KEY) === 'table' ? 'table' : 'grid' } catch { return 'grid' }
 }
 // One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
 // the toggle disables the Globe option and we coerce away from it when this is false.
@@ -836,12 +828,20 @@ interface State {
   watchlistLoading: boolean
   watchlistError: string | null
   watchlistAt: number | null
-  /** How many conditions are met right now — the count badge on the pill, visible from the other views. */
+  /** The count badge on the pill, visible from the other views: unread watchlist messages — or, from an
+   *  engine older than the messages, how many conditions are met. */
   watchlistMetCount: number
   watchlistShowArchived: boolean
   watchlistPending: string | null
-  watchlistLayout: WatchlistLayout
-  setWatchlistLayout: (l: WatchlistLayout) => void
+  /** Watchlist messages (server: watch/inbox.ts). Null until loaded, and when the engine keeps none. */
+  watchMessages: WatchMessagesRead | null
+  watchMessagesError: string | null
+  loadWatchMessages: () => Promise<void>
+  markWatchMessage: (id: string, read: boolean) => Promise<void>
+  markAllWatchMessagesRead: () => Promise<void>
+  deleteWatchMessage: (id: string) => Promise<void>
+  answerWatchMessage: (id: string, verdict: 'yes' | 'no', note?: string) => Promise<void>
+  setWatchEmailPaused: (ticker: string, currency: string | null, paused: boolean) => Promise<void>
   /** The add/edit panel. `prefill` carries what the decision record already knows, so a researched name
    *  needs nothing retyped and is quotable the moment it is saved. */
   watchComposer: { open: boolean; entryId: string | null; prefill: WatchRowInput | null; openedAt: number } | null
@@ -1815,7 +1815,8 @@ export const useStore = create<State>((set, get) => ({
   watchlistMetCount: 0,
   watchlistShowArchived: false,
   watchlistPending: null,
-  watchlistLayout: loadWatchlistLayout(),
+  watchMessages: null,
+  watchMessagesError: null,
   watchComposer: null,
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -2622,9 +2623,48 @@ export const useStore = create<State>((set, get) => ({
   },
 
   setWatchlistShowArchived: (v) => set({ watchlistShowArchived: v }),
-  setWatchlistLayout: (l) => {
-    try { localStorage.setItem(WL_LAYOUT_KEY, l) } catch { /* private mode — the choice just does not persist */ }
-    set({ watchlistLayout: l })
+  loadWatchMessages: async () => {
+    if (get().staticMode) return
+    try {
+      const read = await api.watchMessages()
+      // Positive match (DESIGN.md §5): only a read that says the watcher is on turns the inbox on.
+      const on = !!read && read.enabled === true && Array.isArray(read.messages)
+      set({
+        watchMessages: on ? read : null,
+        watchMessagesError: null,
+        ...(on && typeof read!.unread === 'number' ? { watchlistMetCount: read!.unread } : {}),
+      })
+    } catch (e: any) {
+      // an engine older than this bundle has no route: the inbox is simply off, never an error surface
+      if (e?.status === 404) { set({ watchMessages: null, watchMessagesError: null }); return }
+      set({ watchMessagesError: e?.message ? String(e.message) : 'could not load messages' })
+    }
+  },
+  markWatchMessage: async (id, read) => {
+    try { await api.watchMessageRead(id, read) } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not update the message.', tone: 'bad' }) }
+    await get().loadWatchMessages()
+  },
+  markAllWatchMessagesRead: async () => {
+    try { await api.watchMessagesReadAll() } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not mark the messages read.', tone: 'bad' }) }
+    await get().loadWatchMessages()
+  },
+  deleteWatchMessage: async (id) => {
+    try { await api.watchMessageDelete(id) } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not delete the message.', tone: 'bad' }) }
+    await get().loadWatchMessages()
+  },
+  answerWatchMessage: async (id, verdict, note) => {
+    try {
+      await api.watchMessageFeedback(id, verdict, note ?? '')
+      get().setToast({ msg: verdict === 'yes' ? 'Noted: this message was right.' : 'Noted: this message was not right.', tone: 'good' })
+    } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not save your answer.', tone: 'bad' }) }
+    await get().loadWatchMessages()
+  },
+  setWatchEmailPaused: async (ticker, currency, paused) => {
+    try {
+      await api.watchEmailPause(ticker, currency, paused)
+      get().setToast({ msg: paused ? `Email paused for ${ticker}. Its messages still arrive here.` : `Email is back on for ${ticker}.`, tone: 'good' })
+    } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not change email for this name.', tone: 'bad' }) }
+    await get().loadWatchlist(true)
   },
 
   // Opening from the decision banner switches to the view AND opens the form, so the button lands you
@@ -2694,10 +2734,12 @@ export const useStore = create<State>((set, get) => ({
         watchlistAt: Date.now(),
         watchlistError: null,
         watchlistLoading: false,
-        // The count of CONDITIONS met, not rows — the badge says "N conditions have been met" (ViewToggle),
-        // and one row can carry several simultaneously met triggers (an upper AND a lower price level, plus
-        // a margin-of-safety condition). Counting rows undercounted whenever more than one fired together.
-        watchlistMetCount: read.rows.reduce((n, r) => n + r.evals.filter((e) => e.state === 'condition_met').length, 0),
+        // Unread watchlist messages when the engine keeps them (a positive match on the field, DESIGN.md
+        // §5). An older engine falls back to the count of CONDITIONS met, not rows — one row can carry several
+        // simultaneously met triggers, and counting rows undercounted whenever more than one fired together.
+        watchlistMetCount: typeof read.watch?.unread === 'number'
+          ? read.watch.unread
+          : read.rows.reduce((n, r) => n + r.evals.filter((e) => e.state === 'condition_met').length, 0),
       })
     } catch (e: any) {
       // an engine older than this bundle has no route yet: feature off, never an error surface
