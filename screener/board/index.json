@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T11:02:03Z",
+  "generated_at": "2026-09-15T11:16:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-413",
+      "headline": "CHINA PPT INV (00736): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO (I) THE ANNUAL REPORT FOR THE YEAR ENDED 31 MARCH 2026; AND (II) DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500931.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T10:49:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The company announced a delay in the publication of its annual results for the year ended 31 March 2026, indicating potential internal control or reporting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a delay in the publication of its annual results for the year ended 31 March 2026, indicating potential internal control or reporting issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China PPT Inv",
+          "ticker": "00736",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-409",
       "headline": "TIME INTERCON (01729): COMPLETION NAV AND FINAL CONSIDERATION FOR THE ACQUISITION OF THE 51% ISSUED SHARE CAPITAL OF THE TARGET COMPANY",
@@ -990,6 +1039,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-417",
+      "headline": "Bharat Heavy Electricals Limited: Signing of Joint Venture Agreement with Titagarh Rail Systems Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BHEL_15092026160755_SE-TRSLJVA.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T10:39:08Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Bharat Heavy Electricals Limited and Titagarh Rail Systems Limited signed a joint venture agreement, a significant strategic partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Bharat Heavy Electricals Limited and Titagarh Rail Systems Limited signed a joint venture agreement, a significant strategic partnership.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Heavy Electricals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Titagarh Rail Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-363",
       "headline": "MJ Gleeson slips to loss and halves dividend after tough year",
       "headline_en": null,
@@ -1873,99 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-297",
-      "headline": "Notice of OFAC Sanctions Action",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/15/2026-18909/notice-of-ofac-sanctions-action",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-173",
-      "headline": "Muthoot Microfin Limited: Muthoot Microfin Limited has informed the Exchange regarding a press release dated September 15, 2026, titled \"Muthoot Microfin Secures ₹250 Crore Through NCDs to DriveGrowth Plans\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/muthootmicrofin_15092026075737_PressReleaseSep152026SD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T02:31:40Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Muthoot Microfin raised 250 crore rupees through non-convertible debentures to fund growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Muthoot Microfin raised 250 crore rupees through non-convertible debentures to fund growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Muthoot Microfin Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164107,9 +164117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2627333,
-    "news_picked_today": 750,
-    "news_dropped_today": 4986
+    "news_seen_today": 2770209,
+    "news_picked_today": 757,
+    "news_dropped_today": 5099
   },
   "book_momentum": {
     "live_count": 8,
