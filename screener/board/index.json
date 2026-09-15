@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T14:28:16Z",
+  "generated_at": "2026-09-15T14:37:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-506",
+      "headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T14:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Byte Meta issued a profit warning, indicating a negative impact on financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Byte Meta issued a profit warning, indicating a negative impact on financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYTE META",
+          "ticker": "08645",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-502",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of ECS BIZTECH LIMITED",
@@ -484,6 +533,55 @@
           "name": "Skyfame Realty",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-513",
+      "headline": "Forward Industries Raises SkyAI Acquisition Offer To $2.13/Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/forward-industries-raises-skyai-acquisition-offer-213-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T14:09:11Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Forward Industries increased its acquisition offer for SkyAI to $2.13 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Forward Industries increased its acquisition offer for SkyAI to $2.13 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Forward Industries",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1871,105 +1969,6 @@
         },
         {
           "name": "Titagarh Rail Systems Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-363",
-      "headline": "MJ Gleeson slips to loss and halves dividend after tough year",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/mj-gleeson-slips-to-loss-and-halves-dividend-after-tough-year/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T07:09:41Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MJ Gleeson",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-470",
-      "headline": "Tata Communications Limited: Tata Communications Limited has informed the Exchange about intimation regarding issuance, allotment and listing of Commercial Paper amounting to Rs. 400 crore",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_15092026181737_18508_-_Listing_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T12:47:46Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Communications Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -164128,9 +164127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4409598,
-    "news_picked_today": 1002,
-    "news_dropped_today": 6438
+    "news_seen_today": 4476956,
+    "news_picked_today": 1014,
+    "news_dropped_today": 6450
   },
   "book_momentum": {
     "live_count": 8,
