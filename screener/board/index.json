@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T03:42:14Z",
+  "generated_at": "2026-09-15T03:51:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -435,6 +435,55 @@
       "companies": [
         {
           "name": "Hyosung Heavy",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-248",
+      "headline": "효성중공업, 미국 빅테크서 3865억 초고압변압기 수주",
+      "headline_en": "Hyosung Heavy Industries wins 386.5 billion KRW ultra-high voltage transformer order from US big tech",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276966",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T03:27:17Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Hyosung Heavy Industries secured a 386.5 billion KRW order for ultra-high voltage transformers from a US big tech firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Hyosung Heavy Industries secured a 386.5 billion KRW order for ultra-high voltage transformers from a US big tech firm.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyosung Heavy Industries",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -1924,55 +1973,6 @@
         },
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-027",
-      "headline": "FDA 510(k) clearance — GE Medical Systems Ultrasound and Primary Care Diagnostics: Vivid Explorer/Vivid Advanced/Vivid Focus",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261313",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-02T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "GE Medical Systems received FDA 510(k) clearance for its new Vivid ultrasound product line.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "GE Medical Systems received FDA 510(k) clearance for its new Vivid ultrasound product line.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Medical Systems",
           "ticker": null,
           "listing_country": "US"
         }
@@ -164455,9 +164455,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 479861,
-    "news_picked_today": 365,
-    "news_dropped_today": 1387
+    "news_seen_today": 492166,
+    "news_picked_today": 382,
+    "news_dropped_today": 1442
   },
   "book_momentum": {
     "live_count": 8,
