@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-e38b2231c234",
-  "idea_version": "IDEAV-70db0be3e28ab2d2",
-  "idea_version_started_at": "2026-09-12T16:36:23Z",
+  "idea_version": "IDEAV-a6e1dba8e77d6940",
+  "idea_version_started_at": "2026-09-13T18:15:10Z",
   "ticker": "GE",
   "company": "GE Aerospace",
   "exchange": "NYSE",
@@ -11,8 +11,8 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "GE Aerospace is acquiring a company for $12 billion, which should expand its business and revenue base.",
-  "why_now": "The acquisition was announced today, September 12, 2026.",
+  "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
+  "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
   "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
+    "EVT-8cff733d76dc",
     "EVT-ab951b64b3c4"
   ],
-  "primary_source_event_id": "EVT-ab951b64b3c4",
+  "primary_source_event_id": "EVT-8cff733d76dc",
   "source_headlines": [
+    "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
     "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
   ],
-  "source_headline": "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know.",
-  "source_url": "https://www.nasdaq.com/articles/ge-aerospace-making-12-billion-acquisition-heres-what-investors-should-know",
-  "source_name": "Nasdaq",
+  "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-12T08:50:00Z",
+  "newest_source_at": "2026-09-12T22:38:33Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-12T16:36:23Z",
-  "updated_at": "2026-09-12T16:36:23Z",
-  "decay_at": "2026-09-13T20:50:00Z",
+  "updated_at": "2026-09-13T18:15:10Z",
+  "decay_at": "2026-09-14T10:38:33Z",
   "status": "live",
   "promoted_signal_id": null
 }

@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-1e21975df7c3",
-  "idea_version": "IDEAV-1102d3ba8182d1f4",
-  "idea_version_started_at": "2026-09-12T20:43:48Z",
+  "idea_version": "IDEAV-f2882134d822e1f8",
+  "idea_version_started_at": "2026-09-13T18:31:35Z",
   "ticker": "GME",
   "company": "GameStop",
   "exchange": "NYSE",
@@ -11,17 +11,17 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The CEO's purchase of 1 million shares for $20 million signals strong internal confidence in the company's current turnaround strategy and capital allocation plans.",
-  "why_now": "The insider transaction was reported on 2026-09-12, providing a fresh signal of management alignment.",
-  "conviction": 45,
+  "reason": "CEO Ryan Cohen's purchase of 1 million shares for $20 million provides a strong signal of internal confidence and often triggers retail-driven momentum in this specific ticker.",
+  "why_now": "The insider transaction was reported on September 12, 2024, providing a fresh sentiment catalyst.",
+  "conviction": 55,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 55,
+  "trade_score": 59,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 18,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,8 +42,8 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
-  "thesis_type": "company_specific",
+  "priced_in": "room",
+  "thesis_type": "liquidity_positioning",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
@@ -66,7 +65,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-12T20:43:48Z",
-  "updated_at": "2026-09-12T20:43:48Z",
+  "updated_at": "2026-09-13T18:31:35Z",
   "decay_at": "2026-09-14T06:13:01Z",
   "status": "live",
   "promoted_signal_id": null

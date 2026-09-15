@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-661a368ec8c5",
+  "idea_version": "IDEAV-eab7714e9c5469d0",
+  "idea_version_started_at": "2026-09-14T08:05:52Z",
+  "ticker": "9984",
+  "company": "SoftBank Group",
+  "exchange": "TSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "SoftBank's valuation is heavily tied to the expected liquidity event of its major AI holding, OpenAI; the confirmation that no IPO will occur this year removes a key catalyst for the stock's premium.",
+  "why_now": "The news broke today, September 14, 2026, directly contradicting market expectations for a near-term exit.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-352b09a25389"
+  ],
+  "primary_source_event_id": "EVT-352b09a25389",
+  "source_headlines": [
+    "SoftBank Group plunges 11% after OpenAI says no IPO this year"
+  ],
+  "source_headline": "SoftBank Group plunges 11% after OpenAI says no IPO this year",
+  "source_url": "https://asia.nikkei.com/business/markets/softbank-group-plunges-11-after-openai-says-no-ipo-this-year",
+  "source_name": "Nikkei Asia",
+  "materiality_max": 97,
+  "newest_source_at": "2026-09-14T07:58:35Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-14T08:05:52Z",
+  "updated_at": "2026-09-14T08:05:52Z",
+  "decay_at": "2026-09-15T19:58:35Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

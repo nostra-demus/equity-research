@@ -1,0 +1,39 @@
+# Business Quality — AKAM
+
+No sector overlay for global cloud-security, edge/cloud-infrastructure, and content-delivery services — generic 11-factor scoring applies. [FY2025 Form 10-K, Item 1, pp. 3–5]
+
+## 1. Quality Factor Table
+
+| Quality Factor | Score /100 | Evidence | Comment |
+|---|---:|---|---|
+| Pricing power *(higher = better)* | 43 | Some delivery and security customers have accepted lower prices at renewal because of competition; AKAM is seeking multi-year renewal terms that better reflect hyperscaler-driven cost increases and traffic volumes. [Q2 2026 Form 10-Q, MD&A—Revenue] | Contracts provide a negotiating point, but realized renewal-price pressure means pricing power is mixed rather than established. |
+| Repeat / recurring revenue *(higher = better)* | 73 | AKAM primarily sells services under contracts of one year or longer, which it says provide a consistent base of revenue. [Q2 2026 Form 10-Q, MD&A—Revenue, p.26] | Good contractual recurrence. Remaining term, committed revenue and RPO are not disclosed, so the coverage cannot be measured. |
+| Customer stickiness *(higher = better)* | 68 | No customer accounted for 10% or more of FY23–FY25 revenue; contracts are generally one year or longer. [FY2025 Form 10-K, p.7; Q2 2026 Form 10-Q, MD&A—Revenue, p.26] | Broad customer exposure and embedded services support retention, but delivery customers can optimize traffic, use multiple providers, or move toward pay-as-you-go models. [Q2 2026 Form 10-Q, Risk Factors—Customers and Revenue] |
+| Margin stability *(higher = better)* | 35 | Q2 2026 gross margin was 55.8%: $613.750m gross profit ($1,099.682m revenue minus $485.932m cost of revenue) ÷ $1,099.682m revenue, versus 59.1% in Q2 2025 ($616.959m ÷ $1,043.494m). [Q2 2026 Form 10-Q, Consolidated Statements of Income] CIQ’s mechanically parsed financial workbook likewise shows gross margin falling from 63% in FY21 to 57% LTM June 2026 and EBITDA margin from 34% to 25%. [CIQ Financials→Income Statement, margin trend through LTM June 30, 2026 — vendor export] | The 330bp year-on-year gross-margin fall and multi-year vendor trend outweigh the fact that revenue is growing. |
+| Capital intensity *(low intensity = high score)* | 40 | H1 2026 total capital expenditure was $417.600m: $246.613m property and equipment plus $170.987m capitalized internal-use software; this was 19.2% of $2,173.292m H1 revenue and compared with $638.774m CFO. [Q2 2026 Form 10-Q, Consolidated Statements of Cash Flows] AKAM says capex has risen and is expected to continue rising for cloud infrastructure, AI capabilities and network capacity. [Q2 2026 Form 10-Q, Risk Factors—Indebtedness and Capital Expenditures] | The legacy network is capital-heavy, and the CIS expansion increases that burden. Security may be less capital-intensive, but solution-level capex is not disclosed. |
+| Competitive intensity *(low intensity = high score)* | 32 | AKAM says renewal prices for some delivery and security customers have declined because of competition, and its costs are affected by hyperscaler market dynamics. [Q2 2026 Form 10-Q, MD&A—Revenue and Expenses] | Competition is already visible in realized price rather than only risk-factor language; upselling mitigates some effect but does not prove durable pricing. |
+| Industry rate-of-change / disruption risk *(low rate-of-change = high score)* | 35 | AKAM has entered direct AI inferencing at the edge, where it faces established and emerging AI-infrastructure competitors; the filing calls AI technology and its regulatory environment rapidly evolving. [Q2 2026 Form 10-Q, Risk Factors—AI] | The security, cloud and edge competitive set is changing fast. The small but rapidly growing CIS category adds execution risk rather than a settled long-run advantage. |
+| Regulatory dependence *(low dependence = high score)* | 53 | Privacy, data-transfer, cloud-sovereignty, content-liability, security, sanctions and export-control rules can affect revenues, costs and customer relationships. [Q2 2026 Form 10-Q, Risk Factors—Legal and Regulatory Risks, pp. 56–58] | Regulation is material to a global internet-infrastructure provider, but the pool does not show a direct price-setting regime or a lost operating licence. |
+| Commodity dependence *(low dependence = high score)* | 76 | AKAM is not a commodity producer or price-taker. Its input exposure is to co-location capacity, bandwidth, energy, servers and memory; the filing reports hyperscaler-driven increases in co-location, server and memory costs. [Q2 2026 Form 10-Q, MD&A—Expenses] | Low direct commodity dependence, with meaningful infrastructure-input cost exposure that belongs in margin monitoring. |
+| Cyclicality *(low cyclicality = high score)* | 48 | One-year-or-longer contracts support a revenue base, but traffic varies with customer optimization, macro conditions, software and gaming releases, holidays, and large media events. [Q2 2026 Form 10-Q, MD&A—Revenue] Delivery and other cloud applications revenue fell 6% year on year in Q2 2026. [Q2 2026 Form 10-Q, Note 11, p.23] | Less cyclical than an ad-funded media business, but usage-based delivery demand and renewal budgets leave a meaningful cycle. |
+| Disclosure quality *(higher = better)* | 58 | AKAM reports in USD under US GAAP and provides three solution-category revenue lines, but it is one reportable segment and does not disclose solution-category profit, assets, capital employed or capital expenditure. [Q2 2026 Form 10-Q, Note 1, p.10; Note 14, p.25] | The filings are usable, but category economics and contract-coverage measures needed to test the growth mix are not disclosed. |
+
+## 2. Aggregate Quality Score
+
+**48 /100 — Mixed/Average.**
+
+The aggregate weights revenue durability at 40% (pricing power 15%, recurring revenue 15%, stickiness 10%), unit economics and reinvestment at 37% (margin stability 15%, capital intensity 10%, competitive intensity 12%), industry rate-of-change at 12%, and regulation, commodity inputs, cyclicality and disclosure at the remaining 11%. Contracted revenue and a broad customer base lift the score, but realized renewal-price pressure, declining margins, rising infrastructure spend and the fast-changing AI/cloud market set the result.
+
+## 3. Strongest Factor & Weakest Factor
+
+| | Factor | Score | Why |
+|---|---|---:|---|
+| Strongest | Repeat / recurring revenue | 73 | AKAM primarily sells on contracts of one year or longer, giving a base level of revenue; the undisclosed RPO and remaining-term profile prevent a higher score. [Q2 2026 Form 10-Q, MD&A—Revenue, p.26] |
+| Weakest | Competitive intensity | 32 | Some security and delivery customers have renewed at lower prices because of competition; this is observed pressure on revenue, not merely a theoretical risk. [Q2 2026 Form 10-Q, MD&A—Revenue] |
+
+## 4. Read
+
+Akamai is a contracted enterprise-infrastructure business with a useful recurring base, but current evidence does not support treating it as a durable compounder: Security was 55.0% of Q2 2026 revenue and grew 10%, cloud infrastructure services were 9.0% and grew 39%, while Delivery and other cloud applications were 36.0% and fell 6%; solution-category profit is not disclosed. [Q2 2026 Form 10-Q, Note 11, p.23; Note 14, p.25] Renewal-price pressure and capacity costs have coincided with a gross-margin fall from 59.1% in Q2 2025 to 55.8% in Q2 2026, so gross margin and renewal pricing are the single quality factor to watch over the next 24 months. [Q2 2026 Form 10-Q, Consolidated Statements of Income; MD&A—Revenue and Expenses] The industry rate-of-change score of 35 means this looks closer to a sector / technology-cycle bet than a durable compounder. The reported margin is not at a cyclical peak; it has fallen, so no peak-margin adjustment is used.
+
+RF-BQ-005 (fast-changing industry: rate-of-change ≤40)
+
