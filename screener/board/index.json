@@ -1,6 +1,203 @@
 {
-  "generated_at": "2026-09-15T14:37:54Z",
+  "generated_at": "2026-09-15T15:29:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-526",
+      "headline": "CHAMPION TECH (00092): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501445.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T14:59:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Profit warning indicates a significant negative impact on expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a significant negative impact on expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHAMPION TECH",
+          "ticker": "00092",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-534",
+      "headline": "SKYFAME REALTY SKYFAME B3311 SKYFAME B3311B SKYFAME B3111B SKYFAME B3211 SKYFAME B3111 (00059 05311 05379 05567 05602 05855): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2025 AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501417.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T14:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Skyfame Realty announced interim results for the six months ended June 30, 2025, and its trading remains suspended, indicating potential distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Skyfame Realty announced interim results for the six months ended June 30, 2025, and its trading remains suspended, indicating potential distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKYFAME REALTY",
+          "ticker": "00059",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-516",
+      "headline": "425 - Launch Two Acquisition Corp. (0002023676) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2023676/000121390026099972/0001213900-26-099972-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T14:47:41Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Filing related to a business combination, indicating potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Filing related to a business combination, indicating potential M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Launch Two Acquisition Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-538",
+      "headline": "KANTONE HOLDING (01059): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501403.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T14:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Kantone Holding issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kantone Holding issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KANTONE HOLDING",
+          "ticker": "01059",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-506",
       "headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
@@ -1773,207 +1970,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-042",
-      "headline": "Essar arm to buy UK fuel retailer for nearly $550 million",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/essar-arm-to-buy-uk-fuel-retailer-for-nearly-550-million/articleshow/134249546.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:17:27Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Essar is acquiring a UK fuel retailer for nearly $550 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Essar is acquiring a UK fuel retailer for nearly $550 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Essar",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-171",
-      "headline": "Abbott to pay S$489m to settle infant formula allegations",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/abbott-to-pay-s489m-to-settle-infant-formula-allegations",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company to pay S$489m to settle allegations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company to pay S$489m to settle allegations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abbott",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-013",
-      "headline": "Solar Industries acquires South African company for 13,000 crore",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/solar-industries-acquires-s-african-co-for-13000-crore/articleshow/134249498.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:01:18Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Acquisition of a South African company for 130 billion INR (approx $1.5B) is a major capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of a South African company for 130 billion INR (approx $1.5B) is a major capital deployment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-417",
-      "headline": "Bharat Heavy Electricals Limited: Signing of Joint Venture Agreement with Titagarh Rail Systems Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BHEL_15092026160755_SE-TRSLJVA.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T10:39:08Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Bharat Heavy Electricals Limited and Titagarh Rail Systems Limited signed a joint venture agreement, a significant strategic partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Bharat Heavy Electricals Limited and Titagarh Rail Systems Limited signed a joint venture agreement, a significant strategic partnership.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Heavy Electricals Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Titagarh Rail Systems Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -121551,150 +121547,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3f16c02405f0",
-      "idea_version": "IDEAV-ffaeac1548d6cf7c",
-      "idea_version_started_at": "2026-09-14T05:17:21Z",
-      "ticker": "6762",
-      "company": "TDK",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TDK plans to ramp up production of electronic components specifically for AI servers, positioning the company to benefit from the growing demand in the AI sector and increase its revenue.",
-      "why_now": "The news of TDK's production ramp-up was reported on 2026-09-14, indicating a current strategic move.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7b488da8ed3d"
-      ],
-      "primary_source_event_id": "EVT-7b488da8ed3d",
-      "source_headlines": [
-        "TDK to ramp up production of electronic components for AI servers"
-      ],
-      "source_headline": "TDK to ramp up production of electronic components for AI servers",
-      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-14T03:18:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:17:21Z",
-      "updated_at": "2026-09-14T05:17:21Z",
-      "decay_at": "2026-09-15T15:18:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0f5a41d01622",
-      "idea_version": "IDEAV-8d09f09cec5e66cc",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "TDK",
-      "company": "TDK",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TDK is increasing production of electronic components essential for AI servers, directly benefiting from the growing demand in the AI infrastructure market.",
-      "why_now": "The news on September 14, 2026, indicates a ramp-up in production, suggesting a current strategic move.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7b488da8ed3d"
-      ],
-      "primary_source_event_id": "EVT-7b488da8ed3d",
-      "source_headlines": [
-        "TDK to ramp up production of electronic components for AI servers"
-      ],
-      "source_headline": "TDK to ramp up production of electronic components for AI servers",
-      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-14T03:18:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T15:18:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-d839ab9742f748e8",
       "idea_version_started_at": "2026-09-14T06:09:44Z",
@@ -121833,77 +121685,6 @@
       "surfaced_at": "2026-09-14T06:09:44Z",
       "updated_at": "2026-09-14T06:09:44Z",
       "decay_at": "2026-09-15T17:51:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d02c47d3e85d",
-      "idea_version": "IDEAV-e8eb59fc8b5e0575",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "GBE",
-      "company": "Globe Metals & Mining",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Globe Metals & Mining has secured further legal clearance for its Kanyika Project, removing a significant hurdle and advancing its development prospects.",
-      "why_now": "The legal clearance was announced on September 14, 2026, providing a current positive catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a0cfaa080c01"
-      ],
-      "primary_source_event_id": "EVT-a0cfaa080c01",
-      "source_headlines": [
-        "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]"
-      ],
-      "source_headline": "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBE?key=2924-03135151-6A1343660",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-14T02:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T14:39:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126108,6 +125889,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3f16c02405f0",
+      "idea_version": "IDEAV-ffaeac1548d6cf7c",
+      "idea_version_started_at": "2026-09-14T05:17:21Z",
+      "ticker": "6762",
+      "company": "TDK",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TDK plans to ramp up production of electronic components specifically for AI servers, positioning the company to benefit from the growing demand in the AI sector and increase its revenue.",
+      "why_now": "The news of TDK's production ramp-up was reported on 2026-09-14, indicating a current strategic move.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7b488da8ed3d"
+      ],
+      "primary_source_event_id": "EVT-7b488da8ed3d",
+      "source_headlines": [
+        "TDK to ramp up production of electronic components for AI servers"
+      ],
+      "source_headline": "TDK to ramp up production of electronic components for AI servers",
+      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-14T03:18:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T05:17:21Z",
+      "updated_at": "2026-09-14T05:17:21Z",
+      "decay_at": "2026-09-15T15:18:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0f5a41d01622",
+      "idea_version": "IDEAV-8d09f09cec5e66cc",
+      "idea_version_started_at": "2026-09-14T04:51:58Z",
+      "ticker": "TDK",
+      "company": "TDK",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TDK is increasing production of electronic components essential for AI servers, directly benefiting from the growing demand in the AI infrastructure market.",
+      "why_now": "The news on September 14, 2026, indicates a ramp-up in production, suggesting a current strategic move.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7b488da8ed3d"
+      ],
+      "primary_source_event_id": "EVT-7b488da8ed3d",
+      "source_headlines": [
+        "TDK to ramp up production of electronic components for AI servers"
+      ],
+      "source_headline": "TDK to ramp up production of electronic components for AI servers",
+      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-14T03:18:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:51:58Z",
+      "updated_at": "2026-09-14T04:51:58Z",
+      "decay_at": "2026-09-15T15:18:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad689429762b",
       "idea_version": "IDEAV-0bc5e5804256f6fe",
       "idea_version_started_at": "2026-09-14T02:04:41Z",
@@ -126319,6 +126244,77 @@
       "surfaced_at": "2026-09-14T00:16:27Z",
       "updated_at": "2026-09-14T00:16:27Z",
       "decay_at": "2026-09-15T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d02c47d3e85d",
+      "idea_version": "IDEAV-e8eb59fc8b5e0575",
+      "idea_version_started_at": "2026-09-14T04:51:58Z",
+      "ticker": "GBE",
+      "company": "Globe Metals & Mining",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Globe Metals & Mining has secured further legal clearance for its Kanyika Project, removing a significant hurdle and advancing its development prospects.",
+      "why_now": "The legal clearance was announced on September 14, 2026, providing a current positive catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a0cfaa080c01"
+      ],
+      "primary_source_event_id": "EVT-a0cfaa080c01",
+      "source_headlines": [
+        "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]"
+      ],
+      "source_headline": "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBE?key=2924-03135151-6A1343660",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-14T02:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:51:58Z",
+      "updated_at": "2026-09-14T04:51:58Z",
+      "decay_at": "2026-09-15T14:39:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126906,14 +126902,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 64,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 41
       },
       "short": {
         "total_count": 276,
@@ -126937,6 +126933,230 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0f5a41d01622",
+        "idea_version": "IDEAV-8d09f09cec5e66cc",
+        "idea_version_started_at": "2026-09-14T04:51:58Z",
+        "ticker": "TDK",
+        "company": "TDK",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "TDK is increasing production of electronic components essential for AI servers, directly benefiting from the growing demand in the AI infrastructure market.",
+        "why_now": "The news on September 14, 2026, indicates a ramp-up in production, suggesting a current strategic move.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7b488da8ed3d"
+        ],
+        "primary_source_event_id": "EVT-7b488da8ed3d",
+        "source_headlines": [
+          "TDK to ramp up production of electronic components for AI servers"
+        ],
+        "source_headline": "TDK to ramp up production of electronic components for AI servers",
+        "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-14T03:18:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:51:58Z",
+        "updated_at": "2026-09-14T04:51:58Z",
+        "decay_at": "2026-09-15T15:18:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T15:18:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3f16c02405f0",
+        "idea_version": "IDEAV-ffaeac1548d6cf7c",
+        "idea_version_started_at": "2026-09-14T05:17:21Z",
+        "ticker": "6762",
+        "company": "TDK",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "TDK plans to ramp up production of electronic components specifically for AI servers, positioning the company to benefit from the growing demand in the AI sector and increase its revenue.",
+        "why_now": "The news of TDK's production ramp-up was reported on 2026-09-14, indicating a current strategic move.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7b488da8ed3d"
+        ],
+        "primary_source_event_id": "EVT-7b488da8ed3d",
+        "source_headlines": [
+          "TDK to ramp up production of electronic components for AI servers"
+        ],
+        "source_headline": "TDK to ramp up production of electronic components for AI servers",
+        "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-14T03:18:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T05:17:21Z",
+        "updated_at": "2026-09-14T05:17:21Z",
+        "decay_at": "2026-09-15T15:18:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T15:18:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d02c47d3e85d",
+        "idea_version": "IDEAV-e8eb59fc8b5e0575",
+        "idea_version_started_at": "2026-09-14T04:51:58Z",
+        "ticker": "GBE",
+        "company": "Globe Metals & Mining",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Globe Metals & Mining has secured further legal clearance for its Kanyika Project, removing a significant hurdle and advancing its development prospects.",
+        "why_now": "The legal clearance was announced on September 14, 2026, providing a current positive catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a0cfaa080c01"
+        ],
+        "primary_source_event_id": "EVT-a0cfaa080c01",
+        "source_headlines": [
+          "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]"
+        ],
+        "source_headline": "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBE?key=2924-03135151-6A1343660",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-14T02:39:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:51:58Z",
+        "updated_at": "2026-09-14T04:51:58Z",
+        "decay_at": "2026-09-15T14:39:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T14:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3c162423bb69",
         "idea_version": "IDEAV-c35bd18c0ffca97c",
@@ -155261,79 +155481,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e9771f3b5e9d",
-        "idea_version": "IDEAV-738aef1efe70a8aa",
-        "idea_version_started_at": "2026-09-03T03:15:28Z",
-        "ticker": "VRNS",
-        "company": "Varonis Systems",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Varonis is in acquisition talks with Thoma Bravo-owned Proofpoint, which typically results in a significant takeover premium for the target.",
-        "why_now": "News of the talks broke on September 02, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9349a5435c46"
-        ],
-        "primary_source_event_id": "EVT-9349a5435c46",
-        "source_headlines": [
-          "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis"
-        ],
-        "source_headline": "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis",
-        "source_url": "https://www.wsj.com/business/thoma-bravo-owned-proofpoint-in-talks-to-buy-cybersecurity-firm-varonis-a44f83d9?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T19:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T03:15:28Z",
-        "updated_at": "2026-09-03T03:15:28Z",
-        "decay_at": "2026-09-04T07:08:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T19:30:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-81d3dc45be77",
         "idea_version": "IDEAV-7029e49b024b004a",
         "idea_version_started_at": "2026-09-03T12:43:04Z",
@@ -155405,154 +155552,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-05T13:02:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-53a097038e0f",
-        "idea_version": "IDEAV-a739515895ef44f4",
-        "idea_version_started_at": "2026-09-02T17:51:02Z",
-        "ticker": "TI",
-        "company": "Tilaknagar Industries Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is diversifying its product portfolio by entering the high-growth Tequila market through a strategic investment in Black Tiger Distilleries.",
-        "why_now": "The investment was announced in a press release dated September 2, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c4cfcbbc1505"
-        ],
-        "primary_source_event_id": "EVT-c4cfcbbc1505",
-        "source_headlines": [
-          "Tilaknagar Industries Limited: Tilaknagar Industries Limited has informed the Exchange regarding a press release dated September 02, 2026, titled \"Press Release pursuant to Regulation 30 of the SEBI (LODR) Regulations 2015 Tilaknagar Industries enters the Tequila market through a ₹22 Crore Strategic Investment in Black Tiger Distilleries, Maker of Bodega Suprema No. 5"
-        ],
-        "source_headline": "Tilaknagar Industries Limited: Tilaknagar Industries Limited has informed the Exchange regarding a press release dated September 02, 2026, titled \"Press Release pursuant to Regulation 30 of the SEBI (LODR) Regulations 2015 Tilaknagar Industries enters the Tequila market through a ₹22 Crore Strategic Investment in Black Tiger Distilleries, Maker of Bodega Suprema No. 5",
-        "source_url": "https://nsearchives.nseindia.com/corporate/gthakur_02092026114853_TICowboypressrelese.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T06:19:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T17:51:02Z",
-        "updated_at": "2026-09-02T17:51:02Z",
-        "decay_at": "2026-09-03T18:19:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T06:26:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b433e5704e83",
-        "idea_version": "IDEAV-904d39569e8bf81c",
-        "idea_version_started_at": "2026-09-02T22:52:14Z",
-        "ticker": "TILAKNAGAR",
-        "company": "Tilaknagar Industries Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tilaknagar Industries is investing Rs 22 crore for a strategic stake in Black Tiger Distilleries to enter the premium tequila segment, opening a new high-margin revenue stream.",
-        "why_now": "Press release dated 2026-09-02 filed with exchanges; investment execution and product launch timeline now live.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c4cfcbbc1505"
-        ],
-        "primary_source_event_id": "EVT-c4cfcbbc1505",
-        "source_headlines": [
-          "Tilaknagar Industries Limited: Tilaknagar Industries Limited has informed the Exchange regarding a press release dated September 02, 2026, titled \"Press Release pursuant to Regulation 30 of the SEBI (LODR) Regulations 2015 Tilaknagar Industries enters the Tequila market through a ₹22 Crore Strategic Investment in Black Tiger Distilleries, Maker of Bodega Suprema No. 5"
-        ],
-        "source_headline": "Tilaknagar Industries Limited: Tilaknagar Industries Limited has informed the Exchange regarding a press release dated September 02, 2026, titled \"Press Release pursuant to Regulation 30 of the SEBI (LODR) Regulations 2015 Tilaknagar Industries enters the Tequila market through a ₹22 Crore Strategic Investment in Black Tiger Distilleries, Maker of Bodega Suprema No. 5",
-        "source_url": "https://nsearchives.nseindia.com/corporate/gthakur_02092026114853_TICowboypressrelese.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T06:19:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T22:52:14Z",
-        "updated_at": "2026-09-02T22:52:14Z",
-        "decay_at": "2026-09-03T18:19:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T06:26:11Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -164108,7 +164107,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 53,
+    "live_count": 50,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164127,9 +164126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4476956,
-    "news_picked_today": 1014,
-    "news_dropped_today": 6450
+    "news_seen_today": 4909069,
+    "news_picked_today": 1046,
+    "news_dropped_today": 6466
   },
   "book_momentum": {
     "live_count": 8,
