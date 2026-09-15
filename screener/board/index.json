@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-15T11:41:49Z",
+  "generated_at": "2026-09-15T11:47:31Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260915-418",
-      "headline": "SMC ELECTRIC (02381): OMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES)",
+      "inbox_id": "INB-20260915-429",
+      "headline": "SMC ELECTRIC (02381): JOINT ANNOUNCEMENT DESPATCH OF THE COMPOSITE DOCUMENT IN RELATION TO MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES)",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501025.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501065.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T11:09:00Z",
+      "found_at": "2026-09-15T11:32:00Z",
       "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SMC Electric is subject to a mandatory unconditional cash offer by Mega Nova Holdings Limited.",
+      "prelim_note": "Mandatory unconditional cash offer to acquire all issued shares of SMC Electric.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "SMC Electric is subject to a mandatory unconditional cash offer by Mega Nova Holdings Limited.",
+      "triage_reason": "Mandatory unconditional cash offer to acquire all issued shares of SMC Electric.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -24,7 +24,7 @@
         "source_tier": 8,
         "scope": 5,
         "event": 9,
-        "size": -1,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -32,7 +32,7 @@
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "small"
+        "size_bucket": "mid"
       },
       "event_types": [
         "mna"
@@ -40,12 +40,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SMC Electric",
+          "name": "SMC ELECTRIC",
           "ticker": "02381",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296,6 +296,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-440",
+      "headline": "Grab to buy most of Singapore tech firm Atome for $1.9b",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/grab-to-buy-most-of-singapore-tech-firm-atome-for-1-9b",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:34:34Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Grab to acquire Atome for $1.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grab to acquire Atome for $1.9 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grab",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Atome",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-445",
+      "headline": "Vantage Data Centers raises $2 billion for North American early-stage portfolio development",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/vantage-data-centers-raises-2-billion-for-north-american-early-stage-portfolio-development/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:31:15Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Vantage Data Centers raised $2 billion for North American portfolio development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vantage Data Centers raised $2 billion for North American portfolio development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vantage Data Centers",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-364",
       "headline": "‎ADNOC XRG acquires Southern Gas Corridor stake",
       "headline_en": null,
@@ -340,6 +443,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-435",
+      "headline": "CareTrust REIT Acquires Skilled Nursing Portfolio For $400 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/caretrust-reit-acquires-skilled-nursing-portfolio-400-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T10:57:58Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company acquired a skilled nursing portfolio for $400 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company acquired a skilled nursing portfolio for $400 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CareTrust REIT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1829,158 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-313",
-      "headline": "EUR: Grant of Court Orders Convening Scheme Meetings [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EUR?key=2924-03135669-6A1343862",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T05:20:25Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "European Lithium received court orders to convene scheme meetings for a transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "European Lithium received court orders to convene scheme meetings for a transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "European Lithium",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-338",
-      "headline": "‎ADES unit closes SAR 1.07B Saipem acquisition",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1936423",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T09:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "ADES Holding completed the acquisition of Saipem's drilling assets for SAR 1.07 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "ADES Holding completed the acquisition of Saipem's drilling assets for SAR 1.07 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADES Holding",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Saipem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-066",
-      "headline": "SpaceX Signing Several Multi-Billion-Dollar Deals!",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/spacex-signing-several-multi-billion-dollar-deals",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:09:42Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SpaceX is signing several multi-billion-dollar deals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SpaceX is signing several multi-billion-dollar deals.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -121405,77 +121405,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b492220bad93",
-      "idea_version": "IDEAV-d93324b4cc77a6d3",
-      "idea_version_started_at": "2026-09-13T23:54:40Z",
-      "ticker": "MI6",
-      "company": "MI6",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has agreed to an additional $200 million in funding from Franco-Nevada.",
-      "why_now": "This is a price-sensitive filing from the Australian Exchange.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7da017a6fed"
-      ],
-      "primary_source_event_id": "EVT-a7da017a6fed",
-      "source_headlines": [
-        "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]"
-      ],
-      "source_headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03135055-6A1343632",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T23:47:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T23:54:40Z",
-      "updated_at": "2026-09-13T23:54:40Z",
-      "decay_at": "2026-09-15T11:47:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -125319,6 +125248,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b492220bad93",
+      "idea_version": "IDEAV-d93324b4cc77a6d3",
+      "idea_version_started_at": "2026-09-13T23:54:40Z",
+      "ticker": "MI6",
+      "company": "MI6",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has agreed to an additional $200 million in funding from Franco-Nevada.",
+      "why_now": "This is a price-sensitive filing from the Australian Exchange.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7da017a6fed"
+      ],
+      "primary_source_event_id": "EVT-a7da017a6fed",
+      "source_headlines": [
+        "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]"
+      ],
+      "source_headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03135055-6A1343632",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:47:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T23:54:40Z",
+      "updated_at": "2026-09-13T23:54:40Z",
+      "decay_at": "2026-09-15T11:47:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b17f991e72d7",
       "idea_version": "IDEAV-c4f270e767de5e33",
       "idea_version_started_at": "2026-09-13T22:55:30Z",
@@ -126913,14 +126913,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 270,
@@ -126944,6 +126944,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b492220bad93",
+        "idea_version": "IDEAV-d93324b4cc77a6d3",
+        "idea_version_started_at": "2026-09-13T23:54:40Z",
+        "ticker": "MI6",
+        "company": "MI6",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has agreed to an additional $200 million in funding from Franco-Nevada.",
+        "why_now": "This is a price-sensitive filing from the Australian Exchange.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a7da017a6fed"
+        ],
+        "primary_source_event_id": "EVT-a7da017a6fed",
+        "source_headlines": [
+          "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]"
+        ],
+        "source_headline": "MI6: Additional $200m Funding Agreed with Franco-Nevada [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03135055-6A1343632",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T23:47:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T23:54:40Z",
+        "updated_at": "2026-09-13T23:54:40Z",
+        "decay_at": "2026-09-15T11:47:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T11:47:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bbbd64fda534",
         "idea_version": "IDEAV-f9f3424fc3eba63b",
@@ -155409,80 +155483,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a4151217c05f",
-        "idea_version": "IDEAV-0e418e85be9413d7",
-        "idea_version_started_at": "2026-09-02T17:26:01Z",
-        "ticker": "MANINFRA",
-        "company": "Man Infraconstruction Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The board has approved a share buy-back program, which typically provides price support and improves earnings per share metrics.",
-        "why_now": "The board meeting outcome was filed on September 01, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-54224b6069ee"
-        ],
-        "primary_source_event_id": "EVT-54224b6069ee",
-        "source_headlines": [
-          "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company."
-        ],
-        "source_headline": "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company.",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ff05461-3393-4bd6-9753-8ffb37fc5fde.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T07:07:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T17:26:01Z",
-        "updated_at": "2026-09-02T17:26:01Z",
-        "decay_at": "2026-09-02T19:07:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T08:41:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23f01420e111",
         "idea_version": "IDEAV-29f834b53f425e93",
         "idea_version_started_at": "2026-08-31T15:41:26Z",
@@ -164106,7 +164106,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 70,
+    "live_count": 69,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164125,9 +164125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3004871,
-    "news_picked_today": 796,
-    "news_dropped_today": 5252
+    "news_seen_today": 3049568,
+    "news_picked_today": 815,
+    "news_dropped_today": 5281
   },
   "book_momentum": {
     "live_count": 8,
