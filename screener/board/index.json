@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T05:06:50Z",
+  "generated_at": "2026-09-15T05:11:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-265",
@@ -739,6 +739,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-289",
+      "headline": "Jubilant Foodworks Limited: Jubilant Foodworks Limited has informed the Exchange about Resignation of Director/KMP/SMP",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JUBLFOOD_ROID_98392_KMP_Doc.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T04:54:35Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jubilant Foodworks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-173",
       "headline": "Muthoot Microfin Limited: Muthoot Microfin Limited has informed the Exchange regarding a press release dated September 15, 2026, titled \"Muthoot Microfin Secures ₹250 Crore Through NCDs to DriveGrowth Plans\".",
       "headline_en": null,
@@ -1177,6 +1226,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-294",
+      "headline": "GAC shares jump on FAW tie-up plans amid Beijing drive for car industry mergers",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/china-evs/article/3367538/gac-shares-jump-faw-tie-plans-amid-beijing-drive-car-industry-mergers?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T05:00:26Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "GAC plans a tie-up with FAW, signaling potential consolidation in the Chinese auto sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "GAC plans a tie-up with FAW, signaling potential consolidation in the Chinese auto sector.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-296",
+      "headline": "Saatgutkonzern: Syngenta peilt offenbar Börsengang in Hongkong an",
+      "headline_en": "Seed company: Syngenta is apparently aiming for an IPO in Hong Kong",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/saatgutkonzern-syngenta-peilt-offenbar-boersengang-in-hongkong-an/100254564.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T04:39:11Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Syngenta is reportedly planning an IPO in Hong Kong.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Syngenta is reportedly planning an IPO in Hong Kong.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Syngenta",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1820,153 +1967,6 @@
       "companies": [
         {
           "name": "Orbicular Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-020",
-      "headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Genfleet reported favorable Phase II efficacy data for its oral KRAS G12D inhibitor GFH375 in lung cancer patients.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Genfleet reported favorable Phase II efficacy data for its oral KRAS G12D inhibitor GFH375 in lung cancer patients.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genfleet",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-011",
-      "headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T23:34:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Rights issue dilutes existing shareholders at a 1:2 ratio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Rights issue dilutes existing shareholders at a 1:2 ratio.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HK ROBOTICS",
-          "ticker": "00370",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-285",
-      "headline": "Stock Crash: PNC Infratech shares tank 18%, extend losses from 52-week high on this negative development",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stock-crash-pnc-infratech-shares-tank-18-extend-losses-from-52-week-high-on-this-negative-development-19990573.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T04:08:17Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "PNC Infratech shares dropped 18% following a negative regulatory or legal development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "PNC Infratech shares dropped 18% following a negative regulatory or legal development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PNC Infratech",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -164453,9 +164453,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 661458,
-    "news_picked_today": 484,
-    "news_dropped_today": 1940
+    "news_seen_today": 671365,
+    "news_picked_today": 493,
+    "news_dropped_today": 1955
   },
   "book_momentum": {
     "live_count": 8,
