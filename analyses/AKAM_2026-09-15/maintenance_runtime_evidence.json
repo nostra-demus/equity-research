@@ -1,0 +1,35 @@
+{
+  "schema": "maintenance-runtime-evidence/v1",
+  "source": "codex_task_runtime",
+  "run_root": "analyses/AKAM_2026-09-15",
+  "recorded_attempt": {
+    "schema_version": "1.0",
+    "attempt_id": "01a0a59c-01f8-7d42-b45d-66929ee6e346",
+    "provider": "codex",
+    "model": "gpt-6-astra",
+    "reasoning_level": "xhigh",
+    "attribution": "recorded",
+    "scope": [
+      "maintenance",
+      "valuation",
+      "master",
+      "synthesizer"
+    ],
+    "role": "terminal_adjudicator",
+    "decision_author": true,
+    "decision_artifacts": [
+      "decision_record.json"
+    ],
+    "cli_version": "codex-cli 0.153.4",
+    "prior_unobserved": true,
+    "event": "attempt_started"
+  },
+  "runtime_evidence": {
+    "event_time": "2026-09-15T15:07:39.993Z",
+    "session_metadata_event_sha256": "0a643bdfd8238938a2f0b6ff6f0205da977761be94d24741bab76b44ccae439c",
+    "turn_context_event_sha256": "5cf2b00a9c191151a172b7d044302340f6062fcf31f5297f56407f1d88837bbc",
+    "runtime_cli_version": "0.153.4"
+  },
+  "reused_execution": "Prior upstream process execution is not newly observed; projection must remain partially_observed. Historical original receipt is preserved at analyses/AKAM_2026-09-14/execution_provenance.receipt.json.",
+  "schema_label_note": "The maintenance helper retains legacy cockpit_runtime projection labels. This work was performed in the desktop task, not by a new production cockpit supervisor."
+}

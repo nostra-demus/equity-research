@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "run_root": "analyses/AKAM_2026-09-15",
+  "final_thesis_path": "analyses/AKAM_2026-09-15/final_thesis.md",
+  "decision_record_path": "analyses/AKAM_2026-09-15/decision_record.json",
+  "final_thesis_sha256": "4d1d3cfc91be8d04270408042ffc7419a3b2d81458d2a83e8be3d8458a95f32d",
+  "decision_record_sha256": "1f275f9a25fb1eaf88f185d01b54f90c42e3394e5135831d067f070e0570c490",
+  "performed_at": "2026-09-15T15:45:20.129268+00:00",
+  "auditor": "pre-mortem",
+  "original_decision": "Avoid",
+  "original_confidence": 50,
+  "adversarial_direction": "False-negative test: steelman the long against the actual Avoid call; no short recommendation.",
+  "pre_mortem_narrative": "It is12–18months after this decision and Avoid has failed because temporary capacity costs were mistaken for permanent cash impairment. The signed multiyear CIS contracts ramp into productive capacity while Security keeps growing, and cash spending stops rising ahead of revenue. One earnings release demonstrates utilization and cash conversion before the slow two-quarter leverage trigger can clear. Investors accept a lower return requirement and the price moves toward the conditional153.39 joint bull. The corrected debt/share bridge was necessary, but its precise arithmetic could not establish the probabilities or current marginal financing cost. This is a hypothetical story using only facts available by2026-09-15, not an assertion about later results.",
+  "bear_case": "The long can still lose if spending stays ahead of profitable CIS demand, Delivery declines, SBC remains a large recurring cost, and debt-funded acquisitions and repurchases consume cash. Filed LTM strictFCF629.879m is belowFY2025, with5.14x strict leverage and missing category profit/deal-return evidence. The conditional base71.26 and bear47.30 remain below106.79, but neither is a guaranteed outcome.",
+  "bull_case_steelman": "The credible bull begins with sourced Security+10%, CIS+39%, and about2.8bn of signed multiyear commitments, not an invented AI market share. Capacity spending can precede revenue, so group margin/FCF deterioration may lag an improving mix. The business has current liquidity and no critical solvency finding. The repair correctly retains cash note principal and removes hedge-offset conversion shares, raising value on an economic basis. Existing cash at a5% model return requirement gives105.17;16.97445% cash growth at4.955325% gives153.39, or43.64% upside. Growth execution and lower risk perceptions can move together, but the10% joint probability is judgment and could be too low. The153.31 analyst mean also shows that optimism is already visible, so this is not an unknown catalyst.",
+  "killer_risk": "The Avoid call fails if capacity investment converts to profitable cash faster than the group trailing results imply; the single-method, terminal-heavy conditional DCF then mistakes a temporary cash trough and uncertain discount rate for a durable valuation gap.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "Q3 FY2026 revenue is at least $1,123.7 million and GAAP gross margin is at least 59.3%.",
+      "closeness_to_trigger": "Partway plausible, not met: Q3 consensus1118.15293m is only5.54707m (0.496%) below the1123.7m revenue bar. No Q3 filed result exists as of decision date; the59.3% GAAP gross-margin limb still requires a recovery from Q2about55.8%.",
+      "disconfirming_evidence_now": "Q2 revenue reached1099.682m with Security+10% andCIS+39%. A normal revenue beat can satisfy the first limb; avoid moving the margin bar after the print. The forecast and comparable are standalone quarters.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "LTM strict free cash flow reaches at least $736.8 million by Q2 2027.",
+      "closeness_to_trigger": "Current629.879m is85.49% of736.8m. Need106.921m or16.9748% improvement byQ2 2027. Not already triggered, but FY2025cash699.265m shows the bar is not unprecedented in dollars.",
+      "disconfirming_evidence_now": "CIS contracts may raise cash after initial capacity spending. Quarterly capex timing can move a trailing total; judge matched CFO-minus-total-capex, not vendor leveredFCF710.1m.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "Strict net leverage is at or below 3.0x for two consecutive quarter-ends by Q2 2027.",
+      "closeness_to_trigger": "Latest5.14x is2.14 turns above3.0x, and the criterion requires two consecutive quarter-ends. Prior FY2025value2.49x alone does not meet the forward test. Not triggered.",
+      "disconfirming_evidence_now": "The balance-sheet module finds liquidity sufficient in its disclosed stress and no present distress verdict; avoiding the stock must not become a claim of imminent insolvency. Cash generation, less repurchasing and security monetization could improve ratios, with strict/broad distinctions retained.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "A filed deal-level scorecard shows that the FY2021-FY2025 $2.066 billion acquisition cohort and $205 million LayerX acquisition earn returns above a matched cost of capital.",
+      "closeness_to_trigger": "Not measurable from the current pool: no filed matched deal-level cash-return scorecard. The2,066.3m cash-use cohort and205m LayerX price are known; their cash returns are not.",
+      "disconfirming_evidence_now": "Absence of a scorecard is not proof of permanent acquisition losses. Improved security revenue may contain acquired contributions. Do not require unavailable perfect disclosure as the only route to recognize actual per-share cash improvement.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "A second independent, matched-basis valuation supports value at or above the prevailing AKAM market price.",
+      "closeness_to_trigger": "Not met. No valid independently built same-date second valuation survives. Vendor analyst mean153.31 is an opinion; inverseDCF, WACC sensitivity and exit-multipleDCF reuse the same cash framework.",
+      "disconfirming_evidence_now": "At5% conditional WACC the existing cash path already gives105.17, within1.52% of106.79. Corrected matched implied rate4.9553% prices the quote exactly. A credible debt-yield and fullyunlevered model could change this conclusion before the operating triggers fire.",
+      "severity": "high"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "Everyone can see Security and Cloud Infrastructure Services growth and the Delivery decline. The market price appears to require either 16.97% annual strict free-cash-flow growth through FY2030 at the model WACC or a 4.96% market-implied WACC on the DCF cash path. The engine's possible edge is that current GAAP profit compression, debt-funded investment, recurring adjusted exclusions, and undisclosed category economics make that cash path less proven than the growth narrative suggests. This edge is only moderate because the one valid valuation method is terminal-heavy and the genuine upside case requires the cash-growth and lower-WACC conditions together.",
+    "already_priced": null,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "Obtain explicit AKAM forward cash-flow and capex consensus plus acquisition/category return evidence. If consensus already discounts the same cash ramp, SBC and debt risks, the claimed gap is not differentiated. A quote-implied16.97% modeled cash growth is not proof investors literally expect that path; alternative discount rates and capital structures can price the same quote."
+  },
+  "value_trap_check": "This is an Avoid decision at a conditional negative margin of safety, not a cheap-stock purchase. Low-looking peer multiples cannot establish a bargain when growth, margins, capital intensity and dilution differ. Conversely, labeling the name a value trap would overreach: no independent intrinsic method or deal-level return evidence proves permanent impairment. The bull needs real cash delivery or a defensible lower discount rate, and neither is supplied merely by calling the contracts strategic.",
+  "base_rate_check": "Matched internal cash base rates: strictFCF FY2023 618.399m toFY2025 699.265m compounds6.34%; latestLTM629.879m is9.92% lower thanFY2025. The required16.97% next-year model growth is above that history. However, current Security/CIS mix differs from the older consolidated blend; absent category profit/cash disclosure, the group history cannot rule out the ramp. No external frequency distribution for this capacity-ramp cohort was established, and10/15/45/30 scenario probabilities are judgments, not calibrated frequencies. The set spans meaningful upside and downside; joint execution/rate conditions may be correlated rather than independent. Neither the source verification nor repaired math supports lifting conviction.",
+  "overconfidence_flags": [
+    "Terminal-value anchoring:82.85% of base enterprise value and86.35% of joint-bull value lie beyond explicit forecast cash; small rate/growth choices move the answer materially.",
+    "Method mismatch is disclosed but unresolved: CFO-minus-total-cash-capex is after interest, while the model is an enterpriseDCF. The inherited debt-cost proxy is an accounting-rate annualization, and current marginal debt yield and fullyunleveredFCFF are unavailable.",
+    "Recency and mix bias: weak trailing group cash can overweight Delivery and upfront capacity costs while Security/CIS grow; the contrary vendor cash-conversion117.7%→134.0% is correctly preserved.",
+    "False precision: quarterly weighted148.333m economic shares are a working proxy, not exact current award dilution or a full option-value calculation; scenario probabilities and beta1.00 are assumptions.",
+    "Disclosure asymmetry: no deal-level return scorecard and two unverified inherited public-source observations justify caution but cannot independently prove dishonesty or deal destruction.",
+    "Existing confidence is already cautious: raw50 and effective40. Hold the cumulative10-point haircut; do not impose a duplicate haircut for the same single-method/edge uncertainty and do not restore confidence on a correction."
+  ],
+  "disconfirming_evidence_present": [
+    "Q2Security+10% andCIS+39% whileDelivery−6%, as filed; growth mix can improve before group cash.",
+    "About2.8bn signed multiyear CIS commitments in the dated earnings call; cash timing/profitability remain unknown.",
+    "Vendor CFO/EBITDA117.7%→134.0% is a named countermetric to unqualified erosion.",
+    "No current Distress risk or critical governance lock; liquidity survival supports time for execution.",
+    "Analyst mean target153.31/median155 in the undated AKAM export and conditional joint-bull153.39 are upside observations, not independent proof.",
+    "Corrected reverseDCF needs4.9553% at the existing cash path; using5% yields105.17. The cost-of-capital judgment is at least as important as the operating narrative."
+  ],
+  "what_would_change_the_call": [
+    "First obtain a filing-reconciled forward cash-flow bridge for signed CIS capacity, including category profit/cash, total capex, cash interest and marginal financing terms; use it to build a fullyunlevered enterprise valuation and separate current economic dilution.",
+    "Test the existing five falsification criteria exactly on their printed dates and bases. Q3revenue1123.7m/grossmargin59.3% or laterLTMFCF736.8m would weaken Avoid; do not retroactively move these thresholds.",
+    "Rebuild an independent matched-basis valuation after the next results. If both measured cash performance and a defensible valuation support the prevailing price, Avoid requires reconsideration, without this auditor granting an upgrade."
+  ],
+  "survives": true,
+  "confidence_haircut": 10,
+  "recommended_confidence": 40,
+  "recommended_rating_cap": "",
+  "verdict": "Survives with haircut",
+  "notes": "Independent memory-blind adversarial maintenance pass against exact printed hashes and canonical evidence generation 4ddc360cc37452d291315707e24dcb3c49aa6d3c96bef29ab2db15e6d857473a. The original_decision and canonical original_confidence are Avoid/50; the already propagated cumulative haircut10 is held, giving40, not a new10-point cut to40 and not a reset to50. No higher rating or confidence is recommended. Uses only information knowable by2026-09-15 with quote/economic evidence intentionally asofSep14 and undated vendor consensus explicitly limited; no later outcomes enter this review. No kill criterion is already fully triggered; the Q3revenue limb is close to consensus, while the independent valuation requirement is not met. Reused module judgments follow maintenance_lineage and are not newly attributed. Two inherited public-source observations remain unverified in the current raw pool; they add no new rating-lock evidence. Existing Avoid survives as a cautious no-new-long decision, not as a verified price forecast or short instruction. Only the two authorized final audits are added; parent owns Git, seals and publication."
+}

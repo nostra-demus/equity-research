@@ -1,0 +1,309 @@
+{
+  "as_of": "2026-09-14",
+  "units": "USD millions, shares millions, prices USD/share",
+  "source_inputs": {
+    "price": 106.79,
+    "economic_working_shares": 148.333,
+    "carrying_debt": 7562.828,
+    "principal": 7640.0,
+    "cash": 1480.257,
+    "strict_net_debt": 6082.571,
+    "principal_net_debt": 6159.743,
+    "original_model_wacc": 0.06216848278563696,
+    "original_model_terminal_growth": 0.008017374735516775
+  },
+  "matched_reverse": {
+    "equity_target": 15840.481070000002,
+    "enterprise_target": 21923.05207,
+    "fcf_growth": 0.16974450308275724,
+    "implied_wacc": 0.04955325016307051,
+    "cash_path": [
+      340.62195729020306,
+      796.8813243390096,
+      932.1475487548644,
+      1090.3744712180692,
+      1275.4595440091045
+    ],
+    "terminal_margin": 0.19676033877005145,
+    "forward_price_check": 106.78999999999999
+  },
+  "matched_scenarios": {
+    "bull_execution": {
+      "wacc": 0.04955325016307051,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 3936.2123548271315,
+      "terminal_pv": 24899.53216064742,
+      "enterprise": 28835.74451547455,
+      "net_debt": 6082.571,
+      "equity": 22753.17351547455,
+      "price": 153.39252570550417,
+      "return_pct": 43.63940978135046,
+      "terminal_share_pct": 86.34953797459684,
+      "warrant_claim": 0.0
+    },
+    "bull_dcf_sensitivity": {
+      "wacc": 0.05216848278563696,
+      "terminal_growth": 0.013017374735516774,
+      "explicit_pv": 2923.705123368925,
+      "terminal_pv": 20011.946053913034,
+      "enterprise": 22935.651177281958,
+      "net_debt": 6082.571,
+      "equity": 16853.080177281958,
+      "price": 113.61652617611696,
+      "return_pct": 6.392476988591578,
+      "terminal_share_pct": 87.25257416600019,
+      "warrant_claim": 0.0
+    },
+    "base": {
+      "wacc": 0.06216848278563696,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2856.171761406465,
+      "terminal_pv": 13797.188825842679,
+      "enterprise": 16653.360587249143,
+      "net_debt": 6082.571,
+      "equity": 10570.789587249143,
+      "price": 71.26391017001706,
+      "return_pct": -33.26724396477474,
+      "terminal_share_pct": 82.84927689854186,
+      "warrant_claim": 0.0
+    },
+    "bear_cyclical": {
+      "wacc": 0.07216848278563696,
+      "terminal_growth": 0.003017374735516775,
+      "explicit_pv": 2791.1861865336364,
+      "terminal_pv": 10306.849474236864,
+      "enterprise": 13098.0356607705,
+      "net_debt": 6082.571,
+      "equity": 7015.4646607705,
+      "price": 47.29537365771945,
+      "return_pct": -55.71179543241929,
+      "terminal_share_pct": 78.69003979815517,
+      "warrant_claim": 0.0
+    }
+  },
+  "matched_aggregate": {
+    "weighted_target": 78.63910317079147,
+    "expected_return_pct": -26.36098588745064,
+    "weighted_risk_reward": -0.47316704986518704,
+    "bull_bear_ratio": 0.7833064693505862
+  },
+  "principal_debt_sensitivity": {
+    "bull_execution": {
+      "price": 152.87226386221914
+    },
+    "bull_dcf_sensitivity": {
+      "price": 113.09626433283191
+    },
+    "base": {
+      "price": 70.74364832673203
+    },
+    "bear_cyclical": {
+      "price": 46.77511181443441
+    }
+  },
+  "wacc_sensitivity_conditional_only": {
+    "0.04": {
+      "wacc": 0.04,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 3009.510389418735,
+      "terminal_pv": 25686.454767412055,
+      "enterprise": 28695.96515683079,
+      "net_debt": 6082.571,
+      "equity": 22613.39415683079,
+      "price": 152.45019083299593,
+      "return_pct": 42.7569911349339,
+      "terminal_share_pct": 89.51242666705583,
+      "warrant_claim": 0.0
+    },
+    "0.05": {
+      "wacc": 0.05,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2938.6984372387406,
+      "terminal_pv": 18743.334912367194,
+      "enterprise": 21682.033349605936,
+      "net_debt": 6082.571,
+      "equity": 15599.462349605936,
+      "price": 105.16515104262663,
+      "return_pct": -1.521536620819719,
+      "terminal_share_pct": 86.44638909158327,
+      "warrant_claim": 0.0
+    },
+    "0.06": {
+      "wacc": 0.06,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2870.5955055364097,
+      "terminal_pv": 14505.533326848257,
+      "enterprise": 17376.128832384667,
+      "net_debt": 6082.571,
+      "equity": 11293.557832384668,
+      "price": 76.13651603071918,
+      "return_pct": -28.704451698923894,
+      "terminal_share_pct": 83.4796603246498,
+      "warrant_claim": 0.0
+    },
+    "0.07": {
+      "wacc": 0.07,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2805.0682227966836,
+      "terminal_pv": 11661.954356459733,
+      "enterprise": 14467.022579256416,
+      "net_debt": 6082.571,
+      "equity": 8384.451579256416,
+      "price": 56.524519690536934,
+      "return_pct": -47.06946372269226,
+      "terminal_share_pct": 80.61060451499718,
+      "warrant_claim": 0.0
+    },
+    "0.08": {
+      "wacc": 0.08,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2741.9911020906043,
+      "terminal_pv": 9630.164868077904,
+      "enterprise": 12372.155970168507,
+      "net_debt": 6082.571,
+      "equity": 6289.584970168507,
+      "price": 42.40179171302749,
+      "return_pct": -60.29423006552347,
+      "terminal_share_pct": 77.83740272348622,
+      "warrant_claim": 0.0
+    },
+    "0.09": {
+      "wacc": 0.09,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2681.2460016483938,
+      "terminal_pv": 8111.986918834051,
+      "enterprise": 10793.232920482445,
+      "net_debt": 6082.571,
+      "equity": 4710.661920482446,
+      "price": 31.7573427388541,
+      "return_pct": -70.2618758883284,
+      "terminal_share_pct": 75.15808264861808,
+      "warrant_claim": 0.0
+    },
+    "0.1": {
+      "wacc": 0.1,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2622.7216271419024,
+      "terminal_pv": 6938.976551267412,
+      "enterprise": 9561.698178409315,
+      "net_debt": 6082.571,
+      "equity": 3479.127178409315,
+      "price": 23.454842674315998,
+      "return_pct": -78.03648031246746,
+      "terminal_share_pct": 72.57054575238413,
+      "warrant_claim": 0.0
+    }
+  },
+  "parent_sourced_september14_riskfree_sensitivity": {
+    "riskfree": 0.0497,
+    "wacc": 0.06310629975313811,
+    "fixed_terminal_growth": {
+      "wacc": 0.06310629975313811,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2849.97101433604,
+      "terminal_pv": 13508.554933103627,
+      "enterprise": 16358.525947439666,
+      "net_debt": 6082.571,
+      "equity": 10275.954947439666,
+      "price": 69.27625644623694,
+      "return_pct": -35.12851723360152,
+      "terminal_share_pct": 82.57806954310514,
+      "warrant_claim": 0.0
+    },
+    "recomputed_terminal_growth": {
+      "wacc": 0.06310629975313811,
+      "terminal_growth": 0.008138317530400611,
+      "explicit_pv": 2849.97101433604,
+      "terminal_pv": 13539.901340415523,
+      "enterprise": 16389.872354751562,
+      "net_debt": 6082.571,
+      "equity": 10307.301354751562,
+      "price": 69.48758101536112,
+      "return_pct": -34.93062925801937,
+      "terminal_share_pct": 82.61138981042883,
+      "warrant_claim": 0.0
+    },
+    "source_status": "Treasury rate independently verified by parent, not re-fetched by this auditor"
+  },
+  "hypothetical_debt_cost_sensitivity": {
+    "0.005528403141361256": {
+      "wacc": 0.06216848278563696,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2856.171761406465,
+      "terminal_pv": 13797.188825842679,
+      "enterprise": 16653.360587249143,
+      "net_debt": 6082.571,
+      "equity": 10570.789587249143,
+      "price": 71.26391017001706,
+      "return_pct": -33.26724396477474,
+      "terminal_share_pct": 82.84927689854186,
+      "warrant_claim": 0.0
+    },
+    "0.0483": {
+      "wacc": 0.07360586002575463,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2782.047365794152,
+      "terminal_pv": 10855.223567276997,
+      "enterprise": 13637.270933071148,
+      "net_debt": 6082.571,
+      "equity": 7554.699933071148,
+      "price": 50.93067579750391,
+      "return_pct": -52.30763573602031,
+      "terminal_share_pct": 79.59967665489779,
+      "warrant_claim": 0.0
+    },
+    "0.06": {
+      "wacc": 0.07673450902503437,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2762.3268556868197,
+      "terminal_pv": 10226.20320984608,
+      "enterprise": 12988.530065532901,
+      "net_debt": 6082.571,
+      "equity": 6905.959065532901,
+      "price": 46.557132030855584,
+      "return_pct": -56.4030976394273,
+      "terminal_share_pct": 78.73256756731011,
+      "warrant_claim": 0.0
+    },
+    "0.08": {
+      "wacc": 0.08208262697252111,
+      "terminal_growth": 0.008017374735516775,
+      "explicit_pv": 2729.1516952164743,
+      "terminal_pv": 9278.587925747795,
+      "enterprise": 12007.73962096427,
+      "net_debt": 6082.571,
+      "equity": 5925.16862096427,
+      "price": 39.945046759414765,
+      "return_pct": -62.59476846201446,
+      "terminal_share_pct": 77.2717282239227,
+      "warrant_claim": 0.0
+    }
+  },
+  "other_per_share_dcf_exhibits": {
+    "exit_multiple_eight_times": {
+      "terminal_pv": 12452.429973409267,
+      "price": 62.198099781004444
+    },
+    "structural_runoff": {
+      "terminal_pv": 8450.298763874274,
+      "price": 35.217379310610184
+    },
+    "sensitivity_grid": {
+      "0.013017374735516774": {
+        "0.05216848278563696": 113.61652617611696,
+        "0.06216848278563696": 81.23436365849949,
+        "0.07216848278563696": 59.85219887469539
+      },
+      "0.008017374735516775": {
+        "0.05216848278563696": 97.74757096340886,
+        "0.06216848278563696": 71.26391017001706,
+        "0.07216848278563696": 53.084440657119686
+      },
+      "0.003017374735516775": {
+        "0.05216848278563696": 85.10722154256334,
+        "0.06216848278563696": 62.97904699710985,
+        "0.07216848278563696": 47.29537365771945
+      }
+    }
+  }
+}
