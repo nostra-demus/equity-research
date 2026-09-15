@@ -5,6 +5,9 @@ import path from 'node:path'
 import test from 'node:test'
 import { PerformanceTelemetry, performanceOutcomeForResponse, validateBrowserPerformanceSamples } from '../src/performance-telemetry'
 
+// A fixed moment. Every store below that records or prunes around it is given the same clock (options.now), so
+// these tests mean the same on any day. Before, the store pruned by the real date, and from 2026-09-14 the fixed
+// samples aged out under it. Tests that use the real clock say so (observedAt = Date.now()).
 const NOW = Date.parse('2026-09-01T12:00:00.000Z')
 
 test('browser telemetry accepts only the fixed privacy-safe contract', () => {
@@ -48,14 +51,14 @@ test('an expected missing run is not classified as a speed failure', () => {
 test('backend heartbeat alone cannot publish a system-wide Fast verdict', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-coverage-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, now: () => NOW })
   for (let index = 0; index < 20; index++) telemetry.recordServer(10, '/api/health', 'ok', NOW - index)
 
   const summary = await telemetry.summary(24, NOW)
   assert.equal(summary.metrics.find((metric) => metric.operation === '/api/health')?.status, 'good')
   assert.equal(summary.status, 'learning', 'Fast requires browser boot, selection, live paint, and round-trip coverage')
 
-  const complete = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  const complete = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, now: () => NOW })
   for (let index = 0; index < 20; index++) {
     complete.recordBrowser([
       { name: 'browser.api_latency', value: 20, unit: 'ms', operation: '/api/health', ts: NOW - index },
@@ -72,7 +75,7 @@ test('backend heartbeat alone cannot publish a system-wide Fast verdict', async 
 test('one severe long task is an immediate incident', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-freeze-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, now: () => NOW })
   telemetry.recordBrowser([{ name: 'browser.long_task', value: 2_000, unit: 'ms', ts: NOW }])
 
   const summary = await telemetry.summary(24, NOW)
@@ -83,7 +86,7 @@ test('one severe long task is an immediate incident', async (t) => {
 test('durable summaries apply p75/p95 budgets and compare with a recent baseline', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, release: 'test' })
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, release: 'test', now: () => NOW })
   for (let index = 0; index < 20; index++) {
     telemetry.recordBrowser([{
       name: 'browser.core_ready', value: 450 + index, unit: 'ms', ts: NOW - 60_000,
@@ -117,7 +120,7 @@ test('durable summaries apply p75/p95 budgets and compare with a recent baseline
   assert.equal(fs.statSync(file).mode & 0o777, 0o600)
 
   fs.appendFileSync(file, 'null\n42\n[]\n{"version":1}\n')
-  const afterCorruption = await new PerformanceTelemetry(stateDir, { release: 'test' }).summary(24, NOW)
+  const afterCorruption = await new PerformanceTelemetry(stateDir, { release: 'test', now: () => NOW }).summary(24, NOW)
   assert.equal(afterCorruption.metrics.find((metric) => metric.name === 'browser.core_ready')?.count, 20,
     'corrupt JSON values are isolated without hiding valid timing rows')
 })
@@ -194,11 +197,11 @@ test('many losses schedule one persistence operation', async (t) => {
 test('summaries use only the active deployed release', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-release-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const oldRelease = new PerformanceTelemetry(stateDir, { release: 'old', flushDelayMs: 60_000 })
+  const oldRelease = new PerformanceTelemetry(stateDir, { release: 'old', flushDelayMs: 60_000, now: () => NOW })
   for (let index = 0; index < 20; index++) oldRelease.recordServer(5, '/api/health', 'ok', NOW - index)
   await oldRelease.flush()
 
-  const activeRelease = new PerformanceTelemetry(stateDir, { release: 'active', flushDelayMs: 60_000 })
+  const activeRelease = new PerformanceTelemetry(stateDir, { release: 'active', flushDelayMs: 60_000, now: () => NOW })
   activeRelease.recordServer(900, '/api/health', 'ok', NOW)
   const summary = await activeRelease.summary(24, NOW)
   assert.equal(summary.release, 'active')
@@ -264,7 +267,7 @@ test('concurrent summary windows share one filesystem read', async (t) => {
 test('an unreadable retained history file fails closed', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-unreadable-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000 })
+  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000, now: () => NOW })
   telemetry.recordServer(10, '/api/health', 'ok', NOW)
   await telemetry.flush()
 
@@ -282,7 +285,7 @@ test('an unreadable retained history file fails closed', async (t) => {
 test('fast API failures do not satisfy latency budgets', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-errors-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
-  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, now: () => NOW })
   for (let index = 0; index < 20; index++) telemetry.recordServer(2, '/api/health', 'error', NOW - index)
 
   const summary = await telemetry.summary(24, NOW)
