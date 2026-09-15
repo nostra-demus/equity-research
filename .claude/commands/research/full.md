@@ -884,7 +884,9 @@ viol.extend(sic.eval_ar_short_bull_case_sanity(_live_date, dec, scen, d.get("ent
 # just have read.
 import calibration_gate_checks as cgc
 _calib_asof_live = cgc._calib_summary_asof(_live_date)
-viol.extend(cgc.eval_ag_calibration_feedback_gate(_live_date, _calib_asof_live, d.get("calibration_feedback"), d.get("confidence_inputs")) or [])
+# Fresh publication must prove the haircut reached the scorer even when confidence_inputs is absent,
+# null, malformed, or empty. The retrospective helper's legacy tolerance does not apply to this output.
+viol.extend(cgc.eval_ag_calibration_feedback_gate(_live_date, _calib_asof_live, d.get("calibration_feedback"), d.get("confidence_inputs"), require_confidence_inputs=True) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")

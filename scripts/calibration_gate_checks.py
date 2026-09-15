@@ -138,7 +138,8 @@ def _ag_leading_error_categories(calibration_summary):
     return sorted(cat for cat, n in dist.items() if isinstance(cat, str) and isnum(n) and n >= 2)
 
 
-def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None):
+def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback, confidence_inputs=None,
+                                      *, require_confidence_inputs=False):
     """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
     did not silently skip reading back its own prior calibration data — the loop Phase 4 (/research:
     calibrate) opened but nothing consumed until now. Returns None (N/A — pre-gate) or a list of
@@ -148,6 +149,8 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     calibration_summary: the parsed as-of calibration_summary.json dict (see _calib_summary_asof), or
     None if no qualifying file exists.
     calibration_feedback: decision_record.json's "calibration_feedback" value, or None/missing.
+    require_confidence_inputs: live publication requires an applied haircut to reach the scorer,
+    even if its input object is absent or empty. Retrospective callers retain the historical default.
     This is a presence/consistency check, not a re-derivation of Brier scores or hit rates — eval.py
     cannot re-run the synthesizer's judgment call on which module (or forecast type, on/after
     AG_FTYPE_DATE; thesis type, on/after AG_TTYPE_DATE; or leading error-taxonomy category, on/after
@@ -331,12 +334,12 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
     # runs that omit confidence_inputs are left untouched (backward-compatible, forward-looking).
     ci = confidence_inputs if isinstance(confidence_inputs, dict) else {}
     ch = ci.get("calibration_haircut")
-    if status == "applied" and ci:
+    if status == "applied" and (ci or require_confidence_inputs):
         # An applied §18 haircut MUST be the numeric 8 the scorer consumes. Omitting the key or setting it
         # null does NOT get a pass here: confidence.py then defaults it to 0, so conviction is scored UNCUT
         # and the recorded haircut is never actually subtracted — the exact "measured but never acted on"
-        # dead-end §18 exists to close. Only enforced when a confidence_inputs object is present (runs that
-        # omit it entirely stay backward-compatible).
+        # dead-end §18 exists to close. Historical callers tolerate a missing object for compatibility;
+        # live publication opts into requiring it, including on a freshly regenerated old-folder rerun.
         if not (isnum(ch) and ch == 8):
             violations.append(f"status='applied' (haircut_points={calibration_feedback.get('haircut_points')!r}) but "
                               f"confidence_inputs.calibration_haircut={ch!r} is not the numeric 8 the scorer must consume "

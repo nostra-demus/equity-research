@@ -44,6 +44,7 @@ PRE_CUTOFF_DATE = "2026-06-01"
 # A calibration_summary date safely before both PRE_CUTOFF_DATE's rerun and "today"
 # in this fictional-clock environment, well after AG_DATE.
 SUMMARY_DATE = "2026-07-10"
+MISSING = object()
 
 
 def extract_step_10b1_block(md_text):
@@ -108,6 +109,8 @@ def write_fixture(root, calibration_feedback, confidence_inputs=None):
         "calibration_feedback": calibration_feedback,
         "confidence_inputs": confidence_inputs,
     }
+    if confidence_inputs is MISSING:
+        del rec["confidence_inputs"]
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
     with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
@@ -213,6 +216,18 @@ def main():
               "leading_error_categories_flagged": [], "error_defense_evidence": {}},
              {"calibration_haircut": None}, "PROVISIONAL",
              ["calibration_haircut=None is not the numeric 8"]),
+
+            # Historical eval tolerates absent confidence_inputs for old records. Live publication
+            # must still require proof the scorer consumed an applied haircut, including on reruns.
+            *[
+                (f"applied but confidence_inputs is {description}",
+                 ("Watchlist-heavy calibration", {}),
+                 {"status": "applied", "haircut_points": 8, "modules_flagged": ["business-model"],
+                  "flagged_forecast_types": [], "flagged_thesis_types": [],
+                  "leading_error_categories_flagged": [], "error_defense_evidence": {}},
+                 value, "PROVISIONAL", ["calibration_haircut=None is not the numeric 8"])
+                for description, value in [("omitted", MISSING), ("null", None), ("empty", {}), ("malformed", [])]
+            ],
 
             ("applied but haircut_points is not the fixed 8-point constant",
              ("Watchlist-heavy calibration", {}),
