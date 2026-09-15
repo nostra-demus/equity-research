@@ -465,6 +465,8 @@ function latestNeedLookupRecord(identity: NeedLookupIdentity, stateDir: string):
 export function latestNeedLookup(
   identity: NeedLookupIdentity,
   stateDir: string = STATE_DIR,
+  /** When "now" is: a lookup turns stale 30 days after it was checked. Tests pin it. */
+  now: number = Date.now(),
 ): NeedLookupView | undefined {
   const best = latestNeedLookupRecord(identity, stateDir)
   if (!best) return undefined
@@ -474,7 +476,7 @@ export function latestNeedLookup(
     public_url: best.lookup_status === 'public_link_found' ? safeConnectorSourceUrl(best.public_url)?.url ?? null : null,
     checked_at: best.submitted_at,
     lookup_note: String(best.lookup_note || '').slice(0, NOTE_MAX),
-    stale: !Number.isFinite(checkedMs) || Date.now() - checkedMs > LOOKUP_STALE_MS,
+    stale: !Number.isFinite(checkedMs) || now - checkedMs > LOOKUP_STALE_MS,
     access_basis: 'https_url_public_dns',
   }
 }
