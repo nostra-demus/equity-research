@@ -16,8 +16,10 @@ export const GROUP_WINDOW_MS = 30 * 60_000
 const KEEP_MESSAGES = 2000
 export const MAX_EMAIL_ATTEMPTS = 6
 
-/** Message items that are not conditions: what the watcher itself has to say. None is ever urgent. */
-export type SystemItemType = 'now_watching' | 'already_there' | 'removed' | 'cockpit_was_off' | 'setup_failed'
+/** Message items that are not conditions: what the watcher itself has to say. None is urgent except
+ *  'research_buy_now' — new research that says buy, on the fixed urgent list beside the crossed lines. The one
+ *  'email_test' is emailed on purpose (monitor.ts), and says it is a test. */
+export type SystemItemType = 'now_watching' | 'already_there' | 'removed' | 'cockpit_was_off' | 'setup_failed' | 'research_buy_now' | 'email_test'
 export type MessageItemType = ConditionType | SystemItemType
 
 export interface WatchMessageItem {
@@ -67,7 +69,9 @@ export interface WatchMessage {
 export interface EmailOptions { enabled: boolean; paused: boolean }
 
 const itemRank = (t: MessageItemType): number =>
-  t in CONDITION_STATUS ? STATUS_RANK[CONDITION_STATUS[t as ConditionType]] : 7
+  t in CONDITION_STATUS ? STATUS_RANK[CONDITION_STATUS[t as ConditionType]]
+    // "Research says buy now" leads its message like a buy price reached: only a warning comes before it.
+    : t === 'research_buy_now' ? STATUS_RANK.buy_price_reached : 7
 
 function sortItems(items: WatchMessageItem[]): WatchMessageItem[] {
   return [...items].sort((a, b) => itemRank(a.type) - itemRank(b.type))
@@ -188,8 +192,8 @@ export class WatchInbox {
     return m
   }
 
-  /** A message about the watchlist as a whole (the first-day summary, the cockpit having been off). Never
-   *  urgent, so never emailed. */
+  /** A message about the watchlist as a whole (the first-day summary, the cockpit having been off, the one
+   *  test email). Never urgent, so the urgent path never emails it; only the test is sent, on purpose. */
   addGeneral(kind: 'summary' | 'system', title: string, items: WatchMessageItem[], now: Date): WatchMessage {
     const at = now.toISOString()
     const m: WatchMessage = {

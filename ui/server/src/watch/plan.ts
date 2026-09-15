@@ -15,6 +15,10 @@ import crypto from 'node:crypto'
 
 export const WATCH_PLAN_SCHEMA = 'watch-plan/v1' as const
 
+/** Research calls that say buy now (CLAUDE.md §18). Such a call gets one "research says buy now" message; after
+ *  it only the call's warnings are watched (operator decision, 2026-09-15), so its text is never read for lines. */
+export const BUY_NOW_DECISIONS: ReadonlySet<string> = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
+
 /** What a price means, in the research's own terms. Only `buy` may ever produce "Buy price reached". */
 export type PriceRole = 'buy' | 'look_again' | 'fair' | 'bad_case'
 

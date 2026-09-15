@@ -109,6 +109,28 @@ async function main() {
     assert.ok(Math.abs(budget.usd - 3.866286) < 1e-9, `spent ${budget.usd}`)
   })
 
+  await check('a buy call is not read: its record alone is the plan, and nothing is spent', async () => {
+    const RUN_BUY = 'BGB_2026-09-10'
+    fs.mkdirSync(path.join(analyses, RUN_BUY), { recursive: true })
+    fs.writeFileSync(path.join(analyses, RUN_BUY, 'decision_record.json'), JSON.stringify({
+      ticker: 'BGB', currency: 'USD', decision: 'Buy', decision_date: '2026-09-10', entry_price: 100,
+      scenarios: [{ label: 'bear', price_target: 80 }], kill_criteria: ['Cash conversion stays broken'],
+    }))
+    const buyRow = {
+      listing: makeListing({ ticker: 'BGB', currency: 'USD', exchange: 'NYSE', companyName: 'BGB Inc' }),
+      run_root: `analyses/${RUN_BUY}`, decision: 'Buy', decision_date: '2026-09-10',
+    }
+    const before = calls.length
+    const budget = fakeBudget(20)
+    const out = await readResearchPlan(buyRow, { runTurn: answering(ANSWER), budget, stateDir: state, analysesDir: analyses, model: 'opus', now: clock })
+    assert.equal(out.status, 'ok')
+    assert.equal(calls.length, before, 'no model call')
+    assert.equal(out.cost_usd, 0)
+    assert.equal(budget.spent(), 0)
+    assert.deepEqual(out.plan!.items.map((i: any) => (i.kind === 'price' ? `${i.role}:${i.low}` : i.kind)), ['bad_case:80', 'deal_breaker'])
+    assert.match(out.plan!.reader.detail, /only its warnings are watched/)
+  })
+
   await check('the same report is never read twice', async () => {
     const before = calls.length
     const out = await readResearchPlan(row, { runTurn: answering(ANSWER), budget: fakeBudget(20), stateDir: state, analysesDir: analyses, model: 'opus', now: clock })

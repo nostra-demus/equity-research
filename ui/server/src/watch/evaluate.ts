@@ -3,7 +3,7 @@
 // Pure — a plan, a price and a date go in; conditions come out. Nothing here decides who is told or how:
 // whether a condition is URGENT is a fixed property of its type (URGENT_CONDITIONS below), never a model's
 // opinion, so a test can prove no non-urgent type ever reaches the email sender.
-import { priceLine, ROLE_LABEL, type PlanDate, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
+import { BUY_NOW_DECISIONS, priceLine, ROLE_LABEL, type PlanDate, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
 import type { TriggerEval, WatchTrigger } from '../watchlist'
 
 /** The seven words the screen uses, in priority order. */
@@ -31,8 +31,9 @@ export type ConditionType =
 
 /**
  * The fixed list of what is urgent — a line the research (or you) drew was crossed. Everything else stays
- * in the cockpit and is never emailed. The research's own trigger confirmed in a filing and "research says
- * buy now" join this list in later steps; they are message types, not conditions, so they are not here yet.
+ * in the cockpit and is never emailed. Two urgent MESSAGE types are set where they are made, as they are not
+ * conditions: "research says buy now" (monitor.ts, once per buy call) and, in a later step, the research's own
+ * trigger confirmed in a filing.
  */
 export const URGENT_CONDITIONS: ReadonlySet<ConditionType> = new Set<ConditionType>([
   'buy_price_reached', 'look_again_reached', 'bad_case_broken', 'near_after_big_drop', 'your_level_reached',
@@ -368,6 +369,12 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     }
   }
 
+  // A buy call has had its one "buy now" message: from then on only its warnings are watched (operator
+  // decision, 2026-09-15) — its own lines, dates, drops and age are no longer news. Your own triggers still are.
+  if (plan && BUY_NOW_DECISIONS.has(plan.decision ?? '')) {
+    const kept = new Set<ConditionType>(['bad_case_broken', 'cant_check', 'your_level_reached', 'your_date_due', 'your_date_coming'])
+    for (let i = out.length - 1; i >= 0; i--) if (!kept.has(out[i].type)) out.splice(i, 1)
+  }
   out.sort((a, b) => STATUS_RANK[CONDITION_STATUS[a.type]] - STATUS_RANK[CONDITION_STATUS[b.type]])
   const status: StatusWord = out.length ? CONDITION_STATUS[out[0].type] : 'waiting'
   return {

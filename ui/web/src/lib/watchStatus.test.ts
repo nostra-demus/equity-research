@@ -67,6 +67,8 @@ check('a distance is said in words, never left as a sign', () => {
 check('what a name waits for, and when its next date is', () => {
   assert.equal(waitingText(row('A', { watch: watch('waiting', -13) })), 'Buy price USD 190–200 · must fall 13%')
   assert.equal(waitingText(row('A')), null)
+  const buyCall = row('A', { watch: { ...watch('waiting')!, plan: { state: 'ready', detail: '', run_root: 'analyses/A_2026-09-10', decision: 'Buy', decision_date: '2026-09-10', items: [], left_out: [], reader: null } } })
+  assert.equal(waitingText(buyCall), 'Research says buy — only its warnings are watched')
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 0 }), 'Q3 results · 3 Nov · today')
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 12 }), 'Q3 results · 3 Nov · in 12 days')
   assert.equal(dateWords({ label: 'Q2 FY27 results', date: '2026-10-21', days_to: 36, estimated: true }), 'Q2 FY27 results · ~21 Oct · in 36 days', 'an estimated day is marked, as the research wrote it')

@@ -19,7 +19,7 @@ import { WatchInbox, type WatchMessageItem } from './inbox'
 import { selectEmailBatch, type EmailBatchEntry, type WatchEmailConfig } from './email'
 import { loadPriceRecord, marketIndexFor, observe, savePriceRecord, sessionMove, sessionOf, type ListingSubject } from './prices'
 import { loadPlan, runSegOf, type ReadOutcome } from './reader'
-import { ROLE_LABEL, type LeftOut, type PlanItem, type WatchPlan } from './plan'
+import { BUY_NOW_DECISIONS, ROLE_LABEL, type LeftOut, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
 
 export const MONITOR_STATE_SCHEMA = 'watch-monitor/v1' as const
 /** A gap this long between checks means the checks stopped (the cockpit or the machine was off). */
@@ -29,10 +29,20 @@ const READ_GIVE_UP_MS = 24 * 60 * 60_000
 const READ_MAX_ATTEMPTS = 3
 /** How long the first-day summary waits for every report to be read before going out anyway. */
 const SUMMARY_GRACE_MS = 30 * 60_000
+/** The one test email: retried at most hourly, and given up after this many tries until the addresses change. */
+const EMAIL_TEST_RETRY_MS = 60 * 60_000
+const EMAIL_TEST_MAX_ATTEMPTS = 3
+
+/** Research calls that get a watch plan: Watchlist calls, read for their lines, and buy calls, which keep only
+ *  their record's bad case — after one "buy now" message, only a buy call's warnings are watched. */
+const planned = (decision: string | null | undefined): boolean => decision === 'Watchlist' || BUY_NOW_DECISIONS.has(decision ?? '')
 
 export interface MonitorThresholds extends Thresholds { rearmPct: number }
 
 export interface ReadRecord { attempts: number; last_at: string; status: ReadOutcome['status']; detail: string }
+
+/** The one test email for a set of addresses (sendEmailTestOnce). */
+interface EmailTest { addresses: string; message_id: string | null; attempts: number; tried_at: string | null; sent: boolean }
 
 interface MonitorState {
   schema_version: typeof MONITOR_STATE_SCHEMA
@@ -44,11 +54,12 @@ interface MonitorState {
   reads: Record<string, ReadRecord>
   /** What was already true for each name when it was first seen, held for the one first-day summary. */
   pending_summary: Record<string, { ticker: string; items: WatchMessageItem[] }>
+  email_test: EmailTest | null
 }
 
 const emptyState = (): MonitorState => ({
   schema_version: MONITOR_STATE_SCHEMA, switched_on_at: null, summary_sent_at: null, last_tick_at: null,
-  names: {}, email_paused: [], reads: {}, pending_summary: {},
+  names: {}, email_paused: [], reads: {}, pending_summary: {}, email_test: null,
 })
 
 /** What the screen shows about a name's watch plan. */
@@ -169,7 +180,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
    */
   function planInfo(row: MergedWatchRow): { plan: WatchPlan | null; ready: boolean; view: PlanView | null; basis: string } {
     const eng = row.engine
-    if (!eng || eng.decision !== 'Watchlist') return { plan: null, ready: true, view: null, basis: eng?.run_root ?? 'yours' }
+    if (!eng || !planned(eng.decision)) return { plan: null, ready: true, view: null, basis: eng?.run_root ?? 'yours' }
     const seg = runSegOf(eng.run_root)
     if (!seg) return { plan: null, ready: true, view: null, basis: eng.run_root }
     const cached = cachedPlan(seg)
@@ -236,6 +247,21 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
+  /** The one message a buy call gets: its research says buy. After it, only the call's warnings are watched
+   *  (operator decision, 2026-09-15). Urgent when it is news; listed plainly in the first-day summary. */
+  function buyNowItem(row: MergedWatchRow, plan: WatchPlan | null, basis: string, at: string, urgent: boolean): WatchMessageItem {
+    const bad = plan?.items.find((i): i is PlanPrice => i.kind === 'price' && i.role === 'bad_case')
+    return {
+      id: `buy_now:${basis}`, type: 'research_buy_now', urgent,
+      title: 'Research says buy now',
+      detail: `Its research${plan?.decision_date ? ` of ${plan.decision_date}` : ''} ends in ${plan?.decision ?? row.engine?.decision ?? 'a buy call'}. `
+        + (bad
+          ? `From here on only its warnings are watched: a fall under its bad case of ${priceText(bad)}.`
+          : 'From here on only its warnings are watched, and its research names no bad-case price to watch.'),
+      quote: null, source: plan?.run_root ?? row.run_root ?? null, at,
+    }
+  }
+
   function ensurePlans(rows: EngineWatchRow[], at: Date): void {
     for (const row of rows) {
       const seg = runSegOf(row.run_root)
@@ -285,6 +311,37 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
+  /**
+   * The first time email is on for a set of addresses, one test goes out — so mail is seen to arrive from this
+   * engine before any real alert depends on it. It is the one email that is not urgent, and it says it is a
+   * test. Retried at most hourly, EMAIL_TEST_MAX_ATTEMPTS times; a new set of addresses gets its own.
+   */
+  async function sendEmailTestOnce(cfg: WatchEmailConfig, at: Date): Promise<void> {
+    const addresses = cfg.recipients.map((r) => r.trim().toLowerCase()).sort().join(',')
+    const prev = state.email_test?.addresses === addresses ? state.email_test : null
+    if (prev && (prev.sent || prev.attempts >= EMAIL_TEST_MAX_ATTEMPTS)) return
+    if (prev?.tried_at && at.getTime() - Date.parse(prev.tried_at) < EMAIL_TEST_RETRY_MS) return
+    const test: EmailTest = prev ?? { addresses, message_id: null, attempts: 0, tried_at: null, sent: false }
+    let message = test.message_id ? inbox.get(test.message_id) : null
+    if (!message) {
+      const n = cfg.recipients.length
+      const atIso = at.toISOString()
+      message = inbox.addGeneral('system', 'Test email', [{
+        id: `email_test:${atIso}`, type: 'email_test', urgent: false, title: 'This is a test',
+        detail: `Watchlist email is on for ${n} ${n === 1 ? 'address' : 'addresses'}. From now on an urgent message — a line the research drew is crossed, or new research says buy — is emailed like this one. Everything else stays in the cockpit. Nothing needs doing.`,
+        quote: null, source: null, at: atIso,
+      }], at)
+      test.message_id = message.id
+    }
+    test.attempts++
+    test.tried_at = at.toISOString()
+    state.email_test = test
+    const sent = [{ message, items: message.items }]
+    const res = await deps.sendEmail(sent, cfg).catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
+    inbox.markEmailed(sent, res.ok, res.detail, at)
+    test.sent = res.ok
+  }
+
   async function runTick(): Promise<void> {
     const at = now()
     const atIso = at.toISOString()
@@ -316,7 +373,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
     market = nextMarket
 
-    ensurePlans(engineOnList.filter((e) => e.decision === 'Watchlist'), at)
+    ensurePlans(engineOnList.filter((e) => planned(e.decision)), at)
 
     if (!state.switched_on_at) state.switched_on_at = atIso
     const offFor = state.last_tick_at ? at.getTime() - Date.parse(state.last_tick_at) : 0
@@ -339,16 +396,22 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const name = { listing_key: key, ticker: row.ticker, company_name: row.company_name }
       const email = { enabled: emailCfg.enabled, paused: state.email_paused.includes(key) }
       if (step.baseline) {
+        const buyCall = BUY_NOW_DECISIONS.has(info.plan?.decision ?? '')
         const already = ev.conditions.filter((c) => c.type !== 'cant_check').map((c) => toItem(c, atIso))
         if (!state.summary_sent_at) {
-          state.pending_summary[key] = { ticker: row.ticker, items: already }
+          // On the first day a buy call is listed as already there, like everything else in the summary.
+          state.pending_summary[key] = { ticker: row.ticker, items: buyCall ? [buyNowItem(row, info.plan, info.basis, atIso, false), ...already] : already }
           continue
         }
-        // After the first day: new research (or a research name new to the list) gets one "now watching"
-        // message with anything already true in it — urgent if any of that is. A name you just added
-        // yourself is set up silently: you know it is there.
+        // After the first day: new research that ends in a buy is the one urgent message a buy call gets. Any
+        // other new research (or a research name new to the list) gets one "now watching" message with anything
+        // already true in it — urgent if any of that is. A name you just added yourself is set up silently: you
+        // know it is there.
         if (!info.view) continue
-        inbox.addForName(name, ev.status, [nowWatchingItem(row, info.plan, step.researchChanged, info.basis, atIso), ...already], email, at)
+        const lead = buyCall
+          ? buyNowItem(row, info.plan, info.basis, atIso, true)
+          : nowWatchingItem(row, info.plan, step.researchChanged, info.basis, atIso)
+        inbox.addForName(name, ev.status, [lead, ...already], email, at)
         continue
       }
       if (step.events.length) {
@@ -410,6 +473,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
 
     if (emailCfg.enabled) {
+      await sendEmailTestOnce(emailCfg, at)
       const batch = selectEmailBatch(inbox.pendingEmail(), inbox.all(), at)
       if (batch.length) {
         const res = await deps.sendEmail(batch, emailCfg).catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
@@ -510,6 +574,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
       reading: [...reading],
       queued: [...queued],
       reads: state.reads,
+      email_test: state.email_test,
     }
   }
 

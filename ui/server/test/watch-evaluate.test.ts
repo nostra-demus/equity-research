@@ -133,6 +133,18 @@ check('one price, one instruction: a buy price reached silences a look-again or 
   assert.ok(!/gave no buy price/.test(f.conditions.find((c) => c.type === 'fair_reached')!.detail))
 })
 
+check('a buy call is watched for its warnings only — its research lines, dates, drops and age are no longer news', () => {
+  const look: PlanItem = { kind: 'price', id: 'p-look', role: 'look_again', low: 200, high: null, currency: 'USD', source: src('revisit toward $200'), note: null }
+  const soon: PlanItem = { kind: 'date', id: 'd-soon', label: 'Q3 results', date: '2026-09-16', window: null, what_to_check: null, source: src('results on 2026-09-16') }
+  const buyCall = { decision: 'Buy', decision_date: '2026-01-02' }
+  const calm = run([buy, look, bad, soon], facts(199, { day_move_pct: -12, market: { label: 'S&P 500', move_pct: 0 } }), buyCall)
+  assert.deepEqual(types(calm), [], 'a buy line, a look-again line, a big drop, a date and old research all stay quiet')
+  assert.equal(calm.status, 'waiting')
+  const broken = run([buy, bad], facts(140), buyCall)
+  assert.deepEqual(types(broken), ['bad_case_broken'])
+  assert.equal(broken.status, 'warning')
+})
+
 check('a line in one currency is never compared with a price in another', () => {
   const e = run([buy], facts(199.5, { currency: 'CNY' }))
   assert.ok(!types(e).includes('buy_price_reached'))

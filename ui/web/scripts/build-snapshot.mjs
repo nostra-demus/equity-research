@@ -718,9 +718,9 @@ function buildWatchlist(calls) {
     const inDeco = deco.has(t)
     if (!inDeco && POSITION.has(String(c.basket || ''))) continue
     seen.add(t)
-    // Mirrors watchlist.ts's onTheWatchlist: an Avoid call is not on the list. A row you made for that
-    // listing is left in byKey, so it still shows below as your own.
-    if (String(c.decision || '').trim() === 'Avoid') continue
+    // Mirrors watchlist.ts's onTheWatchlist: an Avoid or Short Candidate call is not on the list. A row you
+    // made for that listing is left in byKey, so it still shows below as your own.
+    if (['Avoid', 'Short Candidate'].includes(String(c.decision || '').trim())) continue
     const key = `${t}|${String(c.currency || '').toUpperCase()}`
     const e = byKey.get(key) || null
     if (e) byKey.delete(key)

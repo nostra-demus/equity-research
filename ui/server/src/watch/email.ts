@@ -1,5 +1,7 @@
-// Email for urgent watchlist messages only — a line the research (or you) drew was crossed. Everything else
-// stays in the cockpit and is never emailed; which messages count as urgent is fixed by type in evaluate.ts.
+// Email for urgent watchlist messages only — a line the research (or you) drew was crossed, or new research
+// says buy. Everything else stays in the cockpit and is never emailed; which messages count as urgent is fixed
+// by type (evaluate.ts, and the monitor's "research says buy now"). The one exception is the single test email
+// sent when email is first switched on for a set of addresses (monitor.ts), which says it is a test.
 //
 // Reuses the one email sender the engine already has (feedback-email.ts → the Munshot raw-email API). It is
 // ON only when the operator names at least one address in ENGINE_WATCH_EMAIL_TO and the sender itself is
@@ -76,7 +78,7 @@ export function renderWatchEmail(batch: EmailBatchEntry[], appUrl: string): { su
     + `<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#75737c;margin-bottom:10px;">Nostra watchlist</div>`
     + blocks
     + `<a href="${escapeHtml(url)}" style="display:inline-block;margin-top:4px;padding:9px 16px;background:#b27d1c;color:#1a1206;text-decoration:none;border-radius:8px;font-weight:600;font-size:13px;">Open the watchlist</a>`
-    + `<p style="margin:18px 0 0;font-size:11.5px;line-height:1.5;color:#75737c;">You get an email only when a line the research drew is crossed. Everything else stays in the cockpit. Messages suggest — people decide; nothing is bought or sold. You can pause email for a name from its panel.</p>`
+    + `<p style="margin:18px 0 0;font-size:11.5px;line-height:1.5;color:#75737c;">You get an email only when something urgent happens: a line the research drew is crossed, or new research says buy. Everything else stays in the cockpit. Messages suggest — people decide; nothing is bought or sold. You can pause email for a name from its panel.</p>`
     + `</div></body></html>`
   return { subject, html }
 }

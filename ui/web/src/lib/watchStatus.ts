@@ -93,8 +93,13 @@ export function waitingText(row: WatchRow): string | null {
     return `${w.next_line.label} ${w.next_line.text}${g ? ` · ${g}` : ''}`
   }
   for (const i of w.plan?.items ?? []) if (i.kind === 'waiting_for') return `Waiting for: ${i.text}`
+  if (BUY_CALLS.has(w.plan?.decision ?? '')) return 'Research says buy — only its warnings are watched'
   return null
 }
+
+/** Buy calls, as the server names them (watch/plan.ts BUY_NOW_DECISIONS): after one "buy now" message only
+ *  their warnings are watched, so the row says so instead of showing nothing to wait for. */
+const BUY_CALLS = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
 
 export function shortDate(iso: string): string {
   const t = Date.parse(`${iso.slice(0, 10)}T00:00:00Z`)

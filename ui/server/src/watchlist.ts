@@ -384,12 +384,13 @@ export function deleteEntry(entryId: string, dir: string = WATCHLIST_ENTRIES_DIR
 const POSITION_BASKETS = new Set(['Selected', 'Short', 'Pair Trade'])
 
 /**
- * Research calls that do not belong on the watchlist at all. Avoid is a decision NOT to own the name, so
- * watching its price for an entry would contradict the research (operator decision, 2026-09-15: Avoid calls
- * come off the list). A later run that changes the call brings the name back on its own, and a name you
- * add yourself stays — as yours — whatever the engine thinks of it.
+ * Research calls that do not belong on the watchlist at all. The list watches names to BUY: Avoid is a decision
+ * NOT to own the name, and a Short Candidate is a bet on it falling, so watching either for an entry price would
+ * contradict the research (operator decisions, 2026-09-15: Avoid and Short Candidate calls come off the list).
+ * A later run that changes the call brings the name back on its own, and a name you add yourself stays — as
+ * yours — whatever the engine thinks of it.
  */
-const OFF_LIST_DECISIONS = new Set(['Avoid'])
+const OFF_LIST_DECISIONS = new Set(['Avoid', 'Short Candidate'])
 export function onTheWatchlist(decision: string | null | undefined): boolean {
   return !OFF_LIST_DECISIONS.has(String(decision ?? '').trim())
 }

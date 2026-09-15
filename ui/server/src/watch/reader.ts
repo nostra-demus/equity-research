@@ -16,7 +16,7 @@ import { resolveAllowedChatModel } from '../chat-models'
 import { UsdBudget } from '../news/triage/budget'
 import type { WatchListing } from '../watchlist'
 import {
-  WATCH_PLAN_SCHEMA, parseReaderJson, priceLine, recordItems, sha256, sourceDigest, validateReaderOutput,
+  BUY_NOW_DECISIONS, WATCH_PLAN_SCHEMA, parseReaderJson, priceLine, recordItems, sha256, sourceDigest, validateReaderOutput,
   type PlanItem, type PlanPrice, type PlanSourceFile, type WatchPlan,
 } from './plan'
 
@@ -221,6 +221,16 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   }
 
   const base = basePlan(row, src, clock())
+  // A buy call is watched for its warnings only (BUY_NOW_DECISIONS): the record's own bad case and kill
+  // criteria are the whole plan, so its text is not read and nothing is spent.
+  if (BUY_NOW_DECISIONS.has(base.decision ?? '')) {
+    const plan: WatchPlan = {
+      ...base,
+      reader: { status: 'ok', model: null, cost_usd: 0, at: clock().toISOString(), detail: `A ${base.decision} call: only its warnings are watched, so its text is not read.` },
+    }
+    savePlan(plan, stateDir)
+    return { status: 'ok', plan, detail: plan.reader.detail, cost_usd: 0 }
+  }
   const failed = (detail: string, cost: number, model: string | null): ReadOutcome => {
     const plan: WatchPlan = { ...base, reader: { status: 'failed', model, cost_usd: Math.round(cost * 10_000) / 10_000, at: clock().toISOString(), detail } }
     savePlan(plan, stateDir)
