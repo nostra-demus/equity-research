@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T04:37:38Z",
+  "generated_at": "2026-09-15T04:46:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-265",
@@ -878,6 +878,55 @@
           "name": "GAC Group",
           "ticker": "02238",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-269",
+      "headline": "Tata Sons’s Listed Shareholders Rally After RBI Renews IPO Push",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-15/tata-group-stocks-rise-on-optimism-over-holding-company-ipo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T03:53:32Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "RBI pressure on Tata Sons to list could unlock significant value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "RBI pressure on Tata Sons to list could unlock significant value for shareholders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-264",
-      "headline": "Meta agrees to report child sexual abuse cases to law enforcement agencies in India",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/social-media/meta-agrees-to-report-child-sexual-abuse-cases-to-law-enforcement-agencies-in-india/article71466644.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T03:39:26Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Meta has agreed to new reporting requirements for child sexual abuse cases in India, increasing regulatory compliance burden.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Meta has agreed to new reporting requirements for child sexual abuse cases in India, increasing regulatory compliance burden.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164448,9 +164448,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 597577,
-    "news_picked_today": 453,
-    "news_dropped_today": 1827
+    "news_seen_today": 617044,
+    "news_picked_today": 457,
+    "news_dropped_today": 1847
   },
   "book_momentum": {
     "live_count": 8,
