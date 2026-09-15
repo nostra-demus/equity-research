@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T12:11:58Z",
+  "generated_at": "2026-09-15T12:22:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-429",
@@ -291,6 +291,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-451",
+      "headline": "Solar Industries acquires South Africa’s Omnia Holdings for $1.36 billion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/solar-industries-acquires-south-africas-omnia-holdings-for-136-billion/article71467990.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:58:39Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Solar Industries announced the acquisition of Omnia Holdings for $1.36 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries announced the acquisition of Omnia Holdings for $1.36 billion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Omnia Holdings",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1983,6 @@
           "name": "BEAZER HOMES USA INC",
           "ticker": "BZH",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-352",
-      "headline": "RELIANCE GLO HL (00723): VOLUNTARY ANNOUNCEMENT - PAYMENT OF REFUNDABLE DEPOSIT UNDER A MEMORANDUM OF UNDERSTANDING IN RELATION TO THE POSSIBLE ACQUISITION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500719.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T09:46:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Reliance Global Holdings announced a refundable deposit payment related to a potential acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Reliance Global Holdings announced a refundable deposit payment related to a potential acquisition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Global Holdings",
-          "ticker": "00723",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -122633,77 +122638,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5f7f48248919",
-      "idea_version": "IDEAV-9f8e2e53bbb3734f",
-      "idea_version_started_at": "2026-09-14T01:06:30Z",
-      "ticker": "REZ",
-      "company": "Resources & Energy Investments",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Resources & Energy Investments received a $428,000 R&D Tax Incentive Refund, improving its cash position and potentially reducing its need for external financing.",
-      "why_now": "The company announced the receipt of the refund on September 14, 2026, providing an immediate cash flow boost.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35aa7acd5601"
-      ],
-      "primary_source_event_id": "EVT-35aa7acd5601",
-      "source_headlines": [
-        "REZ: R&D Tax Incentive Refund of $428,000 Received"
-      ],
-      "source_headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-14T00:16:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T01:06:30Z",
-      "updated_at": "2026-09-14T01:06:30Z",
-      "decay_at": "2026-09-15T12:16:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-67e788b795cf",
       "idea_version": "IDEAV-b671dcf9e431dd36",
       "idea_version_started_at": "2026-09-14T01:06:30Z",
@@ -126690,6 +126624,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5f7f48248919",
+      "idea_version": "IDEAV-9f8e2e53bbb3734f",
+      "idea_version_started_at": "2026-09-14T01:06:30Z",
+      "ticker": "REZ",
+      "company": "Resources & Energy Investments",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Resources & Energy Investments received a $428,000 R&D Tax Incentive Refund, improving its cash position and potentially reducing its need for external financing.",
+      "why_now": "The company announced the receipt of the refund on September 14, 2026, providing an immediate cash flow boost.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35aa7acd5601"
+      ],
+      "primary_source_event_id": "EVT-35aa7acd5601",
+      "source_headlines": [
+        "REZ: R&D Tax Incentive Refund of $428,000 Received"
+      ],
+      "source_headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-14T00:16:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T01:06:30Z",
+      "updated_at": "2026-09-14T01:06:30Z",
+      "decay_at": "2026-09-15T12:16:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-85576f21dc9f",
       "idea_version": "IDEAV-5f32aeda55eb4426",
       "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -126913,14 +126918,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       },
       "short": {
         "total_count": 271,
@@ -126944,6 +126949,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5f7f48248919",
+        "idea_version": "IDEAV-9f8e2e53bbb3734f",
+        "idea_version_started_at": "2026-09-14T01:06:30Z",
+        "ticker": "REZ",
+        "company": "Resources & Energy Investments",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Resources & Energy Investments received a $428,000 R&D Tax Incentive Refund, improving its cash position and potentially reducing its need for external financing.",
+        "why_now": "The company announced the receipt of the refund on September 14, 2026, providing an immediate cash flow boost.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-35aa7acd5601"
+        ],
+        "primary_source_event_id": "EVT-35aa7acd5601",
+        "source_headlines": [
+          "REZ: R&D Tax Incentive Refund of $428,000 Received"
+        ],
+        "source_headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-14T00:16:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T01:06:30Z",
+        "updated_at": "2026-09-14T01:06:30Z",
+        "decay_at": "2026-09-15T12:16:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T12:16:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-85576f21dc9f",
         "idea_version": "IDEAV-5f32aeda55eb4426",
@@ -155262,80 +155341,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f56c657b46f1",
-        "idea_version": "IDEAV-eafb5c62f54f0312",
-        "idea_version_started_at": "2026-09-02T22:52:14Z",
-        "ticker": "SATANIBEAR",
-        "company": "Satani Bearings Ltd",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Satani Bearings received a Rs 375.56 crore order, a large contract relative to its size that should boost near-term revenue and earnings visibility.",
-        "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a664e1b2d7eb"
-        ],
-        "primary_source_event_id": "EVT-a664e1b2d7eb",
-        "source_headlines": [
-          "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-        ],
-        "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T14:20:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T22:52:14Z",
-        "updated_at": "2026-09-02T22:52:14Z",
-        "decay_at": "2026-09-03T02:20:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T15:47:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-27677ede6ab0",
         "idea_version": "IDEAV-002a39d42239d0e1",
         "idea_version_started_at": "2026-09-02T23:36:56Z",
@@ -164108,7 +164113,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 63,
+    "live_count": 62,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164127,9 +164132,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3229476,
-    "news_picked_today": 841,
-    "news_dropped_today": 5543
+    "news_seen_today": 3305743,
+    "news_picked_today": 850,
+    "news_dropped_today": 5606
   },
   "book_momentum": {
     "live_count": 8,
