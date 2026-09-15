@@ -8135,7 +8135,8 @@ async function shutdown(signal: string, code = 0) {
     // Provider and paper-sync writers own durable research state, so they always drain before optional
     // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
     await drainProviderRunsForShutdown()
-    await Promise.all([watchMonitor.idle(), drainIbkrPaperAutoSync()])
+    await drainIbkrPaperAutoSync()
+    await watchMonitor.idle()
   } catch (error) {
     // Fail closed: never release the process-wide lock while a detached writer may still be alive.
     // eslint-disable-next-line no-console

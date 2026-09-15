@@ -357,7 +357,7 @@ async function main() {
     const server = fs.readFileSync(new URL('../src/server.ts', import.meta.url), 'utf8')
     const shutdown = server.slice(server.indexOf('async function shutdown('), server.indexOf('function installProcessHandlers('))
     assert.ok(shutdown.indexOf('watchMonitor.stop()') >= 0)
-    assert.match(shutdown, /await Promise\.all\(\[watchMonitor\.idle\(\), drainIbkrPaperAutoSync\(\)\]\)/)
+    assert.match(shutdown, /await watchMonitor\.idle\(\)/)
     assert.ok(shutdown.indexOf('watchMonitor.idle()') < shutdown.indexOf('process.exit(code)'))
   })
 
