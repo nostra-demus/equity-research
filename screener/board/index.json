@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T00:52:02Z",
+  "generated_at": "2026-09-15T01:02:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-042",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-066",
+      "headline": "SpaceX Signing Several Multi-Billion-Dollar Deals!",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/spacex-signing-several-multi-billion-dollar-deals",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:09:42Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "SpaceX is signing several multi-billion-dollar deals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SpaceX is signing several multi-billion-dollar deals.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-053",
       "headline": "UB-MNIU@EC2609A UBBOCHK@EC2609A UBPINAN@EP2610A UBTENCT@EP2609A UB#HKEX RC2610E UB#BYD RP2610A UB#CSPC RP2610A UB#HKEX RC2610A UB#SMIC RC2610E UB#AIA RC2610G (26833 27052 28377 28461 51602 56313 66328 66641 68761 69933): EXCHANGE NOTICE - SUSPENSION OF TRADING",
       "headline_en": null,
@@ -193,6 +242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-054",
+      "headline": "GAC GROUP (02238): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500117.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T00:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "GAC Group has resumed trading on the Hong Kong Stock Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "GAC Group has resumed trading on the Hong Kong Stock Exchange.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC Group",
+          "ticker": "02238",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -541,6 +639,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-065",
+      "headline": "Supreme Court rejects Trump bid to lift block on U.S. Postal Service mail-in ballots rule",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/14/supreme-court-trump-mail-ballots-midterms.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:48:36Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Supreme Court ruling on mail-in ballots impacts electoral process and political risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Supreme Court ruling on mail-in ballots impacts electoral process and political risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-041",
       "headline": "Russia sanctions bill clears procedural House hurdle",
       "headline_en": null,
@@ -628,6 +769,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-063",
+      "headline": "STEIN MITCHELL ATTORNEYS REPRESENT WHISTLEBLOWERS IN NEARLY $385 MILLION ABBOTT INFANT FORMULA SETTLEMENT",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/stein-mitchell-attorneys-represent-whistleblowers-in-nearly-385-million-abbott-infant-formula-settlement-302878100.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T20:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Abbott Laboratories is involved in a $385 million settlement regarding infant formula litigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Abbott Laboratories is involved in a $385 million settlement regarding infant formula litigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbott Laboratories",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -780,6 +970,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-060",
+      "headline": "Generation Mining Secures Full Project Financing to Build Canada's Next Critical Minerals Mine",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361564/0/en/generation-mining-secures-full-project-financing-to-build-canada-s-next-critical-minerals-mine.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T20:43:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Generation Mining secured full project financing to build a new critical minerals mine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Generation Mining secured full project financing to build a new critical minerals mine.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Generation Mining",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-045",
       "headline": "Waaree Renewable’s data centre push raises the stakes",
       "headline_en": null,
@@ -873,6 +1112,98 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-057",
+      "headline": "MindWalk Reports 21% Revenue Growth and Gross Margin Expansion to 59% in Fiscal First Quarter 2027 | HYFT Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/HYFT/mind-walk-reports-21-revenue-growth-and-gross-margin-expansion-to-59-ef1tz6x980ha.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T20:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "MindWalk reported 21% revenue growth and gross margin expansion to 59% for Q1 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "MindWalk reported 21% revenue growth and gross margin expansion to 59% for Q1 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MindWalk",
+          "ticker": "HYFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-061",
+      "headline": "AI 'kill switch' may need to be mandatory, Anthropic co-founder tells BBC",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cqgk5e2j0gg8o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:32:21Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Potential regulatory discussion regarding mandatory AI safety features could impact the broader AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Potential regulatory discussion regarding mandatory AI safety features could impact the broader AI sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1074,6 +1405,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-055",
+      "headline": "XCF Global (NASDAQ:SAFX), DevvStream and Southern Energy Renewables Amend Business Combination Agreement, Increasing XCF Shareholder Ownership and Establishing Additional Capital Support; XCF Shareholder GL Also Investing $1.0 Million in XCF Through Warrants Exercisable at $2.50 Per Share | SAFX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SAFX/xcf-global-nasdaq-safx-devv-stream-and-southern-energy-renewables-syvr1eg7s7cs.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-15T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "XCF Global amended its business combination agreement to increase shareholder ownership and secured $1.0 million in additional capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "XCF Global amended its business combination agreement to increase shareholder ownership and secured $1.0 million in additional capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XCF Global",
+          "ticker": "SAFX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-033",
       "headline": "Shanghai Electric annonce une hausse de 16,6 % de son chiffre d'affaires au premier semestre de 2026, avec un volume de nouvelles commandes atteignant 100,39 milliards de yuans",
       "headline_en": "Shanghai Electric announces a 16.6% increase in revenue in the first half of 2026, with new order volume reaching 100.39 billion yuan",
@@ -1181,6 +1562,49 @@
       "triage_score": 57,
       "triage_reason": "Rising inflation expectations in India are increasing the probability of an early interest rate hike by the central bank.",
       "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-064",
+      "headline": "Sweden election is too close to call as far right loses ground",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/9/15/sweden-election-is-too-close-to-call-as-far-right-loses-ground?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-15T00:06:34Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Political uncertainty in Sweden following a close election result.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Political uncertainty in Sweden following a close election result.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
@@ -1498,452 +1922,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-002",
-      "headline": "EVN: Discovery and exploration [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03135569-2A1697185",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-14T23:45:19Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Routine exploration update for a mining company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Routine exploration update for a mining company.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evolution Mining",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-014",
-      "headline": "Corteva Categorically Rejects Unfounded, Unprecedented Allegations by State Attorneys General | CTVA Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CTVA/corteva-categorically-rejects-unfounded-unprecedented-allegations-by-d92anxioh3ge.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T23:47:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Corteva is publicly defending itself against legal allegations from state attorneys general, which could impact legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Corteva is publicly defending itself against legal allegations from state attorneys general, which could impact legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corteva",
-          "ticker": "CTVA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-030",
-      "headline": "Shanghai Electric registra un crecimiento de ingresos del 16,6 % en el primer semestre de 2026",
-      "headline_en": "Shanghai Electric reports 16.6% revenue growth in the first half of 2026",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-registra-un-crecimiento-de-ingresos-del-16-6--en-el-primer-semestre-de-2026--302877524.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-15T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Shanghai Electric reported 16.6% revenue growth for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Shanghai Electric reported 16.6% revenue growth for H1 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-032",
-      "headline": "Shanghai Electric Reports 16.6% Revenue Growth in H1 2026 as New Orders Reach CNY 100.39 Billion",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-reports-16-6-revenue-growth-in-h1-2026-as-new-orders-reach-cny-100-39-billion-302877397.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-15T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-031",
-      "headline": "Shanghai Electric oznámila za první pololetí roku 2026 nárůst tržeb o 16,6% a objem nových zakázek dosáhl 100,39 miliardy jüanů",
-      "headline_en": "Shanghai Electric announced 16.6% revenue growth for the first half of 2026 and new orders reached 100.39 billion yuan",
-      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-oznamila-za-prvni-pololeti-roku-2026-narst-treb-o-16-6-a-objem-novych-zakazek-dosahl-100-39-miliardy-juan-302877588.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-15T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shanghai Electric",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-037",
-      "headline": "1470350 B.C. LTD. ANNOUNCES PROPOSED BUSINESS COMBINATION WITH ORIOR METALS CORP.",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361595/0/en/1470350-b-c-ltd-announces-proposed-business-combination-with-orior-metals-corp.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T22:25:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "1470350 B.C. LTD. announced a proposed business combination with Orior Metals Corp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "1470350 B.C. LTD. announced a proposed business combination with Orior Metals Corp.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "1470350 B.C. LTD.",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Orior Metals Corp.",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-039",
-      "headline": "TWO Announces Intention to Voluntarily Delist and Deregister 9.375% Senior Notes due 2030 from the New York Stock Exchange | TWOD Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TWOD/two-announces-intention-to-voluntarily-delist-and-deregister-9-375-qzpwk06gkjg5.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TWO",
-          "ticker": "TWOD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-050",
-      "headline": "BURFORD CAPITAL ANNOUNCES PRICING OF PRIVATE OFFERING OF SENIOR SECURED NOTES",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/burford-capital-announces-pricing-of-private-offering-of-senior-secured-notes-302878109.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T20:55:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Pricing of senior secured notes indicates capital raising activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Pricing of senior secured notes indicates capital raising activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Burford Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-035",
-      "headline": "Bitmine Immersion Technologies (BMNR) annuncia che le partecipazioni in ETH hanno raggiunto 5,96 milioni di token e che il valore complessivo delle disponibilità in criptovalute e liquidità ammonta a 15,8 miliardi di dollari",
-      "headline_en": "Bitmine Immersion Technologies (BMNR) announces that ETH holdings have reached 5.96 million tokens and that the total value of cryptocurrency and cash holdings amounts to 15.8 billion dollars",
-      "url": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-annuncia-che-le-partecipazioni-in-eth-hanno-raggiunto-5-96-milioni-di-token-e-che-il-valore-complessivo-delle-disponibilita-in-criptovalute-e-liquidita-ammonta-a-15-8-miliardi-di-dollari-302878148.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T22:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Bitmine Immersion Technologies reported $15.8 billion in crypto and cash holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Bitmine Immersion Technologies reported $15.8 billion in crypto and cash holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitmine Immersion Technologies",
-          "ticker": "BMNR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164144,9 +164122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 121425,
-    "news_picked_today": 53,
-    "news_dropped_today": 307
+    "news_seen_today": 149403,
+    "news_picked_today": 67,
+    "news_dropped_today": 413
   },
   "book_momentum": {
     "live_count": 8,
