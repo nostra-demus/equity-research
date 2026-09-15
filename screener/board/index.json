@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T07:11:57Z",
+  "generated_at": "2026-09-15T09:07:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-303",
@@ -1224,6 +1224,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-326",
+      "headline": "Fertilizers and Chemicals Travancore Limited: Fertilizers and Chemicals Travancore Limited has informed the Exchange regarding Change in Auditors of the company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/FACT_15092026132952_CS-HO-GEN-_196_appointmnet_of_Auditors.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T08:00:46Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Change in auditors is a significant corporate governance event that warrants investor attention.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Change in auditors is a significant corporate governance event that warrants investor attention.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fertilizers and Chemicals Travancore Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-318",
       "headline": "Ashima Limited: Shefali Chintan Parikh has Submitted to the Exchange a copy of Disclosure under Regulation 10 (5) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011.",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-153",
-      "headline": "SGA: Copper Mineralisation Extended at Ilksan - Revised Format [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGA?key=2924-03135619-6A1343847",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T02:04:40Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The company reported an extension of copper mineralisation at its Ilksan project, which is a positive operational development for a mining firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The company reported an extension of copper mineralisation at its Ilksan project, which is a positive operational development for a mining firm.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SGA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -119388,76 +119388,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aae3ef159f69",
-      "idea_version": "IDEAV-258508e813aac783",
-      "idea_version_started_at": "2026-09-13T20:00:11Z",
-      "ticker": "BSX",
-      "company": "Boston Scientific",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A significant cybersecurity incident has disrupted operations and forced a downward revision of financial guidance, indicating near-term margin pressure.",
-      "why_now": "The news of the cyberattack and guidance impact broke on 2026-09-13, creating immediate downward pressure on the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9cbb62cc4daa"
-      ],
-      "primary_source_event_id": "EVT-9cbb62cc4daa",
-      "source_headlines": [
-        "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance."
-      ],
-      "source_headline": "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance.",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-bsx-didn-t-193111827.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T19:31:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T20:00:11Z",
-      "updated_at": "2026-09-13T20:00:11Z",
-      "decay_at": "2026-09-15T07:31:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-aee6ec71570ec791",
       "idea_version_started_at": "2026-09-15T05:22:27Z",
@@ -121818,152 +121748,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-06f821eb0804",
-      "idea_version": "IDEAV-2ec06f01116ac547",
-      "idea_version_started_at": "2026-09-13T22:07:30Z",
-      "ticker": "ZAI",
-      "company": "Z.AI",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
-      "why_now": "The capital raise was reported on September 13, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c7461e1eb2a"
-      ],
-      "primary_source_event_id": "EVT-4c7461e1eb2a",
-      "source_headlines": [
-        "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
-      ],
-      "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
-      "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T20:02:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:07:30Z",
-      "updated_at": "2026-09-13T22:07:30Z",
-      "decay_at": "2026-09-15T08:02:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-fe979375f297",
-      "idea_version": "IDEAV-f0a28ee183c1f19a",
-      "idea_version_started_at": "2026-09-13T22:07:30Z",
-      "ticker": "BATHLA",
-      "company": "Bathla",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a liquidation threat due to the need to find longer-term funding.",
-      "why_now": "The threat was highlighted in news on September 13, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-37a684857d6d"
-      ],
-      "primary_source_event_id": "EVT-37a684857d6d",
-      "source_headlines": [
-        "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds"
-      ],
-      "source_headline": "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds",
-      "source_url": "https://www.livemint.com/companies/liquidation-threat-looms-as-bathla-must-find-longer-term-funds-11789331850113.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T20:37:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:07:30Z",
-      "updated_at": "2026-09-13T22:07:30Z",
-      "decay_at": "2026-09-15T08:37:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -123831,6 +123615,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-aae3ef159f69",
+      "idea_version": "IDEAV-258508e813aac783",
+      "idea_version_started_at": "2026-09-13T20:00:11Z",
+      "ticker": "BSX",
+      "company": "Boston Scientific",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A significant cybersecurity incident has disrupted operations and forced a downward revision of financial guidance, indicating near-term margin pressure.",
+      "why_now": "The news of the cyberattack and guidance impact broke on 2026-09-13, creating immediate downward pressure on the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9cbb62cc4daa"
+      ],
+      "primary_source_event_id": "EVT-9cbb62cc4daa",
+      "source_headlines": [
+        "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance."
+      ],
+      "source_headline": "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance.",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-bsx-didn-t-193111827.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T19:31:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T20:00:11Z",
+      "updated_at": "2026-09-13T20:00:11Z",
+      "decay_at": "2026-09-15T07:31:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-34f433d67296",
       "idea_version": "IDEAV-09889b39ede26227",
       "idea_version_started_at": "2026-09-13T19:16:47Z",
@@ -125662,6 +125516,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-06f821eb0804",
+      "idea_version": "IDEAV-2ec06f01116ac547",
+      "idea_version_started_at": "2026-09-13T22:07:30Z",
+      "ticker": "ZAI",
+      "company": "Z.AI",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
+      "why_now": "The capital raise was reported on September 13, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c7461e1eb2a"
+      ],
+      "primary_source_event_id": "EVT-4c7461e1eb2a",
+      "source_headlines": [
+        "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
+      ],
+      "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
+      "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T20:02:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T22:07:30Z",
+      "updated_at": "2026-09-13T22:07:30Z",
+      "decay_at": "2026-09-15T08:02:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4b167833bba9",
       "idea_version": "IDEAV-fa54853f884f8525",
       "idea_version_started_at": "2026-09-13T22:07:30Z",
@@ -125802,6 +125729,79 @@
       "surfaced_at": "2026-09-13T22:07:30Z",
       "updated_at": "2026-09-13T22:07:30Z",
       "decay_at": "2026-09-15T06:58:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fe979375f297",
+      "idea_version": "IDEAV-f0a28ee183c1f19a",
+      "idea_version_started_at": "2026-09-13T22:07:30Z",
+      "ticker": "BATHLA",
+      "company": "Bathla",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a liquidation threat due to the need to find longer-term funding.",
+      "why_now": "The threat was highlighted in news on September 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-37a684857d6d"
+      ],
+      "primary_source_event_id": "EVT-37a684857d6d",
+      "source_headlines": [
+        "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds"
+      ],
+      "source_headline": "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds",
+      "source_url": "https://www.livemint.com/companies/liquidation-threat-looms-as-bathla-must-find-longer-term-funds-11789331850113.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T20:37:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T22:07:30Z",
+      "updated_at": "2026-09-13T22:07:30Z",
+      "decay_at": "2026-09-15T08:37:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -127256,19 +127256,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 272,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -127287,6 +127287,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fe979375f297",
+        "idea_version": "IDEAV-f0a28ee183c1f19a",
+        "idea_version_started_at": "2026-09-13T22:07:30Z",
+        "ticker": "BATHLA",
+        "company": "Bathla",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a liquidation threat due to the need to find longer-term funding.",
+        "why_now": "The threat was highlighted in news on September 13, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-37a684857d6d"
+        ],
+        "primary_source_event_id": "EVT-37a684857d6d",
+        "source_headlines": [
+          "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds"
+        ],
+        "source_headline": "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds",
+        "source_url": "https://www.livemint.com/companies/liquidation-threat-looms-as-bathla-must-find-longer-term-funds-11789331850113.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T20:37:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T22:07:30Z",
+        "updated_at": "2026-09-13T22:07:30Z",
+        "decay_at": "2026-09-15T08:37:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T08:37:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-06f821eb0804",
+        "idea_version": "IDEAV-2ec06f01116ac547",
+        "idea_version_started_at": "2026-09-13T22:07:30Z",
+        "ticker": "ZAI",
+        "company": "Z.AI",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
+        "why_now": "The capital raise was reported on September 13, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c7461e1eb2a"
+        ],
+        "primary_source_event_id": "EVT-4c7461e1eb2a",
+        "source_headlines": [
+          "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
+        ],
+        "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
+        "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T20:02:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T22:07:30Z",
+        "updated_at": "2026-09-13T22:07:30Z",
+        "decay_at": "2026-09-15T08:02:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T08:02:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-aae3ef159f69",
+        "idea_version": "IDEAV-258508e813aac783",
+        "idea_version_started_at": "2026-09-13T20:00:11Z",
+        "ticker": "BSX",
+        "company": "Boston Scientific",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A significant cybersecurity incident has disrupted operations and forced a downward revision of financial guidance, indicating near-term margin pressure.",
+        "why_now": "The news of the cyberattack and guidance impact broke on 2026-09-13, creating immediate downward pressure on the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9cbb62cc4daa"
+        ],
+        "primary_source_event_id": "EVT-9cbb62cc4daa",
+        "source_headlines": [
+          "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance."
+        ],
+        "source_headline": "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance.",
+        "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-bsx-didn-t-193111827.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T19:31:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T20:00:11Z",
+        "updated_at": "2026-09-13T20:00:11Z",
+        "decay_at": "2026-09-15T07:31:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T07:31:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2aedf447b3f7",
         "idea_version": "IDEAV-e1273991742b3326",
@@ -155598,80 +155823,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-be7468a7e565",
-        "idea_version": "IDEAV-7db097efeb09fcc1",
-        "idea_version_started_at": "2026-08-31T23:55:29Z",
-        "ticker": "E2ENETWORKS",
-        "company": "E2E Networks Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Signed binding term sheet worth approximately Rs 1,000 crore with a sovereign entity, implying a large, multi-year revenue contract for its cloud/AI infrastructure services.",
-        "why_now": "Press release dated 2026-08-31 announces the binding term sheet; contract size is material relative to the company's current revenue base.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-24d9ac71ddac"
-        ],
-        "primary_source_event_id": "EVT-24d9ac71ddac",
-        "source_headlines": [
-          "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
-        ],
-        "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T18:04:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T23:55:29Z",
-        "updated_at": "2026-08-31T23:55:29Z",
-        "decay_at": "2026-09-02T06:04:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T18:13:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23f01420e111",
         "idea_version": "IDEAV-29f834b53f425e93",
         "idea_version_started_at": "2026-08-31T15:41:26Z",
@@ -164290,159 +164441,12 @@
         "archived_at": "2026-08-27T11:49:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-33be1fdd6647",
-        "idea_version": "IDEAV-2b62a45ebc1796dd",
-        "idea_version_started_at": "2026-08-24T21:01:02Z",
-        "ticker": "02266",
-        "company": "LAI SI ENT",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning indicates a negative trend in the company's financial results.",
-        "why_now": "The announcement was made on 2026-08-24.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c88decf78bd"
-        ],
-        "primary_source_event_id": "EVT-4c88decf78bd",
-        "source_headlines": [
-          "LAI SI ENT (02266): PROFIT WARNING"
-        ],
-        "source_headline": "LAI SI ENT (02266): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401187.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T11:14:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T21:01:02Z",
-        "updated_at": "2026-08-24T21:01:02Z",
-        "decay_at": "2026-08-25T23:14:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T11:49:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-eec9cd9f6717",
-        "idea_version": "IDEAV-7caad8a89b95b482",
-        "idea_version_started_at": "2026-08-25T09:09:48Z",
-        "ticker": "GH",
-        "company": "Guardant Health",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
-        "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-12fec20cb36e"
-        ],
-        "primary_source_event_id": "EVT-12fec20cb36e",
-        "source_headlines": [
-          "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
-        ],
-        "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
-        "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
-        "source_name": "Stock Titan — Latest News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T11:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T09:09:48Z",
-        "updated_at": "2026-08-25T09:09:48Z",
-        "decay_at": "2026-08-25T23:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T11:49:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 825,
-    "live_count": 75,
+    "live_count": 72,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164461,9 +164465,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1115134,
-    "news_picked_today": 596,
-    "news_dropped_today": 3652
+    "news_seen_today": 1822776,
+    "news_picked_today": 598,
+    "news_dropped_today": 4058
   },
   "book_momentum": {
     "live_count": 8,
