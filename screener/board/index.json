@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T03:02:10Z",
+  "generated_at": "2026-09-15T03:12:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -1829,6 +1829,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-213",
+      "headline": "A5X levanta R$360 milhões em nova rodada de financiamento",
+      "headline_en": "A5X raises R$360 million in new funding round",
+      "url": "https://www.reuters.com/pt/negocio/EVLIFXCOX5JIFMEPXEQDNMUR4U-2026-09-15/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:26:34Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "A5X raises R$360 million in a new funding round.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A5X raises R$360 million in a new funding round.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A5X",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-127",
       "headline": "Indonesia's Prabowo fires finance minister, replaces him with deputy",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
           "name": "Milford Mining",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-028",
-      "headline": "FDA 510(k) clearance — Modular Medical, Inc.: Pivot Insulin Delivery System",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262153",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-02T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Modular Medical received FDA 510(k) clearance for its Pivot insulin delivery system, a key product for its commercial growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Modular Medical received FDA 510(k) clearance for its Pivot insulin delivery system, a key product for its commercial growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Modular Medical, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -164301,9 +164301,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 387517,
-    "news_picked_today": 279,
-    "news_dropped_today": 1089
+    "news_seen_today": 408936,
+    "news_picked_today": 298,
+    "news_dropped_today": 1142
   },
   "book_momentum": {
     "live_count": 8,
