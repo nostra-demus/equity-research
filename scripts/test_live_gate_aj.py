@@ -84,6 +84,12 @@ def write_fixture(root, thesis_md):
             "comparable_basis": "Annual audited operating cash flow, same currency and accounting basis.",
             "fired_last_two_periods": False,
         }],
+        # check AG (§18 calibration-feedback gate) is gated on `_live_date` (today), not `ddte`, so it
+        # applies here regardless of this fixture's deliberately pre-cutoff decision_date — see
+        # run_block()'s sandboxed CWD, which keeps `_calib_summary_asof` from seeing the real repo's
+        # analyses/performance/ (so "no as-of summary" is always the case here) and makes
+        # status="not_available" the only value AG accepts.
+        "calibration_feedback": {"status": "not_available"},
     }
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
@@ -106,14 +112,22 @@ THESIS_WITH_DAT = (
 )
 
 
-def run_block(block_path, run_root):
-    """Execute the extracted gate block exactly as full.md does: from the repo
-    root (its `sys.path.insert(0, "scripts")` is relative), argv[1] = run root.
+def run_block(block_path, run_root, sandbox):
+    """Execute the extracted gate block exactly as full.md does, but with CWD set to an
+    empty `sandbox` dir (never REPO_ROOT) so check AG's `_calib_summary_asof` — which
+    globs `analyses/performance/*_calibration_summary.json` relative to CWD — never sees
+    the real repo's calibration history (that history changes over time as new summaries
+    are committed, which would make this fixture's fixed `calibration_feedback` go stale
+    for reasons unrelated to AJ). `sys.path.insert(0, "scripts")` inside the block is then
+    a no-op (no such relative dir under `sandbox`); PYTHONPATH supplies the real scripts/
+    dir for `import rating_caps`/`headline_checks`/`calibration_gate_checks`/etc. instead.
     A crashed or hung validator must fail the test, never count as AJ silence."""
+    env = dict(os.environ)
+    env["PYTHONPATH"] = os.path.join(REPO_ROOT, "scripts") + os.pathsep + env.get("PYTHONPATH", "")
     try:
         proc = subprocess.run(
             [sys.executable, block_path, run_root],
-            cwd=REPO_ROOT, capture_output=True, text=True, check=True, timeout=30,
+            cwd=sandbox, capture_output=True, text=True, check=True, timeout=30, env=env,
         )
     except subprocess.CalledProcessError as exc:
         print(f"Validator exited {exc.returncode}\nstdout:\n{exc.stdout}\nstderr:\n{exc.stderr}",
@@ -185,9 +199,11 @@ def main():
              "PASS", []),
         ]
         for index, (name, thesis, verdict, diagnostics) in enumerate(cases):
-            run_root = os.path.join(tmp, f"case{index}", f"TEST_{PRE_CUTOFF_DATE}")
+            sandbox = os.path.join(tmp, f"case{index}", "sandbox")
+            os.makedirs(sandbox, exist_ok=True)
+            run_root = os.path.join(sandbox, "analyses", f"TEST_{PRE_CUTOFF_DATE}")
             write_fixture(run_root, thesis)
-            output = run_block(block_path, run_root)
+            output = run_block(block_path, run_root, sandbox)
             gates = [line for line in output.splitlines() if line.startswith("GATE:")]
             # The PASS summary also names Decision Audit Trail. Check the actual
             # verdict and the specific failure diagnostics, not a generic substring.
