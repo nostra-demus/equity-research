@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-03T01:51:02Z",
+  "archived_at": "2026-09-15T23:04:57Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-97064c0977c4",
-    "idea_version": "IDEAV-345686aa95ae9753",
-    "idea_version_started_at": "2026-08-31T03:02:38Z",
-    "ticker": "OKE",
-    "company": "ONEOK",
+    "idea_id": "IDEA-f736026666d7",
+    "idea_version": "IDEAV-42897a3daa1b9aca",
+    "idea_version_started_at": "2026-09-13T17:56:30Z",
+    "ticker": "GE",
+    "company": "GE Aerospace",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The acquisition of Brazos Midstream's Permian Midland Basin assets for $4.43 billion expands the company's footprint in a high-growth production region, likely increasing long-term fee-based cash flows.",
-    "why_now": "The acquisition was announced on 2026-08-31.",
-    "conviction": 70,
+    "reason": "GE Aerospace's $12 billion acquisition of CPP is a significant capital allocation that will test its growth strategy and could introduce integration risks.",
+    "why_now": "The $12 billion acquisition has just been announced, making its financial and strategic implications immediate.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 62,
     "trade_score_basis": "evidence_gate_v2",
@@ -27,14 +27,13 @@
       "specificity": 15,
       "timing": 10,
       "expression": 6,
-      "corroboration": 0,
+      "corroboration": 6,
       "learning_adjustment": 0
     },
     "trade_readiness": "needs_data",
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -51,26 +50,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-110ee9a8016a"
+      "EVT-8cff733d76dc",
+      "EVT-ab951b64b3c4"
     ],
-    "primary_source_event_id": "EVT-110ee9a8016a",
+    "primary_source_event_id": "EVT-8cff733d76dc",
     "source_headlines": [
-      "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion"
+      "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+      "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
     ],
-    "source_headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
-    "source_url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
-    "source_name": "Reuters — Latest (news sitemap)",
+    "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+    "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+    "source_name": "Yahoo Finance",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-31T01:40:35Z",
+    "newest_source_at": "2026-09-12T22:38:33Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-31T03:02:38Z",
-    "updated_at": "2026-08-31T03:02:38Z",
-    "decay_at": "2026-09-01T13:40:35Z",
+    "surfaced_at": "2026-09-13T17:56:30Z",
+    "updated_at": "2026-09-13T17:56:30Z",
+    "decay_at": "2026-09-14T10:38:33Z",
     "status": "live",
     "promoted_signal_id": null
   }
