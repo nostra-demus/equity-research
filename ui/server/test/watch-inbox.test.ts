@@ -106,11 +106,21 @@ async function main() {
   await check('two names crossing at once share one email', () => {
     const box = freshInbox()
     box.addForName(AMZN, 'buy_price_reached', [item('a', 'buy_price_reached', true, 'Reached its buy price')], ON, t0)
-    box.addForName(NHY, 'check_now', [item('b', 'look_again_reached', true, 'Reached its look-again price')], ON, t0)
+    box.addForName(NHY, 'check_now', [item('b', 'look_again_reached', true, 'Reached its review price')], ON, t0)
     const batch = selectEmailBatch(box.pendingEmail(), box.all(), t0)
     assert.equal(batch.length, 2)
     const { subject } = renderWatchEmail(batch, 'https://cockpit.example')
     assert.match(subject, /2 names need you/)
+  })
+
+  await check('the test email is about no one name, so its label stands alone', () => {
+    // Found by sending it end to end: without a ticker the header read " · Test email".
+    const box = freshInbox()
+    const m = box.addGeneral('system', 'Test email', [item('t', 'email_test', false, 'This is a test')], t0)
+    const { subject, html } = renderWatchEmail([{ message: m, items: m.items }], 'https://cockpit.example')
+    assert.equal(subject, 'Watchlist: This is a test')
+    assert.ok(html.includes('>Test email</span>'), 'the label is shown')
+    assert.ok(!html.includes('· Test email'), 'no separator before a ticker that is not there')
   })
 
   await check('the email escapes what it quotes', () => {

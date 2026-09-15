@@ -72,9 +72,13 @@ export function renderWatchEmail(batch: EmailBatchEntry[], appUrl: string): { su
     : `Watchlist: ${tickers.length} ${tickers.length === 1 ? 'name needs' : 'names need'} you — ${tickers.join(', ')}`
   const blocks = batch.map(({ message, items }) => {
     const label = EMAIL_SIGNAL[items[0]?.type ?? ''] ?? (message.status ? STATUS_LABEL[message.status] : '')
+    const tag = (text: string) => `<span style="font-family:-apple-system,Segoe UI,sans-serif;font-weight:600;font-size:12px;color:#8a5c0c;">${text}</span>`
+    // A message about no one name (the test email) has no ticker, so its label stands alone — no "·" before it.
+    const head = message.ticker
+      ? `${escapeHtml(message.ticker)}${label ? ` ${tag(`· ${escapeHtml(label)}`)}` : ''}`
+      : label ? tag(escapeHtml(label)) : ''
     return `<div style="margin:0 0 14px;padding:14px 16px;background:#ffffff;border:1px solid #dedbd2;border-radius:10px;">`
-      + `<div style="font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:15px;color:#1c1c21;">${escapeHtml(message.ticker ?? '')}`
-      + `${label ? ` <span style="font-family:-apple-system,Segoe UI,sans-serif;font-weight:600;font-size:12px;color:#8a5c0c;">· ${escapeHtml(label)}</span>` : ''}</div>`
+      + (head ? `<div style="font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:15px;color:#1c1c21;">${head}</div>` : '')
       + `${message.company_name ? `<div style="font-size:12px;color:#75737c;">${escapeHtml(message.company_name)}</div>` : ''}`
       + items.map(itemHtml).join('')
       + `</div>`
