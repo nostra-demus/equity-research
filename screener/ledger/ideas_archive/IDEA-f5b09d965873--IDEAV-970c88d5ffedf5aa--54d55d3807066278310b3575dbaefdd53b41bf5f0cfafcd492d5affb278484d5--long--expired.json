@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-10T04:10:30Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-f5b09d965873",
+    "idea_version": "IDEAV-970c88d5ffedf5aa",
+    "idea_version_started_at": "2026-09-07T05:58:37Z",
+    "ticker": "INA.AX",
+    "company": "Ingenia",
+    "exchange": "Australian",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company has rejected a $2.9 billion takeover bid from a private equity firm, suggesting management believes the company is worth more than the offer, which could lead to a higher bid or independent value realization.",
+    "why_now": "The bid has been made and rejected, creating immediate M&A speculation and potential for a revised offer.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-dbd51705dd6c"
+    ],
+    "primary_source_event_id": "EVT-dbd51705dd6c",
+    "source_headlines": [
+      "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus"
+    ],
+    "source_headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
+    "source_url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-07T03:45:31Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-07T01:06:48Z",
+    "updated_at": "2026-09-07T05:58:37Z",
+    "decay_at": "2026-09-08T15:45:31Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

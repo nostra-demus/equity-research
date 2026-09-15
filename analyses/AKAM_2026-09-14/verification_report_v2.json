@@ -1,0 +1,279 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "run_root": "analyses/AKAM_2026-09-14",
+  "verified_at": "2026-09-14T13:41:10.096510Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/AKAM_2026-09-14/final_thesis.md",
+  "decision_record_path": "analyses/AKAM_2026-09-14/decision_record.json",
+  "final_thesis_sha256": "bdee27508f818bcfb7cedf028fcd0aefd62fcd610711ea0b2df84c965fa49a81",
+  "decision_record_sha256": "6fe39f9d5f6a19f28d19e3cd8a75bc62a8a8686994eb03aced91d2ff991a1c7b",
+  "claims_checked": 10,
+  "claim_checks": [
+    {
+      "claim": "The decision-line day-close price was $106.79 on 2026-09-14.",
+      "citation": "[CIQ Comps, Financial Data, Day Close Price Latest, subject row, data as of 2026-09-14; ciq_facts.json, current_price, present]",
+      "source_checked": "Frozen-generation corpus.txt and ciq_facts.json, CIQ comparable-company Financial Data subject row",
+      "status": "verified",
+      "evidence": "The canonical deterministic resolver returned hit_count=3 for 106.79, and the frozen ciq_facts.json independently records current_price=106.79 with the cited source_ref.",
+      "severity": "info"
+    },
+    {
+      "claim": "The valid DCF gives a $68.78 base value and the master good-outcome case gives $139.68 per share.",
+      "citation": "[analyses/AKAM_2026-09-14/valuation/04_intrinsic-dcf.md, sections 4-7; analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 2-2A]",
+      "source_checked": "Valuation model schedules and frozen filing/vendor inputs cited by those schedules",
+      "status": "inference-labeled",
+      "evidence": "The resolver returned hit_count=0 for 68.78 and 139.68, as expected for model outputs rather than source figures. The thesis explicitly calls $139.68 a master DCF inference, and both values reproduce from the printed model inputs. The per-share denominator problem is recorded separately as one Section-B math break.",
+      "severity": "info"
+    },
+    {
+      "claim": "The DCF's 6.2168% WACC is a sufficiently evidenced decision-driving discount rate.",
+      "citation": "[Web: U.S. Treasury daily par yield curve, 10-year Treasury, 2026-09-09 (unverified); Web: Damodaran U.S. implied ERP, data update 2026-01-09 (unverified); Web: Yahoo Finance, AKAM five-year monthly beta, accessed 2026-09-14 (unverified)]",
+      "source_checked": "Frozen-generation manifest and corpus; valuation/04_intrinsic-dcf.md section 3 source list",
+      "status": "unverified",
+      "evidence": "The resolver returned hit_count=0 for the exact 6.2168 model output. More importantly, none of the three cited web documents underlying the 4.83% risk-free rate, 4.23% equity-risk premium, or raw 0.63 beta is among the frozen generation's 16 source documents. Coincidental numeric hits elsewhere in the corpus do not verify those source-specific inputs. The frozen filing supports the debt input and lease-rate comparators, but not those three market inputs.",
+      "severity": "high"
+    },
+    {
+      "claim": "Strict net debt was $6,082.6m, built as $7,562.8m debt less $1,480.3m cash and equivalents.",
+      "citation": "[Q2 FY2026 Form 10-Q, Condensed Consolidated Balance Sheets, pp.3-4; Note 7, pp.17-20]",
+      "source_checked": "Frozen Q2 FY2026 Form 10-Q exact-generation extract",
+      "status": "inference-labeled",
+      "evidence": "The derived 6,082.6 display value had hit_count=0, while the cited filing contains raw values 7,562,828 (hit_count=1) and 1,480,257 (hit_count=3); 7,562.828 - 1,480.257 = 6,082.571m, which rounds to $6,082.6m. The strict basis is labeled wherever it drives the verdict.",
+      "severity": "info"
+    },
+    {
+      "claim": "LTM GAAP-derived EBITDA was $1,184.1m and strict net leverage was 5.14x.",
+      "citation": "[FY2025 Form 10-K, Consolidated Statements of Income, pp.54-56; Q2 FY2026 Form 10-Q, Statements of Income, p.5; Q2 2026 Supplemental Financial Information, Supplemental Metrics]",
+      "source_checked": "Frozen FY2025 10-K, Q2 FY2026 10-Q, and Q2 supplemental exact-generation extracts",
+      "status": "inference-labeled",
+      "evidence": "The derived EBITDA display value had hit_count=0. Source-specific raw checks support FY2025 operating income 566,944 and D&A 708,611, H1 FY2025 operating income 306,044 and D&A 349,483, and H1 FY2026 operating income 194,778 and D&A 369,288. Their LTM bridge is $1,184.094m; $6,082.571m / $1,184.094m = 5.137x, or 5.14x.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 FY2026 revenue rose 5.4%, gross margin fell 331 basis points, and GAAP-derived EBITDA fell 18.7% year on year.",
+      "citation": "[Q2 FY2026 Form 10-Q, pp.5, 30, 32-34; Q2 2026 Supplemental Financial Information, Supplemental Metrics]",
+      "source_checked": "Frozen Q2 FY2026 Form 10-Q and supplemental exact-generation extracts",
+      "status": "inference-labeled",
+      "evidence": "The resolver found 1,099,682 (27 raw-scale hits) and source-specific context shows 1,043,494, plus cost of revenue 485,932 and 426,535, operating income 80,284 and 151,461, and D&A 185,537 and 175,461. Recalculation gives 5.3846% revenue growth, a 331.28bp gross-margin decline, and an 18.6898% decline in GAAP-derived EBITDA.",
+      "severity": "info"
+    },
+    {
+      "claim": "LTM strict FCF was $629.9m, while the price-implied path requires 16.35% annual growth to about $1,245.1m by FY2030.",
+      "citation": "[FY2025 Form 10-K, pp.55-56; Q2 FY2026 Form 10-Q, pp.7-8; analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 2-5]",
+      "source_checked": "Frozen filings and executed reverse-DCF schedule",
+      "status": "inference-labeled",
+      "evidence": "The displayed derived figures returned hit_count=0. Raw filing components give LTM CFO of $1,447.190m and total cash capex of $817.311m, hence $629.879m FCF. The printed reverse-DCF sequence and formula reproduce the 16.35% model requirement and $1,245.1m endpoint; both are explicitly model-conditional.",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2021-FY2025 cash acquisitions totaled $2.066bn = $598.8m + $872.1m + $106.2m + $434.1m + $55.1m, plus $205m for LayerX.",
+      "citation": "[CIQ Financials, Cash Flow, FY2021-FY2025, vendor export; Q2 FY2026 Form 10-Q, Note 6]",
+      "source_checked": "Frozen CIQ cash-flow workbook extract and Q2 FY2026 Form 10-Q Note 6 extract",
+      "status": "inference-labeled",
+      "evidence": "The resolver found every signed cash-acquisition component in the cited CIQ row with hit_count=1 each (-598.8, -872.1, -106.2, -434.1, -55.1), and 205 appears in the filing pool and was confirmed in Note 6 context. The five historical components sum exactly to $2,066.3m, which the thesis rounds to $2.066bn.",
+      "severity": "info"
+    },
+    {
+      "claim": "Known gross lease-related exposure was $2.331bn = $1.8659bn scheduled payments + $278.0m uncommenced leases + $187.1m final commitment; $1.570bn was recognized and $731.2m future sublease income was separate.",
+      "citation": "[FY2025 Form 10-K, Notes 12-13, pp.79-81]",
+      "source_checked": "Frozen FY2025 Form 10-K exact-generation extract",
+      "status": "inference-labeled",
+      "evidence": "Resolver hit counts were 1 for 1,865.9, 1 for 278.0, and 2 for 187.1, each in the cited lease context. Those components sum to $2,331.0m. The source's current and non-current lease-liability and sublease-income components reconcile to the separately labeled rounded totals; the report does not net them into the gross exposure.",
+      "severity": "info"
+    },
+    {
+      "claim": "Capital IQ LTM ROIC was 2.7% at June 2026, down from 7.0% in FY2021.",
+      "citation": "[CIQ Financials, Ratios, FY2021-LTM June 2026, vendor export; source-bound multi_year_trajectory fact, present]",
+      "source_checked": "Frozen CIQ financial-ratios extract and ciq_facts.json trajectory source_ref",
+      "status": "verified",
+      "evidence": "The generic 2.7 search produced coincidental pool hits, so the source-specific check used the vendor's raw decimal. Exact 0.027028 has hit_count=1 in the cited LTM return-on-capital row, and the FY2021 row supports the 7.0% starting point. The thesis keeps this on the vendor basis and notes that its capital definition cannot be fully reconciled.",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Q2 FY2026 revenue growth",
+      "reported": "5.4%",
+      "recomputed": "(1,099.682 - 1,043.494) / 1,043.494 = 5.3846%",
+      "ties": true,
+      "detail": "Rounds to the reported 5.4%."
+    },
+    {
+      "quantity": "Q2 FY2026 gross-margin change",
+      "reported": "-331 basis points",
+      "recomputed": "[(1,099.682 - 485.932) / 1,099.682 - (1,043.494 - 426.535) / 1,043.494] x 10,000 = -331.28bp",
+      "ties": true,
+      "detail": "The revenue and cost-of-revenue bridge has no unexplained residual."
+    },
+    {
+      "quantity": "Q2 FY2026 GAAP-derived EBITDA change",
+      "reported": "-18.7%",
+      "recomputed": "[(80.284 + 185.537) / (151.461 + 175.461)] - 1 = -18.6898%",
+      "ties": true,
+      "detail": "GAAP-derived EBITDA is explicitly defined as operating income plus D&A, not company-adjusted EBITDA."
+    },
+    {
+      "quantity": "LTM GAAP-derived EBITDA",
+      "reported": "$1,184.1m",
+      "recomputed": "($566.944m + $708.611m) - ($306.044m + $349.483m) + ($194.778m + $369.288m) = $1,184.094m",
+      "ties": true,
+      "detail": "The LTM bridge uses FY2025 less H1 FY2025 plus H1 FY2026 on one GAAP-derived basis."
+    },
+    {
+      "quantity": "LTM strict FCF",
+      "reported": "$629.9m",
+      "recomputed": "$1,447.190m LTM CFO - $817.311m property/equipment plus capitalized-software cash capex = $629.879m",
+      "ties": true,
+      "detail": "This follows the thesis's stated CFO-minus-total-cash-capex definition."
+    },
+    {
+      "quantity": "Strict net debt and net leverage",
+      "reported": "$6,082.6m and 5.14x",
+      "recomputed": "$7,562.828m debt - $1,480.257m cash = $6,082.571m; $6,082.571m / $1,184.094m = 5.137x",
+      "ties": true,
+      "detail": "The strict basis excludes marketable securities and operating leases; broad CIQ figures are separately labeled."
+    },
+    {
+      "quantity": "Canonical EV bridge",
+      "reported": "$21,428.3m",
+      "recomputed": "$106.79 x 143.700m = $15,345.723m market cap; + $7,562.828m debt - $1,480.257m cash = $21,428.294m EV",
+      "ties": true,
+      "detail": "The market-price/current-share date and last-filed balance-sheet date mismatch is disclosed."
+    },
+    {
+      "quantity": "DCF and reverse-DCF per-share denominator basis",
+      "reported": "All scenario values deduct $6,082.6m strict net debt and divide by 153.686m GAAP diluted weighted-average shares, including 5.353m convertible-note shares; reverse-WACC equity is solved from $106.79 x 143.700m current shares.",
+      "recomputed": "The filing-based non-GAAP diluted share count is 148.333m = 153.686m - 5.353m note-hybrid dilution. Because the bridge already deducts the full convertible carrying debt and the disclosed note hedges offset the conversion shares, using 153.686m double-charges that conversion exposure. Holding model equity values fixed and using 148.333m gives approximately $144.72 / $113.62 / $71.26 / $47.30 rather than $139.68 / $109.66 / $68.78 / $45.65. The weighted target becomes about $77.77 and expected return about -27.17%. Separately, the reverse solve's $15,345.7m current equity divided by 153.686m is $99.85, not $106.79.",
+      "ties": false,
+      "detail": "This is one matched-basis math break, not two deductions: debt/equity treatment, note-hedge treatment, and the per-share denominator are inconsistent across the EV bridge and reverse solve. All modeled scenario prices are below the disclosed minimum warrant strike of $155.02, so the warrant population does not repair the denominator. Correcting this alone raises the values but leaves the Avoid direction unchanged."
+    },
+    {
+      "quantity": "Scenario probabilities, weighted target, expected return, risk/reward, and margin of safety",
+      "reported": "10% / 15% / 45% / 30%; $75.06 weighted target; -29.71% expected return; -0.52x risk/reward; -55.26% margin of safety",
+      "recomputed": "Probabilities sum to 100%; 0.10 x 139.68 + 0.15 x 109.66 + 0.45 x 68.78 + 0.30 x 45.65 = $75.063; ($75.063 - $106.79) / $106.79 = -29.7097%; ($75.063 - $106.79) / ($106.79 - $45.65) = -0.5189x; ($68.78 - $106.79) / $68.78 = -55.2632%",
+      "ties": true,
+      "detail": "The printed arithmetic ties on its stated scenario values; the separate denominator-basis break changes the inputs, not this probability arithmetic."
+    },
+    {
+      "quantity": "Master $139.68 good-outcome DCF build",
+      "reported": "$3,867.4m explicit PV + $23,681.9m terminal PV = $27,549.3m EV; - $6,082.6m net debt = $21,466.7m equity; / 153.686m = $139.68",
+      "recomputed": "The printed components sum and divide to $139.68 within rounding.",
+      "ties": true,
+      "detail": "This is a reproducible model inference. Its share-basis defect is captured once in the dedicated denominator check."
+    },
+    {
+      "quantity": "WACC arithmetic and reality-test thresholds",
+      "reported": "6.2168% model WACC; 5.04657045% market-implied WACC; lease comparators 3.6% / 4.4% / 5.1%",
+      "recomputed": "0.669869 x 9.06% + 0.330131 x 0.55% x (1 - 19.0%) = 6.2168%. The model rate is not more than 3pp below a company-disclosed scope-matched rate and is not below two-thirds of the 5.04657045% market-implied rate.",
+      "ties": true,
+      "detail": "The arithmetic and automatic reality-test thresholds pass. The high finding is source verification of the market inputs, not this calculation."
+    },
+    {
+      "quantity": "Acquisition and lease aggregates",
+      "reported": "$2,066.3m FY2021-FY2025 cash acquisitions; $2,331.0m known gross lease-related exposure",
+      "recomputed": "$598.8m + $872.1m + $106.2m + $434.1m + $55.1m = $2,066.3m; $1,865.9m + $278.0m + $187.1m = $2,331.0m",
+      "ties": true,
+      "detail": "Both totals travel with their itemized builds and the lease report separately labels recognized liabilities and sublease income."
+    },
+    {
+      "quantity": "Upcoming-print period basis and threshold testability",
+      "reported": "Q3 FY2026 triggers use a standalone quarter; longer FCF and leverage triggers specify LTM or consecutive quarter-end bases.",
+      "recomputed": "Akamai's next 10-Q reports a standalone three-month column alongside year-to-date data; no cumulative-period stub addition is needed. Thresholds name year-ago or same-basis comparables and can fail based on the last two observations.",
+      "ties": true,
+      "detail": "No half-year/standalone-quarter basis error or rubber-stamp threshold was found."
+    },
+    {
+      "quantity": "Quality-haircut double-count check",
+      "reported": "Peer and own-history multiples carry 0% valuation weight; no profitability haircut is applied to an earnings multiple.",
+      "recomputed": "No weighted method applies own margin divided by peer margin or another denominator-duplicative haircut.",
+      "ties": true,
+      "detail": "The excluded $377.81 mechanical peer output is not used in fair value or scenario math."
+    },
+    {
+      "quantity": "Post-review confidence haircut and provisional integrity stamp",
+      "reported": "Pre-review confidence 50; confidence_haircut 5.0; post_review_confidence_score 45.0; integrity status provisional because verification_report.json returned Material issues at 65/100.",
+      "recomputed": "50.0 - 5.0 = 45.0; the provisional violation text and the final-thesis banner both identify the prior report's Material issues verdict and 65/100 score.",
+      "ties": true,
+      "detail": "The immutable audit inputs contain the expected haircut and provisional/integrity stamps. These stamps disclose the earlier adverse audit; they do not repair the two underlying findings, so this v2 score remains 65."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Total debt, cash, and strict net debt",
+      "values_by_module": {
+        "balance-sheet-survival": "$7,562.8m debt; $1,480.3m cash; $6,082.6m strict net debt",
+        "earnings": "$7,562.9m debt on one rounded display; $1,480.3m cash; $6,082.6m strict net debt",
+        "valuation": "$7,562.8m debt; $1,480.3m cash; $6,082.6m strict net debt",
+        "final_thesis": "$7,562.8m debt; $1,480.3m cash; $6,082.6m strict net debt",
+        "decision_record": "$6,082.6m strict net debt / 5.14x leverage in narrative fields"
+      },
+      "consistent": true,
+      "detail": "The $0.1m earnings display difference is rounding. All decision-driving uses label the strict basis; CIQ's lease- and investment-inclusive broad values are explicitly reconciled rather than substituted."
+    },
+    {
+      "anchor": "Diluted share count",
+      "values_by_module": {
+        "valuation": "153.686m latest Q2 GAAP diluted weighted-average shares for per-share value; 143.700m current shares for market cap",
+        "final_thesis": "153.686m diluted working shares; 143.700m current shares for market cap",
+        "decision_record": "same valuation outputs and $106.79 price basis"
+      },
+      "consistent": true,
+      "detail": "The stated counts agree across artifacts and the period-average/current-share limitation is disclosed. Their use in the convertible debt bridge is nevertheless a Section-B matched-basis break, not a cross-module numerical conflict."
+    },
+    {
+      "anchor": "GAAP-derived EBITDA and vendor EBITDA provenance",
+      "values_by_module": {
+        "earnings": "$1,275.6m FY2025 and $1,184.1m LTM GAAP-derived EBITDA",
+        "balance-sheet-survival": "$1,184.1m LTM GAAP-derived EBITDA; $1,079.9m CIQ vendor EBITDA shown separately",
+        "valuation": "$1,184.1m LTM GAAP-derived EBITDA; $1,079.9m CIQ vendor EBITDA shown separately",
+        "final_thesis": "$1,184.1m LTM GAAP-derived EBITDA",
+        "ciq_facts": "$1,079.9m LTM vendor EBITDA"
+      },
+      "consistent": true,
+      "detail": "No vendor EBITDA is carried under a filing citation. The run names and reconciles the differing GAAP-derived and vendor definitions."
+    },
+    {
+      "anchor": "ROIC and cost of capital",
+      "values_by_module": {
+        "business-model": "2.7% CIQ LTM ROIC; group WACC not determinable from frozen company/vendor evidence",
+        "management-governance": "2.7% CIQ LTM ROIC used conservatively",
+        "valuation": "6.2168% analyst model WACC; 5.04657045% reverse-DCF market-implied WACC",
+        "final_thesis": "2.7% vendor ROIC; 6.22% model WACC; 5.05% market-implied WACC"
+      },
+      "consistent": true,
+      "detail": "The numerical values are not competing same-basis anchors: ROIC is vendor-reported, while the two WACCs are labeled model outputs. The business-model evidence qualification reinforces the separately scored high finding; no second anchor-conflict deduction is taken."
+    },
+    {
+      "anchor": "Current price, market capitalization, and enterprise value",
+      "values_by_module": {
+        "valuation": "$106.79 price; $15,345.7m market cap; $21,428.3m canonical EV",
+        "balance-sheet-survival": "$106.79 price where used; filing-basis debt bridge consistent with canonical EV",
+        "final_thesis": "$106.79 price; $21,428.3m canonical EV bridge",
+        "ciq_facts": "$106.79 price; vendor $15,347.5m market cap and $20,070.2m EV on vendor basis"
+      },
+      "consistent": true,
+      "detail": "The small market-cap difference is vendor share-count rounding. The vendor EV uses broad/lease-inclusive definitions and is explicitly reconciled; the filing-basis canonical EV is consistent wherever it drives valuation."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [
+    {
+      "verdict_word": "no",
+      "claim": "No moat proven; trajectory eroding on profit economics, not confirmed across every metric (final_thesis.md, Headline Scorecard and business-model audit trail).",
+      "metric_family": "profitability and cash conversion",
+      "contradicting_metric": "CFO divided by GAAP-derived EBITDA cash conversion",
+      "contradicting_value": "Improved from 117.7% in FY2021 to about 134.0% LTM June 2026 while margin and ROIC measures declined.",
+      "contradicting_source": "business-model/99_business-model-synthesis.md sections 1-3 and business-model/09_moat.md trajectory evidence panel; CIQ Financials, Income Statement, Cash Flow and Ratios, FY2021-LTM June 2026",
+      "addressed": true,
+      "severity": "info"
+    }
+  ],
+  "integrity_score": 65,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "High evidence finding (-20): the 6.2168% WACC is decision-driving, but its Treasury risk-free rate, Damodaran equity-risk premium, and Yahoo beta sources are not in the frozen evidence generation and therefore cannot be source-verified. The module labels those web inputs unverified, but the rating still depends on them.",
+    "Math break (-15): the DCF/reverse-DCF bridge deducts full convertible debt while using GAAP diluted shares that include 5.353m convertible-note shares and does not apply the disclosed note-hedge offset; the reverse solve also mixes a 143.700m current-share equity anchor with a 153.686m per-share denominator. Correcting only the disclosed note-hybrid denominator raises the weighted target to about $77.77 and expected return to about -27.17%, without changing the Avoid direction."
+  ],
+  "notes": "This v2 report is the final admission authority for the exact hashed post-haircut, provisional, integrity-stamped artifacts. The audit used only supervisor-frozen evidence generation c4d3e6273c464a9c80ac6b2d5376f06f8686a7fd7d1593a78ba6741c81cf1d6c under NOSTRA_FROZEN_EVIDENCE_ROOT and the exact NOSTRA_FROZEN_POOL_OUT_DIR binding. The live logical data/AKAM path and analyses/AKAM_2026-09-14/_pool_extracts were not read. The bound manifest reports 16 of 16 sources extracted successfully, 49 extracts, and zero failures; corpus, CIQ facts, and relationships digests match the manifest, and ciq_facts.json has no conflicts. The canonical deterministic citation resolver was rerun against display-scale, raw-source-scale, and signed cash-acquisition figures, and every claim status reconciles its source-specific hit counts. decision_record.json parsed as valid JSON. Ten load-bearing claims were checked: nine verified or explicitly inference-labeled and one high unverified finding; there is one math break, zero anchor conflicts, zero fidelity breaks, and zero unaddressed named-metric contradictions. Score = 100 - 20 high - 15 math break = 65. The current artifacts carry the expected 5-point post-review confidence haircut (50 to 45) and provisional integrity stamp, but those disclosures do not cure the underlying evidence and matched-basis defects. This independent auditor used no research memory. Every pre-existing run artifact remained read-only. Per the parent override, this append-only v2 report is the only file written; the command's commit/push step was skipped and no Git command was run."
+}

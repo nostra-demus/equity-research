@@ -1,0 +1,649 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "company_name": "Akamai Technologies, Inc.",
+  "exchange": "Nasdaq Global Select Market",
+  "currency": "USD",
+  "decision_date": "2026-09-14",
+  "run_root": "analyses/AKAM_2026-09-14",
+  "final_thesis_path": "analyses/AKAM_2026-09-14/final_thesis.md",
+  "decision": "Avoid",
+  "suggested_action": "Do not own AKAM at $106.79; reassess after a second matched-basis valuation or reported proof that Security and Cloud Infrastructure Services convert to cash at the rate implied by the price.",
+  "paper_treatment": "No trade, track avoided/foregone return",
+  "basket": "Rejected",
+  "entry_price": 106.79,
+  "entry_price_source": "Capital IQ Comps, Financial Data, Day Close Price Latest for AKAM; frozen pool",
+  "entry_price_timestamp": "2026-09-14",
+  "benchmark": "",
+  "sector_benchmark": "",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -29.71,
+  "downside_risk_pct": 57.25,
+  "margin_of_safety_pct": -55.26,
+  "risk_reward": -0.52,
+  "scenarios": [
+    {
+      "scenario_id": "bull-execution-and-low-rate",
+      "label": "bull_execution",
+      "probability": 10,
+      "probability_basis": "judgment",
+      "return_pct": 30.8,
+      "price_target": 139.68,
+      "conditions": [
+        "Strict free cash flow compounds 16.35% annually to about $1.245 billion in FY2030 on the reverse-DCF path",
+        "The market retains the separately solved 5.04657045% WACC with 0.80% terminal growth"
+      ],
+      "source": "analyses/AKAM_2026-09-14/valuation/04_intrinsic-dcf.md, sections 4-7; analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 2-2A; master DCF inference shown in final_thesis.md section 8",
+      "joint_probability_basis": "The 10% judgment probability applies to the conjunction, not to either condition separately. A clean Security and Cloud Infrastructure Services cash-conversion result can improve both expected cash and perceived risk, but either input alone supports roughly today's price rather than $139.68."
+    },
+    {
+      "scenario_id": "bull-dcf-sensitivity",
+      "label": "bull_dcf_sensitivity",
+      "probability": 15,
+      "probability_basis": "judgment",
+      "return_pct": 2.69,
+      "price_target": 109.66,
+      "conditions": [
+        "FY2030 strict free cash flow reaches $972.3 million",
+        "Cash capital expenditure falls toward 18.5% of revenue",
+        "The market accepts a 5.22% WACC and 1.30% terminal growth rate"
+      ],
+      "source": "analyses/AKAM_2026-09-14/valuation/07_scenario-and-fair-value.md, sections 1-4",
+      "joint_probability_basis": "The 15% judgment probability applies to the conjunction of cash-path delivery, capital-spending moderation, and the lower required return; it is not a product of independent odds."
+    },
+    {
+      "scenario_id": "base-consensus-cash-path",
+      "label": "base",
+      "probability": 45,
+      "probability_basis": "judgment",
+      "return_pct": -35.59,
+      "price_target": 68.78,
+      "conditions": [
+        "FY2026-FY2028 consensus revenue broadly holds",
+        "GAAP EBIT margin recovers to 14.0% by FY2030",
+        "Terminal return on invested capital fades to the 6.22% WACC"
+      ],
+      "source": "analyses/AKAM_2026-09-14/valuation/07_scenario-and-fair-value.md, sections 1-4",
+      "joint_probability_basis": "The 45% judgment probability applies to the joint revenue, margin, return-on-capital, and valuation path; the conditions are linked through the same cash-flow forecast."
+    },
+    {
+      "scenario_id": "bear-cyclical-cash-durability",
+      "label": "bear_cyclical",
+      "probability": 30,
+      "probability_basis": "judgment",
+      "return_pct": -57.25,
+      "price_target": 45.65,
+      "conditions": [
+        "Capacity cost arrives before Cloud Infrastructure Services revenue",
+        "Cloud Infrastructure Services deployment is delayed and Delivery pricing stays weak",
+        "The explicit cash path is valued at a 7.22% WACC and 0.30% terminal growth rate"
+      ],
+      "source": "analyses/AKAM_2026-09-14/valuation/07_scenario-and-fair-value.md, sections 1-4",
+      "joint_probability_basis": "The 30% judgment probability applies to conditions that share the same cash-durability driver: weaker operating delivery raises the required return while reducing cash flow."
+    }
+  ],
+  "idea_valuation_bridge": null,
+  "confidence_score": 50.0,
+  "data_sufficiency_score": 72,
+  "confidence_inputs": {
+    "data_sufficiency": 72,
+    "corroboration": 68,
+    "evidence_tier": 84,
+    "staleness_penalty": 0,
+    "edge_score": 45,
+    "edge_proof_present": true,
+    "decision": "Avoid",
+    "expected_return_pct": -29.71,
+    "modules_absent": [
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": 60,
+    "downgrades": [
+      {
+        "type": "scenario math sensitivity to one assumption",
+        "points": 10,
+        "reason": "The only value-producing method is an FCFF DCF with 82.2% of enterprise value in the terminal value; a 1 percentage-point WACC and 0.5 percentage-point terminal-growth change spans $45.65 to $109.66."
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 74.0,
+  "conviction": 50.0,
+  "sizing_hint": {
+    "band": "low",
+    "action": "lean avoid — monitor, no position"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 74.0,
+    "analysis_confidence_build": "0.5*dataSuff(72) + 0.25*corrob(68) + 0.25*tier(84) - stale(0) = 74.0",
+    "direction": "downside",
+    "documented_ceiling": 60.0,
+    "documented_ceiling_sources": [
+      100.0,
+      80.0,
+      70.0,
+      60.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 60.0,
+    "direction_ceiling_reason": "downside: min(documented 60, analysis_conf 74) — NOT edge-gated",
+    "understanding_capped_to_ceiling": 60.0,
+    "downgrades": [
+      {
+        "type": "scenario math sensitivity to one assumption",
+        "points": 10,
+        "reason": "The only value-producing method is an FCFF DCF with 82.2% of enterprise value in the terminal value; a 1 percentage-point WACC and 0.5 percentage-point terminal-growth change spans $45.65 to $109.66."
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 10.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 50.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "Any long is capped at Watchlist by RF-CAP-004. The forensic mosaic of RF-EQ-001, RF-DISC-002, and RF-OBS-001 separately caps a long at Starter Position Only. Governance and earnings each report zero Critical flags, and balance-sheet survival is Adequate rather than Distress risk. Avoid is below both long-rating ceilings.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle"
+  ],
+  "variant_perception_summary": "Everyone can see Security and Cloud Infrastructure Services growth and the Delivery decline. The market price appears to require either 16.35% annual strict free-cash-flow growth through FY2030 at the model WACC or a 5.05% market-implied WACC on the DCF cash path. The engine's possible edge is that current GAAP profit compression, debt-funded investment, recurring adjusted exclusions, and undisclosed category economics make that cash path less proven than the growth narrative suggests. This edge is only moderate because the one valid valuation method is terminal-heavy and the genuine upside case requires the cash-growth and lower-WACC conditions together.",
+  "what_everyone_knows": "Q2 FY2026 revenue grew 5.4%; Security grew 10%, Cloud Infrastructure Services grew 39%, and Delivery and other cloud applications fell 6%. Management has described more than $2.8 billion of signed 2026 multi-year Cloud Infrastructure Services commitments and expects larger revenue conversion in Q4 2026 and Q1 2027.",
+  "what_is_priced_in": "At $106.79, the reverse DCF requires strict free cash flow to compound 16.35% annually from $629.9 million to about $1.245 billion by FY2030 at a 6.22% WACC, or it requires a roughly 5.05% WACC on the explicit DCF cash path. Consensus target prices are much higher, but they are opinions rather than independent valuation evidence.",
+  "what_market_may_be_missing": "Revenue mix is improving while reported economics are worsening: Q2 GAAP-derived EBITDA fell 18.7%, GAAP EPS fell 26.8%, and gross margin fell 331 basis points. Security and Cloud Infrastructure Services category profit, capital, and cash conversion are undisclosed; strict net leverage is 5.14x; and $2.066 billion of FY2021-FY2025 cash acquisitions plus $205 million for LayerX lack a filed deal-level return scorecard.",
+  "edge_score": 45,
+  "edge_proof": "By the Q2 2027 filing, LTM strict free cash flow reaches at least about $733 million, using the same CFO-minus-property/equipment-and-capitalized-software cash-capex definition, while reported GAAP margins improve on a like-for-like basis. That would supply the first one-year step of the 16.35% price-implied cash path and weaken the engine's claim that the growth mix is not converting to economics.",
+  "killer_risk": "The price-implied 16.35% free-cash-flow path and the 5.0466% market-implied WACC occur together; that good-outcome conjunction produces $139.68 per share and would make the Avoid materially wrong.",
+  "kill_criteria": [
+    {
+      "condition": "Q3 FY2026 revenue is at least $1,123.7 million and GAAP gross margin is at least 59.3%.",
+      "comparable_basis": "Q3 FY2025 standalone revenue of $1,054.630 million and GAAP gross margin of 59.3%, on the same quarterly reporting basis.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Q3 FY2026 Form 10-Q, vendor-expected around 2026-11-03; the exact company date is not confirmed.",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "LTM strict free cash flow reaches at least $733 million by Q2 2027.",
+      "comparable_basis": "LTM Q2 FY2026 strict free cash flow of $629.9 million, using CFO minus cash purchases of property and equipment and capitalized internal-use software.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Q2 FY2027 Form 10-Q and a trailing-twelve-month cash-flow calculation on the same basis.",
+      "module_source": "valuation"
+    },
+    {
+      "condition": "Strict net leverage is at or below 3.0x for two consecutive quarter-ends by Q2 2027.",
+      "comparable_basis": "Q2 FY2026 strict net leverage of 5.14x, using filing debt less cash divided by GAAP-derived LTM EBITDA; FY2025 year-end was 2.49x on the nearest matched definition.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Q1 and Q2 FY2027 Forms 10-Q, using the same strict debt, cash, and GAAP-derived EBITDA basis.",
+      "module_source": "balance-sheet-survival"
+    },
+    {
+      "condition": "A filed deal-level scorecard shows that the FY2021-FY2025 $2.066 billion acquisition cohort and $205 million LayerX acquisition earn returns above a matched cost of capital.",
+      "comparable_basis": "Each deal's post-acquisition cash return divided by its own invested capital, compared with the same-period cost of capital; no such scorecard existed in the last two annual or quarterly reviews.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "FY2026 Form 10-K or 2027 proxy, plus any earlier filed deal-return disclosure.",
+      "module_source": "management-governance"
+    },
+    {
+      "condition": "A second independent, matched-basis valuation supports value at or above the prevailing AKAM market price.",
+      "comparable_basis": "Same-date enterprise value, debt, cash, fully diluted shares, and forward earnings or cash-flow basis; own-history and peer methods did not produce valid values in this run.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Refresh same-date peer and own-history data after the Q3 FY2026 report.",
+      "module_source": "valuation"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "FC-AKAM-Q3REV-2026",
+      "prediction": "Q3 FY2026 reported revenue is at least $1,123.7 million.",
+      "probability": 45,
+      "probability_basis": "judgment",
+      "time_window": "2026-10-15 to 2026-11-15",
+      "window_start": "2026-10-15T00:00:00Z",
+      "window_end": "2026-11-15T23:59:59Z",
+      "status_as_of": "2026-09-14T00:00:00Z",
+      "evidence_today": "Q3 consensus is $1,118.153 million and company guidance is $1,105 million to $1,130 million. The four observed recent beats are too few to form an empirical base rate.",
+      "source_citation": "Capital IQ Estimates Report, Consensus and Guidance worksheets, frozen 2026-09-14; Q2 2026 earnings release, Financial Guidance, p.2",
+      "metric": "Q3 FY2026 reported revenue, standalone quarter, USD millions",
+      "threshold": "At least $1,123.7 million",
+      "causal_steps": [
+        "Security growth offsets continued Delivery decline.",
+        "Deployment timing and contracted Cloud Infrastructure Services activity keep reported revenue near the upper end of guidance."
+      ],
+      "confirmation_trigger": "The Q3 FY2026 Form 10-Q or earnings release reports revenue at or above $1,123.7 million.",
+      "falsification_trigger": "The same filing or release reports revenue below $1,123.7 million.",
+      "stock_bullish_trigger": "Revenue is at least $1,123.7 million and management retains the Q4 Cloud Infrastructure Services ramp timing.",
+      "stock_bearish_trigger": "Revenue is below $1,112.6 million or management delays the Q4 Cloud Infrastructure Services ramp.",
+      "owner_module": "earnings",
+      "confidence_score": 68,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "forecast_id": "FC-AKAM-Q3EPS-2026",
+      "prediction": "Q3 FY2026 company-defined normalized or non-GAAP EPS is at least $1.70.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-10-15 to 2026-11-15",
+      "window_start": "2026-10-15T00:00:00Z",
+      "window_end": "2026-11-15T23:59:59Z",
+      "status_as_of": "2026-09-14T00:00:00Z",
+      "evidence_today": "Consensus normalized EPS is $1.68032, below the $1.70 midpoint of management's $1.60 to $1.80 non-GAAP range, but the vendor and company definitions do not fully bridge.",
+      "source_citation": "Capital IQ Estimates Report, Consensus and Guidance worksheets, frozen 2026-09-14; Q2 2026 earnings release, Financial Guidance, p.2",
+      "metric": "Q3 FY2026 company-defined normalized or non-GAAP diluted EPS, USD per share",
+      "threshold": "At least $1.70",
+      "causal_steps": [
+        "Revenue lands within the company range while operating expense stays within the planned band.",
+        "The company reports non-GAAP diluted EPS on the same disclosed definition used in its guidance."
+      ],
+      "confirmation_trigger": "The Q3 FY2026 release reports company-defined normalized or non-GAAP diluted EPS at or above $1.70.",
+      "falsification_trigger": "The same release reports that metric below $1.70.",
+      "stock_bullish_trigger": "Normalized or non-GAAP EPS is at least $1.70 and the FY2026 guide is retained or raised.",
+      "stock_bearish_trigger": "Normalized or non-GAAP EPS is below $1.66 or the FY2026 guide is cut.",
+      "owner_module": "earnings",
+      "confidence_score": 62,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "forecast_id": "FC-AKAM-Q3GM-2026",
+      "prediction": "Q3 FY2026 GAAP gross margin remains below the Q3 FY2025 comparable of 59.3%.",
+      "probability": 75,
+      "probability_basis": "judgment",
+      "time_window": "2026-10-15 to 2026-11-15",
+      "window_start": "2026-10-15T00:00:00Z",
+      "window_end": "2026-11-15T23:59:59Z",
+      "status_as_of": "2026-09-14T00:00:00Z",
+      "evidence_today": "Q1 and Q2 FY2026 GAAP gross margins were below their year-ago quarters, and Q2 operating costs grew faster than 5.4% revenue growth.",
+      "source_citation": "Q2 FY2026 Form 10-Q, pp.5 and 32-34; analyses/AKAM_2026-09-14/earnings/03_margin-drivers.md",
+      "metric": "Q3 FY2026 GAAP gross margin, standalone quarter",
+      "threshold": "Below 59.3%",
+      "causal_steps": [
+        "Cloud Infrastructure Services capacity and co-location cost arrives before full deployment revenue.",
+        "The filed quarterly gross profit and revenue resolve gross margin on a like-for-like GAAP basis."
+      ],
+      "confirmation_trigger": "The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%.",
+      "falsification_trigger": "The same filing reports GAAP gross margin at or above 59.3%.",
+      "stock_bullish_trigger": "GAAP gross margin is at or above 59.3% while revenue reaches at least $1,123.7 million.",
+      "stock_bearish_trigger": "GAAP gross margin remains below 59.3% and revenue is below $1,112.6 million.",
+      "owner_module": "earnings",
+      "confidence_score": 72,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "forecast_id": "FC-AKAM-FCF-2027Q2",
+      "prediction": "LTM strict free cash flow reaches at least $733 million by the Q2 FY2027 filing.",
+      "probability": 35,
+      "probability_basis": "judgment",
+      "time_window": "2027-07-01 to 2027-08-15",
+      "window_start": "2027-07-01T00:00:00Z",
+      "window_end": "2027-08-15T23:59:59Z",
+      "status_as_of": "2026-09-14T00:00:00Z",
+      "evidence_today": "LTM Q2 FY2026 strict free cash flow was $629.9 million; $733 million is the first 16.35% one-year step toward the reverse-DCF cash path.",
+      "source_citation": "analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 2-5; analyses/AKAM_2026-09-14/earnings/01_historical-financials.md",
+      "metric": "LTM strict free cash flow, USD millions, defined as CFO minus cash purchases of property and equipment and capitalized internal-use software",
+      "threshold": "At least $733 million",
+      "causal_steps": [
+        "Security and Cloud Infrastructure Services growth becomes cash revenue rather than only commitments.",
+        "Cash capital expenditure and operating costs moderate enough for LTM CFO minus total cash capex to clear $733 million."
+      ],
+      "confirmation_trigger": "The Q2 FY2027 Form 10-Q cash-flow data yield LTM strict free cash flow at or above $733 million on the named basis.",
+      "falsification_trigger": "The same filed data yield LTM strict free cash flow below $733 million on that basis.",
+      "stock_bullish_trigger": "LTM strict free cash flow reaches at least $733 million and like-for-like GAAP margins improve.",
+      "stock_bearish_trigger": "LTM strict free cash flow remains below $733 million or strict leverage stays above 5.0x.",
+      "owner_module": "valuation",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "cash_flow"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 68,
+      "verdict": "Average business — worth deeper work only if valuation is cheap; business quality 48 and no hard disqualifier."
+    },
+    "earnings": {
+      "score": 65,
+      "verdict": "Mixed earnings setup; Q2 revenue grew while GAAP-derived EBITDA and EPS fell, and unreconciled profit definitions cap usefulness."
+    },
+    "balance-sheet-survival": {
+      "score": 74,
+      "verdict": "Adequate; near-term scheduled maturities are cash-covered, but strict net leverage is 5.14x and covenant headroom is not assessable."
+    },
+    "catalyst": {
+      "score": 72,
+      "verdict": "Dated, evidenced near-term catalysts; the main operating upside is vaguely timed and does not support a bullish call."
+    },
+    "competitive-intel": {
+      "score": 0,
+      "verdict": "Not assessable; no eligible peer call or results evidence, so the module receives zero directional weight."
+    },
+    "management-governance": {
+      "score": 68,
+      "verdict": "Misaligned or weak stewardship; Governance Score 50, confidence-adjusted 33, Governance Rating Weak, six High flags and zero Critical."
+    },
+    "valuation": {
+      "score": 62,
+      "verdict": "Materially overvalued; $68.78 base value versus $106.79, with valuation confidence capped at 50 because only one method produces value."
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-CAP-004",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "FY2021-FY2025 cash acquisitions of $598.8 million + $872.1 million + $106.2 million + $434.1 million + $55.1 million = $2.066 billion, plus $205 million for LayerX, have no disclosed deal-level return or opportunity-cost scorecard.",
+      "rating_impact": "Caps any long rating at Watchlist."
+    },
+    {
+      "id": "RF-SHR-001",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "41.9% of votes cast opposed the 8.0 million-share 2026 stock-plan increase.",
+      "rating_impact": "Lowers the shareholder-rights read; no hard verdict lock."
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "Recurring stock-based compensation and restructuring exclusions materially widen adjusted profit from GAAP profit; FY2025 stock-based compensation of $459.4 million exceeded GAAP net income of $452.0 million.",
+      "rating_impact": "Contributes to the cross-module forensic mosaic."
+    },
+    {
+      "id": "RF-AUD-007",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "PwC U.S. received a 2024 PCAOB censure and $2.75 million penalty for independence quality-control failures; no AKAM engagement link was identified.",
+      "rating_impact": "Audit-quality penalty only; no company-specific misconduct conclusion."
+    },
+    {
+      "id": "RF-FIN-003",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "Known gross lease-related commitments total $2.331 billion = $1.8659 billion scheduled payments + $278.0 million uncommenced co-location leases + $187.1 million final data-center commitment.",
+      "rating_impact": "Raises contingent-risk assessment."
+    },
+    {
+      "id": "RF-CL-001",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "The same $2.331 billion lease-related commitment build equals 46.8% of FY2025 equity and 515.7% of FY2025 profit after tax; $1.570 billion is recognized and $731.2 million of future sublease income is separate.",
+      "rating_impact": "No hard lock; retain the matched-basis disclosure."
+    },
+    {
+      "id": "EARNINGS-MATERIAL-CONCERNS",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "The earnings red-flag specialist reported ten High and eight Medium concerns, including falling reported profitability, missing solution economics, Delivery pressure, Cloud Infrastructure Services timing, recurring adjusted add-backs, and conflicting profit definitions; it reported zero Critical flags.",
+      "rating_impact": "Prevents a clean earnings-acceleration call; no separate verdict lock."
+    },
+    {
+      "id": "FORENSIC-MOSAIC-RF-EQ-001-RF-DISC-002-RF-OBS-001",
+      "severity": "High",
+      "source_module": "cross-module",
+      "description": "RF-EQ-001 accrual and capitalization signals, RF-DISC-002 recurring adjusted exclusions, and RF-OBS-001 lease-related obligation growth fire across earnings, governance, and balance-sheet modules.",
+      "rating_impact": "Compound High flag; caps any long rating at Starter Position Only, with no edge bypass."
+    }
+  ],
+  "missing_data": [
+    "Filed Security and Cloud Infrastructure Services category profit, capital, retention, and cash-conversion data on a matched basis",
+    "A valid same-date matched peer valuation with enterprise-value bridges and comparable forward definitions",
+    "Eligible peer earnings calls and results for Cloudflare, Fortinet, and Fastly",
+    "The frozen FY2026 DEF 14A and complete ownership, pledge, and Form 4 history",
+    "Deal-level return, synergy, impairment, and alternative-use scorecards for the acquisition cohort",
+    "Executed credit-agreement and covenant definitions needed to calculate actual headroom",
+    "A company-confirmed Q3 FY2026 report date and deployment schedule for the main Cloud Infrastructure Services contracts",
+    "A current issuer credit rating and related rationale",
+    "Options, borrow, and liquidity data needed to assess a short or options expression"
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "matched-peer-valuation-export",
+      "priority": 1,
+      "series": "A consistent same-date peer export for Cloudflare, Fortinet, and Fastly containing enterprise value, LTM and NTM revenue, EBITDA, EBIT, EPS, free cash flow, net debt, fully diluted shares, and data dates",
+      "why_it_caps": "The $68.78 base value is produced by one DCF, while the $139.68 good-outcome tail requires a two-condition master DCF inference; a second independent matched-basis valuation is the highest-value test of a false-negative Avoid.",
+      "expected_impact": {
+        "if_supportive": "A warranted peer value at or above AKAM's market price would weaken reliance on the sole DCF and require a fresh decision review.",
+        "if_adverse": "A warranted peer value materially below market would strengthen the rejection of the long, subject to peer comparability."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "relative-valuation-peers",
+          "why": "This orb owns the matched peer set, enterprise-value reconciliation, and warranted-multiple test.",
+          "confidence": 0.98
+        }
+      ],
+      "suggested_source": {
+        "name": "Capital IQ peer trading-multiples export",
+        "acquisition": "manual",
+        "access": "licensed",
+        "licensing_basis": "subscription vendor export subject to the account's licensed-use terms"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "filed-security-cis-economics",
+      "priority": 2,
+      "series": "Filed Security and Cloud Infrastructure Services revenue, direct cost, profit, deployed capital, retention, and cash capital expenditure on one matched reporting basis",
+      "why_it_caps": "The central growth-mix claim cannot be tied to group margin, return on capital, or free cash flow, limiting both business-quality and valuation confidence.",
+      "expected_impact": {
+        "if_supportive": "Profitable category growth with rising cash conversion would strengthen the bull case and test the price-implied free-cash-flow path.",
+        "if_adverse": "Weak category margins or cash conversion would strengthen the conclusion that growth is consuming capital without adequate return."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "This orb owns the category revenue bridge and missing solution-economics question.",
+          "confidence": 0.96
+        },
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "This orb owns the unit-value and return-on-capital test.",
+          "confidence": 0.94
+        }
+      ],
+      "suggested_source": {
+        "name": "Company quarterly or annual SEC filing with category economics",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing; confirm applicable SEC terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "filed-acquisition-return-scorecard",
+      "priority": 3,
+      "series": "Deal-level purchase price, acquired revenue, retention, synergy delivery, profit, cash return, impairment, and alternative-use comparison for the FY2021-FY2025 acquisition cohort and LayerX",
+      "why_it_caps": "RF-CAP-004 caps any long at Watchlist because repeated acquisition spending has no filed deal-level proof of per-share value creation.",
+      "expected_impact": {
+        "if_supportive": "Cash returns above a matched cost of capital would weaken the serial-acquirer concern, subject to persistence and full opportunity-cost accounting.",
+        "if_adverse": "Returns below the matched cost of capital or further impairments would reinforce the stewardship cap and the Avoid."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "capital-allocation-scorecard",
+          "why": "This orb owns RF-CAP-004 and the deal-return and opportunity-cost assessment.",
+          "confidence": 0.98
+        }
+      ],
+      "suggested_source": {
+        "name": "Company annual SEC filing or proxy acquisition-return disclosure",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing; confirm applicable SEC terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "annual"
+    },
+    {
+      "need_id": "frozen-fy2026-proxy",
+      "priority": 4,
+      "series": "FY2026 DEF 14A compensation, ownership, board, related-party transaction, auditor-fee, voting, and shareholder-rights disclosures",
+      "why_it_caps": "The missing frozen proxy caps incentive alignment, governance usefulness, ownership, audit assurance, and confidence in the governance read.",
+      "expected_impact": {
+        "if_supportive": "Performance-based pay, complete ownership, and responsive voting disclosures would reduce governance uncertainty without automatically lifting RF-CAP-004.",
+        "if_adverse": "Weak pay design, undisclosed conflicts, or further shareholder dissent would deepen the governance concern."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "governance-data-triage",
+          "why": "This orb owns the proxy sufficiency gate and routes its evidence to the governance specialists.",
+          "confidence": 0.99
+        }
+      ],
+      "suggested_source": {
+        "name": "Company FY2026 DEF 14A filed with the SEC",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing; confirm applicable SEC terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "annual"
+    },
+    {
+      "need_id": "executed-credit-covenant-definitions",
+      "priority": 5,
+      "series": "Executed credit agreement, amendments, covenant definitions, permitted add-backs, and tested compliance levels",
+      "why_it_caps": "The survival module can model cash and maturity coverage but cannot calculate actual covenant headroom, leaving the leverage break point not assessable.",
+      "expected_impact": {
+        "if_supportive": "Wide matched-basis covenant headroom would reduce the chance that a deployment delay creates a financing constraint.",
+        "if_adverse": "Tight headroom, broad add-backs, or restrictive baskets would raise refinancing and capital-allocation risk."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "balance-sheet-survival",
+          "agent": "coverage-and-covenants",
+          "why": "This orb owns the covenant definition, compliance, and headroom calculation.",
+          "confidence": 0.98
+        }
+      ],
+      "suggested_source": {
+        "name": "Company SEC-filed credit agreement and amendments",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing; confirm applicable SEC terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "event_driven"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-10-14",
+    "90d": "2026-12-13",
+    "180d": "2027-03-13",
+    "365d": "2027-09-14"
+  },
+  "created_by": "synthesizer",
+  "notes": "Avoid is a rejection of the long, not a Short Candidate. The repaired scenario set includes a 10%-probability $139.68 bull_execution case (+30.80%) built from the reverse-DCF's 16.35% cash-growth path and 5.0466% market-implied WACC; the module's $109.66 DCF sensitivity remains a separate mild-upside state. Options and borrow data are absent. A separate $33.99 bear_structural value is a 24-36 month avoid-ruin floor and is not mixed into the 12-month scenario set. Memory ran in shadow mode; compilation for master/synthesizer failed because this host lacks active Xcode command-line tools, so the ordinary no-memory task continued. No benchmark was assigned because the frozen evidence did not establish an admissible total-return benchmark.",
+  "business_type": "Generic operating company",
+  "primary_valuation_method": "FCFF DCF",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-09-14_calibration_summary.json",
+    "status": "checked_no_action",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {
+      "bad base rate": "The reverse DCF tests price-implied free-cash-flow growth against matched free-cash-flow history, and the four-quarter surprise sample is labelled judgment rather than frequency [analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 3-5; analyses/AKAM_2026-09-14/earnings/04_guidance-consensus.md, section 6].",
+      "valuation multiple error": "The six-close own-history series and heterogeneous 59.4x peer median receive zero value weight, and the mechanical $377.81 output is excluded [analyses/AKAM_2026-09-14/valuation/07_scenario-and-fair-value.md, sections 1-2].",
+      "bad causal inference": "The revenue and margin bridges show their arithmetic and zero residuals, and no category sensitivity is treated as a forecast [analyses/AKAM_2026-09-14/earnings/99_earnings-synthesis.md, sections 2-3].",
+      "false negative": "The valuation module's +2.69% bull failed the span test, so the master explicitly combines the price-implied 16.35% cash path and 5.0466% WACC into a $139.68 (+30.80%) good-outcome case, avoids a short, and makes a second valuation the top data request [analyses/AKAM_2026-09-14/valuation/04_intrinsic-dcf.md, sections 4-7; analyses/AKAM_2026-09-14/valuation/05_reverse-dcf.md, sections 2-2A; analyses/AKAM_2026-09-14/final_thesis.md, sections 8-9A].",
+      "timing error": "The catalyst calendar separates the vendor-expected Q3 date from proven contractual dates and labels the Q4 2026-Q1 2027 Cloud Infrastructure Services timing vague [analyses/AKAM_2026-09-14/catalyst/99_catalyst-synthesis.md, sections 1-4]."
+    },
+    "rationale": "The latest as-of summary is Pre-data, so module, forecast-type, and thesis-type skill metrics are withheld. Its five leading error categories each have a concrete current-run defense, so the always-on error-taxonomy check found no reason for the fixed haircut."
+  },
+  "integrity_gate": {
+    "status": "provisional",
+    "violations": [
+      "verify-evidence verdict = Material issues (not Clean/Minor — integrity 65/100, see verification_report.json)"
+    ],
+    "gate": "research:full step 10B"
+  },
+  "confidence_haircut": 5.0,
+  "pre_mortem_verdict": "Survives with haircut",
+  "post_review_confidence_score": 45.0,
+  "post_mortem_decision": "Avoid",
+  "post_mortem_basket": "Rejected",
+  "execution_provenance": {
+    "schema_version": "1.0",
+    "source": "cockpit_runtime",
+    "coverage": "cockpit_top_level_processes",
+    "provider_mode": "single_provider",
+    "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+    "decision_author": {
+      "attempt_id": "4bf14beb-e478-4b49-93e1-45269f5e1e5e",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded"
+    },
+    "contributors": [
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "configured",
+        "scopes": [
+          "memo",
+          "memo-writer",
+          "module-memo-writer"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "recorded",
+        "scopes": [
+          "balance-sheet-survival",
+          "business-model",
+          "catalyst",
+          "competitive-intel",
+          "earnings",
+          "management-governance",
+          "master",
+          "module",
+          "rerun",
+          "research",
+          "synthesizer",
+          "valuation"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-terra",
+        "reasoning_level": "xhigh",
+        "attribution": "configured",
+        "scopes": [
+          "specialists"
+        ]
+      }
+    ],
+    "cli_versions": {
+      "codex": "codex-cli 0.149.0"
+    }
+  }
+}
