@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.1",
+  "swarm": "research",
+  "subject": "AKAM",
+  "ticker": "AKAM",
+  "run_root": "analyses/AKAM_2026-09-14",
+  "decision_fingerprint": "sha256:751ee6e90f76154f5040bc10828130dbc0b798df18db56609eb43dfc15c4a071",
+  "scan_date": "2026-09-14",
+  "scanned_at": "2026-09-14T14:08:33.614Z",
+  "watermark": "analyses/AKAM_2026-09-14/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/AKAM/Cloudflare,IncNYSENETEstimatesReport.xls",
+      "sha256": "7a4dd1928af29a578e04de4d5c8c9a8371f2ba6aa07a063797ef2743ff54275e",
+      "provider": "Capital IQ",
+      "source_type": "vendor_export",
+      "tier": 5,
+      "as_of": "",
+      "claims_summary": "Cloudflare's report gives NTM TEV/revenue of 33.30x, TEV/EBITDA of 127.66x, TEV/EBIT of 192.47x, and P/E of 207.41x; FY2026 consensus revenue, EBITDA, and free cash flow are $2.872bn, $699.0m, and $348.6m.",
+      "materiality_score": 80,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "relative-valuation-peers",
+          "why": "The run's priority-1 data need names Cloudflare within the matched peer set, and this report supplies NTM multiple and forward operating inputs that relative-valuation-peers explicitly consumes.",
+          "confidence": 0.98
+        }
+      ]
+    },
+    {
+      "path": "data/AKAM/Fastly,IncNasdaqGSFSLYEstimatesReport.xls",
+      "sha256": "3c12c87803a59715c544d60a88850ef30497fb858410af142d89f9048a67e6a6",
+      "provider": "Capital IQ",
+      "source_type": "vendor_export",
+      "tier": 5,
+      "as_of": "",
+      "claims_summary": "Fastly's report gives NTM TEV/revenue of 4.79x, TEV/EBITDA of 25.08x, TEV/EBIT of 37.72x, and P/E of 45.63x; FY2026 consensus revenue, EBITDA, and free cash flow are $740.6m, $137.0m, and $46.0m.",
+      "materiality_score": 80,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "relative-valuation-peers",
+          "why": "The run's priority-1 data need names Fastly within the matched peer set, and this report supplies NTM multiple and forward operating inputs that relative-valuation-peers explicitly consumes.",
+          "confidence": 0.98
+        }
+      ]
+    },
+    {
+      "path": "data/AKAM/Fortinet,IncNasdaqGSFTNTEstimatesReport.xls",
+      "sha256": "bdd3a2400d6e38b9eff12b4bb4ce6b426fedb5c543915dde4a28ebace9535c9d",
+      "provider": "Capital IQ",
+      "source_type": "vendor_export",
+      "tier": 5,
+      "as_of": "",
+      "claims_summary": "Fortinet's report gives NTM TEV/revenue of 13.02x, TEV/EBITDA of 34.53x, TEV/EBIT of 36.45x, and P/E of 44.45x; FY2026 consensus revenue, EBITDA, and free cash flow are $8.119bn, $3.083bn, and $3.096bn.",
+      "materiality_score": 80,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "relative-valuation-peers",
+          "why": "The run's priority-1 data need names Fortinet within the matched peer set, and this report supplies NTM multiple and forward operating inputs that relative-valuation-peers explicitly consumes.",
+          "confidence": 0.98
+        }
+      ]
+    },
+    {
+      "path": "data/AKAM/external/capital-iq-peer-trading-multiples-export/Fastly,IncNasdaqGSFSLYEstimatesReport.xls",
+      "sha256": "3c12c87803a59715c544d60a88850ef30497fb858410af142d89f9048a67e6a6",
+      "provider": "Capital IQ peer trading-multiples export",
+      "source_type": "broker_research",
+      "tier": 7,
+      "as_of": "",
+      "claims_summary": "This routed Fastly workbook is byte-identical to the top-level Fastly estimates report, with the same SHA-256, so it adds provenance but no independent evidence.",
+      "materiality_score": 5,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      {
+        "module": "valuation",
+        "agent": "relative-valuation-peers"
+      }
+    ],
+    "commands": [
+      {
+        "command": "/research:rerun valuation relative-valuation-peers AKAM",
+        "module": "valuation",
+        "agent": "relative-valuation-peers",
+        "cascade_modules": [
+          "valuation",
+          "catalyst"
+        ],
+        "triggered_by": [
+          "data/AKAM/Cloudflare,IncNYSENETEstimatesReport.xls",
+          "data/AKAM/Fastly,IncNasdaqGSFSLYEstimatesReport.xls",
+          "data/AKAM/Fortinet,IncNasdaqGSFTNTEstimatesReport.xls"
+        ]
+      }
+    ],
+    "note_only": [
+      {
+        "path": "data/AKAM/external/capital-iq-peer-trading-multiples-export/Fastly,IncNasdaqGSFSLYEstimatesReport.xls",
+        "reason": "Exact duplicate of the top-level Fastly report, with the same SHA-256 and origin; it adds no independent evidence, and its sidecar classifies it as tier-7 broker_research."
+      }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Three unique Capital IQ peer estimates reports and one byte-identical routed Fastly copy arrived after the run; the scan used final_thesis.md as the finished-run watermark. The unique reports add matched NTM revenue, EBITDA, EBIT, and P/E multiples for Cloudflare, Fastly, and Fortinet, the exact peer set named by the run's priority-1 valuation data need. Re-run only valuation/relative-valuation-peers and then its downstream cascade; the reports still lack a clearly stated overall as-of date and full EV/share bridges, while the duplicate is note-only."
+}

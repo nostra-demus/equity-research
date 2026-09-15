@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-69441c9f6035",
+  "idea_version": "IDEAV-3864d3d0cf90ad00",
+  "idea_version_started_at": "2026-09-13T12:04:53Z",
+  "ticker": "BABA",
+  "company": "Alibaba",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Alibaba is implicated in Chinese military research using US frontier AI models, which could lead to significant regulatory scrutiny, sanctions, or reputational damage.",
+  "why_now": "The report detailing Alibaba's involvement was published on September 13, 2026, making this a live regulatory and operational risk.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "policy_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-745b2b326a6d"
+  ],
+  "primary_source_event_id": "EVT-745b2b326a6d",
+  "source_headlines": [
+    "Chinese military researchers and tech giants caught using Claude — US frontier model, coded 16 air-defense suppression tools targeting Taiwan, drafted anti-torpedo specs, and fed 151 million training queries to Alibaba"
+  ],
+  "source_headline": "Chinese military researchers and tech giants caught using Claude — US frontier model, coded 16 air-defense suppression tools targeting Taiwan, drafted anti-torpedo specs, and fed 151 million training queries to Alibaba",
+  "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/chinese-military-researchers-and-tech-giants-caught-using-claude-us-frontier-model-coded-16-air-defense-suppression-tools-targeting-taiwan-drafted-anti-torpedo-specs-and-fed-151-million-training-queries-to-alibaba",
+  "source_name": "Tom's Hardware",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-13T12:00:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-13T12:04:53Z",
+  "updated_at": "2026-09-13T12:04:53Z",
+  "decay_at": "2026-09-15T00:00:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

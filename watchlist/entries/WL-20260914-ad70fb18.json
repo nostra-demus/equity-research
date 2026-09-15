@@ -1,0 +1,60 @@
+{
+  "schema_version": "watchlist-entry/v1",
+  "entry_id": "WL-20260914-ad70fb18",
+  "origin": "manual",
+  "listing": {
+    "ticker": "WSE",
+    "ticker_raw": "WSE",
+    "currency": "USD",
+    "exchange": "NASDAQ",
+    "company_name": "Wise Group PLC",
+    "listing_key": "WSE|USD"
+  },
+  "engine_ref": null,
+  "why": "1. Earnings: FY28 evidence gets toward ~$0.77.\n2. Downside de-risking: regulatory remediation makes 16x Bear demonstrably too punitive. Reapplication to the OCC.\n3. Combination: e.g., ~$0.74–0.75 EPS plus moderate Bear-multiple improvement.",
+  "conviction": "high",
+  "review_date": "2026-10-15",
+  "tags": [],
+  "triggers": [
+    {
+      "kind": "price_level",
+      "trigger_id": "TRG-9db25a713a10",
+      "direction": "at_or_below",
+      "level": 10.5,
+      "currency": "USD"
+    }
+  ],
+  "attachments": [],
+  "assignee": "AB",
+  "task_id": null,
+  "archive": null,
+  "history": [
+    {
+      "at": "2026-09-14T08:07:25.890Z",
+      "by": "banks@alloc8.xyz",
+      "action": "created",
+      "detail": ""
+    },
+    {
+      "at": "2026-09-14T13:01:30.044Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
+    },
+    {
+      "at": "2026-09-14T13:01:45.884Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
+    },
+    {
+      "at": "2026-09-14T13:02:16.078Z",
+      "by": "banks@alloc8.xyz",
+      "action": "assigned",
+      "detail": "AB"
+    }
+  ],
+  "created_at": "2026-09-14T08:07:25.890Z",
+  "created_by": "banks@alloc8.xyz",
+  "updated_at": "2026-09-14T13:02:16.078Z"
+}

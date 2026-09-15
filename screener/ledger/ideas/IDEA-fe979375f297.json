@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-fe979375f297",
+  "idea_version": "IDEAV-f0a28ee183c1f19a",
+  "idea_version_started_at": "2026-09-13T22:07:30Z",
+  "ticker": "BATHLA",
+  "company": "Bathla",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company faces a liquidation threat due to the need to find longer-term funding.",
+  "why_now": "The threat was highlighted in news on September 13, 2026.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-37a684857d6d"
+  ],
+  "primary_source_event_id": "EVT-37a684857d6d",
+  "source_headlines": [
+    "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds"
+  ],
+  "source_headline": "Liquidation Threat Looms as Bathla Must Find Longer-Term Funds",
+  "source_url": "https://www.livemint.com/companies/liquidation-threat-looms-as-bathla-must-find-longer-term-funds-11789331850113.html",
+  "source_name": "Mint",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-13T20:37:29Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-13T22:07:30Z",
+  "updated_at": "2026-09-13T22:07:30Z",
+  "decay_at": "2026-09-15T08:37:29Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

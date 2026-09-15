@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-d0d8fb1cd912",
+  "idea_version": "IDEAV-3b3593bbc1d07213",
+  "idea_version_started_at": "2026-09-13T17:56:30Z",
+  "ticker": "KR",
+  "company": "Kroger",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Kroger has lost $12 billion as customer behavior shifts, indicating a significant negative impact on its revenue and market share.",
+  "why_now": "The reported $12 billion loss due to changing customer behavior is a current and material event impacting the company's valuation.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b1b14c16b47e"
+  ],
+  "primary_source_event_id": "EVT-b1b14c16b47e",
+  "source_headlines": [
+    "Kroger loses $12 billion as customer behavior takes a turn"
+  ],
+  "source_headline": "Kroger loses $12 billion as customer behavior takes a turn",
+  "source_url": "https://finance.yahoo.com/economy/articles/kroger-loses-12-billion-customer-140700364.html",
+  "source_name": "Yahoo Finance",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-13T14:07:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-11T13:45:18Z",
+  "updated_at": "2026-09-13T17:56:30Z",
+  "decay_at": "2026-09-15T02:07:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

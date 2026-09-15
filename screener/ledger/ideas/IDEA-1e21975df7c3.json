@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-1e21975df7c3",
-  "idea_version": "IDEAV-e826bd2e34cc78c9",
-  "idea_version_started_at": "2026-09-08T21:38:42Z",
+  "idea_version": "IDEAV-f2882134d822e1f8",
+  "idea_version_started_at": "2026-09-13T18:31:35Z",
   "ticker": "GME",
   "company": "GameStop",
   "exchange": "NYSE",
@@ -11,17 +11,17 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company reported an increase in quarterly profit and raised its full-year outlook, signaling better-than-expected operational performance.",
-  "why_now": "The Q2 2026 earnings report was released on September 8, 2026.",
-  "conviction": 50,
+  "reason": "CEO Ryan Cohen's purchase of 1 million shares for $20 million provides a strong signal of internal confidence and often triggers retail-driven momentum in this specific ticker.",
+  "why_now": "The insider transaction was reported on September 12, 2024, providing a fresh sentiment catalyst.",
+  "conviction": 55,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 59,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 18,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -43,30 +43,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "liquidity_positioning",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ab04c9656e52"
+    "EVT-95b38c9e5ac1"
   ],
-  "primary_source_event_id": "EVT-ab04c9656e52",
+  "primary_source_event_id": "EVT-95b38c9e5ac1",
   "source_headlines": [
-    "GameStop Q2 2026 earnings: profit rises, full-year outlook raised"
+    "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME"
   ],
-  "source_headline": "GameStop Q2 2026 earnings: profit rises, full-year outlook raised",
-  "source_url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-q2-2026-earnings-profit-174413093.html",
-  "source_name": "Yahoo Finance",
-  "materiality_max": 100,
-  "newest_source_at": "2026-09-08T17:44:13Z",
+  "source_headline": "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME",
+  "source_url": "https://www.fool.com/coverage/filings/2026/09/12/gamestop-billionaire-ryan-cohen-buys-1-million-shares-for-usd20-million-what-this-large-purchase-means-for-gme/?source=iedfolrf0000001",
+  "source_name": "The Motley Fool",
+  "materiality_max": 96,
+  "newest_source_at": "2026-09-12T18:13:01Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-08T21:38:42Z",
-  "updated_at": "2026-09-08T21:38:42Z",
-  "decay_at": "2026-09-10T05:44:13Z",
+  "surfaced_at": "2026-09-12T20:43:48Z",
+  "updated_at": "2026-09-13T18:31:35Z",
+  "decay_at": "2026-09-14T06:13:01Z",
   "status": "live",
   "promoted_signal_id": null
 }

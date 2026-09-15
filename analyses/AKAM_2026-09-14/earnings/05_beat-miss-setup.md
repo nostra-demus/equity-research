@@ -1,0 +1,69 @@
+# Beat / Miss Setup — AKAM
+
+## 1. Next Reporting Period Context
+
+AKAM is expected to file its Q3 2026 Form 10-Q for the standalone three months ended 30 September 2026, with the Capital IQ workbook indicating 3 November 2026 as the expected filing date. **FQ3 2026 bar: revenue $1,118.153m / normalized EPS $1.68032 per share (standalone three-month basis; no restatement is needed because Q2 is not part of the Q3 filing; normalized EPS is the vendor's adjusted series and only the closest available comparison to company non-GAAP EPS).** The revenue bar implies 6.0% year-on-year growth and the normalized-EPS bar a 9.7% decline versus Q3 2025; seasonality is not assessable from only six actual quarters, and consensus is nearly at management's $1,117.5m revenue midpoint and below its non-GAAP EPS midpoint, making the bar fair rather than clearly easy. [Capital IQ Estimates Report, Guidance and Consensus worksheets, current FQ3 2026 fields — vendor basis, data frozen 2026-09-14; Q2 2026 earnings release, Financial guidance, p.2]
+
+## 2. Beat Scenarios
+
+Likelihood labels are judgment based on the cited Q2 data, Q2 call, and 9 September management comments; they are not empirical probabilities.
+
+| Scenario | Driver | What Would Need To Happen | Likelihood (High / Mid / Low) | Evidence |
+|---|---|---|---|---|
+| Security carries the quarter | Security adoption and cross-sell | Security must hold or improve on Q2's 10% year-on-year growth, allowing the largest category (55% of Q2 revenue) to offset the known Delivery drag and Q3's lack of CIS acceleration. | Mid | Security revenue was $604.4m, up 10% year on year in Q2, led by API security, web application firewall, and Guardicore. Management later described continuing demand in mature WAF, DDoS, and bot products. [Q2 FY2026 Form 10-Q, Item 2—Revenue, p.30; Citi 2026 Global TMT Conference, 2026-09-09, management discussion] |
+| Better-than-expected Delivery retention | Delivery renewal pricing and traffic | Delivery's renewal-price decline and traffic optimisation would need to be less adverse than in Q2, helping revenue and fixed-network cost absorption. This is a partial offset, not an AI-driven Delivery rebound. | Low | Delivery and other cloud applications were $395.9m, down 6% year on year in Q2. At the September conference, management said pricing remained competitive and AI had not yet changed Delivery's byte volume at scale. [Q2 FY2026 Form 10-Q, Item 2—Revenue, p.30; Citi 2026 Global TMT Conference, 2026-09-09, management discussion] |
+| Earlier CIS capacity conversion | CIS deployment and GPU availability | Recently delivered GPUs and contracted capacity would need to be installed and billable earlier than management assumed, producing more Q3 revenue even though management did not expect category-growth acceleration in Q3. | Low | Some GPU shipments slipped from Q2 into Q3, reducing the weeks of Q3 revenue from signed deals; management explicitly did not expect CIS growth acceleration in Q3. [Q2 FY2026 earnings call, 2026-08-06, CFO Q&A] |
+| EPS beats within the revenue range | Colocation and operating-spend execution | Revenue would need to land near the upper half of the $1,105m–$1,130m range while non-GAAP operating expense stays near the low end of $347m–$359m and EBITDA margin reaches the upper part of the 38%–40% range. | Mid | Consensus EBITDA is $434.247m, 0.39% below management's derived $435.95m midpoint; normalized EPS consensus is 1.16% below the $1.70 non-GAAP EPS midpoint. The comparisons are directional because the vendor workbook has no adjustment bridge to management's measures. [Q2 2026 earnings call, CFO prepared remarks; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14] |
+
+## 3. Miss Scenarios
+
+| Scenario | Driver | What Would Need To Happen | Likelihood (High / Mid / Low) | Evidence |
+|---|---|---|---|---|
+| CIS deployment timing slips again | GPU, colocation, and equipment deployment | Capacity arriving later than planned, or taking longer to rack and activate, would remove more Q3 revenue weeks while much of the associated spend remains in the quarter. | Mid | Q2 CapEx was below guidance because GPU shipments arrived after quarter-end and pushed planned spend into Q3. Management said Q3 would not show CIS growth acceleration because the shift reduced Q3 revenue weeks. [Q2 FY2026 earnings call, 2026-08-06, CFO prepared remarks and Q&A] |
+| Delivery declines more than management assumes | Renewal price and customer traffic | Downward renewal pricing or customer optimisation would need to worsen from Q2, taking a larger-than-guided bite from the 36%-of-revenue combined Delivery and other-cloud-applications category. | Mid | The Q2 filing attributes the category's 6% decline to lower renewal pricing and customer cost optimisation. Management still said in September that Delivery pricing was competitive. [Q2 FY2026 Form 10-Q, Item 2—Revenue, p.30; Citi 2026 Global TMT Conference, 2026-09-09, management discussion] |
+| Capacity costs outrun current revenue | Colocation, network build-out, and operating expenses | Revenue could remain inside guidance while colocation, equipment-related depreciation, and operating expenses leave EBITDA or EPS below the consensus bar. | Mid | Q3 CapEx is guided to $475m–$525m, or 43%–46% of revenue; Q3 cash gross margin is about 70% and non-GAAP operating margin 24%–26%. Management attributes the margin pressure to CIS capacity expansion. [Q2 FY2026 earnings call, CFO prepared remarks] |
+| Security slows at the same time as Delivery weakens | Security adoption and cross-sell | Security growth would need to fall below the high-single-digit full-year direction just as Delivery remains weak, leaving no large category to offset CIS's Q3 timing limitation. | Low | Security was 55% of Q2 revenue and grew 10%, but the full-year guide is only high-single-digit constant-currency growth and no in-quarter Security KPI is disclosed. [Q2 FY2026 Form 10-Q, Item 2—Revenue, p.30; Q2 FY2026 earnings call, CFO prepared remarks] |
+
+## 4. What Magnitude Matters?
+
+The numerical beat/miss cut-offs below are judgment thresholds, not company guidance or measured stock-reaction thresholds. They use the last four quarterly surprise magnitudes (revenue beats of 0.08%–1.75% and normalized-EPS beats of 0.62%–13.41%) as a small, four-observation reference and therefore are not empirical frequencies. [Capital IQ Estimates Report, Surprise worksheet, FQ3 2025–FQ2 2026 — vendor basis, data frozen 2026-09-14]
+
+| Metric | Consensus / Bar | Material Beat Threshold | Material Miss Threshold | Why |
+|---|---:|---:|---:|---|
+| Revenue | $1,118.153m | At least $1,123.7m (0.5% above consensus) | At most $1,112.6m (0.5% below consensus) | A $5.6m move is materially larger than the $0.653m gap between consensus and the $1,117.5m guidance midpoint, yet remains within the $1,105m–$1,130m guide range. [Q2 2026 earnings release, Financial guidance, p.2; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14] |
+| EBITDA | $434.247m vendor EBITDA | Not assessable on a matched basis; $438.6m (1% above) is only a vendor-series flag | Not assessable on a matched basis; $429.9m (1% below) is only a vendor-series flag | Management guides EBITDA margin, while the workbook's EBITDA definition has no disclosed adjustment bridge. It must not be treated as a clean comparison to GAAP-derived or company-defined EBITDA. [Q2 2026 earnings call, CFO prepared remarks; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14] |
+| EPS | $1.68032 normalized EPS | At least $1.70 | At most $1.66 | $1.70 both exceeds consensus by 1.17% and equals management's non-GAAP EPS midpoint; $1.66 is 1.21% below consensus but still within the $1.60–$1.80 guide range. Definition differences remain. [Q2 2026 earnings release, Financial guidance, p.2; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14] |
+| Guidance | FY2026 revenue guide $4.445bn–$4.530bn; midpoint $4.4875bn | Midpoint raised by at least $25m to $4.5125bn, with the Q4 CIS-ramp timing retained | Midpoint cut by at least $25m to $4.4625bn, or Q4 CIS-ramp timing deferred | The current midpoint is only $3.763m below FY2026 revenue consensus; a $25m change is a 0.56% move and would be more informative than that current gap. The timing condition matters because management places the larger CIS acceleration in Q4. [Q2 2026 earnings release, Financial guidance, p.2; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14; Q2 FY2026 earnings call, CFO Q&A] |
+
+## 5. In-Line Print But Bad Guidance Risk
+
+| Risk | Evidence | Why It Matters |
+|---|---|---|
+| In-line Q3 but guide-down from a delayed Q4 CIS ramp | Management expected the larger CIS acceleration in Q4 after Q3 GPU-delivery delays. At the September Goldman conference, management described Q4 revenue contributions of about $15m and about $20m from two larger deals, while acknowledging that a one- or two-week delay can move timing. [Q2 FY2026 earnings call, CFO Q&A; Goldman Sachs Communacopia + Technology Conference, 2026-09-09, CFO discussion] | Q3 can meet its bar without disproving a FY2026 shortfall if the Q4 ramp moves. |
+| Beat revenue but weak margin guide | Q3 CapEx guidance is $475m–$525m and management guides 24%–26% non-GAAP operating margin, with colocation investment cited as the reason for gross-margin pressure. [Q2 FY2026 earnings call, CFO prepared remarks] | A revenue beat is lower quality if incremental capacity spending prevents margin or free-cash-flow improvement. |
+| Beat adjusted EPS but miss quality | Q2 GAAP diluted EPS was $0.52 versus non-GAAP diluted EPS of $1.59; the $1.07 difference reflects, among other items, stock-based compensation, depreciation/amortization, acquired-intangible amortization, restructuring, and acquisition-related items. [Q2 2026 Supplemental Financial Information, GAAP to Non-GAAP Reconciliation sheet] | A normalized-EPS beat alone does not establish that GAAP operating profit or cash conversion has improved. |
+| Beat revenue but working capital deteriorates | FY2025 operating working capital rose to $522.5m from $374.8m in FY2024, but no Q3 working-capital guide or billing-mix KPI is disclosed. [FY2025 Form 10-K, pp.53–56; Capital IQ Financials workbook, Balance Sheet, FY2024–FY2025 columns — vendor basis, data frozen 2026-09-14] | Not proven from available data whether a Q3 revenue beat would convert to cash; the quarterly cash-flow and balance-sheet print is needed. |
+
+## 6. Seasonality Read
+
+Seasonality neither helps nor hurts this setup because it is not assessable from the available history: only Q1 FY2025 through Q2 FY2026 are actual reported quarters, rather than three complete fiscal years. The setup should therefore rest on the Q3 standalone guidance and category drivers, not on an assumed third-quarter pattern. [Q2 2026 Supplemental Financial Information, Supplemental Metrics sheet; Capital IQ Estimates Report, Guidance worksheet — vendor basis, data frozen 2026-09-14]
+
+## 7. Historical Pattern
+
+AKAM beat final Street revenue and normalized EPS in each of Q3 2025 through Q2 2026, but the revenue beat narrowed from 1.03% and 1.75% in Q3–Q4 2025 to 0.08% and 0.63% in Q1–Q2 2026; the recent EPS beats were also only 0.62% and 0.63%. This is judgment informed by four quarters, not a measured beat rate. It merits limited weight because the source-bound annual check shows FY2025 GAAP EPS missed by 9% while revenue was in line, which is not interchangeable with the quarterly normalized-EPS series. [Capital IQ Estimates Report, Surprise worksheet, FQ3 2025–FQ2 2026 — vendor basis, data frozen 2026-09-14; Capital IQ Estimates→Surprise (annual), source-bound `ciq_facts.json`]
+
+## 8. Setup Verdict
+
+**Setup is balanced.** The single most important factor is Security: it was 55% of Q2 revenue and grew 10%, so sustained Security execution has to offset both the Delivery decline and management's stated absence of CIS growth acceleration in Q3. [Q2 FY2026 Form 10-Q, Note 11, p.23; Q2 FY2026 earnings call, CFO Q&A]
+
+The single biggest risk that could flip the setup is CIS deployment timing: later GPU, equipment, colocation, or power availability removes in-quarter revenue weeks while Q3 capacity spend and margin pressure remain. The near-midpoint revenue bar and consensus below EPS and EBITDA midpoints prevent this known risk from establishing a clear miss case. [Q2 2026 earnings release, Financial guidance, p.2; Q2 FY2026 earnings call, CFO prepared remarks and Q&A]
+
+## 9. Second-Quarter Look-Ahead
+
+The quarter after Q3—Q4 2026—has a different, more binary setup. Management expects the signed CIS deployments to begin contributing in Q4, with the September conference indicating about $15m and about $20m from two larger deals and further ramping in 2027; that creates more upside than Q3, but also more sensitivity to deployment dates. [Goldman Sachs Communacopia + Technology Conference, 2026-09-09, CFO discussion]
+
+Security and Delivery remain relevant, but Q4 should be judged chiefly on whether CIS revenue actually starts to convert, not merely on signed commitments or management's long-term revenue description. [Q2 FY2026 earnings call, CFO Q&A]
+
+## 10. Pre-Mortem
+
+If this setup fails, the most likely error is treating signed CIS commitments and capacity commentary as Q3 revenue despite management's explicit statement that Q3 would not accelerate. A second likely error is giving too much weight to four consecutive, but shrinking, normalized-EPS beats while overlooking the risk that Delivery price/traffic weakness and capacity costs offset Security growth. [Q2 FY2026 earnings call, CFO Q&A; Capital IQ Estimates Report, Surprise worksheet, FQ3 2025–FQ2 2026 — vendor basis, data frozen 2026-09-14]

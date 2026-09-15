@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "312f6e4d-a679-4603-aa2e-501ecdc54be9",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "13f59b64-7dc2-4472-9681-1b2658bcd46c",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "business-model"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T05:25:08.838Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "13f59b64-7dc2-4472-9681-1b2658bcd46c",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T05:25:08.838Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "13f59b64-7dc2-4472-9681-1b2658bcd46c",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T05:25:08.838Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "be07e318-abb1-4e7c-9cef-f725aad8aedc",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "earnings"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T06:15:41.023Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "be07e318-abb1-4e7c-9cef-f725aad8aedc",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T06:15:41.023Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "be07e318-abb1-4e7c-9cef-f725aad8aedc",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-14T06:15:41.023Z"
+    }
+  ],
+  "written_at": "2026-09-14T07:27:30.365Z"
+}
