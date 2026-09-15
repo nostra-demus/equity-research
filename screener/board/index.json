@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T13:43:31Z",
+  "generated_at": "2026-09-15T14:08:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-473",
@@ -529,6 +529,55 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-498",
+      "headline": "Lawsuit forces winery to close down, files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/moon-dancer-winery-files-chapter-11-bankruptcy-after-closing",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "A winery has filed for Chapter 11 bankruptcy following a lawsuit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A winery has filed for Chapter 11 bankruptcy following a lawsuit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unnamed Winery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
@@ -1833,6 +1882,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-501",
+      "headline": "MTR CORPORATION (00066): Discloseable Transaction and Connected Transaction - Site B, Site D and Site E of Tuen Mun Town Lot No. 576 Tuen Mun A16 Station Package Two Property Development",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T11:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "MTR Corporation announced a discloseable and connected transaction regarding property development rights.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "MTR Corporation announced a discloseable and connected transaction regarding property development rights.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTR Corporation",
+          "ticker": "00066",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-348",
       "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
       "headline_en": null,
@@ -1877,104 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-207",
-      "headline": "SoftBank-Backed SB Energy’s IPO Seeks $500 Million in Japan",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/softbank-backed-sb-energy-s-ipo-seeks-500-million-in-japan",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:38:26Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SB Energy is seeking to raise $500 million through an IPO in Japan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "SB Energy is seeking to raise $500 million through an IPO in Japan.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB Energy",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-395",
-      "headline": "Gland Pharma to acquire 100% stake in Gland Pharma USA",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/gland-pharma-to-acquire-100-stake-in-gland-pharma-usa/article71467533.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T10:17:53Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company to acquire 100% stake in its US subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company to acquire 100% stake in its US subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gland Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164124,9 +164124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3949825,
-    "news_picked_today": 945,
-    "news_dropped_today": 6111
+    "news_seen_today": 4211511,
+    "news_picked_today": 973,
+    "news_dropped_today": 6299
   },
   "book_momentum": {
     "live_count": 8,
