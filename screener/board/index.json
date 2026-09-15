@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T11:47:31Z",
+  "generated_at": "2026-09-15T11:57:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-429",
@@ -443,6 +443,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-447",
+      "headline": "Stellantis to invest over €1bn in French van plant upgrade – report",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/stellantis-invest-over-1bn-french-112536025.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:25:36Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Stellantis is investing over €1bn in a French van plant upgrade, representing a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stellantis is investing over €1bn in a French van plant upgrade, representing a significant capital expenditure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stellantis",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         {
           "name": "Reliance Global Holdings",
           "ticker": "00723",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-389",
-      "headline": "YANGTZEKIANG (00294): DISCLOSEABLE TRANSACTION - DISPOSAL OF A SUBSIDIARY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500555.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T09:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The company is disposing of a subsidiary, which is a disclosable transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company is disposing of a subsidiary, which is a disclosable transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yangtze Kiang Garment",
-          "ticker": "00294",
           "listing_country": "CN"
         }
       ],
@@ -121334,77 +121334,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5364e3f8a882",
-      "idea_version": "IDEAV-bba840764a0da905",
-      "idea_version_started_at": "2026-09-14T00:16:27Z",
-      "ticker": "SOP",
-      "company": "SOP",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "SOP announced a financial and operational update on a $45.5 million contract with ANSTO, indicating positive progress on a significant commercial agreement.",
-      "why_now": "The company filed a price-sensitive update on 2026-09-13, making this news live and actionable.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fda8f5d0e6aa"
-      ],
-      "primary_source_event_id": "EVT-fda8f5d0e6aa",
-      "source_headlines": [
-        "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]"
-      ],
-      "source_headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03135062-3A701676",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T23:53:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T00:16:27Z",
-      "updated_at": "2026-09-14T00:16:27Z",
-      "decay_at": "2026-09-15T11:53:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -125176,6 +125105,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5364e3f8a882",
+      "idea_version": "IDEAV-bba840764a0da905",
+      "idea_version_started_at": "2026-09-14T00:16:27Z",
+      "ticker": "SOP",
+      "company": "SOP",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SOP announced a financial and operational update on a $45.5 million contract with ANSTO, indicating positive progress on a significant commercial agreement.",
+      "why_now": "The company filed a price-sensitive update on 2026-09-13, making this news live and actionable.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fda8f5d0e6aa"
+      ],
+      "primary_source_event_id": "EVT-fda8f5d0e6aa",
+      "source_headlines": [
+        "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]"
+      ],
+      "source_headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03135062-3A701676",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T23:53:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T00:16:27Z",
+      "updated_at": "2026-09-14T00:16:27Z",
+      "decay_at": "2026-09-15T11:53:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ab459efb9fe1",
       "idea_version": "IDEAV-00a856b78181616e",
       "idea_version_started_at": "2026-09-13T23:54:40Z",
@@ -126913,14 +126913,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 270,
@@ -126944,6 +126944,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5364e3f8a882",
+        "idea_version": "IDEAV-bba840764a0da905",
+        "idea_version_started_at": "2026-09-14T00:16:27Z",
+        "ticker": "SOP",
+        "company": "SOP",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "SOP announced a financial and operational update on a $45.5 million contract with ANSTO, indicating positive progress on a significant commercial agreement.",
+        "why_now": "The company filed a price-sensitive update on 2026-09-13, making this news live and actionable.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fda8f5d0e6aa"
+        ],
+        "primary_source_event_id": "EVT-fda8f5d0e6aa",
+        "source_headlines": [
+          "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]"
+        ],
+        "source_headline": "SOP: Financial and Operational Update on $45.5m Contract - ANSTO [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03135062-3A701676",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T23:53:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T00:16:27Z",
+        "updated_at": "2026-09-14T00:16:27Z",
+        "decay_at": "2026-09-15T11:53:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T11:53:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b492220bad93",
         "idea_version": "IDEAV-d93324b4cc77a6d3",
@@ -155409,80 +155483,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-835c3f77b068",
-        "idea_version": "IDEAV-2cb93becbfc24cab",
-        "idea_version_started_at": "2026-09-02T19:27:30Z",
-        "ticker": "TEXMACO.BO",
-        "company": "Texmaco Rail & Engineering Ltd",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Texmaco Rail won a USD 135 million letter of award from Tsiko Africa Logistics and Barberry Holdings, a sizable export rail contract that should boost order book and future revenue.",
-        "why_now": "Letter of award received and filed on 2026-09-01; contract execution provides a dated catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c449bf54a1c3"
-        ],
-        "primary_source_event_id": "EVT-c449bf54a1c3",
-        "source_headlines": [
-          "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
-        ],
-        "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T07:49:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T19:27:30Z",
-        "updated_at": "2026-09-02T19:27:30Z",
-        "decay_at": "2026-09-02T19:49:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T08:41:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23f01420e111",
         "idea_version": "IDEAV-29f834b53f425e93",
         "idea_version_started_at": "2026-08-31T15:41:26Z",
@@ -164106,7 +164106,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164125,9 +164125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3049568,
-    "news_picked_today": 815,
-    "news_dropped_today": 5281
+    "news_seen_today": 3109034,
+    "news_picked_today": 820,
+    "news_dropped_today": 5444
   },
   "book_momentum": {
     "live_count": 8,
