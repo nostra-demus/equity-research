@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T05:22:46Z",
+  "generated_at": "2026-09-15T05:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-265",
@@ -783,6 +783,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-297",
+      "headline": "Notice of OFAC Sanctions Action",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/09/15/2026-18909/notice-of-ofac-sanctions-action",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1732,6 +1776,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-300",
+      "headline": "India’s air travel boom leads Asia, prompting Airbus to raise growth forecast to 9.3%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/indias-air-travel-boom-leads-asia-prompting-airbus-to-raise-growth-forecast-to-9-3/articleshow/134252016.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T04:45:44Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Airbus raised its growth forecast for the Indian aviation market to 9.3%, signaling strong sector demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Airbus raised its growth forecast for the Indian aviation market to 9.3%, signaling strong sector demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-195",
       "headline": "Coforge shares in focus after FY27 guidance reaffirmed; Q2 may see record deal signings",
       "headline_en": null,
@@ -1874,104 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-151",
-      "headline": "Traxion Executive President-Linked Firm Plans Tender Offer",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/traxion-executive-president-linked-firm-plans-tender-offer-mu20z059",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:00:44Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "A firm linked to the executive president of Traxion is planning a tender offer, signaling a potential change in ownership or control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A firm linked to the executive president of Traxion is planning a tender offer, signaling a potential change in ownership or control.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Traxion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-192",
-      "headline": "PE majors eye Orbicular Pharma stake, valuation seen up to $1.5 bn",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/orbicular-pharma-stake-sale-deal-valuation-warburg-pincus-cvc-capital-11789352026674.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:00:23Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Private equity firms are eyeing a stake in Orbicular Pharma at a valuation of up to $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Private equity firms are eyeing a stake in Orbicular Pharma at a valuation of up to $1.5 billion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orbicular Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164523,9 +164518,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 701032,
-    "news_picked_today": 497,
-    "news_dropped_today": 2023
+    "news_seen_today": 711131,
+    "news_picked_today": 508,
+    "news_dropped_today": 2036
   },
   "book_momentum": {
     "live_count": 8,
