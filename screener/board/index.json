@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T00:08:36Z",
+  "generated_at": "2026-09-15T00:16:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-013",
+      "headline": "Solar Industries acquires South African company for 13,000 crore",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/solar-industries-acquires-s-african-co-for-13000-crore/articleshow/134249498.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:01:18Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Acquisition of a South African company for 130 billion INR (approx $1.5B) is a major capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of a South African company for 130 billion INR (approx $1.5B) is a major capital deployment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-005",
       "headline": "ABX: Trading Halt [price-sensitive]",
@@ -46,6 +95,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-011",
+      "headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500059.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T23:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Rights issue dilutes existing shareholders at a 1:2 ratio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Rights issue dilutes existing shareholders at a 1:2 ratio.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HK ROBOTICS",
+          "ticker": "00370",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-012",
+      "headline": "HK ENT INTL (08291): PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD AT THE CLOSE OF BUSINESS ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091500017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T22:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Proposed non-underwritten rights issue at a 3:1 ratio is highly dilutive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Proposed non-underwritten rights issue at a 3:1 ratio is highly dilutive.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HK ENT INTL",
+          "ticker": "08291",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -487,6 +634,300 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-014",
+      "headline": "Corteva Categorically Rejects Unfounded, Unprecedented Allegations by State Attorneys General | CTVA Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CTVA/corteva-categorically-rejects-unfounded-unprecedented-allegations-by-d92anxioh3ge.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T23:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Corteva is publicly defending itself against legal allegations from state attorneys general, which could impact legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Corteva is publicly defending itself against legal allegations from state attorneys general, which could impact legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corteva",
+          "ticker": "CTVA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-019",
+      "headline": "EagleOne Announces Executive Management and Board Changes as Company Advances Renewed Focus on Uranium | EGLMF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/EGLMF/eagle-one-announces-executive-management-and-board-changes-as-ia0w4nfen2g0.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "EagleOne announced executive and board changes as part of a strategic shift toward uranium, which impacts management credibility and direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "EagleOne announced executive and board changes as part of a strategic shift toward uranium, which impacts management credibility and direction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EagleOne",
+          "ticker": "EGLMF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-017",
+      "headline": "Marcus & Millichap Capital Corporation Arranges $53 Million Build-to-Rent Refinance in Northwest Arkansas | MMI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MMI/marcus-millichap-capital-corporation-arranges-53-million-build-to-dbg9otjv1tkl.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Marcus & Millichap arranged a $53 million refinance, demonstrating active commercial real estate financing activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Marcus & Millichap arranged a $53 million refinance, demonstrating active commercial real estate financing activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marcus & Millichap",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-015",
+      "headline": "TORM plc announces secondary public offering of its class A common shares by a selling shareholder",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/torm-plc-announces-secondary-public-offering-of-its-class-a-common-shares-by-a-selling-shareholder-302878136.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TORM plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-018",
+      "headline": "TORM plc announces secondary public offering of its class A common shares by a selling shareholder | A Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/A/torm-plc-announces-secondary-public-offering-of-its-class-a-common-xu7wfvclcyu4.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TORM plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-016",
+      "headline": "QGold Reports Grab Samples up to 600 g/t Gold at Mine Centre",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361580/0/en/qgold-reports-grab-samples-up-to-600-g-t-gold-at-mine-centre.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "QGold reported high-grade gold samples of 600 g/t, which is a positive operational update for a mining company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "QGold reported high-grade gold samples of 600 g/t, which is a positive operational update for a mining company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QGold",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -162607,7 +163048,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2417,
+    "inbox_unconsumed": 2426,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -162616,9 +163057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14003,
-    "news_picked_today": 10,
-    "news_dropped_today": 38
+    "news_seen_today": 32828,
+    "news_picked_today": 19,
+    "news_dropped_today": 77
   },
   "book_momentum": {
     "live_count": 8,
