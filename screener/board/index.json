@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T01:16:47Z",
+  "generated_at": "2026-09-15T01:18:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-042",
@@ -123726,6 +123726,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1fab37e5db24",
+      "idea_version": "IDEAV-038ebc68219e7030",
+      "idea_version_started_at": "2026-09-15T01:17:59Z",
+      "ticker": "EVN",
+      "company": "Evolution Mining",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a capital management initiative, which typically involves returning excess cash to shareholders via dividends or buybacks.",
+      "why_now": "The filing was released on September 14, 2026, with the specific details of the capital management plan to follow.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aca580e3b0ec"
+      ],
+      "primary_source_event_id": "EVT-aca580e3b0ec",
+      "source_headlines": [
+        "EVN: Capital management [price-sensitive]"
+      ],
+      "source_headline": "EVN: Capital management [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03135570-2A1697186",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 81,
+      "newest_source_at": "2026-09-14T23:46:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-15T01:17:59Z",
+      "updated_at": "2026-09-15T01:17:59Z",
+      "decay_at": "2026-09-16T11:46:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-85576f21dc9f",
       "idea_version": "IDEAV-5f32aeda55eb4426",
       "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -164102,8 +164173,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 816,
-    "live_count": 76,
+    "surfaced_total": 817,
+    "live_count": 77,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
