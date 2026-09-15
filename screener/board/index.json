@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T00:16:20Z",
+  "generated_at": "2026-09-15T00:36:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-013",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-020",
+      "headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Genfleet reported favorable Phase II efficacy data for its oral KRAS G12D inhibitor GFH375 in lung cancer patients.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Genfleet reported favorable Phase II efficacy data for its oral KRAS G12D inhibitor GFH375 in lung cancer patients.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genfleet",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-011",
       "headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
       "headline_en": null,
@@ -190,6 +239,153 @@
           "name": "HK ENT INTL",
           "ticker": "08291",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-027",
+      "headline": "FDA 510(k) clearance — GE Medical Systems Ultrasound and Primary Care Diagnostics: Vivid Explorer/Vivid Advanced/Vivid Focus",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261313",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "GE Medical Systems received FDA 510(k) clearance for its new Vivid ultrasound product line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "GE Medical Systems received FDA 510(k) clearance for its new Vivid ultrasound product line.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Medical Systems",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-026",
+      "headline": "FDA 510(k) clearance — Hologic, Inc.: I-View®",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K254090",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Hologic received FDA 510(k) clearance for its I-View product, expanding its diagnostic imaging portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Hologic received FDA 510(k) clearance for its I-View product, expanding its diagnostic imaging portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hologic, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-028",
+      "headline": "FDA 510(k) clearance — Modular Medical, Inc.: Pivot Insulin Delivery System",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262153",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Modular Medical received FDA 510(k) clearance for its Pivot insulin delivery system, a key product for its commercial growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Modular Medical received FDA 510(k) clearance for its Pivot insulin delivery system, a key product for its commercial growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modular Medical, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -296,6 +492,349 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-025",
+      "headline": "BAIWANG CO (06657): APPOINTMENT OF CO-GENERAL MANAGER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T22:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Appointment of a co-general manager.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Appointment of a co-general manager.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Baiwang Co",
+          "ticker": "06657",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-036",
+      "headline": "Bitmine Immersion Technologies (BMNR) maakt bekend dat het 5,96 miljoen ETH-tokens in bezit heeft en dat het totale bezit aan cryptovaluta en contanten USD 15,8 miljard bedraagt.",
+      "headline_en": "Bitmine Immersion Technologies (BMNR) announces that it holds 5.96 million ETH tokens and that its total holdings in cryptocurrency and cash amount to USD 15.8 billion.",
+      "url": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-maakt-bekend-dat-het-5-96-miljoen-eth-tokens-in-bezit-heeft-en-dat-het-totale-bezit-aan-cryptovaluta-en-contanten-usd-15-8-miljard-bedraagt-302878152.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T22:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Bitmine Immersion Technologies disclosed holding 5.96 million ETH and $15.8 billion in cash and crypto assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Bitmine Immersion Technologies disclosed holding 5.96 million ETH and $15.8 billion in cash and crypto assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitmine Immersion Technologies",
+          "ticker": "BMNR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-022",
+      "headline": "UNISOUND (09678): VOLUNTARY ANNOUNCEMENT RELEASE OF U2-FLASH, A NEW-GENERATION HIGH-PERFORMANCE CORE MODEL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500089.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T00:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company announced a new AI model, but impact is not yet quantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Company announced a new AI model, but impact is not yet quantified.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UNISOUND",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-024",
+      "headline": "BIOHEART-B (02185): VOLUNTARY ANNOUNCEMENT STRATEGIC COOPERATION AGREEMENT WITH SHANGHAI SHENQI MEDICAL TECHNOLOGY CO., LTD. TO ADVANCE THE COMMERCIALISATION OF THE BIOHEART BIOABSORBABLE RAPAMYCIN-ELUTING CORONARY STENT SYSTEM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T22:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Strategic cooperation agreement to advance commercialization of a medical device.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Strategic cooperation agreement to advance commercialization of a medical device.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bioheart-B",
+          "ticker": "02185",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-023",
+      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Routine share buyback disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Routine share buyback disclosure.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-021",
+      "headline": "DCC: Update - Notification of buy-back - DCC",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DCC?key=2924-03135577-6A1343836",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-14T23:56:24Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Routine update on an existing share buy-back program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Routine update on an existing share buy-back program.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-038",
+      "headline": "Rithm Capital, GreenBarn Investment Group and FarmViewVentures Announce $56.25 Million Sale of 4075 Wilson Boulevard in Arlington, Virginia | RITM Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/RITM/rithm-capital-green-barn-investment-group-and-farm-view-ventures-zo5mqwc024ut.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Rithm Capital announced the $56.25 million sale of a commercial property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Rithm Capital announced the $56.25 million sale of a commercial property.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rithm Capital",
+          "ticker": "RITM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-004",
       "headline": "EVN: Current projects and future growth opportunities [price-sensitive]",
       "headline_en": null,
@@ -337,6 +876,55 @@
           "name": "Evolution Mining",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-033",
+      "headline": "Shanghai Electric annonce une hausse de 16,6 % de son chiffre d'affaires au premier semestre de 2026, avec un volume de nouvelles commandes atteignant 100,39 milliards de yuans",
+      "headline_en": "Shanghai Electric announces a 16.6% increase in revenue in the first half of 2026, with new order volume reaching 100.39 billion yuan",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-annonce-une-hausse-de-16-6--de-son-chiffre-daffaires-au-premier-semestre-de-2026--avec-un-volume-de-nouvelles-commandes-atteignant-100-39-milliards-de-yuans-302877538.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-15T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shanghai Electric reported a 16.6% revenue increase and 100.39 billion CNY in new orders for H1 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Shanghai Electric reported a 16.6% revenue increase and 100.39 billion CNY in new orders for H1 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -590,6 +1178,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-034",
+      "headline": "Castelion Moves Blackbeard into Production with U.S. Navy Order Valued Up to $200 Million",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/castelion-moves-blackbeard-into-production-with-us-navy-order-valued-up-to-200-million-302878187.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T23:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Castelion secured a U.S. Navy order for its Blackbeard system valued at up to $200 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Castelion secured a U.S. Navy order for its Blackbeard system valued at up to $200 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Castelion",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-002",
       "headline": "EVN: Discovery and exploration [price-sensitive]",
       "headline_en": null,
@@ -683,6 +1320,403 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-029",
+      "headline": "Corteva Categorically Rejects Unfounded, Unprecedented Allegations by State Attorneys General",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/corteva-categorically-rejects-unfounded-unprecedented-allegations-by-state-attorneys-general-302878200.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T23:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Corteva is facing legal allegations from state attorneys general, creating potential regulatory and litigation risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Corteva is facing legal allegations from state attorneys general, creating potential regulatory and litigation risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corteva",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-030",
+      "headline": "Shanghai Electric registra un crecimiento de ingresos del 16,6 % en el primer semestre de 2026",
+      "headline_en": "Shanghai Electric reports 16.6% revenue growth in the first half of 2026",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-registra-un-crecimiento-de-ingresos-del-16-6--en-el-primer-semestre-de-2026--302877524.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-15T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shanghai Electric reported 16.6% revenue growth for H1 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Shanghai Electric reported 16.6% revenue growth for H1 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-032",
+      "headline": "Shanghai Electric Reports 16.6% Revenue Growth in H1 2026 as New Orders Reach CNY 100.39 Billion",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-reports-16-6-revenue-growth-in-h1-2026-as-new-orders-reach-cny-100-39-billion-302877397.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-15T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-031",
+      "headline": "Shanghai Electric oznámila za první pololetí roku 2026 nárůst tržeb o 16,6% a objem nových zakázek dosáhl 100,39 miliardy jüanů",
+      "headline_en": "Shanghai Electric announced 16.6% revenue growth for the first half of 2026 and new orders reached 100.39 billion yuan",
+      "url": "https://www.prnewswire.com/news-releases/shanghai-electric-oznamila-za-prvni-pololeti-roku-2026-narst-treb-o-16-6-a-objem-novych-zakazek-dosahl-100-39-miliardy-juan-302877588.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-15T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Shanghai Electric reported 16.6% revenue growth and 100.39 billion yuan in new orders for H1 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-037",
+      "headline": "1470350 B.C. LTD. ANNOUNCES PROPOSED BUSINESS COMBINATION WITH ORIOR METALS CORP.",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361595/0/en/1470350-b-c-ltd-announces-proposed-business-combination-with-orior-metals-corp.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T22:25:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "1470350 B.C. LTD. announced a proposed business combination with Orior Metals Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "1470350 B.C. LTD. announced a proposed business combination with Orior Metals Corp.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "1470350 B.C. LTD.",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Orior Metals Corp.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-039",
+      "headline": "TWO Announces Intention to Voluntarily Delist and Deregister 9.375% Senior Notes due 2030 from the New York Stock Exchange | TWOD Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TWOD/two-announces-intention-to-voluntarily-delist-and-deregister-9-375-qzpwk06gkjg5.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TWO",
+          "ticker": "TWOD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-040",
+      "headline": "TWO Announces Intention to Voluntarily Delist and Deregister 9.375% Senior Notes due 2030 from the New York Stock Exchange",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260914162861/en/TWO-Announces-Intention-to-Voluntarily-Delist-and-Deregister-9.375-Senior-Notes-due-2030-from-the-New-York-Stock-Exchange/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TWO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-035",
+      "headline": "Bitmine Immersion Technologies (BMNR) annuncia che le partecipazioni in ETH hanno raggiunto 5,96 milioni di token e che il valore complessivo delle disponibilità in criptovalute e liquidità ammonta a 15,8 miliardi di dollari",
+      "headline_en": "Bitmine Immersion Technologies (BMNR) announces that ETH holdings have reached 5.96 million tokens and that the total value of cryptocurrency and cash holdings amounts to 15.8 billion dollars",
+      "url": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-annuncia-che-le-partecipazioni-in-eth-hanno-raggiunto-5-96-milioni-di-token-e-che-il-valore-complessivo-delle-disponibilita-in-criptovalute-e-liquidita-ammonta-a-15-8-miliardi-di-dollari-302878148.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-14T22:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Bitmine Immersion Technologies reported $15.8 billion in crypto and cash holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Bitmine Immersion Technologies reported $15.8 billion in crypto and cash holdings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitmine Immersion Technologies",
+          "ticker": "BMNR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118559,76 +119593,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b2ff87b604f8",
-      "idea_version": "IDEAV-932d7746bbe543d1",
-      "idea_version_started_at": "2026-09-13T12:24:53Z",
-      "ticker": "SDZNY",
-      "company": "Sandoz Group AG",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sandoz has committed to a massive long-term expansion targeting 100 biosimilars by 2040, backed by an immediate $300 million facility investment to capture high-margin generic biologics market share.",
-      "why_now": "The strategic 2040 roadmap and $300 million capital expenditure plan were officially unveiled on September 13, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec739a38721f"
-      ],
-      "primary_source_event_id": "EVT-ec739a38721f",
-      "source_headlines": [
-        "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
-      ],
-      "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
-      "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
-      "source_name": "FiercePharma",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T12:23:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T12:24:53Z",
-      "updated_at": "2026-09-13T12:24:53Z",
-      "decay_at": "2026-09-15T00:23:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4d4f61c3a9ac",
       "idea_version": "IDEAV-e74d548b7ff9b214",
       "idea_version_started_at": "2026-09-14T05:51:52Z",
@@ -121362,78 +122326,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f10044ee35a3",
-      "idea_version": "IDEAV-70cc29c1fe35cd26",
-      "idea_version_started_at": "2026-09-13T18:31:35Z",
-      "ticker": "SDZ",
-      "company": "Sandoz",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
-      "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec739a38721f"
-      ],
-      "primary_source_event_id": "EVT-ec739a38721f",
-      "source_headlines": [
-        "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
-      ],
-      "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
-      "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
-      "source_name": "FiercePharma",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T12:23:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T12:44:48Z",
-      "updated_at": "2026-09-13T18:31:35Z",
-      "decay_at": "2026-09-15T00:23:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -123441,6 +124333,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b2ff87b604f8",
+      "idea_version": "IDEAV-932d7746bbe543d1",
+      "idea_version_started_at": "2026-09-13T12:24:53Z",
+      "ticker": "SDZNY",
+      "company": "Sandoz Group AG",
+      "exchange": "OQX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sandoz has committed to a massive long-term expansion targeting 100 biosimilars by 2040, backed by an immediate $300 million facility investment to capture high-margin generic biologics market share.",
+      "why_now": "The strategic 2040 roadmap and $300 million capital expenditure plan were officially unveiled on September 13, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec739a38721f"
+      ],
+      "primary_source_event_id": "EVT-ec739a38721f",
+      "source_headlines": [
+        "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
+      ],
+      "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
+      "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
+      "source_name": "FiercePharma",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T12:23:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T12:24:53Z",
+      "updated_at": "2026-09-13T12:24:53Z",
+      "decay_at": "2026-09-15T00:23:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-69441c9f6035",
       "idea_version": "IDEAV-3864d3d0cf90ad00",
       "idea_version_started_at": "2026-09-13T12:04:53Z",
@@ -124558,6 +125520,78 @@
       "surfaced_at": "2026-09-13T04:17:17Z",
       "updated_at": "2026-09-13T04:17:17Z",
       "decay_at": "2026-09-14T00:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f10044ee35a3",
+      "idea_version": "IDEAV-70cc29c1fe35cd26",
+      "idea_version_started_at": "2026-09-13T18:31:35Z",
+      "ticker": "SDZ",
+      "company": "Sandoz",
+      "exchange": "SIX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
+      "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec739a38721f"
+      ],
+      "primary_source_event_id": "EVT-ec739a38721f",
+      "source_headlines": [
+        "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
+      ],
+      "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
+      "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
+      "source_name": "FiercePharma",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T12:23:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T12:44:48Z",
+      "updated_at": "2026-09-13T18:31:35Z",
+      "decay_at": "2026-09-15T00:23:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -125864,14 +126898,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 23
       },
       "short": {
         "total_count": 269,
@@ -125895,6 +126929,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b2ff87b604f8",
+        "idea_version": "IDEAV-932d7746bbe543d1",
+        "idea_version_started_at": "2026-09-13T12:24:53Z",
+        "ticker": "SDZNY",
+        "company": "Sandoz Group AG",
+        "exchange": "OQX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sandoz has committed to a massive long-term expansion targeting 100 biosimilars by 2040, backed by an immediate $300 million facility investment to capture high-margin generic biologics market share.",
+        "why_now": "The strategic 2040 roadmap and $300 million capital expenditure plan were officially unveiled on September 13, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec739a38721f"
+        ],
+        "primary_source_event_id": "EVT-ec739a38721f",
+        "source_headlines": [
+          "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
+        ],
+        "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
+        "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
+        "source_name": "FiercePharma",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T12:23:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T12:24:53Z",
+        "updated_at": "2026-09-13T12:24:53Z",
+        "decay_at": "2026-09-15T00:23:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T00:23:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f10044ee35a3",
+        "idea_version": "IDEAV-70cc29c1fe35cd26",
+        "idea_version_started_at": "2026-09-13T18:31:35Z",
+        "ticker": "SDZ",
+        "company": "Sandoz",
+        "exchange": "SIX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
+        "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec739a38721f"
+        ],
+        "primary_source_event_id": "EVT-ec739a38721f",
+        "source_headlines": [
+          "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
+        ],
+        "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
+        "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
+        "source_name": "FiercePharma",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T12:23:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T12:44:48Z",
+        "updated_at": "2026-09-13T18:31:35Z",
+        "decay_at": "2026-09-15T00:23:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T00:23:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0c529d942ea8",
         "idea_version": "IDEAV-9f930044c15c16a8",
@@ -154861,154 +156043,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-23e00bbbd9ca",
-        "idea_version": "IDEAV-80e68decdc0c9b33",
-        "idea_version_started_at": "2026-08-31T07:32:07Z",
-        "ticker": "8001.T",
-        "company": "Itochu Corporation",
-        "exchange": "Tokyo Stock Exchange",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Itochu is acquiring Dentsu Soken for $1.3B to take it private, a strategic M&A move that could unlock value and signal confidence in digital marketing assets.",
-        "why_now": "Deal announced 2026-08-31; execution risk and regulatory approval timeline create a live catalyst window.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eda666cde24d"
-        ],
-        "primary_source_event_id": "EVT-eda666cde24d",
-        "source_headlines": [
-          "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-        ],
-        "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-        "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-        "source_name": "The Japan Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T03:36:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T07:32:07Z",
-        "updated_at": "2026-08-31T07:32:07Z",
-        "decay_at": "2026-09-01T15:36:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-991f6f17f91c",
-        "idea_version": "IDEAV-8519f3b8aeb6b307",
-        "idea_version_started_at": "2026-08-31T06:07:14Z",
-        "ticker": "4812",
-        "company": "Dentsu Soken Inc.",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion acquisition deal, which typically provides a premium to the current trading price.",
-        "why_now": "The deal has just been announced on August 31, 2026, creating an immediate arbitrage or premium-capture opportunity.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eda666cde24d"
-        ],
-        "primary_source_event_id": "EVT-eda666cde24d",
-        "source_headlines": [
-          "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-        ],
-        "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-        "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-        "source_name": "The Japan Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T03:36:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T06:07:14Z",
-        "updated_at": "2026-08-31T06:07:14Z",
-        "decay_at": "2026-09-01T15:36:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0ac5d784c64f",
         "idea_version": "IDEAV-166a62829813d08b",
         "idea_version_started_at": "2026-08-31T05:24:11Z",
@@ -163038,7 +164072,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 815,
-    "live_count": 77,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -163048,7 +164082,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2426,
+    "inbox_unconsumed": 2447,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -163057,9 +164091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 32828,
-    "news_picked_today": 19,
-    "news_dropped_today": 77
+    "news_seen_today": 97932,
+    "news_picked_today": 40,
+    "news_dropped_today": 224
   },
   "book_momentum": {
     "live_count": 8,
