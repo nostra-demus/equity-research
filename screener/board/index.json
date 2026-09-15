@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-15T13:43:31Z",
+  "generated_at": "2026-09-15T14:37:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-506",
+      "headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T14:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Byte Meta issued a profit warning, indicating a negative impact on financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Byte Meta issued a profit warning, indicating a negative impact on financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYTE META",
+          "ticker": "08645",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-502",
+      "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of ECS BIZTECH LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260915-36/20260915-36.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T13:53:52Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "ECS Biztech Limited is subject to an open offer for acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ECS Biztech Limited is subject to an open offer for acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ECS Biztech Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-473",
       "headline": "MIRAMAR HOTEL (00071): DISCLOSEABLE TRANSACTION - COMPLETION OF THE ACQUISITION OF 50% EFFECTIVE INTEREST IN THE MPM PLAZA PROPERTY",
@@ -443,6 +541,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-513",
+      "headline": "Forward Industries Raises SkyAI Acquisition Offer To $2.13/Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/forward-industries-raises-skyai-acquisition-offer-213-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T14:09:11Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Forward Industries increased its acquisition offer for SkyAI to $2.13 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Forward Industries increased its acquisition offer for SkyAI to $2.13 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Forward Industries",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-504",
+      "headline": "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/doordash-buy-grubhub-campus-dining-300-mln-invests-125-mln-wonder",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T13:35:56Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "DoorDash is acquiring Grubhub Campus Dining for $300 million and investing $125 million in Wonder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash is acquiring Grubhub Campus Dining for $300 million and investing $125 million in Wonder.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-481",
       "headline": "Grab to buy Singapore-based Atome Financial for $1.49bn to boost consumer lending",
       "headline_en": null,
@@ -529,6 +725,55 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-498",
+      "headline": "Lawsuit forces winery to close down, files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/moon-dancer-winery-files-chapter-11-bankruptcy-after-closing",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "A winery has filed for Chapter 11 bankruptcy following a lawsuit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A winery has filed for Chapter 11 bankruptcy following a lawsuit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unnamed Winery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
@@ -1724,252 +1969,6 @@
         },
         {
           "name": "Titagarh Rail Systems Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-363",
-      "headline": "MJ Gleeson slips to loss and halves dividend after tough year",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/mj-gleeson-slips-to-loss-and-halves-dividend-after-tough-year/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T07:09:41Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MJ Gleeson",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-470",
-      "headline": "Tata Communications Limited: Tata Communications Limited has informed the Exchange about intimation regarding issuance, allotment and listing of Commercial Paper amounting to Rs. 400 crore",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_15092026181737_18508_-_Listing_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T12:47:46Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tata Communications is issuing commercial paper worth Rs. 400 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Communications Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-348",
-      "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500671.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T09:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Guotai Junan is disclosing dealings related to a takeover, indicating active M&A involvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Guotai Junan is disclosing dealings related to a takeover, indicating active M&A involvement.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Guotai Junan International",
-          "ticker": "01788",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-207",
-      "headline": "SoftBank-Backed SB Energy’s IPO Seeks $500 Million in Japan",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/softbank-backed-sb-energy-s-ipo-seeks-500-million-in-japan",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:38:26Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "SB Energy is seeking to raise $500 million through an IPO in Japan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "SB Energy is seeking to raise $500 million through an IPO in Japan.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB Energy",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-395",
-      "headline": "Gland Pharma to acquire 100% stake in Gland Pharma USA",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/gland-pharma-to-acquire-100-stake-in-gland-pharma-usa/article71467533.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T10:17:53Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company to acquire 100% stake in its US subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company to acquire 100% stake in its US subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gland Pharma",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -120972,150 +120971,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3c162423bb69",
-      "idea_version": "IDEAV-c35bd18c0ffca97c",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "HSP",
-      "company": "Healthscope",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Calvary Health Care consortium has won the battle for Healthscope, indicating a likely acquisition at a premium that will lead to delisting.",
-      "why_now": "The news on September 14, 2026, confirms the successful bid.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c025be4ba901"
-      ],
-      "primary_source_event_id": "EVT-c025be4ba901",
-      "source_headlines": [
-        "Calvary Health Care consortium wins battle for Healthscope"
-      ],
-      "source_headline": "Calvary Health Care consortium wins battle for Healthscope",
-      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T02:24:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T14:24:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b5981f7037da",
-      "idea_version": "IDEAV-afbc547570650824",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "BRLI",
-      "company": "Baldwin Insurance",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Dell's DFO Management is leading a $7.7 billion take-private deal for Baldwin Insurance, which will result in the company being delisted and shareholders receiving a premium.",
-      "why_now": "The deal was reported on September 14, 2026, indicating it is a current event.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff3e9b162abe"
-      ],
-      "primary_source_event_id": "EVT-ff3e9b162abe",
-      "source_headlines": [
-        "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports"
-      ],
-      "source_headline": "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports",
-      "source_url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T02:15:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T14:15:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -121255,78 +121110,6 @@
       "surfaced_at": "2026-09-14T10:01:52Z",
       "updated_at": "2026-09-14T10:01:52Z",
       "decay_at": "2026-09-15T21:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-caa8876bf8f7",
-      "idea_version": "IDEAV-cf3f3ac8dfd3c4e3",
-      "idea_version_started_at": "2026-09-14T04:27:13Z",
-      "ticker": "010140",
-      "company": "Samsung Heavy Industries",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 1.6 trillion won contract for six vessels, providing a significant boost to its order backlog and revenue visibility.",
-      "why_now": "The contract announcement occurred on 2026-09-14.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c5d692cd3b59"
-      ],
-      "primary_source_event_id": "EVT-c5d692cd3b59",
-      "source_headlines": [
-        "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers"
-      ],
-      "source_headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
-      "source_url": "https://en.yna.co.kr/view/AEN20260914002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-14T02:22:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:27:13Z",
-      "updated_at": "2026-09-14T04:27:13Z",
-      "decay_at": "2026-09-15T14:22:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124453,6 +124236,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3c162423bb69",
+      "idea_version": "IDEAV-c35bd18c0ffca97c",
+      "idea_version_started_at": "2026-09-14T04:51:58Z",
+      "ticker": "HSP",
+      "company": "Healthscope",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Calvary Health Care consortium has won the battle for Healthscope, indicating a likely acquisition at a premium that will lead to delisting.",
+      "why_now": "The news on September 14, 2026, confirms the successful bid.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c025be4ba901"
+      ],
+      "primary_source_event_id": "EVT-c025be4ba901",
+      "source_headlines": [
+        "Calvary Health Care consortium wins battle for Healthscope"
+      ],
+      "source_headline": "Calvary Health Care consortium wins battle for Healthscope",
+      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T02:24:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:51:58Z",
+      "updated_at": "2026-09-14T04:51:58Z",
+      "decay_at": "2026-09-15T14:24:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b5981f7037da",
+      "idea_version": "IDEAV-afbc547570650824",
+      "idea_version_started_at": "2026-09-14T04:51:58Z",
+      "ticker": "BRLI",
+      "company": "Baldwin Insurance",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Dell's DFO Management is leading a $7.7 billion take-private deal for Baldwin Insurance, which will result in the company being delisted and shareholders receiving a premium.",
+      "why_now": "The deal was reported on September 14, 2026, indicating it is a current event.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff3e9b162abe"
+      ],
+      "primary_source_event_id": "EVT-ff3e9b162abe",
+      "source_headlines": [
+        "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports"
+      ],
+      "source_headline": "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports",
+      "source_url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T02:15:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:51:58Z",
+      "updated_at": "2026-09-14T04:51:58Z",
+      "decay_at": "2026-09-15T14:15:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5364e3f8a882",
       "idea_version": "IDEAV-bba840764a0da905",
       "idea_version_started_at": "2026-09-14T00:16:27Z",
@@ -126109,6 +126036,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-caa8876bf8f7",
+      "idea_version": "IDEAV-cf3f3ac8dfd3c4e3",
+      "idea_version_started_at": "2026-09-14T04:27:13Z",
+      "ticker": "010140",
+      "company": "Samsung Heavy Industries",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 1.6 trillion won contract for six vessels, providing a significant boost to its order backlog and revenue visibility.",
+      "why_now": "The contract announcement occurred on 2026-09-14.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c5d692cd3b59"
+      ],
+      "primary_source_event_id": "EVT-c5d692cd3b59",
+      "source_headlines": [
+        "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers"
+      ],
+      "source_headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
+      "source_url": "https://en.yna.co.kr/view/AEN20260914002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-14T02:22:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T04:27:13Z",
+      "updated_at": "2026-09-14T04:27:13Z",
+      "decay_at": "2026-09-15T14:22:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad689429762b",
       "idea_version": "IDEAV-0bc5e5804256f6fe",
       "idea_version_started_at": "2026-09-14T02:04:41Z",
@@ -126907,19 +126906,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
-        "total_count": 274,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 26
       }
     },
     "retention": {
@@ -126938,6 +126937,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3c162423bb69",
+        "idea_version": "IDEAV-c35bd18c0ffca97c",
+        "idea_version_started_at": "2026-09-14T04:51:58Z",
+        "ticker": "HSP",
+        "company": "Healthscope",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Calvary Health Care consortium has won the battle for Healthscope, indicating a likely acquisition at a premium that will lead to delisting.",
+        "why_now": "The news on September 14, 2026, confirms the successful bid.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c025be4ba901"
+        ],
+        "primary_source_event_id": "EVT-c025be4ba901",
+        "source_headlines": [
+          "Calvary Health Care consortium wins battle for Healthscope"
+        ],
+        "source_headline": "Calvary Health Care consortium wins battle for Healthscope",
+        "source_url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T02:24:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:51:58Z",
+        "updated_at": "2026-09-14T04:51:58Z",
+        "decay_at": "2026-09-15T14:24:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T14:24:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-caa8876bf8f7",
+        "idea_version": "IDEAV-cf3f3ac8dfd3c4e3",
+        "idea_version_started_at": "2026-09-14T04:27:13Z",
+        "ticker": "010140",
+        "company": "Samsung Heavy Industries",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a 1.6 trillion won contract for six vessels, providing a significant boost to its order backlog and revenue visibility.",
+        "why_now": "The contract announcement occurred on 2026-09-14.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c5d692cd3b59"
+        ],
+        "primary_source_event_id": "EVT-c5d692cd3b59",
+        "source_headlines": [
+          "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers"
+        ],
+        "source_headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
+        "source_url": "https://en.yna.co.kr/view/AEN20260914002700320",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-09-14T02:22:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:27:13Z",
+        "updated_at": "2026-09-14T04:27:13Z",
+        "decay_at": "2026-09-15T14:22:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T14:22:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b5981f7037da",
+        "idea_version": "IDEAV-afbc547570650824",
+        "idea_version_started_at": "2026-09-14T04:51:58Z",
+        "ticker": "BRLI",
+        "company": "Baldwin Insurance",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Dell's DFO Management is leading a $7.7 billion take-private deal for Baldwin Insurance, which will result in the company being delisted and shareholders receiving a premium.",
+        "why_now": "The deal was reported on September 14, 2026, indicating it is a current event.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff3e9b162abe"
+        ],
+        "primary_source_event_id": "EVT-ff3e9b162abe",
+        "source_headlines": [
+          "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports"
+        ],
+        "source_headline": "Dell's DFO Management leads planned $7.7 billion take-private deal for Baldwin Insurance, FT reports",
+        "source_url": "https://www.reuters.com/business/michael-dells-dfo-management-nears-take-private-deal-baldwin-insurance-group-ft-2026-09-13/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T02:15:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T04:51:58Z",
+        "updated_at": "2026-09-14T04:51:58Z",
+        "decay_at": "2026-09-15T14:15:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T14:15:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-03259272947f",
         "idea_version": "IDEAV-34fc153de52c06ff",
@@ -155333,78 +155557,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9e6f981a14d6",
-        "idea_version": "IDEAV-0994117008161962",
-        "idea_version_started_at": "2026-09-02T19:27:30Z",
-        "ticker": "COALINDIA.BO",
-        "company": "Coal India Ltd",
-        "exchange": "Bombay",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Coal India filed the DRHP for its wholly owned subsidiary MCL, signaling a potential listing that could unlock value and provide a capital-raising catalyst for the parent.",
-        "why_now": "DRHP filing dated 2026-09-02; IPO timeline and market reception will be the near-term catalysts.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c7ffcd767e89"
-        ],
-        "primary_source_event_id": "EVT-c7ffcd767e89",
-        "source_headlines": [
-          "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL."
-        ],
-        "source_headline": "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL.",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17a3003c-9c1e-4c96-8e76-b77ffa9ee48a.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T05:05:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T19:27:30Z",
-        "updated_at": "2026-09-02T19:27:30Z",
-        "decay_at": "2026-09-03T17:05:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T06:26:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3123eadb829a",
         "idea_version": "IDEAV-5a30aa59d9e9b620",
         "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -163951,161 +164103,12 @@
         "archived_at": "2026-08-27T16:07:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b9b5c6dfbbcc",
-        "idea_version": "IDEAV-a3fefe3e61967f5f",
-        "idea_version_started_at": "2026-08-24T19:00:25Z",
-        "ticker": "VIJI",
-        "company": "Viji Finance Ltd",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Resignation of the statutory auditor raises concerns about the company's financial reporting and internal controls.",
-        "why_now": "The disclosure of the auditor's resignation was made on August 24, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-070cc53c4fe9"
-        ],
-        "primary_source_event_id": "EVT-070cc53c4fe9",
-        "source_headlines": [
-          "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY"
-        ],
-        "source_headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T15:14:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T19:00:25Z",
-        "updated_at": "2026-08-24T19:00:25Z",
-        "decay_at": "2026-08-26T03:14:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T16:07:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-997ba9627856",
-        "idea_version": "IDEAV-e753d73e8b3609a1",
-        "idea_version_started_at": "2026-08-24T23:28:07Z",
-        "ticker": "06887",
-        "company": "Sunshine Pharma",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning indicates significant deterioration in margins or revenue, likely requiring a downward revision of earnings expectations.",
-        "why_now": "The profit warning was issued on August 24, 2026, and the market has not yet fully adjusted to the negative guidance.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9330f5c5cc8c"
-        ],
-        "primary_source_event_id": "EVT-9330f5c5cc8c",
-        "source_headlines": [
-          "SUNSHINE PHARMA (06887): PROFIT WARNING"
-        ],
-        "source_headline": "SUNSHINE PHARMA (06887): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402015.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T14:50:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T23:28:07Z",
-        "updated_at": "2026-08-24T23:28:07Z",
-        "decay_at": "2026-08-26T02:50:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T16:07:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 56,
+    "live_count": 53,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164124,9 +164127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3949825,
-    "news_picked_today": 945,
-    "news_dropped_today": 6111
+    "news_seen_today": 4476956,
+    "news_picked_today": 1014,
+    "news_dropped_today": 6450
   },
   "book_momentum": {
     "live_count": 8,
