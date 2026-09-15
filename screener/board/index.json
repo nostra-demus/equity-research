@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T13:18:18Z",
+  "generated_at": "2026-09-15T13:28:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-471",
+      "headline": "Mangalam Drugs And Organics Limited: Mangalam Drugs And Organics Limited has informed the Exchange about Fraud/Default/Arrest",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MANGALAM_15092026183449_SE27.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T13:05:02Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The company reported a fraud/default/arrest event, which is a critical risk indicator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported a fraud/default/arrest event, which is a critical risk indicator.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mangalam Drugs And Organics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-459",
       "headline": "WATER INDUSTRY (01129): QUARTERLY UPDATE ANNOUNCEMENT (1) APPOINTMENT OF LIQUIDATORS; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DELAY IN DESPATCH OF 2026 INTERIM REPORT; (3) RESUMPTION GUIDANCE AND UPDATE ON RESUMPTION PROGRESS; AND (4) CONTINUED SUSPENSION OF TRADING",
@@ -1921,55 +1970,6 @@
       "companies": [
         {
           "name": "Hyosung Heavy",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-248",
-      "headline": "효성중공업, 미국 빅테크서 3865억 초고압변압기 수주",
-      "headline_en": "Hyosung Heavy Industries wins 386.5 billion KRW ultra-high voltage transformer order from US big tech",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276966",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T03:27:17Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Hyosung Heavy Industries secured a 386.5 billion KRW order for ultra-high voltage transformers from a US big tech firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Hyosung Heavy Industries secured a 386.5 billion KRW order for ultra-high voltage transformers from a US big tech firm.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyosung Heavy Industries",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -164124,9 +164124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3755954,
-    "news_picked_today": 912,
-    "news_dropped_today": 6024
+    "news_seen_today": 3820333,
+    "news_picked_today": 922,
+    "news_dropped_today": 6038
   },
   "book_momentum": {
     "live_count": 8,
