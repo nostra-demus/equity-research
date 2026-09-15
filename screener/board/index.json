@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T09:51:55Z",
+  "generated_at": "2026-09-15T10:02:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-303",
@@ -95,6 +95,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-364",
+      "headline": "‎ADNOC XRG acquires Southern Gas Corridor stake",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1936463",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "ADNOC XRG acquired a stake in the Southern Gas Corridor, representing a strategic asset acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ADNOC XRG acquired a stake in the Southern Gas Corridor, representing a strategic asset acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-356",
+      "headline": "Telenor charged with aiding crimes against humanity in Myanmar",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/4b9a0db3-733b-4816-8931-de6bf49ffee6?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T09:34:54Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Telenor faces serious legal charges regarding alleged complicity in crimes against humanity in Myanmar.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Telenor faces serious legal charges regarding alleged complicity in crimes against humanity in Myanmar.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telenor",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -647,6 +745,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-363",
+      "headline": "MJ Gleeson slips to loss and halves dividend after tough year",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/mj-gleeson-slips-to-loss-and-halves-dividend-after-tough-year/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T07:09:41Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "MJ Gleeson reported a loss and halved its dividend, indicating a significant deterioration in financial performance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MJ Gleeson",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-348",
       "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
       "headline_en": null,
@@ -936,6 +1084,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-352",
+      "headline": "RELIANCE GLO HL (00723): VOLUNTARY ANNOUNCEMENT - PAYMENT OF REFUNDABLE DEPOSIT UNDER A MEMORANDUM OF UNDERSTANDING IN RELATION TO THE POSSIBLE ACQUISITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500719.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T09:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Reliance Global Holdings announced a refundable deposit payment related to a potential acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Reliance Global Holdings announced a refundable deposit payment related to a potential acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Global Holdings",
+          "ticker": "00723",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1480,6 +1677,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-369",
+      "headline": "Indiabulls Proposes Acquisition Of 70% Stake In Fintech Cloud For ₹1,050 Crore",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/spotlight/news-wire/indiabulls-proposes-acquisition-of-70-stake-in-fintech-cloud-for-1050-crore",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T07:28:53Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Indiabulls proposed the acquisition of a 70% stake in Fintech Cloud for ₹1,050 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Indiabulls proposed the acquisition of a 70% stake in Fintech Cloud for ₹1,050 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indiabulls",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-326",
       "headline": "Fertilizers and Chemicals Travancore Limited: Fertilizers and Chemicals Travancore Limited has informed the Exchange regarding Change in Auditors of the company.",
       "headline_en": null,
@@ -1717,253 +1963,6 @@
           "name": "Coforge",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-269",
-      "headline": "Tata Sons’s Listed Shareholders Rally After RBI Renews IPO Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/tata-group-stocks-rise-on-optimism-over-holding-company-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T03:53:32Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "RBI pressure on Tata Sons to list could unlock significant value for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "RBI pressure on Tata Sons to list could unlock significant value for shareholders.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-283",
-      "headline": "US Escalates Iran Pressure, Targets Russia’s VTB Over Sanctions Evasion",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/us-escalates-iran-pressure-targets-russias-vtb-over-sanctions-evasion-12047268#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T03:46:01Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The US is escalating sanctions pressure on VTB Bank, increasing operational and compliance risk for the entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The US is escalating sanctions pressure on VTB Bank, increasing operational and compliance risk for the entity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VTB Bank",
-          "ticker": null,
-          "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-236",
-      "headline": "CATL Gets China Approval for Battery Deal in Consolidation Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/catl-gets-china-approval-for-battery-deal-in-consolidation-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:55:53Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "CATL received regulatory approval from China for a battery deal amid industry consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "CATL received regulatory approval from China for a battery deal amid industry consolidation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Contemporary Amperex Technology Co Ltd",
-          "ticker": "300750",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-239",
-      "headline": "HFCL Stock In Focus: Board Okays Rs 820 Crore Additional Capex For Optical Fibre, Cable Capacity",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/hfcl-stock-in-focus-board-okays-rs-820-crore-additional-capex-for-optical-fibre-cable-capacity-12047200#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:06:21Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "HFCL board approved Rs 820 crore in additional capex for optical fibre and cable capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HFCL board approved Rs 820 crore in additional capex for optical fibre and cable capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HFCL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-294",
-      "headline": "GAC shares jump on FAW tie-up plans amid Beijing drive for car industry mergers",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/china-evs/article/3367538/gac-shares-jump-faw-tie-plans-amid-beijing-drive-car-industry-mergers?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T05:00:26Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "GAC plans a tie-up with FAW, signaling potential consolidation in the Chinese auto sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "GAC plans a tie-up with FAW, signaling potential consolidation in the Chinese auto sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GAC Group",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -121607,77 +121606,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b20aa2c1500f",
-      "idea_version": "IDEAV-cb0f5f1909827984",
-      "idea_version_started_at": "2026-09-13T22:30:11Z",
-      "ticker": "CWY",
-      "company": "Cleanaway Waste Management",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Cleanaway Waste Management is providing an update on a proposal from EQT Infrastructure, indicating ongoing M&A activity that could result in a takeover premium.",
-      "why_now": "The company filed an update on September 13, 2026, confirming that the EQT Infrastructure proposal is still active and potentially nearing a resolution.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52a7b53137bb"
-      ],
-      "primary_source_event_id": "EVT-52a7b53137bb",
-      "source_headlines": [
-        "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]"
-      ],
-      "source_headline": "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CWY?key=2924-03134809-3A701626",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T22:00:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:30:11Z",
-      "updated_at": "2026-09-13T22:30:11Z",
-      "decay_at": "2026-09-15T10:00:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d67b73b9c3c",
       "idea_version": "IDEAV-37e5f2dc0ad5fd58",
       "idea_version_started_at": "2026-09-14T06:46:25Z",
@@ -125443,6 +125371,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b20aa2c1500f",
+      "idea_version": "IDEAV-cb0f5f1909827984",
+      "idea_version_started_at": "2026-09-13T22:30:11Z",
+      "ticker": "CWY",
+      "company": "Cleanaway Waste Management",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Cleanaway Waste Management is providing an update on a proposal from EQT Infrastructure, indicating ongoing M&A activity that could result in a takeover premium.",
+      "why_now": "The company filed an update on September 13, 2026, confirming that the EQT Infrastructure proposal is still active and potentially nearing a resolution.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-52a7b53137bb"
+      ],
+      "primary_source_event_id": "EVT-52a7b53137bb",
+      "source_headlines": [
+        "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]"
+      ],
+      "source_headline": "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CWY?key=2924-03134809-3A701626",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-13T22:00:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-13T22:30:11Z",
+      "updated_at": "2026-09-13T22:30:11Z",
+      "decay_at": "2026-09-15T10:00:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-06721dd3bc7b",
       "idea_version": "IDEAV-326a6ebb15cfc2b9",
       "idea_version_started_at": "2026-09-13T22:07:30Z",
@@ -127256,14 +127255,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 274,
@@ -127287,6 +127286,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b20aa2c1500f",
+        "idea_version": "IDEAV-cb0f5f1909827984",
+        "idea_version_started_at": "2026-09-13T22:30:11Z",
+        "ticker": "CWY",
+        "company": "Cleanaway Waste Management",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Cleanaway Waste Management is providing an update on a proposal from EQT Infrastructure, indicating ongoing M&A activity that could result in a takeover premium.",
+        "why_now": "The company filed an update on September 13, 2026, confirming that the EQT Infrastructure proposal is still active and potentially nearing a resolution.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-52a7b53137bb"
+        ],
+        "primary_source_event_id": "EVT-52a7b53137bb",
+        "source_headlines": [
+          "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]"
+        ],
+        "source_headline": "CWY: Update in relation to EQT Infrastructure proposal [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CWY?key=2924-03134809-3A701626",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-13T22:00:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-13T22:30:11Z",
+        "updated_at": "2026-09-13T22:30:11Z",
+        "decay_at": "2026-09-15T10:00:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T10:00:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-55c58018f9d8",
         "idea_version": "IDEAV-9f1f1ed41761bb8c",
@@ -155748,80 +155821,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-95df61b251da",
-        "idea_version": "IDEAV-220278c21e7ec5ee",
-        "idea_version_started_at": "2026-09-01T03:16:47Z",
-        "ticker": "SYL",
-        "company": "Sylvia Energy Ltd",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Sylvia Energy received a Notice to Proceed for the Gawara Baya Wind Farm, a price-sensitive capex milestone that de-risks construction and unlocks revenue from the project.",
-        "why_now": "Official ASX filing dated 2026-08-31 confirms the Notice to Proceed, making the catalyst live and verifiable.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cec4add32cf1"
-        ],
-        "primary_source_event_id": "EVT-cec4add32cf1",
-        "source_headlines": [
-          "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]"
-        ],
-        "source_headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T22:36:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-01T03:16:47Z",
-        "updated_at": "2026-09-01T03:16:47Z",
-        "decay_at": "2026-09-02T10:36:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T23:05:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-23f01420e111",
         "idea_version": "IDEAV-29f834b53f425e93",
         "idea_version_started_at": "2026-08-31T15:41:26Z",
@@ -164445,7 +164444,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 825,
-    "live_count": 71,
+    "live_count": 70,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164464,9 +164463,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2125344,
-    "news_picked_today": 646,
-    "news_dropped_today": 4466
+    "news_seen_today": 2193381,
+    "news_picked_today": 682,
+    "news_dropped_today": 4526
   },
   "book_momentum": {
     "live_count": 8,
