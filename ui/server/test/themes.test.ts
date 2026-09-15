@@ -1682,18 +1682,19 @@ await check('a stalled local compiler obeys the lower theme-attempt timeout, coo
     }
   }) as unknown as typeof fetch
   const parent = new AbortController()
-  mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
-  const pending = makeThemeNamer({
-    themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
-    localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
-    localProvider: {
-      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
-      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
-    },
-    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
-    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
-  }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+  let pending: ReturnType<ReturnType<typeof makeThemeNamer>> | undefined
   try {
+    mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
+    pending = makeThemeNamer({
+      themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
+      localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+      localProvider: {
+        id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+        dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
+      },
+      groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+      groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
     // Let admission finish without advancing the clock; CI load cannot consume the chain budget.
     await new Promise<void>((resolve) => setImmediate(resolve))
     assert.ok(localSignal, 'the local compiler must have dispatched')
@@ -1711,7 +1712,7 @@ await check('a stalled local compiler obeys the lower theme-attempt timeout, coo
     assert.equal(candidate.generation, 'groq')
   } finally {
     parent.abort()
-    await pending.catch(() => {})
+    await pending?.catch(() => {})
     mock.timers.reset()
     fs.rmSync(tmp, { recursive: true, force: true })
     resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
@@ -1900,13 +1901,14 @@ await check('a stalled Claude compiler cannot outlive the remaining provider-cha
     return await new Promise<Response>(() => {})
   }) as unknown as typeof fetch
   const parent = new AbortController()
-  mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
-  const pending = makeThemeNamer({
-    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
-    themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
-    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
-  }, stalled, tmp, () => {}, parent.signal)([candidate], NOW)
+  let pending: ReturnType<ReturnType<typeof makeThemeNamer>> | undefined
   try {
+    mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
+    pending = makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
+      llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+    }, stalled, tmp, () => {}, parent.signal)([candidate], NOW)
     await new Promise<void>((resolve) => setImmediate(resolve))
     assert.ok(signal, 'the Claude compiler must have dispatched')
     mock.timers.tick(24)
@@ -1921,7 +1923,7 @@ await check('a stalled Claude compiler cannot outlive the remaining provider-cha
     assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
   } finally {
     parent.abort()
-    await pending.catch(() => {})
+    await pending?.catch(() => {})
     mock.timers.reset()
     fs.rmSync(tmp, { recursive: true, force: true })
     resetCooldownMemory()
