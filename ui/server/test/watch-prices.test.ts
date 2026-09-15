@@ -51,6 +51,7 @@ async function main() {
     assert.equal(marketIndexFor('LSE', 'USD'), null, 'a foreign-currency London line is not the S&P 500')
     assert.equal(marketIndexFor('TSX', 'USD'), null, 'a foreign-currency Toronto line is not the S&P 500')
     assert.equal(marketIndexFor('HKEX', 'USD')?.symbol, '.HSI')
+    assert.equal(marketIndexFor('Nasdaq Helsinki', 'USD'), null, 'the specific exchange beats the Nasdaq brand')
     assert.equal(marketIndexFor('SHSE (also HKEX-listed)', 'EUR'), null, 'ambiguity without a matching currency stays unknown')
     assert.equal(marketIndexFor('SHSE:600690 (also HKEX-listed)', 'CNY')?.symbol, '.SSEC')
     assert.equal(marketIndexFor('DFM', 'AED')?.symbol, '.DFMGI')
