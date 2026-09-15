@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T22:34:57Z",
+  "generated_at": "2026-09-15T22:50:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-620",
+      "headline": "TNC: Cloncurry Resource Update Delivers 18% Copper Increase [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TNC?key=2924-03135872-6A1343942",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T22:27:29Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "A resource update delivering an 18% copper increase is a significant operational development that could materially impact future revenue and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A resource update delivering an 18% copper increase is a significant operational development that could materially impact future revenue and margins.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TNC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-526",
       "headline": "CHAMPION TECH (00092): PROFIT WARNING",
@@ -1897,55 +1946,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grab",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-405",
-      "headline": "Grab to Buy Most of Atome for $1.49 Billion to Spur Lending Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/grab-to-buy-most-of-atome-for-1-49-billion-to-spur-lending-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T10:17:08Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Grab announced the acquisition of Atome for $1.49 billion to expand its lending business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grab announced the acquisition of Atome for $1.49 billion to expand its lending business.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -163641,9 +163641,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8924961,
-    "news_picked_today": 1381,
-    "news_dropped_today": 9851
+    "news_seen_today": 9110761,
+    "news_picked_today": 1410,
+    "news_dropped_today": 10038
   },
   "book_momentum": {
     "live_count": 8,
