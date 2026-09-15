@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T00:37:30Z",
+  "generated_at": "2026-09-15T00:42:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-042",
+      "headline": "Essar arm to buy UK fuel retailer for nearly $550 million",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/essar-arm-to-buy-uk-fuel-retailer-for-nearly-550-million/articleshow/134249546.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:17:27Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Essar is acquiring a UK fuel retailer for nearly $550 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Essar is acquiring a UK fuel retailer for nearly $550 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essar",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-013",
       "headline": "Solar Industries acquires South African company for 13,000 crore",
@@ -443,6 +492,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-041",
+      "headline": "Russia sanctions bill clears procedural House hurdle",
+      "headline_en": null,
+      "url": "https://www.politico.com/live-updates/2026/09/14/congress/russia-sanctions-bill-clears-procedural-house-hurdle-01076228",
+      "source_name": "POLITICO — Congress",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:32:01Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The bill represents a potential escalation in geopolitical and trade sanctions against Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The bill represents a potential escalation in geopolitical and trade sanctions against Russia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-003",
       "headline": "GEN: Becoming a substantial holder",
       "headline_en": null,
@@ -634,6 +726,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-045",
+      "headline": "Waaree Renewable’s data centre push raises the stakes",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/mark-to-market/waaree-renewable-technologies-sunstar-data-centers-ai-data-centres-india-11789370615415.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:25:23Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Company is expanding into data centers, though no specific investment amount is provided.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Company is expanding into data centers, though no specific investment amount is provided.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Waaree Renewable",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1325,55 +1466,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260915-029",
-      "headline": "Corteva Categorically Rejects Unfounded, Unprecedented Allegations by State Attorneys General",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/corteva-categorically-rejects-unfounded-unprecedented-allegations-by-state-attorneys-general-302878200.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T23:47:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Corteva is facing legal allegations from state attorneys general, creating potential regulatory and litigation risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Corteva is facing legal allegations from state attorneys general, creating potential regulatory and litigation risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corteva",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260915-030",
       "headline": "Shanghai Electric registra un crecimiento de ingresos del 16,6 % en el primer semestre de 2026",
       "headline_en": "Shanghai Electric reports 16.6% revenue growth in the first half of 2026",
@@ -1624,20 +1716,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260915-040",
-      "headline": "TWO Announces Intention to Voluntarily Delist and Deregister 9.375% Senior Notes due 2030 from the New York Stock Exchange",
+      "inbox_id": "INB-20260915-050",
+      "headline": "BURFORD CAPITAL ANNOUNCES PRICING OF PRIVATE OFFERING OF SENIOR SECURED NOTES",
       "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260914162861/en/TWO-Announces-Intention-to-Voluntarily-Delist-and-Deregister-9.375-Senior-Notes-due-2030-from-the-New-York-Stock-Exchange/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
+      "url": "https://www.prnewswire.com/news-releases/burford-capital-announces-pricing-of-private-offering-of-senior-secured-notes-302878109.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
       "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:30:00Z",
+      "found_at": "2026-09-14T20:55:00Z",
       "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "prelim_note": "Pricing of senior secured notes indicates capital raising activity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 51,
-      "triage_reason": "TWO announced the voluntary delisting of its 9.375% senior notes due 2030.",
+      "triage_reason": "Pricing of senior secured notes indicates capital raising activity.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -1662,7 +1754,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "TWO",
+          "name": "Burford Capital",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1864,104 +1956,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-018",
-      "headline": "TORM plc announces secondary public offering of its class A common shares by a selling shareholder | A Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/A/torm-plc-announces-secondary-public-offering-of-its-class-a-common-xu7wfvclcyu4.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TORM plc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-016",
-      "headline": "QGold Reports Grab Samples up to 600 g/t Gold at Mine Centre",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361580/0/en/qgold-reports-grab-samples-up-to-600-g-t-gold-at-mine-centre.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "QGold reported high-grade gold samples of 600 g/t, which is a positive operational update for a mining company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "QGold reported high-grade gold samples of 600 g/t, which is a positive operational update for a mining company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QGold",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164162,9 +164156,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 97932,
-    "news_picked_today": 40,
-    "news_dropped_today": 224
+    "news_seen_today": 107311,
+    "news_picked_today": 50,
+    "news_dropped_today": 238
   },
   "book_momentum": {
     "live_count": 8,
