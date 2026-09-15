@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-15T02:01:48Z",
+  "generated_at": "2026-09-15T02:06:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260915-109",
+      "headline": "Abbott to pay US$385 million in US settlement over contaminated infant formula allegations",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/abbott-pay-us385-million-us-settlement-over-contaminated-infant-formula-allegations",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T01:42:36Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Abbott agreed to pay a $385 million settlement regarding infant formula contamination allegations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abbott agreed to pay a $385 million settlement regarding infant formula contamination allegations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbott",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260915-095",
       "headline": "J&J looking to offload orthopedics unit in $20B deal to Apollo: Bloomberg",
@@ -542,6 +591,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-110",
+      "headline": "US Justice Department says millions in Iran oil proceeds laundered on Binance",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/us-justice-department-says-millions-iran-oil-proceeds-laundered-binance",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T01:08:19Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "The US DOJ alleges that millions in Iranian oil proceeds were laundered through Binance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The US DOJ alleges that millions in Iranian oil proceeds were laundered through Binance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-104",
       "headline": "Customer Data Leaked from Japan Arm of U.S. Insurer Prudential",
       "headline_en": null,
@@ -581,6 +680,60 @@
       "companies": [
         {
           "name": "Prudential",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-115",
+      "headline": "Samsung backs Nvidia AI chip rival in $230 million funding round as GPU alternatives boom",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/14/samsung-euclyd-ai-chip-funding.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-14T23:30:02Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Samsung is investing $230 million in an Nvidia competitor, signaling strategic capital allocation in the AI hardware space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Samsung is investing $230 million in an Nvidia competitor, signaling strategic capital allocation in the AI hardware space.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1650,6 +1803,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-111",
+      "headline": "Minebea Mitsumi pauses acquisitions to chase AI returns",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/09/15/companies/japan-dealmaker-minebea-mitsui-ai-chase/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T01:48:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Minebea Mitsumi is pausing acquisitions to focus on AI-related returns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Minebea Mitsumi is pausing acquisitions to focus on AI-related returns.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Minebea Mitsumi",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-074",
       "headline": "ANZ CEO Warns of AI Risks and Job Cuts After Musk, Altman Alert",
       "headline_en": null,
@@ -1744,202 +1946,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-036",
-      "headline": "Bitmine Immersion Technologies (BMNR) maakt bekend dat het 5,96 miljoen ETH-tokens in bezit heeft en dat het totale bezit aan cryptovaluta en contanten USD 15,8 miljard bedraagt.",
-      "headline_en": "Bitmine Immersion Technologies (BMNR) announces that it holds 5.96 million ETH tokens and that its total holdings in cryptocurrency and cash amount to USD 15.8 billion.",
-      "url": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-maakt-bekend-dat-het-5-96-miljoen-eth-tokens-in-bezit-heeft-en-dat-het-totale-bezit-aan-cryptovaluta-en-contanten-usd-15-8-miljard-bedraagt-302878152.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T22:14:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Bitmine Immersion Technologies disclosed holding 5.96 million ETH and $15.8 billion in cash and crypto assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Bitmine Immersion Technologies disclosed holding 5.96 million ETH and $15.8 billion in cash and crypto assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitmine Immersion Technologies",
-          "ticker": "BMNR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-022",
-      "headline": "UNISOUND (09678): VOLUNTARY ANNOUNCEMENT RELEASE OF U2-FLASH, A NEW-GENERATION HIGH-PERFORMANCE CORE MODEL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500089.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T00:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company announced a new AI model, but impact is not yet quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Company announced a new AI model, but impact is not yet quantified.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UNISOUND",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-060",
-      "headline": "Generation Mining Secures Full Project Financing to Build Canada's Next Critical Minerals Mine",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/14/3361564/0/en/generation-mining-secures-full-project-financing-to-build-canada-s-next-critical-minerals-mine.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T20:43:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Generation Mining secured full project financing to build a new critical minerals mine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Generation Mining secured full project financing to build a new critical minerals mine.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Generation Mining",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-045",
-      "headline": "Waaree Renewable’s data centre push raises the stakes",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/mark-to-market/waaree-renewable-technologies-sunstar-data-centers-ai-data-centres-india-11789370615415.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T00:25:23Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Company is expanding into data centers, though no specific investment amount is provided.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Company is expanding into data centers, though no specific investment amount is provided.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Waaree Renewable",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164210,9 +164216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264003,
-    "news_picked_today": 148,
-    "news_dropped_today": 716
+    "news_seen_today": 268545,
+    "news_picked_today": 156,
+    "news_dropped_today": 756
   },
   "book_momentum": {
     "live_count": 8,
