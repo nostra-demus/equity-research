@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-10T23:14:01Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-815cbc7f3212",
+    "idea_version": "IDEAV-42635029d1772aaa",
+    "idea_version_started_at": "2026-09-07T23:46:49Z",
+    "ticker": "GCI",
+    "company": "Gryphon Capital Income Trust",
+    "exchange": "ASX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The completion of a large $86.25M wholesale placement typically creates immediate downward pressure on the share price as new supply hits the market at a discount.",
+    "why_now": "The placement completion was announced on 2026-09-07, marking the point where new shares are issued and secondary market digestion begins.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "liquidity_positioning",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-815b42714107"
+    ],
+    "primary_source_event_id": "EVT-815b42714107",
+    "source_headlines": [
+      "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+    ],
+    "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-07T22:42:24Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-07T23:46:49Z",
+    "updated_at": "2026-09-07T23:46:49Z",
+    "decay_at": "2026-09-09T10:42:24Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

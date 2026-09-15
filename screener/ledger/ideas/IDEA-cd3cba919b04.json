@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-cd3cba919b04",
+  "idea_version": "IDEAV-34c422c48b1976fd",
+  "idea_version_started_at": "2026-09-14T05:51:52Z",
+  "ticker": "HWE.AX",
+  "company": "Whyalla Steel Works",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The blast furnace at the Whyalla steel mill has failed permanently, leading to significant job losses and operational closure.",
+  "why_now": "The permanent failure of the blast furnace was announced today, leading to immediate restructuring and job cuts.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d7fdaf5be854"
+  ],
+  "primary_source_event_id": "EVT-d7fdaf5be854",
+  "source_headlines": [
+    "Whyalla steel mill blast furnace fails for good, with 600 jobs to go"
+  ],
+  "source_headline": "Whyalla steel mill blast furnace fails for good, with 600 jobs to go",
+  "source_url": "https://www.afr.com/companies/manufacturing/whyalla-blast-furnace-restart-fails-600-jobs-cut-20260914-p60x1j?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-14T04:07:38Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-14T05:51:52Z",
+  "updated_at": "2026-09-14T05:51:52Z",
+  "decay_at": "2026-09-15T16:07:38Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

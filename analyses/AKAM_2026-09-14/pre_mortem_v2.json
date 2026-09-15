@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "run_root": "analyses/AKAM_2026-09-14",
+  "performed_at": "2026-09-14T13:39:43.128891Z",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/AKAM_2026-09-14/final_thesis.md",
+  "decision_record_path": "analyses/AKAM_2026-09-14/decision_record.json",
+  "final_thesis_sha256": "bdee27508f818bcfb7cedf028fcd0aefd62fcd610711ea0b2df84c965fa49a81",
+  "decision_record_sha256": "6fe39f9d5f6a19f28d19e3cd8a75bc62a8a8686994eb03aced91d2ff991a1c7b",
+  "original_decision": "Avoid",
+  "original_confidence": 50,
+  "adversarial_direction": "False negative: steelman the bull case against the Avoid decision.",
+  "pre_mortem_narrative": "It is 12 months after the decision and Avoid has clearly failed because the cloud transition worked faster than the thesis allowed. Security kept growing, the more-than-$2.8bn of signed multi-year Compute and Infrastructure Services commitments began converting during the stated Q4 FY2026/Q1 FY2027 window, and capacity costs that depressed Q2 margins proved to be investment ahead of revenue rather than permanent diseconomics. Delivery decline was more than offset, cash capex and working-capital absorption eased, and free cash flow recovered. The market continued to value those cash flows near the model's own 5.05% market-implied WACC rather than the unverified 6.2168% analyst WACC. Correcting the disclosed convertible/share denominator also lifted every modeled per-share value, including the good-outcome case to about $144.72. The engine therefore missed a roughly 35% upside outcome because it treated a fragile discount-rate and share-basis model as stronger rejection evidence than the contracted growth transition already visible at the decision date.",
+  "bear_case": "A long can still lose money because Q2 FY2026 revenue growth of 5.4% came with a 331bp GAAP gross-margin decline, an 18.7% fall in GAAP-derived EBITDA, and lower LTM free cash flow. Strict net leverage was 5.14x, known gross lease-related exposure was $2.331bn, Delivery revenue was shrinking, stock-based compensation and recurring restructuring flattered adjusted earnings, and $2.271bn of identified acquisitions lacked disclosed deal-level returns. The corrected DCF still gives a weighted target of only about $77.77 against $106.79, so execution must improve materially before the current price has a margin of safety.",
+  "bull_case_steelman": "Akamai is not a generic low-growth Delivery asset. Q2 Security revenue grew 10% and Compute and Infrastructure Services grew 39%, while management disclosed more than $2.8bn of signed multi-year CIS commitments whose revenue was expected to accelerate in Q4 FY2026 and Q1 FY2027. Four recent revenue-plus-normalized-EPS quarters beat consensus, although that four-observation sample supports judgment rather than a measured frequency. Liquidity of $4.355bn and 2.92x coverage of the September 2027 maturity reduce near-term distress risk. If the new capacity is filled, the present margin pressure can reverse; at the 5.05% market-implied WACC the model's existing base cash-flow path supports the current price, and the corrected good-outcome case is about $144.72. This upside needs operating delivery, not merely an unearned multiple re-rating.",
+  "killer_risk": "The Avoid call is most vulnerable to a model-anchor error: its only weighted valuation is an 82%-terminal-value DCF whose decision-driving 6.2168% WACC inputs are not verifiable in the frozen generation, while the same base cash flows reconcile to the market at 5.05% and the disclosed share-basis correction raises all per-share values.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "Q3 FY2026 standalone revenue at least $1,123.7m and GAAP gross margin at least 59.3%.",
+      "closeness_to_trigger": "Not triggered because Q3 had not reported by the decision date. The $1,118.153m Q3 revenue consensus was only $5.547m, or 0.49%, below the revenue bar, but Q2 GAAP gross margin of 55.8% was 350bp below the margin bar. This is the closest criterion on expectations, not a completed trigger.",
+      "disconfirming_evidence_now": "Security growth of 10%, CIS growth of 39%, and more than $2.8bn of signed CIS commitments make the revenue leg plausible; the 331bp year-on-year Q2 gross-margin decline cuts against satisfying both legs together.",
+      "severity": "High"
+    },
+    {
+      "criterion": "LTM strict free cash flow at least $733.0m by Q2 FY2027.",
+      "closeness_to_trigger": "LTM strict FCF was $629.9m, or 85.9% of the threshold. It needs another $103.1m, or 16.4%, by the deadline. FY2025 FCF of $699.3m shows the level is reachable, but the LTM series had moved the wrong way.",
+      "disconfirming_evidence_now": "The contracted CIS ramp and a normalization of upfront capacity spending could close the gap; H1 FY2026 CFO and LTM FCF deterioration show that conversion had not yet occurred.",
+      "severity": "High"
+    },
+    {
+      "criterion": "Strict net debt to LTM GAAP-derived EBITDA at or below 3.0x for two consecutive quarter ends by Q2 FY2027.",
+      "closeness_to_trigger": "Far from triggered. The ratio was 5.14x and must fall by 2.14 turns, or about 41.6%, then remain at or below 3.0x for a second quarter.",
+      "disconfirming_evidence_now": "The $4.355bn liquidity pool and 2.92x coverage of the September 2027 maturity reduce survival risk, but liquidity is not evidence that strict leverage is already falling.",
+      "severity": "Medium"
+    },
+    {
+      "criterion": "Filed deal-level returns above a matched cost of capital for the $2.066bn FY2021-FY2025 acquisition spend plus the $205m LayerX purchase.",
+      "closeness_to_trigger": "Not measurable and not triggered. No purchase-by-purchase revenue, margin, retention, cash return, or matched cost-of-capital disclosure was available.",
+      "disconfirming_evidence_now": "LayerX and prior deals may contribute to Security and CIS growth, but category growth cannot prove that the identified acquisition capital earned more than its cost.",
+      "severity": "High"
+    },
+    {
+      "criterion": "A second independent, matched-basis valuation at or above the prevailing share price.",
+      "closeness_to_trigger": "Not triggered. The 5.05% implied-WACC solve, the share-denominator correction, and all sensitivity cases reuse the same DCF cash-flow architecture; analyst targets are opinions, not an independent valuation build.",
+      "disconfirming_evidence_now": "The corrected upper DCF values of about $113.62 and $144.72 show plausible upside, and 23 analyst targets averaged $153.31, but neither supplies an independently sourced cash-flow and discount-rate bridge.",
+      "severity": "High"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "The market appears to require roughly 16.35% annual FCF growth to about $1.245bn by FY2030, or a 19.21% FCF margin on the thesis revenue path, while current margins, FCF, leverage, and capital-allocation evidence do not support that outcome.",
+    "already_priced": null,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "A matched Street model showing substantially the same Security/CIS conversion, capex, FCF-margin, leverage, terminal-growth, and discount-rate assumptions would show that the engine is restating consensus rather than identifying an edge. The available target-price consensus does not disclose those assumptions, so whether the claimed risk is already priced remains unknown and conviction must stay capped."
+  },
+  "value_trap_check": "The bullish countercase is not a simple cheap-stock re-rating: at $106.79 the shares require either stronger cash flow or a lower required return. The risk is instead that Avoid labels the price unjustified using an analyst WACC that the frozen evidence cannot verify. The model's own base cash-flow path supports the market price at a 5.05% implied WACC, and the signed CIS commitments provide a concrete path to operating improvement. Conversely, without conversion into GAAP margin and FCF, the current price remains exposed to a genuine execution and leverage trap.",
+  "base_rate_check": "No matched external reference-class sample is present in the frozen evidence, so no empirical success rate for cloud-capacity ramps or leveraged technology transitions can be claimed. The closest same-company, same-metric base rate is unfavorable to the bull: FY2023-FY2025 FCF CAGR was 6.34%, LTM FCF was down 9.92% from FY2025, and the price-implied 16.35% FCF CAGR is about 10 percentage points above that realized rate. Four consecutive revenue-plus-normalized-EPS beats are only a four-observation prior and remain judgment. The more-than-$2.8bn contracted backlog is meaningful inside-view evidence, but without category margin and cash-conversion proof it is not exceptional enough to overturn Avoid; it is strong enough to prevent confidence above 40 in the rejection.",
+  "overconfidence_flags": [
+    "Anchoring: the weighted conclusion relies on a 6.2168% WACC even though its Treasury, equity-risk-premium, and beta sources are absent from the frozen generation and the market-implied rate is 5.05%.",
+    "Model concentration: one DCF carries 100% of valuation weight and 82.2% of its enterprise value comes from terminal value.",
+    "Matched-basis error: full convertible debt was deducted while GAAP diluted shares included 5.353m convertible-note shares and the disclosed note-hedge offset was not applied; the reverse solve also mixed 143.700m current shares with a 153.686m per-share denominator.",
+    "Confirmation bias: the rejection emphasizes falling GAAP margins, FCF, and ROIC while the same evidence shows improving CFO-to-EBITDA cash conversion, 10% Security growth, 39% CIS growth, and signed commitments.",
+    "Probability precision: scenario weights are judgment and have no matched reference-class frequencies, even though they sum and reconcile.",
+    "The raw 50 confidence and prior stamped effective 45 were already cautious; this audit does not treat the material model defects as proof that the opposite long thesis is true."
+  ],
+  "disconfirming_evidence_present": [
+    "More than $2.8bn of signed multi-year CIS commitments, with management expecting material conversion in Q4 FY2026 and Q1 FY2027.",
+    "Q2 FY2026 Security revenue grew 10% and CIS revenue grew 39%, partly offsetting Delivery's 6% decline.",
+    "Four consecutive revenue-plus-normalized-EPS beats, a judgment-supporting but non-empirical four-observation prior.",
+    "The market-implied 5.05% WACC supports the prevailing enterprise value on the thesis's existing base cash-flow path.",
+    "Correcting the note/share denominator raises the scenario values to about $144.72, $113.62, $71.26, and $47.30 and the weighted target to about $77.77; the correction weakens but does not reverse Avoid.",
+    "$4.355bn of liquidity and 2.92x coverage of the September 2027 maturity argue against near-term distress.",
+    "Capital IQ showed an Outperform consensus and 23 target prices with a $153.31 mean, although those are opinions without disclosed matched valuation assumptions."
+  ],
+  "what_would_change_the_call": [
+    "A Q3 FY2026 filing showing both at least $1,123.7m of standalone revenue and at least 59.3% GAAP gross margin.",
+    "LTM strict FCF reaching at least $733.0m by Q2 FY2027 on the same CFO-minus-total-cash-capex definition.",
+    "Strict net leverage falling to 3.0x or less for two consecutive quarter ends by Q2 FY2027.",
+    "Filed, purchase-by-purchase returns showing the $2.271bn identified acquisition spend earning above a matched cost of capital.",
+    "A genuinely independent, matched-basis valuation at or above the prevailing price, using source-verifiable discount-rate inputs and a corrected fully diluted share/convertible bridge.",
+    "Category-level evidence that the signed CIS commitments convert into GAAP margin and cash flow rather than only reported revenue."
+  ],
+  "survives": true,
+  "confidence_haircut": 10,
+  "recommended_confidence": 40,
+  "recommended_rating_cap": "",
+  "verdict": "Survives with haircut",
+  "notes": "This final immutable v2 audit binds the exact current post-stamp bytes identified above. Canonical original_confidence is the decision_record confidence_score of 50; the same record carries a prior 5-point haircut and effective post_review_confidence_score of 45, so this report's cumulative 10-point haircut recommends 40 and does not raise the effective score. The existing verification_report.json was bound to the earlier pre-stamp thesis and decision-record hashes, but its two substantive findings concern evidence and math knowable on the 2026-09-14 decision date; both were rechecked against the current DCF and reverse-DCF schedules. Only supervisor-frozen evidence generation c4d3e6273c464a9c80ac6b2d5376f06f8686a7fd7d1593a78ba6741c81cf1d6c under NOSTRA_FROZEN_EVIDENCE_ROOT was used. Live data/AKAM, mutable _pool_extracts, and research memory were not used. No existing artifact was edited, no propagation, stamping, synthesis, or admission action was run, and no Git command was run. No additional rating cap is recommended because Avoid already bars a long position."
+}

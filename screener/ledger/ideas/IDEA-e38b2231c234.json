@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-e38b2231c234",
-  "idea_version": "IDEAV-729c86a7a34ac4c1",
-  "idea_version_started_at": "2026-09-09T01:49:16Z",
+  "idea_version": "IDEAV-a6e1dba8e77d6940",
+  "idea_version_started_at": "2026-09-13T18:15:10Z",
   "ticker": "GE",
   "company": "GE Aerospace",
   "exchange": "NYSE",
@@ -11,9 +11,9 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The $12 billion acquisition of a castings supplier directly addresses critical engine production bottlenecks, allowing GE Aerospace to accelerate delivery schedules and capture higher revenue from its massive engine backlog.",
-  "why_now": "The acquisition was announced on 2026-09-08 to resolve immediate supply chain constraints.",
-  "conviction": 70,
+  "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
+  "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,26 +46,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-562642158179"
+    "EVT-8cff733d76dc",
+    "EVT-ab951b64b3c4"
   ],
-  "primary_source_event_id": "EVT-562642158179",
+  "primary_source_event_id": "EVT-8cff733d76dc",
   "source_headlines": [
-    "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck"
+    "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+    "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
   ],
-  "source_headline": "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck",
-  "source_url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
-  "source_name": "Reuters — Latest (news sitemap)",
+  "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-08T16:57:37Z",
+  "newest_source_at": "2026-09-12T22:38:33Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-08T15:48:21Z",
-  "updated_at": "2026-09-09T01:49:16Z",
-  "decay_at": "2026-09-10T04:57:37Z",
+  "surfaced_at": "2026-09-12T16:36:23Z",
+  "updated_at": "2026-09-13T18:15:10Z",
+  "decay_at": "2026-09-14T10:38:33Z",
   "status": "live",
   "promoted_signal_id": null
 }

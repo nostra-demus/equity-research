@@ -4,22 +4,55 @@
   "scope": "ticker",
   "ticker": "NVO",
   "subject": "Nvonordisk",
-  "title": "Watchlist according to gpt + claude",
-  "stage": "deep_dive",
-  "decision": null,
+  "title": "WATCH with limit price according to gpt + claude",
+  "stage": "final_decision",
+  "decision": "watch",
   "assignee": "AB",
-  "attachments": [],
-  "watchlist_entry_id": null,
-  "watchlist_created": false,
+  "attachments": [
+    {
+      "attachment_id": "mu1b4gp0-f4d4639c-NVO_IC_Memo_Rev3_2026-09-14.pdf",
+      "filename": "NVO_IC_Memo_Rev3_2026-09-14.pdf",
+      "bytes": 21643,
+      "added_at": "2026-09-14T13:57:10.405Z",
+      "added_by": "banks@alloc8.xyz"
+    }
+  ],
+  "watchlist_entry_id": "WL-20260914-c32233f6",
+  "watchlist_created": true,
   "history": [
     {
       "at": "2026-08-28T14:58:37.068Z",
       "by": "ceekay@muns.io",
       "action": "created",
       "detail": "deep_dive"
+    },
+    {
+      "at": "2026-09-14T13:57:06.066Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
+    },
+    {
+      "at": "2026-09-14T13:57:10.407Z",
+      "by": "banks@alloc8.xyz",
+      "action": "attached",
+      "detail": "NVO_IC_Memo_Rev3_2026-09-14.pdf"
+    },
+    {
+      "at": "2026-09-14T14:00:52.230Z",
+      "by": "banks@alloc8.xyz",
+      "action": "moved",
+      "detail": "deep_dive → final_decision"
+    },
+    {
+      "at": "2026-09-14T14:01:01.183Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
     }
   ],
   "created_at": "2026-08-28T14:58:37.068Z",
   "created_by": "ceekay@muns.io",
-  "updated_at": "2026-08-28T14:58:37.068Z"
+  "updated_at": "2026-09-14T14:01:01.183Z",
+  "ticker_label": null
 }
