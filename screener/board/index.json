@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T20:50:20Z",
+  "generated_at": "2026-09-15T20:54:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-526",
@@ -779,6 +779,60 @@
           "name": "Skyfame Realty",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-598",
+      "headline": "Flag Ship Acquisition Corporation Announces Definitive Business Combination Agreement with Bluechip & Co. Holdings",
+      "headline_en": null,
+      "url": "https://markets.businessinsider.com/news/stocks/flag-ship-acquisition-corporation-announces-definitive-business-combination-agreement-with-bluechip-co-holdings-1036548374",
+      "source_name": "Business Insider",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T20:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Flag Ship Acquisition Corporation announced a definitive business combination agreement with Bluechip & Co. Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flag Ship Acquisition Corporation announced a definitive business combination agreement with Bluechip & Co. Holdings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flag Ship Acquisition Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Bluechip & Co. Holdings",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1906,61 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-345",
-      "headline": "Solar Industries expects to triple revenue in two years with $1.36 billion buyout of South Africa's Omnia",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/solar-industries-triple-revenue-two-years-1-36-billion-buyout-south-africas-omnia-11789456906120.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T07:58:17Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Solar Industries plans to acquire Omnia's mining explosives business for $1.36 billion, aiming to triple revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solar Industries plans to acquire Omnia's mining explosives business for $1.36 billion, aiming to triple revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solar Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Omnia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -119104,75 +119103,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-eedc68441ca9",
-      "idea_version": "IDEAV-d87138c5224caec6",
-      "idea_version_started_at": "2026-09-14T09:21:20Z",
-      "ticker": "0862.HK",
-      "company": "Vision Values Holdings",
-      "exchange": "Hong Kong",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in its financial performance.",
-      "why_now": "The profit warning was filed today, September 14, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-668043fdc7d8"
-      ],
-      "primary_source_event_id": "EVT-668043fdc7d8",
-      "source_headlines": [
-        "VISION VALUES (00862): PROFIT WARNING"
-      ],
-      "source_headline": "VISION VALUES (00862): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T08:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T09:21:20Z",
-      "updated_at": "2026-09-14T09:21:20Z",
-      "decay_at": "2026-09-15T20:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-aee6ec71570ec791",
       "idea_version_started_at": "2026-09-15T05:22:27Z",
@@ -120540,77 +120470,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bd7845bfd4e2",
-      "idea_version": "IDEAV-aa9062fccf658cd5",
-      "idea_version_started_at": "2026-09-14T09:41:21Z",
-      "ticker": "00862",
-      "company": "Vision Values Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a formal profit warning, signaling a material deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
-      "why_now": "The filing was released today, September 14, 2026, and profit warnings typically trigger immediate selling pressure as investors adjust for lower expected cash flows.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-668043fdc7d8"
-      ],
-      "primary_source_event_id": "EVT-668043fdc7d8",
-      "source_headlines": [
-        "VISION VALUES (00862): PROFIT WARNING"
-      ],
-      "source_headline": "VISION VALUES (00862): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T08:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T09:41:21Z",
-      "updated_at": "2026-09-14T09:41:21Z",
-      "decay_at": "2026-09-15T20:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d050d16f752c",
       "idea_version": "IDEAV-58f4d4283a5d1546",
       "idea_version_started_at": "2026-09-14T10:01:52Z",
@@ -121181,6 +121040,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-eedc68441ca9",
+      "idea_version": "IDEAV-d87138c5224caec6",
+      "idea_version_started_at": "2026-09-14T09:21:20Z",
+      "ticker": "0862.HK",
+      "company": "Vision Values Holdings",
+      "exchange": "Hong Kong",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in its financial performance.",
+      "why_now": "The profit warning was filed today, September 14, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-668043fdc7d8"
+      ],
+      "primary_source_event_id": "EVT-668043fdc7d8",
+      "source_headlines": [
+        "VISION VALUES (00862): PROFIT WARNING"
+      ],
+      "source_headline": "VISION VALUES (00862): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T08:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T09:21:20Z",
+      "updated_at": "2026-09-14T09:21:20Z",
+      "decay_at": "2026-09-15T20:52:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-511ecbe8c270",
@@ -122725,6 +122653,77 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bd7845bfd4e2",
+      "idea_version": "IDEAV-aa9062fccf658cd5",
+      "idea_version_started_at": "2026-09-14T09:41:21Z",
+      "ticker": "00862",
+      "company": "Vision Values Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a formal profit warning, signaling a material deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
+      "why_now": "The filing was released today, September 14, 2026, and profit warnings typically trigger immediate selling pressure as investors adjust for lower expected cash flows.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-668043fdc7d8"
+      ],
+      "primary_source_event_id": "EVT-668043fdc7d8",
+      "source_headlines": [
+        "VISION VALUES (00862): PROFIT WARNING"
+      ],
+      "source_headline": "VISION VALUES (00862): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T08:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T09:41:21Z",
+      "updated_at": "2026-09-14T09:41:21Z",
+      "decay_at": "2026-09-15T20:52:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126054,9 +126053,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 570,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
         "total_count": 289,
@@ -126064,9 +126063,9 @@
         "hidden_count": 39
       },
       "short": {
-        "total_count": 279,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 31
       }
     },
     "retention": {
@@ -126085,6 +126084,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-eedc68441ca9",
+        "idea_version": "IDEAV-d87138c5224caec6",
+        "idea_version_started_at": "2026-09-14T09:21:20Z",
+        "ticker": "0862.HK",
+        "company": "Vision Values Holdings",
+        "exchange": "Hong Kong",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in its financial performance.",
+        "why_now": "The profit warning was filed today, September 14, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-668043fdc7d8"
+        ],
+        "primary_source_event_id": "EVT-668043fdc7d8",
+        "source_headlines": [
+          "VISION VALUES (00862): PROFIT WARNING"
+        ],
+        "source_headline": "VISION VALUES (00862): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T08:52:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T09:21:20Z",
+        "updated_at": "2026-09-14T09:21:20Z",
+        "decay_at": "2026-09-15T20:52:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T20:52:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-bd7845bfd4e2",
+        "idea_version": "IDEAV-aa9062fccf658cd5",
+        "idea_version_started_at": "2026-09-14T09:41:21Z",
+        "ticker": "00862",
+        "company": "Vision Values Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a formal profit warning, signaling a material deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
+        "why_now": "The filing was released today, September 14, 2026, and profit warnings typically trigger immediate selling pressure as investors adjust for lower expected cash flows.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-668043fdc7d8"
+        ],
+        "primary_source_event_id": "EVT-668043fdc7d8",
+        "source_headlines": [
+          "VISION VALUES (00862): PROFIT WARNING"
+        ],
+        "source_headline": "VISION VALUES (00862): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091400428.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T08:52:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T09:41:21Z",
+        "updated_at": "2026-09-14T09:41:21Z",
+        "decay_at": "2026-09-15T20:52:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T20:52:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-661a368ec8c5",
         "idea_version": "IDEAV-eab7714e9c5469d0",
@@ -163112,160 +163257,12 @@
         "archived_at": "2026-08-29T08:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4fb19a242234",
-        "idea_version": "IDEAV-244f43e33b9125c4",
-        "idea_version_started_at": "2026-08-25T10:36:18Z",
-        "ticker": "02222",
-        "company": "NVC INTL",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "NVC INTL issued a profit warning, indicating a likely decline in its profitability for the upcoming reporting period.",
-        "why_now": "The company released a profit warning today, suggesting an immediate negative impact on its financial performance.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5ef86e82764d"
-        ],
-        "primary_source_event_id": "EVT-5ef86e82764d",
-        "source_headlines": [
-          "NVC INTL (02222): PROFIT WARNING"
-        ],
-        "source_headline": "NVC INTL (02222): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501009.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T10:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T10:36:18Z",
-        "updated_at": "2026-08-25T10:36:18Z",
-        "decay_at": "2026-08-26T22:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8b9f3e9f0b64",
-        "idea_version": "IDEAV-c756c5bb3afcddeb",
-        "idea_version_started_at": "2026-08-25T10:36:18Z",
-        "ticker": "00348",
-        "company": "China Healthwise",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "China Healthwise issued a profit warning, indicating that its financial results will be significantly lower than previously expected.",
-        "why_now": "The company filed a profit warning today, signaling an immediate negative revision to its earnings expectations.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7c7d0d9e5dde"
-        ],
-        "primary_source_event_id": "EVT-7c7d0d9e5dde",
-        "source_headlines": [
-          "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING"
-        ],
-        "source_headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T09:42:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T10:36:18Z",
-        "updated_at": "2026-08-25T10:36:18Z",
-        "decay_at": "2026-08-26T21:42:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 829,
-    "live_count": 38,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -163284,9 +163281,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7817256,
-    "news_picked_today": 1335,
-    "news_dropped_today": 9033
+    "news_seen_today": 7857823,
+    "news_picked_today": 1339,
+    "news_dropped_today": 9053
   },
   "book_momentum": {
     "live_count": 8,
