@@ -3479,26 +3479,30 @@ a { color: inherit; }
 .wl__trg--add { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; cursor: pointer; }
 @media (hover: hover) and (pointer: fine) { .wl__trg--add:hover { background: var(--accent-wash); } }
 
-/* ── the one list: a word per name, most urgent first ─────────────────────────
-   Seven words carry the state — Warning, Buy price reached, Getting close, Check now, Coming up, Can't check,
-   Waiting. Colour backs the word up and never replaces it: the word is always written out. */
-.wst { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); font-size: 10.5px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--text-muted); flex: none; }
-.wst--warn { color: var(--bad); border-color: var(--bad); background: var(--bad-wash); }
-.wst--buy { color: var(--accent-ink); border-color: var(--accent); background: var(--accent); }
-.wst--close { color: var(--accent-bright); border-color: var(--accent); background: var(--accent-wash); }
-.wst--check { color: var(--text); border-color: var(--hairline-strong); background: var(--surface-3); }
-.wst--soon { color: var(--text); }
+/* ── the one list: a signal per name, most urgent first ─────────────────────────
+   Each chip names what happened — "Below bad case", "In buy zone", "Near buy price", "Event soon" — in a colour
+   that always means the same thing: red is danger, green a buy, amber "look at this", blue a heads-up, grey
+   nothing to do, and a hollow dot on a dashed edge is "no price, so nothing is checked". The dot carries the
+   colour and the words are always written out, so neither has to be decoded (watchStatus.ts SIGNAL). */
+.wst { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px 0 8px; border-radius: var(--r-pill); border: 1px solid transparent; font-size: 11px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--text-muted); background: var(--surface-3); flex: none; }
+.wst::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.wst--red { color: var(--bad); border-color: var(--bad); background: var(--bad-wash); }
+.wst--green { color: var(--live); border-color: var(--live); background: var(--live-wash); }
+.wst--amber { color: var(--warn-ink); background: var(--warn-wash); }
+.wst--amber::before { background: var(--conv-warn); }
+.wst--blue { color: var(--info); background: var(--info-wash); }
+.wst--grey { color: var(--text-muted); font-weight: 500; }
 /* no price must LOOK different from a quiet "all fine" */
-.wst--cant { color: var(--text-faint); border-style: dashed; }
-.wst--wait, .wst--info { color: var(--text-faint); border-color: var(--hairline); font-weight: 500; }
+.wst--off { color: var(--text-faint); background: transparent; border: 1px dashed var(--hairline-strong); font-weight: 500; }
+.wst--off::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
 
-/* ── the one table: a word per name, the ones that need you first ─────────────────────────────────────
+/* ── the one table: a signal per name, the ones that need you first ─────────────────────────────────────
    Two panes that scroll on their own — the names, and the one name picked — so neither can push the other off
    the screen, however long a name's plan is. Every column is labelled; each cell puts its value on a quiet
    label, and prices line up on the right like figures in any table. */
 .wlist { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; padding-top: 6px; }
 .wlist__main {
-  --wl-cols: 118px minmax(120px, 1fr) 108px minmax(170px, 1.7fr) minmax(128px, 1fr) 8px;
+  --wl-cols: 140px minmax(120px, 1fr) 108px minmax(170px, 1.7fr) minmax(128px, 1fr) 8px;
   min-width: 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
 }
 .wlist__cols {
@@ -3535,7 +3539,7 @@ a { color: inherit; }
 /* A narrower screen: the panel moves under the names, and the next date moves into it. */
 @media (max-width: 1080px) {
   .wlist { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 42%); }
-  .wlist__main { --wl-cols: 108px minmax(104px, 1fr) 96px minmax(150px, 1.6fr) 8px; }
+  .wlist__main { --wl-cols: 140px minmax(104px, 1fr) 96px minmax(150px, 1.6fr) 8px; }
   .wlist__col--date, .wrow__cell--date { display: none; }
 }
 /* A short screen cannot hold two scrolling panes — the cockpit's own bars take most of it, and split in two

@@ -58,13 +58,20 @@ function itemHtml(i: WatchMessageItem): string {
     + `<div style="margin-top:3px;font-size:13px;line-height:1.5;color:#3d3d44;">${detail}</div>${quote}</div>`
 }
 
+/** The signal the cockpit shows beside a name, in the same words (web/src/lib/watchStatus.ts SIGNAL): what
+ *  happened, not a category. Only urgent messages are emailed, so only their types need a word here. */
+const EMAIL_SIGNAL: Partial<Record<string, string>> = {
+  bad_case_broken: 'Below bad case', buy_price_reached: 'In buy zone', look_again_reached: 'At review price',
+  near_after_big_drop: 'Sharp drop', your_level_reached: 'Your alert hit', research_buy_now: 'Research says buy', email_test: 'Test email',
+}
+
 export function renderWatchEmail(batch: EmailBatchEntry[], appUrl: string): { subject: string; html: string } {
   const tickers = [...new Set(batch.map((b) => b.message.ticker ?? 'Watchlist'))]
   const subject = batch.length === 1
     ? `${batch[0].message.ticker ?? 'Watchlist'}: ${batch[0].items[0].title}`
     : `Watchlist: ${tickers.length} ${tickers.length === 1 ? 'name needs' : 'names need'} you — ${tickers.join(', ')}`
   const blocks = batch.map(({ message, items }) => {
-    const label = message.status ? STATUS_LABEL[message.status] : ''
+    const label = EMAIL_SIGNAL[items[0]?.type ?? ''] ?? (message.status ? STATUS_LABEL[message.status] : '')
     return `<div style="margin:0 0 14px;padding:14px 16px;background:#ffffff;border:1px solid #dedbd2;border-radius:10px;">`
       + `<div style="font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:15px;color:#1c1c21;">${escapeHtml(message.ticker ?? '')}`
       + `${label ? ` <span style="font-family:-apple-system,Segoe UI,sans-serif;font-weight:600;font-size:12px;color:#8a5c0c;">· ${escapeHtml(label)}</span>` : ''}</div>`

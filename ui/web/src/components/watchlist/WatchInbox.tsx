@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { fmtAgo, fmtStampLocal } from '../../lib/format'
-import { STATUS_KEY, STATUS_LABEL, emailWords, messageStatus } from '../../lib/watchStatus'
+import { emailWords, messageSignal } from '../../lib/watchStatus'
 import type { WatchMessage } from '../../lib/types'
 
 export function WatchInbox({ onPick }: { onPick: (listingKey: string) => void }) {
@@ -118,16 +118,14 @@ function MessageCard({ m, onPick }: { m: WatchMessage; onPick: (listingKey: stri
   const [armed, setArmed] = useState(false)
   const [asking, setAsking] = useState(false)
   const [note, setNote] = useState('')
-  const status = messageStatus(m)
+  const sig = messageSignal(m)
   const unread = !m.read_at
   const updated = Date.parse(m.updated_at)
 
   return (
-    <li className={`wmsg${unread ? ' wmsg--unread' : ''}${status === 'warning' ? ' wmsg--warn' : ''}`}>
+    <li className={`wmsg${unread ? ' wmsg--unread' : ''}${sig.tone === 'red' ? ' wmsg--warn' : ''}`}>
       <div className="wmsg__head">
-        {status
-          ? <span className={`wst wst--${STATUS_KEY[status]}`}>{STATUS_LABEL[status]}</span>
-          : <span className="wst wst--info">{m.kind === 'summary' ? 'Summary' : 'Note'}</span>}
+        <span className={`wst wst--${sig.tone}`} title={sig.meaning || undefined}>{sig.label}</span>
         {m.ticker && (
           <button
             className="wmsg__sym"

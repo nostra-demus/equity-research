@@ -1,5 +1,5 @@
 // What a watched name says right now (src/watch/evaluate.ts). The cases that matter are the ones where a
-// wrong word misleads: "Buy price reached" on a price the research only said to look again at, a big drop
+// wrong word misleads: "In buy zone" on a price the research only said to review, a big drop
 // that was really the whole market, a warning drowned out by a buy signal, a price compared across two
 // currencies, and a stale or implausible price acted on as if it were real.
 // Run: npx tsx test/watch-evaluate.test.ts
@@ -46,7 +46,7 @@ const run = (items: PlanItem[], f: PriceFacts, planOver: Partial<WatchPlan> = {}
   evaluateName({ plan: plan(items, planOver), triggers: [], evals: [], facts: f, today })
 const types = (e: ReturnType<typeof run>) => e.conditions.map((c) => c.type)
 
-check('inside the buy range: "Buy price reached", urgent', () => {
+check('inside the buy range: "In buy zone", urgent', () => {
   const e = run([buy, bad], facts(199.5))
   assert.equal(e.status, 'buy_price_reached')
   assert.equal(e.conditions[0].type, 'buy_price_reached')
@@ -55,14 +55,14 @@ check('inside the buy range: "Buy price reached", urgent', () => {
   assert.equal(e.conditions[0].quote, 'Track at $190-200 for re-entry')
 })
 
-check('within 5% above the line: "Getting close", not urgent', () => {
+check('within 5% above the line: "Near buy price", not urgent', () => {
   const e = run([buy], facts(205))
   assert.equal(e.status, 'getting_close')
   assert.deepEqual(types(e), ['getting_close'])
   assert.equal(e.conditions[0].urgent, false)
 })
 
-check('far away: "Waiting", with the signed distance to the line', () => {
+check('far away: "Watching", with the signed distance to the line', () => {
   const e = run([buy], facts(230))
   assert.equal(e.status, 'waiting')
   assert.equal(e.conditions.length, 0)
@@ -89,7 +89,7 @@ check('with no market to compare, the raw move counts and the message says so', 
   assert.match(e.conditions[0].detail, /no market comparison/)
 })
 
-check('a big drop far from every price: "Check now", not urgent', () => {
+check('a big drop far from every price: "Sharp drop", not urgent', () => {
   const e = run([buy], facts(230, { day_move_pct: -12, market: { label: 'S&P 500', move_pct: 0.2 } }))
   assert.deepEqual(types(e), ['big_drop'])
   assert.equal(e.conditions[0].urgent, false)
@@ -104,7 +104,7 @@ check('under the bad case is a Warning, and it leads even beside a buy price', (
   assert.match(e.conditions[0].detail, /not a buy signal/)
 })
 
-check('a look-again price reached is "Check now" — never "Buy price reached" — and urgent', () => {
+check('a review price reached is "At review price" — never "In buy zone" — and urgent', () => {
   const look: PlanItem = { kind: 'price', id: 'p-look', role: 'look_again', low: 1699, high: null, currency: 'INR', source: src('revisit if price falls toward the ₹1,699 base fair value'), note: null }
   const e = run([look], facts(1666.5, { currency: 'INR' }), { currency: 'INR', listing_key: 'INDIAMART|INR' })
   assert.deepEqual(types(e), ['look_again_reached'])
@@ -120,7 +120,7 @@ check('a fair price reached is only information', () => {
   assert.equal(e.conditions[0].urgent, false)
 })
 
-check('one price, one instruction: a buy price reached silences a look-again or fair line at the same price', () => {
+check('one price, one instruction: a buy price reached silences a review or fair line at the same price', () => {
   // AMZN's report names "Track at $190-200 for re-entry" AND a "$185–$200" target zone; a model may keep both.
   const zone: PlanItem = { kind: 'price', id: 'p-zone', role: 'look_again', low: 185, high: 200, currency: 'USD', source: src('$185–$200 (at or below the $210 base fair value'), note: null }
   const fair: PlanItem = { kind: 'price', id: 'p-fair', role: 'fair', low: 210, high: null, currency: 'USD', source: src('from base-case fair value $210.'), note: null }
@@ -138,7 +138,7 @@ check('a buy call is watched for its warnings only — its research lines, dates
   const soon: PlanItem = { kind: 'date', id: 'd-soon', label: 'Q3 results', date: '2026-09-16', window: null, what_to_check: null, source: src('results on 2026-09-16') }
   const buyCall = { decision: 'Buy', decision_date: '2026-01-02' }
   const calm = run([buy, look, bad, soon], facts(199, { day_move_pct: -12, market: { label: 'S&P 500', move_pct: 0 } }), buyCall)
-  assert.deepEqual(types(calm), [], 'a buy line, a look-again line, a big drop, a date and old research all stay quiet')
+  assert.deepEqual(types(calm), [], 'a buy line, a review line, a big drop, a date and old research all stay quiet')
   assert.equal(calm.status, 'waiting')
   const broken = run([buy, bad], facts(140), buyCall)
   assert.deepEqual(types(broken), ['bad_case_broken'])
@@ -152,7 +152,7 @@ check('a line in one currency is never compared with a price in another', () => 
   assert.match(e.conditions[0].detail, /exchange rate/)
 })
 
-check("no price, or a stale one: \"Can't check\", and nothing is checked against it", () => {
+check('no price, or a stale one: "No price", and nothing is checked against it', () => {
   assert.equal(run([buy], facts(null)).status, 'cant_check')
   const stale = run([buy, bad], facts(140, { stale: true }))
   assert.deepEqual(types(stale), ['cant_check'])
@@ -193,7 +193,7 @@ check('a day the research only estimates says "expected", before and after', () 
   assert.match(run([quoted], facts(230)).conditions.find((c) => c.type === 'coming_up')!.detail, /expected 2026-09-16/)
 })
 
-check('research older than 90 days is "Check now"', () => {
+check('research older than 90 days is "Research old"', () => {
   const e = run([buy], facts(230), { decision_date: '2026-06-01' })
   assert.deepEqual(types(e), ['research_old'])
 })

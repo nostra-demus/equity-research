@@ -111,7 +111,7 @@
   --rerun-wash: rgba(139, 92, 246, 0.18);
   /* conviction traffic-light amber (a "came up short / warning" state in the proof-point timeline) */
   --conv-warn: #d9912f;
-  /* the one green — engine "Live" only (+ conviction "confirmed" success) */
+  /* the one green — engine "Live" only (+ conviction "confirmed" success, and the watchlist's buy signals) */
   --live: #43b581;
   --provider-or: #8b7cf0; /* OpenRouter overflow accent (violet) — distinct from Groq teal + Gemini green */
   --provider-nv: #76b900; /* NVIDIA NIM overflow accent (NVIDIA green) */
@@ -119,6 +119,12 @@
   --provider-local: #4aa8ff; /* Local (on-device Ollama/llama.cpp) overflow accent (azure) — distinct from every cloud provider hue */
   --provider-haiku: #c08457; /* Haiku priority-1 accent (muted terracotta), distinct from the NVIDIA green and the OmniRoute amber */
   --live-wash: rgba(67, 181, 129, 0.14);
+  /* the watchlist's signal tints (watchStatus.ts SIGNAL): amber is "look at this", blue a heads-up. With --bad
+     (danger) and --live (a buy) they are the one traffic-light set every watched name and message is marked in. */
+  --warn-wash: rgba(217, 145, 47, 0.14);
+  --warn-ink: #d9912f; /* amber words on that wash — the light theme needs a darker one for small type */
+  --info: #5b9cf0;
+  --info-wash: rgba(91, 156, 240, 0.14);
 
   /* chrome — values the dark theme used to hardcode in global.css, now tokenized so they flip */
   --scrollbar-hover: #43434b;
@@ -290,6 +296,10 @@
   --provider-local: #2673cc; /* Local (on-device Ollama/llama.cpp) overflow accent (azure, darkened for light-mode contrast) */
   --provider-haiku: #9a5f34; /* Haiku priority-1 accent (terracotta, darkened for light-mode contrast) */
   --live-wash: rgba(12, 112, 72, 0.16);
+  --warn-wash: rgba(185, 116, 12, 0.12);
+  --warn-ink: #8a5500;
+  --info: #1f63c6;
+  --info-wash: rgba(31, 99, 198, 0.10);
 
   --scrollbar-hover: #b8b4ab;
   --btn-hover-bg: #e7e4dd;

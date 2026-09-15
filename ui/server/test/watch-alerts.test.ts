@@ -64,7 +64,7 @@ check('with no price this check, a told price line stays told', () => {
   assert.ok(s.state.fired[BUY().id])
 })
 
-check('"Can\'t check" is shown, never sent', () => {
+check('"No price" is shown, never sent', () => {
   let s = step(undefined, [], 230, 0)
   s = step(s.state, [cond('cant_check:price', 'cant_check')], null, 5)
   assert.equal(s.events.length, 0)

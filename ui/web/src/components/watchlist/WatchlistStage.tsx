@@ -3,7 +3,7 @@ import { useStore } from '../../lib/store'
 import { WatchDetail } from './WatchDetail'
 import { WatchInbox } from './WatchInbox'
 import { ABSENT_PRICE_COPY, livePriceLabel, money, shortDay } from '../../lib/format'
-import { NEEDS_YOU, STATUS_KEY, STATUS_LABEL, STATUS_MEANING, dateParts, rowStatus, sortRows, waitingParts } from '../../lib/watchStatus'
+import { NEEDS_YOU, dateParts, rowSignal, rowStatus, sortRows, waitingParts } from '../../lib/watchStatus'
 import type { WatchRow } from '../../lib/types'
 
 // The watchlist stage: one table of names — the ones that need you first — and one panel for the name picked.
@@ -13,9 +13,10 @@ import type { WatchRow } from '../../lib/types'
 // pool or a verdict banner belonging to whichever company happened to be selected, sitting beside a list of
 // other names, would be worse than absent.
 //
-// Each row says, in one of seven words, where the name stands — and what it is waiting for, in the
-// research's own terms, under column labels that say what each value is. The table and the panel scroll on
-// their own, and the messages open from the header on demand, so the names always get the screen.
+// Each row carries a signal — what happened to the name, in plain words, in a colour that always means the
+// same thing — and what it is waiting for, in the research's own terms, under column labels that say what each
+// value is. The table and the panel scroll on their own, and the messages open from the header on demand, so
+// the names always get the screen.
 export function WatchlistStage() {
   const read = useStore((s) => s.watchlist)
   const loading = useStore((s) => s.watchlistLoading)
@@ -140,15 +141,16 @@ export function WatchlistStage() {
   )
 }
 
-/** One name as a table row: its word, the name, its price, what it waits for, and its next date. */
+/** One name as a table row: its signal, the name, its price, what it waits for, and its next date. */
 function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: boolean; onSelect: (key: string) => void }) {
-  const status = rowStatus(row)
+  const sig = rowSignal(row)
   const w = row.watch
   const wait = waitingParts(row)
     ?? (w?.headline ? { label: 'Now', value: w.headline } : null)
     ?? (row.why ? { label: 'Why you’re watching', value: row.why } : null)
     ?? (row.engine?.size_in_trigger ? { label: 'From the research', value: `“${row.engine.size_in_trigger}”` } : null)
-  // "Review", never "look again": that phrase belongs to the look-again PRICE, and one word must mean one thing.
+  // "Review": the day to re-check this name — yours, else the research's own next review. A review price is the
+  // same idea in price (re-check here, not buy), so the one word keeps one meaning.
   const date = dateParts(w?.next_date) ?? (row.review_date ? { label: 'Review', value: shortDay(row.review_date) } : null)
   const move = w?.day_move_pct
   const unread = w?.unread ?? 0
@@ -156,7 +158,7 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
     <li>
       <button type="button" className={`wrow${selected ? ' is-sel' : ''}`} aria-pressed={selected} onClick={() => onSelect(row.listing_key)}>
         <span className="wrow__st">
-          <span className={`wst wst--${STATUS_KEY[status]}`} title={STATUS_MEANING[status]}>{STATUS_LABEL[status]}</span>
+          <span className={`wst wst--${sig.tone}`} title={sig.meaning}>{sig.label}</span>
         </span>
         <span className="wrow__who">
           <span className="wrow__sym">

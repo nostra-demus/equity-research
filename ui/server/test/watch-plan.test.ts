@@ -53,7 +53,7 @@ check('buy: only a sentence that says buy, and never a negated one', () => {
   assert.equal(saysBuy(AMZN), true)
   assert.equal(saysBuy(ORCL), false)
   assert.equal(saysBuy(INDIAMART), false)
-  assert.equal(saysBuy(BG), false, 're-rating to Starter is a look-again, not a buy instruction')
+  assert.equal(saysBuy(BG), false, 're-rating to Starter is a review price, not a buy instruction')
   assert.equal(saysBuy('The engine rates it a Strong Buy.'), false, 'a rating label is not a price to buy at')
   assert.equal(saysBuy('Accumulate below $50.'), true)
 })
@@ -128,7 +128,7 @@ check('a buy price the sentence really says is kept as a buy price', () => {
   assert.equal(p.note, null)
 })
 
-check('a "buy" the sentence does not say is shown as a look-again price, and says so', () => {
+check('a "buy" the sentence does not say is shown as a review price, and says so', () => {
   const r = validateReaderOutput({ prices: [{ role: 'buy', low: 1699, high: null, quote: 'revisit if price falls toward the ₹1,699 base fair value or below', file: 'final_thesis.md' }] }, ctx('INR', 1784.6))
   const p = r.items[0] as any
   assert.equal(p.role, 'look_again')
@@ -155,7 +155,7 @@ check('every way a price is refused is listed with its reason', () => {
   assert.match(why, /price when the research was written/)
   assert.match(why, /HKD/)
   assert.match(why, /not read/)
-  assert.match(why, /not a buy, look-again or fair price/)
+  assert.match(why, /not a buy, review or fair price/)
 })
 
 check('a date keeps its day only when the quote writes that day', () => {
@@ -233,7 +233,7 @@ check('a fair value the stock was already under when the research was written is
 })
 
 check('a price the research ties to the stock RISING past it is left out — every line here is reached by a fall', () => {
-  // Verbatim from the committed BG report: above ~$115 moves the call toward Avoid; below ~$100 is a look-again.
+  // Verbatim from the committed BG report: above ~$115 moves the call toward Avoid; below ~$100 is a review price.
   const rise = 'A confirmed pool price materially above ~$115 with no change in earnings power (moves the call from Watchlist toward Avoid).'
   const fall = "Re-rate to 'Starter Position Only' only on a pool-confirmed price below ~$100, or on a clean post-Viterra FY2026 cash-conversion print."
   const r = validateReaderOutput({
@@ -260,6 +260,7 @@ check('one line, one price: a level the research states twice is kept once, the 
   }, { sources, currency: 'USD', entryPrice: 238.34 })
   assert.deepEqual(r.items.map((i: any) => `${i.role}:${i.low}-${i.high}`), ['buy:185-200', 'buy:185-null'])
   assert.equal(r.left_out.filter((l) => /same line as the buy price 185–200 already kept/.test(l.why)).length, 2)
+  assert.ok(r.left_out.some((l) => l.what === 'review price 185–200'), 'a left-out price names its role in words, never the internal key')
 })
 
 check("a date's timing is shown only in words its quote writes", () => {

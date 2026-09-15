@@ -12,14 +12,16 @@ export type StatusWord = 'warning' | 'buy_price_reached' | 'getting_close' | 'ch
 export const STATUS_RANK: Record<StatusWord, number> = {
   warning: 0, buy_price_reached: 1, getting_close: 2, check_now: 3, coming_up: 4, cant_check: 5, waiting: 6,
 }
+/** Each status's own label — used only where no condition names what happened more plainly (the cockpit shows a
+ *  condition's own words, web/src/lib/watchStatus.ts SIGNAL; this is its STATUS_SIGNAL fallback, word for word). */
 export const STATUS_LABEL: Record<StatusWord, string> = {
   warning: 'Warning',
-  buy_price_reached: 'Buy price reached',
-  getting_close: 'Getting close',
-  check_now: 'Check now',
-  coming_up: 'Coming up',
-  cant_check: "Can't check",
-  waiting: 'Waiting',
+  buy_price_reached: 'In buy zone',
+  getting_close: 'Near a price',
+  check_now: 'Needs a look',
+  coming_up: 'Event soon',
+  cant_check: 'No price',
+  waiting: 'Watching',
 }
 
 export type ConditionType =
@@ -59,7 +61,7 @@ export const CONDITION_STATUS: Record<ConditionType, StatusWord> = {
 export interface Thresholds {
   /** A drop this big in one session, beyond the market's own move, is a big drop. */
   bigDropPct: number
-  /** Within this far above a buy or look-again price is "getting close". */
+  /** Within this far above a buy or review price is "near" it. */
   nearPct: number
   /** Research this old is "getting old". */
   researchOldDays: number
@@ -76,7 +78,7 @@ export interface PriceFacts {
   as_of: string | null
   as_of_is_close: boolean
   stale: boolean
-  /** Why there is no usable price — shown as "Can't check". */
+  /** Why there is no usable price — shown as "No price". */
   reason: string | null
   /** Today's move against OUR OWN record of the previous session's last price (the feed's own previous
    *  close is unreliable on about half of exchanges — see equity-quote.ts). Null until one is recorded. */
@@ -198,7 +200,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
   if (facts.price == null || facts.stale) {
     const needsPrice = prices.length > 0 || input.triggers.some((x) => x.kind !== 'event_date')
     add({
-      id: 'cant_check:price', type: 'cant_check', title: "Can't check the price",
+      id: 'cant_check:price', type: 'cant_check', title: 'No usable price',
       detail: facts.stale
         ? `The newest price is not current (last checked ${facts.as_of ?? 'a while ago'}), so nothing is checked against it.`
         : `${facts.reason ?? 'No price for this listing.'}${needsPrice ? ' Price lines are not being checked.' : ''}`,
@@ -232,7 +234,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     for (const p of prices) {
       if (p.currency.toUpperCase() !== String(pricedIn ?? '').toUpperCase()) {
         add({
-          id: `cant_check:currency:${p.id}`, type: 'cant_check', title: "Can't compare the price",
+          id: `cant_check:currency:${p.id}`, type: 'cant_check', title: 'Price is in another currency',
           detail: `The research's ${ROLE_LABEL[p.role].toLowerCase()} is in ${p.currency}, but the price is in ${pricedIn}. Comparing them needs an exchange rate and date this row does not carry.`,
           quote: quoteOf(p), source: sourceLabel(p), line: null,
         })
@@ -255,9 +257,9 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
         const type = p.role === 'buy' ? 'buy_price_reached' : p.role === 'look_again' ? 'look_again_reached' : 'fair_reached'
         add({
           id: `${type}:${p.id}`, type,
-          title: p.role === 'buy' ? 'Reached its buy price' : p.role === 'look_again' ? 'Reached its look-again price' : 'Reached its fair price',
+          title: p.role === 'buy' ? 'Reached its buy price' : p.role === 'look_again' ? 'Reached its review price' : 'Reached its fair price',
           detail: `${here}, it is ${p.high != null && price >= p.low ? 'inside' : 'at or under'} the research's ${ROLE_LABEL[p.role].toLowerCase()} of ${priceText(p)}.`
-            + (p.role === 'look_again' ? ' The research said to look again here, not to buy.' : '')
+            + (p.role === 'look_again' ? ' The research said to re-check here, not to buy.' : '')
             + (p.role === 'fair' && !actionPrice ? ' The research gave no buy price.' : '')
             + (bigDrop ? ` ${dropText}` : ''),
           quote: quoteOf(p), source: sourceLabel(p), line,
@@ -270,7 +272,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     }
     // The strongest line reached speaks for the price. Research often names overlapping levels (AMZN:
     // "Track at $190-200 for re-entry" beside a "$185–$200" target zone), and one price must not be both
-    // "Buy price reached" and "look again here, not buy" in the same message.
+    // "In buy zone" and "review here, not buy" in the same message.
     const REACHED: ConditionType[] = ['buy_price_reached', 'look_again_reached', 'fair_reached']
     const top = REACHED.findIndex((type) => out.some((c) => c.type === type))
     if (top >= 0) {
@@ -291,7 +293,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
       })
     } else {
       add({
-        id: `getting_close:${nearLine.p.id}`, type: 'getting_close', title: `Getting close to its ${what}`,
+        id: `getting_close:${nearLine.p.id}`, type: 'getting_close', title: `Near its ${what}`,
         detail: `At ${money(pricedIn, price)} it is ${pct(above)} above the ${what} of ${priceText(nearLine.p)}.`,
         quote: quoteOf(nearLine.p), source: sourceLabel(nearLine.p), line: nearLine.line * (1 + t.nearPct / 100),
       })

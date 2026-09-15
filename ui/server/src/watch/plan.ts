@@ -19,7 +19,7 @@ export const WATCH_PLAN_SCHEMA = 'watch-plan/v1' as const
  *  it only the call's warnings are watched (operator decision, 2026-09-15), so its text is never read for lines. */
 export const BUY_NOW_DECISIONS: ReadonlySet<string> = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
 
-/** What a price means, in the research's own terms. Only `buy` may ever produce "Buy price reached". */
+/** What a price means, in the research's own terms. Only `buy` may ever produce "In buy zone". */
 export type PriceRole = 'buy' | 'look_again' | 'fair' | 'bad_case'
 
 /** Where an item came from. `quote` is the source's own words (prose items); `field` names a structured
@@ -379,8 +379,8 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const role = String(p?.role ?? '')
     const low = num(p?.low)
     const high = p?.high == null || p?.high === '' ? null : num(p?.high)
-    const what = `${role.replace('_', '-') || 'price'} ${Number.isFinite(low) ? low : '?'}${high != null ? `–${high}` : ''}`
-    if (!['buy', 'look_again', 'fair'].includes(role)) { left.push({ what, why: 'not a buy, look-again or fair price' }); continue }
+    const what = `${roleWords(role)} ${Number.isFinite(low) ? low : '?'}${high != null ? `–${high}` : ''}`
+    if (!['buy', 'look_again', 'fair'].includes(role)) { left.push({ what, why: 'not a buy, review or fair price' }); continue }
     if (!(low > 0) || (high != null && !(high > 0))) { left.push({ what, why: 'not a usable price' }); continue }
     let lo = low
     let hi = high
@@ -414,7 +414,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     let note: string | null = null
     if (finalRole === 'buy' && !saysBuy(quote)) {
       finalRole = 'look_again'
-      note = 'Read as a buy price, but the sentence does not say buy — so it is shown as a look-again price.'
+      note = 'Read as a buy price, but the sentence does not say buy — so it is shown as a review price.'
     }
     const key = `price|${finalRole}|${lo}|${hi}`
     if (seen.has(key)) continue
@@ -427,7 +427,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     for (let i = items.length - 1; i >= 0; i--) {
       const it = items[i]
       if (it.kind !== 'price' || it.role !== 'fair') continue
-      left.push({ what: `fair ${it.low}${it.high != null ? `–${it.high}` : ''}`, why: 'the research also names a price to act at, so its fair value is not a separate line' })
+      left.push({ what: `${roleWords('fair')} ${it.low}${it.high != null ? `–${it.high}` : ''}`, why: 'the research also names a price to act at, so its fair value is not a separate line' })
       items.splice(i, 1)
     }
   }
@@ -440,7 +440,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
   for (const p of items.filter((i): i is PlanPrice => i.kind === 'price').sort((a, b) => ROLE_RANK[a.role] - ROLE_RANK[b.role])) {
     const twin = lines.find((k) => Math.abs(priceLine(k) - priceLine(p)) <= 0.005 * priceLine(k))
     if (!twin) { lines.push(p); continue }
-    left.push({ what: `${p.role.replace('_', '-')} ${priceText(p)}`, why: `the same line as the ${ROLE_LABEL[twin.role].toLowerCase()} ${priceText(twin)} already kept` })
+    left.push({ what: `${roleWords(p.role)} ${priceText(p)}`, why: `the same line as the ${ROLE_LABEL[twin.role].toLowerCase()} ${priceText(twin)} already kept` })
     items.splice(items.indexOf(p), 1)
   }
 
@@ -530,7 +530,13 @@ export function priceLine(p: PlanPrice): number {
 
 export const ROLE_LABEL: Record<PriceRole, string> = {
   buy: 'Buy price',
-  look_again: 'Look-again price',
+  look_again: 'Review price',
   fair: 'Fair price',
   bad_case: 'Bad case',
+}
+
+/** A price's role in words, for what was left out ("review price 16.79") — never the internal key. The reader's
+ *  role is unchecked model output, so an unknown one is shown as written. */
+export function roleWords(role: string): string {
+  return Object.prototype.hasOwnProperty.call(ROLE_LABEL, role) ? ROLE_LABEL[role as PriceRole].toLowerCase() : role.replace(/_/g, ' ') || 'price'
 }

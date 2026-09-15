@@ -37,7 +37,7 @@ export interface AlertStep {
   researchChanged: boolean
 }
 
-/** "Can't check" is shown on the screen, never sent: a feed hiccup would otherwise send one every few
+/** "No price" is shown on the screen, never sent: a feed hiccup would otherwise send one every few
  *  minutes, and the screen already says it plainly. */
 const told = (c: Condition) => c.type !== 'cant_check'
 

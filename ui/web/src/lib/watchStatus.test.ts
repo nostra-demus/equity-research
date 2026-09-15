@@ -1,11 +1,12 @@
-// The armed watchlist's words as the screen shows them (watchStatus.ts). What must hold: the server's word is
-// used only when it is one of the seven (an older engine never gets a guessed word, and never "Buy price
-// reached"), the list orders most urgent first without shuffling, and a distance or an email outcome is
-// said in words rather than left as a sign or a code to decode.
+// The armed watchlist's words as the screen shows them (watchStatus.ts). What must hold: a name's signal says
+// what happened in plain words, in a colour that always means the same thing (red danger, green a buy, amber
+// look at this, blue a heads-up, grey nothing to do); an older engine never gets a guessed buy; the list orders
+// most urgent first without shuffling; and a distance or an email outcome is said in words rather than left as
+// a sign or a code to decode.
 // Run: npx tsx src/lib/watchStatus.test.ts
 import assert from 'node:assert/strict'
 import type { WatchMessage, WatchRow } from './types'
-import { dateParts, dateWords, emailWords, gapWords, priceItemText, rowStatus, sortRows, waitingParts } from './watchStatus'
+import { dateParts, dateWords, emailWords, gapWords, messageSignal, priceItemText, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -32,17 +33,68 @@ const watch = (status: any, gap: number | null = null): WatchRow['watch'] => ({
   next_line: gap == null ? null : { role: 'buy', label: 'Buy price', text: 'USD 190–200', gap_pct: gap },
   next_date: null, day_move_pct: null, market: null, plan: null, email_paused: false, unread: 0,
 })
+const pick = (s: { label: string; tone: string }) => [s.label, s.tone]
 
 check("the server's word is used only when it is one of the seven", () => {
   assert.equal(rowStatus(row('A', { watch: watch('buy_price_reached') })), 'buy_price_reached')
   assert.equal(rowStatus(row('A', { watch: watch('bogus'), state: 'armed' })), 'waiting')
 })
 
-check('without the server\'s word, a met trigger is "Check now" — never "Buy price reached"', () => {
+check('without the server\'s word, a met trigger needs a look — never a buy it did not earn', () => {
   assert.equal(rowStatus(row('A', { state: 'condition_met' })), 'check_now')
   assert.equal(rowStatus(row('A', { state: 'due' })), 'check_now')
   assert.equal(rowStatus(row('A', { state: 'not_evaluable' })), 'cant_check')
   assert.equal(rowStatus(row('A')), 'waiting')
+})
+
+check('a signal says what happened, in a colour that always means the same', () => {
+  const lead = (type: string, status: string, title = '') => row('A', {
+    watch: { ...watch(status)!, conditions: [{ id: type, type, urgent: false, title, detail: '', quote: null, source: null }] },
+  })
+  assert.deepEqual(pick(rowSignal(lead('bad_case_broken', 'warning'))), ['Below bad case', 'red'])
+  assert.deepEqual(pick(rowSignal(lead('buy_price_reached', 'buy_price_reached'))), ['In buy zone', 'green'])
+  assert.deepEqual(pick(rowSignal(lead('getting_close', 'getting_close', 'Near its buy price'))), ['Near buy price', 'amber'])
+  assert.deepEqual(pick(rowSignal(lead('getting_close', 'getting_close', 'Near its review price'))), ['Near review price', 'amber'])
+  assert.deepEqual(pick(rowSignal(lead('getting_close', 'getting_close', 'Getting close to its look-again price'))), ['Near review price', 'amber'], "an older engine's words")
+  assert.deepEqual(pick(rowSignal(lead('look_again_reached', 'check_now'))), ['At review price', 'amber'])
+  assert.deepEqual(pick(rowSignal(lead('results_out', 'check_now'))), ['Event passed', 'amber'])
+  assert.deepEqual(pick(rowSignal(lead('coming_up', 'coming_up'))), ['Event soon', 'blue'])
+  assert.deepEqual(pick(rowSignal(lead('cant_check', 'cant_check'))), ['No price', 'off'])
+  assert.deepEqual(pick(rowSignal(row('A', { watch: watch('waiting') }))), ['Watching', 'grey'])
+})
+
+check('"near" names the line its plan item is, whatever the words say', () => {
+  const r = row('A', {
+    watch: {
+      ...watch('getting_close')!,
+      conditions: [{ id: 'getting_close:p-look', type: 'getting_close', urgent: false, title: 'Near a line', detail: '', quote: null, source: null }],
+      plan: {
+        state: 'ready', detail: '', run_root: 'analyses/A_2026-09-10', decision: 'Watchlist', decision_date: '2026-09-10', left_out: [], reader: null,
+        items: [{ kind: 'price', id: 'p-look', role: 'look_again', low: 70, high: 82, currency: 'NOK', source: { file: 'f', quote: null, field: null }, note: null }],
+      },
+    },
+  })
+  assert.deepEqual(pick(rowSignal(r)), ['Near review price', 'amber'])
+})
+
+check('an engine that sends no conditions still gets an honest signal — never a buy it did not earn', () => {
+  assert.deepEqual(pick(rowSignal(row('A', { state: 'condition_met' }))), ['Needs a look', 'amber'])
+  assert.deepEqual(pick(rowSignal(row('A', { state: 'not_evaluable' }))), ['No price', 'off'])
+  assert.deepEqual(pick(rowSignal(row('A'))), ['Watching', 'grey'])
+})
+
+check("a message's signal is its leading item's; the first-day summary is a summary", () => {
+  const msg = (kind: WatchMessage['kind'], type: string, title: string): WatchMessage => ({
+    id: 'WM-1', kind, listing_key: 'A|USD', ticker: 'A', company_name: null, status: null, title, urgent: false,
+    items: [{ id: 'i', type, urgent: false, title, detail: '', quote: null, source: null, at: '' }],
+    created_at: '', updated_at: '', read_at: null, read_by: null, deleted_at: null, feedback: null,
+    email: { state: 'not_urgent', sent_items: [], attempts: 0, last_attempt_at: null, sent_at: null, detail: '' },
+  })
+  assert.deepEqual(pick(messageSignal(msg('name', 'research_buy_now', 'Research says buy now'))), ['Research says buy', 'green'])
+  assert.deepEqual(pick(messageSignal(msg('name', 'getting_close', 'Near its buy price'))), ['Near buy price', 'amber'])
+  assert.deepEqual(pick(messageSignal(msg('name', 'getting_close', 'Getting close to its look-again price'))), ['Near review price', 'amber'], 'a message kept from before the rename')
+  assert.deepEqual(pick(messageSignal(msg('name', 'bad_case_broken', 'Fell under its bad case'))), ['Below bad case', 'red'])
+  assert.deepEqual(pick(messageSignal(msg('summary', 'already_there', 'Switched on'))), ['Summary', 'grey'])
 })
 
 check('most urgent first, then nearest its line, then by ticker', () => {

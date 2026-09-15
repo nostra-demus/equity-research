@@ -81,7 +81,7 @@ async function main() {
     const items = out.plan!.items as any[]
     const prices = items.filter((i) => i.kind === 'price').map((i) => `${i.role}:${i.low}-${i.high}`)
     assert.deepEqual(prices, ['buy:190-200', 'bad_case:146-null'], 'a fair value is not its own line beside a buy price')
-    assert.ok(out.plan!.left_out.some((l) => /^fair 210/.test(l.what) && /price to act at/.test(l.why)))
+    assert.ok(out.plan!.left_out.some((l) => /^fair price 210/.test(l.what) && /price to act at/.test(l.why)))
     assert.equal(items.filter((i) => i.kind === 'date')[0].date, '2026-07-31')
     assert.equal(items.filter((i) => i.kind === 'deal_breaker').length, 1)
     assert.equal(items.filter((i) => i.kind === 'news').length, 1)

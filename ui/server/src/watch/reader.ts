@@ -16,7 +16,7 @@ import { resolveAllowedChatModel } from '../chat-models'
 import { UsdBudget } from '../news/triage/budget'
 import type { WatchListing } from '../watchlist'
 import {
-  BUY_NOW_DECISIONS, WATCH_PLAN_SCHEMA, parseReaderJson, priceLine, recordItems, sha256, sourceDigest, validateReaderOutput,
+  BUY_NOW_DECISIONS, WATCH_PLAN_SCHEMA, parseReaderJson, priceLine, recordItems, roleWords, sha256, sourceDigest, validateReaderOutput,
   type PlanItem, type PlanPrice, type PlanSourceFile, type WatchPlan,
 } from './plan'
 
@@ -293,7 +293,7 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
     !!bad && i.kind === 'price' && i.role !== 'buy' && Math.abs(priceLine(i) - bad.low) / bad.low < 0.005
   const items = checked.items.filter((i) => !atBad(i))
   const left_out = [...checked.left_out, ...checked.items.filter(atBad).map((i) => ({
-    what: `${i.role.replace('_', '-')} ${i.low}`, why: "the same price as the research's bad case, which is already watched",
+    what: `${roleWords(i.role)} ${i.low}`, why: "the same price as the research's bad case, which is already watched",
   }))]
   const plan: WatchPlan = {
     ...base,

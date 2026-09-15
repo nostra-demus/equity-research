@@ -1,46 +1,93 @@
-// How the armed watchlist's words are shown: the seven status words, what each name is waiting for, and
-// what happened to each message's email. Pure, so the rules are tested without a DOM (watchStatus.test.ts).
+// How the armed watchlist's words are shown: the signal on each name and message, what each name is waiting
+// for, and what happened to each message's email. Pure, so the rules are tested without a DOM (watchStatus.test.ts).
 import type { WatchMessage, WatchPlanItem, WatchPlanView, WatchRow, WatchStatusWord } from './types'
 
 export const STATUS_ORDER: readonly WatchStatusWord[] = ['warning', 'buy_price_reached', 'getting_close', 'check_now', 'coming_up', 'cant_check', 'waiting']
 
-export const STATUS_LABEL: Record<WatchStatusWord, string> = {
-  warning: 'Warning',
-  buy_price_reached: 'Buy price reached',
-  getting_close: 'Getting close',
-  check_now: 'Check now',
-  coming_up: 'Coming up',
-  cant_check: "Can't check",
-  waiting: 'Waiting',
-}
-
-/** What each word means, for its hover — the same sentence everywhere the word appears. */
-export const STATUS_MEANING: Record<WatchStatusWord, string> = {
-  warning: 'A line the research drew was broken — its bad case or a deal-breaker. Not a buy signal.',
-  buy_price_reached: 'The price is at or under the buy price the research gave.',
-  getting_close: 'Within 5% of a buy or look-again price.',
-  check_now: 'Something needs a look: a look-again price reached, results that are out, research getting old.',
-  coming_up: 'A date the research named is two trading days away or less.',
-  cant_check: 'There is no trustworthy price right now, so nothing is being checked against it.',
-  waiting: 'Nothing needs you yet.',
-}
-
-/** The words that mean a person should look now. */
+/** The statuses that mean a person should look now — the table's "Needs you" group. */
 export const NEEDS_YOU: ReadonlySet<WatchStatusWord> = new Set<WatchStatusWord>(['warning', 'buy_price_reached', 'getting_close', 'check_now'])
-
-/** Short class suffix per word — the only place the words map to styling. */
-export const STATUS_KEY: Record<WatchStatusWord, string> = {
-  warning: 'warn', buy_price_reached: 'buy', getting_close: 'close', check_now: 'check', coming_up: 'soon', cant_check: 'cant', waiting: 'wait',
-}
 
 export function isStatusWord(v: unknown): v is WatchStatusWord {
   return typeof v === 'string' && (STATUS_ORDER as readonly string[]).includes(v)
 }
 
+// ── the signal: what happened, in plain words, in a colour that always means the same thing ────────────────
+// Red is danger, green a buy, amber "look at this", blue a heads-up, grey nothing to do — and a hollow grey is
+// "no price, so nothing can be checked". The words name what happened, never a category the reader has to
+// decode; the colour says what kind of thing it is.
+
+export type SignalTone = 'red' | 'green' | 'amber' | 'blue' | 'grey' | 'off'
+export interface Signal { label: string; tone: SignalTone; meaning: string }
+
+/** By what happened — a condition on a name, or an item in a message. */
+const SIGNAL: Record<string, Signal> = {
+  bad_case_broken: { label: 'Below bad case', tone: 'red', meaning: 'The price fell under the research’s bad case. Re-check the research before anything else — this is not a buy signal.' },
+  buy_price_reached: { label: 'In buy zone', tone: 'green', meaning: 'The price is at or inside the buy price the research gave.' },
+  research_buy_now: { label: 'Research says buy', tone: 'green', meaning: 'New research ends in a buy call. From here on only its warnings are watched.' },
+  near_after_big_drop: { label: 'Sharp drop', tone: 'amber', meaning: 'It fell 8% or more on its own today and is now close to a price the research gave.' },
+  big_drop: { label: 'Sharp drop', tone: 'amber', meaning: 'It fell 8% or more on its own today — more than its market did.' },
+  look_again_reached: { label: 'At review price', tone: 'amber', meaning: 'The price reached the research’s review price: the research said to re-check here, not to buy.' },
+  fair_reached: { label: 'At fair value', tone: 'amber', meaning: 'The price reached the research’s fair value. The research gave no buy price.' },
+  getting_close: { label: 'Near a price', tone: 'amber', meaning: 'Within 5% of a buy or review price.' },
+  results_out: { label: 'Event passed', tone: 'amber', meaning: 'A date the research was waiting for has passed, and no new research has run — check what happened.' },
+  research_old: { label: 'Research old', tone: 'amber', meaning: 'The research is more than 90 days old.' },
+  your_level_reached: { label: 'Your alert hit', tone: 'amber', meaning: 'A price you set was reached.' },
+  your_date_due: { label: 'Your date is due', tone: 'amber', meaning: 'A date you set has come.' },
+  setup_failed: { label: 'Setup failed', tone: 'amber', meaning: 'Its research could not be read, so only its bad case and deal-breakers are watched.' },
+  coming_up: { label: 'Event soon', tone: 'blue', meaning: 'A date the research named is two trading days away or less.' },
+  your_date_coming: { label: 'Your date soon', tone: 'blue', meaning: 'A date you set is two trading days away or less.' },
+  now_watching: { label: 'Now watching', tone: 'blue', meaning: 'Its research was read, and its prices and dates are being watched.' },
+  cant_check: { label: 'No price', tone: 'off', meaning: 'There is no trustworthy price right now, so its price lines are not being checked.' },
+  removed: { label: 'Removed', tone: 'grey', meaning: 'It came off the watchlist.' },
+  cockpit_was_off: { label: 'Checks paused', tone: 'grey', meaning: 'The cockpit was off, so nothing was checked for a while.' },
+  email_test: { label: 'Test email', tone: 'grey', meaning: 'The one test email sent when watchlist email was switched on.' },
+}
+const WATCHING: Signal = { label: 'Watching', tone: 'grey', meaning: 'Nothing has happened yet — its prices and dates are being watched.' }
+
+/** An engine that sends no conditions (an older one, or the snapshot) still gets an honest signal from its
+ *  status — and never "In buy zone", which only a buy price the research gave may earn (see rowStatus). */
+const STATUS_SIGNAL: Record<WatchStatusWord, Signal> = {
+  warning: { label: 'Warning', tone: 'red', meaning: 'A line the research drew was broken — its bad case or a deal-breaker. Not a buy signal.' },
+  buy_price_reached: SIGNAL.buy_price_reached,
+  getting_close: SIGNAL.getting_close,
+  check_now: { label: 'Needs a look', tone: 'amber', meaning: 'Something about this name needs a look.' },
+  coming_up: SIGNAL.coming_up,
+  cant_check: SIGNAL.cant_check,
+  waiting: WATCHING,
+}
+
+/** "Near buy price" or "Near review price" — saying which, so nobody has to open the name to find out. The line is
+ *  the plan item the condition names (its id is `getting_close:<item id>`), else the one its title names — an
+ *  older engine called the review price the "look-again price". */
+function near(title: string, item?: WatchPlanItem): Signal {
+  const role = item?.kind === 'price' ? item.role
+    : /buy price/i.test(title) ? 'buy' : /review price|look-again price/i.test(title) ? 'look_again' : null
+  const s = SIGNAL.getting_close
+  return { ...s, label: role === 'buy' ? 'Near buy price' : role === 'look_again' ? 'Near review price' : s.label }
+}
+
+/** A name's signal: the thing that happened to it that matters most (its leading condition), else "Watching". */
+export function rowSignal(row: WatchRow): Signal {
+  const lead = row.watch?.conditions?.[0]
+  if (lead?.type === 'getting_close') {
+    const itemId = lead.id.slice(lead.id.indexOf(':') + 1)
+    return near(lead.title, (row.watch?.plan?.items ?? []).find((i) => i.id === itemId))
+  }
+  return (lead && SIGNAL[lead.type]) || STATUS_SIGNAL[rowStatus(row)]
+}
+
+/** A message's signal: its leading item's. The first-day summary is a summary. */
+export function messageSignal(m: WatchMessage): Signal {
+  if (m.kind === 'summary') return { label: 'Summary', tone: 'grey', meaning: 'What was already true when the watchlist was switched on.' }
+  const lead = m.items[0]
+  if (lead?.type === 'getting_close') return near(lead.title)
+  return (lead && SIGNAL[lead.type]) || (isStatusWord(m.status) ? STATUS_SIGNAL[m.status] : { label: 'Note', tone: 'grey', meaning: '' })
+}
+
 /**
- * The word the list shows. The server's own word when it sent one (a positive match, DESIGN.md §5). An older
- * engine or the static showcase gets the nearest honest word from the row's own trigger state — and never
- * "Buy price reached", which only a buy price the research itself gave may earn.
+ * The status a name is ranked and grouped by. The server's own when it sent one (a positive match, DESIGN.md §5).
+ * An older engine or the static showcase gets the nearest honest status from the row's own trigger state — and
+ * never 'buy_price_reached', which only a buy price the research itself gave may earn.
  */
 export function rowStatus(row: WatchRow): WatchStatusWord {
   if (row.watch && isStatusWord(row.watch.status)) return row.watch.status
@@ -51,7 +98,7 @@ export function rowStatus(row: WatchRow): WatchStatusWord {
 
 export const statusRank = (s: WatchStatusWord): number => STATUS_ORDER.indexOf(s)
 
-/** Most urgent first; within a word, the name nearest its line; then by ticker, so the list never shuffles. */
+/** Most urgent first; within a status, the name nearest its line; then by ticker, so the list never shuffles. */
 export function sortRows(rows: WatchRow[]): WatchRow[] {
   const gap = (r: WatchRow) => {
     const g = r.watch?.next_line?.gap_pct
@@ -69,7 +116,7 @@ export function formatPrice(v: number): string {
 }
 
 export const ROLE_LABEL: Record<Extract<WatchPlanItem, { kind: 'price' }>['role'], string> = {
-  buy: 'Buy price', look_again: 'Look-again price', fair: 'Fair price', bad_case: 'Bad case',
+  buy: 'Buy price', look_again: 'Review price', fair: 'Fair price', bad_case: 'Bad case',
 }
 
 export function priceItemText(i: Extract<WatchPlanItem, { kind: 'price' }>): string {
@@ -146,9 +193,4 @@ export function emailWords(m: WatchMessage): string {
     case 'paused': return 'Not emailed — email is paused for this name'
     case 'skipped': return `Not emailed — ${(e.detail || 'handled in the cockpit').replace(/\.$/, '').replace(/^./, (c) => c.toLowerCase())}`
   }
-}
-
-/** A message's word, for its chip. Summaries and system notes have none. */
-export function messageStatus(m: WatchMessage): WatchStatusWord | null {
-  return isStatusWord(m.status) ? m.status : null
 }

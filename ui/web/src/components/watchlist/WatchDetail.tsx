@@ -1,6 +1,6 @@
 // The detail panel: everything one row deliberately left out.
 //
-// The list trades completeness for glanceability, and this panel is the other half of that trade — the word
+// The list trades completeness for glanceability, and this panel is the other half of that trade — the signal
 // and what is behind it, what the name is waiting for in the research's own words, the price and its
 // provenance, your own reason and triggers, and the actions. It shows ONE name, which is the honest shape: a
 // list that tried to show fifty of these is the old table again. It scrolls on its own and folds its long
@@ -11,7 +11,7 @@ import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
-import { STATUS_KEY, STATUS_LABEL, STATUS_MEANING, dateWords, gapWords, rowStatus } from '../../lib/watchStatus'
+import { dateWords, gapWords, rowSignal, rowStatus } from '../../lib/watchStatus'
 import { WatchPlanSection } from './WatchPlan'
 
 /** A trigger's chip state — the three-valued vocabulary, so a refusal never renders as "not met". */
@@ -118,6 +118,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
 
   const w = row.watch
   const status = rowStatus(row)
+  const sig = rowSignal(row)
   const verdict = row.engine?.decision ?? null
   const reason = row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : '')
   const isArchived = !!row.archive && !row.resurfaced
@@ -185,10 +186,10 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         {row.conviction ? ` · conviction ${row.conviction}` : ''}
       </div>
 
-      {/* The word, and one line on what is behind it. */}
+      {/* The signal, and one line on what is behind it. */}
       <div className="wdet__status">
-        <span className={`wst wst--${STATUS_KEY[status]}`} title={STATUS_MEANING[status]}>{STATUS_LABEL[status]}</span>
-        <span className="wdet__headline">{w?.headline ?? STATUS_MEANING[status]}</span>
+        <span className={`wst wst--${sig.tone}`} title={sig.meaning}>{sig.label}</span>
+        <span className="wdet__headline">{w?.headline ?? sig.meaning}</span>
       </div>
 
       {/* What you can do about it — at the top, reached without scrolling. */}
@@ -459,7 +460,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   )
 }
 
-/** A word that means the line in the facts row is the news, so it takes the accent. */
+/** A status that means the line in the facts row is the news, so it takes the accent. */
 function NEEDS_ATTENTION(s: string): boolean {
   return s === 'buy_price_reached' || s === 'getting_close' || s === 'warning'
 }
