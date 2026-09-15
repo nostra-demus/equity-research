@@ -418,7 +418,20 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const quote = source.quote as string
     if (!hasNumber(quote, lo) || (hi != null && !hasNumber(quote, hi))) { left.push({ what, why: 'the number is not written in its quote' }); continue }
     if (!ctx.currency) { left.push({ what, why: 'the research does not say which currency the stock trades in' }); continue }
+    // A quoted "$80" may start inside the source's "HK$80". Inspect the marker attached to that exact
+    // source price too, rather than allowing the model's excerpt to change the listing's currency.
+    const attachedCurrency = (text: string, value: number): string | null => {
+      for (const m of text.matchAll(/(?<![\d.,])\d+(?:,\d+)*(?:\.\d+)?/g)) {
+        if (Math.abs(Number(m[0].replace(/,/g, '')) - value) > 1e-9 * Math.max(1, value)) continue
+        const before = text.slice(Math.max(0, (m.index ?? 0) - 16), m.index ?? 0).toUpperCase()
+        const marker = before.match(/(?:[A-Z]{3}|[A-Z]{0,2}\$|₹|€|£)\s*~?\s*$/)?.[0]
+        const conflict = marker ? currencyConflict(marker, ctx.currency!) : null
+        if (conflict) return conflict
+      }
+      return null
+    }
     const clash = currencyConflict(quote, ctx.currency)
+      ?? (contexts.get(source) ?? []).map((text) => attachedCurrency(text, lo) ?? (hi == null ? null : attachedCurrency(text, hi))).find(Boolean)
     if (clash) { left.push({ what, why: `its quote prices it in ${clash}, but this listing trades in ${ctx.currency}` }); continue }
     if ([quote, ...(contexts.get(source) ?? [])].some((text) => negatedAt(text, lo) || (hi != null && negatedAt(text, hi)))) { left.push({ what, why: 'the research names this price only to say not to buy at it' }); continue }
     if ([quote, ...(contexts.get(source) ?? [])].some((text) => risingAt(text, lo) || (hi != null && risingAt(text, hi)))) { left.push({ what, why: 'the research ties this price to the stock rising past it, and every line here is reached by a fall' }); continue }

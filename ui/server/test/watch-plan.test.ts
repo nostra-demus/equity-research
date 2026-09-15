@@ -381,4 +381,13 @@ check('a model excerpt cannot cut source negation or reverse timing constraints'
   assert.equal(dates[1].estimated, true)
 })
 
+check('source currency cannot be sliced away by the model quote', () => {
+  const text = 'Consider HK$80 for re-entry after results.'
+  const r = validateReaderOutput({ prices: [{ role: 'look_again', low: 80, high: null,
+    quote: '$80 for re-entry after results.', file: 'final_thesis.md' }] },
+    { sources: new Map([['final_thesis.md', text]]), currency: 'USD', entryPrice: 100 })
+  assert.equal(r.items.length, 0)
+  assert.match(r.left_out[0].why, /HKD/)
+})
+
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
