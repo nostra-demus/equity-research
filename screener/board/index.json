@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T06:06:47Z",
+  "generated_at": "2026-09-15T06:11:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-303",
@@ -1776,6 +1776,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-317",
+      "headline": "Macquarie Asset Management acquires stake in Maple Infrastructure Trust, commits $450 million",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/macquarie-asset-management-acquires-stake-maple-infrastructure-trust-dollar-450-million-19990720.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T05:50:33Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Macquarie Asset Management is investing $450 million into Maple Infrastructure Trust.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Macquarie Asset Management is investing $450 million into Maple Infrastructure Trust.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maple Infrastructure Trust",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-220",
       "headline": "Solar Industries share price can rise another 19%, Goldman Sachs says after ₹12,951 crore Omnia deal",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-195",
-      "headline": "Coforge shares in focus after FY27 guidance reaffirmed; Q2 may see record deal signings",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/coforge-share-price-fy27-guidance-retained-nrc-chairperson-quits-q2-deal-signings-record-target-buy-sell-19990487.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T02:42:22Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Coforge reaffirmed FY27 guidance and signaled potential record deal signings for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Coforge reaffirmed FY27 guidance and signaled potential record deal signings for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164524,9 +164524,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 830098,
-    "news_picked_today": 544,
-    "news_dropped_today": 2432
+    "news_seen_today": 841684,
+    "news_picked_today": 554,
+    "news_dropped_today": 2470
   },
   "book_momentum": {
     "live_count": 8,
