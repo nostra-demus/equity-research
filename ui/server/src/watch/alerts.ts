@@ -6,7 +6,8 @@
 //  1. ONCE. A condition that stays true sends nothing on the next check. A price bouncing around its buy
 //     price is one message, not one per check.
 //  2. RE-ARM ON A REAL MOVE. A price line fires again only after the price has moved 3% back past the line
-//     and then crosses it again — never on a wobble around it.
+//     and then crosses it again — never on a wobble around it. "Back past" is above a line reached by a fall,
+//     and below one reached by a rise (your own at-or-above trigger).
 //  3. QUIET START. The first time a name is seen (the day this is switched on, a restart onto an empty
 //     state, or new research) every condition that is ALREADY true is recorded as the starting point
 //     instead of being sent as news. The caller sends one "already there" summary in its place.
@@ -18,6 +19,8 @@ export interface FiredEntry {
   at: string
   /** The price line this condition is about, for re-arming. Null for dates and other non-price facts. */
   line: number | null
+  /** The line is reached by a rise (your at-or-above trigger): it re-arms after a move back below it. */
+  rises?: boolean
 }
 
 export interface NameAlertState {
@@ -41,6 +44,8 @@ export interface AlertStep {
  *  minutes, and the screen already says it plainly. */
 const told = (c: Condition) => c.type !== 'cant_check'
 
+const entry = (c: Condition, at: string): FiredEntry => (c.rises ? { at, line: c.line, rises: true } : { at, line: c.line })
+
 export function stepAlerts(
   prev: NameAlertState | undefined,
   input: { listing_key: string; run_root: string | null; conditions: Condition[]; price: number | null; now: Date },
@@ -52,7 +57,7 @@ export function stepAlerts(
 
   if (!prev || researchChanged) {
     const fired: Record<string, FiredEntry> = {}
-    for (const c of current) fired[c.id] = { at, line: c.line }
+    for (const c of current) fired[c.id] = entry(c, at)
     return {
       state: { listing_key: input.listing_key, run_root: input.run_root, first_seen_at: prev?.first_seen_at ?? at, fired },
       events: [],
@@ -67,13 +72,15 @@ export function stepAlerts(
   for (const c of current) {
     const had = prev.fired[c.id]
     if (had) fired[c.id] = had
-    else { fired[c.id] = { at, line: c.line }; events.push(c) }
+    else { fired[c.id] = entry(c, at); events.push(c) }
   }
   for (const [id, had] of Object.entries(prev.fired)) {
-    if (nowIds.has(id)) continue
-    // A price line stays "already told" while the price hovers near it; only a clear move back past the
-    // line re-arms it. With no price this check, nothing can be said about the move, so it stays told.
-    if (had.line != null && (input.price == null || input.price < had.line * (1 + rearmPct / 100))) fired[id] = had
+    if (nowIds.has(id) || had.line == null) continue
+    // A price line stays "already told" while the price hovers near it; only a clear move back past the line
+    // re-arms it. With no price this check, nothing can be said about the move, so it stays told.
+    const near = input.price == null
+      || (had.rises ? input.price > had.line * (1 - rearmPct / 100) : input.price < had.line * (1 + rearmPct / 100))
+    if (near) fired[id] = had
   }
   return {
     state: { listing_key: input.listing_key, run_root: input.run_root ?? prev.run_root, first_seen_at: prev.first_seen_at, fired },

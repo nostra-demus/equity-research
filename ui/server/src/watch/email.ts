@@ -7,6 +7,7 @@
 // ON only when the operator names at least one address in ENGINE_WATCH_EMAIL_TO and the sender itself is
 // configured on this machine, so a deploy without both behaves exactly as before: messages in the cockpit,
 // no email.
+import crypto from 'node:crypto'
 import { FEEDBACK_EMAIL, feedbackEmailReady, WATCH } from '../config'
 import { escapeHtml, looksLikeEmail, sendRawEmail, type SendResult } from '../feedback-email'
 import { STATUS_LABEL } from './evaluate'
@@ -94,23 +95,42 @@ export function renderWatchEmail(batch: EmailBatchEntry[], appUrl: string): { su
   return { subject, html }
 }
 
+/** An address as the message record keeps it: a short hash, so the addresses themselves are never stored or shown. */
+export const recipientTag = (address: string): string =>
+  crypto.createHash('sha256').update(address.trim().toLowerCase()).digest('hex').slice(0, 12)
+
+/** What reached one address in a send that did not reach every address (inbox.ts markEmailed keeps it). */
+export interface Delivered { message_id: string; tag: string; items: string[] }
+
+/**
+ * Send one batch to every address, each address getting only what it has not had yet (an earlier try may have
+ * reached some of them). `ok` only once every address has everything; otherwise the batch is tried again later,
+ * and `delivered` says what did get through, so no address gets the same alert twice.
+ */
 export async function deliverWatchEmail(
   batch: EmailBatchEntry[],
   cfg: WatchEmailConfig,
   send: (p: { email: string; subject: string; html: string }) => Promise<SendResult> = sendRawEmail,
-): Promise<{ ok: boolean; detail: string }> {
-  if (!cfg.enabled || !cfg.recipients.length) return { ok: false, detail: cfg.reason ?? 'Email is not set up.' }
-  const { subject, html } = renderWatchEmail(batch, cfg.appUrl)
-  let ok = 0
+): Promise<{ ok: boolean; detail: string; delivered: Delivered[] }> {
+  if (!cfg.enabled || !cfg.recipients.length) return { ok: false, detail: cfg.reason ?? 'Email is not set up.', delivered: [] }
+  let reached = 0
   const failures: string[] = []
+  const delivered: Delivered[] = []
   for (const to of cfg.recipients) {
+    const tag = recipientTag(to)
+    const owed = batch
+      .map((b) => ({ message: b.message, items: b.items.filter((i) => !(b.message.email.delivered?.[tag] ?? []).includes(i.id)) }))
+      .filter((b) => b.items.length)
+    if (!owed.length) { reached++; continue }
+    const { subject, html } = renderWatchEmail(owed, cfg.appUrl)
     const r = await send({ email: to, subject, html })
-    if (r.ok) ok++
-    else failures.push(r.detail)
+    if (!r.ok) { failures.push(r.detail); continue }
+    reached++
+    for (const b of owed) delivered.push({ message_id: b.message.id, tag, items: b.items.map((i) => i.id) })
   }
   // Addresses are deliberately left out of the detail: it is shown in the cockpit beside the message.
   const n = cfg.recipients.length
-  if (ok === n) return { ok: true, detail: `Emailed to ${n} ${n === 1 ? 'address' : 'addresses'}.` }
-  if (ok > 0) return { ok: true, detail: `Emailed to ${ok} of ${n} addresses; failed for the rest: ${failures[0]}` }
-  return { ok: false, detail: `Could not email: ${failures[0] ?? 'unknown error'}` }
+  if (reached === n) return { ok: true, detail: `Emailed to ${n} ${n === 1 ? 'address' : 'addresses'}.`, delivered }
+  if (reached > 0) return { ok: false, detail: `reached ${reached} of ${n} addresses; trying the rest again (${failures[0]})`, delivered }
+  return { ok: false, detail: `Could not email: ${failures[0] ?? 'unknown error'}`, delivered }
 }

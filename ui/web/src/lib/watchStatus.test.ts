@@ -6,7 +6,7 @@
 // Run: npx tsx src/lib/watchStatus.test.ts
 import assert from 'node:assert/strict'
 import type { WatchMessage, WatchRow } from './types'
-import { dateParts, dateWords, emailWords, gapWords, messageSignal, priceItemText, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
+import { dateParts, dateWords, emailWords, gapWords, messageSignal, priceItemText, quoteNote, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -144,6 +144,12 @@ check('every email outcome says why, including the messages never emailed', () =
   assert.equal(emailWords(m('paused')), 'Not emailed — email is paused for this name')
   assert.equal(emailWords(m('skipped', 'Read in the cockpit before it was emailed.')), 'Not emailed — read in the cockpit before it was emailed')
   assert.match(emailWords(m('failed', 'HTTP 500')), /HTTP 500/)
+})
+
+check('a price always says how fresh it is', () => {
+  assert.equal(quoteNote({ as_of_is_close: false, delayed: true, stale: false }, -2.1), '−2.1% today · delayed')
+  assert.equal(quoteNote({ as_of_is_close: true, delayed: false, stale: false }, null), 'last close')
+  assert.equal(quoteNote({ as_of_is_close: false, delayed: false, stale: true }, 3), 'price now · not current', 'a stale price never shows a move')
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

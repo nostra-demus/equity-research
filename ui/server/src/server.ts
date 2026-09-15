@@ -90,7 +90,7 @@ import {
   readRunScenarios,
 } from './watchlist'
 import { createWatchMonitor } from './watch/monitor'
-import { readResearchPlan, watchReaderBudget } from './watch/reader'
+import { loadResearchSources, readResearchPlan, watchReaderBudget } from './watch/reader'
 import { deliverWatchEmail, watchEmailConfig } from './watch/email'
 import { fetchIndexLevels, quoteListings } from './watch/prices'
 import { MESSAGE_ID_RE } from './watch/inbox'
@@ -4855,6 +4855,7 @@ const watchMonitor = createWatchMonitor({
   quote: (subjects) => quoteListings(subjects, (s) => getQuotes(s)),
   indexLevels: (symbols) => fetchIndexLevels(symbols, { timeoutMs: NEWS.quoteTimeoutMs, maxAgeDays: NEWS.quoteMaxAgeDays, now: new Date() }),
   readPlan: (row) => readResearchPlan(row),
+  currentDigest: (runRoot) => loadResearchSources(runRoot)?.digest ?? null,
   emailConfig: watchEmailConfig,
   sendEmail: (batch, cfg) => deliverWatchEmail(batch, cfg),
   thresholds: {

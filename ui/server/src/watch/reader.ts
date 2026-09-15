@@ -232,6 +232,9 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
     return { status: 'ok', plan, detail: plan.reader.detail, cost_usd: 0 }
   }
   const failed = (detail: string, cost: number, model: string | null): ReadOutcome => {
+    // A re-read of a report corrected in place that fails keeps the earlier reading watched — and on disk — rather
+    // than falling back to the record's own fields; the next check tries again.
+    if (existing?.reader.status === 'ok') return { status: 'failed', plan: existing, detail, cost_usd: cost }
     const plan: WatchPlan = { ...base, reader: { status: 'failed', model, cost_usd: Math.round(cost * 10_000) / 10_000, at: clock().toISOString(), detail } }
     savePlan(plan, stateDir)
     return { status: 'failed', plan, detail, cost_usd: cost }

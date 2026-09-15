@@ -103,6 +103,8 @@ export interface Condition {
   source: string | null
   /** The price line involved, for re-arming after a 3% move away. */
   line: number | null
+  /** The line is reached by a RISE (your own at-or-above trigger), so it re-arms after a move back BELOW it. */
+  rises?: boolean
 }
 
 export interface NextLine {
@@ -320,10 +322,15 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
       ? `expected ${d.window ? String(d.window).replace(/^\s*(?:~|(?:est(?:imated)?|expected)\b\.?)\s*/i, '') : d.date}`
       : `on ${d.date}`
     if (td >= 0 && td <= t.comingUpTradingDays) {
+      // "Today" is the calendar's word: a weekend date seen on the Friday before is 0 trading days away, not today.
+      const cal = daysBetween(today, d.date) ?? td
+      const soon = cal === 0 ? `${d.label} — today`
+        : td === 0 ? `${d.label} in ${cal} day${cal === 1 ? '' : 's'}`
+          : `${d.label} in ${td} trading day${td === 1 ? '' : 's'}`
       add({
         id: `coming_up:${d.id}`, type: 'coming_up',
-        title: `${td === 0 ? `${d.label} — today` : `${d.label} in ${td} trading day${td === 1 ? '' : 's'}`}${estimated ? ' (expected)' : ''}`,
-        detail: `${d.label} ${when}.${d.what_to_check ? ` What the research said to look for: ${d.what_to_check}` : ''}`,
+        title: `${soon}${estimated ? ' (expected)' : ''}`,
+        detail: `${d.label} ${when}.${d.what_to_check ? ` What to look for: ${d.what_to_check}` : ''}`,
         quote: quoteOf(d), source: sourceLabel(d), line: null,
       })
     } else if (td < 0 && (!decisionDay || d.date > decisionDay)) {
@@ -371,6 +378,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
       add({
         id: `your_level_reached:${e.trigger_id}`, type: 'your_level_reached', title: 'Reached your price',
         detail: e.detail, quote: trig.note ?? null, source: 'your watchlist entry', line: e.target?.value ?? null,
+        rises: 'direction' in trig && trig.direction === 'at_or_above',
       })
     }
   }

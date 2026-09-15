@@ -269,8 +269,12 @@ export function risingAt(quote: string, value: number): boolean {
   const q = String(quote ?? '')
   for (const m of q.matchAll(/(?<![\d.,])\d+(?:,\d+)*(?:\.\d+)?/g)) {
     if (Math.abs(Number(m[0].replace(/,/g, '')) - value) > 1e-9 * Math.max(1, value)) continue
-    const before = q.slice(Math.max(0, (m.index ?? 0) - 30), m.index ?? 0)
+    const at = m.index ?? 0
+    const before = q.slice(Math.max(0, at - 30), at)
     if (/\b(above|over|exceed(?:s|ing)?|higher than|more than|rises?|rallies|climbs?)\b[^.;\d]*$/i.test(before)) return true
+    // The direction can follow the number too: "reaches $115 or above", "$115+".
+    const after = q.slice(at + m[0].length, at + m[0].length + 24)
+    if (/^\s*(?:\+|(?:or|and)\s+(?:above|higher|more|over)\b)/i.test(after)) return true
   }
   return false
 }
@@ -373,6 +377,15 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (text == null) { left.push({ what, why: `it names a file that was not read (${name || 'none'})` }); return null }
     if (!quoteFound(text, quote)) { left.push({ what, why: 'its quote is not in the research word for word' }); return null }
     return { file: name, quote: quote.trim().replace(/\s+/g, ' '), field: null }
+  }
+  // The model's own words beside a checked quote — what a date should show, what the research is waiting for —
+  // are shown as the research's, so every number in them must be written in the file they came from. An invented
+  // threshold ("margin below 12%") is never published; words without numbers are the model's summary of its quote.
+  const fileNumbers = new Map<string, number[]>()
+  const numbersInFile = (words: string, file: string): boolean => {
+    if (!fileNumbers.has(file)) fileNumbers.set(file, numbersIn(ctx.sources.get(file) ?? ''))
+    const have = fileNumbers.get(file) as number[]
+    return numbersIn(words).every((n) => have.some((v) => Math.abs(v - n) <= 1e-9 * Math.max(1, Math.abs(n))))
   }
 
   for (const p of arr(out.prices).slice(0, 8)) {
@@ -489,9 +502,14 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const key = `date|${label.toLowerCase()}|${date}`
     if (seen.has(key)) continue
     seen.add(key)
+    let whatToCheck = str(d?.what_to_check, 300)
+    if (whatToCheck && !numbersInFile(whatToCheck, source.file)) {
+      left.push({ what: `${what} — what to look for`, why: 'a number in it is not in the research, so it is not shown' })
+      whatToCheck = null
+    }
     items.push({
       kind: 'date', id: itemId('date', [date, label.toLowerCase()]), label, date, window: date && !fromWindow && !estimated ? null : window, estimated,
-      what_to_check: str(d?.what_to_check, 300), source,
+      what_to_check: whatToCheck, source,
     })
   }
 
@@ -501,6 +519,7 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     if (!text) { left.push({ what, why: 'empty' }); continue }
     const source = sourceFor(what, w?.file, w?.quote)
     if (!source) continue
+    if (!numbersInFile(text, source.file)) { left.push({ what, why: 'a number in it is not in the research' }); continue }
     const key = `wait|${text.toLowerCase()}`
     if (seen.has(key)) continue
     seen.add(key)

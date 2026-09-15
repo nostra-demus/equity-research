@@ -11,7 +11,7 @@ import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
-import { dateWords, gapWords, rowSignal, rowStatus } from '../../lib/watchStatus'
+import { dateWords, gapWords, quoteNote, rowSignal, rowStatus } from '../../lib/watchStatus'
 import { WatchPlanSection } from './WatchPlan'
 
 /** A trigger's chip state — the three-valued vocabulary, so a refusal never renders as "not met". */
@@ -290,9 +290,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
               <>
                 <span className="wdet__factval">{row.quote.price.toFixed(2)}</span>
                 <span className="wdet__factnote">
-                  {typeof w?.day_move_pct === 'number'
-                    ? `${signed(w.day_move_pct)} today${w.market ? ` · ${w.market.label} ${signed(w.market.move_pct)}` : ''}`
-                    : row.quote.as_of_is_close ? 'last close' : 'live'}
+                  {quoteNote(row.quote, w?.day_move_pct)}
+                  {typeof w?.day_move_pct === 'number' && w.market && !row.quote.stale ? ` · ${w.market.label} ${signed(w.market.move_pct)}` : ''}
                 </span>
               </>
             ) : (

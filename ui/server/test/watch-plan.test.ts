@@ -245,6 +245,9 @@ check('a price the research ties to the stock RISING past it is left out — eve
   assert.deepEqual(r.items.map((i: any) => `${i.role}:${i.low}`), ['look_again:100'])
   assert.match(r.left_out[0].why, /rising past it/)
   assert.equal(risingAt('Track at $190-200 for re-entry (>12% margin of safety on base fair value $210).', 210), false)
+  assert.equal(risingAt('If the stock reaches $115 or above, move to Avoid', 115), true, 'the direction can follow the number')
+  assert.equal(risingAt('A price of $115+ moves the call toward Avoid', 115), true)
+  assert.equal(risingAt('Buy at $115 or below', 115), false)
 })
 
 check('one line, one price: a level the research states twice is kept once, the strongest role first', () => {
@@ -317,6 +320,25 @@ check("the model's JSON is read fenced or bare, and anything else is refused", (
   assert.deepEqual(parseReaderJson('Here:\n```json\n{"prices": []}\n```'), { prices: [] })
   assert.equal(parseReaderJson('no json here'), null)
   assert.equal(parseReaderJson('[1,2]'), null)
+})
+
+check("the model's own words beside a quote carry no number the research does not", () => {
+  const thesis = 'Q2 FY27 results on 21-Oct-2026 will show whether EBITDA margin holds near 35.35%. We would change our view if net adds turn positive for 2 consecutive quarters.'
+  const r = validateReaderOutput({
+    dates: [
+      { label: 'Q2 FY27 results', date: '2026-10-21', window: null, what_to_check: 'whether EBITDA margin holds near 35.35%', quote: 'Q2 FY27 results on 21-Oct-2026', file: 'final_thesis.md' },
+      { label: 'Q2 FY27 results (again)', date: '2026-10-21', window: null, what_to_check: 'whether margin falls below 12%', quote: 'Q2 FY27 results on 21-Oct-2026', file: 'final_thesis.md' },
+    ],
+    waiting_for: [
+      { text: 'net adds positive for 2 consecutive quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
+      { text: 'net adds positive for 3 quarters', quote: 'net adds turn positive for 2 consecutive quarters', file: 'final_thesis.md' },
+    ],
+  }, { sources: new Map([['final_thesis.md', thesis]]), currency: 'INR', entryPrice: null })
+  const dates = r.items.filter((i: any) => i.kind === 'date') as any[]
+  assert.equal(dates[0].what_to_check, 'whether EBITDA margin holds near 35.35%', 'a number the research writes is kept')
+  assert.equal(dates[1].what_to_check, null, 'an invented threshold is not shown')
+  assert.equal(r.items.filter((i: any) => i.kind === 'waiting_for').length, 1, 'a condition with an invented number is left out')
+  assert.ok(r.left_out.some((l) => /not in the research/.test(l.why)))
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

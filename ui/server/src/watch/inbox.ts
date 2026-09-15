@@ -44,6 +44,9 @@ export interface EmailState {
   last_attempt_at: string | null
   sent_at: string | null
   detail: string
+  /** Items that reached some addresses but not all, by address tag (email.ts recipientTag — never the address):
+   *  a retry sends each address only what it has not had. Cleared once every address has everything. */
+  delivered?: Record<string, string[]>
 }
 
 export interface WatchMessage {
@@ -275,7 +278,14 @@ export class WatchInbox {
     })
   }
 
-  markEmailed(sent: { message: WatchMessage; items: WatchMessageItem[] }[], ok: boolean, detail: string, now: Date): void {
+  /**
+   * Record one send. `ok` means every address now has every item. Otherwise the message stays failed and is tried
+   * again, and `delivered` records what did reach an address, so the next try sends each address only the rest.
+   */
+  markEmailed(
+    sent: { message: WatchMessage; items: WatchMessageItem[] }[], ok: boolean, detail: string, now: Date,
+    delivered: { message_id: string; tag: string; items: string[] }[] = [],
+  ): void {
     const at = now.toISOString()
     for (const { message, items } of sent) {
       const m = this.get(message.id)
@@ -288,11 +298,35 @@ export class WatchInbox {
         m.email.sent_at = at
         m.email.sent_items = [...new Set([...m.email.sent_items, ...items.map((i) => i.id)])]
         m.email.attempts = 0
+        delete m.email.delivered
       } else {
         m.email.state = 'failed'
+        for (const d of delivered) {
+          if (d.message_id !== m.id) continue
+          const had = m.email.delivered ?? {}
+          had[d.tag] = [...new Set([...(had[d.tag] ?? []), ...d.items])]
+          m.email.delivered = had
+        }
       }
       this.log({ at, op: ok ? 'emailed' : 'email_failed', id: m.id, items: items.map((i) => i.type), detail })
     }
     this.persist()
+  }
+
+  /** Email paused for a name: what was already waiting to go (held for the grouping window, or retrying) does
+   *  not go either. It stays in the cockpit, marked paused. */
+  pauseEmail(listingKey: string, now: Date): number {
+    let n = 0
+    for (const m of this.messages) {
+      if (m.listing_key !== listingKey || (m.email.state !== 'pending' && m.email.state !== 'failed')) continue
+      m.email.state = 'paused'
+      m.email.detail = 'Email was paused for this name before it went out.'
+      n++
+    }
+    if (n) {
+      this.log({ at: now.toISOString(), op: 'email_paused', listing_key: listingKey, messages: n })
+      this.persist()
+    }
+    return n
   }
 }

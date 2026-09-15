@@ -223,4 +223,22 @@ check('trading days skip weekends', () => {
   assert.equal(tradingDaysUntil(TODAY, '2026-09-14'), -1)
 })
 
+check('a weekend date seen on the Friday before is not "today"', () => {
+  const agm: PlanItem = { kind: 'date', id: 'd-agm', label: 'FY2026 AGM', date: '2026-09-19', window: null, what_to_check: null, source: src('the AGM on 2026-09-19') }
+  const friday = run([agm], facts(230), {}, '2026-09-18')
+  assert.equal(friday.conditions.find((c) => c.type === 'coming_up')!.title, 'FY2026 AGM in 1 day')
+  const saturday = run([agm], facts(230), {}, '2026-09-19')
+  assert.equal(saturday.conditions.find((c) => c.type === 'coming_up')!.title, 'FY2026 AGM — today')
+})
+
+check('your own at-or-above price is marked as reached by a rise, so it re-arms the other way', () => {
+  const quote: LiveQuote = { ticker: 'V', symbol: 'V', name: 'Visa', exchange: 'NYSE', currency: 'USD', price: 401, as_of: '2026-09-15T15:00:00Z', as_of_is_close: false, delayed: true, source: 'cnbc', stale: false }
+  const triggers: WatchTrigger[] = [{ kind: 'price_level', trigger_id: 'T1', direction: 'at_or_above', level: 400, currency: 'USD' }]
+  const evals = triggers.map((tr) => evaluateTrigger(tr, { quote, quoteReason: null, today: TODAY }))
+  const e = evaluateName({ plan: null, triggers, evals, facts: facts(401), today: TODAY })
+  const c = e.conditions.find((x) => x.type === 'your_level_reached')!
+  assert.equal(c.rises, true)
+  assert.equal(c.line, 400)
+})
+
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

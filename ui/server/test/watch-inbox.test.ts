@@ -132,17 +132,37 @@ async function main() {
     assert.ok(html.includes('&lt;script&gt;'))
   })
 
-  await check('delivery never reports the addresses it used', async () => {
+  await check('an address that missed an alert is tried again with it — and only it; no address is stored or shown', async () => {
     const box = freshInbox()
     box.addForName(AMZN, 'buy_price_reached', [item('a', 'buy_price_reached', true)], ON, t0)
     const batch = selectEmailBatch(box.pendingEmail(), box.all(), t0)
     const cfg = { enabled: true, recipients: ['one@example.com', 'two@example.com'], appUrl: 'https://cockpit.example', reason: null }
     const r = await deliverWatchEmail(batch, cfg, async (p) => (p.email.startsWith('one') ? { ok: true, status: 200, detail: '' } : { ok: false, status: 500, detail: 'HTTP 500' }))
-    assert.equal(r.ok, true)
+    assert.equal(r.ok, false, 'not every address has it, so it is not sent')
     assert.match(r.detail, /1 of 2/)
     assert.ok(!r.detail.includes('@'))
+    box.markEmailed(batch, r.ok, r.detail, t0, r.delivered)
+    const id = batch[0].message.id
+    assert.equal(box.get(id)!.email.state, 'failed')
+    assert.ok(!JSON.stringify(box.get(id)).includes('@'), 'the record keeps no address')
+    const retry = selectEmailBatch(box.pendingEmail(), box.all(), plus(5))
+    assert.equal(retry.length, 1, 'tried again')
+    const to: string[] = []
+    const r2 = await deliverWatchEmail(retry, cfg, async (p) => { to.push(p.email); return { ok: true, status: 200, detail: '' } })
+    assert.deepEqual(to, ['two@example.com'], 'only the address that missed it')
+    box.markEmailed(retry, r2.ok, r2.detail, plus(5), r2.delivered)
+    assert.equal(box.get(id)!.email.state, 'sent')
     const off = await deliverWatchEmail(batch, { ...cfg, enabled: false, reason: 'No address is set for watchlist email.' })
     assert.equal(off.ok, false)
+  })
+
+  await check('pausing a name stops what was already waiting to go', () => {
+    const box = freshInbox()
+    const m = box.addForName(AMZN, 'buy_price_reached', [item('a', 'buy_price_reached', true)], ON, t0)!
+    assert.equal(m.email.state, 'pending')
+    assert.equal(box.pauseEmail('AMZN|USD', plus(1)), 1)
+    assert.equal(box.get(m.id)!.email.state, 'paused')
+    assert.equal(box.pendingEmail().length, 0)
   })
 
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

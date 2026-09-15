@@ -16,7 +16,7 @@ import {
 } from './evaluate'
 import { REARM_PCT, stepAlerts, type NameAlertState } from './alerts'
 import { WatchInbox, type WatchMessageItem } from './inbox'
-import { selectEmailBatch, type EmailBatchEntry, type WatchEmailConfig } from './email'
+import { selectEmailBatch, type Delivered, type EmailBatchEntry, type WatchEmailConfig } from './email'
 import { loadPriceRecord, marketIndexFor, observe, savePriceRecord, sessionMove, sessionOf, type ListingSubject } from './prices'
 import { loadPlan, runSegOf, type ReadOutcome } from './reader'
 import { BUY_NOW_DECISIONS, ROLE_LABEL, type LeftOut, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
@@ -27,6 +27,8 @@ const COCKPIT_OFF_MS = 45 * 60_000
 const READ_RETRY_MS = 60 * 60_000
 const READ_GIVE_UP_MS = 24 * 60 * 60_000
 const READ_MAX_ATTEMPTS = 3
+/** How often a read report's files are checked for a correction made in place. */
+const DIGEST_CHECK_MS = 60 * 60_000
 /** How long the first-day summary waits for every report to be read before going out anyway. */
 const SUMMARY_GRACE_MS = 30 * 60_000
 /** The one test email: retried at most hourly, and given up after this many tries until the addresses change. */
@@ -36,6 +38,8 @@ const EMAIL_TEST_MAX_ATTEMPTS = 3
 /** Research calls that get a watch plan: Watchlist calls, read for their lines, and buy calls, which keep only
  *  their record's bad case — after one "buy now" message, only a buy call's warnings are watched. */
 const planned = (decision: string | null | undefined): boolean => decision === 'Watchlist' || BUY_NOW_DECISIONS.has(decision ?? '')
+/** The run a basis is about: "analyses/X_2026-07-10|read" → "analyses/X_2026-07-10" (how far it was read follows the bar). */
+const basisRun = (basis: string): string => basis.split('|')[0]
 
 export interface MonitorThresholds extends Thresholds { rearmPct: number }
 
@@ -99,7 +103,10 @@ export interface MonitorDeps {
   indexLevels: (symbols: string[]) => Promise<Map<string, { last: number; as_of: string | null }>>
   readPlan: (row: EngineWatchRow) => Promise<ReadOutcome>
   emailConfig: () => WatchEmailConfig
-  sendEmail: (batch: EmailBatchEntry[], cfg: WatchEmailConfig) => Promise<{ ok: boolean; detail: string }>
+  sendEmail: (batch: EmailBatchEntry[], cfg: WatchEmailConfig) => Promise<{ ok: boolean; detail: string; delivered?: Delivered[] }>
+  /** The digest of a run's research files as they are now (reader.ts loadResearchSources). With it, a report
+   *  corrected in place is read again; without it (tests), a read plan is kept as it is. */
+  currentDigest?: (runRoot: string) => string | null
   thresholds?: MonitorThresholds
   tickMs?: number
   /** No timers at all: the caller drives every check (tests). */
@@ -144,6 +151,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
   const planCache = new Map<string, WatchPlan | null>()
   const reading = new Set<string>()
   const queued = new Set<string>()
+  const digestCheckedAt = new Map<string, number>()
   let readChain: Promise<void> = Promise.resolve()
   let market = new Map<string, { label: string; move_pct: number; session: string }>()
   let ticking: Promise<void> | null = null
@@ -270,7 +278,14 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const seg = runSegOf(row.run_root)
       if (!seg || reading.has(seg) || queued.has(seg)) continue
       const plan = cachedPlan(seg)
-      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root) continue
+      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root) {
+        // Read once per version of the report: one corrected in place (a data fix to its record or thesis) is read
+        // again. Its files are hashed at most hourly — cheap, but not every few minutes for nothing.
+        if (!deps.currentDigest || at.getTime() - (digestCheckedAt.get(seg) ?? 0) < DIGEST_CHECK_MS) continue
+        digestCheckedAt.set(seg, at.getTime())
+        const digest = deps.currentDigest(row.run_root)
+        if (!digest || digest === plan.source_digest) continue
+      }
       const rec = state.reads[seg]
       if (rec) {
         const since = at.getTime() - Date.parse(rec.last_at)
@@ -295,7 +310,8 @@ export function createWatchMonitor(deps: MonitorDeps) {
         state.reads[seg] = { attempts, last_at: doneAt.toISOString(), status: outcome.status, detail: outcome.detail }
         if (outcome.plan) planCache.set(seg, outcome.plan)
         else planCache.delete(seg)
-        if (outcome.status === 'failed' && attempts >= READ_MAX_ATTEMPTS && state.summary_sent_at) {
+        // (Not when an earlier reading is still watched: then only a re-read of a corrected copy failed.)
+        if (outcome.status === 'failed' && attempts >= READ_MAX_ATTEMPTS && state.summary_sent_at && outcome.plan?.reader.status !== 'ok') {
           inbox.addForName(
             { listing_key: row.listing.listing_key, ticker: row.listing.ticker, company_name: row.listing.company_name },
             'cant_check',
@@ -340,8 +356,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
     test.tried_at = at.toISOString()
     state.email_test = test
     const sent = [{ message, items: message.items }]
-    const res = await deps.sendEmail(sent, cfg).catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
-    inbox.markEmailed(sent, res.ok, res.detail, at)
+    const res: { ok: boolean; detail: string; delivered?: Delivered[] } = await deps.sendEmail(sent, cfg)
+      .catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
+    inbox.markEmailed(sent, res.ok, res.detail, at, res.delivered)
     test.sent = res.ok
   }
 
@@ -411,10 +428,19 @@ export function createWatchMonitor(deps: MonitorDeps) {
         // already true in it — urgent if any of that is. A name you just added yourself is set up silently: you
         // know it is there.
         if (!info.view) continue
+        // The SAME research, only read further — its text read at last after a failed or refused read — is not new
+        // research: it is not called new, nothing already told is told again, and a buy call's "buy now" went out
+        // with the first reading.
+        const sameRun = !!prev?.run_root && basisRun(prev.run_root) === basisRun(info.basis)
+        const fresh = sameRun ? already.filter((i) => !prev!.fired[i.id]) : already
+        if (sameRun && buyCall) {
+          if (fresh.length) inbox.addForName(name, ev.status, fresh, email, at)
+          continue
+        }
         const lead = buyCall
           ? buyNowItem(row, info.plan, info.basis, atIso, true)
-          : nowWatchingItem(row, info.plan, step.researchChanged, info.basis, atIso)
-        inbox.addForName(name, ev.status, [lead, ...already], email, at)
+          : nowWatchingItem(row, info.plan, step.researchChanged && !sameRun, info.basis, atIso)
+        inbox.addForName(name, ev.status, [lead, ...fresh], email, at)
         continue
       }
       if (step.events.length) {
@@ -477,10 +503,13 @@ export function createWatchMonitor(deps: MonitorDeps) {
 
     if (emailCfg.enabled) {
       await sendEmailTestOnce(emailCfg, at)
-      const batch = selectEmailBatch(inbox.pendingEmail(), inbox.all(), at)
+      // A name whose email is paused sends nothing more — including what was already waiting to go.
+      const paused = new Set(state.email_paused)
+      const batch = selectEmailBatch(inbox.pendingEmail().filter((m) => !m.listing_key || !paused.has(m.listing_key)), inbox.all(), at)
       if (batch.length) {
-        const res = await deps.sendEmail(batch, emailCfg).catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
-        inbox.markEmailed(batch, res.ok, res.detail, at)
+        const res: { ok: boolean; detail: string; delivered?: Delivered[] } = await deps.sendEmail(batch, emailCfg)
+          .catch((e: any) => ({ ok: false, detail: String(e?.message ?? e) }))
+        inbox.markEmailed(batch, res.ok, res.detail, at, res.delivered)
       }
     }
 
@@ -566,6 +595,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
     else set.delete(listingKey)
     state.email_paused = [...set].sort()
     saveState()
+    // What was already waiting to go (held for the 30-minute grouping, or retrying) is paused with it, and stays
+    // paused when email is resumed: it is not sent late.
+    if (paused) inbox.pauseEmail(listingKey, now())
   }
 
   function status() {

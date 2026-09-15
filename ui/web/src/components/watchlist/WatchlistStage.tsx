@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { WatchDetail } from './WatchDetail'
 import { WatchInbox } from './WatchInbox'
-import { ABSENT_PRICE_COPY, livePriceLabel, money, shortDay } from '../../lib/format'
-import { NEEDS_YOU, dateParts, rowSignal, rowStatus, sortRows, waitingParts } from '../../lib/watchStatus'
+import { ABSENT_PRICE_COPY, money, shortDay } from '../../lib/format'
+import { NEEDS_YOU, dateParts, quoteNote, rowSignal, rowStatus, sortRows, waitingParts } from '../../lib/watchStatus'
 import type { WatchRow } from '../../lib/types'
 
 // The watchlist stage: one table of names — the ones that need you first — and one panel for the name picked.
@@ -171,9 +171,7 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
           {row.quote ? (
             <>
               <span className="wrow__pxval">{money(row.quote.currency, row.quote.price)}</span>
-              <span className="wrow__meta">
-                {typeof move === 'number' ? `${move > 0 ? '+' : move < 0 ? '−' : ''}${Math.abs(move)}% today` : livePriceLabel(row.quote).toLowerCase()}
-              </span>
+              <span className="wrow__meta">{quoteNote(row.quote, move)}</span>
             </>
           ) : (
             <span className="wrow__none" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : 'No live price for this listing.'}>no price</span>

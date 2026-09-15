@@ -131,6 +131,15 @@ export function gapWords(gap: number | null | undefined): string | null {
   return gap < 0 ? `must fall ${a}%` : `${a}% under it`
 }
 
+/** What a price is, beside it: today's move, else live or last close — and always whether it is delayed or no
+ *  longer current, so a number is never shown as fresher than it is. */
+export function quoteNote(q: { as_of_is_close: boolean; delayed?: boolean; stale?: boolean }, movePct?: number | null): string {
+  const head = typeof movePct === 'number' && Number.isFinite(movePct) && !q.stale
+    ? `${movePct > 0 ? '+' : movePct < 0 ? '−' : ''}${Math.abs(movePct)}% today`
+    : q.as_of_is_close ? 'last close' : 'price now'
+  return [head, q.delayed ? 'delayed' : null, q.stale ? 'not current' : null].filter(Boolean).join(' · ')
+}
+
 /** What a name is waiting for, as a label and the value that answers it — its nearest price, else what the
  *  research is waiting to see. The table shows the value, with its label quiet above it. */
 export function waitingParts(row: WatchRow): { label: string; value: string } | null {

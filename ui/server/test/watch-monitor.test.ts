@@ -264,6 +264,67 @@ async function main() {
     assert.equal(sent.length, 3, 'a new set of addresses gets its own test')
   })
 
+  await check('the same research read at last is not "new research", and nothing already told is told again', async () => {
+    // Its first read fails (a sign-in expired), the fall under its bad case is emailed; the read then succeeds.
+    let t = new Date('2026-09-15T14:00:00Z')
+    const nhy = engineRow('NHY', 'NOK', 'Oslo Børs (OB:NHY)', 'NHY_2026-07-19')
+    const bad: PlanItem = { kind: 'price', id: 'p-bad', role: 'bad_case', low: 45.12, high: null, currency: 'NOK', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }
+    const look: PlanItem = { kind: 'price', id: 'p-look', role: 'look_again', low: 70, high: 82, currency: 'NOK', source: src('revisit only if price falls toward or below the NOK 70-82 weighted fair-value band'), note: null }
+    const partial = { ...planFor(nhy, [bad]), reader: { status: 'failed' as const, model: 'opus', cost_usd: 0, at: null, detail: 'Not signed in.' } }
+    let signedIn = false
+    let nhyPrice = 50
+    const sent: any[][] = []
+    const m4 = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-4-')), manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [nhy], loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: { ...quoteOf('NHY', 'NOK', nhyPrice), as_of: t.toISOString() }, reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async () => (signedIn
+        ? { status: 'ok', plan: planFor(nhy, [look, bad]), detail: 'read', cost_usd: 0.3 }
+        : { status: 'failed', plan: partial, detail: 'Not signed in.', cost_usd: 0 }),
+      emailConfig: () => ({ enabled: true, recipients: ['ops@example.com'], appUrl: '', reason: null }),
+      sendEmail: async (batch) => { sent.push(batch); return { ok: true, detail: 'Emailed to 1 address.' } },
+    })
+    const alertItems = () => sent.filter((b) => !isTest(b)).flatMap((b) => b.flatMap((e: any) => e.items.map((i: any) => i.type)))
+    await m4.tick(); await m4.idle()
+    t = new Date(t.getTime() + 60_000); await m4.tick()
+    t = new Date(t.getTime() + 10 * 60_000); nhyPrice = 44; await m4.tick()
+    assert.deepEqual(alertItems(), ['bad_case_broken'], 'the fall under the bad case is emailed once')
+    signedIn = true
+    t = new Date(t.getTime() + 61 * 60_000); await m4.tick(); await m4.idle()
+    t = new Date(t.getTime() + 60_000); await m4.tick()
+    const setUp = m4.inbox.list().find((m) => m.items.some((i) => i.type === 'now_watching'))
+    assert.ok(setUp)
+    assert.equal(setUp!.items.find((i) => i.type === 'now_watching')!.title, 'Now watching', 'not "new research": the research did not change')
+    assert.ok(!setUp!.items.some((i) => i.type === 'bad_case_broken'), 'the bad case was already told')
+    assert.ok(setUp!.items.some((i) => i.type === 'look_again_reached'), 'what the read found is told')
+    assert.deepEqual(alertItems(), ['bad_case_broken', 'look_again_reached'], 'no second email for the same fall')
+  })
+
+  await check('a report corrected in place is read again — its files checked at most hourly', async () => {
+    let t = new Date('2026-09-15T14:00:00Z')
+    const row = engineRow('UBER', 'USD', 'NYSE', 'UBER_2026-08-09')
+    let digest = 'd'
+    const reads: string[] = []
+    const m5 = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-5-')), manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [row], loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async () => { reads.push(digest); return { status: 'ok', plan: { ...planFor(row, []), source_digest: digest }, detail: 'read', cost_usd: 0.3 } },
+      currentDigest: () => digest,
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    await m5.tick(); await m5.idle()
+    t = new Date(t.getTime() + 61 * 60_000); await m5.tick(); await m5.idle()
+    assert.deepEqual(reads, ['d'], 'unchanged files are not read again')
+    digest = 'e'
+    t = new Date(t.getTime() + 10 * 60_000); await m5.tick(); await m5.idle()
+    assert.deepEqual(reads, ['d'], 'not before the hour is up')
+    t = new Date(t.getTime() + 51 * 60_000); await m5.tick(); await m5.idle()
+    assert.deepEqual(reads, ['d', 'e'], 'a corrected report is read again')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

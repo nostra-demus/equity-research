@@ -88,4 +88,18 @@ check('new research starts over: a new starting point, flagged as changed', () =
   assert.equal(s.events.length, 0)
 })
 
+check('a line reached by a RISE re-arms after a clear move back BELOW it', () => {
+  // Your own "at or above USD 400": a fall re-arms it, the way a rise re-arms a line reached by a fall.
+  const UP = (): Condition => ({ ...cond('your_level_reached:T1', 'your_level_reached', 400), rises: true })
+  let s = step(undefined, [], 380, 0)
+  s = step(s.state, [UP()], 401, 5)
+  assert.equal(s.events.length, 1)
+  s = step(s.state, [], 395, 10) // back under, but above 400 × 0.97 = 388
+  assert.ok(s.state.fired[UP().id], 'a wobble under it is not a re-arm')
+  s = step(s.state, [], 350, 15)
+  assert.ok(!s.state.fired[UP().id], 're-armed by a real fall')
+  s = step(s.state, [UP()], 405, 20)
+  assert.equal(s.events.length, 1, 'rising past it again is news')
+})
+
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
