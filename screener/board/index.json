@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T00:42:52Z",
+  "generated_at": "2026-09-15T00:52:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-042",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-053",
+      "headline": "UB-MNIU@EC2609A UBBOCHK@EC2609A UBPINAN@EP2610A UBTENCT@EP2609A UB#HKEX RC2610E UB#BYD RP2610A UB#CSPC RP2610A UB#HKEX RC2610A UB#SMIC RC2610E UB#AIA RC2610G (26833 27052 28377 28461 51602 56313 66328 66641 68761 69933): EXCHANGE NOTICE - SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500113.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T00:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Multiple structured products suspended from trading on the HKEX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Multiple structured products suspended from trading on the HKEX.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UBS AG",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1074,6 +1123,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-052",
+      "headline": "Gold holds losses as higher oil stokes September rate hike bets",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/gold-holds-losses-higher-oil-stokes-september-rate-hike-bets",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:35:48Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Higher oil prices are fueling market expectations for a September interest rate hike, impacting global asset valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Higher oil prices are fueling market expectations for a September interest rate hike, impacting global asset valuations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-051",
+      "headline": "Rising inflation sparks buzz of early rate hike",
+      "headline_en": null,
+      "url": "https://www.livemint.com/economy/india-inflation-rate-in-august-rbi-repo-rate-india-gdp-growth-rate-11789388552218.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T00:31:03Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Rising inflation expectations in India are increasing the probability of an early interest rate hike by the central bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Rising inflation expectations in India are increasing the probability of an early interest rate hike by the central bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-008",
       "headline": "FDA 510(k) clearance — Fujifilm Corporation: FCT iStream Phase 2",
       "headline_en": null,
@@ -1809,153 +1944,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-019",
-      "headline": "EagleOne Announces Executive Management and Board Changes as Company Advances Renewed Focus on Uranium | EGLMF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/EGLMF/eagle-one-announces-executive-management-and-board-changes-as-ia0w4nfen2g0.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:29:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "EagleOne announced executive and board changes as part of a strategic shift toward uranium, which impacts management credibility and direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "EagleOne announced executive and board changes as part of a strategic shift toward uranium, which impacts management credibility and direction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EagleOne",
-          "ticker": "EGLMF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-017",
-      "headline": "Marcus & Millichap Capital Corporation Arranges $53 Million Build-to-Rent Refinance in Northwest Arkansas | MMI Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/MMI/marcus-millichap-capital-corporation-arranges-53-million-build-to-dbg9otjv1tkl.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:44:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Marcus & Millichap arranged a $53 million refinance, demonstrating active commercial real estate financing activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Marcus & Millichap arranged a $53 million refinance, demonstrating active commercial real estate financing activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marcus & Millichap",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-015",
-      "headline": "TORM plc announces secondary public offering of its class A common shares by a selling shareholder",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/torm-plc-announces-secondary-public-offering-of-its-class-a-common-shares-by-a-selling-shareholder-302878136.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-14T21:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "TORM plc announced a secondary public offering of class A common shares, which typically dilutes existing shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TORM plc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164156,9 +164144,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 107311,
-    "news_picked_today": 50,
-    "news_dropped_today": 238
+    "news_seen_today": 121425,
+    "news_picked_today": 53,
+    "news_dropped_today": 307
   },
   "book_momentum": {
     "live_count": 8,
