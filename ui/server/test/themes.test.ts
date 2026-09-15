@@ -6,6 +6,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { mock } from 'node:test'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes, boundThemeMembers } from '../src/news/themes/assign'
@@ -1668,37 +1669,54 @@ await check('a stalled local compiler obeys the lower theme-attempt timeout, coo
     support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
   })
   const urls: string[] = []
-  const fetchFn = (async (url: string | URL | Request) => {
+  let localSignal: AbortSignal | undefined
+  const fetchFn = (async (url: string | URL | Request, init?: RequestInit) => {
     urls.push(String(url))
-    if (String(url).startsWith('https://local.test/')) return await new Promise<Response>(() => {})
+    if (String(url).startsWith('https://local.test/')) {
+      localSignal = init?.signal || undefined
+      return await new Promise<Response>(() => {})
+    }
     return {
       ok: true, status: 200,
       json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
     }
   }) as unknown as typeof fetch
-  const started = Date.now()
-  const outcome = await makeThemeNamer({
-    themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
-    localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
-    localProvider: {
-      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
-      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
-    },
-    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
-    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
-  }, fetchFn, tmp)([candidate], NOW)
-  const elapsed = Date.now() - started
-  assert.deepEqual(urls, ['https://local.test/v1/chat/completions', 'https://groq.test/chat/completions'])
-  assert.ok(elapsed < 400, `the provider's 120s timeout must not raise the 20ms Themes attempt cap (elapsed ${elapsed}ms)`)
-  const localUntil = readCooldownUntil(tmp, 'themes:local')
-  assert.ok(localUntil >= started + 1_234 && localUntil <= Date.now() + 1_300, 'local timeouts use one flat short Themes-only cooldown')
-  assert.equal(readCooldownUntil(tmp, 'local'), 0, 'a compiler timeout does not sideline unrelated local-provider work')
-  assert.equal(outcome?.state, 'succeeded')
-  assert.equal(outcome?.attempted_count, 2)
-  assert.equal(outcome?.validated_count, 1)
-  assert.equal(candidate.generation, 'groq')
-  fs.rmSync(tmp, { recursive: true, force: true })
-  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const parent = new AbortController()
+  let pending: ReturnType<ReturnType<typeof makeThemeNamer>> | undefined
+  try {
+    mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
+    pending = makeThemeNamer({
+      themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
+      localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+      localProvider: {
+        id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+        dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
+      },
+      groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+      groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+    // Let admission finish without advancing the clock; CI load cannot consume the chain budget.
+    await new Promise<void>((resolve) => setImmediate(resolve))
+    assert.ok(localSignal, 'the local compiler must have dispatched')
+    mock.timers.tick(19)
+    assert.equal(localSignal.aborted, false, 'the 20ms attempt must remain live before its deadline')
+    mock.timers.tick(1)
+    assert.equal(localSignal.aborted, true, "the provider's 120s timeout must not raise the 20ms Themes attempt cap")
+    const outcome = await pending
+    assert.deepEqual(urls, ['https://local.test/v1/chat/completions', 'https://groq.test/chat/completions'])
+    assert.equal(readCooldownUntil(tmp, 'themes:local'), NOW.getTime() + 20 + 1_234, 'local timeouts use one flat short Themes-only cooldown')
+    assert.equal(readCooldownUntil(tmp, 'local'), 0, 'a compiler timeout does not sideline unrelated local-provider work')
+    assert.equal(outcome?.state, 'succeeded')
+    assert.equal(outcome?.attempted_count, 2)
+    assert.equal(outcome?.validated_count, 1)
+    assert.equal(candidate.generation, 'groq')
+  } finally {
+    parent.abort()
+    await pending?.catch(() => {})
+    mock.timers.reset()
+    fs.rmSync(tmp, { recursive: true, force: true })
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
 })
 
 await check('an already-aborted parent stops the theme chain before dispatch or budget reservation', async () => {
@@ -1882,22 +1900,34 @@ await check('a stalled Claude compiler cannot outlive the remaining provider-cha
     signal = init?.signal || undefined
     return await new Promise<Response>(() => {})
   }) as unknown as typeof fetch
-  const started = Date.now()
-  const outcome = await makeThemeNamer({
-    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
-    themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
-    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
-  }, stalled, tmp)([candidate], NOW)
-  const elapsed = Date.now() - started
-  assert.ok(elapsed < 400, `Claude must respect the 25ms remaining-chain deadline (elapsed ${elapsed}ms)`)
-  assert.equal(signal?.aborted, true)
-  assert.equal(outcome?.state, 'failed')
-  assert.equal(outcome?.provider, 'claude')
-  assert.equal(outcome?.blocker, 'provider_error')
-  assert.equal(outcome?.attempted_count, 1)
-  assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
-  fs.rmSync(tmp, { recursive: true, force: true })
-  resetCooldownMemory()
+  const parent = new AbortController()
+  let pending: ReturnType<ReturnType<typeof makeThemeNamer>> | undefined
+  try {
+    mock.timers.enable({ apis: ['Date', 'setTimeout'], now: NOW })
+    pending = makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
+      llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+    }, stalled, tmp, () => {}, parent.signal)([candidate], NOW)
+    await new Promise<void>((resolve) => setImmediate(resolve))
+    assert.ok(signal, 'the Claude compiler must have dispatched')
+    mock.timers.tick(24)
+    assert.equal(signal.aborted, false, 'the request must remain live before the chain deadline')
+    mock.timers.tick(1)
+    assert.equal(signal.aborted, true, 'Claude must respect the 25ms remaining-chain deadline')
+    const outcome = await pending
+    assert.equal(outcome?.state, 'failed')
+    assert.equal(outcome?.provider, 'claude')
+    assert.equal(outcome?.blocker, 'provider_error')
+    assert.equal(outcome?.attempted_count, 1)
+    assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
+  } finally {
+    parent.abort()
+    await pending?.catch(() => {})
+    mock.timers.reset()
+    fs.rmSync(tmp, { recursive: true, force: true })
+    resetCooldownMemory()
+  }
 })
 
 await check('terminal theme HTTP failures quarantine the correct scope without forging provider-day exhaustion', async () => {
