@@ -121,6 +121,13 @@ check('fingerprint prevents stale lookup attaching to a changed series',
   latestNeedLookup({ ...lookupIdentity, series: 'Different series' }, lookupState) === undefined)
 check('the same need on another decision cannot inherit this lookup',
   latestNeedLookup({ ...lookupIdentity, decision_fingerprint: `sha256:${'b'.repeat(64)}` }, lookupState) === undefined)
+{
+  // Stale 30 days after it was checked — on a pinned clock, so this holds on any day.
+  const checked = Date.parse(latestNeedLookup(lookupIdentity, lookupState)!.checked_at)
+  check('a lookup is fresh for 30 days after it was checked, then stale',
+    latestNeedLookup(lookupIdentity, lookupState, checked + 29 * 24 * 60 * 60 * 1000)?.stale === false
+    && latestNeedLookup(lookupIdentity, lookupState, checked + 31 * 24 * 60 * 60 * 1000)?.stale === true)
+}
 
 await assert.rejects(
   writeNeedLookup({
