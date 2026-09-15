@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T12:33:08Z",
+  "generated_at": "2026-09-15T12:43:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-429",
@@ -334,6 +334,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260915-458",
+      "headline": "Coca-Cola to invest $10 billion in U.S. growth through 2030, says CFO",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/15/coca-cola-invest-10-billion-us-growth-through-2030-cfo/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Coca-Cola announced a $10 billion capital expenditure plan for U.S. growth through 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coca-Cola announced a $10 billion capital expenditure plan for U.S. growth through 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coca-Cola",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-406",
-      "headline": "NT 10-Q - Calor Del Sol Inc. (0002008027) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2008027/000147793226005590/0001477932-26-005590-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T10:05:57Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "The company filed a notice of late quarterly filing, which is a negative signal regarding financial reporting controls.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company filed a notice of late quarterly filing, which is a negative signal regarding financial reporting controls.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Calor Del Sol Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -119401,78 +119401,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f5969d840a7d",
-      "idea_version": "IDEAV-a7bdb209abc0610a",
-      "idea_version_started_at": "2026-09-14T02:21:22Z",
-      "ticker": "9502.T",
-      "company": "Chubu Electric Power",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Chubu Electric Power is facing scrutiny and reports of data falsification related to its nuclear restart pressure and corporate culture, which could lead to regulatory action and reputational damage.",
-      "why_now": "Reports detailing the falsification and cultural issues emerged on September 14, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-62ad197896e6",
-        "EVT-747588c7f190"
-      ],
-      "primary_source_event_id": "EVT-62ad197896e6",
-      "source_headlines": [
-        "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
-        "BREAKING NEWS: Chubu Electric's culture encouraged data falsification: probe report"
-      ],
-      "source_headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
-      "source_url": "https://english.kyodonews.net/articles/-/84931",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-14T00:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:21:22Z",
-      "updated_at": "2026-09-14T02:21:22Z",
-      "decay_at": "2026-09-15T12:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d00aad4b1aef",
       "idea_version": "IDEAV-ef3b1f7d70895e41",
       "idea_version_started_at": "2026-09-15T04:47:56Z",
@@ -121989,77 +121917,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ad689429762b",
-      "idea_version": "IDEAV-0bc5e5804256f6fe",
-      "idea_version_started_at": "2026-09-14T02:04:41Z",
-      "ticker": "BIT",
-      "company": "Biotron Limited",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of the Managing Director introduces leadership uncertainty and potential strategic instability for a small-cap biotech firm.",
-      "why_now": "The resignation was filed on 2026-09-14.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0e8ca930266"
-      ],
-      "primary_source_event_id": "EVT-c0e8ca930266",
-      "source_headlines": [
-        "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]"
-      ],
-      "source_headline": "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BIT?key=2924-03135092-2A1696918",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-14T00:36:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:04:41Z",
-      "updated_at": "2026-09-14T02:04:41Z",
-      "decay_at": "2026-09-15T12:36:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-d839ab9742f748e8",
       "idea_version_started_at": "2026-09-14T06:09:44Z",
@@ -122269,79 +122126,6 @@
       "surfaced_at": "2026-09-14T04:51:58Z",
       "updated_at": "2026-09-14T04:51:58Z",
       "decay_at": "2026-09-15T14:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-7f0a605fce1b",
-      "idea_version": "IDEAV-91210d589a215fc2",
-      "idea_version_started_at": "2026-09-14T01:06:30Z",
-      "ticker": "HCW",
-      "company": "Healthscope",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Healthscope is being acquired by a Calvary Health Care consortium, which typically results in a premium for shareholders.",
-      "why_now": "The acquisition by Calvary Health Care was reported on September 14, 2026, confirming a definitive event for the company.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-441c143ced9e",
-        "EVT-9ad1c351d670"
-      ],
-      "primary_source_event_id": "EVT-441c143ced9e",
-      "source_headlines": [
-        "HCW: Healthscope Update [price-sensitive]",
-        "Calvary Health Care consortium wins the battle for Healthscope"
-      ],
-      "source_headline": "HCW: Healthscope Update [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HCW?key=2924-03135090-2A1696915",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-14T00:34:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T01:06:30Z",
-      "updated_at": "2026-09-14T01:06:30Z",
-      "decay_at": "2026-09-15T12:34:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124174,6 +123958,78 @@
       "surfaced_at": "2026-09-12T17:39:44Z",
       "updated_at": "2026-09-12T17:39:44Z",
       "decay_at": "2026-09-14T04:46:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f5969d840a7d",
+      "idea_version": "IDEAV-a7bdb209abc0610a",
+      "idea_version_started_at": "2026-09-14T02:21:22Z",
+      "ticker": "9502.T",
+      "company": "Chubu Electric Power",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Chubu Electric Power is facing scrutiny and reports of data falsification related to its nuclear restart pressure and corporate culture, which could lead to regulatory action and reputational damage.",
+      "why_now": "Reports detailing the falsification and cultural issues emerged on September 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-62ad197896e6",
+        "EVT-747588c7f190"
+      ],
+      "primary_source_event_id": "EVT-62ad197896e6",
+      "source_headlines": [
+        "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+        "BREAKING NEWS: Chubu Electric's culture encouraged data falsification: probe report"
+      ],
+      "source_headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+      "source_url": "https://english.kyodonews.net/articles/-/84931",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-14T00:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:21:22Z",
+      "updated_at": "2026-09-14T02:21:22Z",
+      "decay_at": "2026-09-15T12:39:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126330,6 +126186,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ad689429762b",
+      "idea_version": "IDEAV-0bc5e5804256f6fe",
+      "idea_version_started_at": "2026-09-14T02:04:41Z",
+      "ticker": "BIT",
+      "company": "Biotron Limited",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of the Managing Director introduces leadership uncertainty and potential strategic instability for a small-cap biotech firm.",
+      "why_now": "The resignation was filed on 2026-09-14.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c0e8ca930266"
+      ],
+      "primary_source_event_id": "EVT-c0e8ca930266",
+      "source_headlines": [
+        "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]"
+      ],
+      "source_headline": "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BIT?key=2924-03135092-2A1696918",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-14T00:36:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T02:04:41Z",
+      "updated_at": "2026-09-14T02:04:41Z",
+      "decay_at": "2026-09-15T12:36:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3d891ca2abea",
       "idea_version": "IDEAV-76fb45fba3cf9012",
       "idea_version_started_at": "2026-09-13T19:16:47Z",
@@ -126470,6 +126397,79 @@
       "surfaced_at": "2026-09-14T00:16:27Z",
       "updated_at": "2026-09-14T00:16:27Z",
       "decay_at": "2026-09-15T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7f0a605fce1b",
+      "idea_version": "IDEAV-91210d589a215fc2",
+      "idea_version_started_at": "2026-09-14T01:06:30Z",
+      "ticker": "HCW",
+      "company": "Healthscope",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Healthscope is being acquired by a Calvary Health Care consortium, which typically results in a premium for shareholders.",
+      "why_now": "The acquisition by Calvary Health Care was reported on September 14, 2026, confirming a definitive event for the company.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-441c143ced9e",
+        "EVT-9ad1c351d670"
+      ],
+      "primary_source_event_id": "EVT-441c143ced9e",
+      "source_headlines": [
+        "HCW: Healthscope Update [price-sensitive]",
+        "Calvary Health Care consortium wins the battle for Healthscope"
+      ],
+      "source_headline": "HCW: Healthscope Update [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HCW?key=2924-03135090-2A1696915",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-14T00:34:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T01:06:30Z",
+      "updated_at": "2026-09-14T01:06:30Z",
+      "decay_at": "2026-09-15T12:34:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126912,19 +126912,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
-        "total_count": 271,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -126943,6 +126943,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f5969d840a7d",
+        "idea_version": "IDEAV-a7bdb209abc0610a",
+        "idea_version_started_at": "2026-09-14T02:21:22Z",
+        "ticker": "9502.T",
+        "company": "Chubu Electric Power",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Chubu Electric Power is facing scrutiny and reports of data falsification related to its nuclear restart pressure and corporate culture, which could lead to regulatory action and reputational damage.",
+        "why_now": "Reports detailing the falsification and cultural issues emerged on September 14, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-62ad197896e6",
+          "EVT-747588c7f190"
+        ],
+        "primary_source_event_id": "EVT-62ad197896e6",
+        "source_headlines": [
+          "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+          "BREAKING NEWS: Chubu Electric's culture encouraged data falsification: probe report"
+        ],
+        "source_headline": "BREAKING NEWS: Hamaoka nuclear restart pressure behind Chubu Electric falsification: report",
+        "source_url": "https://english.kyodonews.net/articles/-/84931",
+        "source_name": "Kyodo News (Japan Wire)",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-14T00:39:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T02:21:22Z",
+        "updated_at": "2026-09-14T02:21:22Z",
+        "decay_at": "2026-09-15T12:39:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T12:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ad689429762b",
+        "idea_version": "IDEAV-0bc5e5804256f6fe",
+        "idea_version_started_at": "2026-09-14T02:04:41Z",
+        "ticker": "BIT",
+        "company": "Biotron Limited",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The sudden resignation of the Managing Director introduces leadership uncertainty and potential strategic instability for a small-cap biotech firm.",
+        "why_now": "The resignation was filed on 2026-09-14.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c0e8ca930266"
+        ],
+        "primary_source_event_id": "EVT-c0e8ca930266",
+        "source_headlines": [
+          "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]"
+        ],
+        "source_headline": "BIT: Resignation of Managing Director and Appendix 3Z [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BIT?key=2924-03135092-2A1696918",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-14T00:36:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T02:04:41Z",
+        "updated_at": "2026-09-14T02:04:41Z",
+        "decay_at": "2026-09-15T12:36:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T12:36:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-7f0a605fce1b",
+        "idea_version": "IDEAV-91210d589a215fc2",
+        "idea_version_started_at": "2026-09-14T01:06:30Z",
+        "ticker": "HCW",
+        "company": "Healthscope",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Healthscope is being acquired by a Calvary Health Care consortium, which typically results in a premium for shareholders.",
+        "why_now": "The acquisition by Calvary Health Care was reported on September 14, 2026, confirming a definitive event for the company.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-441c143ced9e",
+          "EVT-9ad1c351d670"
+        ],
+        "primary_source_event_id": "EVT-441c143ced9e",
+        "source_headlines": [
+          "HCW: Healthscope Update [price-sensitive]",
+          "Calvary Health Care consortium wins the battle for Healthscope"
+        ],
+        "source_headline": "HCW: Healthscope Update [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HCW?key=2924-03135090-2A1696915",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-14T00:34:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T01:06:30Z",
+        "updated_at": "2026-09-14T01:06:30Z",
+        "decay_at": "2026-09-15T12:34:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-15T12:34:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5161e4ad3826",
         "idea_version": "IDEAV-ae051b7ac3b536b5",
@@ -155110,80 +155335,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-6dedf05fd8fd",
-        "idea_version": "IDEAV-075a21e19a7bb873",
-        "idea_version_started_at": "2026-09-02T22:22:07Z",
-        "ticker": "COALINDIA",
-        "company": "Coal India Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The filing of a Draft Red Herring Prospectus for its subsidiary, Mahanadi Coalfields Limited, signals a potential value unlocking event through a future IPO of the unit.",
-        "why_now": "The filing was officially submitted on September 02, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c7ffcd767e89"
-        ],
-        "primary_source_event_id": "EVT-c7ffcd767e89",
-        "source_headlines": [
-          "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL."
-        ],
-        "source_headline": "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL.",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17a3003c-9c1e-4c96-8e76-b77ffa9ee48a.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-02T05:05:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T22:22:07Z",
-        "updated_at": "2026-09-02T22:22:07Z",
-        "decay_at": "2026-09-03T17:05:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T06:26:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3123eadb829a",
         "idea_version": "IDEAV-5a30aa59d9e9b620",
         "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -163954,160 +164105,12 @@
         "archived_at": "2026-08-27T14:03:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aeee8baa02be",
-        "idea_version": "IDEAV-d4a281323a968b8c",
-        "idea_version_started_at": "2026-08-24T14:45:11Z",
-        "ticker": "02439",
-        "company": "CH TREASURES NM",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company reported a decrease in profit for the six months ended 30 June 2026, signaling operational headwinds.",
-        "why_now": "The profit warning was filed on 2026-08-24.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ebad0a5538d4"
-        ],
-        "primary_source_event_id": "EVT-ebad0a5538d4",
-        "source_headlines": [
-          "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
-        ],
-        "source_headline": "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401291.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T11:44:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T14:45:11Z",
-        "updated_at": "2026-08-24T14:45:11Z",
-        "decay_at": "2026-08-25T23:44:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T11:49:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6eca4f13ca43",
-        "idea_version": "IDEAV-bfdfa19aee0854a9",
-        "idea_version_started_at": "2026-08-24T14:45:11Z",
-        "ticker": "00655",
-        "company": "HK CHINESE LTD",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, indicating deteriorating earnings performance for the period.",
-        "why_now": "The announcement was released on 2026-08-24.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6232e9536276"
-        ],
-        "primary_source_event_id": "EVT-6232e9536276",
-        "source_headlines": [
-          "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING"
-        ],
-        "source_headline": "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401277.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T11:40:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T14:45:11Z",
-        "updated_at": "2026-08-24T14:45:11Z",
-        "decay_at": "2026-08-25T23:40:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T11:49:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 828,
-    "live_count": 60,
+    "live_count": 57,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -164126,9 +164129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3352027,
-    "news_picked_today": 867,
-    "news_dropped_today": 5661
+    "news_seen_today": 3429217,
+    "news_picked_today": 872,
+    "news_dropped_today": 5752
   },
   "book_momentum": {
     "live_count": 8,
