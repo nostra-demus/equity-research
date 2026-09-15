@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T03:51:51Z",
+  "generated_at": "2026-09-15T04:02:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260915-139",
@@ -1535,6 +1535,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-257",
+      "headline": "Tata Chemicals shares jump 20% on Tata Sons listing developments; Here's how others are faring",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tata-sons-listing-exclusive-rbi-application-chemicals-motors-power-indian-hotels-tcpl-investment-steel-share-price-19990494.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T03:51:38Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Tata Chemicals shares rose 20% following news regarding the potential listing of Tata Sons.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tata Chemicals shares rose 20% following news regarding the potential listing of Tata Sons.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-137",
       "headline": "BRKZ secures $31 million to scale AI-powered construction procurement",
       "headline_en": null,
@@ -1780,6 +1829,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260915-264",
+      "headline": "Meta agrees to report child sexual abuse cases to law enforcement agencies in India",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/social-media/meta-agrees-to-report-child-sexual-abuse-cases-to-law-enforcement-agencies-in-india/article71466644.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T03:39:26Z",
+      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
+      "prelim_note": "Meta has agreed to new reporting requirements for child sexual abuse cases in India, increasing regulatory compliance burden.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Meta has agreed to new reporting requirements for child sexual abuse cases in India, increasing regulatory compliance burden.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260915-204",
       "headline": "HD Hyundai receives U.S. approval for barge-mounted power plant",
       "headline_en": null,
@@ -1875,109 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-104",
-      "headline": "Customer Data Leaked from Japan Arm of U.S. Insurer Prudential",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026091401016/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T01:07:48Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Prudential's Japan arm suffered a customer data leak, creating operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Prudential's Japan arm suffered a customer data leak, creating operational and reputational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prudential",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260915-115",
-      "headline": "Samsung backs Nvidia AI chip rival in $230 million funding round as GPU alternatives boom",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/14/samsung-euclyd-ai-chip-funding.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-14T23:30:02Z",
-      "sweep_file": "screener/inbox/2026-09-15_sweep.json",
-      "prelim_note": "Samsung is investing $230 million in an Nvidia competitor, signaling strategic capital allocation in the AI hardware space.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Samsung is investing $230 million in an Nvidia competitor, signaling strategic capital allocation in the AI hardware space.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164455,9 +164450,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 492166,
-    "news_picked_today": 382,
-    "news_dropped_today": 1442
+    "news_seen_today": 520572,
+    "news_picked_today": 413,
+    "news_dropped_today": 1507
   },
   "book_momentum": {
     "live_count": 8,
