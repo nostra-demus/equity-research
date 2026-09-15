@@ -3490,6 +3490,9 @@ export interface WatchCondition {
   detail: string
   quote: string | null
   source: string | null
+  /** A passed date's tests to check by hand, apart from `detail` so the panel can fold them. Absent from an
+   *  older engine, whose `detail` carries them instead. */
+  checklist?: string[]
 }
 
 export interface WatchRowWatch {

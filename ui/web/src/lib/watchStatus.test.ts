@@ -5,7 +5,7 @@
 // Run: npx tsx src/lib/watchStatus.test.ts
 import assert from 'node:assert/strict'
 import type { WatchMessage, WatchRow } from './types'
-import { dateWords, emailWords, gapWords, priceItemText, rowStatus, sortRows, waitingText } from './watchStatus'
+import { dateParts, dateWords, emailWords, gapWords, priceItemText, rowStatus, sortRows, waitingParts } from './watchStatus'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -64,11 +64,13 @@ check('a distance is said in words, never left as a sign', () => {
   assert.equal(gapWords(Number.NaN), null)
 })
 
-check('what a name waits for, and when its next date is', () => {
-  assert.equal(waitingText(row('A', { watch: watch('waiting', -13) })), 'Buy price USD 190–200 · must fall 13%')
-  assert.equal(waitingText(row('A')), null)
+check('what a name waits for, and when its next date is — each a label and the value that answers it', () => {
+  assert.deepEqual(waitingParts(row('A', { watch: watch('waiting', -13) })), { label: 'Buy price', value: 'USD 190–200 · must fall 13%' })
+  assert.equal(waitingParts(row('A')), null)
   const buyCall = row('A', { watch: { ...watch('waiting')!, plan: { state: 'ready', detail: '', run_root: 'analyses/A_2026-09-10', decision: 'Buy', decision_date: '2026-09-10', items: [], left_out: [], reader: null } } })
-  assert.equal(waitingText(buyCall), 'Research says buy — only its warnings are watched')
+  assert.deepEqual(waitingParts(buyCall), { label: 'Research says buy', value: 'only its warnings are watched' })
+  assert.deepEqual(dateParts({ label: 'Q2 FY27 results', date: '2026-10-21', days_to: 36, estimated: true }), { label: 'Q2 FY27 results', value: '~21 Oct · in 36 days' })
+  assert.equal(dateParts(null), null)
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 0 }), 'Q3 results · 3 Nov · today')
   assert.equal(dateWords({ label: 'Q3 results', date: '2026-11-03', days_to: 12 }), 'Q3 results · 3 Nov · in 12 days')
   assert.equal(dateWords({ label: 'Q2 FY27 results', date: '2026-10-21', days_to: 36, estimated: true }), 'Q2 FY27 results · ~21 Oct · in 36 days', 'an estimated day is marked, as the research wrote it')

@@ -172,7 +172,8 @@ check('dates: coming up within two trading days; out once passed, if after the r
   const e = run([soon, out, before, deal], facts(230))
   assert.deepEqual(types(e).sort(), ['coming_up', 'results_out'])
   const res = e.conditions.find((c) => c.type === 'results_out')!
-  assert.match(res.detail, /AWS margin under 30%/)
+  assert.deepEqual(res.checklist, ['AWS margin under 30%'], "the research's tests travel as a list, apart from the detail")
+  assert.doesNotMatch(res.detail, /AWS margin/)
   assert.equal(e.next_date?.date, '2026-09-17')
 })
 

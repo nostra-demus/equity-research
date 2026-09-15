@@ -95,6 +95,9 @@ export interface Condition {
   detail: string
   /** The research's own words behind this condition, when there are any. */
   quote: string | null
+  /** For a passed date: the research's own tests to check by hand (its deal-breakers). Kept apart from `detail`
+   *  so the panel can fold them away; a message spells them out (monitor.ts toItem). */
+  checklist?: string[]
   source: string | null
   /** The price line involved, for re-arming after a 3% move away. */
   line: number | null
@@ -303,7 +306,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
 
   // ---- dates from the research ----
   const decisionDay = plan?.decision_date?.slice(0, 10) ?? null
-  const checklist = dealBreakers.slice(0, 4).map((d) => `• ${(d as { text: string }).text}`).join('\n')
+  const checklist = dealBreakers.slice(0, 4).map((d) => (d as { text: string }).text)
   for (const d of dates) {
     if (!d.date) continue
     const td = tradingDaysUntil(today, d.date)
@@ -328,7 +331,8 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
         id: `results_out:${d.id}`, type: 'results_out',
         // Any dated event — results, a vote, a deadline, a maturity — so the words name the date, not "results".
         title: `${d.label}: the ${estimated ? 'expected ' : ''}date has passed`,
-        detail: `${d.label} was ${when}, and no research has run since.${checklist ? ` The research's tests to check by hand:\n${checklist}` : ''}`,
+        detail: `${d.label} was ${when}, and no research has run since.`,
+        checklist: checklist.length ? checklist : undefined,
         quote: quoteOf(d), source: sourceLabel(d), line: null,
       })
     }

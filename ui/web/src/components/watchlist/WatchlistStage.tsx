@@ -3,10 +3,10 @@ import { useStore } from '../../lib/store'
 import { WatchDetail } from './WatchDetail'
 import { WatchInbox } from './WatchInbox'
 import { ABSENT_PRICE_COPY, livePriceLabel, money, shortDay } from '../../lib/format'
-import { NEEDS_YOU, STATUS_KEY, STATUS_LABEL, STATUS_MEANING, dateWords, rowStatus, sortRows, waitingText } from '../../lib/watchStatus'
+import { NEEDS_YOU, STATUS_KEY, STATUS_LABEL, STATUS_MEANING, dateParts, rowStatus, sortRows, waitingParts } from '../../lib/watchStatus'
 import type { WatchRow } from '../../lib/types'
 
-// The watchlist stage: one list, the most urgent names first, and the messages about them above it.
+// The watchlist stage: one table of names — the ones that need you first — and one panel for the name picked.
 //
 // Unlike the constellation and the globe it is not a rendering of one company's swarm — it is a
 // cross-company list. That is why App.tsx hides the company-scoped docks while it is showing: a document
@@ -14,7 +14,8 @@ import type { WatchRow } from '../../lib/types'
 // other names, would be worse than absent.
 //
 // Each row says, in one of seven words, where the name stands — and what it is waiting for, in the
-// research's own terms. Picking a row opens everything behind that word in the panel on the right.
+// research's own terms, under column labels that say what each value is. The table and the panel scroll on
+// their own, and the messages open from the header on demand, so the names always get the screen.
 export function WatchlistStage() {
   const read = useStore((s) => s.watchlist)
   const loading = useStore((s) => s.watchlistLoading)
@@ -40,6 +41,14 @@ export function WatchlistStage() {
       r.tags.some((t) => t.includes(needle))
     return sortRows(source.filter(hit))
   }, [source, q])
+  // The table's two groups: what needs you, then everything being watched quietly. Archived names are one group.
+  const groups = useMemo(() => {
+    if (showArchived) return rows.length ? [{ key: 'archived', label: 'Archived', rows }] : []
+    return [
+      { key: 'need', label: 'Needs you', rows: rows.filter((r) => NEEDS_YOU.has(rowStatus(r))) },
+      { key: 'rest', label: 'Watching', rows: rows.filter((r) => !NEEDS_YOU.has(rowStatus(r))) },
+    ].filter((g) => g.rows.length > 0)
+  }, [rows, showArchived])
   // The panel follows the picked name while it is on screen; otherwise it shows the most urgent one, so the
   // first thing on the screen is also the first thing explained.
   const selected = useMemo(() => rows.find((r) => r.listing_key === picked) ?? rows[0] ?? null, [rows, picked])
@@ -50,10 +59,16 @@ export function WatchlistStage() {
   return (
     <div className="wl">
       <div className="wl__head">
-        <div className="wl__title">{showArchived ? 'Archived' : 'Watchlist'}</div>
-        <div className="wl__count">
-          {source.length} {source.length === 1 ? 'name' : 'names'}
-          {!showArchived && needYou > 0 && <> · <b>{needYou} {needYou === 1 ? 'needs' : 'need'} you</b></>}
+        <div className="wl__titleblock">
+          <div className="wl__title">{showArchived ? 'Archived' : 'Watchlist'}</div>
+          {/* What is on the list — and, always on screen, where each half of it came from (CLAUDE.md §5). */}
+          <div className="wl__count">
+            {source.length} {source.length === 1 ? 'name' : 'names'}
+            {!showArchived && needYou > 0 && <> · <b>{needYou} {needYou === 1 ? 'needs' : 'need'} you</b></>}
+            {!showArchived && <> · {engineCount} from research · {mineCount} yours</>}
+            {read && !read.quotes_enabled && (staticMode ? <> · read-only snapshot, no live prices</> : <> · prices are off in this engine</>)}
+            {read?.unreadable.length ? <> · {read.unreadable.length} entr{read.unreadable.length === 1 ? 'y' : 'ies'} could not be read</> : null}
+          </div>
         </div>
         <span className="wl__spacer" />
         <input
@@ -63,6 +78,7 @@ export function WatchlistStage() {
           onChange={(e) => setQ(e.target.value)}
           aria-label="Search the watchlist"
         />
+        {!showArchived && <WatchInbox onPick={setPicked} />}
         <button className="btn btn--ghost" onClick={() => setShowArchived(!showArchived)}>
           {showArchived ? '← Watchlist' : `Archived (${read?.archived.length ?? 0})`}
         </button>
@@ -71,19 +87,6 @@ export function WatchlistStage() {
         </button>
         <button className="btn btn--amber" onClick={() => openComposer(null)} title="Add a name — including one the engine has never researched">+ Add</button>
       </div>
-
-      {/* Provenance, always on screen: where each half of the list came from (CLAUDE.md §5). */}
-      <div className="wl__sub">
-        {engineCount} from research · {mineCount} you added
-        {read && !read.quotes_enabled && (
-          staticMode
-            ? <> · read-only snapshot — no live prices, so nothing is checked</>
-            : <> · prices are off in this engine</>
-        )}
-        {read?.unreadable.length ? <> · {read.unreadable.length} entr{read.unreadable.length === 1 ? 'y' : 'ies'} could not be read</> : null}
-      </div>
-
-      {!showArchived && <WatchInbox onPick={setPicked} />}
 
       <div className="wl__list">
         {staticMode && !rows.length ? (
@@ -107,11 +110,28 @@ export function WatchlistStage() {
           </div>
         ) : (
           <div className="wlist">
-            <ul className="wlist__rows" aria-label="Watched names">
-              {rows.map((r) => (
-                <WatchListRow key={r.listing_key} row={r} selected={selected?.listing_key === r.listing_key} onSelect={setPicked} />
+            <div className="wlist__main">
+              {/* The column labels, kept in view while the names scroll under them. Each row's own text carries its
+                  labels too, so this row is for the eye only. */}
+              <div className="wlist__cols" aria-hidden="true">
+                <span>Status</span>
+                <span>Name</span>
+                <span className="wlist__num">Price</span>
+                <span>Waiting for</span>
+                <span className="wlist__col--date">Next date</span>
+                <span />
+              </div>
+              {groups.map((g) => (
+                <section key={g.key} className="wlist__group" aria-label={`${g.label}: ${g.rows.length}`}>
+                  <h3 className="wlist__grouphead">{g.label}<span>{g.rows.length}</span></h3>
+                  <ul className="wlist__rows">
+                    {g.rows.map((r) => (
+                      <WatchListRow key={r.listing_key} row={r} selected={selected?.listing_key === r.listing_key} onSelect={setPicked} />
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
+            </div>
             <WatchDetail row={selected} />
           </div>
         )}
@@ -120,18 +140,24 @@ export function WatchlistStage() {
   )
 }
 
-/** One name: its word, its price, what it is waiting for, and its next date. */
+/** One name as a table row: its word, the name, its price, what it waits for, and its next date. */
 function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: boolean; onSelect: (key: string) => void }) {
   const status = rowStatus(row)
-  const waiting = waitingText(row) ?? row.watch?.headline ?? (row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : ''))
+  const w = row.watch
+  const wait = waitingParts(row)
+    ?? (w?.headline ? { label: 'Now', value: w.headline } : null)
+    ?? (row.why ? { label: 'Why you’re watching', value: row.why } : null)
+    ?? (row.engine?.size_in_trigger ? { label: 'From the research', value: `“${row.engine.size_in_trigger}”` } : null)
   // "Review", never "look again": that phrase belongs to the look-again PRICE, and one word must mean one thing.
-  const date = dateWords(row.watch?.next_date) ?? (row.review_date ? `Review · ${shortDay(row.review_date)}` : null)
-  const move = row.watch?.day_move_pct
-  const unread = row.watch?.unread ?? 0
+  const date = dateParts(w?.next_date) ?? (row.review_date ? { label: 'Review', value: shortDay(row.review_date) } : null)
+  const move = w?.day_move_pct
+  const unread = w?.unread ?? 0
   return (
     <li>
       <button type="button" className={`wrow${selected ? ' is-sel' : ''}`} aria-pressed={selected} onClick={() => onSelect(row.listing_key)}>
-        <span className={`wst wst--${STATUS_KEY[status]}`} title={STATUS_MEANING[status]}>{STATUS_LABEL[status]}</span>
+        <span className="wrow__st">
+          <span className={`wst wst--${STATUS_KEY[status]}`} title={STATUS_MEANING[status]}>{STATUS_LABEL[status]}</span>
+        </span>
         <span className="wrow__who">
           <span className="wrow__sym">
             {row.ticker}
@@ -142,7 +168,7 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
         <span className="wrow__px">
           {row.quote ? (
             <>
-              {money(row.quote.currency, row.quote.price)}
+              <span className="wrow__pxval">{money(row.quote.currency, row.quote.price)}</span>
               <span className="wrow__meta">
                 {typeof move === 'number' ? `${move > 0 ? '+' : move < 0 ? '−' : ''}${Math.abs(move)}% today` : livePriceLabel(row.quote).toLowerCase()}
               </span>
@@ -151,12 +177,28 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
             <span className="wrow__none" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : 'No live price for this listing.'}>no price</span>
           )}
         </span>
-        <span className="wrow__wait" title={waiting || undefined}>{waiting || '—'}</span>
-        <span className="wrow__date">{date ?? ''}</span>
+        <Cell parts={wait} />
+        <Cell parts={date} className="wrow__cell--date" />
         {unread > 0
           ? <span className="wrow__dot" title={`${unread} unread ${unread === 1 ? 'message' : 'messages'}`} aria-label={`${unread} unread messages`} />
           : <span aria-hidden />}
       </button>
     </li>
+  )
+}
+
+/** A value with its quiet label above it — or a dash, so an empty cell reads as empty rather than as a gap. */
+function Cell({ parts, className = '' }: { parts: { label: string; value: string } | null; className?: string }) {
+  return (
+    <span className={`wrow__cell ${className}`.trim()}>
+      {parts ? (
+        <>
+          <span className="wrow__label">{parts.label}</span>
+          <span className="wrow__value" title={parts.value}>{parts.value}</span>
+        </>
+      ) : (
+        <span className="wrow__none">—</span>
+      )}
+    </span>
   )
 }

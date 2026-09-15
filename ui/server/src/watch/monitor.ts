@@ -117,8 +117,11 @@ const ABSENT_TEXT: Record<AbsentReason, string> = {
   feed_unavailable: 'The price feed could not be reached just now.',
 }
 
+// A message stands alone — in the cockpit and in an email — so a passed date's tests are spelled out in it.
 const toItem = (c: Condition, at: string): WatchMessageItem => ({
-  id: c.id, type: c.type, urgent: c.urgent, title: c.title, detail: c.detail, quote: c.quote, source: c.source, at,
+  id: c.id, type: c.type, urgent: c.urgent, title: c.title,
+  detail: c.checklist?.length ? `${c.detail} The research's tests to check by hand:\n${c.checklist.map((x) => `• ${x}`).join('\n')}` : c.detail,
+  quote: c.quote, source: c.source, at,
 })
 
 function durationText(ms: number): string {

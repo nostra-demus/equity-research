@@ -84,17 +84,26 @@ export function gapWords(gap: number | null | undefined): string | null {
   return gap < 0 ? `must fall ${a}%` : `${a}% under it`
 }
 
-/** What a name is waiting for, in one line: its nearest price, else what the research is waiting to see. */
-export function waitingText(row: WatchRow): string | null {
+/** What a name is waiting for, as a label and the value that answers it — its nearest price, else what the
+ *  research is waiting to see. The table shows the value, with its label quiet above it. */
+export function waitingParts(row: WatchRow): { label: string; value: string } | null {
   const w = row.watch
   if (!w) return null
   if (w.next_line) {
     const g = gapWords(w.next_line.gap_pct)
-    return `${w.next_line.label} ${w.next_line.text}${g ? ` · ${g}` : ''}`
+    return { label: w.next_line.label, value: `${w.next_line.text}${g ? ` · ${g}` : ''}` }
   }
-  for (const i of w.plan?.items ?? []) if (i.kind === 'waiting_for') return `Waiting for: ${i.text}`
-  if (BUY_CALLS.has(w.plan?.decision ?? '')) return 'Research says buy — only its warnings are watched'
+  for (const i of w.plan?.items ?? []) if (i.kind === 'waiting_for') return { label: 'Waiting to see', value: i.text }
+  if (BUY_CALLS.has(w.plan?.decision ?? '')) return { label: 'Research says buy', value: 'only its warnings are watched' }
   return null
+}
+
+/** The next date as a label and the value under it: "Q2 FY27 results" over "~21 Oct · in 36 days". A day the
+ *  research only estimates is marked, as the research wrote it ("~21-Oct-2026"). */
+export function dateParts(d: { label: string; date: string; days_to: number; estimated?: boolean } | null | undefined): { label: string; value: string } | null {
+  if (!d) return null
+  const when = d.days_to === 0 ? 'today' : d.days_to === 1 ? 'tomorrow' : `in ${d.days_to} days`
+  return { label: d.label, value: `${d.estimated === true ? '~' : ''}${shortDate(d.date)} · ${when}` }
 }
 
 /** Buy calls, as the server names them (watch/plan.ts BUY_NOW_DECISIONS): after one "buy now" message only
@@ -107,11 +116,10 @@ export function shortDate(iso: string): string {
   return new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' })
 }
 
+/** The next date in one line, for the detail panel: "Q2 FY27 results · ~21 Oct · in 36 days". */
 export function dateWords(d: { label: string; date: string; days_to: number; estimated?: boolean } | null | undefined): string | null {
-  if (!d) return null
-  const when = d.days_to === 0 ? 'today' : d.days_to === 1 ? 'tomorrow' : `in ${d.days_to} days`
-  // A day the research only estimates is marked, as the research wrote it ("~21-Oct-2026").
-  return `${d.label} · ${d.estimated ? '~' : ''}${shortDate(d.date)} · ${when}`
+  const p = dateParts(d)
+  return p ? `${p.label} · ${p.value}` : null
 }
 
 /** Where the name's watch plan stands, in words. */

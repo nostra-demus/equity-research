@@ -3,7 +3,8 @@
 // The list trades completeness for glanceability, and this panel is the other half of that trade — the word
 // and what is behind it, what the name is waiting for in the research's own words, the price and its
 // provenance, your own reason and triggers, and the actions. It shows ONE name, which is the honest shape: a
-// list that tried to show fifty of these is the old table again.
+// list that tried to show fifty of these is the old table again. It scrolls on its own and folds its long
+// parts, so it is never taller than the screen; the actions sit at the top, where they are reached unscrolled.
 import { useEffect, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
@@ -190,6 +191,65 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         <span className="wdet__headline">{w?.headline ?? STATUS_MEANING[status]}</span>
       </div>
 
+      {/* What you can do about it — at the top, reached without scrolling. */}
+      <div className="wdet__actions">
+        {isArchived ? (
+          <button className="btn btn--mini" disabled={pending} onClick={() => void restoreWatch(row.ticker, row.currency)}>
+            {pending ? '…' : 'Restore'}
+          </button>
+        ) : (
+          <>
+            {thesisHref && thesisIsMarkdown && thesisFilename
+              ? (
+                <button
+                  className="btn btn--mini"
+                  title="Your write-up"
+                  onClick={() => {
+                    void fetch(thesisHref)
+                      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
+                      .then((text) => openInlineDoc(thesisTitle, text))
+                      .catch(() => openInlineDoc(thesisTitle, '*Could not load this write-up.*'))
+                  }}
+                >
+                  Thesis
+                </button>
+              )
+              : thesisHref && thesisFilename
+              ? (
+                /* Opened IN the cockpit rather than navigated to: a top-level navigation to a PDF is what
+                   Chrome's "download PDFs instead of opening them" setting intercepts. */
+                <button className="btn btn--mini" title="Your write-up" onClick={() => openEmbeddedDoc(thesisTitle, thesisHref)}>Thesis</button>
+              )
+              : thesisPath
+                ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
+                : null}
+            <button className="btn btn--mini" onClick={edit}>Edit</button>
+            {/* Only where email is on: without it the button would pause nothing (the Messages panel says why). */}
+            {w && !staticMode && emailSetUp && (
+              <button
+                className="btn btn--mini"
+                onClick={() => void setEmailPaused(row.ticker, row.currency, !w.email_paused)}
+                title={w.email_paused
+                  ? 'Email urgent messages about this name again'
+                  : 'Stop emailing about this name. Its messages still arrive here.'}
+              >
+                {w.email_paused ? 'Resume email' : 'Pause email'}
+              </button>
+            )}
+            {/* Two-click confirm, and the wording restates the act rather than saying "confirm". */}
+            <button
+              className={`btn btn--mini${armed ? ' btn--armed' : ''}`}
+              disabled={pending}
+              onClick={() => { if (armed) { void archiveWatch(row.ticker, row.currency, ''); setArmed(false) } else setArmed(true) }}
+              onBlur={() => setArmed(false)}
+            >
+              {pending ? '…' : armed ? `Hide ${row.ticker}` : 'Archive'}
+            </button>
+          </>
+        )}
+      </div>
+      {w?.email_paused && <p className="wdet__runnote">Email is paused for {row.ticker}; its messages still arrive in the cockpit.</p>}
+
       {w && w.conditions.length > 0 && (
         <section className="wdet__sec">
           <h4 className="wdet__seclabel">{w.conditions.length === 1 ? 'What this means' : `What this means · ${w.conditions.length}`}</h4>
@@ -198,6 +258,14 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
               <li key={c.id} className="wdet__cond">
                 <b>{c.title}</b>
                 <div className="wdet__condtext">{c.detail}</div>
+                {/* A passed date's tests fold away: the same deal-breakers stand under every passed date, and the
+                    plan below lists them once. Open, they are the checklist to work through by hand. */}
+                {c.checklist && c.checklist.length > 0 && (
+                  <details className="wdet__tests">
+                    <summary>The research's tests to check by hand · {c.checklist.length}</summary>
+                    <ul>{c.checklist.map((x, n) => <li key={n}>{x}</li>)}</ul>
+                  </details>
+                )}
                 {c.quote && (
                   <blockquote className="wmsg__quote">
                     “{c.quote}”
@@ -278,7 +346,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         </div>
       </section>
 
-      {w && <WatchPlanSection row={row} />}
+      {w && <WatchPlanSection key={row.listing_key} row={row} />}
 
       <section className="wdet__sec">
         <h4 className="wdet__seclabel">Why you're watching</h4>
@@ -387,64 +455,6 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           )}
         </section>
       )}
-
-      <div className="wdet__actions">
-        {isArchived ? (
-          <button className="btn btn--mini" disabled={pending} onClick={() => void restoreWatch(row.ticker, row.currency)}>
-            {pending ? '…' : 'Restore'}
-          </button>
-        ) : (
-          <>
-            {thesisHref && thesisIsMarkdown && thesisFilename
-              ? (
-                <button
-                  className="btn btn--mini"
-                  title="Your write-up"
-                  onClick={() => {
-                    void fetch(thesisHref)
-                      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
-                      .then((text) => openInlineDoc(thesisTitle, text))
-                      .catch(() => openInlineDoc(thesisTitle, '*Could not load this write-up.*'))
-                  }}
-                >
-                  Thesis
-                </button>
-              )
-              : thesisHref && thesisFilename
-              ? (
-                /* Opened IN the cockpit rather than navigated to: a top-level navigation to a PDF is what
-                   Chrome's "download PDFs instead of opening them" setting intercepts. */
-                <button className="btn btn--mini" title="Your write-up" onClick={() => openEmbeddedDoc(thesisTitle, thesisHref)}>Thesis</button>
-              )
-              : thesisPath
-                ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
-                : null}
-            <button className="btn btn--mini" onClick={edit}>Edit</button>
-            {w && !staticMode && (
-              <button
-                className="btn btn--mini"
-                onClick={() => void setEmailPaused(row.ticker, row.currency, !w.email_paused)}
-                title={w.email_paused
-                  ? 'Email urgent messages about this name again'
-                  : 'Stop emailing about this name. Its messages still arrive here.'}
-              >
-                {w.email_paused ? 'Resume email' : 'Pause email'}
-              </button>
-            )}
-            {/* Two-click confirm, and the wording restates the act rather than saying "confirm". */}
-            <button
-              className={`btn btn--mini${armed ? ' btn--armed' : ''}`}
-              disabled={pending}
-              onClick={() => { if (armed) { void archiveWatch(row.ticker, row.currency, ''); setArmed(false) } else setArmed(true) }}
-              onBlur={() => setArmed(false)}
-            >
-              {pending ? '…' : armed ? `Hide ${row.ticker}` : 'Archive'}
-            </button>
-          </>
-        )}
-      </div>
-      {w?.email_paused && <p className="wdet__runnote">Email is paused for {row.ticker}; its messages still arrive in the cockpit.</p>}
-      {w && !emailSetUp && <p className="wdet__runnote">Urgent messages are not emailed yet — email is not set up on this engine.</p>}
     </aside>
   )
 }

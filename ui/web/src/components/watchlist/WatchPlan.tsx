@@ -2,7 +2,9 @@
 //
 // Every item shows where it came from: the research's own words (and the file they are in), or the field of
 // the decision record it was read from. Anything the reader found but did not keep is listed with the reason,
-// never hidden — a plan that silently dropped an item would look more certain than it is (§3).
+// never hidden — a plan that silently dropped an item would look more certain than it is (§3). The prices lead,
+// open; every other group folds behind its count, so the panel stays a panel rather than the whole report.
+import type { ReactNode } from 'react'
 import { ROLE_LABEL, planStateWords, priceItemText, shortDate } from '../../lib/watchStatus'
 import type { WatchPlanItem, WatchPlanSource, WatchRow } from '../../lib/types'
 
@@ -12,6 +14,15 @@ function Source({ src }: { src: WatchPlanSource }) {
       {src.quote && <q className="wplan__quote">{src.quote}</q>}
       <span className="wplan__src">{src.field ? `${src.file} · ${src.field}` : src.file}</span>
     </>
+  )
+}
+
+function Group({ label, count, children }: { label: string; count: number; children: ReactNode }) {
+  return (
+    <details className="wplan__group">
+      <summary className="wplan__grouphead">{label}<span className="wplan__count">{count}</span></summary>
+      <ul className="wplan__list">{children}</ul>
+    </details>
   )
 }
 
@@ -46,63 +57,51 @@ export function WatchPlanSection({ row }: { row: WatchRow }) {
       )}
 
       {dates.length > 0 && (
-        <div className="wplan__group">
-          <div className="wplan__grouphead">Dates</div>
-          <ul className="wplan__list">
-            {dates.map((i) => (
-              <li key={i.id} className="wplan__item">
-                <span className="wplan__line">
-                  <span className="wplan__text"><b>{i.label}</b></span>
-                  <span className="wplan__val">{i.window ?? (i.date ? `${i.estimated ? '~' : ''}${shortDate(i.date)}` : 'no exact day')}</span>
-                </span>
-                {i.what_to_check && <span className="wplan__text">Look for: {i.what_to_check}</span>}
-                <Source src={i.source} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Group label="Dates" count={dates.length}>
+          {dates.map((i) => (
+            <li key={i.id} className="wplan__item">
+              <span className="wplan__line">
+                <span className="wplan__text"><b>{i.label}</b></span>
+                <span className="wplan__val">{i.window ?? (i.date ? `${i.estimated ? '~' : ''}${shortDate(i.date)}` : 'no exact day')}</span>
+              </span>
+              {i.what_to_check && <span className="wplan__text">Look for: {i.what_to_check}</span>}
+              <Source src={i.source} />
+            </li>
+          ))}
+        </Group>
       )}
 
       {waits.length > 0 && (
-        <div className="wplan__group">
-          <div className="wplan__grouphead">Waiting to see</div>
-          <ul className="wplan__list">
-            {waits.map((i) => (
-              <li key={i.id} className="wplan__item">
-                <span className="wplan__text">{i.text}</span>
-                <Source src={i.source} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Group label="Waiting to see" count={waits.length}>
+          {waits.map((i) => (
+            <li key={i.id} className="wplan__item">
+              <span className="wplan__text">{i.text}</span>
+              <Source src={i.source} />
+            </li>
+          ))}
+        </Group>
       )}
 
       {deals.length > 0 && (
-        <div className="wplan__group">
-          <div className="wplan__grouphead">Deal-breakers</div>
-          <ul className="wplan__list">
-            {deals.map((i) => (
-              <li key={i.id} className="wplan__item">
-                <span className="wplan__text">{i.text}</span>
-                {i.check_where && <span className="wplan__src">Check in: {i.check_where}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Group label="Deal-breakers" count={deals.length}>
+          {deals.map((i) => (
+            <li key={i.id} className="wplan__item">
+              <span className="wplan__text">{i.text}</span>
+              {i.check_where && <span className="wplan__src">Check in: {i.check_where}</span>}
+            </li>
+          ))}
+        </Group>
       )}
 
       {news.length > 0 && (
-        <div className="wplan__group">
-          <div className="wplan__grouphead">News that would matter</div>
-          <ul className="wplan__list">
-            {news.map((i) => (
-              <li key={i.id} className="wplan__item">
-                <span className="wplan__text">{i.topic}</span>
-                <Source src={i.source} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Group label="News that would matter" count={news.length}>
+          {news.map((i) => (
+            <li key={i.id} className="wplan__item">
+              <span className="wplan__text">{i.topic}</span>
+              <Source src={i.source} />
+            </li>
+          ))}
+        </Group>
       )}
 
       {p.left_out.length > 0 && (

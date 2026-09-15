@@ -1,10 +1,11 @@
-// The watchlist's messages: one per name, newest first, unread on top.
+// The watchlist's messages, one per name, behind the header's Messages button.
 //
-// A message says what happened, why it matters in the research's own words, and what became of its email —
-// including why most messages are never emailed (only a crossed line is). Every message can be marked read,
-// deleted, or answered "was this right?": those answers, counted by message type on the server, are how the
-// thresholds get tuned.
-import { useEffect, useState } from 'react'
+// A message is read once; the list is looked at all day. So the messages open over the list on demand — the
+// button carries the unread count — instead of taking half the screen above it. Inside, a message says what
+// happened, why it matters in the research's own words, and what became of its email — including why most
+// messages are never emailed (only an urgent one is). Every message can be marked read, deleted, or answered
+// "was this right?": those answers, counted by message type on the server, are how the thresholds get tuned.
+import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { fmtAgo, fmtStampLocal } from '../../lib/format'
 import { STATUS_KEY, STATUS_LABEL, emailWords, messageStatus } from '../../lib/watchStatus'
@@ -16,8 +17,10 @@ export function WatchInbox({ onPick }: { onPick: (listingKey: string) => void })
   const load = useStore((s) => s.loadWatchMessages)
   const markAll = useStore((s) => s.markAllWatchMessagesRead)
   const staticMode = useStore((s) => s.staticMode)
+  const [open, setOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const anchor = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (staticMode) return
@@ -27,61 +30,84 @@ export function WatchInbox({ onPick }: { onPick: (listingKey: string) => void })
     return () => { live = false; clearInterval(id) }
   }, [load, staticMode])
 
-  // The showcase has no watcher, and an older engine keeps no messages: no inbox at all, rather than an
-  // empty one that implies nothing happened.
-  if (staticMode) return null
-  if (!loaded && !read && !error) {
-    return (
-      <section className="winbox" aria-busy="true" aria-label="Watchlist messages">
-        <div className="winbox__skel" />
-        <div className="winbox__skel" />
-      </section>
-    )
-  }
-  if (error && !read) {
-    return (
-      <section className="winbox" aria-label="Watchlist messages">
-        <div className="winbox__err">
-          Could not load watchlist messages ({error}).
-          <button className="btn btn--mini" onClick={() => void load()}>Try again</button>
-        </div>
-      </section>
-    )
-  }
-  if (!read) return null
+  // Closes on Escape or a press anywhere outside it — never on a press inside a message.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    const onDown = (e: PointerEvent) => { if (anchor.current && !anchor.current.contains(e.target as Node)) setOpen(false) }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onDown)
+    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown) }
+  }, [open])
 
-  const unread = read.messages.filter((m) => !m.read_at)
-  const shown = showAll ? read.messages : unread
-  const emailLine = read.email.enabled
-    ? `Urgent ones are emailed to ${read.email.addresses} ${read.email.addresses === 1 ? 'address' : 'addresses'}.`
-    : `Email is off: ${read.email.reason ?? 'not set up.'}`
+  // The showcase has no watcher, and an older engine keeps no messages: no button at all, rather than one that
+  // implies nothing happened.
+  if (staticMode || (loaded && !read && !error)) return null
+  const unread = read?.messages.filter((m) => !m.read_at) ?? []
+  const shown = showAll ? read?.messages ?? [] : unread
+  const pick = (key: string) => { setOpen(false); onPick(key) }
 
   return (
-    <section className="winbox" aria-label="Watchlist messages">
-      <div className="winbox__head">
-        <span className="winbox__title">Messages</span>
-        <span className="winbox__count">{unread.length ? `${unread.length} new` : 'nothing new'}</span>
-        <span className="winbox__email">{emailLine}</span>
-        <span className="wl__spacer" />
-        {unread.length > 1 && <button className="btn btn--mini" onClick={() => void markAll()}>Mark all read</button>}
-        {read.messages.length > unread.length && (
-          <button className="btn btn--mini btn--ghost" onClick={() => setShowAll(!showAll)}>
-            {showAll ? 'Only new' : `Show all (${read.messages.length})`}
-          </button>
-        )}
-      </div>
-      {shown.length ? (
-        <ol className="winbox__list">
-          {shown.map((m) => <MessageCard key={m.id} m={m} onPick={onPick} />)}
-        </ol>
-      ) : (
-        <div className="winbox__empty">
-          {read.messages.length
-            ? 'Everything is read. A message arrives here when something on the list changes.'
-            : 'No messages yet. One arrives here when something on the list changes; urgent ones are emailed too.'}
-        </div>
+    <div className="wl__inbox" ref={anchor}>
+      <button
+        type="button"
+        className={`btn btn--mini btn--ghost wl__msgbtn${open ? ' is-open' : ''}`}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-label={unread.length ? `Messages, ${unread.length} new` : 'Messages'}
+        onClick={() => setOpen((o) => !o)}
+      >
+        Messages
+        {unread.length > 0 && <span className="wl__msgcount">{unread.length}</span>}
+      </button>
+      {open && (
+        <section className="winbox" role="dialog" aria-label="Watchlist messages" aria-busy={!read && !error}>
+          {!read ? (
+            error ? (
+              <div className="winbox__err">
+                Could not load watchlist messages ({error}).
+                <button className="btn btn--mini" onClick={() => void load()}>Try again</button>
+              </div>
+            ) : (
+              <>
+                <div className="winbox__skel" />
+                <div className="winbox__skel" />
+              </>
+            )
+          ) : (
+            <>
+              <div className="winbox__head">
+                <span className="winbox__title">Messages</span>
+                <span className="winbox__count">{unread.length ? `${unread.length} new` : 'nothing new'}</span>
+                <span className="wl__spacer" />
+                {unread.length > 1 && <button className="btn btn--mini" onClick={() => void markAll()}>Mark all read</button>}
+                {read.messages.length > unread.length && (
+                  <button className="btn btn--mini btn--ghost" onClick={() => setShowAll(!showAll)}>
+                    {showAll ? 'Only new' : `Show all (${read.messages.length})`}
+                  </button>
+                )}
+              </div>
+              <div className="winbox__email">
+                {read.email.enabled
+                  ? `Urgent ones are emailed to ${read.email.addresses} ${read.email.addresses === 1 ? 'address' : 'addresses'}.`
+                  : read.email.reason ?? 'Email is off.'}
+              </div>
+              {shown.length ? (
+                <ol className="winbox__list">
+                  {shown.map((m) => <MessageCard key={m.id} m={m} onPick={pick} />)}
+                </ol>
+              ) : (
+                <div className="winbox__empty">
+                  {read.messages.length
+                    ? 'Everything is read. A message arrives here when something on the list changes.'
+                    : 'No messages yet. One arrives here when something on the list changes; urgent ones are emailed too.'}
+                </div>
+              )}
+            </>
+          )}
+        </section>
       )}
-    </section>
+    </div>
   )
 }
 
