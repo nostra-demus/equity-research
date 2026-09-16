@@ -1257,5 +1257,34 @@ check('a broker that DOES report a currency balance as a position is not a break
   assert.equal(b.positions.length, book.positions.length)
 })
 
+check('an FX-only period is not reported as missing trade data', () => {
+  // A period where the ONLY realised activity is a conversion correctly leaves brokerRows and closures
+  // empty — a conversion books no closure, and is excluded from brokerRows on purpose (see above). That
+  // used to fall straight into the "no trade rows were imported" branch even though the conversion WAS
+  // imported and fully accounts for the statement's own realised total.
+  const fxOnlyDoc = {
+    ...doc,
+    trades: [fxBuy, { ...fxSell, fifoPnlRealized: 20786.5 }],
+    changeInNav: { ...doc.changeInNav!, realized: 20786.5 },
+  }
+  const fxOnly = buildBook([fxOnlyDoc])
+  const realised = fxOnly.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realised, undefined,
+    'nothing is left to compare once the conversion explains the whole realised total — not a false break')
+
+  // The same FX activity must read the same way whether or not something unrelated also traded that
+  // period — the inconsistency codex flagged: an unrelated non-CASH row used to bypass the false-alarm
+  // branch entirely, so an otherwise-identical period reconciled differently depending on it.
+  const withOther = buildBook([{ ...fxOnlyDoc, trades: [...fxOnlyDoc.trades, buyXsp] }])
+  const realisedWithOther = withOther.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realisedWithOther?.ok ?? true, true, 'an unrelated open trade must not surface the same break')
+
+  // A period that is genuinely missing its trade detail — no conversion, no other row — must still be
+  // caught: this fix narrows the false alarm, it does not remove the check.
+  const noTrades = buildBook([{ ...doc, trades: [], openPositions: [] }])
+  const stillCaught = noTrades.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.equal(stillCaught.ok, false, 'a real gap — no trades at all, conversion or otherwise — still fails')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

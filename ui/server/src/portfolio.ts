@@ -1331,7 +1331,20 @@ export function reconcile(ctx: {
   const caRows = corporateActions.filter((c) => c.fifoPnlRealized !== null && c.fifoPnlRealized !== 0)
   const caRate = (c: FlexCorporateAction) =>
     c.fxRateToBase ?? fx(c.currency, (c.dateTime ?? c.reportDate)?.slice(0, 10) ?? null)
-  if (brokerRows.length === 0 && closures.length === 0 && latestNav?.realized != null && latestNav.realized !== 0) {
+  // A period whose ONLY realised activity is a currency conversion correctly leaves both brokerRows and
+  // closures empty — a conversion books no closure (see runFifo) and is excluded from brokerRows just
+  // above, on purpose. That is not evidence trade data went unimported; it is the fix working. Without
+  // this, the same FX activity reconciled differently depending on whether an unrelated instrument also
+  // traded that period: one non-CASH opening row bypassed the "no trade rows" branch below entirely,
+  // while an FX-only period fell straight into it. Check the RAW executions (before the CASH filter) for
+  // conversion rows whose own realised amount already accounts for the statement's realised total.
+  const conversionRows = executions.filter((t) => isCurrencyConversion(t.assetCategory) && t.fifoPnlRealized !== null)
+  const conversionRealised = conversionRows.reduce((a, t) => a + realisedBase(t), 0)
+  const fxOnlyRealised = conversionRows.length > 0 && latestNav?.realized != null &&
+    Number.isFinite(conversionRealised) &&
+    Math.abs(conversionRealised - latestNav.realized) <= Math.max(1, Math.abs(latestNav.realized) * 0.001)
+  if (brokerRows.length === 0 && closures.length === 0 && latestNav?.realized != null && latestNav.realized !== 0
+    && !fxOnlyRealised) {
     // The statement says money was realised and no trade detail was imported to reconstruct it. Skipping
     // the check here certified a book whose entire closed-trade history could be missing.
     add({ name: 'Realised P&L', ours: null, broker: latestNav.realized, break: null, tolerance: 0, ok: false,
