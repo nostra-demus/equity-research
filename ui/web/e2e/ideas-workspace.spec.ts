@@ -22,23 +22,26 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
   let failRead = false
   let failWrite = false
   let malformed = false
+  let stalledPages = false
   await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
-  await context.route('**/api/screener/idea-workspace?*', (route) => {
+  await context.route('**/api/screener/idea-workspace?*', async (route) => {
     if (failRead) return route.fulfill({ status: 503, json: { error: 'Fixture temporarily unavailable' } })
     if (malformed) return route.fulfill({ json: { schema_version: 'ideas-workspace/v1', rows: [{ payload: { reason: {} } }] } })
     const q = new URL(route.request().url()).searchParams
-    return route.fulfill({ json: discoveryPage(projectDiscovery(cards, readFilingActions(root)), q.get('lane') as IdeaLane,
-      (q.get('hide') || '').split(','), q.get('kind') || 'all', Number(q.get('cursor') || 0)) })
+    const result = discoveryPage(projectDiscovery(cards, await readFilingActions(root)), q.get('lane') as IdeaLane,
+      (q.get('hide') || '').split(','), q.get('kind') || 'all', Number(q.get('cursor') || 0))
+    if (stalledPages) result.next_cursor = '30'
+    return route.fulfill({ json: result })
   })
-  await context.route('**/api/screener/idea-workspace/actions', (route) => {
+  await context.route('**/api/screener/idea-workspace/actions', async (route) => {
     if (failWrite) return route.fulfill({ status: 503, json: { error: 'Fixture cannot save archive' } })
-    return route.fulfill({ json: { card: fileDiscoveryCard(root, cards, route.request().postDataJSON()) } })
+    return route.fulfill({ json: { card: await fileDiscoveryCard(root, cards, route.request().postDataJSON()) } })
   })
-  await context.route('**/api/screener/ideas/IDEA-USCO/feedback', (route) => {
+  await context.route('**/api/screener/ideas/IDEA-USCO/feedback', async (route) => {
     cards.find((c) => c.payload.ticker === 'USCO')!.payload.feedback = route.request().postDataJSON().polarity === 'up' ? 'up' : null
     return route.fulfill({ json: { ok: true } })
   })
-  await context.route('**/api/e2e/promote-idea', (route) => {
+  await context.route('**/api/e2e/promote-idea', async (route) => {
     cards.find((c) => c.payload.ticker === 'USCO')!.payload.status = 'promoted'
     return route.fulfill({ json: { ok: true } })
   })
@@ -116,6 +119,13 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await expect(page.getByRole('alert')).toBeVisible()
     await expect(page.getByText('USCO contract announcement')).toBeVisible()
     malformed = false
+    await page.getByRole('button', { name: 'Retry', exact: true }).click()
+    await expect(page.getByRole('alert')).toHaveCount(0)
+    stalledPages = true
+    await page.clock.fastForward(30_100)
+    await expect(page.getByRole('alert')).toBeVisible()
+    await expect(page.getByText('USCO contract announcement')).toBeVisible()
+    stalledPages = false
     await page.getByRole('button', { name: 'Retry', exact: true }).click()
     await expect(page.getByRole('alert')).toHaveCount(0)
     await page.getByRole('tab', { name: 'Long', exact: true }).focus()

@@ -94,7 +94,7 @@ const RESCUE_SHADOW_CONFIG: RescueShadowConfig = {
  * feature the cockpit-hosted scheduler happens to run. */
 export async function runConfiguredIdeaPass(log: (m: string) => void = () => {}) {
   // Preserve user-filed stories as the existing scanner advances, even when the stock skim is disabled.
-  try { if (refreshFiledDiscovery(REPO_ROOT, () => readDiscoveryCatalog(REPO_ROOT, NEWS.newsArchiveDir).cards)) markIdeasPublicationPending(STATE_DIR) }
+  try { if (await refreshFiledDiscovery(REPO_ROOT, () => readDiscoveryCatalog(REPO_ROOT, NEWS.newsArchiveDir).cards)) markIdeasPublicationPending(STATE_DIR) }
   catch (error) { log(`Idea archive update failed: ${error instanceof Error ? error.message : String(error)}`) }
   // Publication recovery is independent of provider availability. Retry old local Ideas dirt before an
   // enabled/health early return so disabling the skim cannot strand already-produced canonical data.

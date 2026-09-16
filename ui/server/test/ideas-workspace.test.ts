@@ -8,6 +8,7 @@ import { buildDiscoveryEvents, discoveryIdea, discoveryListing, discoveryPage, f
   projectDiscovery, readFilingActions, refreshFiledDiscovery, registerIdeasWorkspace } from '../src/news/ideas/ideas-workspace'
 import type { FeedItem } from '../src/news/types'
 import type { Theme } from '../src/news/themes/types'
+import { acquireRetainedFlock, releaseRetainedFlock } from '../src/singleton-lock'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-workspace-'))
 const now = Date.now()
@@ -50,25 +51,30 @@ try {
 
   const card = idea()
   const op = randomUUID()
-  const archived = fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })
+  const lock = await acquireRetainedFlock(path.join(root, 'screener/ledger/idea-workspace-actions.ndjson.lock'), { waitMs: 100, busyMessage: 'test busy' })
+  let timerRan = false
+  setTimeout(() => { timerRan = true; releaseRetainedFlock(lock) }, 40)
+  const archived = await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })
+  assert.equal(timerRan, true, 'waiting for an archive lock leaves the event loop free to release it')
   assert.equal(archived.archive_reason, 'manual')
-  fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })
-  assert.equal(readFilingActions(root).length, 1, 'retry is idempotent')
-  assert.equal(discoveryPage(projectDiscovery([card], readFilingActions(root)), 'long', [], 'all', 0).total, 0)
-  assert.throws(() => fileDiscoveryCard(root, [card], { key: card.key, action: 'restore', operation_id: randomUUID(), expected_revision: null }), /another window/)
+  await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })
+  await Promise.all(Array.from({ length: 3 }, () => fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })))
+  assert.equal((await readFilingActions(root)).length, 1, 'retry is idempotent')
+  assert.equal(discoveryPage(projectDiscovery([card], await readFilingActions(root)), 'long', [], 'all', 0).total, 0)
+  await assert.rejects(async () => await fileDiscoveryCard(root, [card], { key: card.key, action: 'restore', operation_id: randomUUID(), expected_revision: null }), /another window/)
 
   const update = idea({ updated_at: at(10_000), reason: 'Contract expanded', source_event_ids: ['EVT-contract', 'EVT-expansion'] })
-  assert.equal(refreshFiledDiscovery(root, [update]), 1, 'new evidence is durably appended')
-  assert.equal(refreshFiledDiscovery(root, [update]), 0, 'unchanged refresh adds no ledger row')
-  const fromDisk = projectDiscovery([], readFilingActions(root))
+  assert.equal(await refreshFiledDiscovery(root, [update]), 1, 'new evidence is durably appended')
+  assert.equal(await refreshFiledDiscovery(root, [update]), 0, 'unchanged refresh adds no ledger row')
+  const fromDisk = projectDiscovery([], await readFilingActions(root))
   assert.equal(fromDisk[0].payload.reason, 'Contract expanded', 'latest copy survives source eviction and restart')
   assert.equal(fromDisk[0].archive_reason, 'manual')
   assert.equal(fromDisk[0].payload.promotion_available, false, 'evicted source is view-only')
-  assert.equal(projectDiscovery([idea({ source_event_ids: ['EVT-unrelated'] })], readFilingActions(root)).length, 2, 'new thesis about same stock is not suppressed')
-  const restored = fileDiscoveryCard(root, [update], { key: archived.key, action: 'restore', operation_id: randomUUID(), expected_revision: op })
+  assert.equal(projectDiscovery([idea({ source_event_ids: ['EVT-unrelated'] })], await readFilingActions(root)).length, 2, 'new thesis about same stock is not suppressed')
+  const restored = await fileDiscoveryCard(root, [update], { key: archived.key, action: 'restore', operation_id: randomUUID(), expected_revision: op })
   assert.equal(restored.archive_reason, null)
-  assert.equal(discoveryPage(projectDiscovery([], readFilingActions(root), now + 2 * 86_400_000), 'long', [], 'all', 0).total, 0, 'time expiry applies to restored copies without live sources')
-  assert.equal(projectDiscovery([], readFilingActions(root), now + 2 * 86_400_000)[0].archive_reason, 'expired')
+  assert.equal(discoveryPage(projectDiscovery([], await readFilingActions(root), now + 2 * 86_400_000), 'long', [], 'all', 0).total, 0, 'time expiry applies to restored copies without live sources')
+  assert.equal(projectDiscovery([], await readFilingActions(root), now + 2 * 86_400_000)[0].archive_reason, 'expired')
 
   const single = buildDiscoveryEvents([], [a], now)
   assert.equal(single.length, 1, 'important ticker-free report is visible')
@@ -90,28 +96,28 @@ try {
   // Two separately filed reports can later become one story; the last explicit user decision wins.
   const e1 = single[0]
   const e2 = buildDiscoveryEvents([], [report('EVT-separate')], now)[0]
-  const saved1 = fileDiscoveryCard(root, [e1, e2], { key: e1.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
-  fileDiscoveryCard(root, [e1, e2], { key: e2.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
-  fileDiscoveryCard(root, [e1, e2], { key: saved1.key, action: 'restore', operation_id: randomUUID(), expected_revision: saved1.action_revision })
+  const saved1 = await fileDiscoveryCard(root, [e1, e2], { key: e1.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  await fileDiscoveryCard(root, [e1, e2], { key: e2.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  await fileDiscoveryCard(root, [e1, e2], { key: saved1.key, action: 'restore', operation_id: randomUUID(), expected_revision: saved1.action_revision })
   const combined = { ...e1, aliases: [...e1.aliases, ...e2.aliases] }
-  const eventRows = projectDiscovery([combined], readFilingActions(root)).filter((c) => c.kind === 'event')
+  const eventRows = projectDiscovery([combined], await readFilingActions(root)).filter((c) => c.kind === 'event')
   assert.equal(eventRows.length, 1, 'coalesces every previously filed identity')
   assert.equal(eventRows[0].archive_reason, null, 'latest explicit restore applies to the merged story')
   const mergedRequest = { key: e2.key, action: 'archive' as const, operation_id: randomUUID(), expected_revision: eventRows[0].action_revision }
-  const mergedSaved = fileDiscoveryCard(root, [combined], mergedRequest)
-  assert.equal(fileDiscoveryCard(root, [combined], mergedRequest).action_revision, mergedSaved.action_revision, 'retry through an old merged key is idempotent')
+  const mergedSaved = await fileDiscoveryCard(root, [combined], mergedRequest)
+  assert.equal((await fileDiscoveryCard(root, [combined], mergedRequest)).action_revision, mergedSaved.action_revision, 'retry through an old merged key is idempotent')
 
   const unresolved = idea({ ticker: 'VENUE', exchange: null, source_event_ids: ['EVT-venue'] })
-  fileDiscoveryCard(root, [unresolved], { key: unresolved.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  await fileDiscoveryCard(root, [unresolved], { key: unresolved.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
   const resolved = idea({ ticker: 'VENUE', exchange: 'NYSE', source_event_ids: ['EVT-venue'] })
-  const venueRows = projectDiscovery([resolved], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE')
+  const venueRows = projectDiscovery([resolved], await readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE')
   assert.equal(venueRows.length, 1, 'listing resolution retains logical story identity')
   assert.equal(venueRows[0].archive_reason, 'manual')
   assert.equal(venueRows[0].listings.long, 'US')
   const otherVenue = idea({ ticker: 'VENUE', exchange: 'HKEX', source_event_ids: ['EVT-venue'] })
-  assert.equal(projectDiscovery([resolved, otherVenue], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 3, 'ambiguous unknown venue cannot bridge two confirmed listings')
-  refreshFiledDiscovery(root, [resolved])
-  assert.equal(projectDiscovery([resolved, otherVenue], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 2, 'a resolved archive still keeps another confirmed listing separate')
+  assert.equal(projectDiscovery([resolved, otherVenue], await readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 3, 'ambiguous unknown venue cannot bridge two confirmed listings')
+  await refreshFiledDiscovery(root, [resolved])
+  assert.equal(projectDiscovery([resolved, otherVenue], await readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 2, 'a resolved archive still keeps another confirmed listing separate')
 
   const many = Array.from({ length: 65 }, (_, i) => ({ ...e1, key: `event-${String(i).padStart(24, '0')}`, aliases: [`story:${i}`] }))
   const first = discoveryPage(many, 'events', [], 'all', 0)
@@ -131,7 +137,7 @@ try {
   const ledger = path.join(root, 'screener/ledger/idea-workspace-actions.ndjson')
   fs.appendFileSync(ledger, '{broken}\n')
   const bytes = fs.readFileSync(ledger, 'utf8')
-  assert.throws(() => fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: randomUUID(), expected_revision: null }))
+  await assert.rejects(async () => await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: randomUUID(), expected_revision: null }))
   assert.equal(fs.readFileSync(ledger, 'utf8'), bytes)
   console.log('ideas workspace: listing, archive lifecycle, story correction, identity merge and API tests passed')
 } finally { fs.rmSync(root, { recursive: true, force: true }) }

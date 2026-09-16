@@ -67,9 +67,13 @@ export function IdeasWorkspace() {
     try {
       let next = await api.ideasWorkspace(lane, hideKey, kind, '0', refresh)
       const rows = [...next.rows]
+      const cursors = new Set<string>(['0'])
       while (next.next_cursor && rows.length < count.current) {
+        if (cursors.has(next.next_cursor)) throw new Error('The next page did not advance. Please retry.')
+        cursors.add(next.next_cursor)
         next = await api.ideasWorkspace(lane, hideKey, kind, next.next_cursor)
         if (seq !== sequence.current || !mounted.current) return
+        if (!next.rows.length && next.next_cursor) throw new Error('The next page was empty. Please retry.')
         rows.push(...next.rows)
       }
       if (seq !== sequence.current || !mounted.current) return

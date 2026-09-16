@@ -18,7 +18,7 @@ import type { Theme } from '../themes/types'
 import { themeStoryFamilyKey } from '../themes/story-key'
 import { projectLiveIdeas } from './ideas-projection'
 import { buildSupplyChainBoard } from '../../supply-chain'
-import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
+import { acquireRetainedFlock, releaseRetainedFlock } from '../../singleton-lock'
 
 const hash = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 24)
 const iso = (s: unknown) => typeof s === 'string' && Number.isFinite(Date.parse(s)) ? new Date(s).toISOString() : ''
@@ -142,9 +142,9 @@ interface FilingAction {
   card: DiscoveryCard
 }
 
-export function readFilingActions(root: string): FilingAction[] {
+export async function readFilingActions(root: string): Promise<FilingAction[]> {
   let text: string
-  try { text = fs.readFileSync(ledgerPath(root), 'utf8') } catch (e: any) { if (e.code === 'ENOENT') return []; throw e }
+  try { text = await fs.promises.readFile(ledgerPath(root), 'utf8') } catch (e: any) { if (e.code === 'ENOENT') return []; throw e }
   return text.split('\n').filter(Boolean).map((line) => {
     const row = JSON.parse(line) as FilingAction
     if (row.schema_version !== 'idea-filing/v1' || !['archive', 'restore', 'update'].includes(row.action)
@@ -236,25 +236,25 @@ export function projectDiscovery(cards: DiscoveryCard[], actions: FilingAction[]
   return merged
 }
 
-function appendAction(root: string, action: FilingAction): void {
+async function appendAction(root: string, action: FilingAction): Promise<void> {
   const fp = ledgerPath(root)
-  const fd = fs.openSync(fp, 'a', 0o600)
-  try { fs.writeSync(fd, `${JSON.stringify(action)}\n`); fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+  const fd = await fs.promises.open(fp, 'a', 0o600)
+  try { await fd.writeFile(`${JSON.stringify(action)}\n`); await fd.sync() } finally { await fd.close() }
   if (process.platform !== 'win32') {
-    const dir = fs.openSync(path.dirname(fp), 'r')
-    try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    const dir = await fs.promises.open(path.dirname(fp), 'r')
+    try { await dir.sync() } finally { await dir.close() }
   }
 }
 
-function locked<T>(root: string, fn: () => T): T {
-  fs.mkdirSync(path.dirname(ledgerPath(root)), { recursive: true })
-  const fd = acquireRetainedFlockSync(`${ledgerPath(root)}.lock`, { waitMs: 2000, pollMs: 10, busyMessage: 'Idea archive is busy. Please retry.' })
-  try { return fn() } finally { releaseRetainedFlock(fd) }
+async function locked<T>(root: string, fn: () => Promise<T>, mode: 'exclusive' | 'shared' = 'exclusive'): Promise<T> {
+  await fs.promises.mkdir(path.dirname(ledgerPath(root)), { recursive: true })
+  const fd = await acquireRetainedFlock(`${ledgerPath(root)}.lock`, { waitMs: 2000, pollMs: 10, mode, busyMessage: 'Idea archive is busy. Please retry.' })
+  try { return await fn() } finally { releaseRetainedFlock(fd) }
 }
 
-export function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request: { key: string; action: 'archive' | 'restore'; operation_id: string; expected_revision: string | null }): DiscoveryCard {
-  return locked(root, () => {
-    const actions = readFilingActions(root)
+export async function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request: { key: string; action: 'archive' | 'restore'; operation_id: string; expected_revision: string | null }): Promise<DiscoveryCard> {
+  return locked(root, async () => {
+    const actions = await readFilingActions(root)
     const prior = actions.find((a) => a.operation_id === request.operation_id)
     if (prior) {
       if ((prior.request_key || prior.card.key) !== request.key || prior.action !== request.action) throw Object.assign(new Error('Filing request ID was already used.'), { statusCode: 409 })
@@ -268,23 +268,23 @@ export function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request:
     const card = { ...current, action_revision: request.operation_id,
       archived_at: request.action === 'archive' ? at : current.expired ? iso(current.payload.decay_at) || at : null,
       archive_reason: request.action === 'archive' ? 'manual' as const : current.expired ? 'expired' as const : null }
-    appendAction(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, request_key: request.key, action: request.action, at, card })
+    await appendAction(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, request_key: request.key, action: request.action, at, card })
     return card
   })
 }
 
 /** Called by the existing scan lifecycle, not by GET: pin new evidence before rolling stores evict it. */
-export function refreshFiledDiscovery(root: string, source: DiscoveryCard[] | (() => DiscoveryCard[])): number {
+export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[] | (() => DiscoveryCard[])): Promise<number> {
   if (!fs.existsSync(ledgerPath(root))) return 0
-  return locked(root, () => {
-    const actions = readFilingActions(root)
+  return locked(root, async () => {
+    const actions = await readFilingActions(root)
     const before = [...new Map(actions.map((action) => [action.card.key, action.card])).values()]
     const after = projectDiscovery(typeof source === 'function' ? source() : source, actions)
     let written = 0
     for (const next of after) {
       const prior = before.find((c) => c.key === next.key)
       if (!prior || JSON.stringify(next) === JSON.stringify(prior)) continue
-      appendAction(root, { schema_version: 'idea-filing/v1', operation_id: `update-${hash(JSON.stringify(next))}`, action: 'update', at: new Date().toISOString(), card: next })
+      await appendAction(root, { schema_version: 'idea-filing/v1', operation_id: `update-${hash(JSON.stringify(next))}`, action: 'update', at: new Date().toISOString(), card: next })
       written++
     }
     return written
@@ -323,14 +323,15 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     if (parsed.data.refresh === '1') cached = null
     const { cards, notices } = catalog()
     const { lane, hide, kind, cursor } = parsed.data
-    return discoveryPage(projectDiscovery(cards, readFilingActions(root)), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor, notices)
+    const actions = await locked(root, () => readFilingActions(root), 'shared')
+    return discoveryPage(projectDiscovery(cards, actions), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor, notices)
   })
   app.post('/api/screener/idea-workspace/actions', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     const parsed = mutation.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid filing action.' })
     const { cards } = catalog()
     onMutation()
-    const card = fileDiscoveryCard(root, cards, parsed.data)
+    const card = await fileDiscoveryCard(root, cards, parsed.data)
     return { card }
   })
 }

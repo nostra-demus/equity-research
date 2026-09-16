@@ -157,11 +157,11 @@ const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l
     ['Anchor Corp', 'Anchor Procurement Co., Ltd.', 'Packrite Holdings'],
   )
   const filed = readDiscoveryCatalog(dir).cards.find((c) => c.payload.name === 'Widget Motors')!
-  fileDiscoveryCard(dir, [filed], { key: filed.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  await fileDiscoveryCard(dir, [filed], { key: filed.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
   const originalClock = Date.now
   try {
     Date.now = () => originalClock() + 60_000
-    assert.equal(refreshFiledDiscovery(dir, readDiscoveryCatalog(dir).cards), 0, 'a new board generation clock does not append unchanged chain snapshots')
+    assert.equal(await refreshFiledDiscovery(dir, readDiscoveryCatalog(dir).cards), 0, 'a new board generation clock does not append unchanged chain snapshots')
   } finally { Date.now = originalClock }
 }
 
