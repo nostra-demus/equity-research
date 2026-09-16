@@ -1,4 +1,6 @@
 import { isDiscoveryCard } from '../../../../shared/ideas-workspace'
+import { isMainThread } from 'node:worker_threads'
+import { runDiscoveryInWorker } from './ideas-worker'
 import { projectDiscovery, discoveryPage } from '../../../../shared/discovery-projection'
 export { projectDiscovery, discoveryPage } from '../../../../shared/discovery-projection'
 import { discoveryIdea, shell } from './ideas-identity'
@@ -150,6 +152,7 @@ async function locked<T>(root: string, fn: () => Promise<T>, mode: 'exclusive' |
 }
 
 export async function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request: { key: string; action: 'archive' | 'restore'; operation_id: string; expected_revision: string | null }): Promise<DiscoveryCard> {
+  if (isMainThread) return runDiscoveryInWorker('fileDiscoveryCard', [root, cards, request])
   return locked(root, async () => {
     const actions = await readFilingActions(root)
     const prior = actions.find((a) => a.operation_id === request.operation_id)
@@ -173,6 +176,7 @@ export async function fileDiscoveryCard(root: string, cards: DiscoveryCard[], re
 /** Called by the existing scan lifecycle, not by GET: pin new evidence before rolling stores evict it. */
 export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[] | (() => DiscoveryCard[])): Promise<number> {
   if (!fs.existsSync(ledgerPath(root))) return 0
+  if (isMainThread) return runDiscoveryInWorker('refreshFiledDiscovery', [root, typeof source === 'function' ? source() : source])
   return locked(root, async () => {
     const actions = await readFilingActions(root)
     const before = [...new Map(actions.map((action) => [action.card.key, action.card])).values()]
@@ -188,6 +192,11 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
   })
 }
 
+
+export async function readFilingActionsSafely(root: string): Promise<FilingAction[]> {
+  if (isMainThread) return runDiscoveryInWorker('readFilingActionsSafely', [root])
+  return locked(root, () => readFilingActions(root), 'shared')
+}
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
   let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null
@@ -206,7 +215,7 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     if (parsed.data.refresh === '1') cached = null
     const { cards, notices } = catalog()
     const { lane, hide, kind, cursor } = parsed.data
-    const actions = await locked(root, () => readFilingActions(root), 'shared')
+    const actions = await readFilingActionsSafely(root)
     return discoveryPage(projectDiscovery(cards, actions), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor, notices)
   })
   app.post('/api/screener/idea-workspace/actions', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {

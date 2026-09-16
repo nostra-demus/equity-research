@@ -3,14 +3,14 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
-import { execFileSync } from 'node:child_process'
-import { repositoryMutationLockPath } from '../src/news/ideas/ideas-store'
+import { execFileSync, spawn } from 'node:child_process'
+import { repositoryMutationLockPath, writeIdea, type SurfacedIdea } from '../src/news/ideas/ideas-store'
 import Fastify from 'fastify'
 import { buildDiscoveryEvents, discoveryIdea, discoveryListing, discoveryPage, fileDiscoveryCard,
   projectDiscovery, readFilingActions, refreshFiledDiscovery, registerIdeasWorkspace } from '../src/news/ideas/ideas-workspace'
 import type { FeedItem } from '../src/news/types'
 import type { Theme } from '../src/news/themes/types'
-import { acquireRetainedFlock, releaseRetainedFlock } from '../src/singleton-lock'
+import { acquireRetainedFlock, acquireRetainedFlockSync, releaseRetainedFlock } from '../src/singleton-lock'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-workspace-'))
 const now = Date.now()
@@ -141,6 +141,22 @@ try {
   assert.equal((await app.inject('/api/screener/idea-workspace?cursor=-1')).statusCode, 400)
   assert.equal((await app.inject({ method: 'POST', url: '/api/screener/idea-workspace/actions', payload: { key: '../../outside', action: 'archive' } })).statusCode, 400)
   await app.close()
+
+  // A legacy synchronous snapshot writer must not strand an asynchronous archive transaction on the
+  // same event loop. Hold its journal externally long enough to observe the archive's repository lease.
+  const journalLease = spawn('python3', ['-c', 'import fcntl,sys,time; f=open(sys.argv[1],"a"); fcntl.flock(f,fcntl.LOCK_EX); print("locked",flush=True); time.sleep(0.6)', path.join(root, 'screener/ledger/idea-workspace-actions.ndjson.lock')])
+  await new Promise<void>((resolve, reject) => { journalLease.stdout.once('data', () => resolve()); journalLease.once('error', reject) })
+  const concurrent = idea({ ticker: 'CONCURRENT', source_event_ids: ['EVT-concurrent'] })
+  const saving = fileDiscoveryCard(root, [concurrent], { key: concurrent.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  let archiveOwnsRepository = false
+  for (let i = 0; i < 30 && !archiveOwnsRepository; i++) {
+    try { releaseRetainedFlock(acquireRetainedFlockSync(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'held' })) }
+    catch (error: any) { if (error.code !== 'EBUSY') throw error; archiveOwnsRepository = true }
+    if (!archiveOwnsRepository) await new Promise((resolve) => setTimeout(resolve, 5))
+  }
+  assert.ok(archiveOwnsRepository, 'archive worker reached the repository lease')
+  assert.doesNotThrow(() => writeIdea(root, card.payload as unknown as SurfacedIdea), 'existing synchronous writer can wait while the worker completes the archive')
+  assert.equal((await saving).archive_reason, 'manual')
 
   // A corrupt ledger must not look empty or accept further writes.
   const ledger = path.join(root, 'screener/ledger/idea-workspace-actions.ndjson')
