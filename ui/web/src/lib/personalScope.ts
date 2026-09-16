@@ -7,6 +7,8 @@ import { cleanTicker, coreCompanyName, groupListingCountry, normTicker, tickerHi
 import { companyMatches, type Filterable, type CompanyPick } from '../components/screener/FeedFilters'
 import { mergeCompanyOptions } from '../components/screener/CompanyFilter'
 
+export type PersonalMember = CompanyPick & { listingMarkets?: { ticker: string; country?: string }[] }
+
 export type PersonalScope = 'portfolio' | 'watchlist' | 'universe'
 export const SCOPE_LABELS = { portfolio: 'Portfolio', watchlist: 'Watchlist', universe: 'Universe' }
 // Same currency-to-market fallback as the portfolio quote lane; EUR has no single market.
@@ -23,8 +25,8 @@ export function readPersonalScope(): PersonalScope {
   return 'portfolio'
 }
 
-export function portfolioMembers(read: PortfolioRead): CompanyPick[] {
-  const members = new Map<string, CompanyPick>()
+export function portfolioMembers(read: PortfolioRead): PersonalMember[] {
+  const members = new Map<string, PersonalMember>()
   for (const position of read.book?.positions || []) {
     const ticker = cleanTicker(position.symbol)
     if (!ticker || position.quantity === 0 || position.quantity === null) continue
@@ -33,7 +35,7 @@ export function portfolioMembers(read: PortfolioRead): CompanyPick[] {
   }
   return [...members.values()]
 }
-export function watchlistMembers(read: WatchlistRead): CompanyPick[] {
+export function watchlistMembers(read: WatchlistRead): PersonalMember[] {
   return read.rows.filter((row) => !row.archive).map((row) => ({
     ticker: row.ticker, name: row.company_name || '',
     listingCountry: memberCountry(row.ticker, row.exchange || '', row.currency || ''),
@@ -42,25 +44,23 @@ export function watchlistMembers(read: WatchlistRead): CompanyPick[] {
 
 // Resolve only a unique directory identity. Search results are suggestions, not proof that every
 // returned company is owned. Ambiguous bare symbols retain exact ticker matching without name expansion.
-export function enrichMember(member: CompanyPick, groups: SymbolGroup[]): CompanyPick {
-  const eligible = groups.filter((group) => {
+export function enrichMember(member: PersonalMember, groups: SymbolGroup[]): PersonalMember {
+  const listingsOf = (group: SymbolGroup) => {
     const listings = group.listings?.length ? group.listings : [group.symbol, ...(group.aliases || [])].map((symbol) => ({
       symbol, exchange: group.aliasExchanges?.[symbol] || (normTicker(symbol) === normTicker(group.symbol) ? group.exchange : ''),
     }))
-    return listings.some((listing) => {
-      if (!tickerHitAny(member.ticker, [normTicker(listing.symbol)])) return false
-      const country = groupListingCountry(listing.symbol, [], listing.exchange)
-      return !member.listingCountry || !country || country === member.listingCountry
-    })
-  })
+    return listings.map((listing) => ({ ticker: normTicker(listing.symbol), country: groupListingCountry(listing.symbol, [], listing.exchange) }))
+  }
+  const eligible = groups.filter((group) => listingsOf(group).some((listing) =>
+    tickerHitAny(member.ticker, [listing.ticker]) && (!member.listingCountry || !listing.country || listing.country === member.listingCountry)))
   const exact = eligible.filter((g) => [g.symbol, ...(g.aliases || [])].some((s) => normTicker(s) === normTicker(member.ticker)))
   const candidates = exact.length ? exact : eligible.filter((g) => tickerHitAny(member.ticker, [g.symbol, ...(g.aliases || [])].map(normTicker)))
   if (candidates.length !== 1) return member
   const option = mergeCompanyOptions([], candidates)[0]
-  return { ...option, ticker: member.ticker, tickerAliases: [option.ticker!, ...(option.tickerAliases || [])], aliases: member.name ? [member.name] : undefined }
+  return { ...option, listingMarkets: listingsOf(candidates[0]), ticker: member.ticker, tickerAliases: [option.ticker!, ...(option.tickerAliases || [])], aliases: member.name ? [member.name] : undefined }
 }
 
-export function memberWithFacets(member: CompanyPick, facets: CompanyFacet[]): CompanyPick {
+export function memberWithFacets(member: PersonalMember, facets: CompanyFacet[]): PersonalMember {
   const identityNames = [member.name, ...(member.aliases || [])].map(coreCompanyName).filter(Boolean)
   const matches = facets.filter((facet) => identityNames.length > 0
     && [facet.name, ...(facet.aliases || [])].some((name) => identityNames.includes(coreCompanyName(name)))
@@ -69,11 +69,20 @@ export function memberWithFacets(member: CompanyPick, facets: CompanyFacet[]): C
   return { ...member, aliases: [...(member.aliases || []), ...matches.flatMap((facet) => [facet.name, ...(facet.aliases || [])])] }
 }
 
-export function matchesPersonalScope(item: Filterable, scope: PersonalScope, members: readonly CompanyPick[]): boolean {
-  return scope === 'universe' || members.some((member) => companyMatches(item, member))
+export function matchesPersonalScope(item: Filterable, scope: PersonalScope, members: readonly PersonalMember[]): boolean {
+  return scope === 'universe' || members.some((member) => {
+    // A cross-listed issuer has no single country. Check the matching listing's own market instead:
+    // NHY/NO remains a match for NHYDY, while CAT/AU is not a match for Caterpillar's CAT/US + CAT.DE.
+    const companies = member.listingMarkets?.length ? item.companies?.filter((company) => {
+      if (!company.listing_country || !company.ticker) return true
+      const matching = member.listingMarkets!.filter((listing) => tickerHitAny(company.ticker, [listing.ticker]))
+      return !matching.length || matching.some((listing) => !listing.country || listing.country === company.listing_country)
+    }) : item.companies
+    return companyMatches({ ...item, companies }, member)
+  })
 }
 
-type Membership = { members: CompanyPick[]; status: 'idle' | 'loading' | 'ready' | 'error'; error: string | null; asOf: string | null; unresolved: number }
+type Membership = { members: PersonalMember[]; status: 'idle' | 'loading' | 'ready' | 'error'; error: string | null; asOf: string | null; unresolved: number }
 const emptyMembership = (): Membership => ({ members: [], status: 'idle', error: null, asOf: null, unresolved: 0 })
 interface PersonalScopeState {
   scope: PersonalScope
@@ -83,7 +92,7 @@ interface PersonalScopeState {
   refresh: () => Promise<void>
 }
 let pending: Promise<void> | null = null
-const resolvedMembers = new Map<string, CompanyPick>()
+const resolvedMembers = new Map<string, PersonalMember>()
 export const usePersonalScopeStore = create<PersonalScopeState>((set) => ({
   scope: readPersonalScope(), portfolio: emptyMembership(), watchlist: emptyMembership(),
   setScope: (scope) => { set({ scope }); try { localStorage.setItem(STORAGE_KEY, scope) } catch { /* private browsing */ } },

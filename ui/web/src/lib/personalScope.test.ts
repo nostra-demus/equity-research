@@ -29,6 +29,11 @@ assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'KAR', n
 assert.equal(matchesPersonalScope({ headline: 'Karoon Energy announces drilling results' }, 'portfolio', [kar]), true)
 const hydro = enrichMember({ ticker: 'NHYDY', name: '', listingCountry: 'US' }, [{ symbol: 'NHYDY', name: 'Norsk Hydro ASA', exchange: 'OTC', aliases: ['NHYDY', 'NHY.OL'] }])
 assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'NHY', name: 'Norsk Hydro', listing_country: 'NO' }] }, 'portfolio', [hydro]), true, 'ADR and home listing are the same issuer')
+const crossListedCat = enrichMember({ ticker: 'CAT', name: '', listingCountry: 'US' }, [{
+  symbol: 'CAT', name: 'Caterpillar', exchange: 'NYSE', aliases: ['CAT', 'CAT.DE'], aliasExchanges: { CAT: 'NYSE', 'CAT.DE': 'XETRA' },
+}])
+assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'CAT', name: 'Catapult Group', listing_country: 'AU' }] }, 'portfolio', [crossListedCat]), false)
+assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'CAT.DE', name: 'Caterpillar', listing_country: 'DE' }] }, 'portfolio', [crossListedCat]), true)
 const cat = memberWithFacets({ ticker: 'CAT', name: 'Caterpillar', tickerAliases: ['CAT.DE'] }, [
   { ticker: 'CAT', name: 'Catapult Group', aliases: ['Catapult'], count: 10, listingCountry: 'AU' },
   { ticker: 'CAT', name: 'Other issuer', aliases: ['Wrong company'], count: 10 },
