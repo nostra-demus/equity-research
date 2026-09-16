@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-16T10:53:13.009Z
+- stopped_at_utc: 2026-09-16T13:05:16.842Z
 
 ## Modules completed
 
@@ -20,21 +20,16 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-erately did **not** work around this by hand-writing the manifest through the Write tool. Doing so would have created a projection seal that the freezer still could not complete — and a seal permanently blocks any in-place rerun (Step 3A), leaving the run unrecoverable except as a brand-new dated run. A blocked run is recoverable; a half-sealed one is not.
+sier.md`, `decision_record.json` — which is precisely `ROOT_ARTIFACTS_RERUN` in `ui/server/src/launcher.ts:1945`. The cockpit classified this launch as a `rerun`, and `launcher.ts:968-978` states the supervisor validates those artifacts, then stamps, commits, clears `.requires_idea_publication`, and sets `publicationCompleted`. So sealing is the supervisor's post-process step here, not the provider's; `/research:rerun` Step 9B item 5 assumes a non-cockpit context. I did not work around it, and I left both `.requires_idea_publication` and `.defer_module_memos` in place — the freezer alone may remove the former, and the latter marks that item 5 did not complete in-process.
 
-### Sequencing defect I found and fixed mid-run
+**Per the command's own hard rule, this per-module chain has no valid `idea_admission.json` and is therefore not done.** If the supervisor's publication step does not produce it, that seal needs a separate operator action.
 
-The v2 audits caught that `decision_record.json` carried `integrity_gate: "pass"` while the thesis banner said verify-evidence = Failed — a thesis the engine would not stand behind being counted as a clean call. 10B.1b requires re-stamping after 10B.2 changes the banner, which I had not done. I re-stamped (now `provisional`, carrying the violation text), which changed the decision-record digest and invalidated the v2 pins, so I re-ran the full final audit set as v3 against the corrected bytes. All three v3 agents independently proved the stamp was the only byte-level change by reconstructing the v2 digest.
+**Two pre-existing gaps I observed but did not fix** (both outside this master-target path's scope):
 
-### Not done
+1. **Module dossier tier is 0 of 7** — `MODULE_PIPELINE.md` Step 4.9B never produced `<module>_dossier.md` in any of the chain's module runs. The master-target path skips Step 7, which is what would otherwise refresh that tier.
+2. The PROVISIONAL banner and `integrity_gate.violations` cite `verification_report.json` at 17/100, while the authoritative final audit is v2 at 11/100 — 10B.3A's immutability rule forbids re-stamping after the final audit set exists.
 
-- `idea_projection_manifest.json`, `idea_admission.json` — **blocked**
-- `memo.md`, `audit_dossier.md` — deferred by design to Step 9B item 6, which runs *after* sealing; generating them now would freeze a pre-admission state
-- `RUN_METADATA.md` final refresh (item 7)
-- **No commit.** Step 9B item 5 mandates STOP before commit on a missing admission. Nothing was pushed; no `PUBLICATION_QUEUED` was requested.
-- Markers `.defer_module_memos` and `.requires_idea_publication` correctly left in place — the latter is the server's proof publication did not finish.
-
-All work is preserved on disk at `/Users/admin/nostra-prod/analyses/NVT_2026-09-07/`. To finish, the sandbox write allowlist needs to cover the run root (or at least `idea_projection_manifest.json`, `idea_admission.json`, and dot-prefixed temp files within it); I can then resume from manifest creation without redoing any analysis. Want me to prepare that as a settings change for you to approve?
+**The thesis ships PROVISIONAL / UNVERIFIED.** The `Avoid` call itself is well-supported and unanimously survived all three audits, but the supporting figures carry material defects — foremost that the dossier asserts six-to-seven times that no filed order-book figure exists, while the frozen pool contains at least four (including $2,591.0m RPO in the Q1 FY26 10-Q Note 2). Correcting that strengthens the bear case but removes the framing the edge paragraph rests on. All four known defects are itemised in `RUN_METADATA.md`.
 ```
 
 ## Resume
