@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-b89460c407f6",
+  "idea_version": "IDEAV-31d65d151ca3a27a",
+  "idea_version_started_at": "2026-09-16T01:34:59Z",
+  "ticker": "08645",
+  "company": "Byte Meta",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued a formal profit warning, indicating significant deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
+  "why_now": "The filing was released today, September 15, 2026, and typically precedes a sharp negative reaction in equity price.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b411ead946c4"
+  ],
+  "primary_source_event_id": "EVT-b411ead946c4",
+  "source_headlines": [
+    "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT"
+  ],
+  "source_headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-15T14:23:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-16T01:34:59Z",
+  "updated_at": "2026-09-16T01:34:59Z",
+  "decay_at": "2026-09-17T02:23:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:34:45Z",
+  "generated_at": "2026-09-16T01:35:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-054",
@@ -120446,6 +120446,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-173014fa1310",
+      "idea_version": "IDEAV-16cbb880adc47ac7",
+      "idea_version_started_at": "2026-09-16T01:34:59Z",
+      "ticker": "DASH",
+      "company": "DoorDash",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $300 million acquisition of Grubhub Campus Dining expands DoorDash's reach into the high-frequency university food delivery market, while the $125 million investment in Wonder signals a strategic pivot into broader food tech infrastructure.",
+      "why_now": "The announcement occurred today, September 15, 2026, and represents a clear expansion of their total addressable market.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d0ae6c8d9abe"
+      ],
+      "primary_source_event_id": "EVT-d0ae6c8d9abe",
+      "source_headlines": [
+        "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder"
+      ],
+      "source_headline": "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder",
+      "source_url": "https://www.nasdaq.com/articles/doordash-buy-grubhub-campus-dining-300-mln-invests-125-mln-wonder",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-15T13:35:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-16T01:34:59Z",
+      "updated_at": "2026-09-16T01:34:59Z",
+      "decay_at": "2026-09-17T01:35:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-d45cc241b4da7266",
       "idea_version_started_at": "2026-09-15T23:04:51Z",
@@ -121286,6 +121356,78 @@
       "surfaced_at": "2026-09-14T20:43:51Z",
       "updated_at": "2026-09-14T20:43:51Z",
       "decay_at": "2026-09-16T01:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b89460c407f6",
+      "idea_version": "IDEAV-31d65d151ca3a27a",
+      "idea_version_started_at": "2026-09-16T01:34:59Z",
+      "ticker": "08645",
+      "company": "Byte Meta",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a formal profit warning, indicating significant deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
+      "why_now": "The filing was released today, September 15, 2026, and typically precedes a sharp negative reaction in equity price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b411ead946c4"
+      ],
+      "primary_source_event_id": "EVT-b411ead946c4",
+      "source_headlines": [
+        "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT"
+      ],
+      "source_headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-15T14:23:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-16T01:34:59Z",
+      "updated_at": "2026-09-16T01:34:59Z",
+      "decay_at": "2026-09-17T02:23:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124055,76 +124197,6 @@
       "surfaced_at": "2026-09-13T12:04:53Z",
       "updated_at": "2026-09-13T12:04:53Z",
       "decay_at": "2026-09-15T00:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-205d9d4ce667",
-      "idea_version": "IDEAV-edc85f5d856234ae",
-      "idea_version_started_at": "2026-09-13T06:54:12Z",
-      "ticker": "DELL",
-      "company": "Dell Technologies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dell's AI server order intake has significantly outpaced total revenue, signaling a massive acceleration in demand that will likely drive earnings beats in upcoming quarters.",
-      "why_now": "The data was reported on 2026-09-13, providing a fresh indicator of strong near-term momentum.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ffcf1eb206c"
-      ],
-      "primary_source_event_id": "EVT-5ffcf1eb206c",
-      "source_headlines": [
-        "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue"
-      ],
-      "source_headline": "Dell Booked More AI Server Orders in 3 Months Than It Recorded in Total Revenue",
-      "source_url": "https://www.nasdaq.com/articles/dell-booked-more-ai-server-orders-3-months-it-recorded-total-revenue",
-      "source_name": "Nasdaq",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-13T00:53:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T06:54:12Z",
-      "updated_at": "2026-09-13T06:54:12Z",
-      "decay_at": "2026-09-14T12:53:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128308,14 +128380,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 576,
     "shown_count": 500,
-    "hidden_count": 77,
+    "hidden_count": 76,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 41
       },
       "short": {
         "total_count": 285,
@@ -128325,11 +128397,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 224,
+      "evicted_count": 225,
       "oldest_retained_at": "2026-08-24T15:43:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 168,
+          "evicted_count": 169,
           "oldest_retained_at": "2026-09-01T14:01:59Z"
         },
         "short": {
@@ -134064,8 +134136,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-14T12:53:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-16T01:35:05Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -165512,8 +165584,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 835,
-    "live_count": 33,
+    "surfaced_total": 837,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
