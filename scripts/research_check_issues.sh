@@ -13,10 +13,14 @@ label="research-eval"
 gh label create "$label" --color "b27d1c" \
   --description "A committed research run fails scripts/eval.py" >/dev/null 2>&1 || true
 
+# Fetch the open labelled issues ONCE, then match locally: one API call, not one per run — a push that
+# closes many issues at once must not fan out into a request per run and trip rate limits (Gemini review).
+open_issues=$(gh issue list --state open --label "$label" --limit 200 --json number,body 2>/dev/null || echo "[]")
+[ -n "$open_issues" ] || open_issues="[]"
+
 # The open issue for one run, found by the marker research_check.py writes into the body.
 open_issue_for() {
-  gh issue list --state open --label "$label" --limit 200 --json number,body \
-    --jq "[.[] | select(.body | contains(\"research-eval:$1\")) | .number][0] // empty" 2>/dev/null
+  jq -r --arg m "research-eval:$1" '[.[] | select(.body | contains($m)) | .number][0] // empty' <<<"$open_issues"
 }
 
 jq -c '.issues[]' "$result" | while read -r row; do
@@ -28,7 +32,13 @@ jq -c '.issues[]' "$result" | while read -r row; do
 
   if [ "$state" = "open" ]; then
     if [ -n "$existing" ]; then
-      echo "research-check: #$existing is already open for $run"
+      # Still failing, issue already open: refresh its body so the current failing checks, commit and check
+      # URL replace the stale ones — an unchanged issue keeps pointing the owner at obsolete failures (Codex review).
+      if gh issue edit "$existing" --body "$body" >/dev/null 2>&1; then
+        echo "research-check: refreshed #$existing for $run (current failing checks)"
+      else
+        echo "research-check: #$existing already open for $run (could not refresh its body)"
+      fi
     elif gh issue create --title "$title" --label "$label" --body "$body" >/dev/null; then
       echo "research-check: opened an issue for $run"
     else
