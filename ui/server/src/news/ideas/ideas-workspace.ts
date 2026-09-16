@@ -1,5 +1,8 @@
 import { isDiscoveryCard } from '../../../../shared/ideas-workspace'
-import { directoryTickerIdentityKey } from '../symbology'
+import { projectDiscovery, discoveryPage } from '../../../../shared/discovery-projection'
+export { projectDiscovery, discoveryPage } from '../../../../shared/discovery-projection'
+import { discoveryIdea, shell } from './ideas-identity'
+export { discoveryIdea } from './ideas-identity'
 // Research selection over existing canonical news, themes, lead snapshots and relationship exports.
 // Human filing decisions use a separate append-only ledger: a refresh cannot undo an archive, and
 // archive snapshots are never subject to the automatic expired-lead eviction policy.
@@ -8,7 +11,7 @@ import path from 'node:path'
 import { createHash } from 'node:crypto'
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import type { DiscoveryCard, DiscoveryPage, EventReport, IdeaLane } from '../../../../shared/ideas-workspace'
+import type { DiscoveryCard, EventReport, FilingAction } from '../../../../shared/ideas-workspace'
 import { discoveryListing } from '../../../../shared/listing-market'
 export { discoveryListing } from '../../../../shared/listing-market'
 import { readFeed } from '../feed'
@@ -17,39 +20,17 @@ import { loadThemesLedger } from '../themes/store'
 import type { Theme } from '../themes/types'
 import { themeStoryFamilyKey } from '../themes/story-key'
 import { projectLiveIdeas } from './ideas-projection'
+import { repositoryMutationLockPath } from './ideas-store'
 import { buildSupplyChainBoard } from '../../supply-chain'
 import { acquireRetainedFlock, releaseRetainedFlock } from '../../singleton-lock'
 
 const hash = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 24)
 const iso = (s: unknown) => typeof s === 'string' && Number.isFinite(Date.parse(s)) ? new Date(s).toISOString() : ''
-const strings = (v: unknown): string[] => Array.isArray(v) ? v.filter((s): s is string => typeof s === 'string') : []
 const url = (s: unknown) => typeof s === 'string' && /^https?:\/\//i.test(s) ? s : ''
 const ledgerPath = (root: string) => path.join(root, 'screener/ledger/idea-workspace-actions.ndjson')
 const broadScopes = new Set(['sector', 'macro', 'commodity', 'policy', 'geopolitical', 'regulatory'])
 
 
-function shell(kind: DiscoveryCard['kind'], aliases: string[], payload: Record<string, unknown>, at: string, priority: number): DiscoveryCard {
-  const unique = [...new Set(aliases)].sort()
-  return { key: `${kind}-${hash(unique[0])}`, kind, aliases: unique, sides: [], listings: { long: null, short: null },
-    updated_at: at, priority, payload, expired: false, archived_at: null, archive_reason: null, action_revision: null }
-}
-
-/** Use source families / a validated narrative identity, never ticker+direction alone. */
-export function discoveryIdea(row: Record<string, any>, families = new Map<string, string>()): DiscoveryCard {
-  const market = discoveryListing(row.ticker, row.exchange)
-  const instrument = `${directoryTickerIdentityKey(String(row.ticker || '').replace(/^[^:]+:/, ''), market)}|${market || 'unknown'}|${row.direction}|${row.pair_with || ''}`
-  const sources = strings(row.source_event_ids).map((id) => `source:${families.get(id) || id}`)
-  const themes = Array.isArray(row.source_themes) ? row.source_themes.flatMap((t: any) => typeof t?.theme_id === 'string' ? [`theme:${t.theme_id}`] : []) : []
-  const aliases = [...themes, ...sources].map((id) => `${instrument}|${id}`)
-  if (!aliases.length) aliases.push(`${instrument}|version:${row.idea_version || hash(String(row.reason))}|${row.idea_version_started_at || row.surfaced_at}`)
-  const card = shell('idea', aliases, row, iso(row.updated_at) || iso(row.newest_source_at), Number(row.trade_score) || 0)
-  card.sides = row.direction === 'pair' ? ['long', 'short'] : row.direction === 'short' ? ['short'] : ['long']
-  card.listings.long = discoveryListing(row.ticker, row.exchange)
-  card.listings.short = row.direction === 'pair' ? discoveryListing(row.pair_with) : card.listings.long
-  card.expired = row.status === 'expired' || (row.status !== 'promoted' && (row.stale === true || !iso(row.decay_at) || Date.parse(row.decay_at) <= Date.now()))
-  if (card.expired) { card.archive_reason = 'expired'; card.archived_at = iso(row.archived_at) || iso(row.decay_at) || card.updated_at }
-  return card
-}
 
 export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = Date.now()): DiscoveryCard[] {
   const cards: DiscoveryCard[] = []
@@ -133,14 +114,6 @@ export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: Di
   return { cards, notices }
 }
 
-interface FilingAction {
-  schema_version: 'idea-filing/v1'
-  operation_id: string
-  request_key?: string
-  action: 'archive' | 'restore' | 'update'
-  at: string
-  card: DiscoveryCard
-}
 
 export async function readFilingActions(root: string): Promise<FilingAction[]> {
   let text: string
@@ -153,88 +126,6 @@ export async function readFilingActions(root: string): Promise<FilingAction[]> {
   })
 }
 
-/** Fold manual decisions and snapshots, retaining the latest story even after source-store pruning. */
-export function projectDiscovery(cards: DiscoveryCard[], actions: FilingAction[], nowMs = Date.now()): DiscoveryCard[] {
-  const pinned = new Map<string, DiscoveryCard>()
-  for (const action of actions) pinned.set(action.card.key, action.card)
-  const candidates = [...pinned.values(), ...cards].map((card) => structuredClone(card))
-  // A theme may unite several previously filed stories. Coalesce the whole connected component,
-  // rather than updating the first matching card and leaving another copy active.
-  const parents = candidates.map((_, i) => i)
-  const find = (i: number): number => { while (parents[i] !== i) { parents[i] = parents[parents[i]]; i = parents[i] }; return i }
-  const owners = new Map<string, number>()
-  candidates.forEach((card, i) => {
-    for (const alias of [...card.aliases, `card:${card.key}`]) {
-      const key = `${card.kind}|${alias}`
-      const prior = owners.get(key)
-      if (prior !== undefined) parents[find(i)] = find(prior)
-      else owners.set(key, i)
-    }
-  })
-  // A source-bound unknown listing can acquire a venue without becoming a new story. Only bridge
-  // when exactly one confirmed market exists; an unresolved symbol must never unite two listings.
-  const transitions = new Map<string, { unknown: number[]; known: Map<string, number[]> }>()
-  candidates.forEach((card, i) => {
-    if (card.kind !== 'idea') return
-    for (const alias of card.aliases) {
-      const parts = alias.split('|')
-      if (parts.length !== 5 || !/^(source|theme):/.test(parts[4])) continue
-      const key = [parts[0], ...parts.slice(2)].join('|')
-      const entry = transitions.get(key) || { unknown: [], known: new Map<string, number[]>() }
-      const market = card.listings.long
-      if (!market) entry.unknown.push(i)
-      else entry.known.set(market, [...(entry.known.get(market) || []), i])
-      transitions.set(key, entry)
-    }
-  })
-  const bridges = new Map<number, Map<string, number>>()
-  for (const { unknown, known } of transitions.values()) {
-    for (const i of unknown) {
-      const matches = bridges.get(find(i)) || new Map<string, number>()
-      for (const [market, indices] of known) matches.set(market, indices[0])
-      bridges.set(find(i), matches)
-    }
-  }
-  for (const [i, matches] of bridges) {
-    if (matches.size === 1) parents[find(i)] = find([...matches.values()][0])
-  }
-  const groups = new Map<number, DiscoveryCard[]>()
-  candidates.forEach((card, i) => { const root = find(i); groups.set(root, [...(groups.get(root) || []), card]) })
-  const merged: DiscoveryCard[] = []
-  for (const group of groups.values()) {
-    const aliases = [...new Set(group.flatMap((c) => [...c.aliases, `card:${c.key}`]))].sort()
-    const keys = new Set(group.map((c) => c.key))
-    const decisions = actions.filter((a) => keys.has(a.card.key) && a.action !== 'update')
-    const decision = decisions[decisions.length - 1]
-    // Newer source snapshots supersede earlier copies; at an equal clock prefer the current store.
-    const card = group.reduce((a, b) => b.updated_at >= a.updated_at ? b : a)
-    card.aliases = aliases
-    if (decision) {
-      card.key = decision.card.key
-      card.action_revision = decision.card.action_revision
-      card.archive_reason = decision.action === 'archive' ? 'manual' : null
-      card.archived_at = decision.action === 'archive' ? decision.at : null
-    }
-    if (card.event) {
-      const reports = [...new Map(group.flatMap((c) => c.event?.reports || []).map((r) => [r.event_id, r])).values()]
-        .sort((a, b) => b.at.localeCompare(a.at))
-      card.event = { ...card.event, reports, independent_stories: new Set(reports.map((r) => r.family)).size }
-    }
-    if (card.kind === 'idea') {
-      const p = card.payload
-      card.expired = p.status === 'expired' || (p.status !== 'promoted' && (!iso(p.decay_at) || Date.parse(String(p.decay_at)) <= nowMs))
-      if (card.expired && card.archive_reason !== 'manual') {
-        card.archive_reason = 'expired'
-        card.archived_at = iso(p.decay_at) || card.updated_at
-      }
-      const live = cards.some((c) => !c.expired && c.kind === 'idea' && c.payload.idea_id === p.idea_id
-        && c.payload.idea_version === p.idea_version && c.payload.idea_version_started_at === p.idea_version_started_at)
-      if (!live || card.expired) card.payload = { ...p, promotion_available: false, recovery_only: true }
-    }
-    merged.push(card)
-  }
-  return merged
-}
 
 async function appendAction(root: string, action: FilingAction): Promise<void> {
   const fp = ledgerPath(root)
@@ -247,9 +138,15 @@ async function appendAction(root: string, action: FilingAction): Promise<void> {
 }
 
 async function locked<T>(root: string, fn: () => Promise<T>, mode: 'exclusive' | 'shared' = 'exclusive'): Promise<T> {
-  await fs.promises.mkdir(path.dirname(ledgerPath(root)), { recursive: true })
-  const fd = await acquireRetainedFlock(`${ledgerPath(root)}.lock`, { waitMs: 2000, pollMs: 10, mode, busyMessage: 'Idea archive is busy. Please retry.' })
-  try { return await fn() } finally { releaseRetainedFlock(fd) }
+  const repositoryLock = repositoryMutationLockPath(root)
+  const repositoryFd = repositoryLock === null ? null : await acquireRetainedFlock(repositoryLock, {
+    waitMs: 2000, pollMs: 10, mode, busyMessage: 'Repository update in progress. Please retry.',
+  })
+  try {
+    await fs.promises.mkdir(path.dirname(ledgerPath(root)), { recursive: true })
+    const fd = await acquireRetainedFlock(`${ledgerPath(root)}.lock`, { waitMs: 2000, pollMs: 10, mode, busyMessage: 'Idea archive is busy. Please retry.' })
+    try { return await fn() } finally { releaseRetainedFlock(fd) }
+  } finally { if (repositoryFd !== null) releaseRetainedFlock(repositoryFd) }
 }
 
 export async function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request: { key: string; action: 'archive' | 'restore'; operation_id: string; expected_revision: string | null }): Promise<DiscoveryCard> {
@@ -291,20 +188,6 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
   })
 }
 
-export function discoveryPage(cards: DiscoveryCard[], lane: IdeaLane, hiddenMarkets: string[], kind: string, cursor: number, notices: string[] = []): DiscoveryPage {
-  const laneRows = cards.filter((c) => lane === 'archives' ? c.archive_reason !== null && (kind === 'all' || c.kind === kind)
-    : c.archive_reason === null && (lane === 'events' ? c.kind === 'event' : lane === 'chain' ? c.kind === 'chain' : c.kind === 'idea' && c.sides.includes(lane)))
-  const rows = laneRows.filter((c) => {
-    if (c.kind === 'event') return true
-    const markets = lane === 'short' ? [c.listings.short] : lane === 'long' || c.kind === 'chain' ? [c.listings.long]
-      : c.sides.map((side) => c.listings[side])
-    return markets.some((market) => !market || !hiddenMarkets.includes(market))
-  }).sort((a, b) => lane === 'archives' ? String(b.archived_at).localeCompare(String(a.archived_at)) || a.key.localeCompare(b.key)
-    : lane === 'events' ? b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key)
-      : b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
-  return { schema_version: 'ideas-workspace/v1', rows: rows.slice(cursor, cursor + 30), total: rows.length, hidden: laneRows.length - rows.length,
-    next_cursor: cursor + 30 < rows.length ? String(cursor + 30) : null, notices, projected_at: new Date().toISOString() }
-}
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
   let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null

@@ -1,4 +1,5 @@
 import { IdeasWorkspace } from './IdeasWorkspace'
+import { memberCountry, usePersonalScope } from '../../lib/personalScope'
 // Ideas is deliberately a two-tab skim: live LONG ideas and live SHORT ideas. Within either tab, qualified
 // 3-6 month forecasts are the primary surface and news-only leads stay in a separate collapsed research
 // queue. The payload's direction is authoritative; stale leads stay out, while an expired qualified
@@ -1547,13 +1548,15 @@ export function NewsIdeasTimeline({
   side: IdeaSide
   nowMs?: number
 }) {
-  const timeline = ideasTimelineForSide(currentIdeas, archiveValue, side, nowMs)
+  const personal = usePersonalScope()
+  const allTimeline = ideasTimelineForSide(currentIdeas, archiveValue, side, nowMs)
+  const timeline = { ...allTimeline, rows: allTimeline.rows.filter(({ idea }) => personal.company(idea.ticker, idea.company || '', memberCountry(idea.ticker, idea.exchange || '')) || (!!idea.pair_with && personal.company(idea.pair_with))) }
   const [visibleCount, setVisibleCount] = useState(IDEAS_TIMELINE_PAGE_SIZE)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const hasMore = visibleCount < timeline.rows.length
   const showMore = () => setVisibleCount((count) => Math.min(timeline.rows.length, count + IDEAS_TIMELINE_PAGE_SIZE))
 
-  useEffect(() => setVisibleCount(IDEAS_TIMELINE_PAGE_SIZE), [side])
+  useEffect(() => setVisibleCount(IDEAS_TIMELINE_PAGE_SIZE), [side, personal.scope])
   useEffect(() => {
     if (!hasMore || !sentinelRef.current || typeof IntersectionObserver === 'undefined') return
     const observer = new IntersectionObserver((entries) => {
@@ -1578,7 +1581,7 @@ export function NewsIdeasTimeline({
       </header>
       {(incomplete || omitted > 0 || (unconfirmed || 0) > 0 || historyUnchecked) && (
         <p className="bideas__archivewarning" role="status">
-          Showing the saved records that can be confirmed.
+          {personal.scope !== 'universe' ? 'Across the universe: ' : ''}Showing the saved records that can be confirmed.
           {(unconfirmed || 0) > 0 && ` ${unconfirmed} older record${unconfirmed === 1 ? '' : 's'} could not be confirmed.`}
           {omitted > 0 && ` ${omitted} older record${omitted === 1 ? ' is' : 's are'} no longer stored.`}
           {unconfirmed === null && (incomplete || historyUnchecked) && ' Some older records could not be checked.'}
@@ -1592,7 +1595,7 @@ export function NewsIdeasTimeline({
             : <NewsLeadCard key={row.key} idea={row.idea as BoardIdea} side={side} timelineStatus={row.status as 'current' | 'promoted'} />)}
         </div>
       ) : (
-        <p className="bideas__queueempty">No saved {side.toUpperCase()} ideas yet.</p>
+        <p className="bideas__queueempty">No saved {side.toUpperCase()} ideas{personal.scope !== 'universe' ? ` matching your ${personal.label.toLowerCase()}` : ''} yet.</p>
       )}
       {hasMore && (
         <div className="bideas__timeline-more" ref={sentinelRef}>
@@ -1737,12 +1740,13 @@ export function IdeasSidePanel({
   loading?: boolean
   nowMs?: number
 }) {
+  const personal = usePersonalScope()
   const qualifiedBoard = qualifiedRuntime.board
-  const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide)
+  const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide).filter((idea) => personal.company(idea.candidate.instrument.ticker, idea.candidate.instrument.company, memberCountry(idea.candidate.instrument.ticker, idea.candidate.instrument.exchange, idea.candidate.instrument.currency)))
   const qualified = allQualified.filter((idea) => !qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
   const frozenQualified = allQualified.filter((idea) => qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
   const emptyState = qualified.length === 0
-    ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs)
+    ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs) || (personal.scope !== 'universe' ? { state: 'checked', heading: `No qualified ${panelSide.toUpperCase()} ideas match your ${personal.label.toLowerCase()}.`, body: 'Choose Universe to see ideas for all companies.', healthReason: null } : null)
     : null
   return (
     <section
@@ -1776,7 +1780,7 @@ export function IdeasSidePanel({
           </div>
         ) : emptyState ? (
           <div className={`bideas__qualified-empty bideas__qualified-empty--${emptyState.state}`} role="status">
-            <strong>{emptyState.heading}</strong>
+            <strong>{personal.scope === 'universe' ? emptyState.heading : `No qualified ${panelSide.toUpperCase()} ideas match your ${personal.label.toLowerCase()}.`}</strong>
             <p>{emptyState.body}</p>
             {emptyState.healthReason && <p className="bideas__healthreason"><span>Board health —</span> {emptyState.healthReason}</p>}
           </div>

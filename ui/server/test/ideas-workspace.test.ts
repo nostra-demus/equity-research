@@ -3,6 +3,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
+import { repositoryMutationLockPath } from '../src/news/ideas/ideas-store'
 import Fastify from 'fastify'
 import { buildDiscoveryEvents, discoveryIdea, discoveryListing, discoveryPage, fileDiscoveryCard,
   projectDiscovery, readFilingActions, refreshFiledDiscovery, registerIdeasWorkspace } from '../src/news/ideas/ideas-workspace'
@@ -51,7 +53,8 @@ try {
 
   const card = idea()
   const op = randomUUID()
-  const lock = await acquireRetainedFlock(path.join(root, 'screener/ledger/idea-workspace-actions.ndjson.lock'), { waitMs: 100, busyMessage: 'test busy' })
+  execFileSync('git', ['init', root], { stdio: 'ignore' })
+  const lock = await acquireRetainedFlock(repositoryMutationLockPath(root)!, { waitMs: 100, busyMessage: 'test busy' })
   let timerRan = false
   setTimeout(() => { timerRan = true; releaseRetainedFlock(lock) }, 40)
   const archived = await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: op, expected_revision: null })
@@ -71,6 +74,12 @@ try {
   assert.equal(fromDisk[0].archive_reason, 'manual')
   assert.equal(fromDisk[0].payload.promotion_available, false, 'evicted source is view-only')
   assert.equal(projectDiscovery([idea({ source_event_ids: ['EVT-unrelated'] })], await readFilingActions(root)).length, 2, 'new thesis about same stock is not suppressed')
+  const familyCard = discoveryIdea({ ...card.payload, ticker: 'FAMILY', source_event_ids: ['EVT-exact'] }, new Map([['EVT-exact', 'EVT-family']]))
+  await fileDiscoveryCard(root, [familyCard], { key: familyCard.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  const prunedFamily = discoveryIdea({ ...familyCard.payload, status: 'expired' })
+  const familyRows = projectDiscovery([prunedFamily], await readFilingActions(root)).filter((c) => c.payload.ticker === 'FAMILY')
+  assert.equal(familyRows.length, 1, 'exact source identity survives loss of the rolling dedup-family lookup')
+  assert.equal(familyRows[0].archive_reason, 'manual')
   const restored = await fileDiscoveryCard(root, [update], { key: archived.key, action: 'restore', operation_id: randomUUID(), expected_revision: op })
   assert.equal(restored.archive_reason, null)
   assert.equal(discoveryPage(projectDiscovery([], await readFilingActions(root), now + 2 * 86_400_000), 'long', [], 'all', 0).total, 0, 'time expiry applies to restored copies without live sources')

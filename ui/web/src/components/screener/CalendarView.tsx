@@ -1,3 +1,5 @@
+import { usePersonalScope } from '../../lib/personalScope'
+import { useWireConfig } from '../wire/WireContext'
 // The "Calendar" tab — the forward events calendar (server /api/calendar): upcoming earnings (Nasdaq US +
 // NSE India) and macro releases (BEA US), date-sorted, "what's scheduled ahead". A sibling of Themes /
 // Best-ideas in the wire's tab row. Read-only: it fetches the snapshot on mount and renders it grouped by
@@ -41,6 +43,7 @@ function EventLine({ e }: { e: CalendarEvent }) {
 }
 
 export function CalendarView() {
+  const personal = usePersonalScope(useWireConfig().gauntlet)
   // undefined = loading, null = unavailable (404/disabled/old server), else the snapshot
   const [snap, setSnap] = useState<CalendarSnapshot | null | undefined>(undefined)
   const [region, setRegion] = useState<RegionFilter>('all')
@@ -55,11 +58,11 @@ export function CalendarView() {
 
   const today = snap?.window?.from || new Date().toISOString().slice(0, 10)
   const groups = useMemo(() => {
-    const evs = (snap?.events || []).filter((e) => (region === 'all' || e.region === region) && (kind === 'all' || e.kind === kind))
+    const evs = (snap?.events || []).filter((e) => personal.company(e.ticker, e.title, e.region) && (region === 'all' || e.region === region) && (kind === 'all' || e.kind === kind))
     const byDay = new Map<string, CalendarEvent[]>()
     for (const e of evs) { const g = byDay.get(e.date) || []; g.push(e); byDay.set(e.date, g) }
     return [...byDay.entries()] // events already date-sorted server-side, so insertion order is chronological
-  }, [snap, region, kind])
+  }, [snap, region, kind, personal])
 
   // region toggles only show a region that actually has events (don't offer an empty filter)
   const regionsPresent = useMemo(() => new Set((snap?.events || []).map((e) => e.region)), [snap])
@@ -69,7 +72,7 @@ export function CalendarView() {
       <header className="calview__head">
         <div className="calview__titlerow">
           <span className="calview__title">Upcoming</span>
-          {snap && <span className="calview__count">{snap.events.length} scheduled · next {snap.window ? Math.max(1, Math.round((new Date(snap.window.to).getTime() - new Date(snap.window.from).getTime()) / 86_400_000)) : 14}d</span>}
+          {snap && <span className="calview__count">{groups.reduce((n, [, events]) => n + events.length, 0)} scheduled · next {snap.window ? Math.max(1, Math.round((new Date(snap.window.to).getTime() - new Date(snap.window.from).getTime()) / 86_400_000)) : 14}d</span>}
         </div>
         {/* filters + health */}
         <div className="calview__controls">
@@ -117,7 +120,7 @@ export function CalendarView() {
         )}
         {snap && groups.length === 0 && (
           <div className="calview__empty">
-            <div className="calview__emptytitle">Nothing scheduled in this window</div>
+            <div className="calview__emptytitle">Nothing scheduled in this window{personal.scope !== 'universe' ? ` for your ${personal.label.toLowerCase()}` : ''}</div>
             <div className="calview__emptysub">No {kind === 'all' ? '' : `${kind} `}events{region === 'all' ? '' : ` for ${region}`} in the next {snap.window ? Math.round((new Date(snap.window.to).getTime() - new Date(snap.window.from).getTime()) / 86_400_000) : 14} days.</div>
           </div>
         )}

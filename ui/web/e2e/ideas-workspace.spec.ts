@@ -55,6 +55,10 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await expect(page.getByLabel('Hide India listings')).toBeChecked()
     await page.screenshot({ path: testInfo.outputPath('events-dark.png'), fullPage: true })
 
+    await page.evaluate(async () => {
+      const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts')
+      usePersonalScopeStore.getState().setScope('universe')
+    })
     await page.getByRole('tab', { name: 'Long', exact: true }).click()
     await expect(page.getByText('USCO contract announcement')).toBeVisible()
     await expect(page.getByText('HKCO contract announcement')).toHaveCount(0)
@@ -80,6 +84,19 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await expect(good).toHaveCount(0)
     await page.getByLabel('Hide Hong Kong listings').uncheck()
     await expect(page.getByText('HKCO contract announcement')).toBeVisible()
+    await page.evaluate(async () => {
+      const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts')
+      usePersonalScopeStore.setState({ portfolio: { members: [{ ticker: 'USCO', name: 'USCO Company', listingCountry: 'US' }], status: 'ready', error: null, asOf: null, unresolved: 0 } })
+      usePersonalScopeStore.getState().setScope('portfolio')
+    })
+    await expect(page.getByText('USCO contract announcement')).toBeVisible()
+    await expect(page.getByText('HKCO contract announcement')).toHaveCount(0)
+    await page.getByRole('tab', { name: 'Events', exact: true }).click()
+    await expect(page.getByText('Pipeline closes after damage').first()).toBeVisible()
+    await page.evaluate(async () => {
+      const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts')
+      usePersonalScopeStore.getState().setScope('universe')
+    })
     await page.reload()
     await expect(page.getByRole('tab', { name: 'Events', exact: true })).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByLabel('Hide Hong Kong listings')).not.toBeChecked()

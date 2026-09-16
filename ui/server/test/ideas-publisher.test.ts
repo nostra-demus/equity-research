@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  markIdeasPublicationPending, publishPendingIdeas, type IdeasPublishCommand,
+  markIdeasPublicationPending, publishPendingIdeas, startIdeasPublicationLoop, type IdeasPublishCommand,
 } from '../src/news/ideas/ideas-publisher'
 
 function fixture(): { root: string; state: string } {
@@ -268,4 +268,27 @@ try {
   assert.equal(fs.existsSync(lostWakeupMarker), false, 'B marker clears only after B is remotely proven')
 } finally { fs.rmSync(lostWakeup.root, { recursive: true, force: true }) }
 
-console.log('ideas publisher: bootstrap, branch guard, board rebuild, proof, retry, and generation wakeups passed')
+const idle = fixture()
+let attempts = 0
+const idleCommand: IdeasPublishCommand = async (executable, args) => {
+  if (args.includes('ls-files')) return { stdout: '', stderr: '', exitCode: 0 }
+  if (args.includes('status')) return { stdout: attempts < 2 ? ' M screener/ledger/idea-workspace-actions.ndjson\n' : '', stderr: '', exitCode: 0 }
+  if (args.includes('symbolic-ref')) return { stdout: 'refs/heads/main\n', stderr: '', exitCode: 0 }
+  if (args.includes('fetch') || args.includes('merge-base')) return { stdout: '', stderr: '', exitCode: 0 }
+  if (executable === 'bash') {
+    attempts++
+    return attempts === 1 ? { stdout: '', stderr: 'temporary failure', exitCode: 1 }
+      : { stdout: `COMMIT_SHA=${'a'.repeat(40)}\n`, stderr: '', exitCode: 0 }
+  }
+  return { stdout: '', stderr: 'unexpected', exitCode: 1 }
+}
+markIdeasPublicationPending(idle.state)
+const stopIdle = startIdeasPublicationLoop(idle.root, idle.state, { command: idleCommand, intervalMs: 20 })
+try {
+  assert.equal(startIdeasPublicationLoop(idle.root, idle.state), stopIdle, 'startup loop is idempotent')
+  for (let i = 0; i < 100 && fs.existsSync(path.join(idle.state, 'ideas-publish-pending.json')); i++) await new Promise((resolve) => setTimeout(resolve, 20))
+  assert.equal(attempts, 2, 'provider-independent loop retries a failed archive publication')
+  assert.equal(fs.existsSync(path.join(idle.state, 'ideas-publish-pending.json')), false)
+} finally { stopIdle(); fs.rmSync(idle.root, { recursive: true, force: true }) }
+
+console.log('ideas publisher: bootstrap, branch guard, board rebuild, proof, retry, generation wakeups and idle loop passed')

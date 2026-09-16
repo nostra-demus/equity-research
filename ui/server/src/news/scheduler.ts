@@ -17,7 +17,7 @@ import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
-import { markIdeasPublicationPending, publishPendingIdeas } from './ideas/ideas-publisher'
+import { markIdeasPublicationPending, publishPendingIdeas, startIdeasPublicationLoop } from './ideas/ideas-publisher'
 import { initializeIdeasHealth, inspectIdeaSnapshots, updateIdeasHealth } from './ideas/ideas-health'
 import { runQualifiedIdeaOutcomePass } from '../qualified-idea-outcome-runner'
 import {
@@ -1766,11 +1766,15 @@ export function releaseIngesterLock(stateDir: string): void {
   releaseSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }
 
+let stopIdeasPublication: (() => void) | null = null
 export function startNewsIngester(): void {
   const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
   // This loop belongs to the cockpit process, not to the news provider. Start it before every news-mode
   // branch; its own guard makes repeated startNewsIngester calls idempotent.
   startQualifiedIdeaOutcomeLoop(log)
+  stopIdeasPublication = startIdeasPublicationLoop(REPO_ROOT, STATE_DIR, { log,
+    beforePublish: () => refreshBoard(REPO_ROOT, log, { throwOnFailure: true }),
+  })
   initializeIdeasHealth(STATE_DIR, REPO_ROOT)
   const ideasOnly = !NEWS.enabled && NEWS.ideasEnabled && NEWS.ideaProviderConfigured
   if (!NEWS.enabled && !ideasOnly) {
@@ -1948,6 +1952,7 @@ export function startNewsIngester(): void {
 }
 
 export function stopNewsIngester(): void {
+  stopIdeasPublication?.(); stopIdeasPublication = null
   providerSpendingOwner = false
   readOnlyMode = false
   if (initialTickTimer) { clearTimeout(initialTickTimer); initialTickTimer = null }

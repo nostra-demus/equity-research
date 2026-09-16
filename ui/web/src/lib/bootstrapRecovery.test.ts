@@ -164,6 +164,13 @@ try {
   assert.equal(useStore.getState().activeSwarm, 'screener')
   assert.deepEqual(useStore.getState().swarms, [research, screener])
   assert.equal(initCalls, 1, 'successful rediscovery must initialize the screener')
+  useStore.setState({ wireSwarm: 'screener', themesView: 'board', selectedTheme: 'THM-stale', ideasOpen: false })
+  useStore.getState()._enterSwarm('screener')
+  assert.equal(useStore.getState().themesView, null, 'returning to Screener clears the previous Themes selection')
+  assert.equal(useStore.getState().selectedTheme, null)
+  assert.equal(useStore.getState().ideasOpen, true)
+  assert.equal(useStore.getState().ideasLane, 'events')
+  initCalls-- // this explicit navigation is independent of bootstrap retry counts below
 
   for (const status of [401, 403]) {
     useStore.setState({ activeSwarm: 'screener', swarms: [research, screener], health: 'session-expired' })

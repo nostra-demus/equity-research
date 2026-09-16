@@ -42,6 +42,32 @@ export interface IdeasPublisherOptions {
   beforePublish?: () => Promise<void>
 }
 
+const publicationLoops = new Map<string, () => void>()
+/** Publication is free and must keep working when every model/scanner is disabled. */
+export function startIdeasPublicationLoop(repoRoot: string, stateDir: string,
+  options: IdeasPublisherOptions & { intervalMs?: number; log?: (message: string) => void } = {}): () => void {
+  const key = path.resolve(repoRoot)
+  const existing = publicationLoops.get(key)
+  if (existing) return existing
+  let running = false
+  let stopped = false
+  const tick = async () => {
+    if (running || stopped) return
+    running = true
+    try {
+      const result = await publishPendingIdeas(repoRoot, stateDir, options)
+      if (result.status === 'failed') options.log?.(`Idea publication pending: ${result.reason}`)
+    } catch (error) { options.log?.(`Idea publication pending: ${error instanceof Error ? error.message : String(error)}`) }
+    finally { running = false }
+  }
+  const timer = setInterval(() => { void tick() }, options.intervalMs ?? 60_000)
+  timer.unref()
+  const stop = () => { stopped = true; clearInterval(timer); publicationLoops.delete(key) }
+  publicationLoops.set(key, stop)
+  void tick()
+  return stop
+}
+
 const defaultCommand: IdeasPublishCommand = async (executable, args, options) => {
   try {
     const result = await execFileAsync(executable, args, {

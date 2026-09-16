@@ -1,3 +1,4 @@
+import { usePersonalScopeStore } from './personalScope'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -6,6 +7,9 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { ThemeDetailContent, ThemesView, exactNewsCount, rankedValidatedThemes } from '../components/screener/ThemesView'
 import { useStore } from './store'
 import { themeSurfaceAssessment, themeSurfaceStatus, type Theme, type ThemeDetail, type ThemeSurfaceAssessment } from './themes'
+
+// Existing surface assertions cover the full Universe; personal scope has separate regressions.
+usePersonalScopeStore.setState({ scope: 'universe' })
 
 const renderThemesFromCurrentStore = (): string => {
   const useSyncExternalStore = React.useSyncExternalStore

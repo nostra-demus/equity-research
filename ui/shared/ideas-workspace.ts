@@ -93,3 +93,12 @@ export function isDiscoveryPage(v: unknown): v is DiscoveryPage {
     && (v.next_cursor === null || (typeof v.next_cursor === 'string' && /^\d+$/.test(v.next_cursor)))
     && texts(v.notices) && date(v.projected_at)
 }
+
+export interface FilingAction {
+  schema_version: 'idea-filing/v1'
+  operation_id: string
+  request_key?: string
+  action: 'archive' | 'restore' | 'update'
+  at: string
+  card: DiscoveryCard
+}

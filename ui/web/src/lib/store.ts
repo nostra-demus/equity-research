@@ -5044,7 +5044,12 @@ export const useStore = create<State>((set, get) => ({
       get()._enterWire(to)
       // Flow is a layout contract, not a screener identity. Future flow swarms own their own graph/board;
       // only the discovered screener may enter this hardcoded screener initialization path.
-      if (to === 'screener') { set({ scIdeasLandingSet: false, ideasOpen: true, ideasLane: 'events', calendarOpen: false }); void get().scInit() }
+      if (to === 'screener') {
+        cancelThemeDetailRequest()
+        set({ scIdeasLandingSet: false, ideasOpen: true, ideasLane: 'events', calendarOpen: false,
+          themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false })
+        void get().scInit()
+      }
       else set({
         // Fail closed until a non-screener flow declares its own graph/board adapter. Never show the
         // previous screener's gauntlet, selected signal, or board under a different swarm's identity.

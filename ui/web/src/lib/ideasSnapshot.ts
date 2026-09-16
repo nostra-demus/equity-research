@@ -2,11 +2,21 @@ import type { DiscoveryCard, DiscoveryPage, IdeaLane } from '../../../shared/ide
 import { isDiscoveryCard } from '../../../shared/ideas-workspace'
 import { discoveryListing } from '../../../shared/listing-market'
 import type { ScreenerBoard } from './types'
+import { discoveryPage, projectDiscovery } from '../../../shared/discovery-projection'
 
 /** A static build retains its company history, but cannot claim to contain live events or save actions. */
-export async function ideasSnapshotPage(board: ScreenerBoard, lane: IdeaLane, hide: string, kind: string, cursor: string): Promise<DiscoveryPage> {
+export async function ideasSnapshotPage(board: ScreenerBoard, lane: IdeaLane, hide: string, kind: string, cursor: string, snapshot?: unknown): Promise<DiscoveryPage> {
   const hidden = hide.split(',')
   const now = Date.now()
+  if (snapshot !== undefined) {
+    const value = snapshot as { schema_version?: string; cards?: unknown; generated_at?: string }
+    if (!value || value.schema_version !== 'ideas-workspace-snapshot/v1' || !Array.isArray(value.cards)
+      || !value.cards.every(isDiscoveryCard) || !Number.isFinite(Date.parse(value.generated_at || ''))) throw new Error('The saved Ideas snapshot could not be read.')
+    const cards = projectDiscovery(value.cards, [], now).map((card) => ({ ...card,
+      payload: { ...card.payload, promotion_available: false, recovery_only: true } }))
+    return discoveryPage(cards, lane, hidden, kind, Number(cursor) || 0,
+      [`Read-only saved snapshot from ${value.generated_at}. Connect the engine for new developments and archive actions.`])
+  }
   const source = [...(board.ideas || []), ...(board.ideas_archive?.rows || [])]
   const cards = await Promise.all(source.map(async (idea): Promise<DiscoveryCard> => {
     const identity = `${idea.idea_id}|${idea.idea_version}|${idea.idea_version_started_at}`

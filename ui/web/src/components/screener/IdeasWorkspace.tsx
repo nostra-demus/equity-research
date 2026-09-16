@@ -5,6 +5,7 @@ import { useStore } from '../../lib/store'
 import type { ArchivedBoardIdea, BoardIdea, SupplyChainLead } from '../../lib/types'
 import { NewsLeadCard } from './BestIdeasView'
 import { ChainCard } from './ChainLane'
+import { usePersonalScope } from '../../lib/personalScope'
 
 const TABS: { id: IdeaLane; label: string }[] = [
   { id: 'long', label: 'Long' }, { id: 'events', label: 'Events' }, { id: 'short', label: 'Short' },
@@ -46,6 +47,11 @@ export function EventsCard({ card }: { card: DiscoveryCard }) {
 export function IdeasWorkspace() {
   const staticMode = useStore((s) => s.staticMode)
   const lane = useStore((s) => s.ideasLane)
+  const personal = usePersonalScope(lane !== 'events')
+  const matches = useCallback((card: DiscoveryCard) => card.kind === 'event' || (card.kind === 'chain'
+    ? personal.company(String(card.payload.symbol || ''), String(card.payload.name || ''), card.listings.long)
+    : personal.company(String(card.payload.ticker || ''), String(card.payload.company || ''), card.listings.long)
+      || (!!card.payload.pair_with && personal.company(String(card.payload.pair_with), '', card.listings.short))), [personal])
   const setLane = useStore((s) => s.setIdeasLane)
   const [hidden, setHidden] = useState<string[]>(() => (() => { try { return readListingExclusions(window.localStorage) } catch { return ['HK', 'IN'] } })())
   const [kind, setKind] = useState('all')
@@ -68,7 +74,7 @@ export function IdeasWorkspace() {
       let next = await api.ideasWorkspace(lane, hideKey, kind, '0', refresh)
       const rows = [...next.rows]
       const cursors = new Set<string>(['0'])
-      while (next.next_cursor && rows.length < count.current) {
+      while (next.next_cursor && rows.filter(matches).length < count.current) {
         if (cursors.has(next.next_cursor)) throw new Error('The next page did not advance. Please retry.')
         cursors.add(next.next_cursor)
         next = await api.ideasWorkspace(lane, hideKey, kind, next.next_cursor)
@@ -84,7 +90,7 @@ export function IdeasWorkspace() {
     } finally {
       if (seq === sequence.current && mounted.current) { pending.current = false; setLoading(false) }
     }
-  }, [lane, hideKey, kind])
+  }, [lane, hideKey, kind, matches])
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; sequence.current++ } }, [])
   useEffect(() => {
@@ -101,6 +107,7 @@ export function IdeasWorkspace() {
   }
   const loadRef = useRef(load)
   loadRef.current = load
+  const visibleRows = page?.rows.filter(matches) || []
 
   const file = async (card: DiscoveryCard, action: 'archive' | 'restore') => {
     if (busy) return
@@ -139,14 +146,14 @@ export function IdeasWorkspace() {
     <section role="tabpanel" id={`ideas-${lane}-panel`} aria-labelledby={`ideas-${lane}-tab`} aria-busy={loading}>
       <header className="bideas__sectionhead"><div><h2>{lane === 'events' ? 'Developing events' : lane === 'archives' ? 'Idea archives' : `${lane === 'chain' ? 'Chain' : lane === 'long' ? 'Long' : 'Short'} ideas to research`}</h2>
         <p>{lane === 'events' ? 'Follow what is changing and form your own research ideas.' : lane === 'archives' ? 'Filed ideas and earlier expired records, with their sources preserved.' : 'Choose an idea to investigate. These leads have not been rated as investments.'}</p></div>
-        {page && <span>{page.total} shown{page.hidden ? ` · ${page.hidden} hidden by market` : ''}</span>}
+        {page && <span>{personal.scope === 'universe' ? `${page.total} shown` : `${visibleRows.length}${page.next_cursor ? '+' : ''} matching ${personal.label.toLowerCase()}`}{page.hidden ? ` · ${page.hidden} hidden by market` : ''}</span>}
       </header>
       {lane === 'archives' && <label className="discovery-kind">Type <select value={kind} onChange={(e) => setKind(e.target.value)} aria-label="Archive type"><option value="all">All</option><option value="idea">Long and Short</option><option value="event">Events</option><option value="chain">Chain</option></select></label>}
       {staticMode && <p className="discovery-muted">Saved snapshot · connect the engine for live Events and archive actions.</p>}
       {page?.notices.length ? <details className="discovery-health"><summary>Saved-data status</summary>{page.notices.map((notice) => <p key={notice}>{notice}</p>)}</details> : null}
       {!page && loading ? <div className="bideas__list"><div className="bidea bidea--skeleton" /><div className="bidea bidea--skeleton" /></div> : null}
-      {page?.rows.length === 0 && <p className="bideas__queueempty">{page.hidden ? 'No cards match these market filters.' : lane === 'archives' ? 'No archived cards yet.' : lane === 'events' ? 'No developing events are available yet.' : 'No ideas in this view yet.'}</p>}
-      <div className="bideas__list">{page?.rows.map((card) => {
+      {page && visibleRows.length === 0 && <p className="bideas__queueempty">{personal.scope !== 'universe' ? `No cards match your ${personal.label.toLowerCase()} and market filters. Choose Universe to see other companies.` : page.hidden ? 'No cards match these market filters.' : lane === 'archives' ? 'No archived cards yet.' : lane === 'events' ? 'No developing events are available yet.' : 'No ideas in this view yet.'}</p>}
+      <div className="bideas__list">{visibleRows.map((card) => {
         const side = lane === 'short' ? 'short' : lane === 'long' ? 'long' : card.sides.find((s) => !card.listings[s] || !hidden.includes(card.listings[s]!)) || 'long'
         const expired = card.expired || (card.kind === 'idea' && card.payload.status !== 'promoted'
           && (!Number.isFinite(Date.parse(String(card.payload.decay_at))) || Date.parse(String(card.payload.decay_at)) <= Date.now()))
