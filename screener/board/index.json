@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T09:14:31Z",
+  "generated_at": "2026-09-16T09:53:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-187",
@@ -1740,6 +1740,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-196",
+      "headline": "Intesa Sanpaolo ottiene ok Ivass su acquisto partecipazioni assicurative Mps con Opas",
+      "headline_en": "Intesa Sanpaolo obtains Ivass approval for acquisition of Mps insurance holdings with Opas",
+      "url": "https://www.reuters.com/it/azienda/intesa-sanpaolo-ottiene-ok-ivass-su-acquisto-partecipazioni-assicurative-mps-con-2026-09-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T09:19:44Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Intesa Sanpaolo obtains Ivass regulatory approval to acquire Mps insurance holdings, confirming a material M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Intesa Sanpaolo obtains Ivass regulatory approval to acquire Mps insurance holdings, confirming a material M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Monte dei Paschi",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-118",
       "headline": "US House Set To Vote On Russia Sanctions Bill Naming India For Possible 100% Tariffs Over Russian Oil",
       "headline_en": null,
@@ -1926,56 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-153",
-      "headline": "LMG: Latrobe Magnesium USA Plant Further Information [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LMG?key=2924-03136206-2A1697528",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T07:17:46Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "A price-sensitive ASX disclosure on a Latrobe Magnesium USA plant suggests operational or capital news affecting cash flow, margins, or supply capacity; the headline does not specify whether it is a capex expansion, capacity change, or plant status update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A price-sensitive ASX disclosure on a Latrobe Magnesium USA plant suggests operational or capital news affecting cash flow, margins, or supply capacity; the headline does not specify whether it is a capex expansion, capacity change, or plant status update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Latrobe Magnesium",
-          "ticker": "LMG",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166040,9 +166045,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4631104,
-    "news_picked_today": 285,
-    "news_dropped_today": 5547
+    "news_seen_today": 4823743,
+    "news_picked_today": 296,
+    "news_dropped_today": 7312
   },
   "book_momentum": {
     "live_count": 8,
