@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T05:25:29Z",
+  "generated_at": "2026-09-16T05:35:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1430,6 +1430,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-131",
+      "headline": "ERL: Pennys Gold Project - Drilling to Commence 21 September 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ERL?key=2924-03136100-6A1344022",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T04:35:25Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Commencement of drilling at a gold project is a price-sensitive operational milestone for a junior miner.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Commencement of drilling at a gold project is a price-sensitive operational milestone for a junior miner.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ERL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-082",
       "headline": "Exide Industries Limited: Exide Industries Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Exide, India and ExCom, Germany Enter into Strategic Cooperation to Strengthen Industrial Battery Business Across the European Economic Area\".",
       "headline_en": null,
@@ -1724,6 +1773,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-127",
+      "headline": "Univastu India Limited: Univastu India Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/UNIVASTU_16092026103407_WO_Line_4A_Gaimukh.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T05:04:14Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "New contract wins are a direct driver of revenue growth for smaller firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "New contract wins are a direct driver of revenue growth for smaller firms.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Univastu India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-020",
       "headline": "HIT: $4M Institutional Placement [price-sensitive]",
       "headline_en": null,
@@ -1866,104 +1964,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-116",
-      "headline": "Groww shares slump 4% after major block deal; what’s next for the stock?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/groww-shares-slump-4-after-major-block-deal-what-s-next-for-the-stock-11789531986497.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T04:42:04Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Groww shares fell 4% following a major block deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Groww shares fell 4% following a major block deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Groww",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-121",
-      "headline": "Oracle India Cuts Jobs Again; Back-Office & Product Engineering Roles Worst Hit",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/oracle-india-cuts-jobs-again-back-office-product-engineering-roles-worst-hit",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T04:40:47Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Oracle is conducting another round of job cuts in India, impacting product engineering and back-office operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Oracle is conducting another round of job cuts in India, impacting product engineering and back-office operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166029,9 +166029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3525902,
-    "news_picked_today": 177,
-    "news_dropped_today": 2799
+    "news_seen_today": 3627671,
+    "news_picked_today": 188,
+    "news_dropped_today": 2860
   },
   "book_momentum": {
     "live_count": 8,
