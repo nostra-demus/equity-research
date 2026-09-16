@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T00:15:08Z",
+  "generated_at": "2026-09-16T00:30:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-003",
@@ -56,6 +56,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-029",
+      "headline": "SF HOLDING (06936): PROPOSED ISSUE OF CNY5,000,000,000 1.75 PER CENT. GUARANTEED NOTES DUE 2029 AND CNY5,000,000,000 1.85 PER CENT. GUARANTEED NOTES DUE 2031",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T22:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The company is issuing a total of CNY 10 billion in guaranteed notes, representing a significant capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is issuing a total of CNY 10 billion in guaranteed notes, representing a significant capital raise.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SF Holding",
+          "ticker": "06936",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-007",
       "headline": "TRIP.COM-S (09961): ANNOUNCEMENT OF THE SECOND QUARTER AND FIRST HALF OF 2026 RESULTS",
       "headline_en": null,
@@ -97,6 +146,60 @@
           "name": "Trip.com",
           "ticker": "09961",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-017",
+      "headline": "Brookfield Agrees to $2.9 Billion Acquisition of Australia’s Reliance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/brookfield-agrees-to-2-9-billion-acquisition-of-australias-reliance-ec8240d7?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T23:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Brookfield agreed to acquire Reliance for $2.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield agreed to acquire Reliance for $2.9 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Reliance",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -316,6 +419,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-018",
+      "headline": "TOK: Tolukuma Mineral Resource Grows 81% to 909 koz Gold [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOK?key=2924-03136001-6A1343999",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:54:34Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Tolukuma mineral resource grew 81% to 909 koz of gold.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Tolukuma mineral resource grew 81% to 909 koz of gold.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tolukuma",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-028",
+      "headline": "YUK WING GP (01536): INSIDE INFORMATION DISPOSAL OF SHARES BY CONTROLLING SHAREHOLDER AND CHANGE IN SUBSTANTIAL SHAREHOLDER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Disposal of shares by a controlling shareholder indicates a change in ownership structure and potential overhang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Disposal of shares by a controlling shareholder indicates a change in ownership structure and potential overhang.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yuk Wing Group",
+          "ticker": "01536",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-002",
       "headline": "BAK: High-Grade Mineralisation in First Phase 1 Drill Results [price-sensitive]",
       "headline_en": null,
@@ -365,6 +566,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-023",
+      "headline": "AGR: Santa Barbara Project Delivers Highest Production & Grade",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGR?key=2924-03136008-2A1697377",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:08:09Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The company reported its highest production and grade at the Santa Barbara project, indicating improved operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company reported its highest production and grade at the Santa Barbara project, indicating improved operational performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-021",
+      "headline": "ESR: ESR extends Timor-Leste tenure [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ESR?key=2924-03135991-6A1343995",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:48:34Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Company extended its tenure in Timor-Leste, securing long-term operational rights.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company extended its tenure in Timor-Leste, securing long-term operational rights.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ESR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-013",
       "headline": "ALV: New Modelling Defines Multiple Untested Targets at Touro [price-sensitive]",
       "headline_en": null,
@@ -404,6 +703,55 @@
       "companies": [
         {
           "name": "Alvopetro Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-020",
+      "headline": "HIT: $4M Institutional Placement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HIT?key=2924-03135993-2A1697348",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:50:59Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Company raised $4 million via an institutional placement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Company raised $4 million via an institutional placement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HIT",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -512,6 +860,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-026",
+      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - ACCEPTANCE OF NEW DRUG APPLICATION FOR TQH2722 INJECTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600033.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Acceptance of a new drug application for TQH2722 injection marks a regulatory milestone for the company's pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Acceptance of a new drug application for TQH2722 injection marks a regulatory milestone for the company's pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino Biopharmaceutical",
+          "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-027",
+      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - ACCEPTANCE OF NEW DRUG APPLICATION FOR TQB2102 INJECTION \"HER2 BISPECIFIC ADC\"",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Acceptance of a new drug application for HER2 bispecific ADC TQB2102 marks a regulatory milestone for the company's pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Acceptance of a new drug application for HER2 bispecific ADC TQB2102 marks a regulatory milestone for the company's pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino Biopharmaceutical",
+          "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-025",
+      "headline": "PIA: PIA - Antipodes Appointment, Board Transition & Settlement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIA?key=2924-03136005-2A1697371",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:00:24Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Announcement of a board transition and appointment of a new investment manager.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Announcement of a board transition and appointment of a new investment manager.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PIA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-030",
+      "headline": "425 - Curaleaf Holdings, Inc. (0001756770) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1756770/000175677026000107/0001756770-26-000107-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:56:32Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine M&A communication filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Routine M&A communication filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Curaleaf Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-015",
       "headline": "CTS: Milestone 3 Completed for CUREator Program [price-sensitive]",
       "headline_en": null,
@@ -551,6 +1095,300 @@
       "companies": [
         {
           "name": "Cureator",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-031",
+      "headline": "Ironstone Properties, Inc. f/k/a Ironstone Group, Inc.,",
+      "headline_en": null,
+      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106366.pdf",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:53:07Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine SEC administrative proceeding filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine SEC administrative proceeding filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ironstone Properties, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-033",
+      "headline": "Jack E. Alexander",
+      "headline_en": null,
+      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106364.pdf",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:45:36Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine SEC administrative proceeding filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine SEC administrative proceeding filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jack E. Alexander",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-034",
+      "headline": "Alexander, Jack E.",
+      "headline_en": null,
+      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106364.pdf",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:45:36Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine SEC administrative proceeding filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine SEC administrative proceeding filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jack E. Alexander",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-032",
+      "headline": "IntelGenx Technologies Corp.",
+      "headline_en": null,
+      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106365.pdf",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:46:52Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine SEC administrative proceeding filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Routine SEC administrative proceeding filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IntelGenx Technologies Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-019",
+      "headline": "HIT: Proposed issue of securities - HIT",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HIT?key=2924-03135994-2A1697362",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:51:09Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Company announced a proposed issue of securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Company announced a proposed issue of securities.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HIT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-022",
+      "headline": "FAU: Proposed issue of securities - FAU",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAU?key=2924-03135989-6A1343994",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-15T23:46:49Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Company announced a proposed issue of securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Company announced a proposed issue of securities.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FAU",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -747,6 +1585,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-024",
+      "headline": "BWF: Update - Notification of buy-back - BWF",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BWF?key=2924-03136007-2A1697379",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:05:49Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Routine update on an existing share buy-back program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine update on an existing share buy-back program.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BWF",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-016",
+      "headline": "Amrize CEO Jan Philipp Jenisch Buys 30,000 Shares for $1.3 Million. Is This a Buy Signal?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/amrize-ceo-jan-philipp-jenisch-buys-30000-shares-13-million-buy-signal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T00:02:01Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "CEO purchased $1.3 million of company stock, which is a standard insider transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "CEO purchased $1.3 million of company stock, which is a standard insider transaction.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amrize",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -119789,146 +120725,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8cfb291f89ed",
-      "idea_version": "IDEAV-de6a76300152cea4",
-      "idea_version_started_at": "2026-09-14T13:16:04Z",
-      "ticker": "CR",
-      "company": "Crane",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Trillium Flow's water pump business for $240 million expands Crane's industrial footprint in a high-margin segment.",
-      "why_now": "The deal was announced on September 14, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-05e8252ff8ca"
-      ],
-      "primary_source_event_id": "EVT-05e8252ff8ca",
-      "source_headlines": [
-        "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln"
-      ],
-      "source_headline": "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln",
-      "source_url": "https://www.nasdaq.com/articles/crane-buy-us-water-pump-business-trillium-flow-240-mln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T12:15:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T13:16:04Z",
-      "updated_at": "2026-09-14T13:16:04Z",
-      "decay_at": "2026-09-16T00:15:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-be7a96c5650f",
-      "idea_version": "IDEAV-2ce6ab274c4caf8f",
-      "idea_version_started_at": "2026-09-14T13:16:04Z",
-      "ticker": "ADUS",
-      "company": "Addus HomeCare",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $275 million acquisition of AccentCare's personal care division provides immediate inorganic growth and scale in the home health market.",
-      "why_now": "The acquisition was announced on September 14, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-267837dee827"
-      ],
-      "primary_source_event_id": "EVT-267837dee827",
-      "source_headlines": [
-        "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln"
-      ],
-      "source_headline": "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln",
-      "source_url": "https://www.nasdaq.com/articles/addus-homecare-buy-personal-care-division-accentcare-about-275-mln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T12:19:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T13:16:04Z",
-      "updated_at": "2026-09-14T13:16:04Z",
-      "decay_at": "2026-09-16T00:19:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-aee6ec71570ec791",
       "idea_version_started_at": "2026-09-15T05:22:27Z",
@@ -121866,6 +122662,146 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-8cfb291f89ed",
+      "idea_version": "IDEAV-de6a76300152cea4",
+      "idea_version_started_at": "2026-09-14T13:16:04Z",
+      "ticker": "CR",
+      "company": "Crane",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Trillium Flow's water pump business for $240 million expands Crane's industrial footprint in a high-margin segment.",
+      "why_now": "The deal was announced on September 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05e8252ff8ca"
+      ],
+      "primary_source_event_id": "EVT-05e8252ff8ca",
+      "source_headlines": [
+        "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln"
+      ],
+      "source_headline": "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln",
+      "source_url": "https://www.nasdaq.com/articles/crane-buy-us-water-pump-business-trillium-flow-240-mln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T12:15:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T13:16:04Z",
+      "updated_at": "2026-09-14T13:16:04Z",
+      "decay_at": "2026-09-16T00:15:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-be7a96c5650f",
+      "idea_version": "IDEAV-2ce6ab274c4caf8f",
+      "idea_version_started_at": "2026-09-14T13:16:04Z",
+      "ticker": "ADUS",
+      "company": "Addus HomeCare",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $275 million acquisition of AccentCare's personal care division provides immediate inorganic growth and scale in the home health market.",
+      "why_now": "The acquisition was announced on September 14, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-267837dee827"
+      ],
+      "primary_source_event_id": "EVT-267837dee827",
+      "source_headlines": [
+        "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln"
+      ],
+      "source_headline": "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln",
+      "source_url": "https://www.nasdaq.com/articles/addus-homecare-buy-personal-care-division-accentcare-about-275-mln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T12:19:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T13:16:04Z",
+      "updated_at": "2026-09-14T13:16:04Z",
+      "decay_at": "2026-09-16T00:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-eedc68441ca9",
@@ -127094,14 +128030,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 575,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 75,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 42
       },
       "short": {
         "total_count": 283,
@@ -127125,6 +128061,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-be7a96c5650f",
+        "idea_version": "IDEAV-2ce6ab274c4caf8f",
+        "idea_version_started_at": "2026-09-14T13:16:04Z",
+        "ticker": "ADUS",
+        "company": "Addus HomeCare",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $275 million acquisition of AccentCare's personal care division provides immediate inorganic growth and scale in the home health market.",
+        "why_now": "The acquisition was announced on September 14, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-267837dee827"
+        ],
+        "primary_source_event_id": "EVT-267837dee827",
+        "source_headlines": [
+          "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln"
+        ],
+        "source_headline": "Addus HomeCare To Buy Personal Care Division Of AccentCare For About $275 Mln",
+        "source_url": "https://www.nasdaq.com/articles/addus-homecare-buy-personal-care-division-accentcare-about-275-mln",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T12:19:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T13:16:04Z",
+        "updated_at": "2026-09-14T13:16:04Z",
+        "decay_at": "2026-09-16T00:19:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T00:19:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8cfb291f89ed",
+        "idea_version": "IDEAV-de6a76300152cea4",
+        "idea_version_started_at": "2026-09-14T13:16:04Z",
+        "ticker": "CR",
+        "company": "Crane",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Trillium Flow's water pump business for $240 million expands Crane's industrial footprint in a high-margin segment.",
+        "why_now": "The deal was announced on September 14, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-05e8252ff8ca"
+        ],
+        "primary_source_event_id": "EVT-05e8252ff8ca",
+        "source_headlines": [
+          "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln"
+        ],
+        "source_headline": "Crane To Buy US Water Pump Business From Trillium Flow For $240 Mln",
+        "source_url": "https://www.nasdaq.com/articles/crane-buy-us-water-pump-business-trillium-flow-240-mln",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T12:15:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T13:16:04Z",
+        "updated_at": "2026-09-14T13:16:04Z",
+        "decay_at": "2026-09-16T00:15:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T00:15:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c8fbecac247",
         "idea_version": "IDEAV-ee46e79deecf2fcd",
@@ -156354,155 +157436,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f7c96883097c",
-        "idea_version": "IDEAV-f49ddb010bd4de12",
-        "idea_version_started_at": "2026-09-03T14:38:11Z",
-        "ticker": "IMP",
-        "company": "Implats",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Implats is increasing its dividend payout following a surge in profitability directly linked to a rally in platinum prices.",
-        "why_now": "The dividend hike and earnings report were announced on September 3, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9d657d9eb69f"
-        ],
-        "primary_source_event_id": "EVT-9d657d9eb69f",
-        "source_headlines": [
-          "Implats Hikes Dividend as Profit Soars on Platinum Price Rally"
-        ],
-        "source_headline": "Implats Hikes Dividend as Profit Soars on Platinum Price Rally",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-03/implats-hikes-dividend-as-profit-soars-on-platinum-price-rally",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T06:30:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T14:38:11Z",
-        "updated_at": "2026-09-03T14:38:11Z",
-        "decay_at": "2026-09-04T18:30:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T06:37:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-58c976f2825a",
-        "idea_version": "IDEAV-bc9f3fb2c7cba434",
-        "idea_version_started_at": "2026-09-03T21:54:54Z",
-        "ticker": "TATAPOWER",
-        "company": "Tata Power Company Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The commissioning of the 400kV Jalpura-Khurja transmission corridor and 1,000 MVA substation expands the company's transmission capacity in the National Capital Region, directly increasing revenue-generating infrastructure assets.",
-        "why_now": "The company filed the official commissioning notice on September 03, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-12abf222702f"
-        ],
-        "primary_source_event_id": "EVT-12abf222702f",
-        "source_headlines": [
-          "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated September 03, 2026, titled \"Press release titled Tata Power Strengthens NCR s Power Infrastructure with Commissioning of 400kV Jalpura-Khurja Transmission Corridor, comprising 162 CKM Transmission lines and 1,000 MVA Substation .\"."
-        ],
-        "source_headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated September 03, 2026, titled \"Press release titled Tata Power Strengthens NCR s Power Infrastructure with Commissioning of 400kV Jalpura-Khurja Transmission Corridor, comprising 162 CKM Transmission lines and 1,000 MVA Substation .\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VPTPCL_03092026104757_PR.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T05:18:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T21:54:54Z",
-        "updated_at": "2026-09-03T21:54:54Z",
-        "decay_at": "2026-09-04T17:18:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T05:34:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3b067fdb7522",
         "idea_version": "IDEAV-409221f160d2720a",
         "idea_version_started_at": "2026-09-03T05:43:47Z",
@@ -164301,7 +165234,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 835,
-    "live_count": 37,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -164311,7 +165244,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2462,
+    "inbox_unconsumed": 2481,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -164320,9 +165253,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 163654,
-    "news_picked_today": 15,
-    "news_dropped_today": 129
+    "news_seen_today": 368106,
+    "news_picked_today": 34,
+    "news_dropped_today": 230
   },
   "book_momentum": {
     "live_count": 8,
