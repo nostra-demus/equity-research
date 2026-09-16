@@ -6,7 +6,7 @@ const fixtureDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'e
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: /provider-lifecycle\.spec\.ts/,
+  testMatch: /(?:provider-lifecycle|ideas-workspace)\.spec\.ts/,
   fullyParallel: false,
   workers: 1,
   retries: 0,
