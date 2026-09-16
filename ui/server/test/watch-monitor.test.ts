@@ -504,6 +504,47 @@ async function main() {
       'and its one buy-now message goes out')
   })
 
+  await check('a correction the limit turned away is tried again at the limit\u2019s cadence, not the hour\u2019s', async () => {
+    // The re-read keeps the earlier reading, so the plan still says `ok` — and the digest clock was stamped
+    // just before the attempt. Read as "already looked at this hour", a corrected bad case would wait 45
+    // minutes longer than the limit asks for, on a report the engine already knows has changed.
+    let t = new Date('2026-09-16T09:00:00Z')
+    const row = engineRow('JJJ', 'USD', 'NYSE', 'JJJ_2026-08-07')
+    let digest = 'd'
+    let limited = false
+    const reads: string[] = []
+    const m10 = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-10-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [row], loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async () => {
+        reads.push(digest)
+        return limited
+          ? { status: 'limit', plan: { ...planFor(row, []), source_digest: 'd' }, detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+          : { status: 'ok', plan: { ...planFor(row, []), source_digest: digest }, detail: 'read', cost_usd: 0.3 }
+      },
+      currentDigest: () => digest,
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m10.tick(); await m10.idle() }
+    await m10.tick(); await m10.idle()
+    assert.deepEqual(reads, ['d'])
+    // The report is corrected and the hour is up, so it is re-read — and that read hits the limit.
+    digest = 'e'
+    limited = true
+    await step(61)
+    assert.deepEqual(reads, ['d', 'e'], 'the correction was picked up')
+    await step(5)
+    assert.deepEqual(reads, ['d', 'e'], 'and nothing is retried while the limit holds')
+    limited = false
+    await step(16)
+    assert.deepEqual(reads, ['d', 'e', 'e'], 'tried again 16 minutes later, not 61')
+    await step(16)
+    assert.deepEqual(reads, ['d', 'e', 'e'], 'and once it is read, the hourly clock governs again')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

@@ -157,6 +157,8 @@ export function createWatchMonitor(deps: MonitorDeps) {
   const state = loadState()
   const planCache = new Map<string, WatchPlan | null>()
   const reading = new Set<string>()
+  /** Reports whose files changed since the reading on disk — cleared when one is read again. */
+  const digestChanged = new Set<string>()
   const queued = new Set<string>()
   const digestCheckedAt = new Map<string, number>()
   let readChain: Promise<void> = Promise.resolve()
@@ -315,13 +317,20 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const seg = runSegOf(row.run_root)
       if (!seg || reading.has(seg) || queued.has(seg)) continue
       const plan = cachedPlan(seg)
-      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root) {
+      // A re-read the limit turned away keeps the earlier reading, so the plan still reads `ok` — and the hourly
+      // digest clock, stamped just before that attempt, would then hold the corrected report for the rest of the
+      // hour rather than the fifteen minutes the limit asks for. A known correction waiting on a limit skips the
+      // clock: what it is waiting for is the provider, not another look at the files.
+      const pending = limitRecord(state.reads[seg]) && digestChanged.has(seg)
+      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root && !pending) {
         // Read once per version of the report: one corrected in place (a data fix to its record or thesis) is read
         // again. Its files are hashed at most hourly — cheap, but not every few minutes for nothing.
         if (!deps.currentDigest || at.getTime() - (digestCheckedAt.get(seg) ?? 0) < DIGEST_CHECK_MS) continue
         digestCheckedAt.set(seg, at.getTime())
         const digest = deps.currentDigest(row.run_root)
         if (!digest || digest === plan.source_digest) continue
+        // Remembered, so a limit in the way cannot turn a correction back into an hour of waiting.
+        digestChanged.add(seg)
       }
       const rec = state.reads[seg]
       if (rec) {
@@ -349,6 +358,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
           : 0
         const doneAt = now()
         state.reads[seg] = { attempts, last_at: doneAt.toISOString(), status: outcome.status, detail: outcome.detail }
+        if (outcome.status === 'ok' || outcome.status === 'cached') digestChanged.delete(seg)
         if (outcome.plan) planCache.set(seg, outcome.plan)
         else planCache.delete(seg)
         // (Not when an earlier reading is still watched: then only a re-read of a corrected copy failed.)
