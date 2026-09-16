@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T02:35:42Z",
+  "generated_at": "2026-09-16T02:39:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -293,6 +293,60 @@
           "name": "Trip.com",
           "ticker": "09961",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-080",
+      "headline": "Brookfield Asset Management To Acquire Reliance Worldwide In US$2.8 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/brookfield-asset-management-acquire-reliance-worldwide-us-28-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:24:47Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Brookfield Asset Management announced the acquisition of Reliance Worldwide for US$2.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield Asset Management announced the acquisition of Reliance Worldwide for US$2.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Asset Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Reliance Worldwide",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1193,6 +1247,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-079",
+      "headline": "FTAI Aviation Authorizes $500 Mln Share Repurchase Program",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ftai-aviation-authorizes-500-mln-share-repurchase-program",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:47:51Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The company authorized a $500 million share repurchase program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The company authorized a $500 million share repurchase program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FTAI Aviation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-008",
       "headline": "BRIGHT FUTURE (01351): (I) PROPOSED SHARE CONSOLIDATION; (II) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (III) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
       "headline_en": null,
@@ -1853,104 +1956,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-001",
-      "headline": "GG1: Renounceable Rights Issue Presentation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GG1?key=2924-03136004-2A1697375",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:59:09Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "The company is conducting a renounceable rights issue, which dilutes existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "The company is conducting a renounceable rights issue, which dilutes existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GG1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-026",
-      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - ACCEPTANCE OF NEW DRUG APPLICATION FOR TQH2722 INJECTION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600033.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Acceptance of a new drug application for TQH2722 injection marks a regulatory milestone for the company's pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Acceptance of a new drug application for TQH2722 injection marks a regulatory milestone for the company's pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sino Biopharmaceutical",
-          "ticker": "01177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165731,9 +165736,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1725825,
-    "news_picked_today": 91,
-    "news_dropped_today": 1325
+    "news_seen_today": 1765935,
+    "news_picked_today": 93,
+    "news_dropped_today": 1347
   },
   "book_momentum": {
     "live_count": 8,
