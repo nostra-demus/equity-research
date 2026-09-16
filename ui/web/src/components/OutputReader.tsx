@@ -238,7 +238,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
       // "Ask" always targets the run that's actually open, not a differently-selected one.
       if (activeSwarm === 'screener') {
         const sig = sigFromOutputPath(output.path)
-        if (sig && sig !== scSelectedSignal) await scSelectSignal(sig)
+        if (sig && sig !== scSelectedSignal) await scSelectSignal(sig, undefined, true)
       }
       return openChat('run')
     }

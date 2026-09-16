@@ -4,6 +4,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { buildSupplyChainBoard, type SupplyChainLead } from '../src/supply-chain'
+import { readDiscoveryCatalog, fileDiscoveryCard, refreshFiledDiscovery } from '../src/news/ideas/ideas-workspace'
+import { randomUUID } from 'node:crypto'
 
 // A throwaway repo tree per case. The lane reads only the filesystem, so a temp repo exercises the real
 // discovery, standing-run, and cross-anchor logic without any fixture indirection.
@@ -154,6 +156,13 @@ const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l
     leads.get('Packrite Holdings')!.path.map((s) => s.name),
     ['Anchor Corp', 'Anchor Procurement Co., Ltd.', 'Packrite Holdings'],
   )
+  const filed = readDiscoveryCatalog(dir).cards.find((c) => c.payload.name === 'Widget Motors')!
+  await fileDiscoveryCard(dir, [filed], { key: filed.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  const originalClock = Date.now
+  try {
+    Date.now = () => originalClock() + 60_000
+    assert.equal(await refreshFiledDiscovery(dir, readDiscoveryCatalog(dir).cards), 0, 'a new board generation clock does not append unchanged chain snapshots')
+  } finally { Date.now = originalClock }
 }
 
 // ---- 3. no verdict on the anchor caps the chain behind it ---------------------------------------------

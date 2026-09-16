@@ -1,3 +1,4 @@
+import { readDiscoveryCatalog, refreshFiledDiscovery } from './ideas/ideas-workspace'
 // In-server scheduler — the "runs whenever the cockpit is up" hosting mode. One guarded call from
 // server.ts after the control plane binds; if no triage provider exists (or NEWS_INGEST_ENABLED=0) it logs
 // once and stays dark, so a providerless deploy behaves exactly as before. A cycle never throws and never
@@ -16,7 +17,7 @@ import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
-import { publishPendingIdeas } from './ideas/ideas-publisher'
+import { markIdeasPublicationPending, publishPendingIdeas, startIdeasPublicationLoop } from './ideas/ideas-publisher'
 import { initializeIdeasHealth, inspectIdeaSnapshots, updateIdeasHealth } from './ideas/ideas-health'
 import { runQualifiedIdeaOutcomePass } from '../qualified-idea-outcome-runner'
 import {
@@ -92,6 +93,9 @@ const RESCUE_SHADOW_CONFIG: RescueShadowConfig = {
  * standalone launchd cycle). Keeping this in one place prevents production from silently omitting a
  * feature the cockpit-hosted scheduler happens to run. */
 export async function runConfiguredIdeaPass(log: (m: string) => void = () => {}) {
+  // Preserve user-filed stories as the existing scanner advances, even when the stock skim is disabled.
+  try { if (await refreshFiledDiscovery(REPO_ROOT, () => readDiscoveryCatalog(REPO_ROOT, NEWS.newsArchiveDir).cards)) markIdeasPublicationPending(STATE_DIR) }
+  catch (error) { log(`Idea archive update failed: ${error instanceof Error ? error.message : String(error)}`) }
   // Publication recovery is independent of provider availability. Retry old local Ideas dirt before an
   // enabled/health early return so disabling the skim cannot strand already-produced canonical data.
   const publication = await publishPendingIdeas(REPO_ROOT, STATE_DIR, {
@@ -1762,11 +1766,15 @@ export function releaseIngesterLock(stateDir: string): void {
   releaseSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }
 
+let stopIdeasPublication: (() => void) | null = null
 export function startNewsIngester(): void {
   const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
   // This loop belongs to the cockpit process, not to the news provider. Start it before every news-mode
   // branch; its own guard makes repeated startNewsIngester calls idempotent.
   startQualifiedIdeaOutcomeLoop(log)
+  stopIdeasPublication = startIdeasPublicationLoop(REPO_ROOT, STATE_DIR, { log,
+    beforePublish: () => refreshBoard(REPO_ROOT, log, { throwOnFailure: true }),
+  })
   initializeIdeasHealth(STATE_DIR, REPO_ROOT)
   const ideasOnly = !NEWS.enabled && NEWS.ideasEnabled && NEWS.ideaProviderConfigured
   if (!NEWS.enabled && !ideasOnly) {
@@ -1944,6 +1952,7 @@ export function startNewsIngester(): void {
 }
 
 export function stopNewsIngester(): void {
+  stopIdeasPublication?.(); stopIdeasPublication = null
   providerSpendingOwner = false
   readOnlyMode = false
   if (initialTickTimer) { clearTimeout(initialTickTimer); initialTickTimer = null }

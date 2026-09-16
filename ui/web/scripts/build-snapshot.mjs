@@ -11,6 +11,10 @@ import { safePublishedMemoDeltaPath } from './calls-snapshot-artifacts.mjs'
 import { normalizeStaticBoardArchive } from './ideas-archive-static.mjs'
 import { buildTasksSnapshot } from './tasks-snapshot.mjs'
 import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
+import { tsImport } from 'tsx/esm/api'
+const { discoveryIdea } = await tsImport('../../server/src/news/ideas/ideas-identity.ts', import.meta.url)
+const { projectDiscovery } = await tsImport('../../shared/discovery-projection.ts', import.meta.url)
+const { isDiscoveryCard } = await tsImport('../../shared/ideas-workspace.ts', import.meta.url)
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const WEB = path.resolve(__dirname, '..')
@@ -327,6 +331,14 @@ function buildScreenerStatic() {
   let board = null
   const boardPath = path.join(SCREENER, 'board', 'index.json')
   if (isFile(boardPath)) board = normalizeStaticBoardArchive(loadJSON(boardPath))
+  const filingPath = path.join(SCREENER, 'ledger', 'idea-workspace-actions.ndjson')
+  const filings = isFile(filingPath) ? fs.readFileSync(filingPath, 'utf8').split('\n').filter(Boolean).map((line) => JSON.parse(line)) : []
+  for (const action of filings) {
+    if (action.schema_version !== 'idea-filing/v1' || !['archive', 'restore', 'update'].includes(action.action)
+      || !Number.isFinite(Date.parse(action.at)) || !action.operation_id || !isDiscoveryCard(action.card)) throw new Error('Cannot build an Ideas snapshot from unreadable filing history')
+  }
+  const discovery = projectDiscovery([...(board?.ideas || []), ...(board?.ideas_archive?.rows || [])].map((row) => discoveryIdea(row)), filings)
+  const ideasWorkspace = { schema_version: 'ideas-workspace-snapshot/v1', cards: discovery, generated_at: new Date().toISOString() }
   // bundle ledger records + run markdown for every thesis on the board
   const theses = {}, candidates = {}, runs = {}
   const thesesDir = path.join(SCREENER, 'ledger', 'theses')
@@ -355,7 +367,7 @@ function buildScreenerStatic() {
       intake: loadJSON(path.join(runAbs, 'intake.json')), signalPayload: loadJSON(path.join(runAbs, 'signal_payload.json')),
       thesisRecord: loadJSON(path.join(runAbs, 'thesis_record.json')), candidates: loadJSON(path.join(runAbs, 'candidates.json')) }
   }
-  return { screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
+  return { screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates, ideasWorkspace }
 }
 
 // ---- per-ticker run data ----

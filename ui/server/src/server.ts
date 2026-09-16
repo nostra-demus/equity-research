@@ -1,3 +1,4 @@
+import { registerIdeasWorkspace } from './news/ideas/ideas-workspace'
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -6774,6 +6775,8 @@ app.get('/api/calls/artifact', async (req, reply) => {
 })
 
 // ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
+registerIdeasWorkspace(app, REPO_ROOT, NEWS.newsArchiveDir, () => markIdeasPublicationPending(STATE_DIR))
+
 app.get('/api/screener/board', async (_req, reply) => {
   try {
     return screenerBoard()

@@ -1,3 +1,4 @@
+import type { IdeaLane } from '../../../shared/ideas-workspace'
 import { create } from 'zustand'
 import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isQueuedLaunchResponse, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
@@ -1074,7 +1075,7 @@ interface State {
   scPromoteIdea: (idea: BoardIdea) => Promise<void>
   scRateIdea: (idea: BoardIdea, polarity: 'up' | 'down' | 'clear', reason?: string) => Promise<void>
   _maybeAutoResume: (resumable: ScreenerBoard['resumable']) => Promise<void>
-  scSelectSignal: (sigId: string | null, bootstrapEpoch?: number) => Promise<void>
+  scSelectSignal: (sigId: string | null, bootstrapEpoch?: number, navigate?: boolean) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
   openSignalIntakeWith: (seed: SignalIntakeInput) => void
@@ -1257,6 +1258,9 @@ interface State {
   // shows BestIdeasView instead of the home/gauntlet. Mutually exclusive with Themes (opening one closes
   // the other), exactly like themesView.
   ideasOpen: boolean
+  scIdeasLandingSet: boolean
+  ideasLane: IdeaLane
+  setIdeasLane: (lane: IdeaLane) => void
   // "Calendar" tab — the forward events calendar (upcoming earnings + macro, server /api/calendar). Another
   // sibling of Themes/Best-ideas in the wire's tab row; mutually exclusive with them.
   calendarOpen: boolean
@@ -1893,6 +1897,9 @@ export const useStore = create<State>((set, get) => ({
   themeCompilerHealth: null,
   themesView: null,
   ideasOpen: false,
+  scIdeasLandingSet: false,
+  ideasLane: 'events',
+  setIdeasLane: (ideasLane) => set({ ideasLane }),
   calendarOpen: false,
   themesWindow: null,
   themesHistoryDays: 0,
@@ -4181,7 +4188,7 @@ export const useStore = create<State>((set, get) => ({
     // its own CHAT_RESET). Either way the server re-resolves the run from (swarm, subject).
     if (isFlowActive(get())) {
       if (get().scSelectedSignal !== c.subject) {
-        await get().scSelectSignal(c.subject)
+        await get().scSelectSignal(c.subject, undefined, true)
         if (resumeSeq !== chatResumeSeq || get().scSelectedSignal !== c.subject) return
       }
     } else if (get().selectedTicker !== c.subject) {
@@ -5037,7 +5044,12 @@ export const useStore = create<State>((set, get) => ({
       get()._enterWire(to)
       // Flow is a layout contract, not a screener identity. Future flow swarms own their own graph/board;
       // only the discovered screener may enter this hardcoded screener initialization path.
-      if (to === 'screener') void get().scInit()
+      if (to === 'screener') {
+        cancelThemeDetailRequest()
+        set({ scIdeasLandingSet: false, ideasOpen: true, ideasLane: 'events', calendarOpen: false,
+          themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false })
+        void get().scInit()
+      }
       else set({
         // Fail closed until a non-screener flow declares its own graph/board adapter. Never show the
         // previous screener's gauntlet, selected signal, or board under a different swarm's identity.
@@ -5128,6 +5140,11 @@ export const useStore = create<State>((set, get) => ({
   // ================= screener slice =================
   scInit: async () => {
     if (get().activeSwarm !== 'screener') return
+    if (!get().scIdeasLandingSet) {
+      const s = get()
+      set({ scIdeasLandingSet: true })
+      if (!s.scSelectedEvent && !s.scFocusedCompany && !s.scSelectedSignal && !s.themesView && !s.calendarOpen) set({ ideasOpen: true })
+    }
     if (screenerInitPromise) return screenerInitPromise
     const ownershipEpoch = screenerOwnershipEpoch
     const stillOwnsBootstrap = () => get().activeSwarm === 'screener' && screenerOwnershipEpoch === ownershipEpoch
@@ -5157,10 +5174,7 @@ export const useStore = create<State>((set, get) => ({
       // the event rail is part of the screener stage now — keep the wire backfilled + streaming live
       await get().scEnsureNewsStream(ownershipEpoch)
       if (!stillOwnsBootstrap()) return
-      // Themes is the screener's default landing view — open it on entry (the user can switch to
-      // Ranked/Latest/Everything from the rail, which closes it). Guarded so it never clobbers a
-      // deep-link into a specific event/company already in focus.
-      if (get().themesView === null && !get().scSelectedEvent && !get().scFocusedCompany) void get().openThemes('board')
+      // Ideas is selected synchronously on entry. An async bootstrap never overrides navigation.
     })()
     // Store the HANDLED promise, not the raw attempt: every concurrent caller observes the same fulfilled
     // recovery contract even when the underlying graph/board request rejects. Returning the raw attempt to
@@ -5936,7 +5950,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
-  scSelectSignal: async (sigId, bootstrapEpoch?: number) => {
+  scSelectSignal: async (sigId, bootstrapEpoch?: number, navigate = false) => {
     const ownerEpoch = bootstrapEpoch ?? screenerOwnershipEpoch
     const stillOwnsBootstrap = () => get().activeSwarm === 'screener' && screenerOwnershipEpoch === ownerEpoch
     if (!stillOwnsBootstrap()) return
@@ -5955,7 +5969,7 @@ export const useStore = create<State>((set, get) => ({
     // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
-    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET })
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET, ...(navigate && sigId ? { ideasOpen: false, themesView: null, calendarOpen: false } : {}) })
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)

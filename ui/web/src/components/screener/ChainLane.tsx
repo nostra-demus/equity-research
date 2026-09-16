@@ -136,12 +136,12 @@ function ChainPath({ lead }: { lead: SupplyChainLead }) {
   )
 }
 
-function ChainCard({ lead }: { lead: SupplyChainLead }) {
+export function ChainCard({ lead, filed = false }: { lead: SupplyChainLead; filed?: boolean }) {
   const openAddCompany = useStore((s) => s.openAddCompany)
   const driveEnabled = useStore((s) => s.driveEnabled)
   const disclosure = disclosureLabel(lead)
   const coverage = coverageLabel(lead)
-  const canStartPool = Boolean(lead.symbol) && !lead.prior_coverage?.data_pool_present && !lead.prior_coverage?.has_run && driveEnabled
+  const canStartPool = !filed && Boolean(lead.symbol) && !lead.prior_coverage?.data_pool_present && !lead.prior_coverage?.has_run && driveEnabled
 
   return (
     <article className={`bidea chain__card${lead.readiness === 'research_now' ? ' chain__card--live' : ''}`}>
