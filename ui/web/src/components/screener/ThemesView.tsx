@@ -112,7 +112,7 @@ export function ThemesView() {
       ) : !hasSavedList ? (
         <div className="themes-simple__empty" role="status" aria-live="polite">
           <b>No validated theme{personal.scope !== 'universe' ? ` linked to your ${personal.label.toLowerCase()}` : ''} yet.</b>
-          <span>{debt > 0 ? `${debt} raw news pattern${debt === 1 ? '' : 's'} ${debt === 1 ? 'is' : 'are'} still being checked. Raw patterns are not investment themes.` : slice.active ? `No evidence in ${slice.label} currently forms a validated theme.` : 'The engine has not found enough connected evidence to form a theme.'}</span>
+          <span>{personal.scope !== 'universe' ? `No validated theme currently names one of your ${personal.label.toLowerCase()} companies. Choose Universe to see all themes.` : debt > 0 ? `${debt} raw news pattern${debt === 1 ? '' : 's'} ${debt === 1 ? 'is' : 'are'} still being checked. Raw patterns are not investment themes.` : slice.active ? `No evidence in ${slice.label} currently forms a validated theme.` : 'The engine has not found enough connected evidence to form a theme.'}</span>
         </div>
       ) : (
         <section className="theme-list" aria-label="Ranked validated themes">

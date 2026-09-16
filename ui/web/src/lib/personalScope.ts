@@ -36,7 +36,7 @@ export function portfolioMembers(read: PortfolioRead): PersonalMember[] {
   return [...members.values()]
 }
 export function watchlistMembers(read: WatchlistRead): PersonalMember[] {
-  return read.rows.filter((row) => !row.archive).map((row) => ({
+  return read.rows.filter((row) => !row.archive || row.resurfaced).map((row) => ({
     ticker: row.ticker, name: row.company_name || '',
     listingCountry: memberCountry(row.ticker, row.exchange || '', row.currency || ''),
   }))

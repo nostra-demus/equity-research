@@ -14,11 +14,12 @@ const portfolio = { error: null, book: { asOf: '2026-09-09', positions: [
 ] } } as PortfolioRead
 const watchlist = { rows: [
   { ticker: 'META', company_name: 'Meta Platforms', exchange: 'NASDAQ', currency: 'USD', archive: null },
+  { ticker: 'RETURNED', company_name: 'Returned company', exchange: 'NASDAQ', currency: 'USD', resurfaced: true, archive: { at: '2026-09-01' } },
   { ticker: 'OLD', archive: { at: '2026-09-01' } },
 ], archived: [], unreadable: [], as_of: '2026-09-16' } as unknown as WatchlistRead
 const members = portfolioMembers(portfolio)
 assert.equal(members.length, 4, 'deduplicate the same listing, keep short holdings and distinct markets, drop closed/null symbols')
-assert.deepEqual(watchlistMembers(watchlist).map((m) => m.ticker), ['META'])
+assert.deepEqual(watchlistMembers(watchlist).map((m) => m.ticker), ['META', 'RETURNED'], 'a resurfaced Research watchlist entry remains active despite its older archive record')
 assert.equal(memberCountry('CAT', 'ASX'), 'AU')
 const kar = enrichMember(members.find((m) => m.ticker === 'KAR' && m.listingCountry === 'AU')!, [
   { symbol: 'KAR', name: 'Openlane', exchange: 'NYSE', aliases: ['KAR'], aliasExchanges: { KAR: 'NYSE' } },
