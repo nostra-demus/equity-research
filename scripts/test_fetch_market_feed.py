@@ -19,7 +19,12 @@ import fetch_market_feed as M  # noqa: E402
 FAILURES: list[str] = []
 
 
+RAN = 0
+
+
 def check(name: str, fn) -> None:
+    global RAN
+    RAN += 1
     try:
         fn()
         print(f"  ok   {name}")
@@ -81,6 +86,37 @@ def test_the_host_is_pinned() -> None:
     assert M.SOURCE_URL.startswith("https://fred.stlouisfed.org/")
 
 
+def test_a_failed_fetch_reports_itself() -> None:
+    # The fetch failing is a different fact from the run being skipped, and the status has to tell them
+    # apart: one needs the provider looked at, the other needs the machine looked at.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\nprint('fetch_market_feed: SP500 FAILED — FRED said no', file=sys.stderr)\nsys.exit(1)\n")
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 1, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "failed", reported
+        assert "FRED said no" in reported["detail"], reported
+
+
 def test_scheduled_writer_requires_canonical_pool() -> None:
     # Drive only the real scheduled wrapper and supervisor. Replace the network fetch with a marker:
     # a rejected topology must never reach it or manufacture a local data tree.
@@ -132,10 +168,19 @@ def test_scheduled_writer_requires_canonical_pool() -> None:
                 (root / "bin" / "stat").write_text("#!/bin/sh\nexit 1\n")
                 (root / "bin" / "stat").chmod(0o755)
                 env["PATH"] = str(root / "bin") + os.pathsep + env["PATH"]
+            status = root / "market-feed.json"
+            env["MARKET_FEED_STATUS"] = str(status)
             result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
                                     env=env, capture_output=True, text=True, timeout=15)
             assert result.returncode == 0, (case, result.stderr, (root / "job.log").read_text())
             assert (repo / "fetch-ran").exists() == (case == "ready"), case
+            # EVERY path says what it did, where the engine reads it. A skip that only wrote to a log is how
+            # a feed went weeks without refreshing while looking exactly like one that had not failed.
+            assert status.exists(), f"{case}: the run left no status behind"
+            reported = json.loads(status.read_text())
+            assert reported["outcome"] == ("ok" if case == "ready" else "skipped"), (case, reported)
+            assert reported["detail"], (case, "a status with no reason explains nothing")
+            assert reported["at"].endswith("Z"), reported["at"]
             if case == "ready":
                 assert json.loads((repo / "fetch-ran").read_text()) == ["--data-root", str(pool)]
             if case == "missing":
@@ -254,10 +299,11 @@ def main() -> int:
     check("a wrong-shaped response is refused, not half-read", test_wrong_shape_is_refused_not_half_read)
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
+    check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
     check("deterministic wrappers fail closed on unknown lock ages", test_deterministic_wrappers_reject_unknown_lock_ages)
-    print(f"\n{8 - len(FAILURES)} passed, {len(FAILURES)} failed")
+    print(f"\n{RAN - len(FAILURES)} passed, {len(FAILURES)} failed")
     return 1 if FAILURES else 0
 
 
