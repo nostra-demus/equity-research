@@ -212,6 +212,34 @@ async function main() {
     assert.equal(budget.spent(), 0, 'nothing was read, so nothing is charged')
   })
 
+  await check('a limit does not keep a partial plan from before the record was corrected', async () => {
+    // The plan kept through an outage must be one that was actually READ. An earlier partial one carries the
+    // record as it was, so a correction — a new bad case — would sit out the whole outage unwatched.
+    const stateC = path.join(root, 'state-corrected')
+    const record = path.join(analyses, RUN, 'decision_record.json')
+    const before = fs.readFileSync(record, 'utf8')
+    const first = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'The model was busy.' }),
+      budget: fakeBudget(20), stateDir: stateC, analysesDir: analyses, model: 'opus', now: clock,
+    })
+    assert.equal(first.status, 'failed')
+    assert.equal((first.plan!.items.find((i: any) => i.kind === 'price') as any).low, 146)
+    try {
+      const corrected = before.replace('"price_target":146', '"price_target":100')
+      assert.notEqual(corrected, before, 'the fixture must actually change, or this proves nothing')
+      fs.writeFileSync(record, corrected)
+      const out = await readResearchPlan(row, {
+        runTurn: async () => ({ costUsd: 0, error: 'Claude usage limit reached — try again after the plan resets.' }),
+        budget: fakeBudget(20), stateDir: stateC, analysesDir: analyses, model: 'opus', now: clock,
+      })
+      assert.equal(out.status, 'limit')
+      assert.equal((out.plan!.items.find((i: any) => i.kind === 'price') as any).low, 100, 'the corrected bad case is watched')
+      assert.equal((loadPlan(RUN, stateC)!.items.find((i: any) => i.kind === 'price') as any).low, 100, 'and saved')
+    } finally {
+      fs.writeFileSync(record, before)
+    }
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

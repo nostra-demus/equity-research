@@ -251,7 +251,7 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   // Out of allowance: keep what the record itself stores as data watched (saved, so the watcher can use it)
   // and say why the text is not read yet. A plan read earlier stays as it is.
   const overLimit = (): ReadOutcome => {
-    if (existing) return { status: 'budget', plan: existing, detail: limitText, cost_usd: 0 }
+    if (existing?.reader.status === 'ok') return { status: 'budget', plan: existing, detail: limitText, cost_usd: 0 }
     const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: limitText } }
     savePlan(plan, stateDir)
     return { status: 'budget', plan, detail: limitText, cost_usd: 0 }
@@ -290,7 +290,10 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   // failed inside 23 seconds and none was read again that day. It is recorded like the daily reading limit —
   // a reason the text is not read YET, with the record's own bad case and deal-breakers watched meanwhile.
   if (limited && outcome.error) {
-    if (existing) return { status: 'limit', plan: existing, detail: outcome.error, cost_usd: cost }
+    // Only a plan that was actually READ is kept: an older partial one would hold a corrected record's bad
+    // case and deal-breakers out of the watch for the whole outage, though `base` is already rebuilt from the
+    // current files (the same rule `failed` follows).
+    if (existing?.reader.status === 'ok') return { status: 'limit', plan: existing, detail: outcome.error, cost_usd: cost }
     const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: outcome.error } }
     savePlan(plan, stateDir)
     return { status: 'limit', plan, detail: outcome.error, cost_usd: cost }

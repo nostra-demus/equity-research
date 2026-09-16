@@ -303,11 +303,15 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // ten reads fired at a limited plan is ten failures, and the same ten again at the next interval. When the
     // probe gets through, the rest follow on the ticks behind it (a finished read schedules the next).
     const lastLimit = limitedAt()
-    if (lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_RETRY_MS) return
+    const waiting = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_RETRY_MS
     // The probe belongs to a limit just waited out, not to any limit there has ever been.
     let probesLeft = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_PROBE_MS ? 1 : Number.POSITIVE_INFINITY
     for (const row of rows) {
-      if (probesLeft <= 0) return
+      // A buy call is set up with no model at all — its record's own bad case and kill criteria are the whole
+      // plan (readResearchPlan) — so a limit on the provider says nothing about it. Held back with the rest,
+      // its one "research says buy now" message would wait on a quota it never needed.
+      const needsModel = !BUY_NOW_DECISIONS.has(row.decision ?? '')
+      if (needsModel && (waiting || probesLeft <= 0)) continue
       const seg = runSegOf(row.run_root)
       if (!seg || reading.has(seg) || queued.has(seg)) continue
       const plan = cachedPlan(seg)
@@ -331,7 +335,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
         if (since < wait) continue
       }
       queued.add(seg)
-      probesLeft -= 1
+      if (needsModel) probesLeft -= 1
       readChain = readChain.then(async () => {
         queued.delete(seg)
         if (stopped) return

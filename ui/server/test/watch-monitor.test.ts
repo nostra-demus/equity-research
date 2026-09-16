@@ -468,6 +468,42 @@ async function main() {
     assert.equal(reads, 3, 'a limit three days old is over: the list is read as usual')
   })
 
+  await check('a buy call is set up while the plan is limited — it never needed the provider', async () => {
+    // A buy call's plan is the record's own bad case and kill criteria; readResearchPlan builds it without a
+    // model at all. Held back with the reads that do need one, its single "research says buy now" message
+    // would wait on a quota it never used.
+    let t = new Date('2026-09-16T09:00:00Z')
+    const watch = engineRow('HHH', 'USD', 'NYSE', 'HHH_2026-08-05')
+    const buy = engineRow('III', 'USD', 'NYSE', 'III_2026-08-06', 'Buy')
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-9-'))
+    fs.mkdirSync(path.join(dir, 'watchlist'), { recursive: true })
+    fs.writeFileSync(path.join(dir, 'watchlist', 'monitor-state.json'), JSON.stringify({
+      schema_version: 'watch-monitor/v1', switched_on_at: '2026-09-16T08:00:00Z', summary_sent_at: '2026-09-16T08:00:00Z',
+      last_tick_at: '2026-09-16T08:55:00Z', names: {}, email_paused: [], pending_summary: {}, email_test: null,
+      reads: { 'HHH_2026-08-05': { attempts: 0, last_at: '2026-09-16T08:58:00Z', status: 'limit', detail: 'Claude usage limit reached — try again after the plan resets.' } },
+    }))
+    const read: string[] = []
+    const m9 = createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [watch, buy], loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 120), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => {
+        read.push(row.listing.ticker)
+        // The provider-free path: a buy call is read without a model, so it succeeds while the plan is limited.
+        if (row.decision === 'Buy') return { status: 'ok', plan: planFor(row, []), detail: 'a Buy call', cost_usd: 0 }
+        return { status: 'limit', plan: null, detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+      },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    await m9.tick(); await m9.idle()
+    await m9.tick(); await m9.idle()
+    assert.deepEqual(read, ['III'], 'the buy call is set up; the read that needs the provider waits')
+    assert.ok(m9.inbox.list().some((m) => m.ticker === 'III' && m.items.some((i) => i.type === 'research_buy_now')),
+      'and its one buy-now message goes out')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 
