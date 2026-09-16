@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:25:14Z",
+  "generated_at": "2026-09-16T01:34:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-054",
@@ -252,6 +252,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-061",
+      "headline": "Australia's Reliance Worldwide agrees to Brookfield's $2.9 billion buyout bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/australias-reliance-worldwide-agrees-brookfields-29-billion-buyout-bid-2026-09-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:19:44Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Reliance Worldwide agreed to a $2.9 billion buyout bid from Brookfield.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Worldwide agreed to a $2.9 billion buyout bid from Brookfield.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Worldwide",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-035",
       "headline": "Fourth time lucky for Brookfield as Reliance backs $4.1b takeover",
       "headline_en": null,
@@ -399,60 +453,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-041",
-      "headline": "Brookfield Agrees to Buy Reliance Worldwide for $2.9 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-15/brookfield-agrees-to-buy-reliance-worldwide-for-2-9-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T23:25:27Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Brookfield is acquiring Reliance Worldwide for $2.9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is acquiring Reliance Worldwide for $2.9 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Reliance Worldwide",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -120938,76 +120938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41f871048ef0",
-      "idea_version": "IDEAV-ae646f7e42b2e218",
-      "idea_version_started_at": "2026-09-14T13:46:28Z",
-      "ticker": "ORCL",
-      "company": "Oracle",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An additional $700 million in restructuring costs due to upscaled layoffs indicates deeper-than-expected operational challenges and potential pressure on near-term earnings.",
-      "why_now": "The news broke on 2026-09-14, and the market is currently digesting the impact of these increased costs on the bottom line.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a623ff7a90e"
-      ],
-      "primary_source_event_id": "EVT-5a623ff7a90e",
-      "source_headlines": [
-        "Oracle upscales layoffs, expected to increase restructuring costs by $700m"
-      ],
-      "source_headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
-      "source_url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
-      "source_name": "DataCenterDynamics",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T13:32:47Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/ORCL_2026-08-14",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-12T05:48:12Z",
-      "updated_at": "2026-09-14T13:46:28Z",
-      "decay_at": "2026-09-16T01:32:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-aee6ec71570ec791",
       "idea_version_started_at": "2026-09-15T05:22:27Z",
@@ -122868,6 +122798,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-41f871048ef0",
+      "idea_version": "IDEAV-ae646f7e42b2e218",
+      "idea_version_started_at": "2026-09-14T13:46:28Z",
+      "ticker": "ORCL",
+      "company": "Oracle",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An additional $700 million in restructuring costs due to upscaled layoffs indicates deeper-than-expected operational challenges and potential pressure on near-term earnings.",
+      "why_now": "The news broke on 2026-09-14, and the market is currently digesting the impact of these increased costs on the bottom line.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a623ff7a90e"
+      ],
+      "primary_source_event_id": "EVT-5a623ff7a90e",
+      "source_headlines": [
+        "Oracle upscales layoffs, expected to increase restructuring costs by $700m"
+      ],
+      "source_headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
+      "source_url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T13:32:47Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/ORCL_2026-08-14",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-12T05:48:12Z",
+      "updated_at": "2026-09-14T13:46:28Z",
+      "decay_at": "2026-09-16T01:32:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-8cfb291f89ed",
@@ -128308,9 +128308,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 576,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 76,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -128318,9 +128318,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       }
     },
     "retention": {
@@ -128339,6 +128339,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-41f871048ef0",
+        "idea_version": "IDEAV-ae646f7e42b2e218",
+        "idea_version_started_at": "2026-09-14T13:46:28Z",
+        "ticker": "ORCL",
+        "company": "Oracle",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An additional $700 million in restructuring costs due to upscaled layoffs indicates deeper-than-expected operational challenges and potential pressure on near-term earnings.",
+        "why_now": "The news broke on 2026-09-14, and the market is currently digesting the impact of these increased costs on the bottom line.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5a623ff7a90e"
+        ],
+        "primary_source_event_id": "EVT-5a623ff7a90e",
+        "source_headlines": [
+          "Oracle upscales layoffs, expected to increase restructuring costs by $700m"
+        ],
+        "source_headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
+        "source_url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
+        "source_name": "DataCenterDynamics",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T13:32:47Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/ORCL_2026-08-14",
+          "latest_decision": "Watchlist",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-12T05:48:12Z",
+        "updated_at": "2026-09-14T13:46:28Z",
+        "decay_at": "2026-09-16T01:32:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T01:32:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fcc27ba359ed",
         "idea_version": "IDEAV-820816f59bc3e773",
@@ -165435,86 +165508,12 @@
         "archived_at": "2026-08-29T08:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5f1c0e265bed",
-        "idea_version": "IDEAV-e01ccb929650611e",
-        "idea_version_started_at": "2026-08-26T06:46:12Z",
-        "ticker": "01608",
-        "company": "VPOWER GROUP",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Winding-up petitions signal potential liquidation, reducing cash flow.",
-        "why_now": "Update on winding-up petitions announced on 26 Aug 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-abc30e2ed39c"
-        ],
-        "primary_source_event_id": "EVT-abc30e2ed39c",
-        "source_headlines": [
-          "VPOWER GROUP (01608): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE WINDING-UP PETITIONS"
-        ],
-        "source_headline": "VPOWER GROUP (01608): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE WINDING-UP PETITIONS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600243.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-26T04:14:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T06:46:12Z",
-        "updated_at": "2026-08-26T06:46:12Z",
-        "decay_at": "2026-08-27T16:14:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 835,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165533,9 +165532,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 959474,
-    "news_picked_today": 60,
-    "news_dropped_today": 708
+    "news_seen_today": 1060880,
+    "news_picked_today": 61,
+    "news_dropped_today": 779
   },
   "book_momentum": {
     "live_count": 8,
