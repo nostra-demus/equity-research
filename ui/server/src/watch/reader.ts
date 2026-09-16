@@ -277,7 +277,11 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   } catch (e: any) {
     outcome = { costUsd: 0, error: String(e?.message ?? e) }
   }
-  const cost = model.provider === 'codex' ? hold : Math.max(0, Number(outcome.costUsd) || 0)
+  // A turn the provider's own limit rejected carried no answer, so it is not a read and costs nothing. On
+  // Codex, where a read is counted at an estimate rather than measured, charging it would spend the day's
+  // whole reading allowance on probes and then refuse to read once the provider's plan came back.
+  const limited = !!outcome.error && isUsageLimitError(outcome.error)
+  const cost = limited ? 0 : model.provider === 'codex' ? hold : Math.max(0, Number(outcome.costUsd) || 0)
   budget.reconcile(reservation, cost)
 
   // THE PLAN'S OWN USAGE LIMIT IS NOT A FAILED READ. It says nothing about this report — every read on the
@@ -285,7 +289,7 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   // three attempts at once and then stood the report down for a day: on the live cockpit all ten reports
   // failed inside 23 seconds and none was read again that day. It is recorded like the daily reading limit —
   // a reason the text is not read YET, with the record's own bad case and deal-breakers watched meanwhile.
-  if (outcome.error && isUsageLimitError(outcome.error)) {
+  if (limited && outcome.error) {
     if (existing) return { status: 'limit', plan: existing, detail: outcome.error, cost_usd: cost }
     const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: outcome.error } }
     savePlan(plan, stateDir)

@@ -17,6 +17,7 @@ import {
 import { REARM_PCT, stepAlerts, type NameAlertState } from './alerts'
 import { WatchInbox, type WatchMessageItem } from './inbox'
 import { selectEmailBatch, type Delivered, type EmailBatchEntry, type WatchEmailConfig } from './email'
+import { isUsageLimitError } from '../chat-llm'
 import { loadPriceRecord, marketIndexFor, observe, savePriceRecord, sessionMove, sessionOf, type ListingSubject } from './prices'
 import { loadPlan, runSegOf, type ReadOutcome } from './reader'
 import { BUY_NOW_DECISIONS, ROLE_LABEL, type LeftOut, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
@@ -30,6 +31,9 @@ const READ_MAX_ATTEMPTS = 3
 /** How long to hold off after the provider's own usage limit. The limit is about the MACHINE — while it holds,
  *  every read fails the same way — and the plan it belongs to resets in hours, not a day. */
 const READ_LIMIT_RETRY_MS = 15 * 60_000
+/** How recent a limit has to be for the next read to go out as a single probe. A record outlives the name it
+ *  belongs to, and an old one must not hold the whole list at one read a tick for ever. */
+const READ_LIMIT_PROBE_MS = 2 * READ_LIMIT_RETRY_MS
 /** How often a read report's files are checked for a correction made in place. */
 const DIGEST_CHECK_MS = 60 * 60_000
 /** How long the first-day summary waits for every report to be read before going out anyway. */
@@ -214,10 +218,11 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const retry = reading.has(seg) || queued.has(seg) ? ' Trying again now.' : ''
       // Only a real failure is said of the RESEARCH. A spent reading allowance and the plan's own usage limit
       // are about this machine, and saying "could not read the research" of either blames the report for them.
-      const detail = rec.status === 'failed' ? `Could not read the research: ${rec.detail}` : rec.detail
+      const kind: PlanView['state'] = limitRecord(rec) ? 'limit' : rec.status === 'budget' ? 'budget' : 'failed'
+      const detail = kind === 'failed' ? `Could not read the research: ${rec.detail}` : rec.detail
       return {
         plan, ready: true,
-        view: view(rec.status === 'failed' ? 'failed' : rec.status, `${detail}${retry}`),
+        view: view(kind, `${detail}${retry}`),
         basis: `${eng.run_root}|partial`,
       }
     }
@@ -279,16 +284,17 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
+  /** A read the provider's own usage limit stopped. Records written before this was told apart say `failed`
+   *  with the limit's own words, and the state carries no version of its own — so they are read as what they
+   *  are, rather than left on the day-long backoff this exists to end. */
+  const limitRecord = (rec: ReadRecord | undefined): boolean =>
+    !!rec && (rec.status === 'limit' || (rec.status === 'failed' && isUsageLimitError(rec.detail)))
   /** When the provider last said the plan is over its limit, across every report. 0 if it never has. */
   function limitedAt(): number {
     return Object.values(state.reads).reduce((latest, rec) => {
-      const at = rec.status === 'limit' ? Date.parse(rec.last_at) : Number.NaN
+      const at = limitRecord(rec) ? Date.parse(rec.last_at) : Number.NaN
       return Number.isFinite(at) && at > latest ? at : latest
     }, 0)
-  }
-  const limitHolds = (at: Date): boolean => {
-    const last = limitedAt()
-    return last > 0 && at.getTime() - last < READ_LIMIT_RETRY_MS
   }
 
   function ensurePlans(rows: EngineWatchRow[], at: Date): void {
@@ -296,8 +302,10 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // every read fails the same way. So it is waited out once, and the first read after it is a single probe —
     // ten reads fired at a limited plan is ten failures, and the same ten again at the next interval. When the
     // probe gets through, the rest follow on the ticks behind it (a finished read schedules the next).
-    if (limitHolds(at)) return
-    let probesLeft = limitedAt() > 0 ? 1 : Number.POSITIVE_INFINITY
+    const lastLimit = limitedAt()
+    if (lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_RETRY_MS) return
+    // The probe belongs to a limit just waited out, not to any limit there has ever been.
+    let probesLeft = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_PROBE_MS ? 1 : Number.POSITIVE_INFINITY
     for (const row of rows) {
       if (probesLeft <= 0) return
       const seg = runSegOf(row.run_root)
@@ -315,8 +323,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
       if (rec) {
         const since = at.getTime() - Date.parse(rec.last_at)
         // A usage limit waits on the gate above, which is about the machine rather than this report, so it
-        // adds no wait of its own here.
-        const wait = rec.status === 'failed' ? (rec.attempts >= READ_MAX_ATTEMPTS ? READ_GIVE_UP_MS : READ_RETRY_MS)
+        // adds no wait of its own here — including one recorded as a failure before the two were told apart.
+        const wait = limitRecord(rec) ? 0
+          : rec.status === 'failed' ? (rec.attempts >= READ_MAX_ATTEMPTS ? READ_GIVE_UP_MS : READ_RETRY_MS)
           : rec.status === 'no_sources' ? READ_GIVE_UP_MS
             : rec.status === 'budget' ? READ_RETRY_MS : 0
         if (since < wait) continue
@@ -326,9 +335,6 @@ export function createWatchMonitor(deps: MonitorDeps) {
       readChain = readChain.then(async () => {
         queued.delete(seg)
         if (stopped) return
-        // A limit that landed while this one waited its turn settles it for this one too: the queue behind a
-        // limited plan is the same failure once per name. It keeps its record, so the next tick picks it up.
-        if (limitHolds(now())) return
         reading.add(seg)
         let outcome: ReadOutcome
         try { outcome = await deps.readPlan(row) } catch (e: any) { outcome = { status: 'failed', plan: null, detail: String(e?.message ?? e), cost_usd: 0 } }

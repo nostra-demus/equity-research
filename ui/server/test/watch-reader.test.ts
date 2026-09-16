@@ -198,6 +198,20 @@ async function main() {
     assert.equal(budget.spent(), 0.5)
   })
 
+  await check('a read the limit rejected costs nothing, even where a read is counted at an estimate', async () => {
+    // Codex shows no cost per read, so a read is counted at the estimate. A rejected turn carried no answer:
+    // charged anyway, 40 probes would spend the day's whole allowance and then refuse to read once the
+    // provider's plan came back.
+    const budget = fakeBudget(20)
+    const out = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'Codex usage limit reached — try again after the plan resets or choose a Claude model.' }),
+      budget, stateDir: path.join(root, 'state-codex-limit'), analysesDir: analyses, model: 'codex:gpt-5.6-luna', now: clock,
+    })
+    assert.equal(out.status, 'limit')
+    assert.equal(out.cost_usd, 0)
+    assert.equal(budget.spent(), 0, 'nothing was read, so nothing is charged')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

@@ -361,7 +361,7 @@ async function main() {
     assert.ok(shutdown.indexOf('watchMonitor.idle()') < shutdown.indexOf('process.exit(code)'))
   })
 
-  await check("the plan's usage limit holds the whole list, is probed once, and blames no report", async () => {
+  await check("the plan's usage limit is waited out once, probed once, and blames no report", async () => {
     // On the live cockpit all ten reports were read inside 23 seconds against a spent Claude plan, each spent
     // its three attempts on the way, and each was then stood down for a day: the watchlist ran 14 hours with no
     // plan read at all. The limit is one condition for the MACHINE, and the plan it belongs to resets in hours.
@@ -369,39 +369,103 @@ async function main() {
     let limited = true
     const reads: string[] = []
     const rows = ['AAA', 'BBB', 'CCC'].map((tk, i) => engineRow(tk, 'USD', 'NYSE', `${tk}_2026-08-0${i + 1}`))
+    const base = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: 'Claude usage limit reached — try again after the plan resets.' },
+    })
     const m6 = createWatchMonitor({
       stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-6-')), manual: true,
       now: () => t, today: () => t.toISOString().slice(0, 10),
       loadEngineRows: async () => rows, loadEntries: () => [],
-      quote: async () => new Map(), indexLevels: async () => new Map(),
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, s.currency!, 50), reason: null }])),
+      indexLevels: async () => new Map(),
       readPlan: async (row) => {
         reads.push(row.run_root)
+        // What the reader does on a limit: the record's own bad case is saved and watched, nothing is read.
         return limited
-          ? { status: 'limit', plan: null, detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+          ? { status: 'limit', plan: base(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
           : { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0.3 }
       },
       emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
       sendEmail: async () => ({ ok: true, detail: '' }),
     })
     const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m6.tick(); await m6.idle() }
+    const views = () => m6.decorate(mergeWatchlist({
+      entries: [], engine: rows, today: t.toISOString().slice(0, 10),
+      quotes: new Map(rows.map((r) => [r.listing.listing_key, { quote: quoteOf(r.listing.ticker, 'USD', 50), reason: null }])),
+    }).rows)
     await m6.tick(); await m6.idle()
-    assert.equal(reads.length, 1, 'the first limit settles the reports queued behind it')
+    assert.equal(reads.length, 3, 'every name is tried once, so every name ends up watched on its own record')
+    assert.deepEqual(views().map((r) => [r.watch.plan?.state, r.watch.plan?.items.length]),
+      [['limit', 1], ['limit', 1], ['limit', 1]], 'ready, on the record\u2019s own bad case — not "waiting to read"')
+    assert.match(views()[0].watch.plan!.detail, /^Claude usage limit reached/, 'said of the plan, not of the research')
     await step(5)
-    assert.equal(reads.length, 1, 'and nothing is tried again while it holds')
+    assert.equal(reads.length, 3, 'and nothing is tried again while it holds')
     await step(16)
-    assert.equal(reads.length, 2, 'once the wait is over ONE probe goes out, not one per report')
-    const limitedView = m6.decorate(mergeWatchlist({ entries: [], engine: rows, today: t.toISOString().slice(0, 10), quotes: new Map() }).rows)
-    assert.equal(limitedView[0].watch.plan?.state, 'limit')
-    assert.match(limitedView[0].watch.plan!.detail, /^Claude usage limit reached/, 'said of the plan, not of the research')
+    assert.equal(reads.length, 4, 'once the wait is over ONE probe goes out, not one per report')
     assert.equal(m6.inbox.list().some((m) => m.items.some((i) => i.type === 'setup_failed')), false,
       'and no report is reported unreadable for a limit that is not about it')
     limited = false
     await step(16)
     await step(1)
     await step(1)
-    assert.deepEqual([...new Set(reads)].sort(), rows.map((r) => r.run_root).sort(), 'every report is read once the plan is back')
-    assert.deepEqual(m6.decorate(mergeWatchlist({ entries: [], engine: rows, today: t.toISOString().slice(0, 10), quotes: new Map() }).rows)
-      .map((r) => r.watch.plan?.state), ['ready', 'ready', 'ready'])
+    assert.deepEqual(views().map((r) => r.watch.plan?.state), ['ready', 'ready', 'ready'], 'all read once the plan is back')
+  })
+
+  await check('a limit recorded before the two were told apart is still a limit', async () => {
+    // The state this change exists to repair already holds these as `failed` with three attempts — on the old
+    // path they would sit out the whole 24-hour give-up after the upgrade, which is the bug, not the fix.
+    let t = new Date('2026-09-16T12:00:00Z')
+    const row = engineRow('DDD', 'USD', 'NYSE', 'DDD_2026-08-04')
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-7-'))
+    // The monitor keeps its state under <stateDir>/watchlist — written anywhere else it is silently ignored,
+    // and the test would prove nothing.
+    fs.mkdirSync(path.join(dir, 'watchlist'), { recursive: true })
+    fs.writeFileSync(path.join(dir, 'watchlist', 'monitor-state.json'), JSON.stringify({
+      schema_version: 'watch-monitor/v1', switched_on_at: '2026-09-15T16:35:00Z', summary_sent_at: '2026-09-15T16:35:00Z',
+      last_tick_at: '2026-09-15T18:41:00Z', names: {}, email_paused: [], pending_summary: {}, email_test: null,
+      reads: { 'DDD_2026-08-04': { attempts: 3, last_at: '2026-09-15T18:41:32.590Z', status: 'failed',
+        detail: 'Claude usage limit reached — try again after the plan resets.' } },
+    }))
+    let reads = 0
+    const m7 = createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [row], loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async () => { reads += 1; return { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0.3 } },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    await m7.tick(); await m7.idle()
+    assert.equal(reads, 1, 'read again as soon as the wait was over, not a day after the upgrade')
+    const view = m7.decorate(mergeWatchlist({ entries: [], engine: [row], today: t.toISOString().slice(0, 10), quotes: new Map() }).rows)
+    assert.equal(view[0].watch.plan?.state, 'ready')
+  })
+
+  await check('a limit left behind by a name that is gone does not hold the list at one read a tick', async () => {
+    // A read record outlives the name it belongs to. Read as "there has been a limit" rather than "there is
+    // one", it kept the whole list on single-probe reading for good — and the state is saved, so a restart
+    // did not clear it either.
+    let t = new Date('2026-09-16T12:00:00Z')
+    const rows = ['EEE', 'FFF', 'GGG'].map((tk, i) => engineRow(tk, 'USD', 'NYSE', `${tk}_2026-08-0${i + 1}`))
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-8-'))
+    fs.mkdirSync(path.join(dir, 'watchlist'), { recursive: true })
+    fs.writeFileSync(path.join(dir, 'watchlist', 'monitor-state.json'), JSON.stringify({
+      schema_version: 'watch-monitor/v1', switched_on_at: '2026-09-13T10:00:00Z', summary_sent_at: '2026-09-13T10:00:00Z',
+      last_tick_at: '2026-09-13T10:00:00Z', names: {}, email_paused: [], pending_summary: {}, email_test: null,
+      reads: { 'ARCHIVED_2026-01-01': { attempts: 0, last_at: '2026-09-13T10:00:00Z', status: 'limit', detail: 'Claude usage limit reached — try again after the plan resets.' } },
+    }))
+    let reads = 0
+    const m8 = createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async (row) => { reads += 1; return { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0.3 } },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    await m8.tick(); await m8.idle()
+    assert.equal(reads, 3, 'a limit three days old is over: the list is read as usual')
   })
 
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
