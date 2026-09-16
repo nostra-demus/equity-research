@@ -16,6 +16,7 @@ function fixture(): { root: string; state: string } {
   fs.mkdirSync(path.join(root, 'screener', 'board'), { recursive: true })
   fs.writeFileSync(path.join(root, 'scripts', 'commit-run.sh'), '#!/bin/sh\n')
   fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas.ndjson'), '{}\n')
+  fs.writeFileSync(path.join(root, 'screener', 'ledger', 'idea-workspace-actions.ndjson'), '{}\n')
   fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas_feedback.ndjson'), '{}\n')
   fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas_interrupted_attempts.ndjson'), '{}\n')
   fs.writeFileSync(path.join(root, 'screener', 'board', 'index.json'), '{}\n')
@@ -43,6 +44,7 @@ try {
   assert.equal(fs.existsSync(path.join(first.state, 'ideas-publish-pending.json')), false)
   const commit = calls.find((call) => call.executable === 'bash')!
   assert.ok(commit.args.includes('screener/ledger/ideas.ndjson'))
+  assert.ok(commit.args.includes('screener/ledger/idea-workspace-actions.ndjson'), 'human archive decisions enter the durable publication path')
   assert.ok(commit.args.includes('screener/ledger/ideas_feedback.ndjson'))
   assert.ok(commit.args.includes('screener/ledger/ideas_interrupted_attempts.ndjson'))
   assert.ok(commit.args.includes('screener/board/index.json'))

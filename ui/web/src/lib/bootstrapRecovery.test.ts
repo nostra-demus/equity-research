@@ -335,7 +335,7 @@ try {
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(useStore.getState().scBoardFetch.status, 'ready')
   assert.equal(newsCalls, 1, 'the successful retry must continue through wire initialization')
-  assert.equal(themesCalls, 1, 'the successful retry must continue through the default board view')
+  assert.equal(themesCalls, 0, 'bootstrap must not replace Ideas with Themes')
 
   let boardCalls = 0
   newsCalls = 0
@@ -364,7 +364,7 @@ try {
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(useStore.getState().scBoardFetch.status, 'ready')
   assert.equal(newsCalls, 1)
-  assert.equal(themesCalls, 1)
+  assert.equal(themesCalls, 0)
 
   let signalHydrationCalls = 0
   api.screenerBoard = async () => boardWithSignal
@@ -458,7 +458,7 @@ try {
   assert.equal(useStore.getState().scGraph, graph)
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(newsCalls, 1)
-  assert.equal(themesCalls, 1)
+  assert.equal(themesCalls, 0)
 
   let releaseReconnectWire!: () => void
   let markReconnectWireStarted!: () => void

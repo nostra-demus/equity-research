@@ -15,6 +15,7 @@ const PENDING_LOCK_FILE = 'ideas-publish-pending.lock'
 const PUBLISH_TIMEOUT_MS = 20 * 60_000
 const DATA_PATHS = [
   'screener/ledger/ideas.ndjson',
+  'screener/ledger/idea-workspace-actions.ndjson',
   'screener/ledger/ideas_feedback.ndjson',
   'screener/ledger/ideas_interrupted_attempts.ndjson',
   'screener/ledger/ideas',

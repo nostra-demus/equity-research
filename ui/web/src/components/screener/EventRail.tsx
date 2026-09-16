@@ -646,7 +646,7 @@ export function EventRail() {
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
           {ideasAvailable && (
-            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Qualified 3–6 month ideas, with unverified news leads kept in a separate research queue'}>
+            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Events and ideas to investigate'}>
               {scBoardFetch.status === 'error'
                 ? <span className="evrail__segdot evrail__segdot--bad" aria-hidden />
                 : ideasSummary.liveLeadCount > 0 && <span className="evrail__segdot" aria-hidden title="Fresh unverified research leads" />}

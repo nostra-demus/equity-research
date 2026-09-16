@@ -500,7 +500,7 @@ export function PipelineBoard() {
       {detail?.thesis ? (
         <ThesisDetail />
       ) : (
-        <RecentChecks onOpen={openThesisDetail} onReplay={(id) => { void scSelectSignal(id); close() }} />
+        <RecentChecks onOpen={openThesisDetail} onReplay={(id) => { void scSelectSignal(id, undefined, true); close() }} />
       )}
     </motion.div>
   )

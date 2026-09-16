@@ -1,3 +1,5 @@
+import { EXCHANGE_COUNTRY, countryFromExchange } from '../../../shared/listing-market'
+export { countryFromExchange } from '../../../shared/listing-market'
 // The EQUITY QUOTE lane — the live market price behind /api/quote, and the one place that re-bases a
 // frozen call's expected return onto today's price.
 //
@@ -170,27 +172,7 @@ export interface CallVsLive {
 
 /** Exchange-name fragment → ISO 3166-1 alpha-2, matched as a lowercase substring. Longest match wins,
  *  so a full venue name always beats a short fragment that happens to also appear. */
-const EXCHANGE_COUNTRY: [string, string][] = [
-  ['nasdaq', 'US'], ['nyse', 'US'], ['new york stock exchange', 'US'], ['cboe', 'US'], ['otc', 'US'], ['amex', 'US'], ['bats', 'US'],
-  ['national stock exchange of india', 'IN'], ['bombay stock exchange', 'IN'], ['nse', 'IN'], ['bse', 'IN'], ['india', 'IN'],
-  ['oslo', 'NO'], ['london', 'GB'], ['lse', 'GB'], ['aim', 'GB'],
-  ['tokyo', 'JP'], ['shanghai', 'CN'], ['shse', 'CN'], ['shenzhen', 'CN'], ['szse', 'CN'], ['hong kong', 'HK'], ['hkex', 'HK'], ['sehk', 'HK'],
-  ['xetra', 'DE'], ['frankfurt', 'DE'], ['deutsche', 'DE'], ['euronext paris', 'FR'], ['paris', 'FR'],
-  ['euronext amsterdam', 'NL'], ['amsterdam', 'NL'], ['euronext brussels', 'BE'], ['brussels', 'BE'],
-  ['euronext lisbon', 'PT'], ['lisbon', 'PT'], ['borsa italiana', 'IT'], ['milan', 'IT'],
-  ['madrid', 'ES'], ['bme', 'ES'], ['six', 'CH'], ['swiss', 'CH'], ['vienna', 'AT'], ['wiener', 'AT'],
-  ['stockholm', 'SE'], ['copenhagen', 'DK'], ['helsinki', 'FI'], ['iceland', 'IS'],
-  ['toronto', 'CA'], ['tsx', 'CA'], ['australian securities', 'AU'], ['asx', 'AU'], ['new zealand', 'NZ'], ['nzx', 'NZ'],
-  ['tadawul', 'SA'], ['saudi', 'SA'], ['dubai financial', 'AE'], ['abu dhabi', 'AE'], ['dfm', 'AE'], ['adx', 'AE'],
-  ['qatar', 'QA'], ['kuwait', 'KW'], ['muscat', 'OM'], ['bahrain', 'BH'], ['tel aviv', 'IL'],
-  ['johannesburg', 'ZA'], ['jse', 'ZA'], ['nigeria', 'NG'], ['egypt', 'EG'],
-  ['korea', 'KR'], ['krx', 'KR'], ['kospi', 'KR'], ['taiwan', 'TW'], ['singapore', 'SG'], ['sgx', 'SG'],
-  ['shanghai', 'CN'], ['shenzhen', 'CN'], ['bursa malaysia', 'MY'], ['jakarta', 'ID'], ['idx', 'ID'],
-  ['thailand', 'TH'], ['philippine', 'PH'], ['ho chi minh', 'VN'], ['hanoi', 'VN'],
-  ['sao paulo', 'BR'], ['b3', 'BR'], ['bovespa', 'BR'], ['mexican', 'MX'], ['bmv', 'MX'],
-  ['santiago', 'CL'], ['buenos aires', 'AR'], ['lima', 'PE'], ['colombia', 'CO'],
-  ['warsaw', 'PL'], ['istanbul', 'TR'], ['borsa istanbul', 'TR'], ['prague', 'CZ'], ['budapest', 'HU'], ['athens', 'GR'],
-]
+
 
 /** ISO 4217 → ISO2, for when the exchange string is absent or unrecognised. The euro is deliberately
  *  ABSENT: EUR identifies no country, so a euro listing must supply its exchange. */
@@ -205,15 +187,7 @@ const CURRENCY_COUNTRY: Record<string, string> = {
 }
 
 /** Longest-substring match of the record's exchange against EXCHANGE_COUNTRY. Null when unrecognised. */
-export function countryFromExchange(exchange: string | null | undefined): string | null {
-  const e = String(exchange ?? '').trim().toLowerCase()
-  if (!e) return null
-  let best: { frag: string; cc: string } | null = null
-  for (const [frag, cc] of EXCHANGE_COUNTRY) {
-    if (e.includes(frag) && (!best || frag.length > best.frag.length)) best = { frag, cc }
-  }
-  return best ? best.cc : null
-}
+
 
 /**
  * A single recognized exchange identifies the listing's market, even when its currency is foreign.
