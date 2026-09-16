@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T02:39:48Z",
+  "generated_at": "2026-09-16T02:49:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -953,6 +953,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-082",
+      "headline": "Exide Industries Limited: Exide Industries Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Exide, India and ExCom, Germany Enter into Strategic Cooperation to Strengthen Industrial Battery Business Across the European Economic Area\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EXIDEIND_16092026075203_sdSELETTEREILEXCOM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T02:22:45Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Exide Industries entered a strategic cooperation agreement to expand its industrial battery business into the European Economic Area.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Exide Industries entered a strategic cooperation agreement to expand its industrial battery business into the European Economic Area.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Exide Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-057",
       "headline": "AXP: Oil Flow Rates Enhanced at Charlie 1 Well After Controlled F [price-sensitive]",
       "headline_en": null,
@@ -1867,55 +1916,6 @@
       "headline": "SCHEDULE 13D/A - Tricor Pacific Capital Inc. (0002101417) (Filed by)",
       "headline_en": null,
       "url": "https://www.sec.gov/Archives/edgar/data/2101417/000110465926108019/0001104659-26-108019-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T01:05:48Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CPI Card Group Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-060",
-      "headline": "SCHEDULE 13D/A - CPI Card Group Inc. (0001641614) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1641614/000110465926108019/0001104659-26-108019-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-09-16T01:05:48Z",
@@ -122216,78 +122216,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-06cacb3c01bf",
-      "idea_version": "IDEAV-03684379dd6f9a80",
-      "idea_version_started_at": "2026-09-14T21:24:14Z",
-      "ticker": "02479",
-      "company": "TIANJUDIHE",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has released key findings from an independent forensic investigation and internal control review, which are typically negative and can lead to accounting restatements or other financial impairments.",
-      "why_now": "The announcement of the investigation's findings is a fresh catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28ec5d52c90a"
-      ],
-      "primary_source_event_id": "EVT-28ec5d52c90a",
-      "source_headlines": [
-        "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT"
-      ],
-      "source_headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T14:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T21:24:14Z",
-      "updated_at": "2026-09-14T21:24:14Z",
-      "decay_at": "2026-09-16T02:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6088f8734a17",
       "idea_version": "IDEAV-c13982183c91865f",
       "idea_version_started_at": "2026-09-14T21:24:14Z",
@@ -124683,6 +124611,78 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-06cacb3c01bf",
+      "idea_version": "IDEAV-03684379dd6f9a80",
+      "idea_version_started_at": "2026-09-14T21:24:14Z",
+      "ticker": "02479",
+      "company": "TIANJUDIHE",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has released key findings from an independent forensic investigation and internal control review, which are typically negative and can lead to accounting restatements or other financial impairments.",
+      "why_now": "The announcement of the investigation's findings is a fresh catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ec5d52c90a"
+      ],
+      "primary_source_event_id": "EVT-28ec5d52c90a",
+      "source_headlines": [
+        "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT"
+      ],
+      "source_headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T14:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T21:24:14Z",
+      "updated_at": "2026-09-14T21:24:14Z",
+      "decay_at": "2026-09-16T02:45:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128512,9 +128512,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 578,
+    "total_count": 579,
     "shown_count": 500,
-    "hidden_count": 78,
+    "hidden_count": 79,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -128522,9 +128522,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       }
     },
     "retention": {
@@ -128543,6 +128543,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-06cacb3c01bf",
+        "idea_version": "IDEAV-03684379dd6f9a80",
+        "idea_version_started_at": "2026-09-14T21:24:14Z",
+        "ticker": "02479",
+        "company": "TIANJUDIHE",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has released key findings from an independent forensic investigation and internal control review, which are typically negative and can lead to accounting restatements or other financial impairments.",
+        "why_now": "The announcement of the investigation's findings is a fresh catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-28ec5d52c90a"
+        ],
+        "primary_source_event_id": "EVT-28ec5d52c90a",
+        "source_headlines": [
+          "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT"
+        ],
+        "source_headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T14:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T21:24:14Z",
+        "updated_at": "2026-09-14T21:24:14Z",
+        "decay_at": "2026-09-16T02:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T02:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-41acdf75eb6c",
         "idea_version": "IDEAV-9e64c7ec16a5db22",
@@ -165636,88 +165711,12 @@
         "archived_at": "2026-08-29T08:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-67d3b3d46a8a",
-        "idea_version": "IDEAV-7329212d7a6ff32b",
-        "idea_version_started_at": "2026-08-26T09:53:03Z",
-        "ticker": "ATD",
-        "company": "Alimentation Couche-Tard",
-        "exchange": "TSX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is initiating a massive $8.7 billion takeover bid for Zabka, which introduces significant execution risk, potential overpayment, and balance sheet strain.",
-        "why_now": "The tender offer was launched today, August 26, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a3fdccaa2d2d",
-          "EVT-323f8b310869"
-        ],
-        "primary_source_event_id": "EVT-a3fdccaa2d2d",
-        "source_headlines": [
-          "Couche-Tard Starts $8.7 Billion Takeover Bid for Poland’s Zabka",
-          "Couche-Tard launches tender offer for all shares of Poland's Zabka"
-        ],
-        "source_headline": "Couche-Tard Starts $8.7 Billion Takeover Bid for Poland’s Zabka",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-26/couche-tard-starts-8-7-billion-takeover-bid-for-poland-s-zabka",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-26T08:21:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T09:53:03Z",
-        "updated_at": "2026-08-26T09:53:03Z",
-        "decay_at": "2026-08-27T20:21:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 839,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165736,9 +165735,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1765935,
-    "news_picked_today": 93,
-    "news_dropped_today": 1347
+    "news_seen_today": 1886113,
+    "news_picked_today": 97,
+    "news_dropped_today": 1439
   },
   "book_momentum": {
     "live_count": 8,
