@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T06:05:41Z",
+  "generated_at": "2026-09-16T07:45:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1093,6 +1093,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-136",
+      "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE OF REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015- DISCLOSURE OFEVENTS OR INFORMATION DISCLOSURE OF IMPOSITION OF FINES OR PENALTIES BY TRAI",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MTNL_16092026110701_SD_SE_16092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T05:37:25Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Mahanagar Telephone Nigam Limited disclosed the imposition of fines or penalties by the telecom regulator TRAI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Mahanagar Telephone Nigam Limited disclosed the imposition of fines or penalties by the telecom regulator TRAI.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-047",
       "headline": "DIRECTEL (08337): EXCHANGE NOTICE - TRADING HALT",
       "headline_en": null,
@@ -1822,6 +1872,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-143",
+      "headline": "ByteDance completes $290 million fundraising for AI drug unit after its spin-off, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/bytedance-completes-290-million-fundraising-ai-drug-unit-after-its-spin-off-2026-09-16/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T06:05:44Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "ByteDance raised $290 million for its AI drug discovery unit, signaling a significant capital injection into its biotech spin-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "ByteDance raised $290 million for its AI drug discovery unit, signaling a significant capital injection into its biotech spin-off.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ByteDance",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-133",
       "headline": "Praj Industries Limited: Praj Industries Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Praj and Gevo Enter Development & Commercialization Agreement for Bio-IBA in India\".",
       "headline_en": null,
@@ -1866,104 +1965,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-134",
-      "headline": "XRG completes stake acquisition in Azerbaijan energy firm",
-      "headline_en": null,
-      "url": "https://www.meed.com/xrg-completes-stake-acquisition-in-azerbaijan-energy-firm",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T05:48:15Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "XRG has completed the acquisition of a stake in an Azerbaijan energy firm, representing a strategic expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "XRG has completed the acquisition of a stake in an Azerbaijan energy firm, representing a strategic expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XRG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-127",
-      "headline": "Univastu India Limited: Univastu India Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/UNIVASTU_16092026103407_WO_Line_4A_Gaimukh.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T05:04:14Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "New contract wins are a direct driver of revenue growth for smaller firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "New contract wins are a direct driver of revenue growth for smaller firms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Univastu India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166029,9 +166030,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4122603,
-    "news_picked_today": 200,
-    "news_dropped_today": 3208
+    "news_seen_today": 4171144,
+    "news_picked_today": 209,
+    "news_dropped_today": 4111
   },
   "book_momentum": {
     "live_count": 8,
