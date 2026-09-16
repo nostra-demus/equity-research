@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:45:19Z",
+  "generated_at": "2026-09-16T01:59:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -1628,6 +1628,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-066",
+      "headline": "EZL: Explanatory Booklet/Notice of EGM/Proxy Form [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EZL?key=2924-03136042-6A1344010",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T01:30:14Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Company issued an explanatory booklet for an EGM, marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Company issued an explanatory booklet for an EGM, marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EZL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-063",
       "headline": "FUL: Appointment of Managing Director and Appendix 3X [price-sensitive]",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-031",
-      "headline": "Ironstone Properties, Inc. f/k/a Ironstone Group, Inc.,",
-      "headline_en": null,
-      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106366.pdf",
-      "source_name": "U.S. SEC (Administrative Proceedings)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T19:53:07Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Routine SEC administrative proceeding filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine SEC administrative proceeding filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ironstone Properties, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -121291,77 +121291,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7a1faa5fed89",
-      "idea_version": "IDEAV-0e20b17b7b31f75a",
-      "idea_version_started_at": "2026-09-14T20:43:51Z",
-      "ticker": "NEE",
-      "company": "NextEra Energy",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Reaffirming guidance at the top end of the range while progressing on a $67 billion merger provides visibility into earnings growth and capital deployment.",
-      "why_now": "Guidance was reaffirmed on 2026-09-14.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3b0b79da3b6"
-      ],
-      "primary_source_event_id": "EVT-d3b0b79da3b6",
-      "source_headlines": [
-        "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses"
-      ],
-      "source_headline": "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses",
-      "source_url": "https://www.wsj.com/business/energy-oil/nextera-energy-dominion-energy-propose-expanded-state-benefits-to-support-merger-94a4f2d2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T13:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T20:43:51Z",
-      "updated_at": "2026-09-14T20:43:51Z",
-      "decay_at": "2026-09-16T01:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b89460c407f6",
       "idea_version": "IDEAV-31d65d151ca3a27a",
       "idea_version_started_at": "2026-09-16T01:34:59Z",
@@ -124409,6 +124338,77 @@
       "surfaced_at": "2026-09-14T02:21:22Z",
       "updated_at": "2026-09-14T02:21:22Z",
       "decay_at": "2026-09-15T12:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7a1faa5fed89",
+      "idea_version": "IDEAV-0e20b17b7b31f75a",
+      "idea_version_started_at": "2026-09-14T20:43:51Z",
+      "ticker": "NEE",
+      "company": "NextEra Energy",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Reaffirming guidance at the top end of the range while progressing on a $67 billion merger provides visibility into earnings growth and capital deployment.",
+      "why_now": "Guidance was reaffirmed on 2026-09-14.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3b0b79da3b6"
+      ],
+      "primary_source_event_id": "EVT-d3b0b79da3b6",
+      "source_headlines": [
+        "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses"
+      ],
+      "source_headline": "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses",
+      "source_url": "https://www.wsj.com/business/energy-oil/nextera-energy-dominion-energy-propose-expanded-state-benefits-to-support-merger-94a4f2d2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T13:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T20:43:51Z",
+      "updated_at": "2026-09-14T20:43:51Z",
+      "decay_at": "2026-09-16T01:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128380,14 +128380,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 576,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 76,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
         "total_count": 285,
@@ -128411,6 +128411,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7a1faa5fed89",
+        "idea_version": "IDEAV-0e20b17b7b31f75a",
+        "idea_version_started_at": "2026-09-14T20:43:51Z",
+        "ticker": "NEE",
+        "company": "NextEra Energy",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Reaffirming guidance at the top end of the range while progressing on a $67 billion merger provides visibility into earnings growth and capital deployment.",
+        "why_now": "Guidance was reaffirmed on 2026-09-14.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d3b0b79da3b6"
+        ],
+        "primary_source_event_id": "EVT-d3b0b79da3b6",
+        "source_headlines": [
+          "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses"
+        ],
+        "source_headline": "NextEra Energy Reaffirms 2026 Guidance at Top End of Range as $67 Billion Dominion Merger Progresses",
+        "source_url": "https://www.wsj.com/business/energy-oil/nextera-energy-dominion-energy-propose-expanded-state-benefits-to-support-merger-94a4f2d2?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T13:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T20:43:51Z",
+        "updated_at": "2026-09-14T20:43:51Z",
+        "decay_at": "2026-09-16T01:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T01:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-41f871048ef0",
         "idea_version": "IDEAV-ae646f7e42b2e218",
@@ -157786,79 +157860,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-272cddf27801",
-        "idea_version": "IDEAV-3b3e769f4ebbd692",
-        "idea_version_started_at": "2026-09-03T18:13:00Z",
-        "ticker": "DEC",
-        "company": "Diversified Energy Company",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $1.8 billion acquisition of Permian assets significantly expands the company's production footprint and reserves in a high-value basin.",
-        "why_now": "The acquisition was announced on September 3, 2026, providing an immediate catalyst for growth valuation.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4677b3d86f3f"
-        ],
-        "primary_source_event_id": "EVT-4677b3d86f3f",
-        "source_headlines": [
-          "Diversified to Acquire Elliott Assets in Permian for $1.8B"
-        ],
-        "source_headline": "Diversified to Acquire Elliott Assets in Permian for $1.8B",
-        "source_url": "https://www.rigzone.com/news/diversified_to_acquire_elliott_assets_in_permian_for_18b-03-sep-2026-184528-article/?rss=true",
-        "source_name": "Rigzone",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T11:04:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T14:12:49Z",
-        "updated_at": "2026-09-03T18:13:00Z",
-        "decay_at": "2026-09-04T23:04:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T11:12:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f7d451f14843",
         "idea_version": "IDEAV-3a714f02fd38b381",
         "idea_version_started_at": "2026-09-03T18:13:00Z",
@@ -165585,7 +165586,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 837,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165604,9 +165605,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1162223,
-    "news_picked_today": 66,
-    "news_dropped_today": 846
+    "news_seen_today": 1323959,
+    "news_picked_today": 69,
+    "news_dropped_today": 963
   },
   "book_momentum": {
     "live_count": 8,
