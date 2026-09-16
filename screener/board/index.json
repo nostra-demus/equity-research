@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T02:09:53Z",
+  "generated_at": "2026-09-16T02:24:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -744,6 +744,55 @@
           "name": "JATT II Acquisition Corp.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-072",
+      "headline": "CMB: Cambium Bio Secures A$10.85 Million Funding Package [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMB?key=2924-03136055-2A1697404",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T02:03:04Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Cambium Bio secured a funding package of A$10.85 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Cambium Bio secured a funding package of A$10.85 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cambium Bio",
+          "ticker": "CMB",
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1814,148 +1863,99 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260916-066",
-      "headline": "EZL: Explanatory Booklet/Notice of EGM/Proxy Form [price-sensitive]",
+      "inbox_id": "INB-20260916-075",
+      "headline": "424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EZL?key=2924-03136042-6A1344010",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T01:30:14Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/886982/000119312526391803/0001193125-26-391803-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:18:56Z",
       "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Company issued an explanatory booklet for an EGM, marked as price-sensitive.",
+      "prelim_note": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Goldman Sachs Group Inc.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Company issued an explanatory booklet for an EGM, marked as price-sensitive.",
-      "region": "OTHER",
+      "triage_score": 75,
+      "triage_reason": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Goldman Sachs Group Inc.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "strategic_review"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "EZL",
+          "name": "GOLDMAN SACHS GROUP INC",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260916-063",
-      "headline": "FUL: Appointment of Managing Director and Appendix 3X [price-sensitive]",
+      "inbox_id": "INB-20260916-076",
+      "headline": "424B2 - BANK OF AMERICA CORP /DE/ (0000070858) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FUL?key=2924-03136040-2A1697398",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T01:29:09Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/70858/000191870426027682/0001918704-26-027682-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-15T19:18:56Z",
       "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "The company announced the appointment of a new Managing Director.",
+      "prelim_note": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Bank of America Corp.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The company announced the appointment of a new Managing Director.",
-      "region": "OTHER",
+      "triage_score": 75,
+      "triage_reason": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Bank of America Corp.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "management"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Fuller",
+          "name": "BANK OF AMERICA CORP /DE/",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-025",
-      "headline": "PIA: PIA - Antipodes Appointment, Board Transition & Settlement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIA?key=2924-03136005-2A1697371",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T00:00:24Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Announcement of a board transition and appointment of a new investment manager.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Announcement of a board transition and appointment of a new investment manager.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PIA",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165595,9 +165595,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1425007,
-    "news_picked_today": 79,
-    "news_dropped_today": 1049
+    "news_seen_today": 1625673,
+    "news_picked_today": 87,
+    "news_dropped_today": 1257
   },
   "book_momentum": {
     "live_count": 8,
