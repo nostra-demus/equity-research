@@ -1,0 +1,74 @@
+name: Research check
+
+# Research is published straight to `main` by the engine, and ci.yml ignores those pushes on purpose, so that
+# publishing research can never cancel, starve or manufacture a code release. This is the check that looks at
+# a run as it LANDS — the gap that let AKAM_2026-09-14 reach main unexamined and then fail three unrelated
+# code PRs a day later.
+#
+# It stays out of the code lane by construction: its own file (scripts/ops/deploy-authorization.py requires
+# ci.yml to carry exactly the five release jobs, so a sixth job there would break deployment), its own
+# concurrency group that cancels nothing, no pull_request trigger, and no permission beyond writing issues.
+on:
+  push:
+    branches: [main]
+    # The exact paths ci.yml ignores.
+    paths:
+      - "analyses/**"
+      - "screener/**"
+      - "commodity/**"
+      - "watchlist/**"
+  schedule:
+    # A nightly sweep of the whole corpus: a check that starts failing on its own — a date passing, a new
+    # contract landing — is found by morning rather than by the next code PR.
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: research-check-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  research-check:
+    name: research — eval on the runs that just landed
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install permanent-memory cryptography
+        run: python3 -m pip install --disable-pip-version-check --require-hashes -r scripts/requirements-memory.txt
+
+      - name: Evaluate the runs this push touched
+        if: github.event_name == 'push'
+        run: |
+          python3 scripts/research_check.py --changed "${{ github.event.before }}" "${{ github.sha }}" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --json-out "$RUNNER_TEMP/research-check.json" \
+            --summary-out "$GITHUB_STEP_SUMMARY"
+
+      - name: Evaluate every committed run
+        if: github.event_name != 'push'
+        run: |
+          python3 scripts/research_check.py --all \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --json-out "$RUNNER_TEMP/research-check.json" \
+            --summary-out "$GITHUB_STEP_SUMMARY"
+
+      # Runs whether the evaluation passed or failed: a failing run needs its issue, a fixed one needs it closed.
+      - name: Open or close one issue per run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/research_check_issues.sh "$RUNNER_TEMP/research-check.json"
