@@ -37,6 +37,8 @@ try {
   assert.equal(discoveryListing('0700.HK'), 'HK')
   assert.equal(discoveryListing('TEST.NS', 'NYSE'), 'IN', 'qualified symbol beats a guessed exchange')
   assert.equal(discoveryListing('BABA', 'NYSE'), 'US', 'issuer domicile never hides a US ADR')
+  assert.equal(discoveryListing('NYSE:BABA', 'HKEX'), 'US', 'explicit US instrument overrides an issuer-level exchange guess')
+  assert.equal(discoveryListing('HKEX:9988', 'NYSE'), 'HK')
   assert.equal(discoveryListing('BRK.A'), null)
   assert.equal(discoveryListing('TEST'), null)
   const markets = [idea(), idea({ ticker: '0700.HK' }), idea({ ticker: 'ABC.NS' }), idea({ ticker: 'MYSTERY', exchange: null })]

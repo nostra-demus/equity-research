@@ -41,7 +41,8 @@ export function discoveryListing(symbol: unknown, exchange?: unknown): string | 
   // A listing-qualified symbol is stronger than the skim's unverified exchange guess.
   if (/\.HK$/.test(ticker)) return 'HK'
   if (/\.(NS|BO)$/.test(ticker)) return 'IN'
+  const explicitMarket = mic[prefix] || countryFromExchange(prefix)
+  if (explicitMarket) return explicitMarket
   if (market) return market
   return null
 }
-
