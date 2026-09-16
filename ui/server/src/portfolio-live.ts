@@ -21,6 +21,7 @@
 
 import type { Book } from './portfolio'
 import { getQuotes, type QuoteDeps } from './news/equity-quote'
+import { isQuoteEligibleCategory, statementMinorUnitDivisor } from '../../shared/live-pricing'
 
 export interface LivePricedRow {
   symbol: string
@@ -31,6 +32,11 @@ export interface LivePricedRow {
   /** Base-currency value at the live price, using the statement's rate (see the note on fx below). */
   value: number
   movePct: number | null
+  /** THIS row's own quote date and close/live status — a cross-market book can mix trading days and
+   *  live-vs-close rows in one estimate, so a caller must not assume the mark's aggregate `asOf` and
+   *  `asOfIsClose` (latest date, worst case) describe every row alike. */
+  asOf: string | null
+  asOfIsClose: boolean
 }
 
 export interface LiveMark {
@@ -80,8 +86,13 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
   const bookAsOf = book.asOf
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
   // Derivatives are excluded: a future's notional is exposure against margin, not a share of NAV, and
-  // re-marking it here would add its face value to the estimate.
-  const holdings = book.positions.filter((p) => !p.isDerivative && p.symbol && p.quantity !== null)
+  // re-marking it here would add its face value to the estimate. A bought OPTION is deliberately not a
+  // derivative by that test (its premium is a real NAV asset) — but its broker symbol is commonly the
+  // UNDERLYING ticker, so a plain equity-style quote lookup would price the option at the STOCK's price.
+  // Excluded here for the same reason a future is: not because it carries no value, but because this
+  // symbol-only lane cannot price it. Its statement value is folded into cash below, same as a derivative's.
+  const holdings = book.positions.filter((p) =>
+    !p.isDerivative && isQuoteEligibleCategory(p.assetCategory) && p.symbol && p.quantity !== null)
   if (holdings.length === 0 || nav === null) {
     return { ...EMPTY, bookAsOf, unavailable: 'the book holds no priceable positions' }
   }
@@ -119,24 +130,34 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
     // refuses that formula for PAR_PRICED rows — and scaling preserves whatever basis the broker used while
     // moving only what moved. Without a stated value or mark there is nothing to scale, and the ordinary
     // formula stands.
+    //
+    // ALIGNED TO ONE UNIT before it is used as the scale's denominator. A London Stock Exchange holding is
+    // imported with its per-share price in PENCE while its own position value is in POUNDS — both under one
+    // currency code of "GBP" — while the live price above is already normalised to pounds (resolveUnits in
+    // news/equity-quote.ts). Dividing the live price by the raw pence mark would scale the value by ~100x.
     const stmt = p.markPrice
-    const value = p.positionValue !== null && stmt !== null && stmt > 0
-      ? p.positionValue * (price / stmt) * rate
+    const alignedStmt = stmt !== null
+      ? stmt / statementMinorUnitDivisor(p.positionValue, stmt, p.quantity, p.multiplier)
+      : null
+    const value = p.positionValue !== null && alignedStmt !== null && alignedStmt > 0
+      ? p.positionValue * (price / alignedStmt) * rate
       : price * p.quantity! * rate * (p.multiplier || 1)
+    const rowAsOfRaw = q?.quote?.as_of ?? null
     priced.push({
       symbol: p.symbol!,
       quantity: p.quantity!,
       statementPrice: stmt,
       price,
       value,
-      movePct: stmt !== null && stmt > 0 ? (price / stmt - 1) * 100 : null,
+      movePct: alignedStmt !== null && alignedStmt > 0 ? (price / alignedStmt - 1) * 100 : null,
+      asOf: rowAsOfRaw ? rowAsOfRaw.slice(0, 10) : null,
+      asOfIsClose: !!q?.quote?.as_of_is_close,
     })
     holdingsValue += value
     statementValue += (p.positionValue ?? 0) * rate
     costBasis += (p.costBasisMoney ?? 0) * rate
-    const at = q?.quote?.as_of ?? null
-    if (at) {
-      const d = at.slice(0, 10)
+    if (rowAsOfRaw) {
+      const d = rowAsOfRaw.slice(0, 10)
       if (asOf === null || d > asOf) asOf = d
     }
     // Worst case across the holdings: if ANY leg is a close, delayed or stale, the whole estimate is.

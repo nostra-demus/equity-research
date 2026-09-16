@@ -27,7 +27,7 @@ import {
   readIdeas, renameIdea, type Idea, type IdeaBook,
 } from './portfolio-ideas'
 import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
-import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
+import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, rateOver, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
 export const STATEMENTS_DIR = path.join(PORTFOLIO_DIR, 'statements')
@@ -212,10 +212,11 @@ export const RISK_FREE_SERIES = 'DTB3'
 
 /** The cash hurdle as of TODAY where the feed carries it, and the dated constant where it does not.
  *
- *  A constant cannot help going stale: the one above was written in January and was still what every Sharpe,
- *  Sortino and Calmar on the screen was measured against in September. The feed already fetches this series
- *  daily beside the benchmark, so the rate is read from it and carries the feed's own date — and when there is
- *  no feed the fallback says so out loud rather than presenting January as current. */
+ *  A constant cannot help going stale: the one above was written in January and was still what every Sharpe
+ *  and Sortino on the screen was measured against in September (Calmar carries no cash rate — it is period
+ *  return over maximum drawdown alone). The feed already fetches this series daily beside the benchmark, so
+ *  the rate is read from it and carries the feed's own date — and when there is no feed the fallback says so
+ *  out loud rather than presenting January as current. */
 export function riskFreeNow(
   series: { rows: Close[]; provider: string | null } = readRateSeries(RISK_FREE_SERIES),
   /** The day the book is measured to, so an observation can be called old against something real. */
@@ -324,6 +325,12 @@ export interface PortfolioPerformance {
    *  later, and the rate goes stale silently. */
   riskFreeAsOf: string
   riskFreeSource: string
+  /** The rate ACTUALLY charged across the since-inception window — averaged over every day the feed
+   *  covers it (riskFreeOver) — as opposed to `riskFreeAnnualPct`, which is the latest observation only.
+   *  A book that spans a rate cycle can have these differ materially: the since-inception "vs cash" card
+   *  and the Sharpe/Sortino ratios (measured over the same span) are charged THIS rate, not the latest
+   *  one, so a label naming "the cash rate" for either must name this figure, not `riskFreeAnnualPct`. */
+  riskFreeSinceInceptionPct: number | null
   /** What the benchmark series actually measures. The index is a PRICE index while the book's return
    *  keeps its dividends, so the comparison flatters the fund by roughly the index's yield — said out
    *  loud rather than credited in silence. */
@@ -372,6 +379,14 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // return — which does not merely overstate the hurdle, it FLIPS the sign of "over cash". It also
   // dated a four-month-old book "since 2025-08-22" on screen.
   const window = measuredWindow(book.navSeries, flowsByDate)
+  // THE SAME RATE `returnsByPeriod`'s "Since inception" row and `riskMetrics`'s ratios actually charge —
+  // the average over the window's own span, not the latest observation. `riskFreeAnnualPct` is that
+  // latest observation, so a screen that describes "the since-inception hurdle" or "the ratios" against
+  // `riskFreeAnnualPct` is naming a different, merely current, rate whenever the feed has moved across
+  // the book's history. This is the figure such a label must use instead.
+  const riskFreeSinceInceptionPct = window.length
+    ? rateOver(riskFreeRate, window[0]!.date, window[window.length - 1]!.date)
+    : null
 
   // Both curves REBASED to 100 on the first day the book actually held capital. Plotting raw NAV
   // against an index would draw every deposit as a leap in performance; the book curve is the same
@@ -422,6 +437,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
     riskFreeAnnualPct: riskFree.pct,
     riskFreeAsOf: riskFree.asOf,
     riskFreeSource: riskFree.source,
+    riskFreeSinceInceptionPct,
     benchmarkBasis: BENCHMARK_BASIS,
     feedPresent: feedPresent(),
   }

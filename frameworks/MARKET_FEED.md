@@ -128,10 +128,11 @@ on one does not cost the day's refresh of the other, and the exit code still rep
 | `SP500` — daily index close | `sp500_<as_of>.csv` | proprietary to S&P Dow Jones Indices LLC: free to access and use via FRED as an internal benchmark reference, **not** redistributable (`license: proprietary`, `redistribution: prohibited`) |
 | `DTB3` — 3-month US Treasury bill, secondary-market rate | `dtb3_<as_of>.csv` | US Treasury data published by the Federal Reserve: `license: public_domain`, `redistribution: allowed` |
 
-`DTB3` is the cash hurdle behind every Sharpe, Sortino and Calmar in the fund book, and it is a **rate, not a
-price**: `0.00` is a real observation and is kept, where an index level of zero would be a bad row. The
-engine reads it with `readRates()` for that reason, and charges each window the average rate across it
-rather than the newest observation. `scripts/ops/install-services.sh`
+`DTB3` is the cash hurdle behind every Sharpe and Sortino in the fund book — Calmar is period return over
+maximum drawdown alone, with no cash rate in it, and the UI does not render a Calmar figure at all, so it
+is not one of these — and it is a **rate, not a price**: `0.00` is a real observation and is kept, where an
+index level of zero would be a bad row. The engine reads it with `readRates()` for that reason, and charges
+each window the average rate across it rather than the newest observation. `scripts/ops/install-services.sh`
 installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (07:10, 13:10 and 19:10 — the
 first ahead of `hk-calibrate-daily` at 07:25, the rest so a missed window or a provider hiccup does not cost
 the day) via the `scripts/ops/market-feed-local.sh` wrapper — deterministic,

@@ -9,6 +9,7 @@
 // never half of each. A row is live only when every figure in it can be built from live inputs; otherwise it is
 // the statement's, and says which. The two bases are never summed and never silently mixed.
 import type { PortfolioLiveMark, PortfolioLiveRow, PortfolioPosition } from '../../lib/types'
+import { isQuoteEligibleCategory, statementMinorUnitDivisor } from '../../../../shared/live-pricing'
 
 export interface MarkedPosition {
   /** The price to show, in the position's own currency. */
@@ -22,6 +23,10 @@ export interface MarkedPosition {
   live: boolean
   /** The move from the statement's own mark to the live price, where both are known. */
   movePct: number | null
+  /** THIS row's own quote date and close/live status, null/false when not live. Never the mark's
+   *  aggregate — a cross-market book can price two rows on two different days in one page load. */
+  asOf: string | null
+  asOfIsClose: boolean
 }
 
 /**
@@ -37,12 +42,21 @@ export function livePriceIndex(live: PortfolioLiveMark | null, positions: Portfo
   if (!live || live.unavailable || !live.priced) return out
   const seen = new Map<string, number>()
   for (const p of positions) {
-    const key = (p.symbol ?? '').toUpperCase()
-    if (key) seen.set(key, (seen.get(key) ?? 0) + 1)
+    // Only a position `/api/portfolio/live` could actually have quoted counts against a symbol here. A
+    // future or option sharing an equity's broker symbol is never in `live.priced` (the server excludes
+    // both, for different reasons — see portfolio-live.ts), so counting it here would drop an otherwise
+    // unambiguous equity quote for a collision that was never real.
+    if (!p.isDerivative && isQuoteEligibleCategory(p.assetCategory)) {
+      const key = (p.symbol ?? '').toUpperCase()
+      if (key) seen.set(key, (seen.get(key) ?? 0) + 1)
+    }
   }
   for (const row of live.priced) {
     const key = (row.symbol ?? '').toUpperCase()
-    if (!key || (seen.get(key) ?? 0) > 1) continue
+    // Exactly one quote-eligible position held this symbol. Zero means nothing here holds it (an unheld
+    // or already-excluded symbol); more than one means it is genuinely ambiguous which line the quote
+    // belongs to — both stay on the statement rather than guessing.
+    if (!key || seen.get(key) !== 1) continue
     out.set(key, row)
   }
   return out
@@ -58,16 +72,33 @@ export function livePriceIndex(live: PortfolioLiveMark | null, positions: Portfo
 export function markPosition(p: PortfolioPosition, index: Map<string, PortfolioLiveRow>, navBase: number | null): MarkedPosition {
   const statement: MarkedPosition = {
     price: p.markPrice, value: p.positionValue, unrealised: p.unrealizedLocal,
-    weightPct: p.percentOfNAV, live: false, movePct: null,
+    weightPct: p.percentOfNAV, live: false, movePct: null, asOf: null, asOfIsClose: false,
   }
+  // An OPTION never takes a quote by symbol, full stop — even where `index` happens to hold a row under
+  // its own broker symbol (an equity of the same ticker the option is written on). `livePriceIndex`
+  // already keeps such a row out of the ambiguity count so the EQUITY is not penalised for the option
+  // sharing its symbol; this is the other half — the option itself must not turn around and read that
+  // same equity row as if it were a quote of the option.
+  if (!isQuoteEligibleCategory(p.assetCategory)) return statement
   const row = index.get((p.symbol ?? '').toUpperCase())
   const stmtPrice = p.markPrice
-  if (!row || !Number.isFinite(row.price) || stmtPrice === null || !(stmtPrice > 0) || p.positionValue === null) return statement
-  const value = p.positionValue * (row.price / stmtPrice)
+  const positionValue = p.positionValue
+  // Every one of these numbers came off a statement export or a live feed response — external data this
+  // function does not control the shape of. A NaN or an Infinity slipping past a bare `!= null` check
+  // would propagate silently into a displayed value, an unrealised figure or a weight; Number.isFinite
+  // catches both while still admitting the ordinary case (§3: no source, no claim — including a claim
+  // built on a number that is not actually one).
+  if (!row || !Number.isFinite(row.price) || stmtPrice === null || !Number.isFinite(stmtPrice) || !(stmtPrice > 0)
+    || positionValue === null || !Number.isFinite(positionValue)) return statement
+  // ALIGNED TO ONE UNIT before the two prices are compared as a ratio — see statementMinorUnitDivisor.
+  const alignedStmtPrice = stmtPrice / statementMinorUnitDivisor(positionValue, stmtPrice, p.quantity, p.multiplier)
+  const value = positionValue * (row.price / alignedStmtPrice)
+  const costBasisMoney = p.costBasisMoney
+  const unrealizedLocal = p.unrealizedLocal
   // Against the statement's own cost where it states one; otherwise the unrealised it stated, moved by what
   // the value moved. Neither is available for every holding, and a row that can have neither stays as it was.
-  const unrealised = p.costBasisMoney !== null ? value - p.costBasisMoney
-    : p.unrealizedLocal !== null ? p.unrealizedLocal + (value - p.positionValue)
+  const unrealised = costBasisMoney !== null && Number.isFinite(costBasisMoney) ? value - costBasisMoney
+    : unrealizedLocal !== null && Number.isFinite(unrealizedLocal) ? unrealizedLocal + (value - positionValue)
       : null
   // A holding whose statement gives NEITHER a cost nor an unrealised still gets its live price and value:
   // the server has already repriced it inside the live estimate of NAV, so leaving the row at its statement
@@ -75,9 +106,10 @@ export function markPosition(p: PortfolioPosition, index: Map<string, PortfolioL
   // not match its parts. Unrealised is simply absent, which is what the statement says about it.
   // The weight divides two base-currency figures: this holding at the live price, over the live estimate of
   // the whole book. Without the statement's own rate, or without that estimate, it cannot be stated at all.
-  const weightPct = p.fxRateToBase !== null && navBase !== null && navBase !== 0
-    ? ((value * p.fxRateToBase) / navBase) * 100
+  const fxRateToBase = p.fxRateToBase
+  const weightPct = fxRateToBase !== null && Number.isFinite(fxRateToBase) && navBase !== null && Number.isFinite(navBase) && navBase !== 0
+    ? ((value * fxRateToBase) / navBase) * 100
     : null
   if (weightPct === null) return statement
-  return { price: row.price, value, unrealised, weightPct, live: true, movePct: row.movePct }
+  return { price: row.price, value, unrealised, weightPct, live: true, movePct: row.movePct, asOf: row.asOf, asOfIsClose: row.asOfIsClose }
 }

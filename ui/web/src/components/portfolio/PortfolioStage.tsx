@@ -395,15 +395,43 @@ function withLive(
 /** The table's marks: each position priced at the market where the feed reached it, else as the statement
  *  stated it — with how many of each, so the panel can say which basis the reader is looking at. */
 function positionMarks(book: PortfolioBook, live: PortfolioLiveMark | null) {
-  const index = livePriceIndex(live, book.positions)
+  // The day the HOLDINGS were observed, which the book's own as-of outruns whenever the newest export
+  // carried no position snapshot. An engine that predates the field sends nothing, and `asOf` stands in.
+  const statementDay = book.positionsAsOf ?? book.asOf
+  // A live snapshot is used ONLY when it can be tied to THIS book:
+  //  · bookAsOf must match — after a statement import or delete, React renders the new book while the
+  //    OLD live quotes are still in state until the next /portfolio/live response lands. An unmatched
+  //    bookAsOf is exactly that stale snapshot, still on screen from before the book changed under it.
+  //  · asOf must be strictly newer than the positions it would reprice — the same rule the growth chart
+  //    already applies below (withLive: `live.asOf <= last.date` is refused). A cached or prior-close
+  //    quote no newer than the statement must not silently overwrite a mark that is already current.
+  const live_ = live && !live.unavailable && live.bookAsOf === book.asOf
+    && live.asOf !== null && statementDay !== null && live.asOf > statementDay
+    ? live : null
+  const index = livePriceIndex(live_, book.positions)
   const marks = new Map<PortfolioPosition, MarkedPosition>()
-  for (const p of book.positions) marks.set(p, markPosition(p, index, live?.nav ?? null))
+  for (const p of book.positions) marks.set(p, markPosition(p, index, live_?.nav ?? null))
+  const liveMarks = [...marks.values()].filter((m) => m.live)
+  const asOfDates = new Set(liveMarks.map((m) => m.asOf))
+  const closeFlags = new Set(liveMarks.map((m) => m.asOfIsClose))
+  // A holding priced outside the base currency still converts at the STATEMENT's own exchange rate
+  // (positionMarks.ts markPosition — there is no live FX leg here), so a panel calling the row "priced at
+  // the market" must also say that ONE input, the currency conversion, is still the statement's.
+  const foreignLive = book.positions.some((p) => {
+    const m = marks.get(p)
+    return !!m?.live && !!p.currency && !!book.baseCurrency && p.currency !== book.baseCurrency
+  })
   return {
     of: (p: PortfolioPosition): MarkedPosition => marks.get(p) ?? markPosition(p, new Map(), null),
-    livePriced: [...marks.values()].filter((m) => m.live).length,
-    // The day the HOLDINGS were observed, which the book's own as-of outruns whenever the newest export
-    // carried no position snapshot. An engine that predates the field sends nothing, and `asOf` stands in.
-    statementDay: book.positionsAsOf ?? book.asOf,
+    live: live_,
+    livePriced: liveMarks.length,
+    // A single date and close-status only where every live row actually agrees — a cross-market book can
+    // hold rows quoted on different trading days, or mixing a live tick with a settled close, at once.
+    singleAsOf: asOfDates.size === 1 ? [...asOfDates][0] : null,
+    singleIsClose: closeFlags.size === 1 ? [...closeFlags][0] : null,
+    mixedTiming: liveMarks.length > 0 && (asOfDates.size > 1 || closeFlags.size > 1),
+    foreignLive,
+    statementDay,
   }
 }
 
@@ -477,11 +505,17 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   // are live, the statement's own NAV when they are not. Cash stays the residual either way, which is what
   // keeps NAV = invested + parked + cash true on whichever basis is on screen — and the residual works out
   // to the statement's own broker cash, since the estimate cannot see cash move (portfolio-live.ts).
-  const liveBasis = marks.livePriced > 0 && !!live && !live.unavailable && live.nav !== null
-  const navNow = liveBasis ? live!.nav : nav
-  const pricedWords = liveBasis
-    ? `priced ${live!.asOfIsClose ? 'at the last close' : 'at the market'} ${live!.asOf}${live!.delayed ? ' (delayed)' : ''}`
-    : `as the statement of ${book.asOf ?? 'its date'} states them`
+  //
+  // The HOLDINGS SNAPSHOT must be current too, not only the live quotes. When the newest export carries
+  // NAV or trades but no OpenPositions, `positionsAsOf` is deliberately older than `asOf` (buildBook) — a
+  // position sold since that snapshot could still be quoted here and counted as current exposure, with
+  // the difference silently absorbed into cash. One quote succeeding is not enough on a stale snapshot.
+  const holdingsCurrent = book.positionsAsOf == null || book.positionsAsOf === book.asOf
+  const liveForBasis = marks.livePriced > 0 && holdingsCurrent ? marks.live : null
+  const navNow = liveForBasis ? liveForBasis.nav : nav
+  const pricedWords = liveForBasis
+    ? `priced ${marks.mixedTiming ? 'at the market — each row shows its own quote date' : `${marks.singleIsClose ? 'at the last close' : 'at the market'} ${marks.singleAsOf}`}${liveForBasis.delayed ? ' (delayed)' : ''}`
+    : `as the statement of ${marks.statementDay ?? 'its date'} states them`
   const brokerCash = navNow === null ? null : navNow - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
   return (
@@ -616,9 +650,13 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
             <strong>Positions</strong>
             <small>
               {book.positions.length} open ·{' '}
-              {marks.livePriced > 0
-                ? `${marks.livePriced} of them priced ${live!.asOfIsClose ? 'at the last close' : 'at the market'} ${live!.asOf}${live!.delayed ? ' (delayed)' : ''}${live!.stale ? ', from cache' : ''} — quantity and cost from the statement of ${book.asOf ?? 'its date'}`
-                : `marks and weights as the statement of ${book.asOf ?? 'its date'} states them`}
+              {marks.livePriced > 0 && marks.live
+                // Timed per row, not by one aggregate date: a cross-market book can hold a row quoted
+                // today beside one still at last Friday's close, and the two are never the same figure.
+                ? `${marks.livePriced} of them priced ${marks.mixedTiming
+                  ? 'at the market — each row shows its own quote date'
+                  : `${marks.singleIsClose ? 'at the last close' : 'at the market'} ${marks.singleAsOf}`}${marks.live.delayed ? ' (delayed)' : ''}${marks.live.stale ? ', from cache' : ''} — quantity and cost from the statement of ${marks.statementDay ?? 'its date'}${marks.foreignLive ? ', non-base-currency weights at the statement’s own exchange rate' : ''}`
+                : `marks and weights as the statement of ${marks.statementDay ?? 'its date'} states them`}
             </small>
           </div>
         </div>
@@ -968,14 +1006,17 @@ function PositionRow({ p, mark, derivative, isCash, statementDay, ideas, onChang
       <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
       <span className="num" title={mark.live
-        ? `Priced at the market. The statement's own mark was ${fmtNum(p.markPrice)} on ${statementDay ?? 'its date'}.`
+        // THIS row's own quote date, not the panel's aggregate — a cross-market book can have one row
+        // priced today and another at last Friday's close in the same page load, and the aggregate
+        // heading above cannot say that for both.
+        ? `Priced ${mark.asOfIsClose ? 'at the last close' : 'at the market'}${mark.asOf ? ` ${mark.asOf}` : ''}. The statement's own mark was ${fmtNum(p.markPrice)} on ${statementDay ?? 'its date'}.`
         : statementDay ? `The feed had no price for this holding, so it is the statement's mark of ${statementDay}.` : undefined}>
         {fmtNum(mark.price)}
         {move !== null && <small className={`fundbook__lots${move < 0 ? ' is-down' : ''}`}>{move > 0 ? '+' : '−'}{Math.abs(move).toFixed(1)}%</small>}
         {!mark.live && statementDay && <small className="fundbook__lots">{shortDay(statementDay)}</small>}
       </span>
       <span className="num">{fmtSmallMoney(mark.value)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
-      <span className="num dim">{derivative ? '—' : mark.weightPct === null ? '—' : `${mark.weightPct.toFixed(1)}%`}</span>
+      <span className="num dim">{derivative ? '—' : mark.weightPct === null || !Number.isFinite(mark.weightPct) ? '—' : `${mark.weightPct.toFixed(1)}%`}</span>
       <span className="num" style={{ color: toneOf(mark.unrealised) }}>{fmtSmallMoney(mark.unrealised)}</span>
       {/* Against COST, not against market value: the question is what this position has returned on the
           money put into it. Cost is the statement's own basis, so the percentage ties to the figure
@@ -1127,6 +1168,13 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
   const inception = perf.periods.find((p) => p.label === 'Since inception') ?? null
   // Past about a third in cash, the ratios say more about the parking than the picking.
   const cashHeavy = cashShare !== null && cashShare >= 33
+  // The since-inception hurdle and the ratios below (Sharpe, Sortino) are charged the rate AVERAGED over
+  // this whole window (riskFreeSinceInceptionPct) — not `riskFreeAnnualPct`, which is only the latest
+  // observation. A book that spans a rate cycle can have the two differ materially, and describing
+  // either measurement against the latest rate names a number that was never actually applied to it.
+  const sinceInceptionPct = perf.riskFreeSinceInceptionPct
+  const rateHasMoved = sinceInceptionPct !== null && Math.abs(sinceInceptionPct - perf.riskFreeAnnualPct) >= 0.05
+  const cashRatePct = sinceInceptionPct ?? perf.riskFreeAnnualPct
   return (
     <>
       {/* ORDER IS THE ARGUMENT, and now the GRID CARRIES IT: three to a row, one theme per row — what
@@ -1151,7 +1199,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
           value={inception?.overHurdle === undefined || inception?.overHurdle === null
             ? '—'
             : `${inception.overHurdle >= 0 ? '+' : '−'}${Math.abs(inception.overHurdle).toFixed(2)}pp`}
-          sub={`Over a ${perf.riskFreeAnnualPct}% cash rate, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
+          sub={`Over a ${cashRatePct.toFixed(2)}% cash rate${rateHasMoved ? ` (this window's own average — the rate is ${perf.riskFreeAnnualPct}% now)` : ''}, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
           tone={toneOf(inception?.overHurdle)}
         />
         <Card
@@ -1192,7 +1240,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
         <div className="fundbook__panelhead">
           <div>
             <strong>Return by period</strong>
-            <small>Cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} funded days</small>
+            <small>Cash hurdle {cashRatePct.toFixed(2)}%{rateHasMoved ? ` (window average — ${perf.riskFreeAnnualPct}% now)` : ''} · ratios from {risk.sampleDays} funded days</small>
           </div>
         </div>
         <div className="fundbook__scroll">

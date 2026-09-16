@@ -87,6 +87,18 @@ def test_a_rate_keeps_its_zeroes_while_an_index_drops_them() -> None:
     assert M.parse(b"observation_date,SP500\n2026-08-21,0.00\n2026-08-24,7652.86\n") == [("2026-08-24", 7652.86)]
 
 
+def test_non_finite_rates_are_dropped_not_accepted_as_zero() -> None:
+    # positive_only=False means DTB3's own ValueError-based skip (the '.' / malformed-line case) is not
+    # what stops a non-finite value — float() parses "nan" and the infinities without raising. A
+    # non-finite rate is not a real observation: if it were kept and happened to carry the newest date,
+    # it would be written and reported as a successful fresh feed, then silently discarded downstream by
+    # the TypeScript reader's own Number.isFinite guard — a refresh that looks healthy and never happened.
+    raw = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,nan\n2026-09-16,inf\n"
+    assert M.parse(raw, M.DTB3) == [("2026-09-14", 4.10)], M.parse(raw, M.DTB3)
+    raw2 = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,-inf\n"
+    assert M.parse(raw2, M.DTB3) == [("2026-09-14", 4.10)], M.parse(raw2, M.DTB3)
+
+
 def test_the_rate_series_writes_its_own_file_and_its_own_rights() -> None:
     # Same lane, same shape, different rights: Treasury data is public domain where the index is not, and a
     # sidecar that claimed the index's terms for it — or the reverse — would be wrong about both.
@@ -310,6 +322,7 @@ def main() -> int:
     check("a wrong-shaped response is refused, not half-read", test_wrong_shape_is_refused_not_half_read)
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
     check("a rate keeps its zeroes while an index drops them", test_a_rate_keeps_its_zeroes_while_an_index_drops_them)
+    check("non-finite rates (nan/inf) are dropped, not accepted as a real observation", test_non_finite_rates_are_dropped_not_accepted_as_zero)
     check("the rate series writes its own file and its own rights", test_the_rate_series_writes_its_own_file_and_its_own_rights)
     check("both series are fetched, and one failing does not cost the other",
           test_both_series_are_fetched_and_one_failure_does_not_cost_the_other)

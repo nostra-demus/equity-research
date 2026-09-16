@@ -17,10 +17,11 @@ It still goes through the connectors' SSRF boundary (`scripts/connector_http.py`
 this cannot be pointed at an arbitrary host any more than a connector could.
 
 WHAT IT WRITES. Two series down the same lane: the S&P 500 daily close the fund book measures itself
-against, and the 3-month Treasury-bill rate (FRED DTB3) that is the cash hurdle inside every Sharpe,
-Sortino and Calmar on that screen. The hurdle used to be a constant in the server, dated and sourced but
-unable to help going stale — written in January, still current in September. It belongs in the feed that
-is already refreshed every morning.
+against, and the 3-month Treasury-bill rate (FRED DTB3) that is the cash hurdle inside every Sharpe and
+Sortino on that screen (Calmar is return over drawdown alone — no cash rate in it — so it is not one of
+these). The hurdle used to be a constant in the server, dated and sourced but unable to help going stale
+— written in January, still current in September. It belongs in the feed that is already refreshed every
+morning.
 
     python3 scripts/fetch_market_feed.py            # write data/_market/fred/{sp500,dtb3}_<as_of>.csv
     python3 scripts/fetch_market_feed.py --verify   # check the parsers, fetch nothing
@@ -32,6 +33,7 @@ import csv
 import datetime as dt
 import io
 import json
+import math
 import os
 import sys
 from typing import NamedTuple
@@ -92,8 +94,8 @@ DTB3 = Series(
     licensing={"access": "public", "use": "allowed", "redistribution": "allowed",
                "terms_url": "https://fred.stlouisfed.org/legal/"},
     description="3-month US Treasury bill, secondary market rate — daily (FRED series DTB3)",
-    note="The cash hurdle behind every Sharpe, Sortino and Calmar in the fund book. A rate, not a price: "
-         "0.00 is a real observation and is kept. Market holidays are omitted.",
+    note="The cash hurdle behind every Sharpe and Sortino in the fund book (Calmar has no cash rate in "
+         "it). A rate, not a price: 0.00 is a real observation and is kept. Market holidays are omitted.",
 )
 FEEDS = (SP500, DTB3)
 
@@ -122,6 +124,13 @@ def parse(raw: bytes, series: Series = SP500) -> list[tuple[str, float]]:
             close = float(row[1].strip())
         except ValueError:
             continue  # '.' on a market holiday, or a malformed line
+        # `float()` parses "nan" and the infinities without raising, so a positive_only=False series
+        # (DTB3) cannot rely on the ValueError above to keep them out. A non-finite rate is not a real
+        # observation — it would be written and reported as a successful fresh feed, then silently
+        # discarded by the TypeScript reader (Number.isFinite in market-feed.ts), leaving the sidecar
+        # claiming a refresh that never actually happened.
+        if not math.isfinite(close):
+            continue
         if close > 0 or not series.positive_only:
             out.append((date, close))
     if not out:

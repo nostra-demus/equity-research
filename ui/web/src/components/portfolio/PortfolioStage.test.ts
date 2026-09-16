@@ -50,6 +50,7 @@ const piece = (html: string, marker: string, name: string) => {
 }
 const tags = (fragment: string) => ({ unproven: />unproven</.test(fragment), costUnknown: />cost unknown</.test(fragment) })
 const card = (html: string, label: string) => tags(piece(html, 'fundbook__card"', `fundbook__cardlabel">${label}<`))
+const row = (html: string, sym: string) => piece(html, 'fundbook__row"', `<span>${sym}</span>`)
 
 let passed = 0
 const check = (name: string, fn: () => void) => {
@@ -151,7 +152,7 @@ check('the positions table is priced at the market where the feed reached the ho
   const live: PortfolioLiveMark = {
     asOf: '2026-09-16', asOfIsClose: true, delayed: true, stale: false, bookAsOf: '2026-09-09', staleDays: 7,
     nav: 10_000, unrealised: null, cash: null, unpriced: ['EMAAR'], unavailable: null,
-    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 10.24, price: 9.12, value: 912, movePct: -10.9375 }],
+    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 10.24, price: 9.12, value: 912, movePct: -10.9375, asOf: '2026-09-16', asOfIsClose: true }],
   }
   const html = holdingsHtml(b, live)
   const row = (sym: string) => piece(html, 'fundbook__row"', `<span>${sym}</span>`)
@@ -193,7 +194,7 @@ check('exposure is measured at the market too — the risk is where it is today'
     asOf: '2026-09-16', asOfIsClose: true, delayed: true, stale: false, bookAsOf: '2026-09-09', staleDays: 7,
     // 10,000 less the 3,000 that holding was worth, plus the 900 it is worth now.
     nav: 7900, unrealised: null, cash: null, unpriced: ['GOOG'], unavailable: null,
-    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 30, price: 9, value: 900, movePct: -70 }],
+    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 30, price: 9, value: 900, movePct: -70, asOf: '2026-09-16', asOfIsClose: true }],
   }
   const html = holdingsHtml(b, live)
   const card = (label: string) => piece(html, 'fundbook__card"', `fundbook__cardlabel">${label}<`)
@@ -206,6 +207,57 @@ check('exposure is measured at the market too — the risk is where it is today'
   assert.match(card('Largest single name'), /GOOG/)
   assert.match(card('Largest single name'), />69\.0%</, '2,000 of the 2,900 at risk')
   assert.match(html, /how that risk is spread — priced at the last close 2026-09-16/)
+})
+
+const heldFor = (o: Partial<PortfolioPosition> & { symbol: string }): PortfolioPosition => ({
+  conid: o.symbol, assetCategory: 'STK', subCategory: null, expiry: null, strike: null, putCall: null,
+  currency: 'USD', quantity: 100, markPrice: 10, costBasisPrice: 9, costBasisMoney: 900, positionValue: 1000,
+  percentOfNAV: 10, unrealizedLocal: 100, fxRateToBase: 1, multiplier: 1, isDerivative: false, ...o,
+} as PortfolioPosition)
+
+check('a live snapshot from a book that has since been replaced (import/delete) is refused, not applied', () => {
+  // React can render the NEW book while the OLD live quotes sit in state until the next
+  // /portfolio/live response lands. live.bookAsOf carries the OLD book's own asOf, which must not be
+  // matched against the CURRENT book's positions just because a quote happens to exist for the symbol.
+  const b = { ...book([]), asOf: '2026-09-20', positions: [heldFor({ symbol: 'GOOG' })] }
+  const live: PortfolioLiveMark = {
+    asOf: '2026-09-16', asOfIsClose: true, delayed: true, stale: false, bookAsOf: '2026-09-09', staleDays: 7,
+    nav: 10_000, unrealised: null, cash: null, unpriced: [], unavailable: null,
+    priced: [{ symbol: 'GOOG', quantity: 100, statementPrice: 10, price: 9, value: 900, movePct: -10, asOf: '2026-09-16', asOfIsClose: true }],
+  }
+  const html = holdingsHtml(b, live)
+  assert.match(html, /marks and weights as the statement of 2026-09-20 states them/, 'a bookAsOf mismatch must refuse the whole live snapshot')
+  assert.match(row(html, 'GOOG'), />10\.00</, 'the row keeps the statement’s own mark, not the stale live price of 9')
+})
+
+check('a live quote no newer than the statement it would reprice is refused, never used to overwrite it', () => {
+  const b = { ...book([]), asOf: '2026-09-16', positions: [heldFor({ symbol: 'GOOG' })] }
+  const live: PortfolioLiveMark = {
+    // bookAsOf matches — this is NOT the stale-snapshot case above — but asOf is the SAME day as the
+    // statement, not strictly after it, mirroring the growth chart's own `live.asOf <= last.date` refusal.
+    asOf: '2026-09-16', asOfIsClose: true, delayed: false, stale: true, bookAsOf: '2026-09-16', staleDays: 0,
+    nav: 10_000, unrealised: null, cash: null, unpriced: [], unavailable: null,
+    priced: [{ symbol: 'GOOG', quantity: 100, statementPrice: 10, price: 9, value: 900, movePct: -10, asOf: '2026-09-16', asOfIsClose: true }],
+  }
+  const html = holdingsHtml(b, live)
+  assert.match(html, /marks and weights as the statement of 2026-09-16 states them/)
+  assert.match(row(html, 'GOOG'), />10\.00</, 'the row keeps the statement’s own mark — the quote is no newer than it')
+})
+
+check('a stale HOLDINGS snapshot never lets one live quote pass off as current portfolio exposure', () => {
+  // The newest export carried NAV/trades but no OpenPositions: positionsAsOf is deliberately older than
+  // asOf (buildBook). A quote succeeding for GOOG must not make the Invested card claim the book is
+  // priced at the market — the shares behind that quote might already be gone.
+  const b = { ...book([]), asOf: '2026-09-20', positionsAsOf: '2026-09-09', positions: [heldFor({ symbol: 'GOOG' })] }
+  const live: PortfolioLiveMark = {
+    asOf: '2026-09-20', asOfIsClose: true, delayed: false, stale: false, bookAsOf: '2026-09-20', staleDays: 11,
+    nav: 10_000, unrealised: null, cash: null, unpriced: [], unavailable: null,
+    priced: [{ symbol: 'GOOG', quantity: 100, statementPrice: 10, price: 9, value: 900, movePct: -10, asOf: '2026-09-20', asOfIsClose: true }],
+  }
+  const html = holdingsHtml(b, live)
+  const invested = piece(html, 'fundbook__card"', 'fundbook__cardlabel">Invested<')
+  assert.match(invested, /as the statement of 2026-09-09 states them/, 'no "priced at the market" aggregate on a stale holdings snapshot')
+  assert.doesNotMatch(invested, /priced at the market/)
 })
 
 console.log(`PortfolioStage: ${passed} passed`)

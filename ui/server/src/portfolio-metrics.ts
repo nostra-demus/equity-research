@@ -210,7 +210,10 @@ function benchmarkOverWindow(
  * what last year earned. A resolver lets each window be charged the cash it could actually have earned.
  */
 export type RiskFreeRate = number | ((from: string, to: string) => number)
-const rateOver = (rate: RiskFreeRate, from: string, to: string): number =>
+// Exported so a caller outside this module (portfolio-store.ts) can ask the SAME resolver for the SAME
+// window's rate it is about to charge a metric — the only way a label describing that metric can state
+// the rate actually used rather than a different, merely current, one.
+export const rateOver = (rate: RiskFreeRate, from: string, to: string): number =>
   typeof rate === 'number' ? rate : rate(from, to)
 
 export function returnsByPeriod(
