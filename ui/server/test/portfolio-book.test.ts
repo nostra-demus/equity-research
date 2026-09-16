@@ -1233,9 +1233,13 @@ check('a conversion the broker realised money on is named, not silently dropped'
   assert.equal(r.closures.length, 0)
   assert.equal(r.warnings.length, 1)
   assert.match(r.warnings[0]!, /AUD\.USD realised 12\.34 USD per the broker/)
-  assert.match(r.warnings[0]!, /not in realised on closed trades/)
+  assert.match(r.warnings[0]!, /in neither realised on closed trades nor the costs beside it/)
   assert.deepEqual(runFifo([fxBuy, { ...fxSell, fifoPnlRealized: null }]).warnings, [],
-    'and a conversion the broker realised nothing on says nothing')
+    'and a conversion the broker realised nothing on, at no cost, says nothing')
+  // The commission is money too, and it reaches no cost total here either — so it is named on its own.
+  const costed = runFifo([{ ...fxBuy, ibCommission: -2.5 }])
+  assert.equal(costed.warnings.length, 1)
+  assert.match(costed.warnings[0]!, /cost 2\.5 USD per the broker/)
 })
 
 check('a broker that DOES report a currency balance as a position is not a break', () => {

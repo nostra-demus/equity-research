@@ -1310,6 +1310,7 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
     // Converted trade by trade at that trade's own closing rate, and the ones with no rate counted
     // rather than added: the raw local figures were summed across currencies and shown as base.
     const costs = sumBase(rows, (c) => c.commissionBase)
+    const worstLoss = losses.length ? Math.min(...losses) : null
     return {
       total: vals.reduce((a, b) => a + b, 0),
       hitRate: rows.length ? (wins.length / rows.length) * 100 : null,
@@ -1321,7 +1322,7 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
       commission: costs.total,
       commissionUnvalued: costs.unvalued,
       grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
-      worst: losses.length ? Math.min(...losses) : null,
+      worst: worstLoss,
       costsUnknown: rows.filter((r) => r.costsUnknown > 0).length,
       partial: rows.filter((r) => r.partial > 0).length,
       // A qualifier belongs to the trades the figure beside it is actually built from. The largest loss is
@@ -1331,7 +1332,10 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
       of: {
         all: qual(rows),
         winLoss: qual(rows.filter((r) => r.realized !== 0)),
-        losers: qual(rows.filter((r) => r.realized < 0)),
+        // The largest loss is ONE trade, not the losers as a class: a reconstructed small loss says nothing
+        // about a larger established one, and tagging it there names a trade that figure never counted. Ties
+        // are included, since any of them could be the one shown.
+        worst: qual(worstLoss === null ? [] : rows.filter((r) => r.realized === worstLoss)),
         held: qual(rows.filter((r) => r.holdingDays !== null)),
       },
     }
@@ -1519,7 +1523,7 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
         <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close"
           tags={tagsFor(stats.of.held, false)} />
         <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'}
-          tags={tagsFor(stats.of.losers)} />
+          tags={tagsFor(stats.of.worst)} />
       </div>
 
       {manualPanel}

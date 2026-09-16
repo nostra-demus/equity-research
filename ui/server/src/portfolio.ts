@@ -452,14 +452,18 @@ export function runFifo(
         partialHistory: false,
         openNow: false,
       })
-      // A conversion realises money when the currency is sold back at another rate, and the broker states it.
-      // It is not a round trip here, so it reaches no realised figure — and the NAV bridge's remainder, where
-      // it lands, is a residual nobody can rebuild (§15). Say so rather than let the broker's own number go
-      // without a word.
-      if (t.fifoPnlRealized) {
-        warnings.push(`currency conversion ${t.symbol ?? key} realised ${t.fifoPnlRealized} ${t.currency ?? ''}`.trim()
-          + ' per the broker — a conversion buys money, not a position, so it is not in realised on closed'
-          + " trades; it falls into the NAV bridge's remainder")
+      // A conversion realises money when the currency is sold back at another rate, and it costs commission
+      // to make; the broker states both. Neither is a round trip here, so neither reaches a realised figure —
+      // and the NAV bridge's remainder, where they land, is a residual nobody can rebuild (§15). Say so rather
+      // than let the broker's own numbers go without a word.
+      const converted = [
+        t.fifoPnlRealized ? `realised ${t.fifoPnlRealized}` : null,
+        t.ibCommission || t.taxes ? `cost ${Math.abs((t.ibCommission ?? 0) + (t.taxes ?? 0))}` : null,
+      ].filter(Boolean).join(' and ')
+      if (converted) {
+        warnings.push(`currency conversion ${t.symbol ?? key} ${converted} ${t.currency ?? ''}`.replace(/\s+/g, ' ').trim()
+          + ' per the broker — a conversion buys money, not a position, so it is in neither realised on closed'
+          + " trades nor the costs beside it; both fall into the NAV bridge's remainder")
       }
       continue
     }

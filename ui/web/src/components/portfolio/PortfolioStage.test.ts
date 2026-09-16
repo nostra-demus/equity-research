@@ -148,6 +148,12 @@ check('a card is qualified by the trades ITS figure is built from, not by the wh
   const html = tradesHtml(book([clean, unprovenWinner, cleanLoss]))
   assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Hit rate<'), />1 of 3 unproven</)
   assert.deepEqual(card(html, 'Largest loss'), { unproven: false, costUnknown: false }, 'the loss is established')
+  // And it is the WORST trade, not the losers as a class: a smaller reconstructed loss beside a larger
+  // established one says nothing about the figure shown.
+  const smallUnprovenLoss = closure({ symbol: 'SMALL', closeTradeID: 'CA', partialHistory: true, realizedLocal: -5, realizedBase: -5, grossLocal: -5 })
+  const bigCleanLoss = closure({ symbol: 'BIG', closeTradeID: 'CB', realizedLocal: -90, realizedBase: -90, grossLocal: -90 })
+  assert.deepEqual(card(tradesHtml(book([clean, smallUnprovenLoss, bigCleanLoss])), 'Largest loss'),
+    { unproven: false, costUnknown: false }, 'the −90 is established; the unproven −5 is not the largest')
   assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Win / loss size<'), />1 of 3 unproven</)
 })
 
