@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T02:24:47Z",
+  "generated_at": "2026-09-16T02:34:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -1335,6 +1335,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-077",
+      "headline": "India to face 100% tariffs? US House moves Russia Sanctions bill, final vote tomorrow",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/india/story/india-to-face-100-tariffs-us-house-moves-russia-sanctions-bill-final-vote-tomorrow-555746-2026-09-16?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:43:38Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Proposed US legislation could impose significant trade barriers on India, impacting bilateral trade relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Proposed US legislation could impose significant trade barriers on India, impacting bilateral trade relations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-040",
       "headline": "Bank of Baroda saw BR Shetty's NMC Group red flags. Yet it sanctioned more loans",
       "headline_en": null,
@@ -1477,6 +1521,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-078",
+      "headline": "Nvidia Spent $26 Billion on Buybacks and Dividends in a Single Quarter. Its Board Is Betting Today's Profits Last 3 More Years.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/15/nvidia-spent-usd26-billion-on-buybacks-and-dividends-in-a-single-quarter-its-board-is-betting-today-s-profits-last-3-more-years/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:47:01Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Nvidia returned $26 billion to shareholders in a single quarter, signaling strong cash flow and management confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Nvidia returned $26 billion to shareholders in a single quarter, signaling strong cash flow and management confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,104 +1951,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-075",
-      "headline": "424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/886982/000119312526391803/0001193125-26-391803-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T19:18:56Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Goldman Sachs Group Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Goldman Sachs Group Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GOLDMAN SACHS GROUP INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-076",
-      "headline": "424B2 - BANK OF AMERICA CORP /DE/ (0000070858) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/70858/000191870426027682/0001918704-26-027682-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T19:18:56Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Bank of America Corp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Filing of a prospectus for a shelf takedown indicates a potential debt issuance by Bank of America Corp.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BANK OF AMERICA CORP /DE/",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -120928,76 +120923,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41acdf75eb6c",
-      "idea_version": "IDEAV-9e64c7ec16a5db22",
-      "idea_version_started_at": "2026-09-14T19:12:02Z",
-      "ticker": "HUBG",
-      "company": "Hub Group",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
-      "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0bb8559a6352"
-      ],
-      "primary_source_event_id": "EVT-0bb8559a6352",
-      "source_headlines": [
-        "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
-      ],
-      "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T14:26:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T12:31:25Z",
-      "updated_at": "2026-09-14T19:12:02Z",
-      "decay_at": "2026-09-16T02:26:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-aee6ec71570ec791",
       "idea_version_started_at": "2026-09-15T05:22:27Z",
@@ -122859,6 +122784,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-41acdf75eb6c",
+      "idea_version": "IDEAV-9e64c7ec16a5db22",
+      "idea_version_started_at": "2026-09-14T19:12:02Z",
+      "ticker": "HUBG",
+      "company": "Hub Group",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
+      "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0bb8559a6352"
+      ],
+      "primary_source_event_id": "EVT-0bb8559a6352",
+      "source_headlines": [
+        "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
+      ],
+      "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T14:26:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T12:31:25Z",
+      "updated_at": "2026-09-14T19:12:02Z",
+      "decay_at": "2026-09-16T02:26:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-41f871048ef0",
@@ -128370,9 +128365,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 578,
     "shown_count": 500,
-    "hidden_count": 77,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -128380,9 +128375,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       }
     },
     "retention": {
@@ -128401,6 +128396,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-41acdf75eb6c",
+        "idea_version": "IDEAV-9e64c7ec16a5db22",
+        "idea_version_started_at": "2026-09-14T19:12:02Z",
+        "ticker": "HUBG",
+        "company": "Hub Group",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
+        "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0bb8559a6352"
+        ],
+        "primary_source_event_id": "EVT-0bb8559a6352",
+        "source_headlines": [
+          "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
+        ],
+        "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T14:26:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T12:31:25Z",
+        "updated_at": "2026-09-14T19:12:02Z",
+        "decay_at": "2026-09-16T02:26:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T02:26:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7a1faa5fed89",
         "idea_version": "IDEAV-0e20b17b7b31f75a",
@@ -165497,86 +165565,12 @@
         "archived_at": "2026-08-29T08:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3650844748c9",
-        "idea_version": "IDEAV-c57ac5bb361b89f3",
-        "idea_version_started_at": "2026-08-26T06:46:12Z",
-        "ticker": "ASL",
-        "company": "Avenue Supermarts Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Litigation enforcement increases legal costs and may lead to penalties, hurting cash flow.",
-        "why_now": "Litigation enforcement announced on 26 Aug 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-05d2b643d877"
-        ],
-        "primary_source_event_id": "EVT-05d2b643d877",
-        "source_headlines": [
-          "Avenue Supermarts Limited: Avenue Supermarts Limited has informed the Exchange about Action(s) taken or orders passed"
-        ],
-        "source_headline": "Avenue Supermarts Limited: Avenue Supermarts Limited has informed the Exchange about Action(s) taken or orders passed",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DMART_26082026111105_ASLInitmationReg30_26082026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-08-26T05:41:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T06:46:12Z",
-        "updated_at": "2026-08-26T06:46:12Z",
-        "decay_at": "2026-08-27T17:41:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 837,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165595,9 +165589,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1625673,
-    "news_picked_today": 87,
-    "news_dropped_today": 1257
+    "news_seen_today": 1725825,
+    "news_picked_today": 91,
+    "news_dropped_today": 1325
   },
   "book_momentum": {
     "live_count": 8,
