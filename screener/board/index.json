@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:15:34Z",
+  "generated_at": "2026-09-16T01:25:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-054",
@@ -1383,6 +1383,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-059",
+      "headline": "SCHEDULE 13D/A - Tricor Pacific Capital Inc. (0002101417) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2101417/000110465926108019/0001104659-26-108019-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:05:48Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CPI Card Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-060",
+      "headline": "SCHEDULE 13D/A - CPI Card Group Inc. (0001641614) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1641614/000110465926108019/0001104659-26-108019-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:05:48Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Tricor Pacific Capital filed an amended 13D regarding their stake in CPI Card Group.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CPI Card Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-001",
       "headline": "GG1: Renounceable Rights Issue Presentation",
       "headline_en": null,
@@ -1865,104 +1963,6 @@
           "name": "MNC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-032",
-      "headline": "IntelGenx Technologies Corp.",
-      "headline_en": null,
-      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106365.pdf",
-      "source_name": "U.S. SEC (Administrative Proceedings)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T19:46:52Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Routine SEC administrative proceeding filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Routine SEC administrative proceeding filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IntelGenx Technologies Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-045",
-      "headline": "Inhibrx Founder and CEO Mark Lappe Buys 25,000 Shares for $2.6 Million. What Does His Confidence Tell Investors?",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/15/inhibrx-founder-and-ceo-mark-lappe-buys-25-000-shares-for-usd2-6-million-what-does-his-confidence-tell-investors/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T00:09:01Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "CEO Mark Lappe purchased 25,000 shares of Inhibrx for $2.6 million, signaling confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "CEO Mark Lappe purchased 25,000 shares of Inhibrx for $2.6 million, signaling confidence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Inhibrx",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -122297,78 +122297,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fcc27ba359ed",
-      "idea_version": "IDEAV-820816f59bc3e773",
-      "idea_version_started_at": "2026-09-14T21:24:14Z",
-      "ticker": "03321",
-      "company": "Zhongke Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company proposes to increase its authorized share capital and issue convertible bonds, which dilutes existing shareholders and increases debt, negatively impacting its financial structure.",
-      "why_now": "The proposed actions are presented with a notice for an extraordinary general meeting, indicating immediate plans.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e53da08e3cee"
-      ],
-      "primary_source_event_id": "EVT-e53da08e3cee",
-      "source_headlines": [
-        "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING"
-      ],
-      "source_headline": "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401239.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T13:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T21:24:14Z",
-      "updated_at": "2026-09-14T21:24:14Z",
-      "decay_at": "2026-09-16T01:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4f0e3a3e17fb",
       "idea_version": "IDEAV-0b4d25817559d3bf",
       "idea_version_started_at": "2026-09-14T19:12:02Z",
@@ -124551,6 +124479,78 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fcc27ba359ed",
+      "idea_version": "IDEAV-820816f59bc3e773",
+      "idea_version_started_at": "2026-09-14T21:24:14Z",
+      "ticker": "03321",
+      "company": "Zhongke Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company proposes to increase its authorized share capital and issue convertible bonds, which dilutes existing shareholders and increases debt, negatively impacting its financial structure.",
+      "why_now": "The proposed actions are presented with a notice for an extraordinary general meeting, indicating immediate plans.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e53da08e3cee"
+      ],
+      "primary_source_event_id": "EVT-e53da08e3cee",
+      "source_headlines": [
+        "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+      ],
+      "source_headline": "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401239.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T13:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T21:24:14Z",
+      "updated_at": "2026-09-14T21:24:14Z",
+      "decay_at": "2026-09-16T01:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128308,9 +128308,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 576,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 76,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -128318,9 +128318,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       }
     },
     "retention": {
@@ -128339,6 +128339,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fcc27ba359ed",
+        "idea_version": "IDEAV-820816f59bc3e773",
+        "idea_version_started_at": "2026-09-14T21:24:14Z",
+        "ticker": "03321",
+        "company": "Zhongke Group",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company proposes to increase its authorized share capital and issue convertible bonds, which dilutes existing shareholders and increases debt, negatively impacting its financial structure.",
+        "why_now": "The proposed actions are presented with a notice for an extraordinary general meeting, indicating immediate plans.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e53da08e3cee"
+        ],
+        "primary_source_event_id": "EVT-e53da08e3cee",
+        "source_headlines": [
+          "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+        ],
+        "source_headline": "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401239.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T13:17:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T21:24:14Z",
+        "updated_at": "2026-09-14T21:24:14Z",
+        "decay_at": "2026-09-16T01:17:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T01:17:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be7a96c5650f",
         "idea_version": "IDEAV-2ce6ab274c4caf8f",
@@ -165434,85 +165509,12 @@
         "archived_at": "2026-08-29T08:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-49a2653dd307",
-        "idea_version": "IDEAV-bbf0f9c9aff71064",
-        "idea_version_started_at": "2026-08-26T04:56:22Z",
-        "ticker": "VWAGY",
-        "company": "Volkswagen",
-        "exchange": "OTC Markets",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Management's plan for 50,000 job cuts and plant closures indicates severe internal cost pressures and potential labor unrest that will disrupt operations.",
-        "why_now": "The restructuring plan was reported on 2026-08-26.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ef3265c90c00"
-        ],
-        "primary_source_event_id": "EVT-ef3265c90c00",
-        "source_headlines": [
-          "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures"
-        ],
-        "source_headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
-        "source_url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-26T02:10:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T04:56:22Z",
-        "updated_at": "2026-08-26T04:56:22Z",
-        "decay_at": "2026-08-27T14:10:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 835,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165531,9 +165533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 857975,
-    "news_picked_today": 57,
-    "news_dropped_today": 639
+    "news_seen_today": 959474,
+    "news_picked_today": 60,
+    "news_dropped_today": 708
   },
   "book_momentum": {
     "live_count": 8,
