@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-16T13:29:22Z",
+  "generated_at": "2026-09-16T13:32:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260916-268",
+      "headline": "LEFTFIELD PRINT (01540): JOINT ANNOUNCEMENT - (1) COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF THE ISSUED SHARES OF THE TARGET COMPANY; AND (2) PAYMENT OF SPECIAL DIVIDEND OF HK$0.30 PER LEFT FIELD SHARE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601277.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T12:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Completion of a major disposal and declaration of a special dividend of HK$0.30 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of a major disposal and declaration of a special dividend of HK$0.30 per share.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Left Field Printing Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260916-263",
       "headline": "C ZENITH CHEM (00362): (1) QUARTERLY UPDATE ON RECENT DEVELOPMENTS; AND (2) CONTINUED SUSPENSION OF TRADING",
@@ -1939,56 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-228",
-      "headline": "HWORLD-S HWORLD B3109-R (01179 85171): NOTICE OF LISTING ON THE STOCK EXCHANGE OF HONG KONG LIMITED - H World Group Limited- CNY3,350,000,000 2.25 PER CENT. BONDS DUE 2031",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600917.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T10:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "H World Group lists CNY 3.35 billion 5-year senior bonds at 2.25% coupon; adds leverage and committed cash outflows, affects capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "H World Group lists CNY 3.35 billion 5-year senior bonds at 2.25% coupon; adds leverage and committed cash outflows, affects capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "H World Group Limited",
-          "ticker": "01179",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165543,9 +165543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6092292,
-    "news_picked_today": 473,
-    "news_dropped_today": 12847
+    "news_seen_today": 6136264,
+    "news_picked_today": 478,
+    "news_dropped_today": 12866
   },
   "book_momentum": {
     "live_count": 8,
