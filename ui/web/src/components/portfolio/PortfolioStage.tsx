@@ -427,12 +427,16 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   // BIGGEST FIRST. The statement's own order is the order the account happened to acquire things, which
   // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
   // list. Sorted by what it is worth, the top of the table is always the part worth reading.
+  // WHAT A POSITION IS WORTH NOW, live where the feed reached it (see positionMarks). Exposure asks where
+  // the risk is TODAY, so a holding that has fallen a tenth since the statement must weigh a tenth less here
+  // — the same figure the table shows, so the two can never disagree about the same holding.
+  const valueNow = (p: PortfolioPosition) => baseValue(marks.of(p).value, p)
   const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
-    Math.abs(baseValue(b.positionValue, b) ?? 0) - Math.abs(baseValue(a.positionValue, a) ?? 0)
+    Math.abs(valueNow(b) ?? 0) - Math.abs(valueNow(a) ?? 0)
   const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
   const risked = equities.filter((p) => !isCashEq(p.symbol)).sort(byValue)
-  const parkedValue = sumBase(parked, (p) => baseValue(p.positionValue, p)).total
-  const investedSum = sumBase(risked, (p) => baseValue(p.positionValue, p))
+  const parkedValue = sumBase(parked, valueNow).total
+  const investedSum = sumBase(risked, valueNow)
   const invested = investedSum.total
   const unrealisedSum = sumBase(equities, (p) => baseValue(p.unrealizedLocal, p))
   const unrealised = unrealisedSum.total
@@ -467,7 +471,16 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   const bridgeGapTitle = gapIsAccruals && book.accruals
     ? `Dividends ${fmtMoney(book.accruals.dividend, ccy)} + interest ${fmtMoney(book.accruals.interest, ccy)}`
     : undefined
-  const brokerCash = nav === null ? null : nav - invested - parkedValue
+  // The whole those shares divide by, on the SAME basis as the parts: the live estimate when the positions
+  // are live, the statement's own NAV when they are not. Cash stays the residual either way, which is what
+  // keeps NAV = invested + parked + cash true on whichever basis is on screen — and the residual works out
+  // to the statement's own broker cash, since the estimate cannot see cash move (portfolio-live.ts).
+  const liveBasis = marks.livePriced > 0 && !!live && !live.unavailable && live.nav !== null
+  const navNow = liveBasis ? live!.nav : nav
+  const pricedWords = liveBasis
+    ? `priced ${live!.asOfIsClose ? 'at the last close' : 'at the market'} ${live!.asOf}${live!.delayed ? ' (delayed)' : ''}`
+    : `as the statement of ${book.asOf ?? 'its date'} states them`
+  const brokerCash = navNow === null ? null : navNow - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
   return (
     <>
@@ -479,7 +492,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
         <Card
           label="Invested"
           value={fmtMoney(invested, ccy)}
-          sub={nav ? `${((invested / nav) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'}` : `${risked.length} positions`}
+          sub={navNow ? `${((invested / navNow) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'} · ${pricedWords}` : `${risked.length} positions`}
         />
         <Card
           label="Cash"
@@ -551,15 +564,15 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
           Positions answers "what exactly do I hold" in a list that grows with every name. Printed the
           other way round, the summary sat a screen and a half below the thing it summarises. */}
       <Exposure
-        book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
+        book={book} risked={risked} parkedValue={parkedValue} nav={navNow} ccy={ccy} valueOf={valueNow} basis={pricedWords}
         invested={invested} cash={cash} parked={parked} ideas={ideas} bars={
           <>
             {/* nav > 0, not merely present: an account that has been emptied divides by zero, and both
                 bars printed the literal string "NaN%". */}
-            {nav !== null && nav > 0 && cash !== null && (
+            {navNow !== null && navNow > 0 && cash !== null && (
               <div className="fundbook__bars">
-                <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
-                <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
+                <Bar label="Invested" pct={(invested / navNow) * 100} value={fmtMoney(invested, ccy)} />
+                <Bar label="Cash" pct={(cash / navNow) * 100} value={fmtMoney(cash, ccy)} deep />
               </div>
             )}
             {/* The declaration belongs where the split it changes is explained, not repeated as a button on
@@ -670,9 +683,13 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
  *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
  *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
  *  so the panel says the data is not there rather than drawing a made-up split. */
-function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
+function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars, valueOf, basis }: {
   book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
   nav: number | null; ccy: string | null
+  /** What each position is worth now, in the base currency — live where the feed reached it. */
+  valueOf: (p: PortfolioPosition) => number | null
+  /** Which basis that is, said on the panel so the reader is never guessing. */
+  basis: string
   invested: number; cash: number | null; parked: PortfolioPosition[]
   ideas?: PortfolioIdeaBook
   /** The invested-against-cash bars and the cash declaration, folded in from what used to be a panel of
@@ -685,7 +702,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
     // `known` is kept alongside the coerced figure because UNKNOWN IS NOT SMALL: a position the
     // statement could not value reads as 0 here, and treating that 0 as residual dust would drop a
     // real holding out of the idea weighting and then describe it on screen as loose change.
-    .map((p) => { const b = baseValue(p.positionValue, p); return { p, base: b ?? 0, known: b !== null } })
+    .map((p) => { const b = valueOf(p); return { p, base: b ?? 0, known: b !== null } })
     .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
   if (valued.length === 0) return null
 
@@ -747,7 +764,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
       <div className="fundbook__panelhead">
         <div>
           <strong>Exposure</strong>
-          <small>What is at risk against what is parked, and how that risk is spread</small>
+          <small>What is at risk against what is parked, and how that risk is spread — {basis}</small>
         </div>
       </div>
 

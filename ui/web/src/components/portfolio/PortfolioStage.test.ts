@@ -176,4 +176,36 @@ check('with no live feed the table says the statement is what it is showing', ()
   assert.match(piece(html, 'fundbook__row"', '<span>NHYDY</span>'), />10\.24</)
 })
 
+check('exposure is measured at the market too — the risk is where it is today', () => {
+  // A holding that has fallen since the statement must weigh less HERE, not only in the table: a name worth
+  // 3,000 at the last export and 900 now is no longer the largest position, and saying it is answers "where
+  // is the risk" with last week's answer.
+  const held = (o: Partial<PortfolioPosition> & { symbol: string; positionValue: number; markPrice: number }): PortfolioPosition => ({
+    conid: o.symbol, assetCategory: 'STK', subCategory: null, expiry: null, strike: null, putCall: null,
+    currency: 'USD', quantity: 100, costBasisPrice: 5, costBasisMoney: 500, percentOfNAV: 30,
+    unrealizedLocal: 100, fxRateToBase: 1, multiplier: 1, isDerivative: false, ...o,
+  } as PortfolioPosition)
+  const b = {
+    ...book([]), asOf: '2026-09-09', navSeries: [{ date: '2026-09-09', total: 10_000 }],
+    positions: [held({ symbol: 'NHYDY', positionValue: 3000, markPrice: 30 }), held({ symbol: 'GOOG', positionValue: 2000, markPrice: 20 })],
+  }
+  const live: PortfolioLiveMark = {
+    asOf: '2026-09-16', asOfIsClose: true, delayed: true, stale: false, bookAsOf: '2026-09-09', staleDays: 7,
+    // 10,000 less the 3,000 that holding was worth, plus the 900 it is worth now.
+    nav: 7900, unrealised: null, cash: null, unpriced: ['GOOG'], unavailable: null,
+    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 30, price: 9, value: 900, movePct: -70 }],
+  }
+  const html = holdingsHtml(b, live)
+  const card = (label: string) => piece(html, 'fundbook__card"', `fundbook__cardlabel">${label}<`)
+  // Invested is 900 + 2,000, not 3,000 + 2,000, and it says which basis that is.
+  assert.match(card('Invested'), />\$2,900</)
+  assert.match(card('Invested'), /priced at the last close 2026-09-16 \(delayed\)/)
+  // Cash stays the residual, so NAV = invested + cash still holds on the basis shown: 7,900 − 2,900.
+  assert.match(card('Cash'), />\$5,000</)
+  // GOOG is the largest name now — on the statement it was the smaller of the two.
+  assert.match(card('Largest single name'), /GOOG/)
+  assert.match(card('Largest single name'), />69\.0%</, '2,000 of the 2,900 at risk')
+  assert.match(html, /how that risk is spread — priced at the last close 2026-09-16/)
+})
+
 console.log(`PortfolioStage: ${passed} passed`)
