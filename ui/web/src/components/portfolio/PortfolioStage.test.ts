@@ -46,7 +46,7 @@ const piece = (html: string, marker: string, name: string) => {
   assert.ok(found !== undefined, `nothing marked ${marker} mentions ${name}`)
   return found
 }
-const tags = (fragment: string) => ({ unproven: />unproven</.test(fragment), costUnknown: />cost unknown</.test(fragment) })
+const tags = (fragment: string) => ({ unproven: />(?:\d+ of \d+ )?unproven</.test(fragment), costUnknown: />cost unknown</.test(fragment) })
 const card = (html: string, label: string) => tags(piece(html, 'fundbook__card"', `fundbook__cardlabel">${label}<`))
 
 let passed = 0
@@ -135,6 +135,29 @@ check('unknown holdings are qualified on the fill and in the contract filter', (
   assert.match(fillRow(html, '2026-03-20'), />Unknown</)
   assert.match(html, /CL 2026-03-20 · 1 fill · holding unknown<\/option>/)
   assert.match(html, /Holdings marked Unknown stay visible/)
+})
+
+check('a figure built from several trades says how many of them are unproven', () => {
+  // A bare stamp reads the same whether one immaterial line is reconstructed or the whole book is. The real
+  // book put "unproven" on a year of realised trading because of a $0.000016 currency line.
+  const html = tradesHtml(book([clean, partial, blankCost]))
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Hit rate<'), />1 of 3 unproven</)
+  // One trade's own row still says only that it is unproven: there is no set behind it to count.
+  assert.match(piece(html, 'fundbook__row fundbook__row--trades"', 'BBB'), />unproven</)
+})
+
+check('a currency conversion is shown as one, with no position and nothing left of it', () => {
+  const html = tradesHtml({ ...book([]), executions: [execution({
+    id: 'FX1', key: 'conid:14433401', symbol: 'AUD.USD', assetCategory: 'CASH', isDerivative: false, expiry: null,
+    effect: 'convert', quantity: 50000, price: 0.718, value: 35900, multiplier: 1, commission: 0,
+    positionBefore: 0, positionAfter: 0, openedQuantity: 0, stillOpen: 0, openNow: false,
+  })] })
+  const row = fillRow(html, 'AUD.USD')
+  assert.match(row, />Convert</)
+  assert.match(row, />USD → AUD</)
+  assert.doesNotMatch(row, />Held</, 'money bought is not a holding')
+  assert.equal((row.match(/>—</g) ?? []).length, 3, 'no position after it, nothing realised, and nothing left of it')
+  assert.match(html, /bought money rather than a position/)
 })
 
 console.log(`PortfolioStage: ${passed} passed`)

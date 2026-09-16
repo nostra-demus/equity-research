@@ -1172,5 +1172,58 @@ check('a closing fill supplies its known multiplier when the opening fill omitte
   assert.equal(omitted.executions[1]!.value, 5500, 'a known opening multiplier still covers a blank close')
 })
 
+// ---------- a currency conversion, which buys money rather than a position ----------
+// The real book bought AUD to pay for Australian shares. IBKR books that as a trade in a CASH contract
+// (AUD.USD) while holding the AUD as cash, so its position snapshot never carries it. Through the lot engine
+// it became an eleventh open position of 70,054 the broker did not hold, broke the positions check by exactly
+// that, and — the contract then reading as history the snapshot cannot confirm — stamped "unproven" on every
+// realised figure in the book through one 0.015-unit line realising $0.000016.
+const fxBuy = {
+  ...buyXsp, tradeID: 'FX1', transactionID: 'FXX1', symbol: 'AUD.USD', conid: '14433401', assetCategory: 'CASH',
+  quantity: 50000, tradePrice: 0.718, proceeds: -35900, openCloseIndicator: '', ibCommission: 0, taxes: 0,
+  tradeDate: '2026-01-06', dateTime: '2026-01-06T10:00:00', fifoPnlRealized: null,
+}
+// The sale back: the line that, as a closure, marked a year of equity round trips unproven. `fifoPnlRealized`
+// is set, so the realised check would break by it if either side counted conversions.
+const fxSell = {
+  ...fxBuy, tradeID: 'FX2', transactionID: 'FXX2', quantity: -0.015, tradePrice: 0.719, proceeds: 0.0108,
+  tradeDate: '2026-01-07', dateTime: '2026-01-07T10:00:00', fifoPnlRealized: 5,
+}
+
+check('a currency conversion opens no lot, closes nothing, and realises nothing', () => {
+  const r = runFifo([fxBuy, fxSell])
+  assert.deepEqual(r.lots, [], 'money bought is a cash balance, not an open position')
+  assert.deepEqual(r.closures, [])
+  assert.deepEqual(r.executions.map((e) => [e.symbol, e.side, e.quantity, e.effect, e.positionAfter, e.realizedLocal, e.openedQuantity]), [
+    ['AUD.USD', 'buy', 50000, 'convert', 0, null, 0],
+    ['AUD.USD', 'sell', 0.015, 'convert', 0, null, 0],
+  ])
+  assert.deepEqual(r.warnings, [], 'and a sale of money closes no lot, so there is nothing to warn about')
+})
+
+check('a conversion is still listed, with the money that changed hands', () => {
+  const buy = runFifo([fxBuy]).executions[0]!
+  assert.equal(buy.value, 35900, "the broker's own proceeds")
+  assert.equal(buy.commission, 0)
+  assert.equal(buy.partialHistory, false)
+  assert.equal(buy.inferred, false, 'a blank open/close flag infers nothing where there is no position')
+})
+
+check('conversions leave the positions check, the round trips and their qualifiers exactly as they were', () => {
+  const withFx = buildBook([{ ...doc, trades: [...doc.trades, fxBuy, fxSell] }])
+  const named = (b: ReturnType<typeof buildBook>, name: string) => {
+    const c = b.reconciliation.checks.find((x) => x.name === name)!
+    return [c.ours, c.broker, c.break, c.ok]
+  }
+  assert.deepEqual(named(withFx, 'Open positions'), named(book, 'Open positions'), 'money is not an open position')
+  assert.deepEqual(named(withFx, 'Realised P&L'), named(book, 'Realised P&L'), 'and is counted on neither side of realised')
+  assert.equal(withFx.openLots.some((l) => l.symbol === 'AUD.USD'), false)
+  assert.equal(withFx.closures.length, book.closures.length)
+  assert.deepEqual(withFx.closures.map((c) => c.partialHistory), book.closures.map((c) => c.partialHistory),
+    'and no equity round trip becomes unproven because a conversion sits beside it')
+  assert.deepEqual(withFx.executions.filter((e) => e.effect === 'convert').map((e) => [e.id, e.partialHistory]),
+    [['FX1', false], ['FX2', false]], 'the fills are listed, and nothing about them is reconstructed')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

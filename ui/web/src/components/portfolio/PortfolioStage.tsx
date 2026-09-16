@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  contractTerms, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills,
+  contractTerms, conversionWords, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills,
   fillsOutsideBase, foldRoundTrips, type FillRow, type FillScope, type TradeRowData,
 } from './tradeRows'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -507,7 +507,8 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
             label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)}
             tags={<RealisedTags set
               partial={book.closures.some((c) => c.partialHistory === true)}
-              costsUnknown={book.closures.some((c) => c.costsUnknown === true)} />}
+              costsUnknown={book.closures.some((c) => c.costsUnknown === true)}
+              count={book.closures.filter((c) => c.partialHistory === true).length} of={book.closures.length} />}
           />
           <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
           <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
@@ -1317,7 +1318,9 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
       partial: rows.filter((r) => r.partial > 0).length,
     }
   }, [rows])
-  const qualified = <RealisedTags set partial={stats.partial > 0} costsUnknown={stats.costsUnknown > 0} />
+  const qualified = (
+    <RealisedTags set partial={stats.partial > 0} costsUnknown={stats.costsUnknown > 0} count={stats.partial} of={rows.length} />
+  )
 
   // Attribution: what carried the realised result, biggest absolute mover first.
   //
@@ -1494,7 +1497,7 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
         />
         {/* A blank commission moves money, not dates: only the matched lot, and so partial history, reaches the hold. */}
         <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close"
-          tags={<RealisedTags set partial={stats.partial > 0} costsUnknown={false} />} />
+          tags={<RealisedTags set partial={stats.partial > 0} costsUnknown={false} count={stats.partial} of={rows.length} />} />
         <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} tags={qualified} />
       </div>
 
@@ -1728,7 +1731,8 @@ function AllTrades({ executions, baseCurrency }: { executions: PortfolioExecutio
       {executions !== undefined && shown.length > 0 && (
         <div className="fundbook__foot">
           {plural(summary.fills, 'fill')}: {plural(summary.buys, 'buy')} and {plural(summary.sells, 'sell')}
-          {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}.
+          {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}
+          {summary.conversions > 0 && `, beside ${plural(summary.conversions, 'currency conversion')} that bought money rather than a position`}.
           {scope === 'open' && ` That is the available history of the ${plural(summary.positions, 'position')} ${shown.some((r) => r.openNow === null) ? 'still open or not yet confirmed closed' : 'still open'}.`}
           {shown.some((r) => r.openNow === null) && ' Holdings marked Unknown stay visible because the snapshot quantity, split basis, or timing of later fills does not establish whether the position is open.'}
           {summary.inferred > 0 && ` ${plural(summary.inferred, 'fill')} had no open/close flag from the broker, so what ${summary.inferred === 1 ? 'it' : 'they'} opened is inferred.`}
@@ -1748,6 +1752,8 @@ const INFERRED_NOTE = 'The broker left the open/close flag blank, so the engine 
 const COSTS_UNKNOWN_NOTE = 'The broker left the commission blank on a leg of this trade, so realised counts that cost as zero and may be overstated by it.'
 /** Said wherever a fill's effect rests on history the statements do not cover (BookExecution.partialHistory). */
 const PARTIAL_NOTE = 'These statements do not cover this position\u2019s whole history: a sale found no lot to close, the position rebuilt from these fills disagrees with the broker\u2019s snapshot, or statements are missing between dates. What this fill did to the position, what is left of it, and what a sale realised are reconstructed, not established.'
+/** Said on a currency conversion, which the broker books as a trade in a pair (AUD.USD) but which buys money. */
+const CONVERSION_NOTE = 'A currency conversion: it buys one currency with another, and that money lands in a cash balance rather than in a position. It opens no lot and realises nothing here, so it is listed as the fill it is and left out of the positions, the round trips and the realised figures.'
 const HOLDING_UNKNOWN_NOTE = 'The snapshot quantity, split basis, or timing of later fills is unknown. These statements do not establish whether this contract is currently held, so it stays visible under Open positions.'
 /** Said wherever a realised figure rests on partial history (BookClosure.partialHistory on the server). */
 const PARTIAL_REALISED_NOTE = 'The statements do not cover this position\u2019s whole history, so FIFO may have matched this sale against the wrong opening lot. What it realised, and the entry price, opening date and hold that come from that lot, are reconstructed; the broker\u2019s own figures may differ.'
@@ -1759,17 +1765,27 @@ const PARTIAL_SET_NOTE = 'At least one trade behind this figure comes from a pos
 /** The qualifiers a realised figure carries, tagged the same way wherever it — or anything built from it —
  *  is shown. A qualifier left off a derived figure presents a reconstruction as a measurement (§3). `set`
  *  marks a figure built from several trades, whose note then speaks of the trades behind it. */
-function RealisedTags({ partial, costsUnknown, set }: { partial: boolean; costsUnknown: boolean; set?: boolean }) {
+function RealisedTags({ partial, costsUnknown, set, of, count }: {
+  partial: boolean; costsUnknown: boolean; set?: boolean
+  /** How many of the trades behind a set figure are unproven, and how many there are. A figure drawn from
+   *  many trades of which one is unproven IS unproven, but a bare stamp says nothing about how much of it
+   *  is: one immaterial line then reads exactly like a book whose every trade is reconstructed. */
+  count?: number; of?: number
+}) {
+  const scope = set && typeof count === 'number' && typeof of === 'number' && count > 0 && of > 0
+    ? `${count} of ${of} ` : ''
   return (
     <>
       {costsUnknown && <small className="fundbook__lots" title={set ? COSTS_UNKNOWN_SET_NOTE : COSTS_UNKNOWN_NOTE}>cost unknown</small>}
-      {partial && <small className="fundbook__lots" title={set ? PARTIAL_SET_NOTE : PARTIAL_REALISED_NOTE}>unproven</small>}
+      {partial && <small className="fundbook__lots" title={set ? PARTIAL_SET_NOTE : PARTIAL_REALISED_NOTE}>{scope}unproven</small>}
     </>
   )
 }
 
 function FillLine({ r }: { r: FillRow }) {
   const status = fillStatus(r)
+  // A currency conversion buys money, not a position: it has no position after it and nothing left of it.
+  const converted = r.effect === 'convert'
   // A short is opened by a sale, so what remains of it is "short", and what closed it was a cover.
   const [open, gone] = r.side === 'buy' ? ['Held', 'Sold'] : ['Short', 'Covered']
   const statusText = r.openNow === null ? 'Unknown' : status === 'held' ? open
@@ -1790,9 +1806,9 @@ function FillLine({ r }: { r: FillRow }) {
         {terms && <small className="fundbook__lots">{terms}</small>}
       </strong>
       <span className="dim">{r.currency ?? '—'}</span>
-      <span title={unmatched ?? (partial ? PARTIAL_NOTE : inferred ? INFERRED_NOTE : undefined)}>
-        <b className="fundbook__fillside">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
-        <span className="dim">{fillAction(r)}</span>
+      <span title={unmatched ?? (partial ? PARTIAL_NOTE : inferred ? INFERRED_NOTE : converted ? CONVERSION_NOTE : undefined)}>
+        <b className="fundbook__fillside">{converted ? 'Convert' : r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
+        <span className="dim">{converted ? conversionWords(r) ?? 'currency' : fillAction(r)}</span>
         {unmatched && <small className="fundbook__lots">{fmtQty(r.unmatchedQuantity)} unmatched</small>}
         {inferred && <small className="fundbook__lots">inferred</small>}
         {partial && <small className="fundbook__lots">partial history</small>}
@@ -1806,7 +1822,9 @@ function FillLine({ r }: { r: FillRow }) {
         {r.isDerivative === true && <small className="fundbook__notional">{derivativeValueWord(r.assetCategory)}</small>}
       </span>
       <span className="num dim">{fmtSmallMoney(r.commission)}</span>
-      <span className="num" title={partial ? PARTIAL_NOTE : undefined}>{fmtQty(r.positionAfter)}</span>
+      <span className="num" title={converted ? CONVERSION_NOTE : partial ? PARTIAL_NOTE : undefined}>
+        {converted ? <span className="dim">—</span> : fmtQty(r.positionAfter)}
+      </span>
       <span className="num" style={{ color: toneOf(r.realizedLocal) }}>
         {fmtSmallMoney(r.realizedLocal)}
         <RealisedTags partial={partial && r.realizedLocal !== null} costsUnknown={r.costsUnknown === true} />
