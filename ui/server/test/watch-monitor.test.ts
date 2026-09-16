@@ -600,6 +600,85 @@ async function main() {
     assert.deepEqual(fallbacks, ['BBB'], 'a report already holding a fallback plan is not given a second one')
   })
 
+  await check('a synthetic fallback record does not push the machine-wide probe window out', async () => {
+    // A fallback written for a name that arrives mid-cooldown is NOT a fresh provider response, so it must not
+    // advance the machine-wide limit clock (limitedAt). If it stamped its own arrival time, a name showing up at
+    // minute 14 would push the next probe from minute 15 to minute 29, and repeated arrivals could postpone
+    // probing for ever though no provider call confirmed the limit still holds.
+    let t = new Date('2026-09-16T06:00:00Z')
+    const AAA = engineRow('AAA', 'USD', 'NYSE', 'AAA_2026-08-01')
+    const BBB = engineRow('BBB', 'USD', 'NYSE', 'BBB_2026-08-02')
+    let rows: EngineWatchRow[] = [AAA]
+    const reads: string[] = []
+    const bad = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: '' },
+    })
+    const m = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-12-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => { reads.push(row.listing.ticker); return { status: 'limit', plan: bad(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 } },
+      buildFallbackPlan: (row) => ({ status: 'limit', plan: bad(row), detail: "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.", cost_usd: 0 }),
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m.tick(); await m.idle() }
+    await m.tick(); await m.idle()
+    assert.deepEqual(reads, ['AAA'], 'AAA is read for real and hits the limit at t0')
+
+    // BBB arrives 14 minutes in — still inside the 15-minute wait, so it only gets a record-only fallback.
+    rows = [AAA, BBB]
+    await step(14)
+    assert.deepEqual(reads, ['AAA'], 'inside the wait, no real read goes out; BBB just gets its fallback')
+
+    // 16 minutes from the ORIGINAL limit, the wait is over: exactly one probe must go out. If BBB's fallback had
+    // stamped the clock at minute 14, this would still read "2 minutes in" and suppress the probe.
+    await step(2)
+    assert.equal(reads.length, 2, 'the probe fires 16 min after the real limit — the fallback did not move the clock')
+  })
+
+  await check('a fallback-storage failure does not abort the whole tick', async () => {
+    // The fallback builder writes a plan to disk. If that throws (plans dir unwritable, atomic rename fails), it
+    // must be contained per row — otherwise it aborts runTick before price/deal-breaker evaluation and stops
+    // monitoring for EVERY name, repeating every tick.
+    let t = new Date('2026-09-16T06:00:00Z')
+    const AAA = engineRow('AAA', 'USD', 'NYSE', 'AAA_2026-08-01')
+    const BBB = engineRow('BBB', 'USD', 'NYSE', 'BBB_2026-08-02')
+    let rows: EngineWatchRow[] = [AAA]
+    const bad = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: '' },
+    })
+    const m = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-13-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => ({ status: 'limit', plan: bad(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }),
+      buildFallbackPlan: () => { throw new Error('plans dir unwritable') },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const views = () => m.decorate(mergeWatchlist({
+      entries: [], engine: rows, today: t.toISOString().slice(0, 10),
+      quotes: new Map(rows.map((r) => [r.listing.listing_key, { quote: quoteOf(r.listing.ticker, 'USD', 50), reason: null }])),
+    }).rows)
+    await m.tick(); await m.idle()
+
+    // BBB now arrives during the wait — its fallback build throws.
+    rows = [AAA, BBB]
+    t = new Date(t.getTime() + 2 * 60_000)
+    await m.tick(); await m.idle()
+    assert.equal(m.status().last_error, null, 'the tick completed — the throw was contained, not surfaced as a tick failure')
+    assert.equal(m.status().last_tick_at, t.toISOString(), 'the tick ran to the end (last_tick_at advanced past ensurePlans)')
+    assert.equal(views().find((r) => r.watch.plan?.run_root === BBB.run_root)?.watch.plan?.state ?? 'waiting', 'waiting',
+      'BBB is left uninitialised and simply retries next tick')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

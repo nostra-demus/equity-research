@@ -333,11 +333,27 @@ export function createWatchMonitor(deps: MonitorDeps) {
         // — the only thing suppressed here is the actual read — and takes its normal turn at a real one once
         // the machine-wide wait allows it.
         if (!plan && !rec) {
-          const outcome = buildFallbackPlan(row)
-          state.reads[seg] = { attempts: 0, last_at: at.toISOString(), status: outcome.status, detail: outcome.detail }
-          if (outcome.plan) planCache.set(seg, outcome.plan)
-          else planCache.delete(seg)
-          saveState()
+          try {
+            const outcome = buildFallbackPlan(row)
+            // A synthetic fallback is not a fresh provider response, so a `limit` one must NOT advance the
+            // machine-wide limit clock (limitedAt reads the newest `limit` record's last_at). Stamp it with
+            // the limit already in force, not `at` — otherwise a name arriving mid-cooldown pushes the next
+            // probe out, and repeated arrivals could postpone probing indefinitely though no provider call
+            // confirmed the limit still holds. A `no_sources` fallback keeps its own `at` stamp (real backoff).
+            const stamp = outcome.status === 'limit' && lastLimit > 0
+              ? new Date(lastLimit).toISOString()
+              : at.toISOString()
+            state.reads[seg] = { attempts: 0, last_at: stamp, status: outcome.status, detail: outcome.detail }
+            if (outcome.plan) planCache.set(seg, outcome.plan)
+            else planCache.delete(seg)
+            saveState()
+          } catch (e: any) {
+            // The fallback builder writes a plan to disk. A storage failure (plans dir unwritable, atomic
+            // rename fails) must not abort the whole tick and stop price/deal-breaker evaluation for EVERY
+            // name — the row is simply left uninitialised and retries next tick, the same containment the
+            // real read on the chain below already has.
+            console.error(`[watch] fallback plan for ${seg} could not be stored: ${String(e?.message ?? e)}`)
+          }
         }
         continue
       }
