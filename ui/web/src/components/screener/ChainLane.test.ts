@@ -1,6 +1,7 @@
+import { usePersonalScopeStore } from '../../lib/personalScope'
 import assert from 'node:assert/strict'
-import { createElement } from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
+import React, { createElement } from 'react'
+import { renderToStaticMarkup as renderMarkup } from 'react-dom/server'
 import type { SupplyChainBoard, SupplyChainLead } from '../../lib/types'
 import { ChainLane, normalizeSupplyChainBoard } from './ChainLane'
 import { IdeasTabs } from './BestIdeasView'
@@ -21,6 +22,14 @@ import { IdeasTabs } from './BestIdeasView'
 }
 
 // ---- fixtures ----------------------------------------------------------------------------------------
+// Existing surface assertions cover the full Universe; personal scope has separate regressions.
+usePersonalScopeStore.setState({ scope: 'universe' })
+function renderToStaticMarkup(element: React.ReactNode): string {
+  const original = React.useSyncExternalStore
+  ;(React as any).useSyncExternalStore = (_subscribe: unknown, getSnapshot: () => unknown) => getSnapshot()
+  try { return renderMarkup(element) } finally { (React as any).useSyncExternalStore = original }
+}
+
 const lead = (patch: Partial<SupplyChainLead> = {}): SupplyChainLead => ({
   lead_id: 'SCL-abc123abc123',
   anchor_ticker: 'HAIER',
@@ -189,3 +198,15 @@ assert.ok(normalizeSupplyChainBoard(board()), 'a well-formed board is accepted')
 }
 
 console.log('ChainLane: PASS (conditional tab, fail-closed payload gate, evidence chain rendered, no direction asserted, held-back rows counted, empty + degraded states, third-order labelling)')
+
+usePersonalScopeStore.setState({ scope: 'portfolio', portfolio: { members: [{ ticker: 'AMZN', name: 'Amazon' }], status: 'ready', error: null, asOf: null, unresolved: 0 } })
+const personalChain = renderToStaticMarkup(createElement(ChainLane, { board: board() }))
+assert.match(personalChain, /No supply-chain ideas match your portfolio/)
+assert.doesNotMatch(personalChain, /Haier|HAIER/, 'unrelated anchors must disappear together with their leads')
+usePersonalScopeStore.setState({ scope: 'universe' })
+
+usePersonalScopeStore.setState({ scope: 'portfolio', portfolio: { members: [{ ticker: 'CAT', name: 'Caterpillar', listingCountry: 'US' }], status: 'ready', error: null, asOf: null, unresolved: 0 } })
+const wrongMarket = board()
+wrongMarket.anchors = wrongMarket.anchors.map((anchor) => ({ ...anchor, ticker: 'CAT', name: 'Catapult', listing: 'ASX:CAT' }))
+assert.doesNotMatch(renderToStaticMarkup(createElement(ChainLane, { board: wrongMarket })), /chain__mapticker/, 'an anchor with the same ticker in another market is excluded')
+usePersonalScopeStore.setState({ scope: 'universe' })

@@ -1,3 +1,4 @@
+import { usePersonalScope } from '../../lib/personalScope'
 // The persistent left rail of the Screener stage: a live, ranked list of everything the auto-scanner
 // reads. New items stream in over SSE the moment a cycle scores them (and backfill from disk on mount,
 // so it survives a reload). Three ways to read the wire:
@@ -247,6 +248,7 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
 export function EventRail() {
   // the active wire's capabilities (lib/wire.ts) — the rail branches on these, never on a swarm id
   const cfg = useWireConfig()
+  const personal = usePersonalScope(cfg.gauntlet)
   const subjectMode = cfg.groupBy === 'subject'
   const rawItems = useStore((s) => s.newsItems)
   // a subject-grouped wire is a PROJECTION of the shared firehose: only items on this wire (tagged with
@@ -429,7 +431,7 @@ export function EventRail() {
   // self-healing retry if the mount request raced a deploy or transient archive outage.
   useEffect(() => { void loadFacets({}) }, [loadFacets])
   // the rendered set: the archive matches in archive mode, the live wire otherwise
-  const items = archiveMode ? archiveResults : liveItems
+  const items = useMemo(() => (archiveMode ? archiveResults : liveItems).filter(personal.matches), [archiveMode, archiveResults, liveItems, personal])
 
   // archive paging: pull the next page when a bottom sentinel scrolls into view (same pattern as the
   // full wire). Only armed in archive mode while there is a next cursor.
@@ -437,11 +439,11 @@ export function EventRail() {
   const moreRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     const el = moreRef.current
-    if (!el || !archiveMode || !archiveCursor) return
+    if (!el || !archiveMode || !archiveCursor || personal.scope !== 'universe') return
     const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) void loadMoreArchive() }, { root: listRef.current, rootMargin: '600px 0px' })
     io.observe(el)
     return () => io.disconnect()
-  }, [archiveMode, archiveCursor, archiveLoadingMore, loadMoreArchive])
+  }, [archiveMode, archiveCursor, archiveLoadingMore, loadMoreArchive, personal.scope])
 
   // backfill + attach the live stream the moment the rail mounts (self-healing if scInit raced)
   useEffect(() => {
@@ -646,7 +648,7 @@ export function EventRail() {
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
           {ideasAvailable && (
-            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Qualified 3–6 month ideas, with unverified news leads kept in a separate research queue'}>
+            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Events and ideas to investigate'}>
               {scBoardFetch.status === 'error'
                 ? <span className="evrail__segdot evrail__segdot--bad" aria-hidden />
                 : ideasSummary.liveLeadCount > 0 && <span className="evrail__segdot" aria-hidden title="Fresh unverified research leads" />}
@@ -834,11 +836,15 @@ export function EventRail() {
             buried kept matches on later pages were unreachable and the empty-state below falsely claimed
             "genuinely nothing matches" while more archive remained to scan. */}
         {archiveMode && archiveCursor && (
-          <div ref={moreRef} className="evrail__more">{archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
+          <div ref={moreRef} className="evrail__more">{personal.scope !== 'universe'
+            ? <button type="button" disabled={archiveLoadingMore} onClick={() => void loadMoreArchive()}>{archiveLoadingMore ? 'Searching older news…' : `Search older news for your ${personal.label.toLowerCase()}`}</button>
+            : archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
         )}
         {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">
-            {archiveMode
+            {personal.scope !== 'universe' && !archiveMode
+              ? `No matching news for your ${personal.label.toLowerCase()} in the loaded window. Universe shows all companies; company filters search older news.`
+              : archiveMode
               ? archivePending
                 ? 'Searching all history…'
                 : archiveError
@@ -855,7 +861,7 @@ export function EventRail() {
                       </button>
                     </>
                   )
-                  : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
+                  : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}${personal.scope === 'universe' ? '' : ` in your ${personal.label.toLowerCase()}`}. This is the WHOLE archive, not just the last two days.`
               : gicsEmptyLine
               ? gicsEmptyLine
               : broadActive || filtersActive(filters) || (subjectMode && subjectSel.size > 0)

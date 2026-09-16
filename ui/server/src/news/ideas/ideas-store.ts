@@ -240,7 +240,7 @@ interface IdeaMutationLease {
   snapshotFd: number
 }
 
-function repositoryMutationLockPath(repoRoot: string): string | null {
+export function repositoryMutationLockPath(repoRoot: string): string | null {
   const root = path.resolve(repoRoot)
   // Unit callers may intentionally use a plain temporary directory. A real checkout always has a .git
   // file/directory; if Git then fails, that is an operational fault and must not silently disable locking.

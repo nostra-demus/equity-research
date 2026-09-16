@@ -163,6 +163,7 @@ const SUFFIX_COUNTRY: Record<string, string> = {
 // its country can only come from the exchange label). Deliberately narrow: unmapped → unknown, so an
 // unrecognised exchange NEVER produces a false conflict (it just leaves the pick country-undefined).
 const EXCHANGE_COUNTRY: Record<string, string> = {
+  ASX: 'AU', 'AUSTRALIAN SECURITIES EXCHANGE': 'AU', NSE: 'IN', BSE: 'IN', LSE: 'GB', OSLO: 'NO', OSE: 'NO', TSX: 'CA', HKEX: 'HK', TSE: 'JP', XETRA: 'DE', SIX: 'CH', SGX: 'SG', NZX: 'NZ',
   NYSE: 'US', NASDAQ: 'US', NASDAQGS: 'US', NASDAQCM: 'US', NASDAQGM: 'US', 'NYSE AMERICAN': 'US', NYSEAMERICAN: 'US',
   NYSEARCA: 'US', 'NYSE ARCA': 'US', AMEX: 'US', BATS: 'US', CBOE: 'US', OTC: 'US', OTCMKTS: 'US', 'OTC MARKETS': 'US', PNK: 'US',
 }

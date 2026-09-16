@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-d704446fee63",
-  "idea_version": "IDEAV-2fea4607e2989a34",
-  "idea_version_started_at": "2026-08-04T08:40:40Z",
+  "idea_version": "IDEAV-d45cc241b4da7266",
+  "idea_version_started_at": "2026-09-15T23:04:51Z",
   "ticker": "GRAB",
-  "company": "Grab Holdings Ltd.",
+  "company": "Grab Holdings",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company raised its annual revenue and earnings forecasts after announcing AI‑driven features and new driver incentives, which should lift top‑line growth and margins.",
-  "why_now": "The forecast lift was announced on 2026‑08‑04, providing an immediate catalyst for the stock.",
-  "conviction": 62,
+  "reason": "The $1.9 billion acquisition of Atome accelerates Grab's fintech expansion and market share in the digital payments sector.",
+  "why_now": "The deal was announced today, September 15, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
-  "trade_score_basis": "evidence_gate_v1",
+  "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -47,26 +47,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ac896dbc3764"
+    "EVT-6386717fc345",
+    "EVT-2c50a6be83c3"
   ],
-  "primary_source_event_id": "EVT-ac896dbc3764",
+  "primary_source_event_id": "EVT-6386717fc345",
   "source_headlines": [
-    "Singapore's Grab lifts annual forecasts as AI, incentives drive growth"
+    "Grab to buy most of Singapore tech firm Atome for $1.9b",
+    "Grab to buy most of Singapore firm Atome for $1.9b in fintech bid"
   ],
-  "source_headline": "Singapore's Grab lifts annual forecasts as AI, incentives drive growth",
-  "source_url": "https://www.reuters.com/business/retail-consumer/singapores-grab-lifts-annual-revenue-forecast-2026-08-03/",
-  "source_name": "Reuters — Latest (news sitemap)",
-  "materiality_max": 95,
-  "newest_source_at": "2026-08-04T01:08:15Z",
+  "source_headline": "Grab to buy most of Singapore tech firm Atome for $1.9b",
+  "source_url": "https://www.straitstimes.com/business/companies-markets/grab-to-buy-most-of-singapore-tech-firm-atome-for-1-9b",
+  "source_name": "The Straits Times",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-15T11:34:34Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
-    "data_pool_present": false
+    "data_pool_present": true
   },
   "surfaced_at": "2026-08-04T02:03:19Z",
-  "updated_at": "2026-08-04T08:52:40Z",
-  "decay_at": "2026-08-05T13:08:15Z",
-  "status": "promoted",
-  "promoted_signal_id": "SIG-20260804-da21208a"
+  "updated_at": "2026-09-15T23:04:51Z",
+  "decay_at": "2026-09-16T23:34:34Z",
+  "status": "live",
+  "promoted_signal_id": null
 }

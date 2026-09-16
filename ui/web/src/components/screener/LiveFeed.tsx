@@ -1,3 +1,5 @@
+import { usePersonalScope } from '../../lib/personalScope'
+import { PersonalScopeToggle } from './PersonalScopeToggle'
 // The News wire — a live view of EVERYTHING the auto-scanner reads: each item as it's scored,
 // its theme tags, the company it's guessed to be about, and whether it was kept for the Inbox or
 // dropped (and why). Backfills from disk (restart-proof) and streams new items over SSE the moment
@@ -105,7 +107,8 @@ interface ArchiveState {
 }
 const EMPTY_ARCHIVE: ArchiveState = { results: [], loading: false, loadingMore: false, cursor: null, scannedThrough: null, exhausted: false }
 
-export function LiveFeed() {
+export function LiveFeed({ personalScopeEnabled: scoped = false }: { personalScopeEnabled?: boolean }) {
+  const personal = usePersonalScope(scoped)
   const close = useStore((s) => s.closeNewsFeed)
   const openDiagnostics = useStore((s) => s.openDiagnostics)
   const liveItems = useStore((s) => s.newsItems)
@@ -241,7 +244,7 @@ export function LiveFeed() {
   }
 
   // the rendered set: the archive matches (already server-filtered) in archive mode, the loaded window otherwise
-  const items = archiveMode ? archive.results : liveItems
+  const items = useMemo(() => (archiveMode ? archive.results : liveItems).filter(personal.matches), [archiveMode, archive.results, liveItems, personal])
 
   const sources = useMemo(() => [...new Set(liveItems.map((i) => i.source_name).filter(Boolean))].sort(), [liveItems])
   // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first).
@@ -283,7 +286,7 @@ export function LiveFeed() {
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return
-        if (archiveMode && archive.cursor && shownCount >= visibleGroups.length) { void loadMoreArchive(); return }
+        if (archiveMode && archive.cursor && shownCount >= visibleGroups.length) { if (personal.scope === 'universe') void loadMoreArchive(); return }
         setShownCount((c) => Math.min(c + PAGE, visibleGroups.length))
       },
       { root: listRef.current, rootMargin: '900px 0px' },
@@ -291,13 +294,14 @@ export function LiveFeed() {
     io.observe(el)
     return () => io.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount])
+  }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount, personal.scope])
 
   return (
     <motion.div className="pipeline wire" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+      {scoped && <PersonalScopeToggle />}
       <div className="pipeline__head">
         <div>
-          <div className="pipeline__title">News wire — everything the scanner read</div>
+          <div className="pipeline__title">News wire{personal.scope !== 'universe' ? ` — ${personal.label}` : ' — everything the scanner read'}</div>
           <ScanStatus variant="panel" />
         </div>
         <div className="pipeline__tools">
@@ -401,7 +405,9 @@ export function LiveFeed() {
         {(hasMore || (archiveMode && !!archive.cursor)) && (
           <div ref={sentinelRef} className="wire__more">
             {archiveMode && !hasMore
-              ? archive.loadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'
+              ? personal.scope !== 'universe'
+                ? <button type="button" disabled={archive.loadingMore} onClick={() => void loadMoreArchive()}>{archive.loadingMore ? 'Searching older news…' : `Search older news for your ${personal.label.toLowerCase()}`}</button>
+                : archive.loadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'
               : `showing ${shown.length.toLocaleString()} of ${visibleGroups.length.toLocaleString()} — scroll for more`}
           </div>
         )}
@@ -411,6 +417,8 @@ export function LiveFeed() {
               ? archive.loading
                 ? 'Searching all history…'
                 : `Searched all history${archive.scannedThrough ? ` back to ${dateLabel(archive.scannedThrough)}` : ''} — genuinely nothing matches these filters. This is the WHOLE archive, not just the loaded window.`
+              : personal.scope !== 'universe'
+                ? `No matching news for your ${personal.label.toLowerCase()} in this window. Choose Universe to see all companies.`
               : items.length
                 ? gicsEmptyMessage(filters) || 'Nothing matches these filters — clear them to see everything again.'
                 : status?.enabled

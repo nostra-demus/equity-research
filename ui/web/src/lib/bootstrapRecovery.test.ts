@@ -164,6 +164,13 @@ try {
   assert.equal(useStore.getState().activeSwarm, 'screener')
   assert.deepEqual(useStore.getState().swarms, [research, screener])
   assert.equal(initCalls, 1, 'successful rediscovery must initialize the screener')
+  useStore.setState({ wireSwarm: 'screener', themesView: 'board', selectedTheme: 'THM-stale', ideasOpen: false })
+  useStore.getState()._enterSwarm('screener')
+  assert.equal(useStore.getState().themesView, null, 'returning to Screener clears the previous Themes selection')
+  assert.equal(useStore.getState().selectedTheme, null)
+  assert.equal(useStore.getState().ideasOpen, true)
+  assert.equal(useStore.getState().ideasLane, 'events')
+  initCalls-- // this explicit navigation is independent of bootstrap retry counts below
 
   for (const status of [401, 403]) {
     useStore.setState({ activeSwarm: 'screener', swarms: [research, screener], health: 'session-expired' })
@@ -335,7 +342,7 @@ try {
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(useStore.getState().scBoardFetch.status, 'ready')
   assert.equal(newsCalls, 1, 'the successful retry must continue through wire initialization')
-  assert.equal(themesCalls, 1, 'the successful retry must continue through the default board view')
+  assert.equal(themesCalls, 0, 'bootstrap must not replace Ideas with Themes')
 
   let boardCalls = 0
   newsCalls = 0
@@ -364,7 +371,7 @@ try {
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(useStore.getState().scBoardFetch.status, 'ready')
   assert.equal(newsCalls, 1)
-  assert.equal(themesCalls, 1)
+  assert.equal(themesCalls, 0)
 
   let signalHydrationCalls = 0
   api.screenerBoard = async () => boardWithSignal
@@ -458,7 +465,7 @@ try {
   assert.equal(useStore.getState().scGraph, graph)
   assert.equal(useStore.getState().scBoard, board)
   assert.equal(newsCalls, 1)
-  assert.equal(themesCalls, 1)
+  assert.equal(themesCalls, 0)
 
   let releaseReconnectWire!: () => void
   let markReconnectWireStarted!: () => void

@@ -1,3 +1,6 @@
+import { ideasSnapshotPage } from './ideasSnapshot'
+import { isDiscoveryPage, isDiscoveryCard } from '../../../shared/ideas-workspace'
+import type { DiscoveryCard, DiscoveryPage, IdeaLane } from '../../../shared/ideas-workspace'
 import { staticPromptPath } from './prompts'
 import type {
   PipelinesRead, PortfolioIdeaCreated, WatchResolveRead, WatchRowInput, WatchlistRead,
@@ -445,7 +448,7 @@ export interface FeedSearchResponse {
 // One company resolved by the GLOBAL symbol directory (GET /api/news/symbols — server news/symbology.ts):
 // the primary symbol for what was typed plus every sibling listing as an alias, so ANY country's ticker
 // finds the company. Empty on an old server or offline — the autofill degrades to the archive facet.
-export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[] }
+export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[]; aliasExchanges?: Record<string, string>; listings?: { name: string; symbol: string; exchange: string }[] }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
 // A distinct company observed on the wire, with how many archived items mention it — the source for the
@@ -532,6 +535,20 @@ const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, 
 const EMPTY_OVERRIDES: PortfolioOverrides = { cashEquivalents: [] }
 
 export const api = {
+  ideasWorkspace: async (lane: IdeaLane, hide: string, kind = 'all', cursor = '0', refresh = false): Promise<DiscoveryPage> => {
+    await ensureMode()
+    if (mode === 'static') return ideasSnapshotPage(await api.screenerBoard(), lane, hide, kind, cursor, snap.ideasWorkspace)
+    const result = await get<unknown>(`/api/screener/idea-workspace?${new URLSearchParams({ lane, hide, kind, cursor, refresh: refresh ? '1' : '0' })}`, 45_000)
+    if (!isDiscoveryPage(result)) throw new Error('The Ideas response could not be read. Please refresh or retry.')
+    return result
+  },
+  fileIdeaCard: async (card: DiscoveryCard, action: 'archive' | 'restore', operationId: string): Promise<{ card: DiscoveryCard }> => {
+    await ensureMode()
+    if (mode === 'static') throw new Error('Archive actions require a connected engine.')
+    const result = await post<{ card: unknown }>('/api/screener/idea-workspace/actions', { key: card.key, action, operation_id: operationId, expected_revision: card.action_revision }, 45_000)
+    if (!isDiscoveryCard(result.card)) throw new Error('The filing response could not be verified. Refresh to check the saved state.')
+    return { card: result.card }
+  },
   // One bounded, read-only view over the shared research memory. Static hosting returns an explicit
   // unavailable state without touching the network; deploy skew or a malformed response fails closed.
   memory: async (): Promise<MemoryRead> => {

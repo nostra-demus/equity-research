@@ -1,3 +1,5 @@
+import { IdeasWorkspace } from './IdeasWorkspace'
+import { memberCountry, usePersonalScope } from '../../lib/personalScope'
 // Ideas is deliberately a two-tab skim: live LONG ideas and live SHORT ideas. Within either tab, qualified
 // 3-6 month forecasts are the primary surface and news-only leads stay in a separate collapsed research
 // queue. The payload's direction is authoritative; stale leads stay out, while an expired qualified
@@ -948,7 +950,7 @@ export function IdeasTabs({ active, onSelect, chain = false }: { active: IdeasTa
 // 👍/👎 on a surfaced idea — the self-grading loop, in the reader's exact visual language. A thumb click
 // files the vote instantly (optimistic) and reveals an OPTIONAL one-tap reason above it; clicking the lit
 // thumb again un-votes. Reasons refine the vote but are never required — fast by default.
-function IdeaFeedback({ idea }: { idea: BoardIdea }) {
+function IdeaFeedback({ idea, onAction }: { idea: BoardIdea; onAction?: () => Promise<void> }) {
   const rate = useStore((s) => s.scRateIdea)
   const [open, setOpen] = useState<null | 'up' | 'down'>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -965,16 +967,24 @@ function IdeaFeedback({ idea }: { idea: BoardIdea }) {
     document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey) }
   }, [open])
-  const vote = idea.feedback
+  const [pendingVote, setPendingVote] = useState<{ value: 'up' | 'down' | null } | null>(null)
+  const voteSequence = useRef(0)
+  const vote = pendingVote ? pendingVote.value : idea.feedback
+  const saveVote = async (polarity: 'up' | 'down' | 'clear', reason?: string) => {
+    const seq = ++voteSequence.current
+    setPendingVote({ value: polarity === 'clear' ? null : polarity })
+    try { await rate(idea, polarity, reason); await onAction?.() }
+    finally { if (seq === voteSequence.current) setPendingVote(null) }
+  }
 
   const clickThumb = (pol: 'up' | 'down') => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
-    if (vote === pol) { setOpen(null); void rate(idea, 'clear'); return } // toggle off
+    if (vote === pol) { setOpen(null); void saveVote('clear'); return } // toggle off
     setOpen(pol)
-    void rate(idea, pol) // files immediately; the reason is an optional refinement
+    void saveVote(pol) // files immediately; the reason is an optional refinement
     closeTimer.current = setTimeout(() => setOpen(null), 5000)
   }
-  const pickReason = (pol: 'up' | 'down', reason: string) => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpen(null); void rate(idea, pol, reason) }
+  const pickReason = (pol: 'up' | 'down', reason: string) => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpen(null); void saveVote(pol, reason) }
 
   return (
     <div className="ideafb" ref={rootRef}>
@@ -1038,7 +1048,7 @@ export function ideaThemeAttribution(
 // A paid gauntlet run is a real spend, so the CTA arms on the first click and fires on the second (the
 // cockpit's "Scan now" idiom), auto-disarming after a few seconds. Self-contained: manages its own arm /
 // sending / error state and calls the store directly, so the card list stays declarative.
-function PromoteButton({ idea }: { idea: BoardIdea }) {
+function PromoteButton({ idea, onAction }: { idea: BoardIdea; onAction?: () => Promise<void> }) {
   const promote = useStore((s) => s.scPromoteIdea)
   const runProvider = useStore((s) => s.runProvider)
   const providers = useStore((s) => s.providers)
@@ -1071,7 +1081,7 @@ function PromoteButton({ idea }: { idea: BoardIdea }) {
     if (armTimer.current) clearTimeout(armTimer.current)
     setPhase('sending')
     promote(idea).then(
-      () => { /* board refresh flips the card to promoted; if it survives, reset */ setPhase('idle') },
+      async () => { await onAction?.(); setPhase('idle') },
       (e: any) => { setErr(e?.message || 'launch failed'); setPhase('idle') },
     )
   }
@@ -1389,12 +1399,13 @@ export function QualifiedIdeaCard({
 }
 
 type NewsLeadCardProps =
-  | { idea: BoardIdea; side: IdeaSide; auditOnly?: false; timelineStatus?: 'current' | 'promoted' }
-  | { idea: ArchivedLeadViewRow; side: IdeaSide; auditOnly: true; timelineStatus?: 'expired' }
+  | { idea: BoardIdea; side: IdeaSide; filed?: boolean; onAction?: () => Promise<void>; auditOnly?: false; timelineStatus?: 'current' | 'promoted' }
+  | { idea: ArchivedLeadViewRow; side: IdeaSide; filed?: boolean; onAction?: () => Promise<void>; auditOnly: true; timelineStatus?: 'expired' }
 
 export function NewsLeadCard(props: NewsLeadCardProps) {
   const { idea, side } = props
   const auditOnly = props.auditOnly === true
+  const filed = props.filed === true
   const macro = MACRO_TYPES.has(idea.thesis_type)
   const pc = idea.prior_coverage
   const rated = pc?.has_run
@@ -1467,10 +1478,10 @@ export function NewsLeadCard(props: NewsLeadCardProps) {
           <span className="bidea__readnum">{researchPriority}<span className="bidea__readden">/100</span></span>
           <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${researchPriority}%` }} /></span>
         </div>
-        {!props.auditOnly && props.idea.status !== 'promoted' && (
+        {!props.auditOnly && !filed && props.idea.status !== 'promoted' && (
           <div className="bidea__actions">
-            {props.idea.promotion_available !== false && <IdeaFeedback idea={props.idea} />}
-            <PromoteButton idea={props.idea} />
+            {props.idea.promotion_available !== false && <IdeaFeedback idea={props.idea} onAction={props.onAction} />}
+            <PromoteButton idea={props.idea} onAction={props.onAction} />
           </div>
         )}
       </div>
@@ -1537,13 +1548,15 @@ export function NewsIdeasTimeline({
   side: IdeaSide
   nowMs?: number
 }) {
-  const timeline = ideasTimelineForSide(currentIdeas, archiveValue, side, nowMs)
+  const personal = usePersonalScope()
+  const allTimeline = ideasTimelineForSide(currentIdeas, archiveValue, side, nowMs)
+  const timeline = { ...allTimeline, rows: allTimeline.rows.filter(({ idea }) => personal.company(idea.ticker, idea.company || '', memberCountry(idea.ticker, idea.exchange || '')) || (!!idea.pair_with && personal.company(idea.pair_with))) }
   const [visibleCount, setVisibleCount] = useState(IDEAS_TIMELINE_PAGE_SIZE)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const hasMore = visibleCount < timeline.rows.length
   const showMore = () => setVisibleCount((count) => Math.min(timeline.rows.length, count + IDEAS_TIMELINE_PAGE_SIZE))
 
-  useEffect(() => setVisibleCount(IDEAS_TIMELINE_PAGE_SIZE), [side])
+  useEffect(() => setVisibleCount(IDEAS_TIMELINE_PAGE_SIZE), [side, personal.scope])
   useEffect(() => {
     if (!hasMore || !sentinelRef.current || typeof IntersectionObserver === 'undefined') return
     const observer = new IntersectionObserver((entries) => {
@@ -1568,7 +1581,7 @@ export function NewsIdeasTimeline({
       </header>
       {(incomplete || omitted > 0 || (unconfirmed || 0) > 0 || historyUnchecked) && (
         <p className="bideas__archivewarning" role="status">
-          Showing the saved records that can be confirmed.
+          {personal.scope !== 'universe' ? 'Across the universe: ' : ''}Showing the saved records that can be confirmed.
           {(unconfirmed || 0) > 0 && ` ${unconfirmed} older record${unconfirmed === 1 ? '' : 's'} could not be confirmed.`}
           {omitted > 0 && ` ${omitted} older record${omitted === 1 ? ' is' : 's are'} no longer stored.`}
           {unconfirmed === null && (incomplete || historyUnchecked) && ' Some older records could not be checked.'}
@@ -1582,7 +1595,7 @@ export function NewsIdeasTimeline({
             : <NewsLeadCard key={row.key} idea={row.idea as BoardIdea} side={side} timelineStatus={row.status as 'current' | 'promoted'} />)}
         </div>
       ) : (
-        <p className="bideas__queueempty">No saved {side.toUpperCase()} ideas yet.</p>
+        <p className="bideas__queueempty">No saved {side.toUpperCase()} ideas{personal.scope !== 'universe' ? ` matching your ${personal.label.toLowerCase()}` : ''} yet.</p>
       )}
       {hasMore && (
         <div className="bideas__timeline-more" ref={sentinelRef}>
@@ -1727,12 +1740,13 @@ export function IdeasSidePanel({
   loading?: boolean
   nowMs?: number
 }) {
+  const personal = usePersonalScope()
   const qualifiedBoard = qualifiedRuntime.board
-  const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide)
+  const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide).filter((idea) => personal.company(idea.candidate.instrument.ticker, idea.candidate.instrument.company, memberCountry(idea.candidate.instrument.ticker, idea.candidate.instrument.exchange, idea.candidate.instrument.currency)))
   const qualified = allQualified.filter((idea) => !qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
   const frozenQualified = allQualified.filter((idea) => qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
   const emptyState = qualified.length === 0
-    ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs)
+    ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs) || (personal.scope !== 'universe' ? { state: 'checked', heading: `No qualified ${panelSide.toUpperCase()} ideas match your ${personal.label.toLowerCase()}.`, body: 'Choose Universe to see ideas for all companies.', healthReason: null } : null)
     : null
   return (
     <section
@@ -1766,7 +1780,7 @@ export function IdeasSidePanel({
           </div>
         ) : emptyState ? (
           <div className={`bideas__qualified-empty bideas__qualified-empty--${emptyState.state}`} role="status">
-            <strong>{emptyState.heading}</strong>
+            <strong>{personal.scope === 'universe' ? emptyState.heading : `No qualified ${panelSide.toUpperCase()} ideas match your ${personal.label.toLowerCase()}.`}</strong>
             <p>{emptyState.body}</p>
             {emptyState.healthReason && <p className="bideas__healthreason"><span>Board health —</span> {emptyState.healthReason}</p>}
           </div>
@@ -1799,93 +1813,5 @@ export function IdeasSidePanel({
 }
 
 export function BestIdeasView() {
-  const scBoard = useStore((s) => s.scBoard)
-  const boardFetch = useStore((s) => s.scBoardFetch)
-  const refresh = useStore((s) => s.scRefreshBoard)
-  const [side, setSide] = useState<IdeasTabKey>('long')
-  const [nowMs, setNowMs] = useState(() => Date.now())
-
-  // Keep both the data and wall-clock expiry backstop fresh while the tab is open. The clock update is
-  // independent of a successful fetch, so an offline cached forecast still freezes on time.
-  useEffect(() => {
-    void refresh()
-    const id = setInterval(() => {
-      setNowMs(Date.now())
-      void refresh()
-    }, 30_000)
-    return () => clearInterval(id)
-  }, [refresh])
-
-  const leadsAvailable = Array.isArray(scBoard?.ideas)
-  const leadRows = leadsAvailable ? scBoard!.ideas! : []
-  const coldError = !scBoard && boardFetch.status === 'error'
-  const qualifiedRuntime = normalizeQualifiedIdeasBoard(scBoard?.qualified_ideas, nowMs)
-  const qualifiedBoard = qualifiedRuntime.board
-  const qualifiedRuntimeNotice = scBoard ? qualifiedIdeasRuntimeWarning(qualifiedRuntime) : null
-  const qualifiedWarning = qualifiedIdeasWarning(qualifiedBoard)
-  const qualifiedOutcomeNotice = qualifiedRuntime.invalidRowCount === 0
-    ? qualifiedIdeasOutcomeNotice(qualifiedBoard)
-    : null
-  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard, nowMs)
-  const chainBoard = normalizeSupplyChainBoard(scBoard?.supply_chain)
-  // If the chain lane disappears mid-session (an engine restart on an older build, a rejected payload),
-  // the selected tab would otherwise point at a panel that no longer exists.
-  const activeTab: IdeasTabKey = side === 'chain' && !chainBoard ? 'long' : side
-
-  return (
-    <div className="bideas">
-      <IdeasTabs active={activeTab} onSelect={setSide} chain={Boolean(chainBoard)} />
-      {qualifiedWarning && (
-        <div className="bideas__truthwarn" role="status" title={qualifiedWarning.title}>
-          <span aria-hidden>!</span> {qualifiedWarning.label}
-        </div>
-      )}
-      {qualifiedRuntimeNotice && (
-        <div className="bideas__truthwarn" role="status" title={qualifiedRuntimeNotice.title}>
-          <span aria-hidden>!</span> {qualifiedRuntimeNotice.label}
-        </div>
-      )}
-      {qualifiedOutcomeNotice && (
-        <div className="bideas__truthwarn bideas__truthwarn--truth" role="status" title={qualifiedOutcomeNotice.title}>
-          <span aria-hidden>·</span> {qualifiedOutcomeNotice.label}
-        </div>
-      )}
-      {outcomeHealthWarning && (
-        <div className="bideas__truthwarn" role="status" title={outcomeHealthWarning.title}>
-          <span aria-hidden>!</span> {outcomeHealthWarning.label}
-        </div>
-      )}
-      {(coldError || (scBoard && boardFetch.error)) && (
-        <div className={`bideas__fetch ${coldError ? 'bideas__fetch--bad' : 'bideas__fetch--warn'}`} role={coldError ? 'alert' : 'status'} aria-live={coldError ? 'assertive' : 'polite'} title={boardFetch.error || undefined}>
-          <strong>{coldError ? 'Could not load ideas.' : boardFetch.status === 'refreshing' ? 'Refreshing…' : 'Could not refresh. Showing saved ideas.'}</strong>
-          <button type="button" disabled={boardFetch.status === 'refreshing'} onClick={() => void refresh()}>{boardFetch.status === 'refreshing' ? 'Retrying…' : 'Retry'}</button>
-        </div>
-      )}
-      {IDEA_SIDES.map((panelSide) => (
-        <IdeasSidePanel
-          key={panelSide}
-          panelSide={panelSide}
-          activeSide={activeTab}
-          leadRows={leadRows}
-          leadArchive={scBoard?.ideas_archive}
-          leadsAvailable={leadsAvailable}
-          leadHealth={scBoard?.ideas_health}
-          qualifiedRuntime={qualifiedRuntime}
-          loading={!scBoard && !coldError}
-          nowMs={nowMs}
-        />
-      ))}
-      {chainBoard && (
-        <section
-          id="ideas-chain-panel"
-          className="bideas__panel"
-          role="tabpanel"
-          aria-labelledby="ideas-chain-tab"
-          hidden={activeTab !== 'chain'}
-        >
-          <ChainLane board={chainBoard} />
-        </section>
-      )}
-    </div>
-  )
+  return <IdeasWorkspace />
 }
