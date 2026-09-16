@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T08:42:45Z",
+  "generated_at": "2026-09-16T08:50:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-144",
@@ -595,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-177",
+      "headline": "Homebuilder Barratt Redrow cuts completions target but firm demand lifts shares",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uk-homebuilder-barratt-redrow-cuts-annual-home-completions-target-2026-09-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T08:32:47Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Barratt Redrow cut its completions target, which is a material guidance change despite firm demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barratt Redrow cut its completions target, which is a material guidance change despite firm demand.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barratt Redrow",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-111",
       "headline": "Korean Air-Asiana Merger Clears Final Hurdle, Paving Way for Top 10 Airline",
       "headline_en": null,
@@ -689,55 +738,6 @@
       "companies": [
         {
           "name": "WH Smith",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-162",
-      "headline": "UK homebuilder Barratt Redrow cuts annual home completions target",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uk-homebuilder-barratt-redrow-cuts-annual-home-completions-target-2026-09-16/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T06:18:21Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Barratt Redrow cut its annual home completions target, a direct negative impact on guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Barratt Redrow cut its annual home completions target, a direct negative impact on guidance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barratt Redrow",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -1144,6 +1144,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-175",
+      "headline": "Restaurant Brands Asia Limited: Restaurant Brands Asia Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RBA_16092026134308_Finalupload.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T08:13:34Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Restaurant Brands Asia Limited has announced an acquisition, which is a material corporate development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Restaurant Brands Asia Limited has announced an acquisition, which is a material corporate development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Restaurant Brands Asia Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-147",
-      "headline": "L’IMAD to raise stake in AD Ports to over 98.5 percent after concluding voluntary tender offer",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/limad-to-raise-stake-in-ad-ports-to-over-98-5-percent-after-concluding-voluntary-tender-offer/?utm_source=rss&utm_medium=rss&utm_campaign=limad-to-raise-stake-in-ad-ports-to-over-98-5-percent-after-concluding-voluntary-tender-offer",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T06:42:12Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "L'IMAD is set to raise its stake in AD Ports to over 98.5 percent following a voluntary tender offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "L'IMAD is set to raise its stake in AD Ports to over 98.5 percent following a voluntary tender offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AD Ports Group",
-          "ticker": "ADPORTS",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
