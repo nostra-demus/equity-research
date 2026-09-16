@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-16T01:04:48Z",
+  "generated_at": "2026-09-16T01:15:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260916-054",
+      "headline": "CBA: Issue of U.S.$1.25 billion worth of Subordinated Notes",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03136024-2A1697387",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:45:14Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Commonwealth Bank of Australia issued U.S.$1.25 billion in subordinated notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Commonwealth Bank of Australia issued U.S.$1.25 billion in subordinated notes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank of Australia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260916-039",
       "headline": "IMA: Suspension from Quotation [price-sensitive]",
@@ -752,6 +801,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-057",
+      "headline": "AXP: Oil Flow Rates Enhanced at Charlie 1 Well After Controlled F [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AXP?key=2924-03136032-2A1697392",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:56:59Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "AXP reported enhanced oil flow rates at its Charlie 1 well.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "AXP reported enhanced oil flow rates at its Charlie 1 well.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AXP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-053",
       "headline": "CTD: CTM extends UK public-sector customer contracts",
       "headline_en": null,
@@ -1139,6 +1237,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-055",
+      "headline": "SCHEDULE 13D/A - Allen Family Digital, LLC (0002136301) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2136301/000149315226042803/0001493152-26-042803-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:00:09Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Allen Family Digital filed an amended 13D regarding their stake in BuzzFeed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Allen Family Digital filed an amended 13D regarding their stake in BuzzFeed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BuzzFeed, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-056",
+      "headline": "SCHEDULE 13D/A - BuzzFeed, Inc. (0001828972) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1828972/000149315226042803/0001493152-26-042803-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:00:09Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "BuzzFeed is the subject of an amended 13D filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "BuzzFeed is the subject of an amended 13D filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BuzzFeed, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1767,196 +1963,6 @@
           "name": "Inhibrx",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-019",
-      "headline": "HIT: Proposed issue of securities - HIT",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HIT?key=2924-03135994-2A1697362",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:51:09Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Company announced a proposed issue of securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Company announced a proposed issue of securities.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HIT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-012",
-      "headline": "US Coast Guard boarded a Texas-bound oil tanker to investigate a cyberattack, Bloomberg News reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/us/us-coast-guard-boarded-texas-bound-oil-tanker-investigate-cyberattack-bloomberg-2026-09-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T23:33:23Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "A cyberattack on an oil tanker indicates potential operational and security risks in the energy logistics sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "A cyberattack on an oil tanker indicates potential operational and security risks in the energy logistics sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-009",
-      "headline": "Xpansiv to Acquire Formbay, Australia's AI-Enabled Renewable Energy Certificate and Compliance Technology Platform",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/xpansiv-to-acquire-formbay-australias-ai-enabled-renewable-energy-certificate-and-compliance-technology-platform-302879205.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Xpansiv is acquiring Formbay to expand its renewable energy technology capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Xpansiv is acquiring Formbay to expand its renewable energy technology capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xpansiv",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-014",
-      "headline": "MQR: DRILLING TO COMMENCE AT YINDI GOLD PROJECT",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MQR?key=2924-03135984-6A1343993",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:45:09Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Routine commencement of drilling at a gold project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine commencement of drilling at a gold project.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marquee Resources",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -165525,9 +165531,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 735980,
-    "news_picked_today": 53,
-    "news_dropped_today": 547
+    "news_seen_today": 857975,
+    "news_picked_today": 57,
+    "news_dropped_today": 639
   },
   "book_momentum": {
     "live_count": 8,
