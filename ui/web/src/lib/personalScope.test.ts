@@ -21,6 +21,7 @@ const members = portfolioMembers(portfolio)
 assert.equal(members.length, 4, 'deduplicate the same listing, keep short holdings and distinct markets, drop closed/null symbols')
 assert.deepEqual(watchlistMembers(watchlist).map((m) => m.ticker), ['META', 'RETURNED'], 'a resurfaced Research watchlist entry remains active despite its older archive record')
 assert.equal(memberCountry('CAT', 'ASX'), 'AU')
+assert.equal(memberCountry('KAR', null, null), undefined, 'nullable listing context is safe')
 const kar = enrichMember(members.find((m) => m.ticker === 'KAR' && m.listingCountry === 'AU')!, [
   { symbol: 'KAR', name: 'Openlane', exchange: 'NYSE', aliases: ['KAR'], aliasExchanges: { KAR: 'NYSE' } },
   { symbol: 'KAR.AX', name: 'Karoon Energy', exchange: 'ASX', aliases: ['KAR.AX'], aliasExchanges: { 'KAR.AX': 'ASX' } },

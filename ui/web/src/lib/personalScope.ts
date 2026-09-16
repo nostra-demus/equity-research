@@ -13,8 +13,8 @@ export type PersonalScope = 'portfolio' | 'watchlist' | 'universe'
 export const SCOPE_LABELS = { portfolio: 'Portfolio', watchlist: 'Watchlist', universe: 'Universe' }
 // Same currency-to-market fallback as the portfolio quote lane; EUR has no single market.
 const CURRENCY_MARKET: Record<string, string> = { USD: 'US', INR: 'IN', NOK: 'NO', GBP: 'GB', JPY: 'JP', HKD: 'HK', CHF: 'CH', SEK: 'SE', DKK: 'DK', ISK: 'IS', CAD: 'CA', AUD: 'AU', NZD: 'NZ', SAR: 'SA', AED: 'AE', QAR: 'QA', KWD: 'KW', OMR: 'OM', BHD: 'BH', ILS: 'IL', ZAR: 'ZA', NGN: 'NG', EGP: 'EG', KRW: 'KR', TWD: 'TW', SGD: 'SG', CNY: 'CN', CNH: 'CN', MYR: 'MY', IDR: 'ID', THB: 'TH', PHP: 'PH', VND: 'VN', BRL: 'BR', MXN: 'MX', CLP: 'CL', ARS: 'AR', PEN: 'PE', COP: 'CO', PLN: 'PL', TRY: 'TR', CZK: 'CZ', HUF: 'HU' }
-export function memberCountry(ticker: string, exchange = '', currency = ''): string | undefined {
-  return groupListingCountry(ticker, [], exchange) || CURRENCY_MARKET[currency.toUpperCase()]
+export function memberCountry(ticker: string, exchange: string | null = '', currency: string | null = ''): string | undefined {
+  return groupListingCountry(ticker, [], exchange || '') || CURRENCY_MARKET[(currency || '').toUpperCase()]
 }
 const STORAGE_KEY = 'nsw.personalScope'
 export function readPersonalScope(): PersonalScope {
@@ -102,6 +102,7 @@ export const usePersonalScopeStore = create<PersonalScopeState>((set) => ({
     const load = async (kind: 'portfolio' | 'watchlist') => {
       try {
         const read = kind === 'portfolio' ? await api.portfolio() : await api.watchlist()
+        if (!read) throw new Error(`Could not read your ${kind}: the engine returned an empty response.`)
         if ('error' in read && read.error) throw new Error(read.error)
         if ('unreadable' in read && read.unreadable.length) throw new Error('Some watchlist entries could not be read.')
         let members = kind === 'portfolio' ? portfolioMembers(read as PortfolioRead) : watchlistMembers(read as WatchlistRead)
