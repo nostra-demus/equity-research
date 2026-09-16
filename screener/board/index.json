@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T05:44:14Z",
+  "generated_at": "2026-09-16T05:54:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1871,6 +1871,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-134",
+      "headline": "XRG completes stake acquisition in Azerbaijan energy firm",
+      "headline_en": null,
+      "url": "https://www.meed.com/xrg-completes-stake-acquisition-in-azerbaijan-energy-firm",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T05:48:15Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "XRG has completed the acquisition of a stake in an Azerbaijan energy firm, representing a strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "XRG has completed the acquisition of a stake in an Azerbaijan energy firm, representing a strategic expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XRG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-127",
       "headline": "Univastu India Limited: Univastu India Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
           "name": "Univastu India Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-020",
-      "headline": "HIT: $4M Institutional Placement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HIT?key=2924-03135993-2A1697348",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:50:59Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Company raised $4 million via an institutional placement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Company raised $4 million via an institutional placement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HIT",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -166029,9 +166029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3771934,
-    "news_picked_today": 194,
-    "news_dropped_today": 2926
+    "news_seen_today": 3947490,
+    "news_picked_today": 199,
+    "news_dropped_today": 3113
   },
   "book_momentum": {
     "live_count": 8,
