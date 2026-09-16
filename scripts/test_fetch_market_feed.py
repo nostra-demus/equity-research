@@ -159,6 +159,45 @@ def test_pool_path_is_redacted_from_refresh_status() -> None:
         assert "5 closes through 2026-09-15" in reported["detail"], reported
 
 
+def test_long_refresh_detail_is_bounded() -> None:
+    # fetch_market_feed.py can echo a provider CSV row (up to its 8 MiB response cap) into its final error
+    # line. /api/health serves refresh.detail back to every caller on every ~20s heartbeat, so an
+    # unbounded, provider-controlled line must not become a multi-KiB status file amplified across polls.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        # A 4000-char final line with no "-> path" suffix, so redaction leaves it and only the length bound
+        # can contain it.
+        long_line = "A" * 4000
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\n"
+            f"print('{long_line}')\n"
+        )
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 0, result.stderr
+        reported = json.loads(status.read_text())
+        # 300 kept chars + a 3-char ellipsis; the full 4000-char line must not survive.
+        assert len(reported["detail"]) <= 320, len(reported["detail"])
+        assert reported["detail"].endswith("..."), reported["detail"][-16:]
+        assert long_line not in reported["detail"], "the unbounded provider line must not reach the status file"
+
+
 def test_schedule_documentation_matches_the_installed_plist() -> None:
     # The installed timer moved from one daily window to three (07:10/13:10/19:10). Every place that
     # describes the schedule must describe the one actually installed, or an operator reads a different
@@ -366,6 +405,7 @@ def main() -> int:
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
     check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)
+    check("a long provider line is bounded before it reaches the status file", test_long_refresh_detail_is_bounded)
     check("the schedule docs match the installed plist", test_schedule_documentation_matches_the_installed_plist)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)

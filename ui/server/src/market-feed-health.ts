@@ -94,8 +94,14 @@ const WORST: Record<MarketFeedState, number> = { healthy: 0, stale: 1, missing: 
  *  memoized: every unit test below injects its own `deps.closes`, so tests stay isolated from this
  *  cache and from each other, and production data is never more than this TTL stale to the health
  *  check (the underlying series is still re-read in full by anything that needs it, e.g. the actual
- *  benchmark-return computation — this cache exists only for the /api/health hot path). */
-export const CLOSES_CACHE_TTL_MS = 15_000
+ *  benchmark-return computation — this cache exists only for the /api/health hot path).
+ *
+ *  It MUST exceed the health poll cadence, or it expires before every poll and memoizes nothing: the
+ *  cockpit polls /api/health every HEALTH_OK_MS (20s, ui/web/src/lib/store.ts), so a 15s TTL let every
+ *  heartbeat reparse the whole feed anyway. 60s keeps at least two normal-cadence polls (and any burst of
+ *  concurrent tabs between them) on one parse; the feed itself only changes a few times a day, so being
+ *  up to a minute stale to the health check is immaterial. */
+export const CLOSES_CACHE_TTL_MS = 60_000
 
 export function memoizeCloses(
   reader: (symbol: string) => { date: string; close: number }[],

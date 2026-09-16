@@ -19,9 +19,16 @@ log() { echo "$(ts) $*" >> "$LOG"; }
 # already uses (~/.nostra-ops/connector-supervisor.json), so the engine reads it the same way.
 STATUS="${MARKET_FEED_STATUS:-$HOME/.nostra-ops/market-feed.json}"
 note() { # note <ok|failed|skipped> <detail>
-  local at detail
+  local at detail raw
   at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-  detail="$(printf '%s' "${2:-}" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g')"
+  raw="${2:-}"
+  # Bound the detail before it is stored. fetch_market_feed.py echoes provider output (up to its 8 MiB
+  # response cap) into its final error line, and /api/health serves refresh.detail back to every caller on
+  # every ~20s heartbeat — so a malformed, provider-controlled long CSV row must not become a multi-KiB
+  # status file amplified across polls. Truncate the raw text first (before escaping, so a quote/backslash
+  # can never be cut mid-escape).
+  if [ "${#raw}" -gt 300 ]; then raw="${raw:0:300}..."; fi
+  detail="$(printf '%s' "$raw" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g')"
   # A status that says "ok" and nothing else is barely better than no status: it cannot be told apart from
   # a run whose output was lost. Every outcome carries words.
   [ -n "$detail" ] || detail="no detail reported"

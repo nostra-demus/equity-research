@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { marketFeedHealth, memoizeCloses, readRefresh, tradingDaysBetween } from '../src/market-feed-health'
+import { CLOSES_CACHE_TTL_MS, marketFeedHealth, memoizeCloses, readRefresh, tradingDaysBetween } from '../src/market-feed-health'
 
 let passed = 0
 const fails: string[] = []
@@ -115,6 +115,22 @@ await check('the real reader is cached across a burst of calls, so concurrent /a
   // Different symbols never share a cache slot.
   cached('DTB3')
   assert.equal(calls, 3)
+})
+
+await check('the closes cache outlives the /api/health poll cadence, so successive heartbeats reuse one parse', () => {
+  // ui/web/src/lib/store.ts polls /api/health every HEALTH_OK_MS (20s). The default cache TTL MUST exceed
+  // that cadence, or the cache expires before each poll and memoizes nothing — the codex P2 this pins.
+  const POLL_CADENCE_MS = 20_000
+  assert.ok(CLOSES_CACHE_TTL_MS > POLL_CADENCE_MS,
+    `the closes cache TTL (${CLOSES_CACHE_TTL_MS}ms) must exceed the /api/health poll cadence (${POLL_CADENCE_MS}ms)`)
+  let calls = 0
+  let t = 1_000
+  const reader = (_s: string) => { calls++; return [{ date: '2026-09-15', close: 1 }] }
+  const cached = memoizeCloses(reader, CLOSES_CACHE_TTL_MS, () => t)
+  cached('SP500')
+  t += POLL_CADENCE_MS // the very next heartbeat
+  cached('SP500')
+  assert.equal(calls, 1, 'two polls one cadence apart must reuse one parse, not reparse the whole feed each time')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
