@@ -445,7 +445,7 @@ export interface FeedSearchResponse {
 // One company resolved by the GLOBAL symbol directory (GET /api/news/symbols — server news/symbology.ts):
 // the primary symbol for what was typed plus every sibling listing as an alias, so ANY country's ticker
 // finds the company. Empty on an old server or offline — the autofill degrades to the archive facet.
-export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[] }
+export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[]; aliasExchanges?: Record<string, string>; listings?: { name: string; symbol: string; exchange: string }[] }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
 // A distinct company observed on the wire, with how many archived items mention it — the source for the

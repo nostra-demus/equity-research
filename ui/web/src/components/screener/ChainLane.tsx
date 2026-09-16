@@ -1,3 +1,4 @@
+import { memberCountry, usePersonalScope } from '../../lib/personalScope'
 // The CHAIN lane of Ideas — the companies a researched company actually trades with.
 //
 // A Capital IQ Suppliers / Customers export names, with a source filing per row, exactly who sells into a
@@ -231,11 +232,14 @@ function AnchorStrip({ board }: { board: SupplyChainBoard }) {
 }
 
 export function ChainLane({ board }: { board: SupplyChainBoard }) {
+  const personal = usePersonalScope()
+  const leads = useMemo(() => board.leads.filter((lead) => personal.company(lead.anchor_ticker, lead.anchor_name || '', memberCountry(lead.anchor_ticker, lead.anchor_listing || '')) || personal.company(lead.symbol, lead.name, memberCountry(lead.symbol || '', lead.exchange || ''))), [board.leads, personal])
+  const scopedBoard = { ...board, anchors: board.anchors.filter((anchor) => personal.company(anchor.ticker, anchor.name || '', memberCountry(anchor.ticker, anchor.listing || ''))) }
   const [showAll, setShowAll] = useState(false)
 
   const { open, held, groups } = useMemo(() => {
-    const openRows = board.leads.filter((l) => ACTIONABLE.has(l.readiness))
-    const heldRows = board.leads.filter((l) => !ACTIONABLE.has(l.readiness))
+    const openRows = leads.filter((l) => ACTIONABLE.has(l.readiness))
+    const heldRows = leads.filter((l) => !ACTIONABLE.has(l.readiness))
     const shown = showAll ? [...openRows, ...heldRows] : openRows
     const byOrder = new Map<number, SupplyChainLead[]>()
     for (const lead of shown) {
@@ -248,13 +252,13 @@ export function ChainLane({ board }: { board: SupplyChainBoard }) {
       held: heldRows,
       groups: [...byOrder.entries()].sort((a, b) => a[0] - b[0]),
     }
-  }, [board.leads, showAll])
+  }, [leads, showAll])
 
-  if (!board.leads.length) {
+  if (!leads.length) {
     return (
       <>
-        <AnchorStrip board={board} />
-        <p className="bideas__empty">{board.health.reason}</p>
+        <AnchorStrip board={scopedBoard} />
+        <p className="bideas__empty">{personal.scope === 'universe' ? board.health.reason : `No supply-chain ideas match your ${personal.label.toLowerCase()}.`}</p>
       </>
     )
   }
@@ -266,7 +270,7 @@ export function ChainLane({ board }: { board: SupplyChainBoard }) {
           <span aria-hidden>!</span> {board.health.reason}
         </div>
       )}
-      <AnchorStrip board={board} />
+      <AnchorStrip board={scopedBoard} />
       {!open.length && (
         <p className="chain__note">
           {board.health.reason}

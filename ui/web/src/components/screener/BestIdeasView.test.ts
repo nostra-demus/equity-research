@@ -1,6 +1,7 @@
+import { usePersonalScopeStore } from '../../lib/personalScope'
 import assert from 'node:assert/strict'
-import { createElement } from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
+import React, { createElement } from 'react'
+import { renderToStaticMarkup as renderMarkup } from 'react-dom/server'
 import type { ArchivedBoardIdea, BoardIdea, IdeasArchive, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import {
   archivedIdeasForSide,
@@ -32,6 +33,14 @@ import {
   qualifiedIdeasWarning,
   qualifiedOutcomeHealthWarning,
 } from './BestIdeasView'
+
+// Existing surface assertions cover the full Universe; personal scope has separate regressions.
+usePersonalScopeStore.setState({ scope: 'universe' })
+function renderToStaticMarkup(element: React.ReactNode): string {
+  const original = React.useSyncExternalStore
+  ;(React as any).useSyncExternalStore = (_subscribe: unknown, getSnapshot: () => unknown) => getSnapshot()
+  try { return renderMarkup(element) } finally { (React as any).useSyncExternalStore = original }
+}
 
 const tabsHtml = renderToStaticMarkup(createElement(IdeasTabs, { active: 'long', onSelect: () => {} }))
 assert.equal(tabsHtml.match(/role="tab"/g)?.length, 2, 'the Ideas surface has exactly two tabs')
@@ -1124,3 +1133,14 @@ assert.equal(ideaThemeAttribution({ origin_type: 'wire', source_themes: sourceTh
 assert.equal(ideaThemeAttribution({ origin_type: 'theme', source_themes: [] }), null)
 
 console.log('BestIdeasView tabs, side filtering, and theme-attribution tests passed')
+
+// A qualified Universe idea must not suppress an empty state in a personal scope.
+usePersonalScopeStore.setState({ scope: 'portfolio', portfolio: { members: [], status: 'ready', error: null, asOf: '2026-09-09', unresolved: 0 } })
+const scopedEmpty = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadArchive: ideasArchive,
+  leadsAvailable: true, leadHealth: null, qualifiedRuntime: normalizedQualifiedBoard, nowMs,
+}))
+assert.match(scopedEmpty, /No qualified LONG ideas match your portfolio/)
+assert.match(scopedEmpty, /No saved LONG ideas matching your portfolio/)
+assert.doesNotMatch(scopedEmpty, /<article/)
+usePersonalScopeStore.setState({ scope: 'universe' })

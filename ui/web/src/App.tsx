@@ -1,3 +1,4 @@
+import { PersonalScopeToggle } from './components/screener/PersonalScopeToggle'
 import { lazy, Suspense, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './lib/store'
@@ -227,7 +228,7 @@ function ScreenerStage() {
         </div>
       </div>
     )
-  return <WireSurface config={config} home={home} />
+  return config.gauntlet ? <div className="personal-wire"><PersonalScopeToggle /><WireSurface config={config} home={home} /></div> : <WireSurface config={config} home={home} />
 }
 
 // The return door to the phone chat shell. Rendered only on a coarse-pointer viewport ≤820px (the CSS
@@ -319,7 +320,7 @@ export function App() {
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be
           faster than enters anyway); the entry slide still runs via initial/animate */}
-      {newsFeedOpen && <LiveFeed />}
+      {newsFeedOpen && <LiveFeed personalScopeEnabled={activeSwarm === 'screener'} />}
       {diagnosticsOpen && <PipelineDiagnostics />}
       {sourcesOpen && <SourcesPanel />}
       <SignalIntake />
