@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T11:54:13Z",
+  "generated_at": "2026-09-16T12:00:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-235",
@@ -735,6 +735,55 @@
           "name": "Trip.com",
           "ticker": "09961",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-256",
+      "headline": "Britain’s biggest housebuilder slows land buying and cuts home sales outlook",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/iran-britain-government-b3051176.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T11:27:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "A major housebuilder cutting its sales outlook signals a significant downturn in the housing sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major housebuilder cutting its sales outlook signals a significant downturn in the housing sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barratt Developments",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-113",
-      "headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T04:20:01Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Tencent Music announced a $400 million share repurchase program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tencent Music announced a $400 million share repurchase program.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent Music",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122388,77 +122388,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-67ef6a40fe95",
-      "idea_version": "IDEAV-6ae2571eac382137",
-      "idea_version_started_at": "2026-09-15T02:26:35Z",
-      "ticker": "02595.HK",
-      "company": "Genfleet Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase II efficacy data for GFH375 in NSCLC validates the company's core drug pipeline and increases the probability of future commercial success.",
-      "why_now": "The data was presented at the 2026 World Conference on Lung Cancer on 2026-09-15, providing a fresh catalyst for re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-231ab8410879"
-      ],
-      "primary_source_event_id": "EVT-231ab8410879",
-      "source_headlines": [
-        "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)"
-      ],
-      "source_headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-15T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T02:26:35Z",
-      "updated_at": "2026-09-15T02:26:35Z",
-      "decay_at": "2026-09-16T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dd376736c57e",
       "idea_version": "IDEAV-cc1adc2efe8f96a7",
       "idea_version_started_at": "2026-09-15T00:08:18Z",
@@ -127815,6 +127744,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-67ef6a40fe95",
+      "idea_version": "IDEAV-6ae2571eac382137",
+      "idea_version_started_at": "2026-09-15T02:26:35Z",
+      "ticker": "02595.HK",
+      "company": "Genfleet Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive Phase II efficacy data for GFH375 in NSCLC validates the company's core drug pipeline and increases the probability of future commercial success.",
+      "why_now": "The data was presented at the 2026 World Conference on Lung Cancer on 2026-09-15, providing a fresh catalyst for re-rating.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-231ab8410879"
+      ],
+      "primary_source_event_id": "EVT-231ab8410879",
+      "source_headlines": [
+        "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)"
+      ],
+      "source_headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-15T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-15T02:26:35Z",
+      "updated_at": "2026-09-15T02:26:35Z",
+      "decay_at": "2026-09-16T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c216e8a1a5f7",
       "idea_version": "IDEAV-6295c63f05186693",
       "idea_version_started_at": "2026-09-15T02:26:35Z",
@@ -128395,14 +128395,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 583,
+    "total_count": 584,
     "shown_count": 500,
-    "hidden_count": 83,
+    "hidden_count": 84,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 48
       },
       "short": {
         "total_count": 286,
@@ -128426,6 +128426,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-67ef6a40fe95",
+        "idea_version": "IDEAV-6ae2571eac382137",
+        "idea_version_started_at": "2026-09-15T02:26:35Z",
+        "ticker": "02595.HK",
+        "company": "Genfleet Therapeutics",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Positive Phase II efficacy data for GFH375 in NSCLC validates the company's core drug pipeline and increases the probability of future commercial success.",
+        "why_now": "The data was presented at the 2026 World Conference on Lung Cancer on 2026-09-15, providing a fresh catalyst for re-rating.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-231ab8410879"
+        ],
+        "primary_source_event_id": "EVT-231ab8410879",
+        "source_headlines": [
+          "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)"
+        ],
+        "source_headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-15T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-15T02:26:35Z",
+        "updated_at": "2026-09-15T02:26:35Z",
+        "decay_at": "2026-09-16T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1fab37e5db24",
         "idea_version": "IDEAV-038ebc68219e7030",
@@ -157879,81 +157953,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a54ec3745bd7",
-        "idea_version": "IDEAV-b4305fa7b1e56144",
-        "idea_version_started_at": "2026-09-04T23:10:23Z",
-        "ticker": "D",
-        "company": "Dominion Energy",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Dominion Energy secured shareholder approval for its merger with NextEra Energy, clearing a key regulatory hurdle and de-risking the deal path.",
-        "why_now": "Reuters reported shareholder approvals on 2026-09-03 and 2026-09-03 (two wires); the merger vote is a live, dated event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-99a1e952b501",
-          "EVT-c07a9621b043"
-        ],
-        "primary_source_event_id": "EVT-99a1e952b501",
-        "source_headlines": [
-          "Dominion Energy secures shareholder approval for merger with NextEra",
-          "Dominion Energy, NextEra secure shareholder approvals for merger deal"
-        ],
-        "source_headline": "Dominion Energy secures shareholder approval for merger with NextEra",
-        "source_url": "https://www.reuters.com/legal/litigation/dominion-energy-secures-shareholder-approval-merger-with-nextera-2026-09-03/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T22:19:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T05:44:07Z",
-        "updated_at": "2026-09-04T23:10:23Z",
-        "decay_at": "2026-09-05T10:19:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T22:34:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-aca7dee3c135",
         "idea_version": "IDEAV-26a66283ec5e01bf",
         "idea_version_started_at": "2026-09-04T21:35:36Z",
@@ -165597,7 +165596,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 845,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165616,9 +165615,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5527305,
-    "news_picked_today": 413,
-    "news_dropped_today": 10243
+    "news_seen_today": 5550302,
+    "news_picked_today": 425,
+    "news_dropped_today": 10279
   },
   "book_momentum": {
     "live_count": 8,
