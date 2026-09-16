@@ -11,12 +11,13 @@ name: Research check
 on:
   push:
     branches: [main]
-    # The exact paths ci.yml ignores.
+    # Only analyses/** — the runs eval.py scores and research_check.py checks. ci.yml also ignores
+    # screener/**, commodity/**, watchlist/**, but those are validated by their own committed-data gates
+    # (e.g. validate_screener_json.py) and this checker does not look at them; triggering here on those roots
+    # would report them "checked" when nothing checked them. Widen this list only alongside a validator that
+    # actually reads the added root.
     paths:
       - "analyses/**"
-      - "screener/**"
-      - "commodity/**"
-      - "watchlist/**"
   schedule:
     # A nightly sweep of the whole corpus: a check that starts failing on its own — a date passing, a new
     # contract landing — is found by morning rather than by the next code PR.
@@ -36,6 +37,11 @@ jobs:
     name: research — eval on the runs that just landed
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    # This job OPENS/REFRESHES/CLOSES repository issues against the state of the ref it runs on. push and
+    # schedule are always main, but workflow_dispatch can target any branch or tag — and evaluating a feature
+    # branch (say, one carrying an unmerged correction) would close a still-valid issue for a failing record
+    # on main, or open a production-facing issue from an unmerged failure. So only ever run on main.
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4

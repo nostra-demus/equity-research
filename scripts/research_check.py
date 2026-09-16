@@ -60,9 +60,14 @@ def deleted_records(paths):
 
 
 def changed_paths(base, head, root="."):
-    """Files a push added or changed under analyses/ (deletions are handled separately by deleted_paths)."""
+    """Files a push added or changed under analyses/ (deletions are handled separately by deleted_paths).
+
+    --no-renames so a rename is seen as add+delete: the destination lands here as an add (its new path),
+    and the source lands in deleted_paths — the two halves the rename would otherwise hide (git detects
+    renames by default, and a renamed decision_record.json would slip past both queries).
+    """
     result = subprocess.run(
-        ["git", "diff", "--name-only", "--diff-filter=ACMRT", base, head, "--", "analyses"],
+        ["git", "diff", "--name-only", "--diff-filter=ACMRT", "--no-renames", base, head, "--", "analyses"],
         cwd=root, capture_output=True, text=True,
     )
     if result.returncode != 0:
@@ -71,14 +76,31 @@ def changed_paths(base, head, root="."):
 
 
 def deleted_paths(base, head, root="."):
-    """Files a push DELETED under analyses/ (--diff-filter=D) — so a removed run cannot slip through unseen."""
+    """
+    Files a push DELETED under analyses/ — so a removed run cannot slip through unseen. --no-renames is
+    the point: renaming a run's decision_record.json (e.g. `git mv … decision.json`) leaves the run with
+    no canonical record, which is a removal in every way that matters; without --no-renames git reports it
+    as R (a rename) and this D-only query would miss it, letting the frozen call vanish silently.
+    """
     result = subprocess.run(
-        ["git", "diff", "--name-only", "--diff-filter=D", base, head, "--", "analyses"],
+        ["git", "diff", "--name-only", "--diff-filter=D", "--no-renames", base, head, "--", "analyses"],
         cwd=root, capture_output=True, text=True,
     )
     if result.returncode != 0:
         raise RuntimeError(f"git diff --diff-filter=D {base}..{head} failed: {result.stderr.strip()[:200]}")
     return [line for line in result.stdout.splitlines() if line.strip()]
+
+
+def resolve_head(ref, root="."):
+    """
+    The concrete commit a ref names. A full-corpus (--all) run is handed the literal 'HEAD', which stops
+    meaning anything once main advances — so an issue that says 'Commit: HEAD' can't be traced back to the
+    bytes actually checked. Resolve it to the real SHA; if git can't (no repo, detached oddity), keep the ref.
+    """
+    if ref and ref != "HEAD":
+        return ref
+    result = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True)
+    return result.stdout.strip() or ref
 
 
 def ap_failures(report):
@@ -287,6 +309,7 @@ def main(argv=None):
     scope_runs = None
     full_scope = True   # --all, or a --changed push with no comparable base → the whole corpus is the scope
     deleted = []
+    touched_runs = []
     if args.changed:
         base, head = args.changed
         mode = "the runs this push touched"
@@ -295,21 +318,23 @@ def main(argv=None):
             mode = "every committed run (this push has no comparable base)"
         else:
             full_scope = False
+            changed = changed_paths(base, head, args.root)
+            touched_runs = runs_from_paths(changed)
             scope_runs = scored_only(
-                runs_from_paths(changed_paths(base, head, args.root)),
+                touched_runs,
                 lambda run: os.path.isfile(os.path.join(args.root, "analyses", run, "decision_record.json")),
             )
             deleted = deleted_records(deleted_paths(base, head, args.root))
-            if not scope_runs and not deleted:
-                print("research check: this push changed no research run under analyses/ — nothing to check.")
+            if not changed and not deleted:
+                print("research check: this push changed no research artifact under analyses/ — nothing to check.")
                 empty = {"mode": mode, "head": head, "in_scope": {}, "failing": {}, "passing": [],
                          "missing": [], "corpus_failing": {}, "deleted": [], "suite_contracts": [],
                          "suite_pass": True, "issues": []}
                 _write(args.json_out, json.dumps(empty, indent=2))
                 _write(args.summary_out, summary_markdown(empty, mode, head), mode="a")
                 return 0
-            if not scope_runs:
-                # A push that only DELETED a run: report the removal without running the harness (the
+            if not changed:
+                # A push that ONLY deleted a run: report the removal without running the harness (the
                 # deletion is a git fact, not an eval fact) — but never treat it as "nothing changed".
                 result = {"in_scope": {}, "failing": {}, "passing": [], "missing": [], "corpus_failing": {},
                           "deleted": deleted, "suite_contracts": [], "suite_pass": True}
@@ -321,6 +346,13 @@ def main(argv=None):
                 _write(args.summary_out, summary_markdown(result, mode, head), mode="a")
                 print(f"\nFAIL — {len(deleted)} run(s) had a decision record removed.")
                 return 1
+            # Otherwise the push changed analyses/ artifacts: fall through and RUN eval even when no run is
+            # scored yet. A valuation sidecar committed before its decision_record is not in scope_runs, but
+            # eval.py's AP scan_committed validates that partial sidecar and can hard-fail it — so the harness
+            # must run for it, not be skipped.
+
+    # The full-corpus head is the literal 'HEAD'; resolve it to the real SHA so issue provenance is traceable.
+    head = resolve_head(head, args.root)
 
     if args.report:
         with open(args.report, encoding="utf-8") as handle:
@@ -329,6 +361,13 @@ def main(argv=None):
         report = run_eval(args.root)
     if scope_runs is None:
         scope_runs = sorted((report.get("runs") or {}).keys())
+    # A run this push TOUCHED but that isn't scored (a partial run, no decision_record yet) never enters
+    # scope_runs, yet AP's global scan validates its sidecar. Fold any AP failure on a touched run into
+    # scope so a malformed partial-run sidecar is charged to the push that landed it, not just the nightly.
+    _ap = ap_failures(report)
+    ap_touched = [run for run in touched_runs if run in _ap and run not in scope_runs]
+    if ap_touched:
+        scope_runs = sorted(set(scope_runs) | set(ap_touched))
 
     result = classify(report, scope_runs)
     # The harness's own verdict is authoritative (a deterministic validator — CLAUDE.md/AGENTS.md §29, §31):

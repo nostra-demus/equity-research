@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from research_check import (  # noqa: E402
     MARKER, ap_failures, classify, deleted_body, deleted_records, deleted_title, issue_actions, issue_body,
     issue_title,
-    main, runs_from_paths, scored_only, status_of, suite_contract_failures, summary_markdown,
+    main, resolve_head, runs_from_paths, scored_only, status_of, suite_contract_failures, summary_markdown,
 )
 import subprocess  # noqa: E402
 
@@ -339,6 +339,90 @@ if shutil.which("jq") and shutil.which("bash"):
               log.count("issue create") == 1, f"saw {log.count('issue create')} create call(s)")
 else:
     print("  skip  shell-issue test — jq/bash not on PATH")
+
+
+# ---- a RENAMED decision record is reported like a removal (Codex P1) ----
+# `git mv decision_record.json decision.json` leaves the run with no canonical record — a removal in every
+# way that matters — but git reports it as R, which a D-only diff misses. --no-renames splits it into a
+# delete (the source) + add (the destination), so the removal is seen.
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    os.makedirs(os.path.join(tmp, "analyses", "RENAMED_2026-09-16"))
+    with open(os.path.join(tmp, "analyses", "RENAMED_2026-09-16", "decision_record.json"), "w") as handle:
+        handle.write("{}\n")
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "base")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    _git(tmp, "mv", "analyses/RENAMED_2026-09-16/decision_record.json",
+         "analyses/RENAMED_2026-09-16/decision.json")
+    _git(tmp, "commit", "-qm", "rename the canonical record")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    op = os.path.join(tmp, "ren-out.json")
+    # A rename also adds the destination path, so the harness runs (its sidecars still need validating);
+    # an empty --report stands in for eval here — the point under test is that the removal is DETECTED.
+    ren_report = os.path.join(tmp, "ren-report.json")
+    with open(ren_report, "w", encoding="utf-8") as handle:
+        json.dump({"suite_pass": True, "runs": {}}, handle)
+    # Pre-fix: git reported the change as a rename (R), the D-only query saw nothing, and the push exited 0.
+    code = main(["--changed", base, head, "--root", tmp, "--report", ren_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        renjson = json.load(handle)
+    check("a renamed decision record is reported as a removal (exit non-zero)", code == 1)
+    check("the renamed-away run gets a removal issue", (lambda a: (
+        len(a) == 1 and a[0]["state"] == "open" and a[0]["title"] == deleted_title("RENAMED_2026-09-16")
+    ))(renjson["issues"]))
+
+
+# ---- a partial run's valuation sidecar is validated before its decision_record exists (Codex P1) ----
+# A `valuation/valuation_summary.json` committed before the run's decision_record is not a scored run, so it
+# never enters scope_runs — but eval.py's AP scan validates that sidecar and can hard-fail it. The check must
+# run the harness and charge an AP failure on the touched partial run, not exit "nothing to check".
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    _git(tmp, "commit", "-qm", "root", "--allow-empty")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    os.makedirs(os.path.join(tmp, "analyses", "PARTIAL_2026-09-16", "valuation"))
+    with open(os.path.join(tmp, "analyses", "PARTIAL_2026-09-16", "valuation", "valuation_summary.json"),
+              "w") as handle:
+        handle.write("{}\n")   # no decision_record.json yet — a partial run
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "add a valuation sidecar before the decision record")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    partial_report = os.path.join(tmp, "report.json")
+    with open(partial_report, "w", encoding="utf-8") as handle:
+        json.dump({"suite_pass": False, "runs": {},   # AP scans sidecars the per-run loop never scored
+                   "valuation_summary_integrity": {"checked": 1, "failures": [
+                       {"run": "PARTIAL_2026-09-16", "violations": ["bull level below base level"]}]}},
+                  handle)
+    op = os.path.join(tmp, "partial-out.json")
+    # Pre-fix: scored_only produced an empty scope, so main returned 0 before ever reading the report/suite_pass.
+    code = main(["--changed", base, head, "--root", tmp, "--report", partial_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        partial = json.load(handle)
+    check("a touched partial run whose sidecar AP-fails is charged to the push (exit non-zero)", code == 1)
+    check("the partial run's AP failure opens an issue for it",
+          {a["run"] for a in partial["issues"] if a["state"] == "open"} == {"PARTIAL_2026-09-16"})
+
+
+# ---- full-corpus issues record the real SHA, not the literal 'HEAD' (Codex P2) ----
+check("resolve_head leaves an explicit ref untouched", resolve_head("abc1234", ".") == "abc1234")
+_resolved = resolve_head("HEAD", _root)
+check("resolve_head turns 'HEAD' into a concrete 40-char commit sha",
+      bool(re.fullmatch(r"[0-9a-f]{40}", _resolved)), f"got {_resolved!r}")
+
+
+# ---- the workflow triggers only on analyses/**, and mutates issues only on main (Codex P1 + P2) ----
+_wf = open(os.path.join(_root, ".github", "workflows", "research-check.yml"), encoding="utf-8").read()
+check("the push trigger is narrowed to analyses/** — the only root this checker actually reads",
+      '- "analyses/**"' in _wf
+      and '- "screener/**"' not in _wf and '- "commodity/**"' not in _wf and '- "watchlist/**"' not in _wf,
+      "screener/commodity/watchlist have their own validators; triggering here reported them 'checked'")
+check("the job mutates issues only when running on main (guards a workflow_dispatch on a feature branch)",
+      "github.ref == 'refs/heads/main'" in _wf)
 
 
 print(f"\n{'ALL PASS' if not _fails else 'FAILURES: ' + ', '.join(_fails)}")
