@@ -160,4 +160,15 @@ check('a currency conversion is shown as one, with no position and nothing left 
   assert.match(html, /bought money rather than a position/)
 })
 
+check('the bridge qualifier counts trades, not the FIFO lots behind them', () => {
+  // One sale consuming two opening lots is two closures and ONE round trip. Counting closures made the bridge
+  // say "2 of 3 unproven" of the book whose cards say "1 of 2".
+  const twoLots = [
+    closure({ symbol: 'DDD', closeTradeID: 'C7', partialHistory: true, quantity: 10 }),
+    closure({ symbol: 'DDD', closeTradeID: 'C7', partialHistory: true, quantity: 5, entryPrice: 12 }),
+  ]
+  const html = holdingsHtml(book([clean, ...twoLots]))
+  assert.match(piece(html, 'fundbook__bridge', 'Realised on closed trades'), />1 of 2 unproven</)
+})
+
 console.log(`PortfolioStage: ${passed} passed`)

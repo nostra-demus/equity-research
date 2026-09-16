@@ -1198,7 +1198,8 @@ check('a currency conversion opens no lot, closes nothing, and realises nothing'
     ['AUD.USD', 'buy', 50000, 'convert', 0, null, 0],
     ['AUD.USD', 'sell', 0.015, 'convert', 0, null, 0],
   ])
-  assert.deepEqual(r.warnings, [], 'and a sale of money closes no lot, so there is nothing to warn about')
+  assert.equal(r.warnings.some((w) => /close exceeds open quantity/.test(w)), false,
+    'and a sale of money closes no lot, so it is never reported as a close with nothing behind it')
 })
 
 check('a conversion is still listed, with the money that changed hands', () => {
@@ -1223,6 +1224,29 @@ check('conversions leave the positions check, the round trips and their qualifie
     'and no equity round trip becomes unproven because a conversion sits beside it')
   assert.deepEqual(withFx.executions.filter((e) => e.effect === 'convert').map((e) => [e.id, e.partialHistory]),
     [['FX1', false], ['FX2', false]], 'the fills are listed, and nothing about them is reconstructed')
+})
+
+check('a conversion the broker realised money on is named, not silently dropped', () => {
+  // It reaches no realised figure here, and the NAV bridge remainder it falls into is a residual nobody can
+  // rebuild (§15) — so the broker's own number must not leave the book without a word.
+  const r = runFifo([fxBuy, { ...fxSell, fifoPnlRealized: 12.34 }])
+  assert.equal(r.closures.length, 0)
+  assert.equal(r.warnings.length, 1)
+  assert.match(r.warnings[0]!, /AUD\.USD realised 12\.34 USD per the broker/)
+  assert.match(r.warnings[0]!, /not in realised on closed trades/)
+  assert.deepEqual(runFifo([fxBuy, { ...fxSell, fifoPnlRealized: null }]).warnings, [],
+    'and a conversion the broker realised nothing on says nothing')
+})
+
+check('a broker that DOES report a currency balance as a position is not a break', () => {
+  // Our side stopped calling a conversion a position; a statement whose OpenPositions section carries the
+  // currency would otherwise fail the same check in the opposite direction, on a book where nothing is wrong.
+  const cash = { ...doc.openPositions[0]!, symbol: 'AUD.USD', conid: '14433401', assetCategory: 'CASH',
+    position: 50000, positionValue: 35900, costBasisMoney: 35900 }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, cash], trades: [...doc.trades, fxBuy] }])
+  const check5 = b.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  const base = book.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  assert.deepEqual([check5.ours, check5.broker, check5.ok], [base.ours, base.broker, base.ok])
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

@@ -423,6 +423,9 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   const flows = book.flows.reduce((a, f) => a + (f.amountBase ?? 0), 0)
   const realisedSum = sumBase(book.closures, baseRealised)
   const realised = realisedSum.total
+  // The qualifier counts TRADES, as the cards do: FIFO leaves one closure per opening lot a sale consumed, so
+  // counting closures would say "9 of 57 unproven" of the same book the cards call "1 of 18".
+  const bridgeTrades = foldRoundTrips(book.closures)
   // Every row the statement could not put a rate on, across the three totals above. Reported rather
   // than absorbed: a total that silently drops rows is worse than one that says how many it dropped.
   const unvalued = investedSum.unvalued + unrealisedSum.unvalued + realisedSum.unvalued
@@ -508,7 +511,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
             tags={<RealisedTags set
               partial={book.closures.some((c) => c.partialHistory === true)}
               costsUnknown={book.closures.some((c) => c.costsUnknown === true)}
-              count={book.closures.filter((c) => c.partialHistory === true).length} of={book.closures.length} />}
+              count={bridgeTrades.filter((r) => r.partial > 0).length} of={bridgeTrades.length} />}
           />
           <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
           <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />

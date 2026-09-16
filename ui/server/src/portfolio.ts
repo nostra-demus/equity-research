@@ -452,6 +452,15 @@ export function runFifo(
         partialHistory: false,
         openNow: false,
       })
+      // A conversion realises money when the currency is sold back at another rate, and the broker states it.
+      // It is not a round trip here, so it reaches no realised figure — and the NAV bridge's remainder, where
+      // it lands, is a residual nobody can rebuild (§15). Say so rather than let the broker's own number go
+      // without a word.
+      if (t.fifoPnlRealized) {
+        warnings.push(`currency conversion ${t.symbol ?? key} realised ${t.fifoPnlRealized} ${t.currency ?? ''}`.trim()
+          + ' per the broker — a conversion buys money, not a position, so it is not in realised on closed'
+          + " trades; it falls into the NAV bridge's remainder")
+      }
       continue
     }
 
@@ -1355,7 +1364,11 @@ export function reconcile(ctx: {
   const positionsSection = docs.some((d) => d.sectionsPresent.includes('OpenPositions'))
   if (positionsSection || positions.length > 0) {
     const held = new Map<string, number>()
-    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    // Conversions are not positions on our side (see runFifo), so a statement that does report a currency
+    // balance here is not a break — it is the one thing both sides agree not to model.
+    for (const p of positions) {
+      if (p.quantity !== null && !isCurrencyConversion(p.assetCategory)) held.set(positionKey(p), p.quantity)
+    }
     const derived = new Map<string, number>()
     for (const l of openLots) derived.set(l.key, (derived.get(l.key) ?? 0) + l.quantity)
     let worst = 0
