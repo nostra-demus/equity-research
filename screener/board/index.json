@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T03:16:21Z",
+  "generated_at": "2026-09-16T03:26:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1443,6 +1443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-096",
+      "headline": "UPS NAMES BERNARD JIANG PRESIDENT OF ASIA PACIFIC",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/brandhub/pr-release/ups-names-bernard-jiang-president-of-asia-pacific/article71470957.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:00:26Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Appointment of a new president for a major region like Asia Pacific for UPS is a significant management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Appointment of a new president for a major region like Asia Pacific for UPS is a significant management change.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UPS",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-083",
       "headline": "Paytm shares primed for 'material earnings upgrade', Goldman Sachs says on MDR implementation",
       "headline_en": null,
@@ -1776,6 +1825,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-102",
+      "headline": "Waymo to deploy driverless robotaxis in Tokyo next year",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/transportation/waymo-to-deploy-driverless-robotaxis-in-tokyo-next-year",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:22:54Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Waymo (Alphabet) is expanding its robotaxi service to Tokyo, a major international market expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Waymo (Alphabet) is expanding its robotaxi service to Tokyo, a major international market expansion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet Inc",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-078",
       "headline": "Nvidia Spent $26 Billion on Buybacks and Dividends in a Single Quarter. Its Board Is Betting Today's Profits Last 3 More Years.",
       "headline_en": null,
@@ -1858,99 +1957,6 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-070",
-      "headline": "SCHEDULE 13D/A - ProFrac Holding Corp. (0001881487) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1881487/000110465926108028/0001104659-26-108028-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T01:46:06Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "ProFrac Holding Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "ProFrac Holding Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ProFrac Holding Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-069",
-      "headline": "Russia sanctions bill advances in US House, set for final vote",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/russia-sanctions-bill-advances-in-us-house-set-for-final-vote-4147619",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T01:43:35Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "US House advancing a Russia sanctions bill increases geopolitical risk and potential trade friction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "US House advancing a Russia sanctions bill increases geopolitical risk and potential trade friction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -165735,9 +165741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2045839,
-    "news_picked_today": 109,
-    "news_dropped_today": 1619
+    "news_seen_today": 2145369,
+    "news_picked_today": 128,
+    "news_dropped_today": 1744
   },
   "book_momentum": {
     "live_count": 8,
