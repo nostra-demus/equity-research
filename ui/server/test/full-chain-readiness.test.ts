@@ -207,11 +207,17 @@ function writeFrozenReceipt(
   // START FROM NOTHING. This fixture is sealed read-only below (every file 0444, every directory 0555), and
   // the digest names the directory — so a run that did not reach its cleanup, because it was interrupted or
   // killed, leaves exactly this tree in place. The writes below then fail with EACCES and the NEXT run fails
-  // for the state the last one left, not for anything the code did.
-  if (fs.existsSync(generationDir)) {
+  // for the state the last one left, not for anything the code did. Do NOT guard this on fs.existsSync:
+  // that call follows symlinks and reports false for a dangling one, so a leftover dangling symlink would
+  // skip the cleanup and then break mkdirSync. makeTreeWritable already no-ops on an absent/dangling path
+  // (it self-guards), and rmSync with force removes a real read-only tree or a dangling symlink without
+  // throwing when nothing is there.
+  try {
     makeTreeWritable(generationDir)
-    fs.rmSync(generationDir, { recursive: true, force: true })
+  } catch {
+    // Ignore if the path does not exist.
   }
+  fs.rmSync(generationDir, { recursive: true, force: true })
   fs.mkdirSync(path.join(generationDir, rawPrefix), { recursive: true })
   for (const { rawRel, raw } of rawEntries) {
     fs.mkdirSync(path.dirname(path.join(generationDir, rawPrefix, rawRel)), { recursive: true })
