@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-16T12:00:26Z",
+  "generated_at": "2026-09-16T12:04:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260916-257",
+      "headline": "Primo Chemicals Limited: Primo Chemicals Limited has informed the Exchange regarding 'Update on acquisition of Balance 51%Equity Stake in Flow Tech Chemicals Private Limited.'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRIMO607_16092026172328_Intimation_of_acquisitionofflowtech16092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T11:53:46Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Primo Chemicals is acquiring the remaining 51% stake in Flow Tech Chemicals Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Primo Chemicals is acquiring the remaining 51% stake in Flow Tech Chemicals Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Primo Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260916-235",
       "headline": "BOSATECH (08140): PROFIT WARNING",
@@ -735,6 +784,60 @@
           "name": "Trip.com",
           "ticker": "09961",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-261",
+      "headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T11:51:30Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Reliance Worldwide agreed to a $2.9 billion buyout bid from Brookfield.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Worldwide agreed to a $2.9 billion buyout bid from Brookfield.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Worldwide",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -1886,104 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-185",
-      "headline": "SHUI ON LAND (00272): SUPPLEMENTAL ANNOUNCEMENT - DISCLOSEABLE TRANSACTION - DISPOSAL OF PROPERTY IN YUZHONG DISTRICT, CHONGQING, THE PRC",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600332.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T08:34:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "The company is disposing of property in Chongqing, which is a disclosable transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The company is disposing of property in Chongqing, which is a disclosable transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHUI ON LAND",
-          "ticker": "00272",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-175",
-      "headline": "Restaurant Brands Asia Limited: Restaurant Brands Asia Limited has informed the Exchange about Acquisition",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RBA_16092026134308_Finalupload.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T08:13:34Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Restaurant Brands Asia Limited has announced an acquisition, which is a material corporate development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Restaurant Brands Asia Limited has announced an acquisition, which is a material corporate development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Restaurant Brands Asia Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -120956,76 +120961,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-aee6ec71570ec791",
-      "idea_version_started_at": "2026-09-15T05:22:27Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.2 billion Army contract for PrSM Inc. 2 missiles bolsters the company's missile and fire control segment, which is a key growth driver for the firm.",
-      "why_now": "The contract award was announced on September 15, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ae7d8bd9f484"
-      ],
-      "primary_source_event_id": "EVT-ae7d8bd9f484",
-      "source_headlines": [
-        "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2"
-      ],
-      "source_headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
-      "source_url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
-      "source_name": "Defense Daily",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-15T00:00:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T05:22:27Z",
-      "updated_at": "2026-09-15T05:22:27Z",
-      "decay_at": "2026-09-16T12:00:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1bea3b52b765",
       "idea_version": "IDEAV-bbcf11c8ea921b0e",
       "idea_version_started_at": "2026-09-15T23:04:51Z",
@@ -123711,6 +123646,76 @@
       "surfaced_at": "2026-09-13T12:04:53Z",
       "updated_at": "2026-09-13T12:04:53Z",
       "decay_at": "2026-09-15T00:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9f47945c8197",
+      "idea_version": "IDEAV-aee6ec71570ec791",
+      "idea_version_started_at": "2026-09-15T05:22:27Z",
+      "ticker": "LMT",
+      "company": "Lockheed Martin",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $1.2 billion Army contract for PrSM Inc. 2 missiles bolsters the company's missile and fire control segment, which is a key growth driver for the firm.",
+      "why_now": "The contract award was announced on September 15, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ae7d8bd9f484"
+      ],
+      "primary_source_event_id": "EVT-ae7d8bd9f484",
+      "source_headlines": [
+        "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2"
+      ],
+      "source_headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
+      "source_url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
+      "source_name": "Defense Daily",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-15T00:00:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-15T05:22:27Z",
+      "updated_at": "2026-09-15T05:22:27Z",
+      "decay_at": "2026-09-16T12:00:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128395,14 +128400,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 584,
+    "total_count": 585,
     "shown_count": 500,
-    "hidden_count": 84,
+    "hidden_count": 85,
     "side_counts": {
       "long": {
-        "total_count": 298,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 48
+        "hidden_count": 49
       },
       "short": {
         "total_count": 286,
@@ -128426,6 +128431,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9f47945c8197",
+        "idea_version": "IDEAV-aee6ec71570ec791",
+        "idea_version_started_at": "2026-09-15T05:22:27Z",
+        "ticker": "LMT",
+        "company": "Lockheed Martin",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $1.2 billion Army contract for PrSM Inc. 2 missiles bolsters the company's missile and fire control segment, which is a key growth driver for the firm.",
+        "why_now": "The contract award was announced on September 15, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ae7d8bd9f484"
+        ],
+        "primary_source_event_id": "EVT-ae7d8bd9f484",
+        "source_headlines": [
+          "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2"
+        ],
+        "source_headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
+        "source_url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
+        "source_name": "Defense Daily",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-15T00:00:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-15T05:22:27Z",
+        "updated_at": "2026-09-15T05:22:27Z",
+        "decay_at": "2026-09-16T12:00:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T12:00:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-67ef6a40fe95",
         "idea_version": "IDEAV-6ae2571eac382137",
@@ -157654,81 +157732,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-02091865ea7a",
-        "idea_version": "IDEAV-081fe3565951befd",
-        "idea_version_started_at": "2026-09-04T09:24:12Z",
-        "ticker": "VERT",
-        "company": "Vertiv Holdings",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Vertiv is investing $1.45 billion in AI power infrastructure, signaling a significant capital expenditure aimed at capitalizing on the growing demand for AI-related data center solutions.",
-        "why_now": "The company's substantial investment in AI power infrastructure is a current strategic move to capture market opportunity.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2116e6797de8"
-        ],
-        "primary_source_event_id": "EVT-2116e6797de8",
-        "source_headlines": [
-          "Vertiv Is Putting $1.45 Billion Down for AI Power. Nearly Half the Price Is Contingent."
-        ],
-        "source_headline": "Vertiv Is Putting $1.45 Billion Down for AI Power. Nearly Half the Price Is Contingent.",
-        "source_url": "https://www.nasdaq.com/articles/vertiv-putting-145-billion-down-ai-power-nearly-half-price-contingent",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T04:07:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T09:24:12Z",
-        "updated_at": "2026-09-04T09:24:12Z",
-        "decay_at": "2026-09-05T16:07:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T04:21:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1820b9b947cf",
         "idea_version": "IDEAV-60d03264227a21a6",
         "idea_version_started_at": "2026-09-04T08:41:33Z",
@@ -165596,7 +165599,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 845,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165615,9 +165618,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5550302,
-    "news_picked_today": 425,
-    "news_dropped_today": 10279
+    "news_seen_today": 5596092,
+    "news_picked_today": 430,
+    "news_dropped_today": 10298
   },
   "book_momentum": {
     "live_count": 8,
