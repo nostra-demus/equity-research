@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T03:54:17Z",
+  "generated_at": "2026-09-16T04:10:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1535,6 +1535,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-109",
+      "headline": "Oracle Layoffs: CFO says ‘do more with less’ isn’t the answer in first all-hands meet after latest job cuts",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/oracle-layoffs-cfo-says-do-more-with-less-isn-t-the-answer-in-first-all-hands-meet-after-latest-job-cuts-11789528782407.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:45:55Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Oracle management is addressing internal concerns regarding recent job cuts and operational efficiency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Oracle management is addressing internal concerns regarding recent job cuts and operational efficiency.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-096",
       "headline": "UPS NAMES BERNARD JIANG PRESIDENT OF ASIA PACIFIC",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
           "name": "BuzzFeed, Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-108",
-      "headline": "Glass Wall Systems shares to make market debut today; GMP signals 23% listing gains",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/glass-wall-systems-shares-to-make-market-debut-today-gmp-signals-23-listing-gains/articleshow/134276895.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T03:00:18Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Glass Wall Systems is set to debut on the market with a grey market premium indicating 23% potential gains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Glass Wall Systems is set to debut on the market with a grey market premium indicating 23% potential gains.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glass Wall Systems",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -165953,9 +165953,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2441918,
-    "news_picked_today": 141,
-    "news_dropped_today": 1947
+    "news_seen_today": 2658526,
+    "news_picked_today": 147,
+    "news_dropped_today": 2085
   },
   "book_momentum": {
     "live_count": 8,
