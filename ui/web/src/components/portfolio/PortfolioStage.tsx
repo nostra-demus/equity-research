@@ -3,6 +3,8 @@ import {
   contractTerms, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills,
   fillsOutsideBase, foldRoundTrips, type FillRow, type FillScope, type TradeRowData,
 } from './tradeRows'
+import { livePriceIndex, markPosition, type MarkedPosition } from './positionMarks'
+import { shortDay } from '../../lib/format'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
@@ -390,6 +392,19 @@ function withLive(
 
 // ---------- holdings ----------
 
+/** The table's marks: each position priced at the market where the feed reached it, else as the statement
+ *  stated it — with how many of each, so the panel can say which basis the reader is looking at. */
+function positionMarks(book: PortfolioBook, live: PortfolioLiveMark | null) {
+  const index = livePriceIndex(live, book.positions)
+  const marks = new Map<PortfolioPosition, MarkedPosition>()
+  for (const p of book.positions) marks.set(p, markPosition(p, index, live?.nav ?? null))
+  return {
+    of: (p: PortfolioPosition): MarkedPosition => marks.get(p) ?? markPosition(p, new Map(), null),
+    livePriced: [...marks.values()].filter((m) => m.live).length,
+    statementDay: book.asOf,
+  }
+}
+
 export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
   cashEquivalents: string[]; live: PortfolioLiveMark | null
@@ -398,6 +413,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
+  const marks = useMemo(() => positionMarks(book, live), [book, live])
   const isCashEq = (sym: string | null) => !!sym && cashEquivalents.includes(sym.toUpperCase())
   const onCash = async (symbol: string, isCash: boolean) => {
     try { onChanged(await api.setCashEquivalent(symbol, isCash)) } catch { /* the row simply does not move */ }
@@ -581,7 +597,15 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Positions</strong><small>{book.positions.length} open · weights as the statement states them</small></div>
+          <div>
+            <strong>Positions</strong>
+            <small>
+              {book.positions.length} open ·{' '}
+              {marks.livePriced > 0
+                ? `${marks.livePriced} of them priced ${live!.asOfIsClose ? 'at the last close' : 'at the market'} ${live!.asOf}${live!.delayed ? ' (delayed)' : ''}${live!.stale ? ', from cache' : ''} — quantity and cost from the statement of ${book.asOf ?? 'its date'}`
+                : `marks and weights as the statement of ${book.asOf ?? 'its date'} states them`}
+            </small>
+          </div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--head">
@@ -589,17 +613,19 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
             <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span>
             <span className="num">Unrealised</span><span className="num">%</span>
           </div>
-          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} ideas={ideas} onChanged={onChanged} />)}
+          {risked.map((p, i) => (
+            <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} ideas={ideas} onChanged={onChanged} />
+          ))}
           {parked.length > 0 && (
             <>
               <div className="fundbook__subhead">Cash equivalents — counted as cash above, not as positions</div>
-              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash />)}
+              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} isCash />)}
             </>
           )}
           {derivatives.length > 0 && (
             <>
               <div className="fundbook__subhead">Derivatives — held against <b>margin</b>, so these carry no weight</div>
-              {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} derivative />)}
+              {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} derivative />)}
             </>
           )}
           {book.positions.length === 0 && <div className="fundbook__none">No open positions in this statement.</div>}
@@ -898,12 +924,15 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
-  p: PortfolioPosition; derivative?: boolean; isCash?: boolean
+function PositionRow({ p, mark, derivative, isCash, statementDay, ideas, onChanged }: {
+  p: PortfolioPosition; mark: MarkedPosition; derivative?: boolean; isCash?: boolean
+  /** The statement's own day, said on a row the feed could not price while its neighbours are live. */
+  statementDay?: string | null
   ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
 }) {
   // Two contracts sharing a symbol (two futures expiries) are told apart only by their terms.
   const terms = contractTerms(p)
+  const move = mark.live && mark.movePct !== null && Math.abs(mark.movePct) >= 0.05 ? mark.movePct : null
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
       {/* Symbol and idea on ONE line. Stacked, the picker added 22px to every assignable row (57px
@@ -919,14 +948,20 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
       <span className="dim">{p.currency ?? '—'}</span>
       <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
-      <span className="num">{fmtNum(p.markPrice)}</span>
-      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
-      <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
+      <span className="num" title={mark.live
+        ? `Priced at the market. The statement's own mark was ${fmtNum(p.markPrice)} on ${statementDay ?? 'its date'}.`
+        : statementDay ? `The feed had no price for this holding, so it is the statement's mark of ${statementDay}.` : undefined}>
+        {fmtNum(mark.price)}
+        {move !== null && <small className={`fundbook__lots${move < 0 ? ' is-down' : ''}`}>{move > 0 ? '+' : '−'}{Math.abs(move).toFixed(1)}%</small>}
+        {!mark.live && statementDay && <small className="fundbook__lots">{shortDay(statementDay)}</small>}
+      </span>
+      <span className="num">{fmtSmallMoney(mark.value)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
+      <span className="num dim">{derivative ? '—' : mark.weightPct === null ? '—' : `${mark.weightPct.toFixed(1)}%`}</span>
+      <span className="num" style={{ color: toneOf(mark.unrealised) }}>{fmtSmallMoney(mark.unrealised)}</span>
       {/* Against COST, not against market value: the question is what this position has returned on the
           money put into it. Cost is the statement's own basis, so the percentage ties to the figure
           beside it rather than to a denominator computed here. */}
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtPct(unrealisedPct(p), 1)}</span>
+      <span className="num" style={{ color: toneOf(mark.unrealised) }}>{fmtPct(unrealisedPct(p, mark.unrealised), 1)}</span>
     </div>
   )
 }
@@ -1058,11 +1093,11 @@ const NEW_IDEA = '\u0000new'
 
 /** Unrealised return on cost. Null when the statement gives no usable basis — a position transferred in
  *  without one would otherwise divide by zero and report an infinite gain. */
-function unrealisedPct(p: PortfolioPosition): number | null {
+function unrealisedPct(p: PortfolioPosition, unrealised: number | null): number | null {
   const cost = p.costBasisMoney
   if (cost === null || !Number.isFinite(cost) || Math.abs(cost) < 1e-9) return null
-  if (p.unrealizedLocal === null || !Number.isFinite(p.unrealizedLocal)) return null
-  return (p.unrealizedLocal / Math.abs(cost)) * 100
+  if (unrealised === null || !Number.isFinite(unrealised)) return null
+  return (unrealised / Math.abs(cost)) * 100
 }
 
 // ---------- performance ----------

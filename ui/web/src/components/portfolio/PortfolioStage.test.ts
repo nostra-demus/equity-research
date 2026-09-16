@@ -5,7 +5,9 @@
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { PortfolioBook, PortfolioClosure, PortfolioExecution, PortfolioManualRead, PortfolioPosition } from '../../lib/types'
+import type {
+  PortfolioBook, PortfolioClosure, PortfolioExecution, PortfolioLiveMark, PortfolioManualRead, PortfolioPosition,
+} from '../../lib/types'
 import { Holdings, Trades } from './PortfolioStage'
 
 // One FIFO lot, closed, in the shape the engine sends.
@@ -35,8 +37,8 @@ const noop = () => {}
 const tradesHtml = (b: PortfolioBook) => renderToStaticMarkup(createElement(Trades, {
   book: b, manual, onChanged: noop, cashEquivalents: [], importOpen: false, onImportOpen: noop, importSurface: null,
 }))
-const holdingsHtml = (b: PortfolioBook) => renderToStaticMarkup(createElement(Holdings, {
-  book: b, perf: null, manual, cashEquivalents: [], live: null, onManage: noop, onChanged: noop,
+const holdingsHtml = (b: PortfolioBook, live: PortfolioLiveMark | null = null) => renderToStaticMarkup(createElement(Holdings, {
+  book: b, perf: null, manual, cashEquivalents: [], live, onManage: noop, onChanged: noop,
 }))
 
 /** The element opened by `marker` that mentions `name`. Cards, bars, currency rows and bridge rows hold no
@@ -135,6 +137,43 @@ check('unknown holdings are qualified on the fill and in the contract filter', (
   assert.match(fillRow(html, '2026-03-20'), />Unknown</)
   assert.match(html, /CL 2026-03-20 · 1 fill · holding unknown<\/option>/)
   assert.match(html, /Holdings marked Unknown stay visible/)
+})
+
+check('the positions table is priced at the market where the feed reached the holding', () => {
+  // The table was the statement's snapshot alone: a holding the feed has at 9.12 still read 10.24 a week later,
+  // beside a card on the same screen that said what it was worth now.
+  const held = (o: Partial<PortfolioPosition> & { symbol: string }): PortfolioPosition => ({
+    conid: o.symbol, assetCategory: 'STK', subCategory: null, expiry: null, strike: null, putCall: null,
+    currency: 'USD', quantity: 100, markPrice: 10.24, costBasisPrice: 9, costBasisMoney: 900, positionValue: 1024,
+    percentOfNAV: 10, unrealizedLocal: 124, fxRateToBase: 1, multiplier: 1, isDerivative: false, ...o,
+  } as PortfolioPosition)
+  const b = { ...book([]), asOf: '2026-09-09', positions: [held({ symbol: 'NHYDY' }), held({ symbol: 'EMAAR' })] }
+  const live: PortfolioLiveMark = {
+    asOf: '2026-09-16', asOfIsClose: true, delayed: true, stale: false, bookAsOf: '2026-09-09', staleDays: 7,
+    nav: 10_000, unrealised: null, cash: null, unpriced: ['EMAAR'], unavailable: null,
+    priced: [{ symbol: 'NHYDY', quantity: 100, statementPrice: 10.24, price: 9.12, value: 912, movePct: -10.9375 }],
+  }
+  const html = holdingsHtml(b, live)
+  const row = (sym: string) => piece(html, 'fundbook__row"', `<span>${sym}</span>`)
+  assert.match(row('NHYDY'), />9\.12</, 'the live price, not the statement mark')
+  assert.match(row('NHYDY'), />−10\.9%</, 'and how far it has moved since the statement')
+  assert.doesNotMatch(row('NHYDY'), />10\.24</)
+  // The one the feed could not price keeps the statement's own figures, and says which day they belong to.
+  assert.match(row('EMAAR'), />10\.24</)
+  assert.match(row('EMAAR'), />9 Sep</)
+  assert.match(html, /1 of them priced at the last close 2026-09-16 \(delayed\)/)
+  assert.match(html, /quantity and cost from the statement of 2026-09-09/)
+})
+
+check('with no live feed the table says the statement is what it is showing', () => {
+  const b = { ...book([]), asOf: '2026-09-09', positions: [{
+    symbol: 'NHYDY', conid: '1', assetCategory: 'STK', subCategory: null, expiry: null, strike: null, putCall: null,
+    currency: 'USD', quantity: 100, markPrice: 10.24, costBasisPrice: 9, costBasisMoney: 900, positionValue: 1024,
+    percentOfNAV: 10, unrealizedLocal: 124, fxRateToBase: 1, multiplier: 1, isDerivative: false,
+  } as PortfolioPosition] }
+  const html = holdingsHtml(b)
+  assert.match(html, /marks and weights as the statement of 2026-09-09 states them/)
+  assert.match(piece(html, 'fundbook__row"', '<span>NHYDY</span>'), />10\.24</)
 })
 
 console.log(`PortfolioStage: ${passed} passed`)
