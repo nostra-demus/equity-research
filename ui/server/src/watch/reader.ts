@@ -210,6 +210,33 @@ function basePlan(row: ReaderRow, src: ResearchSources, now: Date): WatchPlan {
   }
 }
 
+/**
+ * The record-only base plan for a report `readResearchPlan` has never once been called for, built while the
+ * provider's usage limit already holds elsewhere on the machine. Without this, a report that only shows up
+ * AFTER the limit is already known stays unwatched for the whole outage: the machine's one probe a tick keeps
+ * going to a report that already has a plan, so one that has never been read never gets a turn to make one.
+ *
+ * It touches no model and spends no budget — the same record-only fields `readResearchPlan` itself falls back
+ * to on a real limit (the bad case, the kill criteria), read straight off the files already on disk. The
+ * result is recorded and treated exactly like any other `limit` outcome, so the very next probe that reaches
+ * this report tries a real read in its place.
+ */
+export function fallbackLimitPlan(row: ReaderRow, deps: Pick<ReaderDeps, 'now' | 'stateDir' | 'analysesDir'> = {}): ReadOutcome {
+  const clock = deps.now ?? (() => new Date())
+  const stateDir = deps.stateDir ?? STATE_DIR
+  const src = loadResearchSources(row.run_root, deps.analysesDir ?? ANALYSES_DIR)
+  if (!src) return { status: 'no_sources', plan: null, detail: 'The research files could not be read.', cost_usd: 0 }
+  const detail = "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet."
+  // A plan already read successfully (found on disk though this row's own state carried nothing) is kept as
+  // it is, exactly as a real limited read would keep it (the same rule `readResearchPlan`'s `existing` follows).
+  const existing = loadPlan(src.runSeg, stateDir)
+  if (existing?.reader.status === 'ok') return { status: 'limit', plan: existing, detail, cost_usd: 0 }
+  const base = basePlan(row, src, clock())
+  const plan: WatchPlan = { ...base, reader: { ...base.reader, detail } }
+  savePlan(plan, stateDir)
+  return { status: 'limit', plan, detail, cost_usd: 0 }
+}
+
 export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): Promise<ReadOutcome> {
   const clock = deps.now ?? (() => new Date())
   const stateDir = deps.stateDir ?? STATE_DIR
@@ -277,11 +304,14 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   } catch (e: any) {
     outcome = { costUsd: 0, error: String(e?.message ?? e) }
   }
-  // A turn the provider's own limit rejected carried no answer, so it is not a read and costs nothing. On
-  // Codex, where a read is counted at an estimate rather than measured, charging it would spend the day's
-  // whole reading allowance on probes and then refuse to read once the provider's plan came back.
   const limited = !!outcome.error && isUsageLimitError(outcome.error)
-  const cost = limited ? 0 : model.provider === 'codex' ? hold : Math.max(0, Number(outcome.costUsd) || 0)
+  // Codex is charged at a fixed ESTIMATE rather than a measured cost (`hold`), and a turn its own limit
+  // rejected carried no answer at all — nothing was actually spent that the estimate could stand in for, so a
+  // limited Codex probe waives it. Charging the estimate anyway would spend the day's whole reading allowance
+  // on probes and then refuse to read once the provider's plan came back. Claude reports its own real cost on
+  // every result, including a limited one with a nonzero `total_cost_usd` (classifyChatLine keeps it) — that
+  // is what was actually spent, so it is reconciled exactly as any other Claude turn's cost is, limited or not.
+  const cost = model.provider === 'codex' ? (limited ? 0 : hold) : Math.max(0, Number(outcome.costUsd) || 0)
   budget.reconcile(reservation, cost)
 
   // THE PLAN'S OWN USAGE LIMIT IS NOT A FAILED READ. It says nothing about this report — every read on the

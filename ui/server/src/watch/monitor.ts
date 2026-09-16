@@ -19,7 +19,7 @@ import { WatchInbox, type WatchMessageItem } from './inbox'
 import { selectEmailBatch, type Delivered, type EmailBatchEntry, type WatchEmailConfig } from './email'
 import { isUsageLimitError } from '../chat-llm'
 import { loadPriceRecord, marketIndexFor, observe, savePriceRecord, sessionMove, sessionOf, type ListingSubject } from './prices'
-import { loadPlan, runSegOf, type ReadOutcome } from './reader'
+import { fallbackLimitPlan, loadPlan, runSegOf, type ReadOutcome } from './reader'
 import { BUY_NOW_DECISIONS, ROLE_LABEL, type LeftOut, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
 
 export const MONITOR_STATE_SCHEMA = 'watch-monitor/v1' as const
@@ -109,6 +109,10 @@ export interface MonitorDeps {
   quote: (subjects: ListingSubject[]) => Promise<Map<string, QuoteOutcome>>
   indexLevels: (symbols: string[]) => Promise<Map<string, { last: number; as_of: string | null }>>
   readPlan: (row: EngineWatchRow) => Promise<ReadOutcome>
+  /** The record-only plan for a report that has never once been read, built with no model call at all — used
+   *  only while the usage-limit gate below is holding real reads off. Defaults to reader.ts's own provider-free
+   *  builder (fallbackLimitPlan); a test may inject its own to avoid touching real files. */
+  buildFallbackPlan?: (row: EngineWatchRow) => ReadOutcome
   emailConfig: () => WatchEmailConfig
   sendEmail: (batch: EmailBatchEntry[], cfg: WatchEmailConfig) => Promise<{ ok: boolean; detail: string; delivered?: Delivered[] }>
   /** The digest of a run's research files as they are now (reader.ts loadResearchSources). With it, a report
@@ -168,6 +172,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
   let soon: ReturnType<typeof setTimeout> | null = null
   let stopped = false
   let lastError: string | null = null
+  const buildFallbackPlan = deps.buildFallbackPlan ?? ((row: EngineWatchRow) => fallbackLimitPlan(row, { stateDir: deps.stateDir }))
 
   function loadState(): MonitorState {
     try {
@@ -313,15 +318,34 @@ export function createWatchMonitor(deps: MonitorDeps) {
       // plan (readResearchPlan) — so a limit on the provider says nothing about it. Held back with the rest,
       // its one "research says buy now" message would wait on a quota it never needed.
       const needsModel = !BUY_NOW_DECISIONS.has(row.decision ?? '')
-      if (needsModel && (waiting || probesLeft <= 0)) continue
       const seg = runSegOf(row.run_root)
       if (!seg || reading.has(seg) || queued.has(seg)) continue
       const plan = cachedPlan(seg)
+      const rec = state.reads[seg]
+      const suppressed = needsModel && (waiting || probesLeft <= 0)
+      if (suppressed) {
+        // A report with neither a saved plan nor a read record of any kind has never been through readPlan at
+        // all — not even a failed attempt — so it has none of the record-only watching every other name already
+        // falls back on, including one that has hit this very limit before. Left to the gate above, the same
+        // report already ahead of it in the list (which HAS a record) keeps winning each tick's one probe and
+        // refreshing the limit timestamp, so a report that only shows up after the limit is known can stay
+        // unwatched for the whole outage. It gets its own record-only plan now, built with no model call at all
+        // — the only thing suppressed here is the actual read — and takes its normal turn at a real one once
+        // the machine-wide wait allows it.
+        if (!plan && !rec) {
+          const outcome = buildFallbackPlan(row)
+          state.reads[seg] = { attempts: 0, last_at: at.toISOString(), status: outcome.status, detail: outcome.detail }
+          if (outcome.plan) planCache.set(seg, outcome.plan)
+          else planCache.delete(seg)
+          saveState()
+        }
+        continue
+      }
       // A re-read the limit turned away keeps the earlier reading, so the plan still reads `ok` — and the hourly
       // digest clock, stamped just before that attempt, would then hold the corrected report for the rest of the
       // hour rather than the fifteen minutes the limit asks for. A known correction waiting on a limit skips the
       // clock: what it is waiting for is the provider, not another look at the files.
-      const pending = limitRecord(state.reads[seg]) && digestChanged.has(seg)
+      const pending = limitRecord(rec) && digestChanged.has(seg)
       if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root && !pending) {
         // Read once per version of the report: one corrected in place (a data fix to its record or thesis) is read
         // again. Its files are hashed at most hourly — cheap, but not every few minutes for nothing.
@@ -332,7 +356,6 @@ export function createWatchMonitor(deps: MonitorDeps) {
         // Remembered, so a limit in the way cannot turn a correction back into an hour of waiting.
         digestChanged.add(seg)
       }
-      const rec = state.reads[seg]
       if (rec) {
         const since = at.getTime() - Date.parse(rec.last_at)
         // A usage limit waits on the gate above, which is about the machine rather than this report, so it

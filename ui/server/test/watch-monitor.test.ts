@@ -545,6 +545,61 @@ async function main() {
     assert.deepEqual(reads, ['d', 'e', 'e'], 'and once it is read, the hourly clock governs again')
   })
 
+  await check('a report that shows up after the limit is already known is still watched, not left waiting', async () => {
+    // AAA is read first and hits the limit. BBB then appears on a later tick, sorted behind AAA — with the old
+    // gate it is skipped outright before readPlan ever runs for it, and AAA (which already has a plan) keeps
+    // winning every tick's one probe, so BBB stays `waiting` for the whole outage. It should instead get its own
+    // record-only plan straight away, at no cost and with no call to the model.
+    let t = new Date('2026-09-16T06:00:00Z')
+    const AAA = engineRow('AAA', 'USD', 'NYSE', 'AAA_2026-08-01')
+    const BBB = engineRow('BBB', 'USD', 'NYSE', 'BBB_2026-08-02')
+    let rows: EngineWatchRow[] = [AAA]
+    const reads: string[] = []
+    const fallbacks: string[] = []
+    const bad = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: '' },
+    })
+    const m11 = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-11-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => {
+        reads.push(row.listing.ticker)
+        return { status: 'limit', plan: bad(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+      },
+      buildFallbackPlan: (row) => {
+        fallbacks.push(row.listing.ticker)
+        return { status: 'limit', plan: bad(row), detail: "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.", cost_usd: 0 }
+      },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m11.tick(); await m11.idle() }
+    const views = () => m11.decorate(mergeWatchlist({
+      entries: [], engine: rows, today: t.toISOString().slice(0, 10),
+      quotes: new Map(rows.map((r) => [r.listing.listing_key, { quote: quoteOf(r.listing.ticker, 'USD', 50), reason: null }])),
+    }).rows)
+    await m11.tick(); await m11.idle()
+    assert.deepEqual(reads, ['AAA'], 'AAA is tried for real and hits the limit')
+    assert.equal(views()[0].watch.plan?.state, 'limit')
+
+    // BBB now shows up, sorted behind AAA, while AAA's limit still holds.
+    rows = [AAA, BBB]
+    await step(2)
+    assert.deepEqual(reads, ['AAA'], 'no second real read went out — the machine-wide wait still holds')
+    assert.deepEqual(fallbacks, ['BBB'], 'BBB got its own record-only plan, built with no model call')
+    assert.deepEqual(views().map((r) => r.watch.plan?.state), ['limit', 'limit'],
+      'BBB is watched on its record, not left "waiting to read" for the whole outage')
+
+    // Once the probe window opens, BBB is not asked twice for a fallback, and both are read for real once the
+    // limit clears.
+    await step(16)
+    assert.deepEqual(fallbacks, ['BBB'], 'a report already holding a fallback plan is not given a second one')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 
