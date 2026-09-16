@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T04:45:23Z",
+  "generated_at": "2026-09-16T04:50:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -342,6 +342,60 @@
           "name": "Trip.com",
           "ticker": "09961",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-111",
+      "headline": "Korean Air-Asiana Merger Clears Final Hurdle, Paving Way for Top 10 Airline",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277093",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T08:05:19Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Korean Air received final regulatory approval to acquire Asiana Airlines, creating a top 10 global carrier.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Korean Air received final regulatory approval to acquire Asiana Airlines, creating a top 10 global carrier.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korean Air",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Asiana Airlines",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1912,55 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-055",
-      "headline": "SCHEDULE 13D/A - Allen Family Digital, LLC (0002136301) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2136301/000149315226042803/0001493152-26-042803-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T01:00:09Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Allen Family Digital filed an amended 13D regarding their stake in BuzzFeed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Allen Family Digital filed an amended 13D regarding their stake in BuzzFeed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BuzzFeed, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166024,9 +166029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3056470,
-    "news_picked_today": 162,
-    "news_dropped_today": 2430
+    "news_seen_today": 3097467,
+    "news_picked_today": 163,
+    "news_dropped_today": 2501
   },
   "book_momentum": {
     "live_count": 8,
