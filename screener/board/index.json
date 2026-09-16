@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T03:26:11Z",
+  "generated_at": "2026-09-16T03:35:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -350,6 +350,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-104",
+      "headline": "State-Backed China Water Environment Defaults on Offshore Loan",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-16/state-backed-china-water-environment-defaults-on-offshore-loan",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:11:30Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "China Water Environment has defaulted on an offshore loan, signaling significant credit distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Water Environment has defaulted on an offshore loan, signaling significant credit distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Water Environment",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-080",
       "headline": "Brookfield Asset Management To Acquire Reliance Worldwide In US$2.8 Bln Deal",
       "headline_en": null,
@@ -605,6 +654,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-106",
+      "headline": "Iran war latest: Saudi Arabia warns of 'red line' after Houthi drone strike near Makkah",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/16/live-saudi-houthis-makkah/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:17:02Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "A drone strike near Makkah and subsequent warnings represent a major geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A drone strike near Makkah and subsequent warnings represent a major geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1825,143 +1917,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260916-102",
-      "headline": "Waymo to deploy driverless robotaxis in Tokyo next year",
+      "inbox_id": "INB-20260916-108",
+      "headline": "Glass Wall Systems shares to make market debut today; GMP signals 23% listing gains",
       "headline_en": null,
-      "url": "https://asia.nikkei.com/business/transportation/waymo-to-deploy-driverless-robotaxis-in-tokyo-next-year",
-      "source_name": "Nikkei Asia",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/glass-wall-systems-shares-to-make-market-debut-today-gmp-signals-23-listing-gains/articleshow/134276895.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-16T03:22:54Z",
+      "found_at": "2026-09-16T03:00:18Z",
       "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Waymo (Alphabet) is expanding its robotaxi service to Tokyo, a major international market expansion.",
+      "prelim_note": "Glass Wall Systems is set to debut on the market with a grey market premium indicating 23% potential gains.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Waymo (Alphabet) is expanding its robotaxi service to Tokyo, a major international market expansion.",
-      "region": "JP",
+      "triage_score": 84,
+      "triage_reason": "Glass Wall Systems is set to debut on the market with a grey market premium indicating 23% potential gains.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 2,
+        "event": 4,
+        "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
+        "event_id": "index_rebalance",
+        "size_bucket": "small"
       },
       "event_types": [
-        "commercial",
-        "product"
+        "index_rebalance"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Alphabet Inc",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-078",
-      "headline": "Nvidia Spent $26 Billion on Buybacks and Dividends in a Single Quarter. Its Board Is Betting Today's Profits Last 3 More Years.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/15/nvidia-spent-usd26-billion-on-buybacks-and-dividends-in-a-single-quarter-its-board-is-betting-today-s-profits-last-3-more-years/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T01:47:01Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Nvidia returned $26 billion to shareholders in a single quarter, signaling strong cash flow and management confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Nvidia returned $26 billion to shareholders in a single quarter, signaling strong cash flow and management confidence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
+          "name": "Glass Wall Systems",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-052",
-      "headline": "BOJ expected to hike rates by 25 basis points to fresh three-decade high: CNBC survey",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/16/boj-hike-rates-cnbc-survey.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T00:22:11Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Bank of Japan is expected to hike rates by 25 basis points to a three-decade high, impacting global carry trades and Japanese equities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Bank of Japan is expected to hike rates by 25 basis points to a three-decade high, impacting global carry trades and Japanese equities.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165741,9 +165740,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2145369,
-    "news_picked_today": 128,
-    "news_dropped_today": 1744
+    "news_seen_today": 2244366,
+    "news_picked_today": 136,
+    "news_dropped_today": 1808
   },
   "book_momentum": {
     "live_count": 8,
