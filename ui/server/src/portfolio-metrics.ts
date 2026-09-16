@@ -202,10 +202,21 @@ function benchmarkOverWindow(
 
 /** Month, quarter, year to date and since inception — each a genuine time-weighted return over its own
  *  window, not a slice of one cumulative figure. */
+/**
+ * The cash hurdle: one rate, or a rate ASKED FOR THE WINDOW being measured.
+ *
+ * A single number charges every window the same rate, so a book that spans a rate cycle has its
+ * since-inception excess re-computed at today's yield — and adding tomorrow's observation silently rewrites
+ * what last year earned. A resolver lets each window be charged the cash it could actually have earned.
+ */
+export type RiskFreeRate = number | ((from: string, to: string) => number)
+const rateOver = (rate: RiskFreeRate, from: string, to: string): number =>
+  typeof rate === 'number' ? rate : rate(from, to)
+
 export function returnsByPeriod(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
-  riskFreeAnnualPct = 0,
+  riskFree: RiskFreeRate = 0,
   benchmarkCloses: { date: string; close: number }[] = [],
 ): PeriodReturn[] {
   if (navSeries.length === 0) return []
@@ -231,7 +242,8 @@ export function returnsByPeriod(
     const spanDays = slice.length >= 2
       ? Math.max(0, (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${slice[0]!.date}T00:00:00Z`)) / 86_400_000)
       : 0
-    const hurdle = spanDays > 0 ? ((1 + riskFreeAnnualPct / 100) ** (spanDays / 365) - 1) * 100 : null
+    const pct = slice.length ? rateOver(riskFree, slice[0]!.date, asOf) : 0
+    const hurdle = spanDays > 0 ? ((1 + pct / 100) ** (spanDays / 365) - 1) * 100 : null
     const benchmark = slice.length >= 2
       ? benchmarkOverWindow(benchmarkCloses, slice[0]!.date, asOf)
       : null
@@ -336,8 +348,13 @@ export interface BetaAlpha {
 export function betaAlpha(
   bookReturns: { date: string; r: number }[],
   benchmarkCloses: { date: string; close: number }[],
-  riskFreeAnnualPct: number,
+  riskFree: RiskFreeRate,
 ): BetaAlpha {
+  // Asked for the window these returns actually cover, so alpha is measured against the cash of its own
+  // period rather than of the day the page was opened.
+  const riskFreeAnnualPct = bookReturns.length
+    ? rateOver(riskFree, bookReturns[0]!.date, bookReturns[bookReturns.length - 1]!.date)
+    : rateOver(riskFree, '0000-01-01', '9999-12-31')
   const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
   const bmReturns = new Map<string, number>()
   for (let i = 1; i < sorted.length; i++) {
@@ -487,9 +504,13 @@ export function drawdown(navSeries: NavPoint[], flowsByDate: Map<string, number>
 export function riskMetrics(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
-  riskFreeAnnualPct: number,
+  riskFree: RiskFreeRate,
 ): RiskRead {
   const series = dailyReturns(navSeries, flowsByDate)
+  // The cash of the window these returns cover, not of today (see RiskFreeRate).
+  const riskFreeAnnualPct = series.length
+    ? rateOver(riskFree, series[0]!.date, series[series.length - 1]!.date)
+    : rateOver(riskFree, '0000-01-01', '9999-12-31')
   const returns = series.map((x) => x.r)
   const dd = drawdown(navSeries, flowsByDate)
   const sufficient = returns.length >= MIN_RATIO_DAYS

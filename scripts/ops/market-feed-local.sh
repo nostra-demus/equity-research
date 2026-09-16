@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Deterministic S&P 500 benchmark-feed refresh. This deliberately invokes no Claude/Codex process: the
-# fetch itself lives in scripts/fetch_market_feed.py, which writes data/_market/fred/sp500_<as_of>.csv
-# (+ a provenance sidecar) via the connectors' own SSRF-bounded fetch_bytes. data/ is a symlink into
+# Deterministic market-feed refresh: the S&P 500 daily close the fund book is measured against, and DTB3,
+# the 3-month bill rate its risk ratios are charged at. This deliberately invokes no Claude/Codex process:
+# the fetch itself lives in scripts/fetch_market_feed.py, which writes data/_market/fred/<series>_<as_of>.csv
+# (+ a provenance sidecar each) via the connectors' own SSRF-bounded fetch_bytes. data/ is a symlink into
 # Google Drive and is gitignored (frameworks/MARKET_FEED.md) — the feed is a local file drop every
 # /research:calibrate and /research:review-decisions run on THIS machine already knows how to read
 # (scripts/market_prices.py), so unlike calibrate-local.sh this never calls commit-run.sh.

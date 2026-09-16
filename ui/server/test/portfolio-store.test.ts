@@ -255,25 +255,57 @@ check('the forward benchmark chain still stops at a real hole in the feed', () =
 check('the cash hurdle is the feed\u2019s own latest rate, carrying the feed\u2019s date', () => {
   // It was a constant: 4.3% as of 2 January, still what every Sharpe, Sortino and Calmar was measured
   // against in September. The same feed that carries the benchmark carries this series daily.
-  const rf = store.riskFreeNow([{ date: '2026-09-14', close: 4.05 }, { date: '2026-09-15', close: 4.11 }])
+  const rf = store.riskFreeNow({ rows: [{ date: '2026-09-14', close: 4.05 }, { date: '2026-09-15', close: 4.11 }], provider: 'fred' }, '2026-09-16')
   assert.equal(rf.pct, 4.11)
   assert.equal(rf.asOf, '2026-09-15')
   assert.equal(rf.fromFeed, true)
-  assert.match(rf.source, /DTB3/)
+  assert.match(rf.source, /FRED DTB3/)
+  assert.doesNotMatch(rf.source, /not refreshed since/, 'a day behind is not stale')
 })
 
 check('a zero rate from the feed is a rate, not a missing one', () => {
-  const rf = store.riskFreeNow([{ date: '2021-01-06', close: 0 }])
+  const rf = store.riskFreeNow({ rows: [{ date: '2021-01-06', close: 0 }], provider: 'fred' })
   assert.equal(rf.pct, 0)
   assert.equal(rf.fromFeed, true)
 })
 
 check('with no feed the hurdle falls back to the dated constant, and says that is what it is', () => {
-  const rf = store.riskFreeNow([])
+  const rf = store.riskFreeNow({ rows: [], provider: null })
   assert.equal(rf.pct, store.RISK_FREE.pct)
   assert.equal(rf.asOf, store.RISK_FREE.asOf)
   assert.equal(rf.fromFeed, false)
   assert.match(rf.source, /no feed loaded/)
+})
+
+check('a rate that stopped arriving is still used, and the source says how far behind it is', () => {
+  // Better than a constant written in January, but it is no longer today's — and the percentage on screen
+  // cannot show its own age, so the source line has to.
+  const rf = store.riskFreeNow({ rows: [{ date: '2026-08-01', close: 4.4 }], provider: 'fred' }, '2026-09-16')
+  assert.equal(rf.pct, 4.4)
+  assert.match(rf.source, /not refreshed since, 46 days before the book/)
+})
+
+check('a rate published from another provider is not attributed to FRED', () => {
+  // readRates picks the widest series it can find, which need not be the one usually expected; naming FRED
+  // over an operator-dropped file would cite a source the number did not come from (§5).
+  const rf = store.riskFreeNow({ rows: [{ date: '2026-09-15', close: 4.11 }], provider: 'operator' }, '2026-09-16')
+  assert.match(rf.source, /the operator feed/)
+  assert.doesNotMatch(rf.source, /FRED/)
+})
+
+check('each window is charged the cash of its OWN period, not of today', () => {
+  // A book spanning a rate cycle had its since-inception excess recomputed at the newest yield, so adding
+  // tomorrow's observation rewrote what last year earned.
+  const rows = [
+    { date: '2025-01-02', close: 1 }, { date: '2025-06-02', close: 1 },
+    { date: '2026-09-14', close: 5 }, { date: '2026-09-15', close: 5 },
+  ]
+  const over = store.riskFreeOver(rows)
+  assert.equal(over('2025-01-01', '2025-12-31'), 1, 'the year that paid 1% is charged 1%')
+  assert.equal(over('2026-09-01', '2026-09-16'), 5)
+  assert.equal(over('2025-01-01', '2026-09-16'), 3, 'and a window spanning both is charged the average across it')
+  assert.equal(over('2024-01-01', '2024-06-30'), store.RISK_FREE.pct, 'before the feed begins, the dated constant')
+  assert.equal(over('2025-07-01', '2025-08-01'), 1, 'a window with no observation takes the rate still standing')
 })
 
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }

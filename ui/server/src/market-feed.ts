@@ -39,25 +39,32 @@ function isIsoDate(s: string): boolean {
  *  the filesystem happened to list the folders. So the provider with the widest date span is used
  *  ALONE; the others are ignored rather than averaged or interleaved. */
 export function readCloses(symbol: string): Close[] {
-  return readSeries(symbol, (n) => n > 0)
+  return readSeries(symbol, (n) => n > 0).rows
 }
 
 /** The same feed read as a RATE series — a yield or a policy rate. Zero is a real observation there, not
  *  the missing price `readCloses` drops it as: three-month bills printed 0.00% for months in 2020-21, and
  *  dropping those days would leave the last rate before them standing as today's. */
 export function readRates(symbol: string): Close[] {
+  return readRateSeries(symbol).rows
+}
+
+/** The same rate series, with the name of the provider folder that answered — so a figure published from it
+ *  can be attributed to the source it actually came from rather than to the one usually expected. */
+export function readRateSeries(symbol: string): { rows: Close[]; provider: string | null } {
   return readSeries(symbol, (n) => Number.isFinite(n))
 }
 
-function readSeries(symbol: string, keep: (value: number) => boolean): Close[] {
+function readSeries(symbol: string, keep: (value: number) => boolean): { rows: Close[]; provider: string | null } {
+  const none = { rows: [] as Close[], provider: null }
   const want = symbol.trim().toUpperCase()
-  if (!want) return []
+  if (!want) return none
   let providers: string[] = []
   try {
     providers = fs.readdirSync(MARKET_FEED_DIR, { withFileTypes: true })
       .filter((e) => e.isDirectory() && !e.name.startsWith('.'))
       .map((e) => e.name)
-  } catch { return [] } // no feed at all — the normal state before one is dropped in
+  } catch { return none } // no feed at all — the normal state before one is dropped in
 
   const perProvider = new Map<string, Map<string, number>>()
   for (const provider of providers.slice().sort()) {
@@ -80,7 +87,12 @@ function readSeries(symbol: string, keep: (value: number) => boolean): Close[] {
         if (row.length <= Math.max(iDate, iSymbol, iClose)) continue
         if ((row[iSymbol] ?? '').trim().toUpperCase() !== want) continue
         const date = (row[iDate] ?? '').trim()
-        const close = Number((row[iClose] ?? '').trim())
+        const cell = (row[iClose] ?? '').trim()
+        // A BLANK CELL IS NOT A NUMBER, though `Number('')` is a perfectly finite zero. For a price the
+        // zero was refused anyway; for a rate it would be accepted as a real 0.00% — so a half-written or
+        // hand-edited row would become the cash hurdle every risk ratio is measured against.
+        if (cell === '') continue
+        const close = Number(cell)
         // For a price, zero or negative is not an observation: left in, it makes the ratio returns
         // downstream read as a -100% move rather than as missing data. A rate series keeps them.
         if (!isIsoDate(date) || !Number.isFinite(close) || !keep(close)) continue
@@ -89,19 +101,23 @@ function readSeries(symbol: string, keep: (value: number) => boolean): Close[] {
     }
     if (byDate.size > 0) perProvider.set(provider, byDate)
   }
-  if (perProvider.size === 0) return []
+  if (perProvider.size === 0) return none
 
   // Widest span wins, and the provider name breaks a tie so the answer is stable across runs rather
   // than depending on directory order.
   let chosen: Map<string, number> | null = null
+  let chosenProvider: string | null = null
   let bestSpan = -1
-  for (const [, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+  for (const [provider, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     const dates = [...byDate.keys()].sort()
     const span = Date.parse(`${dates[dates.length - 1]!}T00:00:00Z`) - Date.parse(`${dates[0]!}T00:00:00Z`)
-    if (Number.isFinite(span) && span > bestSpan) { bestSpan = span; chosen = byDate }
+    if (Number.isFinite(span) && span > bestSpan) { bestSpan = span; chosen = byDate; chosenProvider = provider }
   }
-  if (!chosen) return []
-  return [...chosen.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
+  if (!chosen) return none
+  return {
+    rows: [...chosen.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date)),
+    provider: chosenProvider,
+  }
 }
 
 /** Whether any feed folder exists at all — lets the UI distinguish "no feed configured" from

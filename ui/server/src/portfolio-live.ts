@@ -114,8 +114,15 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
       unpriced.push(p.symbol!)
       continue
     }
-    const value = price * p.quantity! * rate * (p.multiplier || 1)
+    // SCALED FROM THE STATEMENT'S OWN VALUE where it has one, not re-derived. A bond or bill is quoted as a
+    // percentage of par, so quantity × price overstates it about a hundredfold — the same reason the blotter
+    // refuses that formula for PAR_PRICED rows — and scaling preserves whatever basis the broker used while
+    // moving only what moved. Without a stated value or mark there is nothing to scale, and the ordinary
+    // formula stands.
     const stmt = p.markPrice
+    const value = p.positionValue !== null && stmt !== null && stmt > 0
+      ? p.positionValue * (price / stmt) * rate
+      : price * p.quantity! * rate * (p.multiplier || 1)
     priced.push({
       symbol: p.symbol!,
       quantity: p.quantity!,

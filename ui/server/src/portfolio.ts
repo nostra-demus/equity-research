@@ -259,6 +259,9 @@ export interface Reconciliation {
 }
 
 export interface Book {
+  /** The day the position snapshot belongs to — `asOf` is the book's, and the two differ whenever the
+   *  newest export carried no OpenPositions section (see where positions are built). */
+  positionsAsOf: string | null
   accountId: string | null
   baseCurrency: string | null
   asOf: string | null
@@ -1083,6 +1086,10 @@ export function buildBook(documents: FlexDocument[]): Book {
     accountId: newest.accountId,
     baseCurrency,
     asOf: navSeries.length ? navSeries[navSeries.length - 1]!.date : newest.toDate,
+    // The day the HOLDINGS were observed, which is not always the book's own as-of: a Trades-only export
+    // moves `asOf` forward while the positions stay at the last statement that carried a snapshot. Labelling
+    // a retained mark with the newer date says it was seen on a day nobody looked.
+    positionsAsOf: positionSource.toDate,
     coverage: {
       from: docs.map((d) => d.fromDate).filter((x): x is string => !!x).sort()[0] ?? null,
       to: docs.map((d) => d.toDate).filter((x): x is string => !!x).sort().reverse()[0] ?? null,

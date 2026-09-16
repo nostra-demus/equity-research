@@ -94,6 +94,30 @@ check('a rate series still refuses a malformed row and a bad date', () => {
   assert.deepEqual(feed.readRates('DTB3'), [{ date: '2026-09-16', close: 4.2 }])
 })
 
+check('a blank close is not a zero rate — it is a row with no value', () => {
+  // `Number('')` is a perfectly finite zero. For a price it was refused anyway; for a rate it would be taken
+  // as a real 0.00%, so a half-written or hand-edited row would become the hurdle every ratio is measured
+  // against.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2026-09-15,DTB3,4.11\n2026-09-16,DTB3,\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2026-09-15', close: 4.11 }])
+})
+
+check('the reader says which provider answered, so a figure is not published under the wrong name', () => {
+  reset()
+  for (const [name, rows] of [['fred', '2026-09-15,DTB3,4.11'], ['operator', '2020-01-02,DTB3,1.5\n2026-09-16,DTB3,4.2']] as const) {
+    const dir = path.join(feed.MARKET_FEED_DIR, name)
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, 'dtb3.csv'), `date,symbol,close\n${rows}\n`)
+  }
+  const series = feed.readRateSeries('DTB3')
+  assert.equal(series.provider, 'operator', 'the widest span still wins')
+  assert.equal(series.rows.length, 2)
+  assert.equal(feed.readRateSeries('NOTHING').provider, null)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

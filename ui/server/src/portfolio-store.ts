@@ -15,7 +15,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
-import { feedPresent, readCloses, readRates, type Close } from './market-feed'
+import { feedPresent, readCloses, readRateSeries, type Close } from './market-feed'
 import { alignFlowsToNavDates, buildBook, supersessionMap, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
 import {
@@ -216,16 +216,58 @@ export const RISK_FREE_SERIES = 'DTB3'
  *  Sortino and Calmar on the screen was measured against in September. The feed already fetches this series
  *  daily beside the benchmark, so the rate is read from it and carries the feed's own date — and when there is
  *  no feed the fallback says so out loud rather than presenting January as current. */
-export function riskFreeNow(rates: Close[] = readRates(RISK_FREE_SERIES)): {
-  pct: number; asOf: string; source: string; fromFeed: boolean
-} {
-  const last = rates.length ? rates[rates.length - 1]! : null
+export function riskFreeNow(
+  series: { rows: Close[]; provider: string | null } = readRateSeries(RISK_FREE_SERIES),
+  /** The day the book is measured to, so an observation can be called old against something real. */
+  asOfBook: string | null = null,
+): { pct: number; asOf: string; source: string; fromFeed: boolean } {
+  const rows = series.rows
+  const last = rows.length ? rows[rows.length - 1]! : null
   if (!last || !Number.isFinite(last.close)) {
     return { ...RISK_FREE, fromFeed: false, source: `${RISK_FREE.source} — no feed loaded, so this rate is the one last written into the engine` }
   }
+  // WHICHEVER PROVIDER ANSWERED, named. The reader picks the widest series it can find, which need not be
+  // the one usually expected, and publishing an operator-dropped number under FRED's name would be a
+  // citation for a source it did not come from (§5).
+  const from = series.provider === 'fred' ? 'FRED DTB3' : `the ${series.provider ?? 'market'} feed`
+  // A rate that stopped arriving is still the best number available — far better than a constant written
+  // in January — but it is no longer today's, and the source line says so rather than letting the age hide
+  // behind a figure that looks current.
+  const behind = asOfBook ? daysBetween(last.date, asOfBook) : null
+  const stale = behind !== null && behind > RISK_FREE_STALE_DAYS
+    ? ` — not refreshed since, ${behind} days before the book's own date`
+    : ''
   return {
     pct: last.close, asOf: last.date, fromFeed: true,
-    source: '3-month US Treasury bill (secondary market), FRED DTB3 — from the market feed',
+    source: `3-month US Treasury bill (secondary market), ${from}${stale}`,
+  }
+}
+
+/** How far behind the book's own date the newest rate may fall before the source line says so. */
+export const RISK_FREE_STALE_DAYS = 10
+
+/** Calendar days between two ISO dates, or null when either is unusable. */
+function daysBetween(from: string, to: string): number | null {
+  const a = Date.parse(`${from}T00:00:00Z`), b = Date.parse(`${to}T00:00:00Z`)
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return null
+  return Math.round((b - a) / 86_400_000)
+}
+
+/**
+ * The cash rate to charge a window, from the dated series.
+ *
+ * The AVERAGE of the observations inside the window — that is the cash the book could actually have earned
+ * across it — falling back to the last rate before the window when the feed carries none inside it (a rate
+ * stands until the next print), and to the dated constant when the feed carries nothing at all. Without
+ * this, every historical figure was charged at the newest observation, so tomorrow's row rewrote what last
+ * year earned.
+ */
+export function riskFreeOver(rows: Close[], fallback: number = RISK_FREE.pct): (from: string, to: string) => number {
+  return (from, to) => {
+    const inside = rows.filter((r) => r.date >= from && r.date <= to && Number.isFinite(r.close))
+    if (inside.length) return inside.reduce((a, r) => a + r.close, 0) / inside.length
+    const before = rows.filter((r) => r.date <= to && Number.isFinite(r.close))
+    return before.length ? before[before.length - 1]!.close : fallback
   }
 }
 /** How far past its last close the benchmark curve may still be carried — a long weekend and a public
@@ -318,7 +360,11 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // already drifted, landing an unvaluable flow's raw local amount in the chain the original excludes.
   const flowsByDate = alignFlowsToNavDates(book.flows, book.navSeries)
   const closes = readCloses(BENCHMARK_SYMBOL)
-  const riskFree = riskFreeNow()
+  const rates = readRateSeries(RISK_FREE_SERIES)
+  const bookAsOf = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.date : null
+  const riskFree = riskFreeNow(rates, bookAsOf)
+  // Each metric is charged the cash of the window it measures, not the rate of the day this page was opened.
+  const riskFreeRate = rates.rows.length ? riskFreeOver(rates.rows, riskFree.pct) : riskFree.pct
   const returns = dailyReturns(book.navSeries, flowsByDate)
   // EVERY period is measured over the window the book actually held capital, never over every calendar
   // row the export happens to carry. A Flex export routinely starts months before the first deposit,
@@ -365,13 +411,13 @@ export function performanceOf(book: Book): PortfolioPerformance {
   }
 
   return {
-    periods: returnsByPeriod(window, flowsByDate, riskFree.pct, closes),
+    periods: returnsByPeriod(window, flowsByDate, riskFreeRate, closes),
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
-    betaAlpha: betaAlpha(returns, closes, riskFree.pct),
+    betaAlpha: betaAlpha(returns, closes, riskFreeRate),
     growth,
     benchmarkForward,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
-    risk: riskMetrics(book.navSeries, flowsByDate, riskFree.pct),
+    risk: riskMetrics(book.navSeries, flowsByDate, riskFreeRate),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
     riskFreeAnnualPct: riskFree.pct,
     riskFreeAsOf: riskFree.asOf,

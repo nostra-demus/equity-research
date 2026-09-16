@@ -69,7 +69,10 @@ export function markPosition(p: PortfolioPosition, index: Map<string, PortfolioL
   const unrealised = p.costBasisMoney !== null ? value - p.costBasisMoney
     : p.unrealizedLocal !== null ? p.unrealizedLocal + (value - p.positionValue)
       : null
-  if (unrealised === null) return statement
+  // A holding whose statement gives NEITHER a cost nor an unrealised still gets its live price and value:
+  // the server has already repriced it inside the live estimate of NAV, so leaving the row at its statement
+  // value would put that holding's move into the cash residual and divide every weight by a whole that does
+  // not match its parts. Unrealised is simply absent, which is what the statement says about it.
   // The weight divides two base-currency figures: this holding at the live price, over the live estimate of
   // the whole book. Without the statement's own rate, or without that estimate, it cannot be stated at all.
   const weightPct = p.fxRateToBase !== null && navBase !== null && navBase !== 0

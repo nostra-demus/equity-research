@@ -2278,6 +2278,9 @@ export interface PortfolioExecution {
 }
 
 export interface PortfolioBook {
+  /** The day the HOLDINGS were observed. Absent on an engine that predates the field, where `asOf` stands
+   *  in — the two differ only when the newest export carried no position snapshot (DESIGN.md §5). */
+  positionsAsOf?: string | null
   accountId: string | null
   baseCurrency: string | null
   asOf: string | null

@@ -401,7 +401,9 @@ function positionMarks(book: PortfolioBook, live: PortfolioLiveMark | null) {
   return {
     of: (p: PortfolioPosition): MarkedPosition => marks.get(p) ?? markPosition(p, new Map(), null),
     livePriced: [...marks.values()].filter((m) => m.live).length,
-    statementDay: book.asOf,
+    // The day the HOLDINGS were observed, which the book's own as-of outruns whenever the newest export
+    // carried no position snapshot. An engine that predates the field sends nothing, and `asOf` stands in.
+    statementDay: book.positionsAsOf ?? book.asOf,
   }
 }
 
