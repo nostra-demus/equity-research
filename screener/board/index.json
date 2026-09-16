@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T05:10:23Z",
+  "generated_at": "2026-09-16T05:15:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1871,6 +1871,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-121",
+      "headline": "Oracle India Cuts Jobs Again; Back-Office & Product Engineering Roles Worst Hit",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/oracle-india-cuts-jobs-again-back-office-product-engineering-roles-worst-hit",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:40:47Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Oracle is conducting another round of job cuts in India, impacting product engineering and back-office operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Oracle is conducting another round of job cuts in India, impacting product engineering and back-office operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-115",
       "headline": "Paytm shares jump 7% as Jefferies, other brokerages raise target prices and earnings estimates after new UPI charges",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-109",
-      "headline": "Oracle Layoffs: CFO says ‘do more with less’ isn’t the answer in first all-hands meet after latest job cuts",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/oracle-layoffs-cfo-says-do-more-with-less-isn-t-the-answer-in-first-all-hands-meet-after-latest-job-cuts-11789528782407.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T03:45:55Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Oracle management is addressing internal concerns regarding recent job cuts and operational efficiency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Oracle management is addressing internal concerns regarding recent job cuts and operational efficiency.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166029,9 +166029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3362595,
-    "news_picked_today": 170,
-    "news_dropped_today": 2638
+    "news_seen_today": 3423909,
+    "news_picked_today": 175,
+    "news_dropped_today": 2681
   },
   "book_momentum": {
     "live_count": 8,
