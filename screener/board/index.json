@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-16T12:26:38Z",
+  "generated_at": "2026-09-16T12:31:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260916-263",
+      "headline": "C ZENITH CHEM (00362): (1) QUARTERLY UPDATE ON RECENT DEVELOPMENTS; AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601235.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T11:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "C Zenith Chem (00362) operating under continued trading suspension — signals investigation, covenant breach, regulatory distress, or insolvency requiring survival-level reassessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C Zenith Chem (00362) operating under continued trading suspension — signals investigation, covenant breach, regulatory distress, or insolvency requiring survival-level reassessment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C Zenith Chem",
+          "ticker": "00362",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260916-257",
       "headline": "Primo Chemicals Limited: Primo Chemicals Limited has informed the Exchange regarding 'Update on acquisition of Balance 51%Equity Stake in Flow Tech Chemicals Private Limited.'.",
@@ -1937,55 +1986,6 @@
           "name": "H World Group Limited",
           "ticker": "01179",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-231",
-      "headline": "HWORLD-S (01179): COMPLETION OF CNY3.35 BILLION OFFERING OF CNY-DENOMINATED SENIOR BONDS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600887.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T10:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Company completed a CNY 3.35 billion senior bond offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company completed a CNY 3.35 billion senior bond offering.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "H World Group",
-          "ticker": "01179",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -165618,9 +165618,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5803543,
-    "news_picked_today": 454,
-    "news_dropped_today": 10634
+    "news_seen_today": 5826410,
+    "news_picked_today": 457,
+    "news_dropped_today": 10895
   },
   "book_momentum": {
     "live_count": 8,
