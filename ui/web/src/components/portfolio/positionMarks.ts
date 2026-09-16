@@ -91,7 +91,7 @@ export function markPosition(p: PortfolioPosition, index: Map<string, PortfolioL
   if (!row || !Number.isFinite(row.price) || stmtPrice === null || !Number.isFinite(stmtPrice) || !(stmtPrice > 0)
     || positionValue === null || !Number.isFinite(positionValue)) return statement
   // ALIGNED TO ONE UNIT before the two prices are compared as a ratio — see statementMinorUnitDivisor.
-  const alignedStmtPrice = stmtPrice / statementMinorUnitDivisor(positionValue, stmtPrice, p.quantity, p.multiplier)
+  const alignedStmtPrice = stmtPrice / statementMinorUnitDivisor(p.assetCategory, positionValue, stmtPrice, p.quantity, p.multiplier)
   const value = positionValue * (row.price / alignedStmtPrice)
   const costBasisMoney = p.costBasisMoney
   const unrealizedLocal = p.unrealizedLocal

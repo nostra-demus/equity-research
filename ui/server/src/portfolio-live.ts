@@ -137,7 +137,7 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
     // news/equity-quote.ts). Dividing the live price by the raw pence mark would scale the value by ~100x.
     const stmt = p.markPrice
     const alignedStmt = stmt !== null
-      ? stmt / statementMinorUnitDivisor(p.positionValue, stmt, p.quantity, p.multiplier)
+      ? stmt / statementMinorUnitDivisor(p.assetCategory, p.positionValue, stmt, p.quantity, p.multiplier)
       : null
     const value = p.positionValue !== null && alignedStmt !== null && alignedStmt > 0
       ? p.positionValue * (price / alignedStmt) * rate

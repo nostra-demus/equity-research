@@ -32,6 +32,7 @@
 // Pure: documents in, book out. No filesystem and no clock — persistence lives in the caller.
 
 import type { FlexCorporateAction, FlexDocument, FlexTrade } from './portfolio-import'
+import { PAR_PRICED_CATEGORIES } from '../../shared/live-pricing'
 
 // ---------- shapes ----------
 
@@ -358,8 +359,10 @@ function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
 
 const EPS = 1e-9
 
-/** Instruments quoted as a percentage of par, for which quantity × price is not their value. */
-const PAR_PRICED = new Set(['BOND', 'BILL'])
+/** Instruments quoted as a percentage of par, for which quantity × price is not their value.
+ *  Single source of truth in ui/shared/live-pricing.ts, imported so the blotter and the live-mark path
+ *  cannot disagree about which categories are percent-of-par. */
+const PAR_PRICED = PAR_PRICED_CATEGORIES
 
 /** The signed quantity a contract's open lots add up to — the position as the lot engine holds it. */
 function netQuantity(lots: BookLot[]): number {

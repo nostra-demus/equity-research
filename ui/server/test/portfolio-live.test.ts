@@ -108,6 +108,25 @@ await check('a pence statement mark (GBP currency code, pence-scale price) is al
   assert.ok(row.movePct !== null && Math.abs(row.movePct - 2) < 1, `expected a ~+2% move, got ${row.movePct}`)
 })
 
+await check('a percent-of-par bond is not mistaken for a pence/pounds units error', async () => {
+  // value = face × price/100: 10,000 face at 98.5 is worth 9,850, so the implied ratio is legitimately
+  // 0.01 — inside the pence-detector's band. A BOND is already on the same percent-of-par basis as its
+  // live quote, so no ÷100 applies; before the fix the spurious divisor scaled a ~99 quote as a ~100×
+  // move (value ≈ 990,000 instead of ≈ 9,900).
+  const bond = pos({
+    symbol: 'GB00', assetCategory: 'BOND', currency: 'USD', markPrice: 98.5, positionValue: 9_850,
+    costBasisMoney: 9_800, quantity: 10_000, multiplier: 1, fxRateToBase: 1,
+  })
+  const fetchFn = stubFetch(() => cnbcBody([
+    { symbol: 'GB00', name: 'Example Bond', last: '99.00', last_time: '2026-07-22', currencyCode: 'USD', exchange: 'NASDAQ', curmktstatus: 'REG_MKT', realTime: 'true' },
+  ]))
+  const m = await liveMark(bookOf([bond]), baseDeps(fetchFn))
+  assert.equal(m.priced.length, 1)
+  const row = m.priced[0]!
+  assert.ok(Math.abs(row.value - 9_850 * (99 / 98.5)) < 0.5, `expected the par-scaled value ~9,900, got ${row.value}`)
+  assert.ok(row.value < 20_000, `a percent-of-par bond must not be inflated ~100× (got ${row.value})`)
+})
+
 await check('a genuine ~5x move between the statement and today is never mistaken for a pence/pounds mismatch', async () => {
   const p = pos({ symbol: 'MOON', markPrice: 10, positionValue: 1000, quantity: 100 })
   const fetchFn = stubFetch(() => cnbcBody([

@@ -46,6 +46,17 @@ check('the value is the statement’s own, scaled — never quantity × price', 
   assert.ok(near(m.unrealised!, 99_500 * (100.5 / 99.5) - 98_000))
 })
 
+check('a percent-of-par bond is not mistaken for a pence/pounds units error', () => {
+  // value = face × price/100: 10,000 face at 98.5 is worth 9,850, so the implied ratio is legitimately
+  // 0.01 — inside the pence-detector's 0.005–0.02 band. A BOND/BILL is already on the same percent-of-par
+  // basis as its live quote, so no ÷100 applies; before the fix the spurious divisor scaled a ~99 live
+  // quote as a ~100× move (value ≈ 990,000 instead of ≈ 9,900).
+  const bond = pos({ symbol: 'GB00', assetCategory: 'BOND', markPrice: 98.5, positionValue: 9_850, costBasisMoney: 9_800, quantity: 10_000 })
+  const m = markPosition(bond, livePriceIndex(mark([priced({ symbol: 'GB00', statementPrice: 98.5, price: 99 })]), [bond]), 1_000_000)
+  assert.ok(near(m.value!, 9_850 * (99 / 98.5)), `expected the par-scaled value ~9,900, got ${m.value}`)
+  assert.ok(m.value! < 20_000, `a percent-of-par bond must not be inflated ~100× (got ${m.value})`)
+})
+
 check('a holding the feed could not price stays exactly as the statement stated it', () => {
   const p = pos({ symbol: 'EMAAR' })
   const m = markPosition(p, livePriceIndex(mark([priced({ symbol: 'GOOG' })]), [p]), 100_000)

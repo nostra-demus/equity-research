@@ -19,6 +19,18 @@ export function isQuoteEligibleCategory(assetCategory: string | null | undefined
 }
 
 /**
+ * Instruments quoted as a PERCENTAGE OF PAR, for which `value = quantity × price` does not hold and the
+ * statement price and a live quote are already on the same percent-of-par basis (no minor-unit rescaling
+ * applies). Single source of truth for that set; the blotter (portfolio.ts) imports it so the two cannot
+ * drift — the same reason this whole module exists.
+ */
+export const PAR_PRICED_CATEGORIES = new Set(['BOND', 'BILL'])
+
+export function isParPricedCategory(assetCategory: string | null | undefined): boolean {
+  return PAR_PRICED_CATEGORIES.has((assetCategory ?? '').toUpperCase())
+}
+
+/**
  * The factor by which a statement's own per-share price must be divided before it can be compared with a
  * live quote, or 1 when nothing suggests it needs to be.
  *
@@ -32,13 +44,20 @@ export function isQuoteEligibleCategory(assetCategory: string | null | undefined
  *
  * This detects the mismatch from the statement's OWN numbers rather than guessing from a currency code
  * the statement does not reliably carry.
+ *
+ * A PERCENTAGE-OF-PAR holding (BOND/BILL) is excluded: there `value = face × price/100`, so the implied
+ * ratio is legitimately ~0.01 and would otherwise be mistaken for a pence/pounds units error — the
+ * statement price (e.g. 98.5) and the live quote (~99) are already on the same percent-of-par basis, so
+ * no rescaling applies and a spurious ÷100 would inflate value, NAV and weight ~100×.
  */
 export function statementMinorUnitDivisor(
+  assetCategory: string | null | undefined,
   positionValue: number | null | undefined,
   markPrice: number | null | undefined,
   quantity: number | null | undefined,
   multiplier: number | null | undefined,
 ): number {
+  if (isParPricedCategory(assetCategory)) return 1
   if (positionValue == null || markPrice == null || quantity == null) return 1
   if (!Number.isFinite(positionValue) || !Number.isFinite(markPrice) || markPrice === 0) return 1
   if (!Number.isFinite(quantity) || quantity === 0) return 1
