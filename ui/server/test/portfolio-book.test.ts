@@ -1262,9 +1262,15 @@ check('an FX-only period is not reported as missing trade data', () => {
   // empty — a conversion books no closure, and is excluded from brokerRows on purpose (see above). That
   // used to fall straight into the "no trade rows were imported" branch even though the conversion WAS
   // imported and fully accounts for the statement's own realised total.
+  // The conversion must fall INSIDE the statement window ([2026-01-01, 2026-01-04]) — latestNav.realized
+  // only covers that window, so the conversion it is compared against is scoped to it (see the multi-period
+  // case below). fxRateToBase pins the base-currency amount so it does not depend on the fx grid.
+  const convBuy = { ...fxBuy, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', fxRateToBase: 1 }
+  const convSell = { ...fxSell, tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', fxRateToBase: 1,
+    fifoPnlRealized: 20786.5 }
   const fxOnlyDoc = {
     ...doc,
-    trades: [fxBuy, { ...fxSell, fifoPnlRealized: 20786.5 }],
+    trades: [convBuy, convSell],
     changeInNav: { ...doc.changeInNav!, realized: 20786.5 },
   }
   const fxOnly = buildBook([fxOnlyDoc])
@@ -1278,6 +1284,21 @@ check('an FX-only period is not reported as missing trade data', () => {
   const withOther = buildBook([{ ...fxOnlyDoc, trades: [...fxOnlyDoc.trades, buyXsp] }])
   const realisedWithOther = withOther.reconciliation.checks.find((c) => c.name === 'Realised P&L')
   assert.equal(realisedWithOther?.ok ?? true, true, 'an unrelated open trade must not surface the same break')
+
+  // MULTI-PERIOD: conversions from an earlier statement must not be folded into the latest window's
+  // total. `conversionRows` is drawn from the whole merged import, but latestNav.realized covers only the
+  // newest window — so an unscoped sum adds the prior-period conversion (5000) to the latest one (20786.5)
+  // and no longer matches the newest realised, raising a false "no trade rows" break on a period that is
+  // in fact fully explained by its own conversion. Scoping conversions to [fromDate, toDate] fixes it.
+  const priorConv = { ...fxBuy, tradeID: 'FX0', transactionID: 'FXX0', tradeDate: '2025-12-15',
+    dateTime: '2025-12-15T10:00:00', fxRateToBase: 1, fifoPnlRealized: 5000 }
+  const priorDoc = { ...doc, fromDate: '2025-12-01', toDate: '2025-12-31',
+    whenGenerated: '2025-12-31T00:00:00', trades: [priorConv], openPositions: [], equitySummary: [],
+    cashTransactions: [], changeInNav: null }
+  const multi = buildBook([priorDoc, fxOnlyDoc])
+  const realisedMulti = multi.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realisedMulti, undefined,
+    'a prior-period conversion must not fold into the latest window and manufacture a false break')
 
   // A period that is genuinely missing its trade detail — no conversion, no other row — must still be
   // caught: this fix narrows the false alarm, it does not remove the check.

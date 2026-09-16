@@ -1338,7 +1338,20 @@ export function reconcile(ctx: {
   // traded that period: one non-CASH opening row bypassed the "no trade rows" branch below entirely,
   // while an FX-only period fell straight into it. Check the RAW executions (before the CASH filter) for
   // conversion rows whose own realised amount already accounts for the statement's realised total.
-  const conversionRows = executions.filter((t) => isCurrencyConversion(t.assetCategory) && t.fifoPnlRealized !== null)
+  //
+  // Scope those conversions to the LATEST statement's own window, because latestNav.realized only covers
+  // that window. `conversionRows` is drawn from the whole merged, multi-period import, so an unscoped sum
+  // folds prior-period FX gains into the comparison — which would make a valid FX-only latest period miss
+  // its own total (false "no trade rows" break) or let a coincidental cross-period total suppress a real
+  // break when the latest period's trade detail is genuinely missing. Same window basis the deposits/
+  // withdrawals check uses (§15 matched basis), on the same date resolution the rate lookup uses above.
+  const inLatestWindow = (t: FlexTrade) => {
+    if (!latestNav?.fromDate || !latestNav.toDate) return true
+    const d = (t.dateTime ?? t.tradeDate)?.slice(0, 10)
+    return !!d && d >= latestNav.fromDate && d <= latestNav.toDate
+  }
+  const conversionRows = executions.filter(
+    (t) => isCurrencyConversion(t.assetCategory) && t.fifoPnlRealized !== null && inLatestWindow(t))
   const conversionRealised = conversionRows.reduce((a, t) => a + realisedBase(t), 0)
   const fxOnlyRealised = conversionRows.length > 0 && latestNav?.realized != null &&
     Number.isFinite(conversionRealised) &&
