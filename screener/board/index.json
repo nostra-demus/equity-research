@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:59:10Z",
+  "generated_at": "2026-09-16T02:04:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-062",
@@ -1242,6 +1242,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-068",
+      "headline": "100% tariff threat to India: US House advances Russia sanctions bill | What we know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/100-tariff-threat-to-india-us-house-advances-russia-sanctions-bill-what-we-know-11789522442630.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "US House advancing a Russia sanctions bill and potential 100% tariff threat to India represent significant geopolitical and trade risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "US House advancing a Russia sanctions bill and potential 100% tariff threat to India represent significant geopolitical and trade risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-040",
       "headline": "Bank of Baroda saw BR Shetty's NMC Group red flags. Yet it sanctioned more loans",
       "headline_en": null,
@@ -1427,6 +1471,148 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-070",
+      "headline": "SCHEDULE 13D/A - ProFrac Holding Corp. (0001881487) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1881487/000110465926108028/0001104659-26-108028-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:46:06Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "ProFrac Holding Corp filed an amended 13D, indicating a change in significant shareholder position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "ProFrac Holding Corp filed an amended 13D, indicating a change in significant shareholder position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ProFrac Holding Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-069",
+      "headline": "Russia sanctions bill advances in US House, set for final vote",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/russia-sanctions-bill-advances-in-us-house-set-for-final-vote-4147619",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T01:43:35Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "US House advancing a Russia sanctions bill increases geopolitical risk and potential trade friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "US House advancing a Russia sanctions bill increases geopolitical risk and potential trade friction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-071",
+      "headline": "SCHEDULE 13D/A - FLOTEK INDUSTRIES INC/CN/ (0000928054) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/928054/000110465926108028/0001104659-26-108028-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-16T01:46:06Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Flotek Industries Inc is the subject of an amended 13D filing regarding shareholder ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Flotek Industries Inc is the subject of an amended 13D filing regarding shareholder ownership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flotek Industries Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1765,202 +1951,6 @@
       "companies": [
         {
           "name": "PIA",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-048",
-      "headline": "STRONG PETRO (00852): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600083.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T00:42:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Strong Petro has resumed trading after a halt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Strong Petro has resumed trading after a halt.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strong Petro",
-          "ticker": "00852",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-044",
-      "headline": "SCHEDULE 13D - JATT Ventures II L.P. (0002127273) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2127273/000121390026100263/0001213900-26-100263-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T00:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant stake or potential activist interest in an unnamed issuer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "A Schedule 13D filing indicates a significant stake or potential activist interest in an unnamed issuer.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JATT Ventures II L.P.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-030",
-      "headline": "425 - Curaleaf Holdings, Inc. (0001756770) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1756770/000175677026000107/0001756770-26-000107-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-15T19:56:32Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Routine M&A communication filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Routine M&A communication filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Curaleaf Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-015",
-      "headline": "CTS: Milestone 3 Completed for CUREator Program [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTS?key=2924-03135982-2A1697368",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:41:54Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Completion of a development milestone for a program indicates progress in product or clinical development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Completion of a development milestone for a program indicates progress in product or clinical development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cureator",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -165605,9 +165595,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1323959,
-    "news_picked_today": 69,
-    "news_dropped_today": 963
+    "news_seen_today": 1364399,
+    "news_picked_today": 75,
+    "news_dropped_today": 1005
   },
   "book_momentum": {
     "live_count": 8,
