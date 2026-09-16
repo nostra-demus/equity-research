@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-27T02:10:53Z",
+  "archived_at": "2026-09-16T10:05:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-c965aee2d06a",
-    "idea_version": "IDEAV-3f87f0dae61817dd",
-    "idea_version_started_at": "2026-08-24T09:24:19Z",
-    "ticker": "1831",
-    "company": "SHIFANG HLDG",
+    "idea_id": "IDEA-8d1552f59ea8",
+    "idea_version": "IDEAV-97db41660754a5bd",
+    "idea_version_started_at": "2026-09-13T16:50:02Z",
+    "ticker": "0309",
+    "company": "XH News Media",
     "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
-    "why_now": "The trading halt notice was issued on August 24, 2026.",
-    "conviction": 55,
+    "reason": "The company has received a formal winding-up petition, which typically precedes liquidation and renders equity value highly speculative or zero.",
+    "why_now": "Inside information filing released on September 13, 2026.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 19,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
-    "thesis_type": "company_specific",
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-d15287d05a24"
+      "EVT-dac3667e4fc3"
     ],
-    "primary_source_event_id": "EVT-d15287d05a24",
+    "primary_source_event_id": "EVT-dac3667e4fc3",
     "source_headlines": [
-      "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
+      "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION"
     ],
-    "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
+    "source_headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
     "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-24T02:09:00Z",
+    "newest_source_at": "2026-09-13T10:03:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T09:24:19Z",
-    "updated_at": "2026-08-24T09:24:19Z",
-    "decay_at": "2026-08-25T14:09:00Z",
+    "surfaced_at": "2026-09-13T16:50:02Z",
+    "updated_at": "2026-09-13T16:50:02Z",
+    "decay_at": "2026-09-14T22:03:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
