@@ -33,6 +33,14 @@ function friendlyClaudeResultError(o: any): string {
   return 'Claude could not answer. Retry the same question.'
 }
 
+/** Whether an error from a turn is the provider's own usage limit — the plan's quota, not anything about the
+ *  request. Both messages above end "usage limit reached — try again after the plan resets", and a raw error
+ *  that never reached them is matched on the shapes they are built from. A caller that holds off until the
+ *  plan resets needs to tell this apart from a failure it should stop retrying. */
+export function isUsageLimitError(text: string | null | undefined): boolean {
+  return /usage limit|rate limit|plan quota|weekly limit|5-hour limit|too many requests|\b429\b/i.test(String(text ?? ''))
+}
+
 function friendlyCodexError(value: unknown): string {
   const text = String(value || '').replace(/\s+/g, ' ').trim()
   if (/not logged in|login required|sign.?in|authenticat|unauthori[sz]ed|\b401\b/i.test(text)) {

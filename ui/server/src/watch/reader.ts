@@ -11,7 +11,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { ANALYSES_DIR, CHAT, STATE_DIR, WATCH } from '../config'
-import { runChatTurn, type ChatTurnOptions } from '../chat-llm'
+import { isUsageLimitError, runChatTurn, type ChatTurnOptions } from '../chat-llm'
 import { resolveAllowedChatModel } from '../chat-models'
 import { UsdBudget } from '../news/triage/budget'
 import type { WatchListing } from '../watchlist'
@@ -131,7 +131,7 @@ export function readerMessage(plan: WatchPlan, src: ResearchSources): string {
 
 // ---------- the read ----------
 
-export type ReadStatus = 'ok' | 'cached' | 'failed' | 'budget' | 'no_sources'
+export type ReadStatus = 'ok' | 'cached' | 'failed' | 'budget' | 'limit' | 'no_sources'
 export interface ReadOutcome { status: ReadStatus; plan: WatchPlan | null; detail: string; cost_usd: number }
 
 /** The part of UsdBudget the reader uses — a test hands in a fake. */
@@ -280,6 +280,17 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   const cost = model.provider === 'codex' ? hold : Math.max(0, Number(outcome.costUsd) || 0)
   budget.reconcile(reservation, cost)
 
+  // THE PLAN'S OWN USAGE LIMIT IS NOT A FAILED READ. It says nothing about this report — every read on the
+  // machine fails the same way until the plan resets, in about five hours. Counted as a failure it spent the
+  // three attempts at once and then stood the report down for a day: on the live cockpit all ten reports
+  // failed inside 23 seconds and none was read again that day. It is recorded like the daily reading limit —
+  // a reason the text is not read YET, with the record's own bad case and deal-breakers watched meanwhile.
+  if (outcome.error && isUsageLimitError(outcome.error)) {
+    if (existing) return { status: 'limit', plan: existing, detail: outcome.error, cost_usd: cost }
+    const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: outcome.error } }
+    savePlan(plan, stateDir)
+    return { status: 'limit', plan, detail: outcome.error, cost_usd: cost }
+  }
   if (outcome.error) return failed(outcome.error, cost, model.id)
   const parsed = parseReaderJson(text)
   if (!parsed) return failed('The answer was not the list that was asked for.', cost, model.id)

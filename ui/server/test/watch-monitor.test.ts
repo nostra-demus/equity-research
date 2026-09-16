@@ -361,6 +361,49 @@ async function main() {
     assert.ok(shutdown.indexOf('watchMonitor.idle()') < shutdown.indexOf('process.exit(code)'))
   })
 
+  await check("the plan's usage limit holds the whole list, is probed once, and blames no report", async () => {
+    // On the live cockpit all ten reports were read inside 23 seconds against a spent Claude plan, each spent
+    // its three attempts on the way, and each was then stood down for a day: the watchlist ran 14 hours with no
+    // plan read at all. The limit is one condition for the MACHINE, and the plan it belongs to resets in hours.
+    let t = new Date('2026-09-16T06:00:00Z')
+    let limited = true
+    const reads: string[] = []
+    const rows = ['AAA', 'BBB', 'CCC'].map((tk, i) => engineRow(tk, 'USD', 'NYSE', `${tk}_2026-08-0${i + 1}`))
+    const m6 = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-6-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async () => new Map(), indexLevels: async () => new Map(),
+      readPlan: async (row) => {
+        reads.push(row.run_root)
+        return limited
+          ? { status: 'limit', plan: null, detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+          : { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0.3 }
+      },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m6.tick(); await m6.idle() }
+    await m6.tick(); await m6.idle()
+    assert.equal(reads.length, 1, 'the first limit settles the reports queued behind it')
+    await step(5)
+    assert.equal(reads.length, 1, 'and nothing is tried again while it holds')
+    await step(16)
+    assert.equal(reads.length, 2, 'once the wait is over ONE probe goes out, not one per report')
+    const limitedView = m6.decorate(mergeWatchlist({ entries: [], engine: rows, today: t.toISOString().slice(0, 10), quotes: new Map() }).rows)
+    assert.equal(limitedView[0].watch.plan?.state, 'limit')
+    assert.match(limitedView[0].watch.plan!.detail, /^Claude usage limit reached/, 'said of the plan, not of the research')
+    assert.equal(m6.inbox.list().some((m) => m.items.some((i) => i.type === 'setup_failed')), false,
+      'and no report is reported unreadable for a limit that is not about it')
+    limited = false
+    await step(16)
+    await step(1)
+    await step(1)
+    assert.deepEqual([...new Set(reads)].sort(), rows.map((r) => r.run_root).sort(), 'every report is read once the plan is back')
+    assert.deepEqual(m6.decorate(mergeWatchlist({ entries: [], engine: rows, today: t.toISOString().slice(0, 10), quotes: new Map() }).rows)
+      .map((r) => r.watch.plan?.state), ['ready', 'ready', 'ready'])
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

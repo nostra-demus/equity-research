@@ -167,6 +167,22 @@ async function main() {
     assert.deepEqual(saved.items.filter((i) => i.kind === 'price').map((i: any) => i.role), ['bad_case'])
   })
 
+  await check("the plan's own usage limit is not a failed read — the report is not what went wrong", async () => {
+    // Counted as a failure it spent the three attempts in one burst and stood the report down for a day, and
+    // the cockpit said "Could not read the research" of a report nothing had been read from.
+    const stateL = path.join(root, 'state-limit')
+    const out = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'Claude usage limit reached — try again after the plan resets.' }),
+      budget: fakeBudget(20), stateDir: stateL, analysesDir: analyses, model: 'opus', now: clock,
+    })
+    assert.equal(out.status, 'limit')
+    assert.match(out.detail, /usage limit/)
+    const saved = loadPlan(RUN, stateL)!
+    assert.notEqual(saved.reader.status, 'failed', 'nothing about the research failed')
+    assert.deepEqual(saved.items.filter((i) => i.kind === 'price').map((i: any) => i.role), ['bad_case'],
+      "and the record's own bad case is watched meanwhile")
+  })
+
   await check('an answer that is not the list is a failure, never a guess', async () => {
     const out = await readResearchPlan(row, { runTurn: answering('Sorry, I cannot help with that.'), budget: fakeBudget(20), stateDir: path.join(root, 'state-junk'), analysesDir: analyses, model: 'opus', now: clock, force: true })
     assert.equal(out.status, 'failed')

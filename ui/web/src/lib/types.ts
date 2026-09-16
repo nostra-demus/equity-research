@@ -3546,7 +3546,9 @@ export type WatchPlanItem =
   | { kind: 'news'; id: string; topic: string; source: WatchPlanSource }
 
 export interface WatchPlanView {
-  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
+  /** `limit` is the provider's own usage limit — about this machine, not about the research; it clears when
+   *  the plan resets, and the record's own bad case and deal-breakers are watched meanwhile. */
+  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget' | 'limit'
   detail: string
   run_root: string
   decision: string | null
