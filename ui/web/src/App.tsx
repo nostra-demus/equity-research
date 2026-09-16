@@ -320,7 +320,7 @@ export function App() {
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be
           faster than enters anyway); the entry slide still runs via initial/animate */}
-      {newsFeedOpen && <LiveFeed />}
+      {newsFeedOpen && <LiveFeed personalScopeEnabled={activeSwarm === 'screener'} />}
       {diagnosticsOpen && <PipelineDiagnostics />}
       {sourcesOpen && <SourcesPanel />}
       <SignalIntake />

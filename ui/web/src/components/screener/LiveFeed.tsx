@@ -107,8 +107,7 @@ interface ArchiveState {
 }
 const EMPTY_ARCHIVE: ArchiveState = { results: [], loading: false, loadingMore: false, cursor: null, scannedThrough: null, exhausted: false }
 
-export function LiveFeed() {
-  const scoped = useStore((s) => s.activeSwarm === 'screener')
+export function LiveFeed({ personalScopeEnabled: scoped = false }: { personalScopeEnabled?: boolean }) {
   const personal = usePersonalScope(scoped)
   const close = useStore((s) => s.closeNewsFeed)
   const openDiagnostics = useStore((s) => s.openDiagnostics)
