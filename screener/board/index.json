@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T00:34:49Z",
+  "generated_at": "2026-09-16T00:39:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-039",
@@ -355,6 +355,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-041",
+      "headline": "Brookfield Agrees to Buy Reliance Worldwide for $2.9 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-15/brookfield-agrees-to-buy-reliance-worldwide-for-2-9-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-15T23:25:27Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Brookfield is acquiring Reliance Worldwide for $2.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is acquiring Reliance Worldwide for $2.9 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Reliance Worldwide",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-004",
       "headline": "FAU: FIRST AU TO ACQUIRE JAVELIN MINERALS [price-sensitive]",
       "headline_en": null,
@@ -413,60 +467,6 @@
       "headline": "FAU: JAV: FIRST AU TO ACQUIRE JAVELIN MINERALS",
       "headline_en": null,
       "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAU?key=2924-03135986_NPS-6A1343997",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-15T23:46:04Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "First Au announced the acquisition of Javelin Minerals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "First Au announced the acquisition of Javelin Minerals.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Au",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Javelin Minerals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-006",
-      "headline": "JAV: FAU: FIRST AU TO ACQUIRE JAVELIN MINERALS",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAV?key=2924-03135988_NPS-6A1343996",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
       "found_at": "2026-09-15T23:46:04Z",
@@ -1002,6 +1002,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-040",
+      "headline": "Bank of Baroda saw BR Shetty's NMC Group red flags. Yet it sanctioned more loans",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/bank-of-baroda-nmc-health-br-shetty-abu-dhabi-11789457279076.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T00:31:02Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Bank of Baroda faces potential regulatory and reputational risk regarding its lending practices to the NMC Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bank of Baroda faces potential regulatory and reputational risk regarding its lending practices to the NMC Group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165483,7 +165532,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2486,
+    "inbox_unconsumed": 2487,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165492,9 +165541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 408991,
-    "news_picked_today": 39,
-    "news_dropped_today": 273
+    "news_seen_today": 470318,
+    "news_picked_today": 41,
+    "news_dropped_today": 295
   },
   "book_momentum": {
     "live_count": 8,
