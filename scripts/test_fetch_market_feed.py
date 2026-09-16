@@ -19,7 +19,12 @@ import fetch_market_feed as M  # noqa: E402
 FAILURES: list[str] = []
 
 
+RAN = 0
+
+
 def check(name: str, fn) -> None:
+    global RAN
+    RAN += 1
     try:
         fn()
         print(f"  ok   {name}")
@@ -72,6 +77,57 @@ def test_it_writes_the_shape_the_readers_expect() -> None:
         assert sidecar["licensing"]["use"] == "allowed", sidecar["licensing"]
         received = dt.datetime.fromisoformat(sidecar["received"].replace("Z", "+00:00"))
         assert sidecar["received"].endswith("Z") and received.tzinfo is not None
+
+
+def test_a_rate_keeps_its_zeroes_while_an_index_drops_them() -> None:
+    # A rate of 0.00% is an observation — three-month bills printed it for months in 2020-21 — while an
+    # index level of zero is a bad row. The two series share a parser and must not share that rule.
+    raw = b"observation_date,DTB3\n2021-01-04,0.09\n2021-01-05,.\n2021-01-06,0.00\n"
+    assert M.parse(raw, M.DTB3) == [("2021-01-04", 0.09), ("2021-01-06", 0.0)]
+    assert M.parse(b"observation_date,SP500\n2026-08-21,0.00\n2026-08-24,7652.86\n") == [("2026-08-24", 7652.86)]
+
+
+def test_the_rate_series_writes_its_own_file_and_its_own_rights() -> None:
+    # Same lane, same shape, different rights: Treasury data is public domain where the index is not, and a
+    # sidecar that claimed the index's terms for it — or the reverse — would be wrong about both.
+    with tempfile.TemporaryDirectory() as tmp:
+        path = M.write_feed(tmp, [("2026-09-15", 4.11), ("2026-09-16", 4.09)], M.DTB3)
+        assert path.endswith(os.path.join("_market", "fred", "dtb3_2026-09-16.csv")), path
+        with open(path, encoding="utf-8") as fh:
+            rows = list(csv.reader(fh))
+        assert rows[0] == ["date", "symbol", "close"], rows[0]
+        assert rows[1] == ["2026-09-15", "DTB3", "4.11"], rows[1]
+        with open(path + ".source.json", encoding="utf-8") as fh:
+            sidecar = json.load(fh)
+        assert sidecar["series_id"] == "DTB3"
+        assert sidecar["license"] == "public_domain", sidecar["license"]
+        assert sidecar["licensing"]["redistribution"] == "allowed", sidecar["licensing"]
+        assert "percent per year" in sidecar["units"], sidecar["units"]
+        assert sidecar["source_url"].endswith("id=DTB3"), sidecar["source_url"]
+
+
+def test_both_series_are_fetched_and_one_failure_does_not_cost_the_other() -> None:
+    # A hiccup on one series must not skip the day's refresh of the other, and the exit code still reports it.
+    assert [s.symbol for s in M.FEEDS] == ["SP500", "DTB3"], M.FEEDS
+    with tempfile.TemporaryDirectory() as tmp:
+        calls: list[str] = []
+
+        def fake_fetch(url, source, **kwargs):  # noqa: ANN001 — a stand-in for the SSRF-bounded fetch
+            calls.append(url)
+            if "DTB3" in url:
+                raise RuntimeError("FRED said no")
+            return b"observation_date,SP500\n2026-08-24,7652.86\n"
+
+        real_fetch, real_argv = M.fetch_bytes, sys.argv
+        M.fetch_bytes = fake_fetch
+        sys.argv = ["fetch_market_feed.py", "--data-root", tmp]
+        try:
+            code = M.main()
+        finally:
+            M.fetch_bytes, sys.argv = real_fetch, real_argv
+        assert code == 1, "a failed series is reported in the exit code"
+        assert len(calls) == 2, calls
+        assert os.path.exists(os.path.join(tmp, "_market", "fred", "sp500_2026-08-24.csv")), "the one that worked is written"
 
 
 def test_the_host_is_pinned() -> None:
@@ -253,11 +309,15 @@ def main() -> int:
     check("junk rows are skipped and the series is sorted", test_junk_is_skipped_and_order_forced)
     check("a wrong-shaped response is refused, not half-read", test_wrong_shape_is_refused_not_half_read)
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
+    check("a rate keeps its zeroes while an index drops them", test_a_rate_keeps_its_zeroes_while_an_index_drops_them)
+    check("the rate series writes its own file and its own rights", test_the_rate_series_writes_its_own_file_and_its_own_rights)
+    check("both series are fetched, and one failing does not cost the other",
+          test_both_series_are_fetched_and_one_failure_does_not_cost_the_other)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
     check("deterministic wrappers fail closed on unknown lock ages", test_deterministic_wrappers_reject_unknown_lock_ages)
-    print(f"\n{8 - len(FAILURES)} passed, {len(FAILURES)} failed")
+    print(f"\n{RAN - len(FAILURES)} passed, {len(FAILURES)} failed")
     return 1 if FAILURES else 0
 
 

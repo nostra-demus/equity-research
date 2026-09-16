@@ -252,6 +252,30 @@ check('the forward benchmark chain still stops at a real hole in the feed', () =
   assert.equal(levels[0]!.date, '2026-01-02')
 })
 
+check('the cash hurdle is the feed\u2019s own latest rate, carrying the feed\u2019s date', () => {
+  // It was a constant: 4.3% as of 2 January, still what every Sharpe, Sortino and Calmar was measured
+  // against in September. The same feed that carries the benchmark carries this series daily.
+  const rf = store.riskFreeNow([{ date: '2026-09-14', close: 4.05 }, { date: '2026-09-15', close: 4.11 }])
+  assert.equal(rf.pct, 4.11)
+  assert.equal(rf.asOf, '2026-09-15')
+  assert.equal(rf.fromFeed, true)
+  assert.match(rf.source, /DTB3/)
+})
+
+check('a zero rate from the feed is a rate, not a missing one', () => {
+  const rf = store.riskFreeNow([{ date: '2021-01-06', close: 0 }])
+  assert.equal(rf.pct, 0)
+  assert.equal(rf.fromFeed, true)
+})
+
+check('with no feed the hurdle falls back to the dated constant, and says that is what it is', () => {
+  const rf = store.riskFreeNow([])
+  assert.equal(rf.pct, store.RISK_FREE.pct)
+  assert.equal(rf.asOf, store.RISK_FREE.asOf)
+  assert.equal(rf.fromFeed, false)
+  assert.match(rf.source, /no feed loaded/)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

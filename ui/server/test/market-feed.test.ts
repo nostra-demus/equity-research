@@ -75,6 +75,25 @@ check('a malformed row or file is skipped, never guessed at', () => {
   assert.deepEqual(feed.readCloses('SPY'), [{ date: '2026-01-02', close: 490 }])
 })
 
+check('a RATE series keeps a zero the price reader drops', () => {
+  // Three-month bills printed 0.00% for months in 2020-21. Read as a price those days vanish and the last
+  // rate before them stands as today's — the cash hurdle inside every Sharpe on the screen, months wrong.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2021-01-04,DTB3,0.09\n2021-01-06,DTB3,0.00\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2021-01-04', close: 0.09 }, { date: '2021-01-06', close: 0 }])
+  assert.deepEqual(feed.readCloses('DTB3'), [{ date: '2021-01-04', close: 0.09 }], 'the price reader still drops it')
+})
+
+check('a rate series still refuses a malformed row and a bad date', () => {
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2026-13-40,DTB3,4.1\n2026-09-15,DTB3,x\n2026-09-16,DTB3,4.2\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2026-09-16', close: 4.2 }])
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

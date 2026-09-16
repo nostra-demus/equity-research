@@ -39,6 +39,17 @@ function isIsoDate(s: string): boolean {
  *  the filesystem happened to list the folders. So the provider with the widest date span is used
  *  ALONE; the others are ignored rather than averaged or interleaved. */
 export function readCloses(symbol: string): Close[] {
+  return readSeries(symbol, (n) => n > 0)
+}
+
+/** The same feed read as a RATE series — a yield or a policy rate. Zero is a real observation there, not
+ *  the missing price `readCloses` drops it as: three-month bills printed 0.00% for months in 2020-21, and
+ *  dropping those days would leave the last rate before them standing as today's. */
+export function readRates(symbol: string): Close[] {
+  return readSeries(symbol, (n) => Number.isFinite(n))
+}
+
+function readSeries(symbol: string, keep: (value: number) => boolean): Close[] {
   const want = symbol.trim().toUpperCase()
   if (!want) return []
   let providers: string[] = []
@@ -70,9 +81,9 @@ export function readCloses(symbol: string): Close[] {
         if ((row[iSymbol] ?? '').trim().toUpperCase() !== want) continue
         const date = (row[iDate] ?? '').trim()
         const close = Number((row[iClose] ?? '').trim())
-        // A zero or negative close is not a price. Left in, it makes the ratio returns downstream read
-        // as a -100% move rather than as missing data.
-        if (!isIsoDate(date) || !Number.isFinite(close) || close <= 0) continue
+        // For a price, zero or negative is not an observation: left in, it makes the ratio returns
+        // downstream read as a -100% move rather than as missing data. A rate series keeps them.
+        if (!isIsoDate(date) || !Number.isFinite(close) || !keep(close)) continue
         byDate.set(date, close)
       }
     }
