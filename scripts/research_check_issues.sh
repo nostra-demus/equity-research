@@ -34,7 +34,9 @@ jq -c '.issues[]' "$result" | while read -r row; do
     if [ -n "$existing" ]; then
       # Still failing, issue already open: refresh its body so the current failing checks, commit and check
       # URL replace the stale ones — an unchanged issue keeps pointing the owner at obsolete failures (Codex review).
-      if gh issue edit "$existing" --body "$body" >/dev/null 2>&1; then
+      # The TITLE is refreshed too: both kinds of issue carry the same run marker, so a run whose contract
+      # failure is followed by its record being deleted would otherwise keep a headline its body contradicts.
+      if gh issue edit "$existing" --title "$title" --body "$body" >/dev/null 2>&1; then
         echo "research-check: refreshed #$existing for $run (current failing checks)"
       else
         echo "research-check: #$existing already open for $run (could not refresh its body)"

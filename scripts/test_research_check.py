@@ -18,7 +18,8 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from research_check import (  # noqa: E402
-    MARKER, ap_failures, classify, deleted_records, deleted_title, issue_actions, issue_body, issue_title,
+    MARKER, ap_failures, classify, deleted_body, deleted_records, deleted_title, issue_actions, issue_body,
+    issue_title,
     main, runs_from_paths, scored_only, status_of, suite_contract_failures, summary_markdown,
 )
 import subprocess  # noqa: E402
@@ -288,10 +289,11 @@ if shutil.which("jq") and shutil.which("bash"):
                 "#!/usr/bin/env python3\n"
                 "import sys\n"
                 "argv = sys.argv[1:]\n"
-                "open(%r, 'a').write(' '.join(argv[:3]) + '\\n')\n"
+                "open(%r, 'a').write(' '.join(argv) + '\\n')\n"
                 "if argv[:2] == ['issue', 'list']:\n"
                 "    sys.stdout.write('[{\"number\":101,\"body\":\"<!-- research-eval:OLDFAIL_2026-09-16 -->\"},'\n"
-                "                     '{\"number\":102,\"body\":\"<!-- research-eval:FIXED_2026-09-16 -->\"}]')\n"
+                "                     '{\"number\":102,\"body\":\"<!-- research-eval:FIXED_2026-09-16 -->\"},'\n"
+                "                     '{\"number\":103,\"body\":\"<!-- research-eval:GONE_2026-09-16 -->\"}]')\n"
                 "sys.exit(0)\n" % gh_log
             )
         os.chmod(fake_gh, 0o755)
@@ -306,6 +308,10 @@ if shutil.which("jq") and shutil.which("bash"):
             {"run": "FIXED_2026-09-16", "state": "close", "title": issue_title("FIXED_2026-09-16"),
              "body": "<!-- research-eval:FIXED_2026-09-16 -->passes"},
             {"run": "FIXED_NOISSUE_2026-09-16", "state": "close", "title": "x", "body": "y"},
+            # A run whose record was deleted, on top of the contract-failure issue it already has: same marker,
+            # different kind — so the headline has to change with the body.
+            {"run": "GONE_2026-09-16", "state": "open", "title": deleted_title("GONE_2026-09-16"),
+             "body": deleted_body("GONE_2026-09-16", "sha", "url")},
         ]}
         result_path = os.path.join(tmp, "result.json")
         with open(result_path, "w", encoding="utf-8") as handle:
@@ -325,6 +331,10 @@ if shutil.which("jq") and shutil.which("bash"):
         check("a still-failing run with an existing issue is REFRESHED via `issue edit 101` (Codex)",
               "issue edit 101" in log, "pre-fix left the stale body untouched")
         check("a fixed run's existing issue is `issue close 102`", "issue close 102" in log)
+        check("a refreshed issue's TITLE is updated with its body, so the two cannot contradict each other",
+              any(line.startswith("issue edit 103") and "--title" in line and "was removed" in line
+                  for line in log.splitlines()),
+              "the deletion issue kept the contract-failure headline")
         check("exactly one issue is created (only the new failing run), not the fixed-no-issue run",
               log.count("issue create") == 1, f"saw {log.count('issue create')} create call(s)")
 else:
