@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T04:30:58Z",
+  "generated_at": "2026-09-16T04:45:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -1437,6 +1437,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-110",
+      "headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/moneyball/2026/09/16/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial-discipline/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:00:01Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Tencent Music announced a $400 million share repurchase program for 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tencent Music announced a $400 million share repurchase program for 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tencent Music",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-079",
       "headline": "FTAI Aviation Authorizes $500 Mln Share Repurchase Program",
       "headline_en": null,
@@ -1882,55 +1931,6 @@
       "launched_signal_id": null,
       "triage_score": 84,
       "triage_reason": "Allen Family Digital filed an amended 13D regarding their stake in BuzzFeed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BuzzFeed, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-056",
-      "headline": "SCHEDULE 13D/A - BuzzFeed, Inc. (0001828972) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1828972/000149315226042803/0001493152-26-042803-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T01:00:09Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "BuzzFeed is the subject of an amended 13D filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "BuzzFeed is the subject of an amended 13D filing.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -166024,9 +166024,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2877115,
-    "news_picked_today": 160,
-    "news_dropped_today": 2216
+    "news_seen_today": 3056470,
+    "news_picked_today": 162,
+    "news_dropped_today": 2430
   },
   "book_momentum": {
     "live_count": 8,
