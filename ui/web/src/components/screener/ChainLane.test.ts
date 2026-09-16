@@ -204,3 +204,9 @@ const personalChain = renderToStaticMarkup(createElement(ChainLane, { board: boa
 assert.match(personalChain, /No supply-chain ideas match your portfolio/)
 assert.doesNotMatch(personalChain, /Haier|HAIER/, 'unrelated anchors must disappear together with their leads')
 usePersonalScopeStore.setState({ scope: 'universe' })
+
+usePersonalScopeStore.setState({ scope: 'portfolio', portfolio: { members: [{ ticker: 'CAT', name: 'Caterpillar', listingCountry: 'US' }], status: 'ready', error: null, asOf: null, unresolved: 0 } })
+const wrongMarket = board()
+wrongMarket.anchors = wrongMarket.anchors.map((anchor) => ({ ...anchor, ticker: 'CAT', name: 'Catapult', listing: 'ASX:CAT' }))
+assert.doesNotMatch(renderToStaticMarkup(createElement(ChainLane, { board: wrongMarket })), /chain__mapticker/, 'an anchor with the same ticker in another market is excluded')
+usePersonalScopeStore.setState({ scope: 'universe' })

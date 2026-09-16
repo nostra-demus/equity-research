@@ -14,7 +14,7 @@ export const SCOPE_LABELS = { portfolio: 'Portfolio', watchlist: 'Watchlist', un
 // Same currency-to-market fallback as the portfolio quote lane; EUR has no single market.
 const CURRENCY_MARKET: Record<string, string> = { USD: 'US', INR: 'IN', NOK: 'NO', GBP: 'GB', JPY: 'JP', HKD: 'HK', CHF: 'CH', SEK: 'SE', DKK: 'DK', ISK: 'IS', CAD: 'CA', AUD: 'AU', NZD: 'NZ', SAR: 'SA', AED: 'AE', QAR: 'QA', KWD: 'KW', OMR: 'OM', BHD: 'BH', ILS: 'IL', ZAR: 'ZA', NGN: 'NG', EGP: 'EG', KRW: 'KR', TWD: 'TW', SGD: 'SG', CNY: 'CN', CNH: 'CN', MYR: 'MY', IDR: 'ID', THB: 'TH', PHP: 'PH', VND: 'VN', BRL: 'BR', MXN: 'MX', CLP: 'CL', ARS: 'AR', PEN: 'PE', COP: 'CO', PLN: 'PL', TRY: 'TR', CZK: 'CZ', HUF: 'HU' }
 export function memberCountry(ticker: string, exchange: string | null = '', currency: string | null = ''): string | undefined {
-  return groupListingCountry(ticker, [], exchange || '') || CURRENCY_MARKET[(currency || '').toUpperCase()]
+  return groupListingCountry(ticker, [], (exchange || '').split(':')[0]) || CURRENCY_MARKET[(currency || '').toUpperCase()]
 }
 const STORAGE_KEY = 'nsw.personalScope'
 export function readPersonalScope(): PersonalScope {
@@ -78,11 +78,11 @@ export function matchesPersonalScope(item: Filterable, scope: PersonalScope, mem
       const matching = member.listingMarkets!.filter((listing) => tickerHitAny(company.ticker, [listing.ticker]))
       return !matching.length || matching.some((listing) => !listing.country || listing.country === company.listing_country)
     }) : item.companies
-    return companyMatches({ ...item, companies }, member)
+    return companyMatches({ ...item, companies }, member.listingMarkets?.length ? { ...member, listingCountry: undefined } : member)
   })
 }
 
-type Membership = { members: PersonalMember[]; status: 'idle' | 'loading' | 'ready' | 'error'; error: string | null; asOf: string | null; unresolved: number }
+type Membership = { members: PersonalMember[]; status: 'idle' | 'loading' | 'ready' | 'error'; error: string | null; asOf: string | null; unresolved: number; warning?: string | null }
 const emptyMembership = (): Membership => ({ members: [], status: 'idle', error: null, asOf: null, unresolved: 0 })
 interface PersonalScopeState {
   scope: PersonalScope
@@ -104,7 +104,8 @@ export const usePersonalScopeStore = create<PersonalScopeState>((set) => ({
         const read = kind === 'portfolio' ? await api.portfolio() : await api.watchlist()
         if (!read) throw new Error(`Could not read your ${kind}: the engine returned an empty response.`)
         if ('error' in read && read.error) throw new Error(read.error)
-        if ('unreadable' in read && read.unreadable.length) throw new Error('Some watchlist entries could not be read.')
+        const warning = 'unreadable' in read && read.unreadable.length
+          ? `${read.unreadable.length} watchlist entries could not be read; showing the readable companies.` : null
         let members = kind === 'portfolio' ? portfolioMembers(read as PortfolioRead) : watchlistMembers(read as WatchlistRead)
         let unresolved = 0
         members = await Promise.all(members.map(async (member) => {
@@ -118,7 +119,7 @@ export const usePersonalScopeStore = create<PersonalScopeState>((set) => ({
           // never resurrected: this loop runs over the newly fetched authoritative membership only.
           return resolvedMembers.get(key) || member
         }))
-        set({ [kind]: { members, status: 'ready', error: null, unresolved, asOf: kind === 'portfolio' ? (read as PortfolioRead).book?.asOf || null : (read as WatchlistRead).as_of } })
+        set({ [kind]: { members, status: 'ready', error: null, warning, unresolved, asOf: kind === 'portfolio' ? (read as PortfolioRead).book?.asOf || null : (read as WatchlistRead).as_of } })
       } catch (error) {
         set({ [kind]: { members: [], status: 'error', error: error instanceof Error ? error.message : 'Could not load companies.', asOf: null, unresolved: 0 } })
       }

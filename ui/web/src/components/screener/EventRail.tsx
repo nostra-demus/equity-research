@@ -439,11 +439,11 @@ export function EventRail() {
   const moreRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     const el = moreRef.current
-    if (!el || !archiveMode || !archiveCursor) return
+    if (!el || !archiveMode || !archiveCursor || personal.scope !== 'universe') return
     const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) void loadMoreArchive() }, { root: listRef.current, rootMargin: '600px 0px' })
     io.observe(el)
     return () => io.disconnect()
-  }, [archiveMode, archiveCursor, archiveLoadingMore, loadMoreArchive])
+  }, [archiveMode, archiveCursor, archiveLoadingMore, loadMoreArchive, personal.scope])
 
   // backfill + attach the live stream the moment the rail mounts (self-healing if scInit raced)
   useEffect(() => {
@@ -836,7 +836,9 @@ export function EventRail() {
             buried kept matches on later pages were unreachable and the empty-state below falsely claimed
             "genuinely nothing matches" while more archive remained to scan. */}
         {archiveMode && archiveCursor && (
-          <div ref={moreRef} className="evrail__more">{archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
+          <div ref={moreRef} className="evrail__more">{personal.scope !== 'universe'
+            ? <button type="button" disabled={archiveLoadingMore} onClick={() => void loadMoreArchive()}>{archiveLoadingMore ? 'Searching older news…' : `Search older news for your ${personal.label.toLowerCase()}`}</button>
+            : archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
         )}
         {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">

@@ -21,6 +21,7 @@ const members = portfolioMembers(portfolio)
 assert.equal(members.length, 4, 'deduplicate the same listing, keep short holdings and distinct markets, drop closed/null symbols')
 assert.deepEqual(watchlistMembers(watchlist).map((m) => m.ticker), ['META', 'RETURNED'], 'a resurfaced Research watchlist entry remains active despite its older archive record')
 assert.equal(memberCountry('CAT', 'ASX'), 'AU')
+assert.equal(memberCountry('CAT', 'ASX:CAT'), 'AU')
 assert.equal(memberCountry('KAR', null, null), undefined, 'nullable listing context is safe')
 const kar = enrichMember(members.find((m) => m.ticker === 'KAR' && m.listingCountry === 'AU')!, [
   { symbol: 'KAR', name: 'Openlane', exchange: 'NYSE', aliases: ['KAR'], aliasExchanges: { KAR: 'NYSE' } },
@@ -31,6 +32,7 @@ assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'KAR', n
 assert.equal(matchesPersonalScope({ headline: 'Karoon Energy announces drilling results' }, 'portfolio', [kar]), true)
 const hydro = enrichMember({ ticker: 'NHYDY', name: '', listingCountry: 'US' }, [{ symbol: 'NHYDY', name: 'Norsk Hydro ASA', exchange: 'OTC', aliases: ['NHYDY', 'NHY.OL'] }])
 assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'NHY', name: 'Norsk Hydro', listing_country: 'NO' }] }, 'portfolio', [hydro]), true, 'ADR and home listing are the same issuer')
+assert.equal(matchesPersonalScope({ headline: '', companies: [{ ticker: 'NHY', name: '', listing_country: 'NO' }] }, 'portfolio', [{ ...hydro, listingCountry: 'US' }]), true, 'validated sibling ticker matches without a supporting name')
 const crossListedCat = enrichMember({ ticker: 'CAT', name: '', listingCountry: 'US' }, [{
   symbol: 'CAT', name: 'Caterpillar', exchange: 'NYSE', aliases: ['CAT', 'CAT.DE'], aliasExchanges: { CAT: 'NYSE', 'CAT.DE': 'XETRA' },
 }])
@@ -57,6 +59,11 @@ api.symbolSearch = async (q) => q === 'AMZN' ? [{ symbol: 'AMZN', name: 'Amazon.
 await usePersonalScopeStore.getState().refresh()
 assert.equal(usePersonalScopeStore.getState().portfolio.status, 'ready')
 assert.equal(usePersonalScopeStore.getState().portfolio.members.find((m) => m.ticker === 'AMZN')?.name, 'Amazon.com Inc.')
+api.watchlist = async () => ({ ...watchlist, unreadable: ['broken.json'] } as WatchlistRead)
+await usePersonalScopeStore.getState().refresh()
+assert.equal(usePersonalScopeStore.getState().watchlist.status, 'ready')
+assert.equal(usePersonalScopeStore.getState().watchlist.members.length, 2, 'corrupt row does not discard readable entries')
+assert.match(usePersonalScopeStore.getState().watchlist.warning || '', /1 watchlist entries could not be read/)
 api.symbolSearch = async () => { throw new Error('directory offline') }
 await usePersonalScopeStore.getState().refresh()
 assert.equal(usePersonalScopeStore.getState().portfolio.members.length, 4, 'optional lookup failure preserves confirmed members')

@@ -234,7 +234,7 @@ function AnchorStrip({ board }: { board: SupplyChainBoard }) {
 export function ChainLane({ board }: { board: SupplyChainBoard }) {
   const personal = usePersonalScope()
   const leads = useMemo(() => board.leads.filter((lead) => personal.company(lead.anchor_ticker, lead.anchor_name || '', memberCountry(lead.anchor_ticker, lead.anchor_listing || '')) || personal.company(lead.symbol, lead.name, memberCountry(lead.symbol || '', lead.exchange || ''))), [board.leads, personal])
-  const scopedBoard = { ...board, anchors: board.anchors.filter((anchor) => personal.company(anchor.ticker)) }
+  const scopedBoard = { ...board, anchors: board.anchors.filter((anchor) => personal.company(anchor.ticker, anchor.name || '', memberCountry(anchor.ticker, anchor.listing || ''))) }
   const [showAll, setShowAll] = useState(false)
 
   const { open, held, groups } = useMemo(() => {

@@ -30,6 +30,7 @@ export function PersonalScopeToggle() {
         : membership.status === 'idle' || (membership.status === 'loading' && !membership.members.length) ? `Loading your ${SCOPE_LABELS[state.scope].toLowerCase()}…`
         : !membership.members.length ? `No companies in your ${SCOPE_LABELS[state.scope].toLowerCase()}. Add them in Research or choose Universe.`
         : `${SCOPE_LABELS[state.scope]} companies across all views${state.scope === 'portfolio' && membership.asOf ? ` · holdings as of ${membership.asOf}` : ''}`}
+      {state.scope !== 'universe' && membership.warning && <span> · {membership.warning}</span>}
       {state.scope !== 'universe' && membership.status === 'ready' && membership.unresolved > 0 && <span> · {membership.unresolved} company lookup{membership.unresolved === 1 ? '' : 's'} unavailable; using known names and tickers</span>}
       {state.scope !== 'universe' && membership.status === 'error' && <button type="button" onClick={() => void state.refresh()}>Retry</button>}
     </div>

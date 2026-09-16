@@ -286,7 +286,7 @@ export function LiveFeed({ personalScopeEnabled: scoped = false }: { personalSco
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return
-        if (archiveMode && archive.cursor && shownCount >= visibleGroups.length) { void loadMoreArchive(); return }
+        if (archiveMode && archive.cursor && shownCount >= visibleGroups.length) { if (personal.scope === 'universe') void loadMoreArchive(); return }
         setShownCount((c) => Math.min(c + PAGE, visibleGroups.length))
       },
       { root: listRef.current, rootMargin: '900px 0px' },
@@ -294,7 +294,7 @@ export function LiveFeed({ personalScopeEnabled: scoped = false }: { personalSco
     io.observe(el)
     return () => io.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount])
+  }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount, personal.scope])
 
   return (
     <motion.div className="pipeline wire" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -405,7 +405,9 @@ export function LiveFeed({ personalScopeEnabled: scoped = false }: { personalSco
         {(hasMore || (archiveMode && !!archive.cursor)) && (
           <div ref={sentinelRef} className="wire__more">
             {archiveMode && !hasMore
-              ? archive.loadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'
+              ? personal.scope !== 'universe'
+                ? <button type="button" disabled={archive.loadingMore} onClick={() => void loadMoreArchive()}>{archive.loadingMore ? 'Searching older news…' : `Search older news for your ${personal.label.toLowerCase()}`}</button>
+                : archive.loadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'
               : `showing ${shown.length.toLocaleString()} of ${visibleGroups.length.toLocaleString()} — scroll for more`}
           </div>
         )}
