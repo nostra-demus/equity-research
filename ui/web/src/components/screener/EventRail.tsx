@@ -1,3 +1,4 @@
+import { usePersonalScope } from '../../lib/personalScope'
 // The persistent left rail of the Screener stage: a live, ranked list of everything the auto-scanner
 // reads. New items stream in over SSE the moment a cycle scores them (and backfill from disk on mount,
 // so it survives a reload). Three ways to read the wire:
@@ -247,6 +248,7 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
 export function EventRail() {
   // the active wire's capabilities (lib/wire.ts) — the rail branches on these, never on a swarm id
   const cfg = useWireConfig()
+  const personal = usePersonalScope(cfg.gauntlet)
   const subjectMode = cfg.groupBy === 'subject'
   const rawItems = useStore((s) => s.newsItems)
   // a subject-grouped wire is a PROJECTION of the shared firehose: only items on this wire (tagged with
@@ -429,7 +431,7 @@ export function EventRail() {
   // self-healing retry if the mount request raced a deploy or transient archive outage.
   useEffect(() => { void loadFacets({}) }, [loadFacets])
   // the rendered set: the archive matches in archive mode, the live wire otherwise
-  const items = archiveMode ? archiveResults : liveItems
+  const items = useMemo(() => (archiveMode ? archiveResults : liveItems).filter(personal.matches), [archiveMode, archiveResults, liveItems, personal])
 
   // archive paging: pull the next page when a bottom sentinel scrolls into view (same pattern as the
   // full wire). Only armed in archive mode while there is a next cursor.
@@ -838,7 +840,9 @@ export function EventRail() {
         )}
         {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">
-            {archiveMode
+            {personal.scope !== 'universe' && !archiveMode
+              ? `No matching news for your ${personal.label.toLowerCase()} in the loaded window. Universe shows all companies; company filters search older news.`
+              : archiveMode
               ? archivePending
                 ? 'Searching all history…'
                 : archiveError
@@ -855,7 +859,7 @@ export function EventRail() {
                       </button>
                     </>
                   )
-                  : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
+                  : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}${personal.scope === 'universe' ? '' : ` in your ${personal.label.toLowerCase()}`}. This is the WHOLE archive, not just the last two days.`
               : gicsEmptyLine
               ? gicsEmptyLine
               : broadActive || filtersActive(filters) || (subjectMode && subjectSel.size > 0)

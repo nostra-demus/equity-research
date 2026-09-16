@@ -1,3 +1,4 @@
+import { usePersonalScope } from '../../lib/personalScope'
 import { useMemo, useState } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
@@ -65,13 +66,14 @@ export function ThemesView() {
   const retryThemes = useStore((state) => state.retryThemes)
   const wireConfig = useWireConfig()
 
+  const personal = usePersonalScope(wireConfig.gauntlet)
   const slice = themeSliceDisplay(geo.label, subject, wireConfig?.flow ? null : wireConfig?.eventScope)
-  const ranked = useMemo(() => rankedValidatedThemes(themes), [themes])
+  const ranked = useMemo(() => rankedValidatedThemes(themes).filter((theme) => personal.matches({ headline: '', companies: theme.top_companies })), [themes, personal])
   const hasSavedList = ranked.length > 0
   const stale = hasSavedList && (status !== 'ready' || themeStageIsStale(generatedAt))
   const debt = compilerDebt(formationQueue, compilerHealth)
 
-  if (selectedTheme) {
+  if (selectedTheme && ranked.some((theme) => theme.theme_id === selectedTheme)) {
     return <ThemeDetailView sourceSlice={slice} stale={stale} refreshFailed={status === 'error'} generatedAt={generatedAt} />
   }
 
@@ -109,7 +111,7 @@ export function ThemesView() {
         </div>
       ) : !hasSavedList ? (
         <div className="themes-simple__empty" role="status" aria-live="polite">
-          <b>No validated theme yet.</b>
+          <b>No validated theme{personal.scope !== 'universe' ? ` linked to your ${personal.label.toLowerCase()}` : ''} yet.</b>
           <span>{debt > 0 ? `${debt} raw news pattern${debt === 1 ? '' : 's'} ${debt === 1 ? 'is' : 'are'} still being checked. Raw patterns are not investment themes.` : slice.active ? `No evidence in ${slice.label} currently forms a validated theme.` : 'The engine has not found enough connected evidence to form a theme.'}</span>
         </div>
       ) : (
