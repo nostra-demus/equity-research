@@ -15,5 +15,8 @@ assert.equal((await ideasSnapshotPage(board, 'events', 'HK,IN', 'all', '0')).row
 assert.match(page.notices[0], /Read-only/)
 assert.equal(isDiscoveryPage({ ...page, notices: undefined }), false)
 assert.equal(isDiscoveryPage({ ...page, rows: [{ ...page.rows[0], payload: {} }] }), false)
+for (const invalid of [{ reason: {} }, { pair_with: {} }, { prior_coverage: { has_run: true, latest_decision: {} } }, { source_themes: [null] }]) {
+  assert.equal(isDiscoveryPage({ ...page, rows: [{ ...page.rows[0], payload: { ...page.rows[0].payload, ...invalid } }] }), false)
+}
 assert.equal(isDiscoveryPage({ ...page, schema_version: 'future' }), false)
 console.log('Static Ideas retain company snapshots; malformed pages fail before rendering')

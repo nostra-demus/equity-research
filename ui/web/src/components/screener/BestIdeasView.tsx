@@ -1080,7 +1080,7 @@ function PromoteButton({ idea, onAction }: { idea: BoardIdea; onAction?: () => P
     if (armTimer.current) clearTimeout(armTimer.current)
     setPhase('sending')
     promote(idea).then(
-      () => { /* board refresh flips the card to promoted; if it survives, reset */ setPhase('idle') },
+      async () => { await onAction?.(); setPhase('idle') },
       (e: any) => { setErr(e?.message || 'launch failed'); setPhase('idle') },
     )
   }

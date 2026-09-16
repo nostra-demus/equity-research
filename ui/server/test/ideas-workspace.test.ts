@@ -95,6 +95,21 @@ try {
   const eventRows = projectDiscovery([combined], readFilingActions(root)).filter((c) => c.kind === 'event')
   assert.equal(eventRows.length, 1, 'coalesces every previously filed identity')
   assert.equal(eventRows[0].archive_reason, null, 'latest explicit restore applies to the merged story')
+  const mergedRequest = { key: e2.key, action: 'archive' as const, operation_id: randomUUID(), expected_revision: eventRows[0].action_revision }
+  const mergedSaved = fileDiscoveryCard(root, [combined], mergedRequest)
+  assert.equal(fileDiscoveryCard(root, [combined], mergedRequest).action_revision, mergedSaved.action_revision, 'retry through an old merged key is idempotent')
+
+  const unresolved = idea({ ticker: 'VENUE', exchange: null, source_event_ids: ['EVT-venue'] })
+  fileDiscoveryCard(root, [unresolved], { key: unresolved.key, action: 'archive', operation_id: randomUUID(), expected_revision: null })
+  const resolved = idea({ ticker: 'VENUE', exchange: 'NYSE', source_event_ids: ['EVT-venue'] })
+  const venueRows = projectDiscovery([resolved], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE')
+  assert.equal(venueRows.length, 1, 'listing resolution retains logical story identity')
+  assert.equal(venueRows[0].archive_reason, 'manual')
+  assert.equal(venueRows[0].listings.long, 'US')
+  const otherVenue = idea({ ticker: 'VENUE', exchange: 'HKEX', source_event_ids: ['EVT-venue'] })
+  assert.equal(projectDiscovery([resolved, otherVenue], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 3, 'ambiguous unknown venue cannot bridge two confirmed listings')
+  refreshFiledDiscovery(root, [resolved])
+  assert.equal(projectDiscovery([resolved, otherVenue], readFilingActions(root)).filter((c) => c.payload.ticker === 'VENUE').length, 2, 'a resolved archive still keeps another confirmed listing separate')
 
   const many = Array.from({ length: 65 }, (_, i) => ({ ...e1, key: `event-${String(i).padStart(24, '0')}`, aliases: [`story:${i}`] }))
   const first = discoveryPage(many, 'events', [], 'all', 0)

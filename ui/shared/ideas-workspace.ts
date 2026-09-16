@@ -50,6 +50,9 @@ const object = (v: unknown): v is Record<string, any> => !!v && typeof v === 'ob
 const texts = (v: unknown): v is string[] => Array.isArray(v) && v.every((s) => typeof s === 'string')
 const date = (v: unknown): v is string => typeof v === 'string' && Number.isFinite(Date.parse(v))
 const nullableText = (v: unknown) => v === null || typeof v === 'string'
+const optionalTexts = (v: Record<string, any>, keys: string[]) => keys.every((key) => v[key] === undefined || nullableText(v[key]))
+const coverage = (v: unknown) => v == null || (object(v) && typeof v.has_run === 'boolean'
+  && typeof v.data_pool_present === 'boolean' && optionalTexts(v, ['latest_run', 'latest_decision', 'subject']))
 
 /** Validate the actual render dependencies before storing an HTTP response or folding a saved action. */
 export function isDiscoveryCard(v: unknown): v is DiscoveryCard {
@@ -70,12 +73,17 @@ export function isDiscoveryCard(v: unknown): v is DiscoveryCard {
         && ['source', 'observed'].includes(r.time_basis) && ['reported', 'supports', 'challenges'].includes(r.stance))
   }
   const p = v.payload
+  if (!coverage(p.prior_coverage)) return false
   if (v.kind === 'chain') return typeof p.name === 'string' && typeof p.anchor_ticker === 'string'
-    && texts(p.evidence_gaps) && Array.isArray(p.path) && p.path.every((step: unknown) => object(step) && typeof step.name === 'string')
+    && typeof p.mechanism === 'string' && typeof p.role === 'string'
+    && optionalTexts(p, ['listing', 'country', 'industry', 'anchor_name', 'anchor_decision', 'anchor_decision_date', 'symbol', 'source_ref', 'lead_score_cap_reason'])
+    && texts(p.evidence_gaps) && Array.isArray(p.path) && p.path.every((step: unknown) => object(step) && typeof step.name === 'string' && optionalTexts(step, ['listing', 'role']))
     && Number.isFinite(p.lead_score) && Number.isFinite(p.order)
   return typeof p.idea_id === 'string' && typeof p.ticker === 'string' && ['long', 'short', 'pair'].includes(p.direction)
+    && optionalTexts(p, ['company', 'exchange', 'pair_with', 'reason', 'why_now', 'source_name', 'source_url', 'newest_source_at', 'decay_at', 'idea_version', 'idea_version_started_at', 'trade_score_basis'])
     && typeof p.thesis_type === 'string' && texts(p.source_event_ids) && texts(p.source_headlines)
-    && (p.missing_checks === undefined || texts(p.missing_checks)) && (p.source_themes === undefined || Array.isArray(p.source_themes))
+    && (p.missing_checks === undefined || texts(p.missing_checks))
+    && (p.source_themes === undefined || (Array.isArray(p.source_themes) && p.source_themes.every((t: unknown) => object(t) && typeof t.theme_id === 'string' && Number.isFinite(t.theme_rev))))
     && ['live', 'promoted', 'expired'].includes(p.status)
 }
 

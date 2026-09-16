@@ -120,7 +120,7 @@ export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: Di
   const chain = buildSupplyChainBoard(root)
   for (const lead of chain.leads) {
     const card = shell('chain', [`chain:${lead.anchor_ticker}|${lead.listing || lead.name}|${lead.role}|${lead.path.map((p) => p.listing || p.name).join('>')}`],
-      lead as unknown as Record<string, unknown>, chain.generated_at, lead.lead_score)
+      lead as unknown as Record<string, unknown>, iso(lead.anchor_decision_date), lead.lead_score)
     card.listings = { long: discoveryListing(lead.symbol || lead.listing, lead.exchange), short: null }
     cards.push(card)
   }
@@ -136,6 +136,7 @@ export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: Di
 interface FilingAction {
   schema_version: 'idea-filing/v1'
   operation_id: string
+  request_key?: string
   action: 'archive' | 'restore' | 'update'
   at: string
   card: DiscoveryCard
@@ -170,6 +171,33 @@ export function projectDiscovery(cards: DiscoveryCard[], actions: FilingAction[]
       else owners.set(key, i)
     }
   })
+  // A source-bound unknown listing can acquire a venue without becoming a new story. Only bridge
+  // when exactly one confirmed market exists; an unresolved symbol must never unite two listings.
+  const transitions = new Map<string, { unknown: number[]; known: Map<string, number[]> }>()
+  candidates.forEach((card, i) => {
+    if (card.kind !== 'idea') return
+    for (const alias of card.aliases) {
+      const parts = alias.split('|')
+      if (parts.length !== 5 || !/^(source|theme):/.test(parts[4])) continue
+      const key = [parts[0], ...parts.slice(2)].join('|')
+      const entry = transitions.get(key) || { unknown: [], known: new Map<string, number[]>() }
+      const market = card.listings.long
+      if (!market) entry.unknown.push(i)
+      else entry.known.set(market, [...(entry.known.get(market) || []), i])
+      transitions.set(key, entry)
+    }
+  })
+  const bridges = new Map<number, Map<string, number>>()
+  for (const { unknown, known } of transitions.values()) {
+    for (const i of unknown) {
+      const matches = bridges.get(find(i)) || new Map<string, number>()
+      for (const [market, indices] of known) matches.set(market, indices[0])
+      bridges.set(find(i), matches)
+    }
+  }
+  for (const [i, matches] of bridges) {
+    if (matches.size === 1) parents[find(i)] = find([...matches.values()][0])
+  }
   const groups = new Map<number, DiscoveryCard[]>()
   candidates.forEach((card, i) => { const root = find(i); groups.set(root, [...(groups.get(root) || []), card]) })
   const merged: DiscoveryCard[] = []
@@ -229,7 +257,7 @@ export function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request:
     const actions = readFilingActions(root)
     const prior = actions.find((a) => a.operation_id === request.operation_id)
     if (prior) {
-      if (prior.card.key !== request.key || prior.action !== request.action) throw Object.assign(new Error('Filing request ID was already used.'), { statusCode: 409 })
+      if ((prior.request_key || prior.card.key) !== request.key || prior.action !== request.action) throw Object.assign(new Error('Filing request ID was already used.'), { statusCode: 409 })
       return prior.card
     }
     const current = projectDiscovery(cards, actions).find((c) => c.key === request.key || c.aliases.includes(`card:${request.key}`))
@@ -240,7 +268,7 @@ export function fileDiscoveryCard(root: string, cards: DiscoveryCard[], request:
     const card = { ...current, action_revision: request.operation_id,
       archived_at: request.action === 'archive' ? at : current.expired ? iso(current.payload.decay_at) || at : null,
       archive_reason: request.action === 'archive' ? 'manual' as const : current.expired ? 'expired' as const : null }
-    appendAction(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, action: request.action, at, card })
+    appendAction(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, request_key: request.key, action: request.action, at, card })
     return card
   })
 }

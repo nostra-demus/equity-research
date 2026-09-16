@@ -21,9 +21,11 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
   const cards = [...events, idea('USCO', 'NYSE'), idea('HKCO', 'HKEX'), idea('INCO', 'NSE')]
   let failRead = false
   let failWrite = false
+  let malformed = false
   await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
   await context.route('**/api/screener/idea-workspace?*', (route) => {
     if (failRead) return route.fulfill({ status: 503, json: { error: 'Fixture temporarily unavailable' } })
+    if (malformed) return route.fulfill({ json: { schema_version: 'ideas-workspace/v1', rows: [{ payload: { reason: {} } }] } })
     const q = new URL(route.request().url()).searchParams
     return route.fulfill({ json: discoveryPage(projectDiscovery(cards, readFilingActions(root)), q.get('lane') as IdeaLane,
       (q.get('hide') || '').split(','), q.get('kind') || 'all', Number(q.get('cursor') || 0)) })
@@ -31,6 +33,14 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
   await context.route('**/api/screener/idea-workspace/actions', (route) => {
     if (failWrite) return route.fulfill({ status: 503, json: { error: 'Fixture cannot save archive' } })
     return route.fulfill({ json: { card: fileDiscoveryCard(root, cards, route.request().postDataJSON()) } })
+  })
+  await context.route('**/api/screener/ideas/IDEA-USCO/feedback', (route) => {
+    cards.find((c) => c.payload.ticker === 'USCO')!.payload.feedback = route.request().postDataJSON().polarity === 'up' ? 'up' : null
+    return route.fulfill({ json: { ok: true } })
+  })
+  await context.route('**/api/e2e/promote-idea', (route) => {
+    cards.find((c) => c.payload.ticker === 'USCO')!.payload.status = 'promoted'
+    return route.fulfill({ json: { ok: true } })
   })
   try {
     await page.goto('/e2e/ideas.html')
@@ -45,6 +55,26 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await page.getByRole('tab', { name: 'Long', exact: true }).click()
     await expect(page.getByText('USCO contract announcement')).toBeVisible()
     await expect(page.getByText('HKCO contract announcement')).toHaveCount(0)
+    const good = page.getByRole('button', { name: 'Good idea', exact: true })
+    await good.click()
+    await expect(good).toHaveAttribute('aria-pressed', 'true')
+    await page.getByRole('tab', { name: 'Events', exact: true }).click()
+    await page.getByRole('tab', { name: 'Long', exact: true }).click()
+    await expect(good).toHaveAttribute('aria-pressed', 'true')
+    await good.click()
+    await expect(good).toHaveAttribute('aria-pressed', 'false')
+    // The launch itself is covered by the provider fixture; verify this card refreshes after acceptance.
+    await page.evaluate(async () => {
+      const { useStore } = await import('/src/lib/store.ts')
+      const profile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+      useStore.setState({ runProvider: 'claude', providers: { ...useStore.getState().providers, catalogState: 'valid',
+        claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile } },
+        scPromoteIdea: async () => { await fetch('/api/e2e/promote-idea', { method: 'POST' }) } })
+    })
+    await page.getByRole('button', { name: 'Run the full machine →', exact: true }).click()
+    await page.getByRole('button', { name: 'Confirm · run the machine', exact: true }).click()
+    await expect(page.getByText('Sent to full research', { exact: true })).toBeVisible()
+    await expect(good).toHaveCount(0)
     await page.getByLabel('Hide Hong Kong listings').uncheck()
     await expect(page.getByText('HKCO contract announcement')).toBeVisible()
     await page.reload()
@@ -79,6 +109,13 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await expect(page.getByRole('tab', { name: 'Long', exact: true })).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByText('USCO contract announcement')).toBeVisible()
     failRead = false
+    await page.getByRole('button', { name: 'Retry', exact: true }).click()
+    await expect(page.getByRole('alert')).toHaveCount(0)
+    malformed = true
+    await page.clock.fastForward(30_100)
+    await expect(page.getByRole('alert')).toBeVisible()
+    await expect(page.getByText('USCO contract announcement')).toBeVisible()
+    malformed = false
     await page.getByRole('button', { name: 'Retry', exact: true }).click()
     await expect(page.getByRole('alert')).toHaveCount(0)
     await page.getByRole('tab', { name: 'Long', exact: true }).focus()
