@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T01:01:02Z",
+  "generated_at": "2026-09-16T01:04:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-039",
@@ -747,6 +747,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-053",
+      "headline": "CTD: CTM extends UK public-sector customer contracts",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTD?key=2924-03136026-2A1697389",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T00:49:39Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The company secured contract extensions for its UK public-sector business, providing revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company secured contract extensions for its UK public-sector business, providing revenue visibility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corporate Travel Management",
+          "ticker": "CTD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,56 +1957,6 @@
           "name": "Marquee Resources",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-010",
-      "headline": "Nextleaf Announces Leadership Transition and Strategic Review; Sam Kassem Appointed Interim CEO | OILFF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/OILFF/nextleaf-announces-leadership-transition-and-strategic-review-sam-0i3q5a5op3p3.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-15T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Nextleaf announced a leadership transition and a strategic review of its business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Nextleaf announced a leadership transition and a strategic review of its business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nextleaf",
-          "ticker": "OILFF",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -165526,9 +165525,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 695271,
-    "news_picked_today": 52,
-    "news_dropped_today": 524
+    "news_seen_today": 735980,
+    "news_picked_today": 53,
+    "news_dropped_today": 547
   },
   "book_momentum": {
     "live_count": 8,
