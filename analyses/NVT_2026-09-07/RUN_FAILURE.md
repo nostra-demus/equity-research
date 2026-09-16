@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-16T08:41:11.810Z
+- stopped_at_utc: 2026-09-16T09:24:45.286Z
 
 ## Modules completed
 
@@ -20,24 +20,29 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-on
-```
+eturn −27.53% · thesis type Sector-cycle + Company-specific.
 
-This is a session-provisioning gap, not a data or content failure: the allowlist matches a *standalone* master rerun, but `.requires_idea_publication` means this run is the terminal step of a chained full, which must additionally seal an ex-ante idea. (The sub-agents' audit JSONs landed because the Write tool has a separate path; the deterministic scripts must run under Bash.) The manifest was never created, so first-writer-wins is unconsumed and a retry after the sandbox is widened is clean — this does **not** require a new dated run.
+Memory was `shadow` mode; `research_memory_client.py compile` returned "memory request rejected", so per the protocol the ordinary no-memory Task was dispatched and the failed receipt is recorded here.
 
-I did not hand-build the manifest or admission. Both encode canonical digest, decision-authority and timestamp reconciliation under a directory lock; reproducing that by hand would fabricate the seal the gate exists to prove.
+## Not done — blocked
 
-### Consequently not done, deliberately
+- Module dossiers (Step 4.9B) — 7 × `EPERM`
+- 10B.2 verify-evidence + pre-mortem, haircut propagation, `GATE-VERIFY`
+- 10B.3 expectations-gap, `GATE-EXPECTATIONS`
+- 10B.3A final immutable audit set
+- 10B.4 projection manifest + `idea_admission.json`
+- 9B item 6 — `memo.md` / `audit_dossier.md` (deliberately **not** generated: the deferral exists precisely so they don't freeze the preliminary pre-audit state)
+- **Step 10 commit — not run. `PUBLICATION_QUEUED` was never printed.**
 
-- **9B.6 — `memo.md` / `audit_dossier.md`:** these must be generated *from the sealed final state*. Writing them now would freeze the preliminary Ideas state, which the ordering exists to prevent.
-- **9B.7 — final `RUN_METADATA.md` refresh:** the backfill stands; the final admission status does not exist yet.
-- **Markers left in place:** `.defer_module_memos` and `.requires_idea_publication` — the server's proof publication did not finish. Removing either would misreport the run as complete.
-- **Step 10 — no commit.** Step 9B.5 requires stopping before commit when admission is missing, and a per-module chain with no valid `idea_admission.json` must never be reported as done. Nothing was pushed; no `PUBLICATION_QUEUED` line exists.
+I left `.defer_module_memos` and `.requires_idea_publication` in place — the latter is the server's proof that publication did not finish — and wrote no `RUN_FAILURE.md`.
 
-**`IDEA-ADMISSION: error`** — `[Errno 1] Operation not permitted: '/Users/admin/nostra-prod/analyses/NVT_2026-09-07/.idea-projection-manifest-*.json'`
-**Commit SHA: none.** **Intake receipt: none** (3-token form).
+I stopped before the audit trio deliberately rather than spending on it: 10B.3A requires re-running all three audits against the final sealed bytes anyway, so they'd be discarded work while the seal is unreachable.
 
-To finish, the session needs Bash write access to `analyses/NVT_2026-09-07/` (or at least those three filenames). Once that's granted I can resume at 9B.5 and complete items 5–7 plus the commit without redoing any paid work.
+## To finish
+
+Extend the cockpit's Bash write allowlist for this run root to cover `analyses/NVT_2026-09-07/**` (or at minimum `idea_projection_manifest.json`, `idea_admission.json`, the `verification_report*.json` / `pre_mortem*.json` / `expectations_gap*.json` audit set, `<module>/<module>_dossier.md`, and unlink rights on `.requires_idea_publication`), then re-invoke `/research:rerun master synthesizer NVT`. The run is unsealed, so a rerun resumes cleanly: Step 8 will re-synthesize, and Step 8A's gate is idempotent.
+
+If you'd instead prefer this to ship as a **standalone** rerun — thesis + memo + dossier only, no admission — that's within the current sandbox, but it requires removing the chain markers, which is your call, not mine: it would drop the LLM audit trio and the Ideas admission that the chain was set up to produce.
 ```
 
 ## Resume
