@@ -15,7 +15,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
-import { feedPresent, readCloses } from './market-feed'
+import { feedPresent, readCloses, readRates, type Close } from './market-feed'
 import { alignFlowsToNavDates, buildBook, supersessionMap, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
 import {
@@ -206,6 +206,28 @@ export const RISK_FREE = {
   source: '3-month US Treasury bill (secondary market), FRED DTB3',
 } as const
 export const RISK_FREE_ANNUAL_PCT = RISK_FREE.pct
+/** The rate's own series in the market feed — the same lane the benchmark comes down, written by
+ *  `scripts/fetch_market_feed.py`. */
+export const RISK_FREE_SERIES = 'DTB3'
+
+/** The cash hurdle as of TODAY where the feed carries it, and the dated constant where it does not.
+ *
+ *  A constant cannot help going stale: the one above was written in January and was still what every Sharpe,
+ *  Sortino and Calmar on the screen was measured against in September. The feed already fetches this series
+ *  daily beside the benchmark, so the rate is read from it and carries the feed's own date — and when there is
+ *  no feed the fallback says so out loud rather than presenting January as current. */
+export function riskFreeNow(rates: Close[] = readRates(RISK_FREE_SERIES)): {
+  pct: number; asOf: string; source: string; fromFeed: boolean
+} {
+  const last = rates.length ? rates[rates.length - 1]! : null
+  if (!last || !Number.isFinite(last.close)) {
+    return { ...RISK_FREE, fromFeed: false, source: `${RISK_FREE.source} — no feed loaded, so this rate is the one last written into the engine` }
+  }
+  return {
+    pct: last.close, asOf: last.date, fromFeed: true,
+    source: '3-month US Treasury bill (secondary market), FRED DTB3 — from the market feed',
+  }
+}
 /** How far past its last close the benchmark curve may still be carried — a long weekend and a public
  *  holiday, no more. The same tolerance benchmarkCompare uses to decide whether the feed covers a
  *  window, so the chart and the comparison can never disagree about what is covered. */
@@ -296,6 +318,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // already drifted, landing an unvaluable flow's raw local amount in the chain the original excludes.
   const flowsByDate = alignFlowsToNavDates(book.flows, book.navSeries)
   const closes = readCloses(BENCHMARK_SYMBOL)
+  const riskFree = riskFreeNow()
   const returns = dailyReturns(book.navSeries, flowsByDate)
   // EVERY period is measured over the window the book actually held capital, never over every calendar
   // row the export happens to carry. A Flex export routinely starts months before the first deposit,
@@ -342,17 +365,17 @@ export function performanceOf(book: Book): PortfolioPerformance {
   }
 
   return {
-    periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT, closes),
+    periods: returnsByPeriod(window, flowsByDate, riskFree.pct, closes),
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
-    betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
+    betaAlpha: betaAlpha(returns, closes, riskFree.pct),
     growth,
     benchmarkForward,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
-    risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
+    risk: riskMetrics(book.navSeries, flowsByDate, riskFree.pct),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
-    riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
-    riskFreeAsOf: RISK_FREE.asOf,
-    riskFreeSource: RISK_FREE.source,
+    riskFreeAnnualPct: riskFree.pct,
+    riskFreeAsOf: riskFree.asOf,
+    riskFreeSource: riskFree.source,
     benchmarkBasis: BENCHMARK_BASIS,
     feedPresent: feedPresent(),
   }
