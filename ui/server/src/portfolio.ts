@@ -977,8 +977,12 @@ export function buildBook(documents: FlexDocument[]): Book {
   if (positionSource !== newest && newest.sectionsPresent.length > 0) {
     warnings.push(`the newest export carries no OpenPositions section — holdings are shown as of ${positionSource.toDate ?? 'the last statement that had them'}`)
   }
+  // A currency balance some exports carry here is money, not a position (see runFifo). Published as one it
+  // would be read as an open equity holding: it would count as invested, and cash — the statement's value
+  // less what is invested — would be short by the same amount. It stays in the cash it is.
   const positions: BookPosition[] = positionSource.openPositions
     .filter((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')
+    .filter((p) => !isCurrencyConversion(p.assetCategory))
     .map((p) => ({
       symbol: p.symbol,
       conid: p.conid,
@@ -1363,12 +1367,10 @@ export function reconcile(ctx: {
   // caught it.
   const positionsSection = docs.some((d) => d.sectionsPresent.includes('OpenPositions'))
   if (positionsSection || positions.length > 0) {
+    // `positions` no longer carries a currency balance either (buildBook drops it), so both sides of this
+    // check hold the same idea of what a position is.
     const held = new Map<string, number>()
-    // Conversions are not positions on our side (see runFifo), so a statement that does report a currency
-    // balance here is not a break — it is the one thing both sides agree not to model.
-    for (const p of positions) {
-      if (p.quantity !== null && !isCurrencyConversion(p.assetCategory)) held.set(positionKey(p), p.quantity)
-    }
+    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
     const derived = new Map<string, number>()
     for (const l of openLots) derived.set(l.key, (derived.get(l.key) ?? 0) + l.quantity)
     let worst = 0

@@ -1247,6 +1247,10 @@ check('a broker that DOES report a currency balance as a position is not a break
   const check5 = b.reconciliation.checks.find((c) => c.name === 'Open positions')!
   const base = book.reconciliation.checks.find((c) => c.name === 'Open positions')!
   assert.deepEqual([check5.ours, check5.broker, check5.ok], [base.ours, base.broker, base.ok])
+  // And it is not published as a holding: read as an open equity position it would count as invested, and
+  // cash — the statement's value less what is invested — would be short by the whole balance.
+  assert.equal(b.positions.some((p) => p.symbol === 'AUD.USD'), false)
+  assert.equal(b.positions.length, book.positions.length)
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

@@ -61,11 +61,14 @@ check('a book whose trades are all established carries no qualifier anywhere', (
 
 check('every card built from the round trips carries the qualifiers of the trades behind it', () => {
   const html = tradesHtml(book([clean, partial, blankCost]))
-  for (const label of ['Realised', 'Closed trades', 'Hit rate', 'Win / loss size', 'Largest loss']) {
+  for (const label of ['Realised', 'Closed trades', 'Hit rate', 'Win / loss size']) {
     assert.deepEqual(card(html, label), { unproven: true, costUnknown: true }, label)
   }
   // A blank commission moves money, not dates: the hold rests on the matched lot, so only partial history reaches it.
   assert.deepEqual(card(html, 'Avg hold'), { unproven: true, costUnknown: false })
+  // The largest loss is drawn from the LOSERS. Here the unproven trade is one and the blank-commission trade
+  // is a winner, so only the first qualifier belongs to that figure.
+  assert.deepEqual(card(html, 'Largest loss'), { unproven: true, costUnknown: false })
 })
 
 check('each bar and each currency row carries the qualifiers of its own trades, and only those', () => {
@@ -135,6 +138,17 @@ check('unknown holdings are qualified on the fill and in the contract filter', (
   assert.match(fillRow(html, '2026-03-20'), />Unknown</)
   assert.match(html, /CL 2026-03-20 · 1 fill · holding unknown<\/option>/)
   assert.match(html, /Holdings marked Unknown stay visible/)
+})
+
+check('a card is qualified by the trades ITS figure is built from, not by the whole book', () => {
+  // An unproven WINNER says nothing about the largest loss, which is drawn from the losers. Tagged there, the
+  // qualifier names trades that figure never counted.
+  const unprovenWinner = closure({ symbol: 'WIN', closeTradeID: 'C8', partialHistory: true, realizedLocal: 80, realizedBase: 80, grossLocal: 80 })
+  const cleanLoss = closure({ symbol: 'LOSS', closeTradeID: 'C9', realizedLocal: -40, realizedBase: -40, grossLocal: -40 })
+  const html = tradesHtml(book([clean, unprovenWinner, cleanLoss]))
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Hit rate<'), />1 of 3 unproven</)
+  assert.deepEqual(card(html, 'Largest loss'), { unproven: false, costUnknown: false }, 'the loss is established')
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Win / loss size<'), />1 of 3 unproven</)
 })
 
 check('a figure built from several trades says how many of them are unproven', () => {

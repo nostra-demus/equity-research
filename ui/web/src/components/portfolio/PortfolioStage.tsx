@@ -1296,6 +1296,11 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
   // and it is the only view that can answer "did the sugar idea work" when the idea was expressed
   // through two different vehicles.
   const ideaRows = useMemo(() => groupByIdea(rows, ideas, cashEquivalents), [rows, ideas, cashEquivalents])
+  const qual = (subset: TradeRowData[]) => ({
+    partial: subset.filter((r) => r.partial > 0).length,
+    costsUnknown: subset.filter((r) => r.costsUnknown > 0).length,
+    of: subset.length,
+  })
   const stats = useMemo(() => {
     const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
@@ -1319,11 +1324,23 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
       worst: losses.length ? Math.min(...losses) : null,
       costsUnknown: rows.filter((r) => r.costsUnknown > 0).length,
       partial: rows.filter((r) => r.partial > 0).length,
+      // A qualifier belongs to the trades the figure beside it is actually built from. The largest loss is
+      // drawn from the losers, the win/loss averages from winners and losers, the hold from trades that have
+      // one — so a reconstructed WINNER says nothing about the largest loss, and "1 of 18 unproven" printed
+      // there names trades that figure never counted.
+      of: {
+        all: qual(rows),
+        winLoss: qual(rows.filter((r) => r.realized !== 0)),
+        losers: qual(rows.filter((r) => r.realized < 0)),
+        held: qual(rows.filter((r) => r.holdingDays !== null)),
+      },
     }
   }, [rows])
-  const qualified = (
-    <RealisedTags set partial={stats.partial > 0} costsUnknown={stats.costsUnknown > 0} count={stats.partial} of={rows.length} />
+  /** The qualifiers of ONE card, counted over the trades that card's figure is built from. */
+  const tagsFor = (q: ReturnType<typeof qual>, costs = true) => (
+    <RealisedTags set partial={q.partial > 0} costsUnknown={costs && q.costsUnknown > 0} count={q.partial} of={q.of} />
   )
+  const qualified = tagsFor(stats.of.all)
 
   // Attribution: what carried the realised result, biggest absolute mover first.
   //
@@ -1496,12 +1513,13 @@ export function Trades({ book, manual, onChanged, ideas, cashEquivalents, import
           label="Win / loss size"
           value={stats.avgWin && stats.avgLoss ? `${(stats.avgWin / Math.abs(stats.avgLoss)).toFixed(1)}×` : '—'}
           sub={`Avg ${fmtMoney(stats.avgWin, ccy)} vs ${fmtMoney(stats.avgLoss, ccy)}`}
-          tags={qualified}
+          tags={tagsFor(stats.of.winLoss)}
         />
         {/* A blank commission moves money, not dates: only the matched lot, and so partial history, reaches the hold. */}
         <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close"
-          tags={<RealisedTags set partial={stats.partial > 0} costsUnknown={false} count={stats.partial} of={rows.length} />} />
-        <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} tags={qualified} />
+          tags={tagsFor(stats.of.held, false)} />
+        <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'}
+          tags={tagsFor(stats.of.losers)} />
       </div>
 
       {manualPanel}
