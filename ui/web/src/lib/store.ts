@@ -17,7 +17,7 @@ import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import { launchFailureMessage, preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, DeploymentLag, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, DeploymentLag, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, MarketFeedStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { isDataScanProgress } from './dataScan'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -696,6 +696,11 @@ interface State {
   connected: boolean
   health: HealthState
   deploymentLag: DeploymentLag | null
+  // The benchmark feed's own health, read off the same /api/health poll. Only ever set from a validated
+  // {state, detail} shape (see `_tickHealth`) — never trusted structure straight off the wire — and, like
+  // deploymentLag, only updated on a proven-`ok` poll so a transient miss does not blank out the last
+  // known reading.
+  marketFeed: MarketFeedStatus | null
   healthFailCount: number
   lastHealthOkAt: number | null
   staticMode: boolean
@@ -1695,6 +1700,7 @@ export const useStore = create<State>((set, get) => ({
   connected: true,
   health: 'connecting',
   deploymentLag: null,
+  marketFeed: null,
   healthFailCount: 0,
   lastHealthOkAt: null,
   staticMode: false,
@@ -4602,6 +4608,7 @@ export const useStore = create<State>((set, get) => ({
     let outcome: 'ok' | 'engine' | 'session' = 'engine'
     let deploymentPending = false
     let deploymentLag: DeploymentLag | null = null
+    let marketFeed: MarketFeedStatus | null = null
     try {
       // Access redirects an expired session to another origin. Following that redirect makes the
       // browser throw a CORS error before we can identify sign-in expiry; manual keeps it observable.
@@ -4629,6 +4636,14 @@ export const useStore = create<State>((set, get) => ({
             reason: deployment.reason,
           }
         }
+        // The benchmark-feed health the wire never surfaced before: `outcome:'ok'` still means the ENGINE
+        // is up even while its benchmark feed is stale or missing, so this is read independently of that
+        // and never affects `health` itself — it is a second, lower-severity fact about one data source.
+        const feed = j?.marketFeed
+        if (outcome === 'ok' && feed && (feed.state === 'healthy' || feed.state === 'stale' || feed.state === 'missing')
+          && typeof feed.detail === 'string') {
+          marketFeed = { state: feed.state, detail: feed.detail }
+        }
       } else if (r.type === 'opaqueredirect' || r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
@@ -4648,7 +4663,7 @@ export const useStore = create<State>((set, get) => ({
       // A pending reviewed deploy keeps reads live but closes every paid admission at the server's kernel
       // barrier. Reflect that distinct state in the cockpit instead of claiming "Live" and letting a run
       // button reach a guaranteed 503/profile-refresh race. The next healthy poll returns to online.
-      set({ health: deploymentPending ? 'updating' : 'online', deploymentLag, healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      set({ health: deploymentPending ? 'updating' : 'online', deploymentLag, marketFeed, healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // Every proven-healthy poll repairs ONLY missing bootstrap pieces. This must not depend on a health
       // transition: /api/swarms can return an auth response while health was already online. The health
       // cadence bounds these attempts, and the underlying calls coalesce.

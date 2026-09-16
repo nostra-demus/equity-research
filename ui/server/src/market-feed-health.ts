@@ -68,10 +68,13 @@ export function tradingDaysBetween(from: string, to: string): number | null {
   return days
 }
 
-/** The refresher's last word. Absent is normal — nothing has run yet, which is itself worth saying. */
-export function readRefresh(statusPath: string = REFRESH_STATUS_PATH): MarketFeedRefresh | null {
+/** The refresher's last word. Absent is normal — nothing has run yet, which is itself worth saying.
+ *  Reads with `fs.promises` rather than `readFileSync`: this is called from `/api/health`, an async
+ *  request handler on a hot path (the browser polls it every ~20s), and a sync read blocks the whole
+ *  event loop — including every OTHER in-flight request — for however long the disk takes to answer. */
+export async function readRefresh(statusPath: string = REFRESH_STATUS_PATH): Promise<MarketFeedRefresh | null> {
   try {
-    const raw = JSON.parse(fs.readFileSync(statusPath, 'utf8'))
+    const raw = JSON.parse(await fs.promises.readFile(statusPath, 'utf8'))
     const at = typeof raw?.at === 'string' ? raw.at : null
     if (!at || !Number.isFinite(Date.parse(at))) return null
     return {
@@ -84,20 +87,53 @@ export function readRefresh(statusPath: string = REFRESH_STATUS_PATH): MarketFee
 
 const WORST: Record<MarketFeedState, number> = { healthy: 0, stale: 1, missing: 2 }
 
+/** Trading days a burst of concurrent /api/health polls may share one parse of the feed. `readCloses`
+ *  walks every CSV under every provider on every call, and `fetch_market_feed.py` never prunes old
+ *  daily snapshot files — so an unbounded, unparsed feed reread on every poll from every open browser
+ *  tab is the one thing this health check must not itself become. Only the real, unwrapped reader is
+ *  memoized: every unit test below injects its own `deps.closes`, so tests stay isolated from this
+ *  cache and from each other, and production data is never more than this TTL stale to the health
+ *  check (the underlying series is still re-read in full by anything that needs it, e.g. the actual
+ *  benchmark-return computation — this cache exists only for the /api/health hot path). */
+export const CLOSES_CACHE_TTL_MS = 15_000
+
+export function memoizeCloses(
+  reader: (symbol: string) => { date: string; close: number }[],
+  ttlMs: number = CLOSES_CACHE_TTL_MS,
+  now: () => number = Date.now,
+): (symbol: string) => { date: string; close: number }[] {
+  const cache = new Map<string, { at: number; rows: { date: string; close: number }[] }>()
+  return (symbol: string) => {
+    const t = now()
+    const hit = cache.get(symbol)
+    if (hit && t - hit.at < ttlMs) return hit.rows
+    const rows = reader(symbol)
+    cache.set(symbol, { at: t, rows })
+    return rows
+  }
+}
+
+const cachedReadCloses = memoizeCloses(readCloses)
+
 /**
  * The state of each series the engine depends on, and one sentence about it.
  *
  * `today` is passed in so the rule is testable and so a caller can ask the question as of a run's own
  * date rather than the wall clock.
  */
-export function marketFeedHealth(symbols: string[], today: string, deps: {
+export async function marketFeedHealth(symbols: string[], today: string, deps: {
   closes?: (symbol: string) => { date: string; close: number }[]
-  refresh?: () => MarketFeedRefresh | null
-} = {}): MarketFeedHealth {
-  const closesOf = deps.closes ?? readCloses
+  refresh?: () => MarketFeedRefresh | null | Promise<MarketFeedRefresh | null>
+} = {}): Promise<MarketFeedHealth> {
+  const closesOf = deps.closes ?? cachedReadCloses
   const series: MarketFeedSeries[] = symbols.map((symbol) => {
     const rows = closesOf(symbol)
-    const last = rows.length ? rows[rows.length - 1]!.date : null
+    // A future-dated (or otherwise-invalid) row is excluded, never trusted as the newest close —
+    // frameworks/MARKET_FEED.md requires future observations to be excluded from every calculation.
+    // Rows are sorted oldest-first (market-feed.ts), so the newest row ON OR BEFORE today is the last
+    // one that survives this filter, not simply the last row in the array.
+    const validRows = rows.filter((r) => r.date <= today)
+    const last = validRows.length ? validRows[validRows.length - 1]!.date : null
     if (!last) return { symbol, lastClose: null, tradingDaysBehind: null, state: 'missing' }
     const behind = tradingDaysBetween(last, today)
     return {
@@ -106,7 +142,7 @@ export function marketFeedHealth(symbols: string[], today: string, deps: {
     }
   })
   const state = series.reduce<MarketFeedState>((worst, s) => (WORST[s.state] > WORST[worst] ? s.state : worst), 'healthy')
-  const refresh = (deps.refresh ?? (() => readRefresh()))()
+  const refresh = await (deps.refresh ?? (() => readRefresh()))()
   const missing = series.filter((s) => s.state === 'missing').map((s) => s.symbol)
   const stale = series.filter((s) => s.state === 'stale')
   // The refresher's own last word is the WHY, and only when there is something to explain. A healthy feed

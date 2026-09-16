@@ -7,6 +7,8 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
+import plistlib
+import re
 import shutil
 import socket
 import subprocess
@@ -115,6 +117,69 @@ def test_a_failed_fetch_reports_itself() -> None:
         reported = json.loads(status.read_text())
         assert reported["outcome"] == "failed", reported
         assert "FRED said no" in reported["detail"], reported
+
+
+def test_pool_path_is_redacted_from_refresh_status() -> None:
+    # fetch_market_feed.py's own success line ends "-> <data_root>/_market/fred/sp500_<date>.csv", and
+    # data_root IS $POOL_ROOT — a Drive-mounted path that can carry the owner's account identity
+    # (scripts/ops/MAC_PRO_RUNBOOK.md). /api/health serves refresh.detail straight back out to every
+    # caller, so that path must never reach the status file the wrapper writes.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        # Mirror the real script's own success-line SHAPE exactly, with the real (temp) pool path standing
+        # in for a real Drive projection path.
+        fake_path = pool / "_market" / "fred" / "sp500_2026-09-15.csv"
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\n"
+            f"print('fetch_market_feed: 5 closes through 2026-09-15 -> {fake_path}')\n"
+        )
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 0, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "ok", reported
+        assert str(pool) not in reported["detail"], reported
+        assert str(fake_path) not in reported["detail"], reported
+        assert "5 closes through 2026-09-15" in reported["detail"], reported
+
+
+def test_schedule_documentation_matches_the_installed_plist() -> None:
+    # The installed timer moved from one daily window to three (07:10/13:10/19:10). Every place that
+    # describes the schedule must describe the one actually installed, or an operator reads a different
+    # operational contract than what runs (reviewer finding, PR #706).
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with open(ops_source / "com.nostradamus.hk-market-feed.plist", "rb") as fh:
+        parsed = plistlib.load(fh)
+    intervals = parsed["StartCalendarInterval"]
+    assert isinstance(intervals, list) and len(intervals) == 3, intervals
+    windows = sorted((entry["Hour"], entry["Minute"]) for entry in intervals)
+    assert windows == [(7, 10), (13, 10), (19, 10)], windows
+
+    doc = (Path(__file__).resolve().parent.parent / "frameworks" / "MARKET_FEED.md").read_text(encoding="utf-8")
+    assert "07:10, 13:10, 19:10" in doc, "MARKET_FEED.md must name all three installed refresh windows"
+    assert not re.search(r"launchd timer \(daily,? 07:10", doc), \
+        "MARKET_FEED.md must not still describe the retired single daily window"
+
+    installer = (ops_source / "install-services.sh").read_text(encoding="utf-8")
+    assert "07:10/13:10/19:10" in installer, "the installer's own service list must name all three windows"
+    assert not re.search(r"hk-market-feed.*\bdaily\b", installer), \
+        "the installer's comment must not still claim a single daily refresh"
 
 
 def test_scheduled_writer_requires_canonical_pool() -> None:
@@ -300,6 +365,8 @@ def main() -> int:
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
+    check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)
+    check("the schedule docs match the installed plist", test_schedule_documentation_matches_the_installed_plist)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
     check("deterministic wrappers fail closed on unknown lock ages", test_deterministic_wrappers_reject_unknown_lock_ages)

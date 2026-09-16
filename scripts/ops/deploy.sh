@@ -1774,7 +1774,22 @@ reconcile_build() {
   # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
   # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
   # portable across machines / usernames — no per-host path rewriting is needed.
-  for opsscript in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh connector-supervisor.py; do
+  #
+  # This list must carry every wrapper install-services.sh's own OWN_OPS_SCRIPTS staging list carries
+  # (test-deploy-priority.sh only checks the three names both happen to share, not the full sets), or a
+  # wrapper edited on main keeps running its OLD installed copy under launchd until someone reruns
+  # install-services.sh by hand. calibrate-local.sh and market-feed-local.sh were missing here — this is
+  # exactly that gap for market-feed-local.sh specifically (PR #706 review).
+  #
+  # NOT covered by this loop, and deliberately left alone here: a SCHEDULE change (a launchd
+  # StartCalendarInterval edit, e.g. this same PR's plist going from one daily window to three) lives in
+  # the installed ~/Library/LaunchAgents/*.plist, not in $OPS, and re-rendering + reloading a live launchd
+  # job automatically from this deploy path is a materially different, higher-risk change (it would also
+  # have to honour the doer/non-doer failover fencing install-services.sh already applies to
+  # com.nostradamus.hk-market-feed) that needs its own reviewed design, not a line added to a copy loop.
+  # Until that exists, a plist schedule edit still requires an operator to rerun, on the doer machine:
+  #   bash scripts/ops/install-services.sh
+  for opsscript in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh market-feed-local.sh connector-supervisor.py; do
     case "$changed" in
       *scripts/ops/$opsscript*)
         staged_ops="$(mktemp "$OPS/.$opsscript.staged.XXXXXX")" \

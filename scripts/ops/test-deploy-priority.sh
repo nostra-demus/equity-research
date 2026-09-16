@@ -26,6 +26,19 @@ assert 'DEPLOY_AUDIT_LEDGER="${NOSTRA_DEPLOY_AUDIT_LEDGER:-$OPS/deploy-audit/eve
 assert 'DEPLOY_AUDIT_PENDING="$OPS/.deploy.audit-pending"' in deploy
 assert 'deploy-authorization.py gh-app-token.sh housekeeping.sh' in installer
 assert 'deploy-authorization.py gh-app-token.sh housekeeping.sh' in deploy
+
+# install-services.sh stages EVERY ops wrapper script it installs (its `for s in ...` list); deploy.sh's
+# automatic self-update loop (its `for opsscript in ...` list) must carry the SAME set, or a wrapper
+# edited on main keeps running its stale installed copy under launchd until an operator reruns
+# install-services.sh by hand — exactly the market-feed-local.sh gap PR #706's review caught. The two
+# loops are allowed to differ in order but never in membership.
+installer_scripts = set(re.search(r'for s in ([^;]+); do', installer).group(1).split())
+deploy_scripts = set(re.search(r'for opsscript in ([^;]+); do', deploy).group(1).split())
+missing_from_deploy = installer_scripts - deploy_scripts
+assert not missing_from_deploy, f"deploy.sh self-update never picks up: {sorted(missing_from_deploy)}"
+assert 'market-feed-local.sh' in deploy_scripts
+assert 'calibrate-local.sh' in deploy_scripts
+
 assert "PROVIDER_DEPLOY_INTENT_FILE = 'provider-deploy-pending'" in barrier
 assert 'DEBOUNCE_SECS="${DEPLOY_DEBOUNCE_SECS:-0}"' in deploy
 

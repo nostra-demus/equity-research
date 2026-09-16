@@ -378,7 +378,7 @@ app.get('/api/health', async (_req, reply) => {
     deployment: await readDeploymentStatus(STATE_DIR),
     // The benchmark feed judged by the files THIS engine can read. It is here because every way its
     // refresher fails is quiet, and health is the one thing an operator checks without being told to.
-    marketFeed: marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
+    marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
   }
 })
 

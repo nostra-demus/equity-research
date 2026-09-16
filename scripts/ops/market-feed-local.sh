@@ -75,14 +75,28 @@ if [ ! -f "$SUPERVISOR" ] || [ -L "$SUPERVISOR" ] \
   note skipped "this machine is not the canonical pool writer, or the Drive projection is unavailable"
   exit 0
 fi
+# redact_pool_path <text> — never let $POOL_ROOT leave this machine in a status/detail field. It is a
+# Drive-mounted projection path and can carry the owner's Drive account identity, which stays owner-only
+# (see scripts/ops/MAC_PRO_RUNBOOK.md). fetch_market_feed.py's own success line ends "-> <full path>", and
+# note()'s detail is served straight back out through /api/health to every caller — so redact it before
+# it is ever recorded, not after.
+redact_pool_path() {
+  local text="$1"
+  text="${text%% -> *}" # drop the printed "-> /abs/path/under/$POOL_ROOT" suffix
+  if [ -n "${POOL_ROOT:-}" ]; then
+    text="${text//"$POOL_ROOT"/<pool>}" # defense in depth: strip it wherever else it might appear
+  fi
+  printf '%s' "$text"
+}
+
 log "MARKET-FEED RUN (deterministic; no model quota)"
 OUTPUT="$(python3 scripts/fetch_market_feed.py --data-root "$POOL_ROOT" 2>&1)"
 RC=$?
 printf '%s\n' "$OUTPUT" >> "$LOG"
 [ "$RC" -eq 0 ] || {
   log "MARKET-FEED FAIL — exit $RC"
-  note failed "$(printf '%s' "$OUTPUT" | tail -n 1)"
+  note failed "$(redact_pool_path "$(printf '%s' "$OUTPUT" | tail -n 1)")"
   exit "$RC"
 }
 log "MARKET-FEED DONE"
-note ok "$(printf '%s' "$OUTPUT" | tail -n 1)"
+note ok "$(redact_pool_path "$(printf '%s' "$OUTPUT" | tail -n 1)")"

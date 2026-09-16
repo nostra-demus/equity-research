@@ -18,6 +18,16 @@ export interface DeploymentLag {
   reason: string
 }
 
+// The benchmark-feed health `/api/health` carries (ui/server/src/market-feed-health.ts). Only the two
+// fields the cockpit actually surfaces — the worst state across every series it judged, and the one
+// plain-English sentence explaining it — are read out of the response; nothing else on the payload is
+// trusted structure.
+export type MarketFeedState = 'healthy' | 'stale' | 'missing'
+export interface MarketFeedStatus {
+  state: MarketFeedState
+  detail: string
+}
+
 // ---- shared research memory (GET /api/memory) ----
 // One small, read-only projection for every cockpit. The canonical records and the full memory payloads
 // stay behind the engine; this contract carries only the plain-English summary and enough proof to trace
