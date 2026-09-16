@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T04:50:47Z",
+  "generated_at": "2026-09-16T05:10:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260916-086",
@@ -756,6 +756,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-113",
+      "headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:20:01Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Tencent Music announced a $400 million share repurchase program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Tencent Music announced a $400 million share repurchase program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tencent Music",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-037",
       "headline": "SCHEDULE 13D/A - New Fortress Energy Inc. (0001749723) (Subject)",
       "headline_en": null,
@@ -849,6 +898,98 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-117",
+      "headline": "Hero Motors Raises Rs 299.99 Crore From Anchors, Rs 1,000-Crore IPO Opens September 16",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hero-motors-raises-rs-29999-crore-from-anchors-rs-1000-crore-ipo-opens-september-16",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:59:48Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Hero Motors raised Rs 299.99 crore from anchor investors ahead of a Rs 1,000-crore IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Hero Motors raised Rs 299.99 crore from anchor investors ahead of a Rs 1,000-crore IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hero Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-118",
+      "headline": "US House Set To Vote On Russia Sanctions Bill Naming India For Possible 100% Tariffs Over Russian Oil",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/india-named-in-usas-russia-sanctions-bill-that-could-let-donald-trump-impose-100-tariff-over-russian-oil",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T03:55:47Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The US House is set to vote on a sanctions bill that could impose 100% tariffs on India over Russian oil imports.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The US House is set to vote on a sanctions bill that could impose 100% tariffs on India over Russian oil imports.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1094,6 +1235,98 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-112",
+      "headline": "Orient Green Power Company Limited: Orient Green Power Company Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Intimation of Press Release under Regulation 30 of SEBI (LODR) Regulations, 2015- Upgrade in Credit Rating of Beta Wind Farm Private Limited \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GREENPOWER_16092026101050_SEIntimationPressrelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T04:41:15Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Orient Green Power announced a credit rating upgrade for its subsidiary Beta Wind Farm Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Orient Green Power announced a credit rating upgrade for its subsidiary Beta Wind Farm Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orient Green Power Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-114",
+      "headline": "LIVE: US Fed Reserve FOMC Meeting Rate Decision Outcome Today: Time, schedule, LIVE streaming, Kevin Warsh announcement",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/live-us-fed-reserve-fomc-meeting-rate-decision-outcome-today-time-schedule-live-streaming-kevin-warsh-announcement-11789530765488.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:34:31Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "The US Federal Reserve is scheduled to announce its interest rate decision, a major market-moving event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The US Federal Reserve is scheduled to announce its interest rate decision, a major market-moving event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1491,55 +1724,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260916-110",
-      "headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/moneyball/2026/09/16/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial-discipline/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T04:00:01Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Tencent Music announced a $400 million share repurchase program for 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tencent Music announced a $400 million share repurchase program for 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent Music",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260916-079",
       "headline": "FTAI Aviation Authorizes $500 Mln Share Repurchase Program",
       "headline_en": null,
@@ -1638,6 +1822,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260916-116",
+      "headline": "Groww shares slump 4% after major block deal; what’s next for the stock?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/groww-shares-slump-4-after-major-block-deal-what-s-next-for-the-stock-11789531986497.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:42:04Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Groww shares fell 4% following a major block deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Groww shares fell 4% following a major block deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Groww",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260916-115",
+      "headline": "Paytm shares jump 7% as Jefferies, other brokerages raise target prices and earnings estimates after new UPI charges",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/paytm-shares-jump-7-as-jefferies-other-brokerages-raise-target-prices-and-earnings-estimates-after-new-upi-charges/articleshow/134278132.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-16T04:36:28Z",
+      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
+      "prelim_note": "Paytm shares rose 7% following analyst upgrades to earnings estimates and price targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Paytm shares rose 7% following analyst upgrades to earnings estimates and price targets.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paytm",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260916-109",
       "headline": "Oracle Layoffs: CFO says ‘do more with less’ isn’t the answer in first all-hands meet after latest job cuts",
       "headline_en": null,
@@ -1682,290 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-096",
-      "headline": "UPS NAMES BERNARD JIANG PRESIDENT OF ASIA PACIFIC",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/brandhub/pr-release/ups-names-bernard-jiang-president-of-asia-pacific/article71470957.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T03:00:26Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Appointment of a new president for a major region like Asia Pacific for UPS is a significant management change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Appointment of a new president for a major region like Asia Pacific for UPS is a significant management change.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UPS",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-083",
-      "headline": "Paytm shares primed for 'material earnings upgrade', Goldman Sachs says on MDR implementation",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/paytm-share-price-material-earnings-upgrade-likely-on-mdr-framework-goldman-sachs-target-returns-valuations-19991480.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T02:46:29Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Goldman Sachs projects a material earnings upgrade for Paytm following MDR implementation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Goldman Sachs projects a material earnings upgrade for Paytm following MDR implementation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paytm",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-046",
-      "headline": "Trip.com (TCOM) Beats Q2 Earnings and Revenue Estimates",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tripcom-tcom-beats-q2-earnings-and-revenue-estimates",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-15T23:20:02Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Trip.com beat Q2 earnings and revenue estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Trip.com beat Q2 earnings and revenue estimates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trip.com",
-          "ticker": "TCOM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-068",
-      "headline": "100% tariff threat to India: US House advances Russia sanctions bill | What we know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/100-tariff-threat-to-india-us-house-advances-russia-sanctions-bill-what-we-know-11789522442630.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T01:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "US House advancing a Russia sanctions bill and potential 100% tariff threat to India represent significant geopolitical and trade risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "US House advancing a Russia sanctions bill and potential 100% tariff threat to India represent significant geopolitical and trade risks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-077",
-      "headline": "India to face 100% tariffs? US House moves Russia Sanctions bill, final vote tomorrow",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/india/story/india-to-face-100-tariffs-us-house-moves-russia-sanctions-bill-final-vote-tomorrow-555746-2026-09-16?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T01:43:38Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Proposed US legislation could impose significant trade barriers on India, impacting bilateral trade relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Proposed US legislation could impose significant trade barriers on India, impacting bilateral trade relations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260916-040",
-      "headline": "Bank of Baroda saw BR Shetty's NMC Group red flags. Yet it sanctioned more loans",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/bank-of-baroda-nmc-health-br-shetty-abu-dhabi-11789457279076.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T00:31:02Z",
-      "sweep_file": "screener/inbox/2026-09-16_sweep.json",
-      "prelim_note": "Bank of Baroda faces potential regulatory and reputational risk regarding its lending practices to the NMC Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Bank of Baroda faces potential regulatory and reputational risk regarding its lending practices to the NMC Group.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Baroda",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122297,79 +122295,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-db48ea3f1818",
-      "idea_version": "IDEAV-5d19bc47583fbf23",
-      "idea_version_started_at": "2026-09-14T23:07:56Z",
-      "ticker": "HFCL",
-      "company": "HFCL Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is aggressively expanding its manufacturing capacity for optical fiber and cables with an additional ₹820 crore investment, signaling strong demand and potential for future revenue growth.",
-      "why_now": "The board approval and press release were issued on September 14, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb3dda1a5f10",
-        "EVT-193c6a487ac1"
-      ],
-      "primary_source_event_id": "EVT-bb3dda1a5f10",
-      "source_headlines": [
-        "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
-        "HFCL Limited: HFCL Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press Release on approval of Additional Investment of Approximately ₹820 crore for expansion of Optical Fiber, Optical Fiber Cable and Preform manufacturing capacities \"."
-      ],
-      "source_headline": "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/hfcl-raises-planned-capex-to-1800-crore-to-expand-optical-fibre-production/article71466354.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T17:06:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T23:07:56Z",
-      "updated_at": "2026-09-14T23:07:56Z",
-      "decay_at": "2026-09-16T05:06:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1bc0605be1ed",
       "idea_version": "IDEAV-d8324e0c16cac5fa",
       "idea_version_started_at": "2026-09-15T10:07:26Z",
@@ -124761,6 +124686,79 @@
       "surfaced_at": "2026-09-13T23:31:34Z",
       "updated_at": "2026-09-13T23:31:34Z",
       "decay_at": "2026-09-15T11:24:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-db48ea3f1818",
+      "idea_version": "IDEAV-5d19bc47583fbf23",
+      "idea_version_started_at": "2026-09-14T23:07:56Z",
+      "ticker": "HFCL",
+      "company": "HFCL Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is aggressively expanding its manufacturing capacity for optical fiber and cables with an additional ₹820 crore investment, signaling strong demand and potential for future revenue growth.",
+      "why_now": "The board approval and press release were issued on September 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bb3dda1a5f10",
+        "EVT-193c6a487ac1"
+      ],
+      "primary_source_event_id": "EVT-bb3dda1a5f10",
+      "source_headlines": [
+        "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
+        "HFCL Limited: HFCL Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press Release on approval of Additional Investment of Approximately ₹820 crore for expansion of Optical Fiber, Optical Fiber Cable and Preform manufacturing capacities \"."
+      ],
+      "source_headline": "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/hfcl-raises-planned-capex-to-1800-crore-to-expand-optical-fibre-production/article71466354.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-14T17:06:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-14T23:07:56Z",
+      "updated_at": "2026-09-14T23:07:56Z",
+      "decay_at": "2026-09-16T05:06:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128807,14 +128805,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 582,
+    "total_count": 583,
     "shown_count": 500,
-    "hidden_count": 82,
+    "hidden_count": 83,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 45
       },
       "short": {
         "total_count": 288,
@@ -128838,6 +128836,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-db48ea3f1818",
+        "idea_version": "IDEAV-5d19bc47583fbf23",
+        "idea_version_started_at": "2026-09-14T23:07:56Z",
+        "ticker": "HFCL",
+        "company": "HFCL Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is aggressively expanding its manufacturing capacity for optical fiber and cables with an additional ₹820 crore investment, signaling strong demand and potential for future revenue growth.",
+        "why_now": "The board approval and press release were issued on September 14, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bb3dda1a5f10",
+          "EVT-193c6a487ac1"
+        ],
+        "primary_source_event_id": "EVT-bb3dda1a5f10",
+        "source_headlines": [
+          "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
+          "HFCL Limited: HFCL Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press Release on approval of Additional Investment of Approximately ₹820 crore for expansion of Optical Fiber, Optical Fiber Cable and Preform manufacturing capacities \"."
+        ],
+        "source_headline": "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
+        "source_url": "https://www.thehindubusinessline.com/info-tech/hfcl-raises-planned-capex-to-1800-crore-to-expand-optical-fibre-production/article71466354.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T17:06:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T23:07:56Z",
+        "updated_at": "2026-09-14T23:07:56Z",
+        "decay_at": "2026-09-16T05:06:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-16T05:06:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4f0e3a3e17fb",
         "idea_version": "IDEAV-0b4d25817559d3bf",
@@ -158141,80 +158215,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ddb51395a688",
-        "idea_version": "IDEAV-d7ecaed09629a1b6",
-        "idea_version_started_at": "2026-09-03T23:05:06Z",
-        "ticker": "IVC",
-        "company": "Iveco Group N.V.",
-        "exchange": "BIT",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
-        "why_now": "The tender offer was announced via press release on September 04, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a7d528561a57"
-        ],
-        "primary_source_event_id": "EVT-a7d528561a57",
-        "source_headlines": [
-          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-        ],
-        "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T18:44:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T23:05:06Z",
-        "updated_at": "2026-09-03T23:05:06Z",
-        "decay_at": "2026-09-05T06:44:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T18:59:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-373f07b62282",
         "idea_version": "IDEAV-4416a5b0615d7f73",
         "idea_version_started_at": "2026-09-04T06:14:00Z",
@@ -166010,7 +166010,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 843,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -166029,9 +166029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3097467,
-    "news_picked_today": 163,
-    "news_dropped_today": 2501
+    "news_seen_today": 3362595,
+    "news_picked_today": 170,
+    "news_dropped_today": 2638
   },
   "book_momentum": {
     "live_count": 8,
