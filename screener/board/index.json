@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T12:42:28Z",
+  "generated_at": "2026-09-17T12:50:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-274",
@@ -1358,6 +1358,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-303",
+      "headline": "Escorts Kubota Limited: Escorts Kubota Limited has informed the Exchange about Action(s) taken or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ESCORTS2_17092026174337_EKL_2026_09_17_Intimation_Penalty_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T12:17:29Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Escorts Kubota Limited reported regulatory action or orders passed against the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Escorts Kubota Limited reported regulatory action or orders passed against the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Escorts Kubota Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-267",
       "headline": "Reliance Home Finance Limited: Reliance Home Finance Limited has informed the Exchange that Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 (''Listing Regulations'') and in accordance with sub-clause 16(g) of Para A of Part A of Schedule III of the Listing Regulations, We hereby inform you that the 14th Meeting of the Committee of Creditors (''CoC''), of Reliance Home Finance Limited (In CIRP) was duly held on Thursday, September 17, 2026",
       "headline_en": null,
@@ -1695,6 +1744,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-305",
+      "headline": "Rays of Belief Limited: Rays of Belief Limited has informed the Exchange regarding the Intimation for further Investment in the share capital of Mom's Belief US Inc, Wholly Owned Subsidiary of the Company",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ROBL_17092026174501_Intimation_for_Investment_in_Subsidiary.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T12:15:24Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Rays of Belief Limited announced further investment in its wholly owned US subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Rays of Belief Limited announced further investment in its wholly owned US subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rays of Belief Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-272",
       "headline": "Century Extrusions Limited: Century Extrusions Limited has informed the Exchange about Credit Rating- Revision",
       "headline_en": null,
@@ -1839,104 +1937,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-014",
-      "headline": "25-NSE - Archer Aviation Inc. (0001824502) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1824502/000087666126000755/0000876661-26-000755-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T13:54:07Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Delisting notification indicates a potential regulatory or compliance issue for the issuer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Delisting notification indicates a potential regulatory or compliance issue for the issuer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Archer Aviation Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-083",
-      "headline": "Juniper Hotels shares rise 2% on proposed Rs 248 crore acquisition of Novotel Imagicaa",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/juniper-hotels-shares-rise-2-on-proposed-rs-248-crore-acquisition-of-novotel-imagicaa/articleshow/134303242.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T06:16:51Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Juniper Hotels announced a proposed acquisition of Novotel Imagicaa for Rs 248 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Juniper Hotels announced a proposed acquisition of Novotel Imagicaa for Rs 248 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Juniper Hotels",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164333,9 +164333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1339872,
-    "news_picked_today": 410,
-    "news_dropped_today": 4246
+    "news_seen_today": 1372679,
+    "news_picked_today": 422,
+    "news_dropped_today": 4450
   },
   "book_momentum": {
     "live_count": 8,
