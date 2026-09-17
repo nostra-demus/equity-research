@@ -1344,10 +1344,16 @@ export function reconcile(ctx: {
   // folds prior-period FX gains into the comparison — which would make a valid FX-only latest period miss
   // its own total (false "no trade rows" break) or let a coincidental cross-period total suppress a real
   // break when the latest period's trade detail is genuinely missing. Same window basis the deposits/
-  // withdrawals check uses (§15 matched basis), on the same date resolution the rate lookup uses above.
+  // withdrawals check uses (§15 matched basis) — but NOT the same date resolution the rate lookup above
+  // uses. Period MEMBERSHIP is a different question from which day's FX rate applies to a fill: this
+  // field's own doc comment says a statement's period counts fills by tradeDate, falling back to the
+  // execution day only when tradeDate is absent (see FlexTrade.tradeDate above). A conversion executed
+  // late on the last day of one period but booked (tradeDate) into the next is the broker's own next-
+  // period fill; keying this off dateTime first put it in the wrong window and made a genuinely FX-only
+  // period fail this guard.
   const inLatestWindow = (t: FlexTrade) => {
     if (!latestNav?.fromDate || !latestNav.toDate) return true
-    const d = (t.dateTime ?? t.tradeDate)?.slice(0, 10)
+    const d = (t.tradeDate ?? t.dateTime)?.slice(0, 10)
     return !!d && d >= latestNav.fromDate && d <= latestNav.toDate
   }
   const conversionRows = executions.filter(

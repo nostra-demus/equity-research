@@ -1307,5 +1307,28 @@ check('an FX-only period is not reported as missing trade data', () => {
   assert.equal(stillCaught.ok, false, 'a real gap — no trades at all, conversion or otherwise — still fails')
 })
 
+check('an overnight conversion booked across the statement boundary still counts by its trade date', () => {
+  // The broker can execute a conversion late on the last day of one period and book (tradeDate) it into
+  // the next — an overnight session, same as the OpenPositions snapshot logic above already documents.
+  // Keying window membership off dateTime first put such a fill in the WRONG window: executed
+  // 2025-12-31 23:30 but booked 2026-01-01, it fell outside a January-only statement even though the
+  // broker's own period counts it as January's.
+  const convBuy = { ...fxBuy, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', fxRateToBase: 1 }
+  const convSell = {
+    ...fxSell, dateTime: '2025-12-31T23:30:00', tradeDate: '2026-01-01', fxRateToBase: 1,
+    fifoPnlRealized: 20786.5,
+  }
+  const straddleDoc = {
+    ...doc,
+    trades: [convBuy, convSell],
+    changeInNav: { ...doc.changeInNav!, realized: 20786.5 },
+  }
+  const straddle = buildBook([straddleDoc])
+  const realised = straddle.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realised, undefined,
+    'the conversion is booked (tradeDate) into the January window and fully accounts for the realised ' +
+    'total, so no "no trade rows were imported" break should fire even though it executed the prior evening')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
