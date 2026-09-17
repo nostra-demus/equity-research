@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T12:15:30Z",
+  "generated_at": "2026-09-17T12:18:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-274",
@@ -1560,6 +1560,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-282",
+      "headline": "Regulators Trigger Delisting Purge, Freezing 3 Million Investors",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277243",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T15:31:07Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A regulatory delisting purge affecting 3 million investors represents a major market-wide risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A regulatory delisting purge affecting 3 million investors represents a major market-wide risk event.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-272",
       "headline": "Century Extrusions Limited: Century Extrusions Limited has informed the Exchange about Credit Rating- Revision",
       "headline_en": null,
@@ -1895,55 +1938,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-126",
-      "headline": "Drax improves profit guidance after heatwave boosts demand",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/drax-bluefield-press-association-b1297297.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T08:15:03Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Company upgraded profit guidance due to increased demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company upgraded profit guidance due to increased demand.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Drax",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164340,9 +164334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1209483,
-    "news_picked_today": 383,
-    "news_dropped_today": 3985
+    "news_seen_today": 1242059,
+    "news_picked_today": 390,
+    "news_dropped_today": 4002
   },
   "book_momentum": {
     "live_count": 8,
