@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-17T17:00:58Z",
+  "generated_at": "2026-09-17T17:13:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-397",
+      "headline": "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASIANPAINT_17092026215233_Reg_30_commencement_of_VAE_facility_for_filing-signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T16:26:02Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Asian Paints has commenced commercial production at its new VAE manufacturing facility in Dahej, Gujarat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Asian Paints has commenced commercial production at its new VAE manufacturing facility in Dahej, Gujarat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Asian Paints Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-387",
       "headline": "AOM INT'L (00381): (1) PROPOSED SHARE CONSOLIDATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) SUPPLEMENTAL AGREEMENT IN RELATION TO ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE FOR LOAN CAPITALISATION IN RESPECT OF HUBEI CB; AND (4) UPDATE ON MAJOR TRANSACTION IN RELATION TO THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE",
@@ -1895,55 +1944,6 @@
           "name": "Nippon Steel",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-080",
-      "headline": "Next lifts profit guidance again after better-than-expected first half",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/next-lifts-profit-guidance-again-after-better-than-expected-first-half/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T08:03:53Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Next raised its profit guidance following better-than-expected first-half performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Next raised its profit guidance following better-than-expected first-half performance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Next",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -163849,9 +163849,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2115928,
-    "news_picked_today": 668,
-    "news_dropped_today": 8644
+    "news_seen_today": 2159758,
+    "news_picked_today": 670,
+    "news_dropped_today": 9026
   },
   "book_momentum": {
     "live_count": 8,
