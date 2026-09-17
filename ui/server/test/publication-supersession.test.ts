@@ -13,10 +13,14 @@ import { supersededPublicationPaths } from '../src/launcher'
 
 const repo = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'publication-supersession-')))
 const snapshots = path.join(repo, '.snapshots')
+// A GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE inherited from the environment would point `git init` and
+// `git commit` below at the REAL repository. Strip them so this helper can only ever touch the throwaway.
+const inherited = Object.fromEntries(Object.entries(process.env)
+  .filter(([name]) => !['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE', 'GIT_COMMON_DIR', 'GIT_OBJECT_DIRECTORY'].includes(name)))
 const git = (args: string[], at?: number): string => execFileSync('git', args, {
   cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'],
   env: {
-    ...process.env,
+    ...inherited,
     GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 'test@example.com',
     GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 'test@example.com',
     GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_SYSTEM: '/dev/null',
@@ -71,13 +75,13 @@ try {
 
   // The receipt's own commit landed and the process died before the receipt was cleared. HEAD now equals
   // the snapshot, and that commit IS newer than the receipt. It must still recover.
-  const landed = publish({ [`${root}/landed.md`]: 'sealed bytes\n' }, SEALED + 5)
+  publish({ [`${root}/landed.md`]: 'sealed bytes\n' }, SEALED + 5)
   assert.deepEqual(probe([sealed(`${root}/landed.md`, 'sealed bytes\n')]), [],
     'a newer commit that already carries the sealed bytes is this receipt landing, not a supersession')
 
   // A full run commits its primary snapshot, then seals the RUN_METADATA backfill inside the same second.
   // Committer time has one-second resolution, so that predecessor must not read as "newer".
-  const predecessor = publish({ [`${root}/same-second.md`]: 'primary bytes\n' }, SEALED)
+  publish({ [`${root}/same-second.md`]: 'primary bytes\n' }, SEALED)
   assert.deepEqual(probe([sealed(`${root}/same-second.md`, 'backfilled bytes\n')]), [],
     'a commit in the very second the receipt was sealed is its own predecessor')
 
@@ -92,7 +96,6 @@ try {
   // The recorded primary commit is never a newer publication, whatever the clock says.
   assert.deepEqual(probe([sealed(`${root}/reran.md`, 'stale sealed bytes\n')], newer), [],
     "the receipt's own recorded primary commit is excluded outright")
-  assert.notEqual(landed, predecessor)
 
   // A published name may contain glob characters. `a[1].md` was last published before the receipt; only
   // the unrelated `a1.md` is newer. Dating the literal file by the glob match would be a false refusal.
@@ -100,7 +103,7 @@ try {
   assert.deepEqual(probe([sealed(`${root}/a[1].md`, 'sealed bytes\n')]), [],
     'pathspecs are literal: a glob-looking file name is never dated by a sibling it happens to match')
 
-  // A permanently superseded receipt is re-examined at every startup, before listen(): report a few, stop.
+  // One refusal message cannot usefully name hundreds of paths: the report names a few.
   const many = Object.fromEntries(Array.from({ length: 8 }, (_, index) => [`${root}/bulk-${index}.md`, 'old bytes\n']))
   publish(many, SEALED - 1800)
   publish(Object.fromEntries(Object.keys(many).map((relative) => [relative, 'newer published bytes\n'])), SEALED + 1200)
@@ -111,9 +114,15 @@ try {
   // committing on a guess.
   assert.throws(() => supersededPublicationPaths({ entries: [], sealedAt: 'not a date' }, repo),
     /no valid creation time/)
-  assert.throws(() => supersededPublicationPaths({
-    entries: [sealed(`${root}/reran.md`, 'x')], sealedAt,
-  }, path.join(repo, 'not-a-repository')), undefined, 'a git failure is never read as "not superseded"')
+  // The directory must EXIST: a missing cwd fails to spawn at all and never runs git. An existing
+  // directory that is not a repository makes git itself fail, which is the case that matters.
+  const notARepository = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'not-a-repository-')))
+  try {
+    assert.throws(() => supersededPublicationPaths({
+      entries: [sealed(`${root}/reran.md`, 'x')], sealedAt,
+    }, notARepository), (error: any) => /not a git repository/i.test(String(error?.stderr || error?.message)),
+    'a git failure is never read as "not superseded"')
+  } finally { fs.rmSync(notARepository, { recursive: true, force: true }) }
 
   console.log('PASS: a retained publication receipt is refused once newer bytes were published over its paths')
 } finally {

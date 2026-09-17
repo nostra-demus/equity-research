@@ -343,7 +343,10 @@ const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
 
 /**
  * Run-root files that are supervisor control state, never research data. A publication must not carry
- * them: none has ever been tracked, and the data catalogue rejects each one.
+ * them, and none has ever been tracked. In a research run root (analyses/<RUN>/) the data catalogue lists
+ * exact file names and rejects each one, so dropping them is what lets the publication succeed. Under a
+ * blanket-glob store (commodity/runs/**, screener/runs/**) the catalogue would accept them, so this list is
+ * the only thing keeping control state out of main there.
  *  - the Idea-publication gate stays on disk until the supervisor finishes the commit it guards;
  *  - `.interrupted` is the resume marker. A technical-readiness retry deliberately preserves it as the
  *    only crash-recovery proof, and it is cleared on the `done` path, which runs after publication. It is
@@ -6945,15 +6948,25 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
 }
 
 /**
- * Refuse a path list the data catalogue does not cover BEFORE it is sealed. commit-run.sh applies the same
- * catalogue after staging, but by then the list is frozen into a digest-signed ready receipt that can never
- * change: a rejected receipt cannot publish and was retried at every startup (2026-09-17 outage). Failing
- * here keeps the failure on the live run, where Activity shows it, and leaves no receipt behind.
+ * Refuse a path list the data catalogue does not cover BEFORE it is frozen into a snapshot. On the
+ * post-exit drain path that snapshot is sealed into a digest-signed ready receipt that can never change, and
+ * commit-run.sh applies the catalogue only after staging: a rejected receipt cannot publish and was retried
+ * at every startup (2026-09-17 outage). Failing here keeps the failure on the live run, where Activity shows
+ * it, and leaves no receipt behind. Callers that never seal (the canary stamp, calibration) get the same
+ * answer commit-run.sh would give them, only earlier.
  *
  * The verdict comes from scripts/validate_data_catalogue.py itself, the validator commit-run.sh runs, so
- * the two cannot disagree about a glob. Anything short of a clean PASS refuses the publication, including
- * a validator that cannot run: an unchecked list is exactly what must not be sealed.
+ * the two cannot disagree about these paths. (commit-run.sh additionally judges the WHOLE index, so it can
+ * still fail on unrelated uncatalogued data this publication did not propose.) Anything short of a clean
+ * PASS refuses the publication, including a validator that cannot run: an unchecked list is exactly what
+ * must not be sealed.
+ *
+ * What this does NOT cover: stores the catalogue declares with a blanket glob (commodity/runs/**,
+ * screener/runs/**, analyses/provider-parity/**) accept any file name, so there is nothing to refuse there.
  */
+/** scripts/commit-run.sh refuses a supervisor snapshot manifest with more entries than this (`len(entries) > 512`). */
+const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512
+
 function assertPublicationPathsCatalogued(paths: string[]): void {
   try {
     execFileSync('python3', [
@@ -6964,7 +6977,7 @@ function assertPublicationPathsCatalogued(paths: string[]): void {
     })
   } catch (error: any) {
     const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
-    throw new Error(`cockpit publication refused before sealing: ${detail}`)
+    throw new Error(`cockpit publication refused before its path list was frozen: ${detail}`)
   }
 }
 
@@ -6988,7 +7001,12 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
     .filter((relative) => !SUPERVISOR_CONTROL_MARKERS.has(path.posix.basename(relative))).sort()
   if (!paths.length) throw new Error('cockpit publication resolved to no exact files')
   // Every sealed receipt is built from the snapshot returned here, so this is the one place the exact
-  // path list can still be refused. Ask before any protected state exists.
+  // path list can still be refused. Refuse here, before any protected state exists, whatever commit-run.sh
+  // is certain to reject later: its snapshot staging block refuses a manifest above this entry count.
+  if (paths.length > MAX_PUBLICATION_SNAPSHOT_ENTRIES) {
+    throw new Error(`cockpit publication refused before its path list was frozen: ${paths.length} files exceed the `
+      + `${MAX_PUBLICATION_SNAPSHOT_ENTRIES}-entry limit commit-run.sh enforces on a supervisor snapshot`)
+  }
   assertPublicationPathsCatalogued(paths)
   const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
   fs.chmodSync(directory, 0o700)
@@ -8171,6 +8189,10 @@ const SUPERSEDED_REPORT_LIMIT = 5
  * recorded primary commit outright, so a clock step cannot misread it either.
  *
  * Any git failure throws. The caller retains and reports the receipt, which commits nothing.
+ *
+ * Callers must retry receipts NEWEST FIRST. A recovery commit is stamped "now", not the time its bytes were
+ * sealed, so an older receipt committed first would make every newer receipt that shares a path look
+ * superseded by it, and the older bytes would win.
  */
 export function supersededPublicationPaths(input: {
   entries: Array<{ path: string; snapshot: string }>
@@ -8205,23 +8227,48 @@ export function supersededPublicationPaths(input: {
   const sealed = git(['hash-object', '--no-filters', '--stdin-paths'],
     `${candidates.map((entry) => entry.snapshot).join('\n')}\n`).split('\n').filter(Boolean)
   if (sealed.length !== candidates.length) throw new Error('could not hash every sealed publication snapshot')
-  const superseded: SupersededPublicationPath[] = []
-  for (const [index, entry] of candidates.entries()) {
-    if (published.get(entry.path) === sealed[index]) continue
-    const [commit, stamp] = git(['log', '-1', '--format=%H %ct', 'HEAD', '--', entry.path]).trim().split(' ')
-    const committedAt = Number(stamp)
-    if (!commit || !Number.isFinite(committedAt)) throw new Error(`cannot date the published bytes of ${entry.path}`)
-    if (commit === input.ownCommit || committedAt <= sealedSeconds) continue
-    superseded.push({ path: entry.path, commit, committedAt })
-    // One path is enough to refuse. A permanently superseded receipt is re-examined at every startup
-    // until an operator clears it, and this runs before listen(): name a few paths, then stop.
-    if (superseded.length >= SUPERSEDED_REPORT_LIMIT) break
+  const differing = candidates.filter((entry, index) => published.get(entry.path) !== sealed[index]).map((entry) => entry.path)
+  if (!differing.length) return []
+  // ONE walk, bounded by date, for every differing path together. --max-age makes git stop at commits older
+  // than the receipt, so the cost tracks the commits made since sealing, not the size of history or the
+  // number of paths. This runs before listen(), and the watchdog restarts an engine that stays unresponsive:
+  // a walk per path cost ~110 ms each here, 12 s for one ordinary 113-file run root, at every startup.
+  // `sealedSeconds + 1` is the strict comparison above. -m gives a merge commit a name list too.
+  // The bound trusts committer dates: a commit backdated to before the receipt would be missed. Data
+  // commits are stamped by commit-run.sh on the same machine clock that stamped `created_at`.
+  const newest = new Map<string, SupersededPublicationPath>()
+  const wantedDiffering = new Set(differing)
+  let unattributed: string | null = null
+  for (let start = 0; start < differing.length; start += 256) {
+    const log = git(['log', '-m', `--max-age=${sealedSeconds + 1}`, '--format=%x01%H %ct', '--name-only', '-z',
+      'HEAD', '--', ...differing.slice(start, start + 256)])
+    for (const record of log.split('\x01').slice(1)) {
+      const headerEnd = record.indexOf('\0')
+      const [commit, stamp] = (headerEnd < 0 ? record : record.slice(0, headerEnd)).trim().split(' ')
+      const committedAt = Number(stamp)
+      if (!commit || !Number.isFinite(committedAt)) throw new Error('cannot date a commit newer than the sealed publication')
+      if (commit === input.ownCommit) continue
+      let attributed = false
+      for (const raw of headerEnd < 0 ? [] : record.slice(headerEnd + 1).split('\0')) {
+        const relative = raw.replace(/^\n+/, '')
+        if (!wantedDiffering.has(relative)) continue
+        attributed = true
+        // git lists newest first, so the first commit seen for a path is the one that set HEAD's bytes.
+        if (!newest.has(relative)) newest.set(relative, { path: relative, commit, committedAt })
+      }
+      if (!attributed) unattributed = commit
+    }
   }
-  return superseded
+  // A newer commit git listed for these paths but whose names could not be read is still a newer
+  // publication. Never resolve that doubt in favour of committing the older bytes.
+  if (!newest.size && unattributed) {
+    throw new Error(`commit ${unattributed.slice(0, 12)} republished a sealed path after the receipt, but its paths could not be read`)
+  }
+  return [...newest.values()].slice(0, SUPERSEDED_REPORT_LIMIT)
 }
 
 type SupersededPublicationProbe = (input: Parameters<typeof supersededPublicationPaths>[0]) => SupersededPublicationPath[]
-let supersededPublicationProbe: SupersededPublicationProbe = (input) => supersededPublicationPaths(input)
+let supersededPublicationProbe: SupersededPublicationProbe = supersededPublicationPaths
 
 /** Focused test seam: the recovery tests run against the real checkout and must not create commits in it. */
 export function __setSupersededPublicationProbe(fn: SupersededPublicationProbe): SupersededPublicationProbe {
@@ -8264,8 +8311,26 @@ export async function recoverReadyPublications(): Promise<number> {
   fs.chmodSync(readyPublicationDir, 0o700)
   readyPublicationFailures.clear()
   let recovered = 0
-  for (const entry of fs.readdirSync(readyPublicationDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
-    if (!entry.name.endsWith('.json')) continue
+  // Newest receipt first. Receipt names are random run ids, so name order is arbitrary, and the order now
+  // decides the outcome: a recovery commit is stamped "now", so an older receipt retried first would make a
+  // newer one that shares a path (a continuation of the same run root after a failed push) look superseded
+  // by it, and the older bytes would win. Newest first, the newest bytes publish and the older receipt is
+  // the one refused. `created_at` is read here only as a sort key, before verification; each receipt still
+  // gets the full digest-checked read below, and an unreadable one simply sorts last.
+  const sealedAtMs = (entry: fs.Dirent): number => {
+    try {
+      const absolute = path.join(readyPublicationDir, entry.name)
+      const info = fs.lstatSync(absolute)
+      if (!info.isFile() || info.size > 1024 * 1024) return Number.NEGATIVE_INFINITY
+      const value = Date.parse(JSON.parse(fs.readFileSync(absolute, 'utf8'))?.created_at)
+      return Number.isFinite(value) ? value : Number.NEGATIVE_INFINITY
+    } catch { return Number.NEGATIVE_INFINITY }
+  }
+  const receipts = fs.readdirSync(readyPublicationDir, { withFileTypes: true })
+    .filter((entry) => entry.name.endsWith('.json'))
+    .map((entry) => ({ entry, sealedAt: sealedAtMs(entry) }))
+    .sort((a, b) => (b.sealedAt - a.sealedAt) || a.entry.name.localeCompare(b.entry.name))
+  for (const { entry } of receipts) {
     try {
       if (await recoverReadyPublication(entry)) recovered++
     } catch (error: any) {

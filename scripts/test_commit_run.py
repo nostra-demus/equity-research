@@ -333,28 +333,69 @@ def test_presealed_path_list_fails_closed():
         check("a non-UTF-8 proposed path is refused, not skipped",
               undecodable.returncode == 1 and b"non-UTF-8 path" in undecodable.stderr,
               f"rc={undecodable.returncode} stderr={undecodable.stderr!r}")
+        # uncovered_paths() skips anything outside the data roots, which would let these pass unjudged.
+        for label, unjudged in (
+            ("a code path", "scripts/commit-run.sh"),
+            ("an absolute path", "/etc/passwd"),
+            ("a non-normalised data path", "./analyses/base/.interrupted"),
+            ("an upward path", "analyses/../scripts/commit-run.sh"),
+        ):
+            result = validate_catalogue(agent, env, "--paths", [unjudged])
+            check(f"{label} is refused, never passed without being judged",
+                  result.returncode == 1 and b"not a normalised data path" in result.stderr,
+                  f"rc={result.returncode} stderr={result.stderr!r}")
+        # Positive control: the very list refused below passes while the catalogue is readable, so that
+        # refusal is caused by the missing catalogue and by nothing else.
+        sighted = validate_catalogue(agent, env, "--paths", ["analyses/base/a.txt"])
+        check("the control list passes while the catalogue is readable",
+              sighted.returncode == 0, f"rc={sighted.returncode} stderr={sighted.stderr!r}")
         run(["git", "rm", "-q", "--cached", "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
         blind = validate_catalogue(agent, env, "--paths", ["analyses/base/a.txt"])
         check("a missing catalogue refuses the list instead of passing it unchecked",
-              blind.returncode == 1 and b"DATA-CATALOGUE: FAIL" in blind.stderr,
+              blind.returncode == 1 and b"DATA-CATALOGUE: FAIL" in blind.stderr
+              and b"uncatalogued data" not in blind.stderr,
               f"rc={blind.returncode} stderr={blind.stderr!r}")
 
 
 def test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots():
-    """Pin the real catalogue's verdict on the run-root files a whole-root publication can sweep up.
-    Control markers must stay rejected (the launcher drops them from the snapshot on that basis); the
-    terminal records must stay accepted (dropping those would hide a failed or aborted run)."""
+    """Pin the real catalogue's verdict on the files a whole-root RESEARCH publication can sweep up.
+    In a research run root (analyses/<RUN>/) the catalogue lists exact file names, so a control marker is
+    rejected and the launcher must drop it for the publication to succeed; the terminal records must stay
+    accepted (dropping those would hide a failed or aborted run).
+
+    This is deliberately scoped. Stores declared with a blanket glob (commodity/runs/**, screener/runs/**,
+    analyses/provider-parity/**) accept ANY file name, so there the catalogue gives no pre-seal protection
+    and the launcher's marker list is the only thing keeping control state out. That gap is pinned below
+    so it is a known property, not a surprise."""
     root = "analyses/ZZGUARD_2099-01-01"
     env = dict(os.environ)
     for name in (".requires_idea_publication", ".interrupted"):
         result = validate_catalogue(REPO_ROOT, env, "--paths", [f"{root}/{name}"])
-        check(f"real catalogue rejects supervisor control state: {name}",
+        check(f"real catalogue rejects supervisor control state in a research run root: {name}",
               result.returncode == 1 and rejected_names(result) == [f"{root}/{name}"],
               f"rc={result.returncode} stderr={result.stderr!r}")
     accepted = [f"{root}/.aborted", f"{root}/RUN_FAILURE.md", f"{root}/RUN_METADATA.md"]
     result = validate_catalogue(REPO_ROOT, env, "--paths", accepted)
     check("real catalogue accepts the terminal run records",
           result.returncode == 0, f"rc={result.returncode} stderr={result.stderr!r}")
+    blanket = ["commodity/runs/ZZGUARD_2099-01-01/.interrupted",
+               "screener/runs/ZZGUARD_2099/signal-gate/.requires_idea_publication"]
+    result = validate_catalogue(REPO_ROOT, env, "--paths", blanket)
+    check("blanket-glob stores accept any file name, so they get no pre-seal catalogue protection",
+          result.returncode == 0, f"rc={result.returncode} stderr={result.stderr!r}")
+
+
+def test_retained_engine_locks_in_swept_ledger_are_gitignored():
+    """/screener:signal and /screener:handoff publish all of screener/ledger/. The Idea workspace-actions
+    ledger keeps a retained flock beside it (created once, never unlinked); unignored, it is swept into
+    every such publication and the data catalogue rejects it."""
+    lock = "screener/ledger/idea-workspace-actions.ndjson.lock"
+    ignored = subprocess.run(["git", "-C", REPO_ROOT, "check-ignore", "-q", "--no-index", lock])
+    check("the retained workspace-actions ledger lock is gitignored, so no sweep can pick it up",
+          ignored.returncode == 0, f"rc={ignored.returncode}")
+    ledger = subprocess.run(["git", "-C", REPO_ROOT, "check-ignore", "-q", "--no-index",
+                             "screener/ledger/idea-workspace-actions.ndjson"])
+    check("the ledger itself is still published", ledger.returncode == 1, f"rc={ledger.returncode}")
 
 
 def test_catalogue_globs_do_not_cross_path_segments():
@@ -1035,6 +1076,7 @@ if __name__ == "__main__":
     test_presealed_path_list_gets_the_same_verdict_as_the_staged_index()
     test_presealed_path_list_fails_closed()
     test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots()
+    test_retained_engine_locks_in_swept_ledger_are_gitignored()
     test_catalogue_globs_do_not_cross_path_segments()
     test_git_add_failure_is_not_a_noop()
     test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge()

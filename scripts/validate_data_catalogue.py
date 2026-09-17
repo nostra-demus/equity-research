@@ -10,7 +10,9 @@ the Git index/tree instead of the mutable worktree keeps this check race-safe fo
 staged yet: the cockpit supervisor asks it before it seals an immutable publication
 receipt, because a sealed list the catalogue rejects can never publish and is retried
 at every startup. It reads the same index catalogue and applies the same
-``uncovered_paths`` as ``--index``, so the two verdicts cannot drift apart.
+``uncovered_paths`` as ``--index``, so the two cannot disagree about the proposed paths.
+``--index`` and ``--tree`` still judge the WHOLE index or tree, so they can additionally
+fail on unrelated uncatalogued data this publication did not propose.
 """
 
 from __future__ import annotations
@@ -103,9 +105,19 @@ def proposed_paths(raw: bytes) -> list[str]:
         if not encoded:
             continue
         try:
-            result.append(encoded.decode("utf-8", "strict"))
+            relative = encoded.decode("utf-8", "strict")
         except UnicodeError as error:
             raise CatalogueError("proposed path list contains a non-UTF-8 path") from error
+        # uncovered_paths() skips anything outside the data roots. That is right for --index, whose
+        # index also holds code, but here it would let a path pass without ever being judged:
+        # `./analyses/X/.interrupted` does not start with a data root, so it would slip the filter.
+        # A proposed publication path must be exactly the normalised repository-relative form Git
+        # reports; anything else is a caller bug and is refused rather than waved through.
+        parts = relative.split("/")
+        if (not relative.startswith(DATA_ROOTS) or "\\" in relative
+                or any(part in ("", ".", "..") for part in parts)):
+            raise CatalogueError(f"proposed path is not a normalised data path: {relative!r}")
+        result.append(relative)
     if not result:
         # An empty list would pass vacuously. A caller with nothing to publish has a bug upstream;
         # never turn that into a PASS it can seal.
