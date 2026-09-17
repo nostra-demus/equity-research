@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T13:26:47Z",
+  "generated_at": "2026-09-17T13:30:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-318",
@@ -1499,6 +1499,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-322",
+      "headline": "GLOBAL NEW MAT (06616): VOLUNTARY ANNOUNCEMENT - PROPOSED ISSUANCE OF RMB DENOMINATED HKD SETTLED CONVERTIBLE BONDS UNDER GENERAL MANDATE AND PROPOSED CONCURRENT REPURCHASE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701667.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T13:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Proposed issuance of convertible bonds and concurrent share repurchase represents a significant capital structure adjustment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Proposed issuance of convertible bonds and concurrent share repurchase represents a significant capital structure adjustment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GLOBAL NEW MAT",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-320",
       "headline": "Osia Hyper Retail Limited: Replacement of IRP and appointment of Mr. Vinod Tarachand Agrawal as the Resolution Professional of Osia Hyper Retail Limited (In CIRP)",
       "headline_en": null,
@@ -1886,49 +1936,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-282",
-      "headline": "Regulators Trigger Delisting Purge, Freezing 3 Million Investors",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277243",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T15:31:07Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "A regulatory delisting purge affecting 3 million investors represents a major market-wide risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A regulatory delisting purge affecting 3 million investors represents a major market-wide risk event.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164262,9 +164269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1549716,
-    "news_picked_today": 450,
-    "news_dropped_today": 5334
+    "news_seen_today": 1581778,
+    "news_picked_today": 460,
+    "news_dropped_today": 5348
   },
   "book_momentum": {
     "live_count": 8,
