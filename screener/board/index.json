@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T23:41:21Z",
+  "generated_at": "2026-09-17T23:46:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-413",
@@ -1423,6 +1423,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-422",
+      "headline": "State Department Approves More Than $24 Billion Sale of 48 F-35As to Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/state-department-approves-more-than-24-billion-sale-of-48-f-35as-to-saudi-arabia/air-force/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:21:35Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The US State Department approved a $24 billion sale of 48 F-35A aircraft to Saudi Arabia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US State Department approved a $24 billion sale of 48 F-35A aircraft to Saudi Arabia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-414",
       "headline": "Burger franchisee closed 60 units, files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-241",
-      "headline": "‎Emirates: Fleet upgrade investments raised to $7B",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1937254",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T13:14:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Emirates increased its fleet upgrade investment to $7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emirates increased its fleet upgrade investment to $7 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -163984,9 +163984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3733156,
-    "news_picked_today": 992,
-    "news_dropped_today": 14032
+    "news_seen_today": 3745074,
+    "news_picked_today": 1003,
+    "news_dropped_today": 14069
   },
   "book_momentum": {
     "live_count": 8,
