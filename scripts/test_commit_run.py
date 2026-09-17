@@ -289,6 +289,65 @@ def test_git_add_failure_is_not_a_noop():
         check("git add failure leaves the index empty for the next autonomous run", cached.returncode == 0)
 
 
+def test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge():
+    """2026-09-17 outage: a publication SIGKILLed between staging and its own unstage left one data-lane
+    path in the production index. Every later autonomous commit then exited 3 forever. A data-lane leftover
+    must be unstaged (worktree bytes kept) so the next publication proceeds."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-leftover-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        leftover = "analyses/KILLED_2099-01-01/leftover.txt"
+        os.makedirs(os.path.join(agent, os.path.dirname(leftover)), exist_ok=True)
+        Path(agent, leftover).write_text("sealed by a publication that was killed mid-staging\n")
+        run(["git", "add", "--", leftover], cwd=agent, env=env)
+        fresh = "analyses/NEXT_2099-01-02/next.txt"
+        os.makedirs(os.path.join(agent, os.path.dirname(fresh)), exist_ok=True)
+        Path(agent, fresh).write_text("the next autonomous publication\n")
+
+        result = run(
+            ["bash", COMMIT_RUN, "test: publish after an interrupted publication", "--", fresh],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+
+        committed = run(["git", "cat-file", "-e", f"HEAD:{fresh}"], cwd=agent, env=env, check_rc=False)
+        swept = run(["git", "cat-file", "-e", f"HEAD:{leftover}"], cwd=agent, env=env, check_rc=False)
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("a data-lane leftover no longer wedges the next publication",
+              result.returncode == 0 and "COMMIT_SHA=" in result.stdout and committed.returncode == 0,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("the leftover is unstaged, never swept into someone else's commit, and its bytes are kept",
+              swept.returncode != 0 and cached.returncode == 0 and Path(agent, leftover).is_file()
+              and leftover in result.stderr,
+              result.stderr)
+
+
+def test_staged_non_data_change_still_refuses_without_touching_the_index():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-staged-code-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        os.makedirs(os.path.join(agent, "scripts"), exist_ok=True)
+        Path(agent, "scripts", "unreviewed.sh").write_text("echo unreviewed code\n")
+        leftover = "analyses/KILLED_2099-01-01/leftover.txt"
+        os.makedirs(os.path.join(agent, os.path.dirname(leftover)), exist_ok=True)
+        Path(agent, leftover).write_text("data leftover beside staged code\n")
+        run(["git", "add", "--", "scripts/unreviewed.sh", leftover], cwd=agent, env=env)
+        fresh = "analyses/NEXT_2099-01-02/next.txt"
+        os.makedirs(os.path.join(agent, os.path.dirname(fresh)), exist_ok=True)
+        Path(agent, fresh).write_text("must not publish while code is staged\n")
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+
+        result = run(
+            ["bash", COMMIT_RUN, "test: refuse staged code", "--", fresh],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        staged = run(["git", "diff", "--cached", "--name-only"], cwd=agent, env=env).stdout.split()
+        check("staged non-data change still exits 3 and commits nothing",
+              result.returncode == 3 and before == after and "already staged" in result.stderr,
+              f"rc={result.returncode} stderr={result.stderr!r}")
+        check("a refusal never mutates the index", sorted(staged) == sorted(["scripts/unreviewed.sh", leftover]),
+              str(staged))
+
+
 def test_commit_hook_rejection_is_never_pushed_as_old_head():
     with tempfile.TemporaryDirectory(prefix="commit-run-test-commit-fail-") as tmp:
         _, agent, env = setup_stale_local_main_scenario(tmp)
@@ -885,6 +944,8 @@ if __name__ == "__main__":
     test_uncatalogued_data_is_rejected_before_commit()
     test_catalogue_globs_do_not_cross_path_segments()
     test_git_add_failure_is_not_a_noop()
+    test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge()
+    test_staged_non_data_change_still_refuses_without_touching_the_index()
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_remote_reconciliation_leaves_checkout_untouched()
     test_clean_reconciliation_race_retains_original_local_commit()
