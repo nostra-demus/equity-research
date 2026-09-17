@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T13:02:14Z",
+  "generated_at": "2026-09-17T13:03:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-274",
@@ -581,6 +581,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-316",
+      "headline": "Another airline files for bankruptcy, cancels all flights",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/omni-aviacao-files-for-bankruptcy-cancels-all-flights",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T12:50:35Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "An airline has filed for bankruptcy and ceased operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An airline has filed for bankruptcy and ceased operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,56 +1930,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-065",
-      "headline": "FCA opens investigation into Euro Exchange Securities UK Ltd",
-      "headline_en": null,
-      "url": "https://www.fca.org.uk/news/enforcement-investigations/fca-opens-investigation-euro-exchange-securities-uk-ltd",
-      "source_name": "UK Financial Conduct Authority (FCA) — News",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-17T08:21:18Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The FCA has opened a formal investigation into Euro Exchange Securities UK Ltd, indicating potential regulatory or legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The FCA has opened a formal investigation into Euro Exchange Securities UK Ltd, indicating potential regulatory or legal risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Euro Exchange Securities UK Ltd",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164270,9 +164263,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1389268,
-    "news_picked_today": 422,
-    "news_dropped_today": 4762
+    "news_seen_today": 1405531,
+    "news_picked_today": 436,
+    "news_dropped_today": 4820
   },
   "book_momentum": {
     "live_count": 8,
