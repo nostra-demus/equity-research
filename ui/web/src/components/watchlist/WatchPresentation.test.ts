@@ -78,11 +78,13 @@ try {
   assert.ok(passed.includes('own words'), 'its quote sits behind a disclosure')
   assert.ok(passed.indexOf('FQ1 on 2026-09-04') > passed.indexOf('<details'), 'and inside it, not above it')
 
-  // Once seen, it leaves the head of the panel and lives under its own count.
+  // Once seen, it leaves the head of the panel and lives under its own count — carrying the same evidence the
+  // live condition showed, not just its title. Acknowledging silences a condition, it does not strip it.
   const seen = detail({
     watch: { status: 'waiting', status_label: 'Watching', headline: null,
       conditions: [{ id: 'results_out:d1', type: 'results_out', urgent: false, title: 'FQ1 earnings: the date has passed',
-        detail: 'FQ1 earnings was on 2026-09-04, and no research has run since.', quote: null, source: null,
+        detail: 'FQ1 earnings was on 2026-09-04, and no research has run since.', quote: 'FQ1 on 2026-09-04',
+        source: 'final_thesis.md', checklist: ['Revenue grew year on year.'],
         can_ack: true, seen_at: '2026-09-16T09:00:00Z' }],
       next_line: null, next_date: null, day_move_pct: null, market: null, plan: null, email_paused: false, unread: 0 },
   } as Partial<WatchRow>)
@@ -93,6 +95,12 @@ try {
   assert.ok(!seen.includes('T09:00:00'), 'never the raw instant')
   assert.ok(seen.includes('Undo'), 'and can be brought back')
   assert.ok(!seen.includes('What this means'), 'while nothing still asks for attention')
+  // The quote, its source, and the checklist travelled into Seen along with the title — an acknowledged
+  // condition is folded, not stripped of the evidence that backed it while it was live.
+  assert.ok(seen.includes('own words'), 'the quote still sits behind a disclosure once seen')
+  assert.ok(seen.includes('FQ1 on 2026-09-04'), 'and the quote text is still there')
+  assert.ok(seen.includes('final_thesis.md'), 'with its source')
+  assert.ok(seen.includes('Revenue grew year on year.'), 'and the checklist the operator may still need to work through')
 
   // A MISSING PRICE SAYS WHY IT IS MISSING. The one-line branch printed absenceReason(row) here — a sentence
   // about TRIGGERS — so NVO on the live list read "No trigger set — reminder only." in the price slot, twice

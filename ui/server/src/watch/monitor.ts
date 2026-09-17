@@ -450,14 +450,21 @@ export function createWatchMonitor(deps: MonitorDeps) {
         for (const id of Object.keys(ack)) if (!live.has(id)) delete ack[id]
         if (!Object.keys(ack).length) delete state.seen[key]
       }
+      // A CONDITION YOU HAVE ALREADY SEEN IS NOT NEWS TO THIS TICK. `/api/watchlist` evaluates and can
+      // acknowledge a condition (decorate(), setSeen) between ticks, so a fact that turned true and was
+      // acknowledged before this tick ever ran would otherwise reach stepAlerts with no id in its fired
+      // history — "new" by that measure — and mint an unread message for something "Seen it" just silenced.
+      // Filtering here, not in `ev.conditions`, keeps the panel showing the seen condition in its own words
+      // (evaluate.ts) while the messages this tick sends respect the same seen_at the screen already does.
+      const notAcked = ev.conditions.filter((c) => !c.seen_at)
       const prev = state.names[key]
-      const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: ev.conditions, price: facts.price, now: at }, t.rearmPct)
+      const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: notAcked, price: facts.price, now: at }, t.rearmPct)
       state.names[key] = step.state
       const name = { listing_key: key, ticker: row.ticker, company_name: row.company_name }
       const email = { enabled: emailCfg.enabled, paused: state.email_paused.includes(key) }
       if (step.baseline) {
         const buyCall = BUY_NOW_DECISIONS.has(info.plan?.decision ?? '')
-        const already = ev.conditions.filter((c) => c.type !== 'cant_check').map((c) => toItem(c, atIso))
+        const already = notAcked.filter((c) => c.type !== 'cant_check').map((c) => toItem(c, atIso))
         if (!state.summary_sent_at) {
           // On the first day a buy call is listed as already there, like everything else in the summary.
           state.pending_summary[key] = { ticker: row.ticker, items: buyCall ? [buyNowItem(row, info.plan, info.basis, atIso, false), ...already] : already }
@@ -657,14 +664,24 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // for any other type would be stored, re-serialised on every tick and read by nobody — so it is refused
     // at the door rather than left for the sweep to find.
     if (seen && !ACKNOWLEDGEABLE.has(conditionId.split(':')[0] as ConditionType)) return 'not_acknowledgeable'
-    const forName = { ...(state.seen[listingKey] ?? {}) }
+    // Snapshotted BEFORE the mutation, so a dropped write can be rolled back to exactly what it was —
+    // undefined (this name had no acknowledgements yet), or the object as it stood a line above.
+    const before = state.seen[listingKey]
+    const forName = { ...(before ?? {}) }
     if (seen) forName[conditionId] = now().toISOString()
     else delete forName[conditionId]
     if (Object.keys(forName).length) state.seen[listingKey] = forName
     else delete state.seen[listingKey]
     // AN UNWRITABLE STATE DIRECTORY IS NOT AN ACKNOWLEDGEMENT. Without this the mark lived in memory only,
     // the route answered {ok:true}, and it was gone at the next restart with nobody told.
-    if (!saveState()) return 'not_saved'
+    if (!saveState()) {
+      // ROLL BACK THE IN-MEMORY MUTATION. The route now answers 500, but decorate() reads state.seen
+      // directly, and a reload before any restart would otherwise see the write as if it had landed —
+      // an acknowledged condition silently leaving "Needs you" on a save the disk never took.
+      if (before) state.seen[listingKey] = before
+      else delete state.seen[listingKey]
+      return 'not_saved'
+    }
     // No tick. Nothing the tick computes depends on this — the screen re-reads through decorate(), which
     // reads state.seen directly — and scheduleTick REPLACES the pending timer, so a click here would cancel
     // the run a just-finished plan read had queued, and re-quote every listing for nothing.

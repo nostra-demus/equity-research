@@ -329,6 +329,23 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                   <button className="btn btn--mini wdet__seen" onClick={() => ackCond(c.id, false)} title="Let this ask for attention again">Undo</button>
                 )}
                 <div className="wdet__condtext">{c.detail} Seen {shortDay(c.seen_at!)}.</div>
+                {/* Acknowledging a condition silences it, not its evidence — the tests and the research's own
+                    words that stood beside it while live still belong to the name once it moves to Seen. */}
+                {c.checklist && c.checklist.length > 0 && (
+                  <details className="wdet__tests">
+                    <summary>The research's tests to check by hand · {c.checklist.length}</summary>
+                    <ul>{c.checklist.map((x, n) => <li key={n}>{x}</li>)}</ul>
+                  </details>
+                )}
+                {c.quote && (
+                  <details className="wdet__tests">
+                    <summary>the research's own words</summary>
+                    <blockquote className="wmsg__quote">
+                      “{c.quote}”
+                      {c.source && <cite>{c.source}</cite>}
+                    </blockquote>
+                  </details>
+                )}
               </li>
             ))}
           </ul>

@@ -430,6 +430,12 @@ async function main() {
     fs.chmodSync(path.join(dir, 'watchlist'), 0o500)
     try {
       assert.equal(m12.setSeen(row.listing.listing_key, 'results_out:d1', false), 'not_saved')
+      // ROLLED BACK IN MEMORY TOO, not only on disk. Before the fix, the in-memory mutation happened
+      // BEFORE saveState() ran, so decorate() — which reads state.seen directly, no restart needed —
+      // would show d1 as un-acknowledged the moment the dropped write returned, even though the disk
+      // (and the route's own 500) said the take-back never happened.
+      assert.ok(seen(m12).conditions.find((c) => c.id === 'results_out:d1')?.seen_at,
+        'a dropped save leaves the in-memory mark exactly as it was, not as the failed write intended')
     } finally {
       fs.chmodSync(path.join(dir, 'watchlist'), 0o700)
     }
@@ -440,6 +446,43 @@ async function main() {
     await m12.tick(); await m12.idle(); await m12.tick()
     assert.deepEqual(seenIds(), [], 'and leave with it')
     m12.stop()
+  })
+
+  await check('a condition acknowledged before this tick ever ran is not reported as a new message', async () => {
+    // The exact race: a date passes between two monitor ticks, and the operator sees and acknowledges it
+    // through a fresh /api/watchlist read (decorate() + setSeen) before this monitor's own next tick runs.
+    // The id has therefore never been in this monitor's fired history — "new" by that measure alone — so
+    // without filtering acknowledged conditions out of stepAlerts's input, it would be reported as news.
+    let t = new Date('2026-08-01T14:00:00Z')
+    const row = engineRow('MMM', 'USD', 'NYSE', 'MMM_2026-08-01')
+    const items: PlanItem[] = [{
+      kind: 'date', id: 'd1', label: 'Event d1', date: '2026-09-04', window: null, estimated: false,
+      what_to_check: null, source: { file: 'final_thesis.md', quote: 'Event on 2026-09-04', field: null },
+    }]
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-13-'))
+    const m = createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => [row], loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf('MMM', 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (r: EngineWatchRow) => ({ status: 'ok' as const, plan: planFor(r, items), detail: 'read', cost_usd: 0.3 }),
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    // Baseline, well before the date — nothing pending, so the date passing next is genuinely new to this name.
+    await m.tick(); await m.idle(); await m.tick()
+    assert.equal(m.inbox.list().filter((msg) => msg.listing_key === row.listing.listing_key).length, 0, 'nothing pending yet')
+
+    // The clock alone carries the date past — the plan is untouched, so no re-read is queued — and the
+    // acknowledgement lands before the tick that would otherwise have discovered the date had passed.
+    t = new Date('2026-09-10T14:00:00Z')
+    assert.equal(m.setSeen(row.listing.listing_key, 'results_out:d1', true), 'ok', 'acknowledged ahead of the tick')
+
+    await m.tick(); await m.idle()
+    const named = m.inbox.list().filter((msg) => msg.listing_key === row.listing.listing_key)
+    assert.ok(!named.some((msg) => msg.items.some((i) => i.id === 'results_out:d1')),
+      'a condition acknowledged before this tick must not be reported as new')
+    m.stop()
   })
 
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
