@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T14:01:44Z",
+  "generated_at": "2026-09-17T14:06:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-327",
@@ -733,6 +733,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-334",
+      "headline": "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/lennar-cuts-full-2026-delivery-133941748.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T13:39:41Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Homebuilder Lennar cuts full-year 2026 delivery guidance for the second time and reports lower Q3 earnings, signaling demand or operational weakness.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Homebuilder Lennar cuts full-year 2026 delivery guidance for the second time and reports lower Q3 earnings, signaling demand or operational weakness.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lennar Corporation",
+          "ticker": "LEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-241",
       "headline": "‎Emirates: Fleet upgrade investments raised to $7B",
       "headline_en": null,
@@ -774,6 +824,60 @@
           "name": "Emirates",
           "ticker": null,
           "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-342",
+      "headline": "Copart Subsidiary Commences Tender Offer To Buy ACV Auctions For $10.5/Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/copart-subsidiary-commences-tender-offer-buy-acv-auctions-105-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T12:57:20Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Copart subsidiary has launched a tender offer to acquire ACV Auctions for $10.5 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Copart subsidiary has launched a tender offer to acquire ACV Auctions for $10.5 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Copart",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ACV Auctions",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1835,104 +1939,6 @@
           "name": "Reliance Home Finance Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-209",
-      "headline": "Crizac Limited: Crizac Limited has informed the Exchange about regard to disclosure dated June 15, 2026 on proposed Acquisition of Compulsory Convertible Preference Shares and Compulsory Convertible Debentures of Edument Consultancy Private Limited.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CRIZAC0301_17092026151513_Reg_30__chandrashekhar.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T09:45:49Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The company is proceeding with the acquisition of CCPS and CCDs of Edument Consultancy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The company is proceeding with the acquisition of CCPS and CCDs of Edument Consultancy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crizac Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-121",
-      "headline": "HS RMB GOLD ETF (83168): Announcement and Notice of Termination, Voluntary Deauthorisation and Delisting",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700377.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T08:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The termination and delisting of an ETF is a terminal event for the fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The termination and delisting of an ETF is a terminal event for the fund.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HS RMB Gold ETF",
-          "ticker": "83168",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -164269,9 +164275,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1694025,
-    "news_picked_today": 498,
-    "news_dropped_today": 5790
+    "news_seen_today": 1710144,
+    "news_picked_today": 512,
+    "news_dropped_today": 5824
   },
   "book_momentum": {
     "live_count": 8,
