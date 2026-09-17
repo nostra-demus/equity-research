@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T13:16:53Z",
+  "generated_at": "2026-09-17T13:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-318",
@@ -1499,6 +1499,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-320",
+      "headline": "Osia Hyper Retail Limited: Replacement of IRP and appointment of Mr. Vinod Tarachand Agrawal as the Resolution Professional of Osia Hyper Retail Limited (In CIRP)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OSIAHYPER_17092026182033_RP_Appointment_Letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T12:51:35Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The company is undergoing Corporate Insolvency Resolution Process (CIRP) and has appointed a new Resolution Professional.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company is undergoing Corporate Insolvency Resolution Process (CIRP) and has appointed a new Resolution Professional.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Osia Hyper Retail Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-303",
       "headline": "Escorts Kubota Limited: Escorts Kubota Limited has informed the Exchange about Action(s) taken or orders passed",
       "headline_en": null,
@@ -1879,55 +1928,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-305",
-      "headline": "Rays of Belief Limited: Rays of Belief Limited has informed the Exchange regarding the Intimation for further Investment in the share capital of Mom's Belief US Inc, Wholly Owned Subsidiary of the Company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ROBL_17092026174501_Intimation_for_Investment_in_Subsidiary.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T12:15:24Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Rays of Belief Limited announced further investment in its wholly owned US subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Rays of Belief Limited announced further investment in its wholly owned US subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rays of Belief Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -164262,9 +164262,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1502245,
-    "news_picked_today": 443,
-    "news_dropped_today": 5053
+    "news_seen_today": 1549716,
+    "news_picked_today": 450,
+    "news_dropped_today": 5334
   },
   "book_momentum": {
     "live_count": 8,
