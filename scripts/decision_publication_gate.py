@@ -22,8 +22,9 @@ repository as the working directory (eval.py resolves the live ``.claude/agents`
 it). The verdict therefore depends on the record's bytes AND on the checked-out program: a deploy
 that renames an orb can change it for the same bytes.
 
-Exit: 0 PASS; 1 a record was rejected; 2 the gate could not reach a verdict (callers refuse on any
-non-zero exit: an unjudged record is exactly what must not be committed or sealed).
+Exit: 0 PASS; 1 a record was rejected; 2 the gate could not reach a verdict. ``--check`` returns the
+validator's own exit code unchanged. Callers refuse on ANY non-zero exit: an unjudged record is exactly
+what must not be committed or sealed.
 """
 
 from __future__ import annotations
