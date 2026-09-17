@@ -197,6 +197,39 @@ with tempfile.TemporaryDirectory() as tmp:
           [c["name"] for c in payload.get("suite_contracts", [])] == ["framework contract: CLAUDE.md"])
 
 
+# ---- the nightly --all sweep opens a tracking issue for an AP-flagged PARTIAL run with no scored entry ----
+# eval.py's AP valuation-summary scan can hard-fail a run that has NO entry in the per-run `runs` map — a
+# partial run whose frozen sidecar landed before its decision_record. On the full-corpus sweep (which owns
+# suite/AP failures) that run must enter scope and get its own findable issue. Parking it in corpus_failing
+# with no issue while summary_markdown announces "each with its own issue" is a self-contradiction. Expected
+# behaviour is pinned to that summary claim + §29/§31 (the deterministic AP validator's verdict is
+# authoritative and must be surfaced, with a tracking issue, on the nightly that owns it) — NOT to the code's
+# prior behaviour. The SUITE case above cannot catch this: its AP-flagged run is also in runs{}, so it is in
+# scope on either code path; only a run ABSENT from runs{} distinguishes the fix.
+SUITE_PARTIAL = {"schema_version": "1.0", "suite_pass": False, "runs": {
+    "GOOD_2026-09-16": run_entry(),  # a scored run that passes on its own checks
+}, "valuation_summary_integrity": {"checked": 2, "failures": [
+    {"run": "PARTIAL_2026-09-16", "violations": ["bull level 100 < base level 120"]}]}}  # NOT in runs{}
+
+with tempfile.TemporaryDirectory() as tmp:
+    rp = os.path.join(tmp, "partial-suite.json")
+    with open(rp, "w", encoding="utf-8") as handle:
+        json.dump(SUITE_PARTIAL, handle)
+    op = os.path.join(tmp, "partial-suite-out.json")
+    sp = os.path.join(tmp, "partial-suite-summary.md")
+    code = main(["--all", "--report", rp, "--json-out", op, "--summary-out", sp])
+    with open(op, encoding="utf-8") as handle:
+        payload = json.load(handle)
+    with open(sp, encoding="utf-8") as handle:
+        summary = handle.read()
+    check("the nightly --all opens a tracking issue for an AP-flagged partial run absent from runs{}",
+          {a["run"] for a in payload["issues"] if a["state"] == "open"} == {"PARTIAL_2026-09-16"})
+    check("the AP-flagged partial run is charged as failing, not parked issueless in corpus_failing",
+          "PARTIAL_2026-09-16" in payload["failing"] and "PARTIAL_2026-09-16" not in payload["corpus_failing"])
+    check("the summary makes no 'each with its own issue' claim it did not keep",
+          "each with its own issue" not in summary)
+
+
 # ---- a scoped push is NOT charged for a suite-level problem it did not cause; the nightly --all owns it ----
 # (drives main()'s real --changed git diff, with --report so eval.py itself is not run)
 

@@ -360,7 +360,11 @@ def main(argv=None):
     else:
         report = run_eval(args.root)
     if scope_runs is None:
-        scope_runs = sorted((report.get("runs") or {}).keys())
+        # The full-corpus sweep (--all, or a --changed push with no comparable base) owns suite-level and AP
+        # failures, so an AP-flagged partial run with no scored entry (not in report['runs']) must be IN scope —
+        # it then gets a tracking issue and the summary's "each with its own issue" stays true — rather than
+        # being parked in corpus_failing with no issue while the summary claims one exists.
+        scope_runs = sorted(set((report.get("runs") or {}).keys()) | set(ap_failures(report).keys()))
     # A run this push TOUCHED but that isn't scored (a partial run, no decision_record yet) never enters
     # scope_runs, yet AP's global scan validates its sidecar. Fold any AP failure on a touched run into
     # scope so a malformed partial-run sidecar is charged to the push that landed it, not just the nightly.
