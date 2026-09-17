@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-27T03:07:48Z",
+  "archived_at": "2026-09-16T10:05:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6ae80c60359d",
-    "idea_version": "IDEAV-7df99974729aad2c",
-    "idea_version_started_at": "2026-08-24T08:35:35Z",
-    "ticker": "PARADEEP",
-    "company": "Paradeep Phosphates",
-    "exchange": "NSE",
+    "idea_id": "IDEA-8d1552f59ea8",
+    "idea_version": "IDEAV-97db41660754a5bd",
+    "idea_version_started_at": "2026-09-13T16:50:02Z",
+    "ticker": "0309",
+    "company": "XH News Media",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company faces a penalty and confiscation exceeding its quarterly profit, which will severely impact net income and cash reserves.",
-    "why_now": "The news of the penalty was reported on August 24, 2026, creating an immediate negative earnings shock.",
+    "reason": "The company has received a formal winding-up petition, which typically precedes liquidation and renders equity value highly speculative or zero.",
+    "why_now": "Inside information filing released on September 13, 2026.",
     "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 20,
       "specificity": 7,
       "timing": 10,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-05110ac39a20"
+      "EVT-dac3667e4fc3"
     ],
-    "primary_source_event_id": "EVT-05110ac39a20",
+    "primary_source_event_id": "EVT-dac3667e4fc3",
     "source_headlines": [
-      "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit"
+      "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION"
     ],
-    "source_headline": "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit",
-    "source_url": "https://www.cnbctv18.com/market/stocks/paradeep-phosphates-faces-penalty-and-confiscation-worth-more-than-its-quarterly-profit-19975301.htm",
-    "source_name": "CNBC-TV18",
+    "source_headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-24T03:05:01Z",
+    "newest_source_at": "2026-09-13T10:03:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T08:35:35Z",
-    "updated_at": "2026-08-24T08:35:35Z",
-    "decay_at": "2026-08-25T15:05:01Z",
+    "surfaced_at": "2026-09-13T16:50:02Z",
+    "updated_at": "2026-09-13T16:50:02Z",
+    "decay_at": "2026-09-14T22:03:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
