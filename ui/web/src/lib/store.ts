@@ -5908,6 +5908,14 @@ export const useStore = create<State>((set, get) => ({
           hold()
           continue
         }
+        // The server's resume policy is the one authority on whether an interruption may continue without
+        // a human. An explicit `false` from either projection holds, whatever the reason: today that is a
+        // publication the supervisor refused for a reason a retry cannot change, and any reason the server
+        // adds later is honoured here without a browser change. The manual Continue stays available.
+        if (r.autoResumeDue === false || recorded?.autoResumeDue === false) {
+          hold()
+          continue
+        }
         const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
         if (providerProblem) { hold(); continue }
         const execution = captureProviderLaunch(get(), provider)

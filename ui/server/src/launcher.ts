@@ -14,6 +14,7 @@ import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
 import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
+import { PUBLICATION_REFUSED_REASON } from './resume-policy'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
 import { normalizeDataSubject } from './data-subject'
@@ -642,9 +643,60 @@ export function resetAdmittedFullRelaunch(runRoot: string): void {
 const failureNote = (reason: string, stderr: string): string =>
   reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
+/**
+ * scripts/commit-run.sh reserves this exit code for exactly one outcome: the data catalogue rejected the
+ * exact staged publication. That verdict is a pure function of the path list and the checked-in catalogue,
+ * so re-running the provider reaches it again. Every other helper failure (usage, a foreign staged change,
+ * a lost push race, a failed `git add`/commit, a timeout) keeps its own code and stays a transient
+ * `publication_failed`. The pairing is pinned by test/publication-refusal-resume.test.ts.
+ */
+export const COMMIT_RUN_REFUSED_EXIT_CODE = 6
+
+/**
+ * A supervisor publication gate refused this exact publication for a reason no retry can change. It is the
+ * ONLY signal that turns a publication failure into the never-auto-resumed `publication_refused` reason:
+ * a gate opts in by throwing this type, and nothing downstream reads an error message to decide the class.
+ * Throw it only for a deterministic verdict — a gate that could not run (timeout, spawn failure) is a
+ * plain, transient error.
+ */
+export class PublicationRefusedError extends Error {
+  constructor(message: string, options?: { cause?: unknown }) {
+    super(message, options)
+    this.name = 'PublicationRefusedError'
+  }
+}
+
+/** Classify a failed commit-run.sh invocation by its exit code alone. The message is kept verbatim so the
+ * person who must fix the cause still reads the validator's own explanation. Exported for the regression. */
+export function publicationCommitError(error: any): unknown {
+  if (error?.exitCode !== COMMIT_RUN_REFUSED_EXIT_CODE) return error
+  return new PublicationRefusedError(String(error?.message || error), { cause: error })
+}
+
+/** Record why the supervisor-owned half of publication failed. Shared by the close owner and the regression
+ * so the refusal class is decided in one place, from the error's type. Returns the recorded message. */
+export function recordPublicationFailure(run: RunState, error: unknown): string {
+  const message = String((error as any)?.message || error)
+  run.publicationError = message
+  run.publicationRefused = error instanceof PublicationRefusedError
+  return message
+}
+
+const publicationFailureReason = (run: RunState): string =>
+  run.publicationRefused ? PUBLICATION_REFUSED_REASON : 'publication_failed'
+
+// Appended LAST on purpose: the activity note, the SSE event, and the `.interrupted` marker all keep the
+// tail of a long message, so this is the part a person is guaranteed to see.
+const PUBLICATION_REFUSED_NOTICE = 'Automatic resume is off for this run: the supervisor refused the publication '
+  + 'for a reason that running it again cannot change. Fix the cause shown above, then resume it manually.'
+
 function publicationFailureMessage(run: RunState, reason: string): string {
-  if (!run.lastProviderMessage || reason.includes('Provider final message:')) return reason
-  return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
+  const detail = !run.lastProviderMessage || reason.includes('Provider final message:')
+    ? reason
+    : `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
+  return run.publicationRefused && !detail.includes(PUBLICATION_REFUSED_NOTICE)
+    ? `${detail}\n\n${PUBLICATION_REFUSED_NOTICE}`
+    : detail
 }
 
 interface UnresolvedExpectedArtifact {
@@ -1073,10 +1125,12 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   // supervisor validates/stamps/publishes them. A clean child exit without that second half is not a
   // success, even when fresh terminal files are present. Keep this invariant here (the single finalizer),
   // not only in the execa close wrapper, so every caller and recovery path gets the same fail-closed result.
+  // The reason is `publication_refused` only when the failure carried the typed deterministic refusal; that
+  // reason is never auto-resumed (resume-policy.ts). Every other publication failure stays transient.
   if (classified.outcome === 'success' && run.willCommitToMain && !run.publicationCompleted) {
     classified = {
       outcome: 'error',
-      reason: 'publication_failed',
+      reason: publicationFailureReason(run),
       message: publicationFailureMessage(
         run,
         run.publicationError || 'the provider exited without a supervisor-owned publication request',
@@ -1136,7 +1190,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // publication failure, even though there was no request to set publicationRequested. Conversely,
     // a provider/quota failure before any publication request keeps its provider reason; missing a
     // request must not rewrite `out_of_credits` to `publication_failed` and lose its reset hold.
-    const publicationFailure = classified.reason === 'publication_failed'
+    const publicationFailure = classified.reason === 'publication_failed' || classified.reason === PUBLICATION_REFUSED_REASON
       ? publicationFailureMessage(
           run,
           classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request',
@@ -1145,7 +1199,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
           && !run.publicationCompleted && run.publicationError
         ? publicationFailureMessage(run, run.publicationError)
         : null
-    const reason = publicationFailure ? 'publication_failed' : classified.reason
+    const reason = publicationFailure ? publicationFailureReason(run) : classified.reason
     const errorMessage = publicationFailure || classified.message || stderr
     // Mark the broken full run for the resume supervisor. For an out_of_credits stop (the plan's usage
     // limit), stamp the rate-limit resetsAt so the paused run knows when it may continue WITHOUT spending
@@ -6851,10 +6905,14 @@ let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
 
 type SupervisorCommitter = (message: string, pathspecs: string[], env: NodeJS.ProcessEnv) => Promise<string>
 let supervisorCommitter: SupervisorCommitter = async (message, pathspecs, env) => {
-  const result = await execa('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...pathspecs], {
-    cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
-  })
-  return result.stdout
+  try {
+    const result = await execa('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...pathspecs], {
+      cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
+    })
+    return result.stdout
+  } catch (error) {
+    throw publicationCommitError(error)
+  }
 }
 type PublicationAuthoritySealer = (run: RunState) => void
 let publicationAuthoritySealer: PublicationAuthoritySealer = releaseExecutionEpochAfterPublication
@@ -8816,8 +8874,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       try {
         await drainPublicationIntents(run)
       } catch (error: any) {
-        publicationDrainError = String(error?.message || error)
-        run.publicationError = publicationDrainError
+        publicationDrainError = recordPublicationFailure(run, error)
         run.publicationPhase = 'terminal-failed'
         run.publicationToken = undefined
       }

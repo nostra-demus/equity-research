@@ -66,6 +66,17 @@ Model choice is part of the same provider-transparent contract, not a second lau
   continue with the original profile or any other currently verified reviewed profile; completed work is
   retained, only unfinished work runs, and the resulting lineage is labelled exact, mixed-profile, or
   mixed-provider. A global provider preference or a native yes/no browser prompt may never force the choice.
+- **A publication the supervisor refused for a reason no retry can change is never continued automatically.**
+  Today that is the data catalogue rejecting a path in the exact publication. The refusal is signalled by a
+  typed error (raised from `scripts/commit-run.sh`'s reserved exit code `6`, or by any supervisor gate that
+  opts in) and recorded by the single close finalizer as the distinct durable reason `publication_refused` —
+  never inferred from an error message. Every automatic lane holds it as Needs attention: the protected
+  full-chain journal, the legacy `.interrupted` scan, screener signals, constellation swarms, and the
+  browser's own auto-resume, which honours an explicit `autoResumeDue: false` for any reason. Continuing it
+  would delete the finished thesis and pay for the terminal master again only to meet the same refusal. The
+  manual Resume stays available once the cause is fixed. A transient publication failure (push, network, a
+  lost remote race, a validator that could not run) keeps `publication_failed` and keeps auto-resuming. The
+  rule is identical under every provider; `test/publication-refusal-resume.test.ts` pins it.
 - A saved partial does not expire at midnight. For each subject, the newest unfinished run remains available
   as **Complete old run** until a newer completed run supersedes it. The ordinary cockpit presents that next
   to **Run full**, so the user always chooses between explicitly completing saved work and requesting the
