@@ -665,10 +665,12 @@ try {
     process.env.PATH = `${muteShimDirectory}${path.delimiter}${gateOriginalPath ?? ''}`
     await assert.rejects(
       drainPublicationIntents(muteRun),
-      // The size limit shares this prefix, so the prefix alone would not show WHICH check refused. The
-      // detail must fall back to the failed command, which names the gate script.
-      (error: any) => /refused before its frozen snapshot was sealed: \S/.test(String(error?.message))
-        && /decision_publication_gate\.py/.test(String(error?.message)),
+      // The size limit shares this prefix, so the prefix alone would not show WHICH check refused: the
+      // refusal names the gate itself. What follows depends on how the process died (`Command failed: …`
+      // here, a bare `spawnSync python3 EPIPE` when it exits before reading its stdin, as on Linux CI), so
+      // only require that there IS a detail.
+      (error: any) => /refused before its frozen snapshot was sealed: scripts\/decision_publication_gate\.py did not pass: \S/
+        .test(String(error?.message)),
       'a decision gate that cannot reach a verdict refuses the publication, and the refusal says what failed',
     )
     assert.equal(muteCommits, 0)

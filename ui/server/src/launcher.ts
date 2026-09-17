@@ -7024,7 +7024,10 @@ function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snap
   } catch (error: any) {
     // stderr that is only whitespace is truthy: trim BEFORE falling back, or the refusal names nothing.
     const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
-    throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${detail}`)
+    // Name the check here rather than trusting the error text to: how the process died decides what that
+    // text says. A gate that exits before reading its stdin surfaces as a bare `spawnSync python3 EPIPE`.
+    throw new Error('cockpit publication refused before its frozen snapshot was sealed: '
+      + `scripts/decision_publication_gate.py did not pass: ${detail}`)
   }
 }
 
