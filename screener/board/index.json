@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T14:37:25Z",
+  "generated_at": "2026-09-17T14:46:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-348",
@@ -642,6 +642,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-386",
+      "headline": "SHAW BROTHERS (00953): SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701391.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T10:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Trading in Shaw Brothers shares has been suspended, indicating a potential material event or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trading in Shaw Brothers shares has been suspended, indicating a potential material event or distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shaw Brothers",
+          "ticker": "00953",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-264",
       "headline": "GREEN ENERGY GP (00979): PROFIT ALERT",
       "headline_en": null,
@@ -980,6 +1029,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-384",
+      "headline": "Allegro raises 2026 outlook as growth accelerates, shares hit five-year high",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/polands-allegro-boosts-2026-outlook-growth-accelerates-2026-09-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T14:13:22Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Allegro raised its 2026 outlook due to accelerating growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allegro raised its 2026 outlook due to accelerating growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allegro",
+          "ticker": null,
+          "listing_country": "PL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-352",
       "headline": "Iconic whiskey brand's saga adds forced Chapter 7 bankruptcy",
       "headline_en": null,
@@ -1018,6 +1117,110 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-371",
+      "headline": "Lisata Therapeutics Acquires Marea Therapeutics; Announces Concurrent Private Placement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lisata-therapeutics-acquires-marea-therapeutics-announces-concurrent-private-placement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T13:50:55Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Lisata Therapeutics is acquiring Marea Therapeutics and raising capital via a private placement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lisata Therapeutics is acquiring Marea Therapeutics and raising capital via a private placement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lisata Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Marea Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-373",
+      "headline": "Volato Group Appoints Chris Ensey As CEO; Merges With Alignment At Around $500 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/volato-group-appoints-chris-ensey-ceo-merges-alignment-around-500-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T13:46:55Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Volato Group is merging with Alignment in a deal valued at approximately $500 million and appointing a new CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volato Group is merging with Alignment in a deal valued at approximately $500 million and appointing a new CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volato Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1750,202 +1953,6 @@
           "name": "Wizz Air",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-094",
-      "headline": "Leidos Just Closed a $2.4 Billion Grid-Infrastructure Acquisition. Is This a Quiet AI Winner?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/leidos-just-closed-24-billion-grid-infrastructure-acquisition-quiet-ai-winner",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T06:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Leidos has completed a $2.4 billion acquisition of a grid-infrastructure business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Leidos has completed a $2.4 billion acquisition of a grid-infrastructure business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leidos",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-324",
-      "headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange about General Updates - approval of proposal for incorporation of 50:50 joint venture company between PLL and Gruner Renewable Energy Private Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PETRONET_17092026184157_CDpostBoard_Meeting_-_JV_with_Gruner_for_CBGsi.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T13:12:07Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Petronet LNG is forming a 50:50 joint venture with Gruner Renewable Energy, representing a strategic expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Petronet LNG is forming a 50:50 joint venture with Gruner Renewable Energy, representing a strategic expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Petronet LNG",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-184",
-      "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Puravankara secures Rs 2,600 crore redevelopment project inGoregaon West, Mumbai\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PURVA_17092026141319_SEintimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T08:43:33Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Puravankara secures Rs 2,600 crore redevelopment project in Mumbai, a quantified addition to order book and revenue visibility for the real-estate developer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Puravankara secures Rs 2,600 crore redevelopment project in Mumbai, a quantified addition to order book and revenue visibility for the real-estate developer.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Puravankara Limited",
-          "ticker": "PURAVANKARA",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-230",
-      "headline": "Share India Securities Limited: Share India Securities Limited has informed the Exchange that pursuant to Regulation 30 of SEBI (LODR) Regulations, 2015, please find enclosed herewith an update on Acquisition of Enshrine Leasing and Infotech Private Limited.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SISL_17092026161048_Reg30AcquisitionEnshrine.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T10:41:04Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The company provided an update on its acquisition of Enshrine Leasing and Infotech Private Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The company provided an update on its acquisition of Enshrine Leasing and Infotech Private Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Share India Securities Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -164282,9 +164289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1727553,
-    "news_picked_today": 538,
-    "news_dropped_today": 6110
+    "news_seen_today": 1744714,
+    "news_picked_today": 561,
+    "news_dropped_today": 6375
   },
   "book_momentum": {
     "live_count": 8,
