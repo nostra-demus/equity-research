@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T22:29:28Z",
+  "generated_at": "2026-09-17T22:32:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-406",
@@ -1325,6 +1325,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-410",
+      "headline": "57-year-old giant burger franchisee files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/57-year-old-burger-chain-franchisee-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T21:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A major franchisee filing for Chapter 11 bankruptcy indicates a significant credit event and potential operational failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major franchisee filing for Chapter 11 bankruptcy indicates a significant credit event and potential operational failure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-395",
       "headline": "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%",
       "headline_en": null,
@@ -1903,49 +1946,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-294",
-      "headline": "170-year-old whiskey saga adds forced Chapter 7 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/170-year-old-uncle-nearest-whiskey-saga-adds-forced-chapter-7-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T12:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "A forced Chapter 7 liquidation bankruptcy of a 170-year-old whiskey company is announced; company name is not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A forced Chapter 7 liquidation bankruptcy of a 170-year-old whiskey company is announced; company name is not disclosed in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164054,9 +164054,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3276636,
-    "news_picked_today": 912,
-    "news_dropped_today": 13464
+    "news_seen_today": 3301047,
+    "news_picked_today": 916,
+    "news_dropped_today": 13484
   },
   "book_momentum": {
     "live_count": 8,
