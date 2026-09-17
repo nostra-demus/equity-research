@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-17T23:46:45Z",
+  "generated_at": "2026-09-17T23:54:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-433",
+      "headline": "ABG: Sale of Interest in Storage King Group [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ABG?key=2924-03136881-2A1697822",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T23:30:23Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Abacus Group (ABG) announced the sale of its interest in Storage King Group, a price-sensitive divestment of a major asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abacus Group (ABG) announced the sale of its interest in Storage King Group, a price-sensitive divestment of a major asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abacus Group",
+          "ticker": "ABG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-413",
       "headline": "NXT: Settlement of A$1.1 billion Convertible Notes Offering",
@@ -1472,6 +1521,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-427",
+      "headline": "US targets Iran’s crypto lifeline: BitBank sanctioned over alleged IRGC, Hormuz payments",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/us-targets-irans-crypto-lifeline-bitbank-sanctioned-over-alleged-irgc-hormuz-payments-1.500678881",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:13:35Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The US sanctioned BitBank for alleged financial links to the IRGC, creating significant operational and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US sanctioned BitBank for alleged financial links to the IRGC, creating significant operational and legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BitBank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-414",
       "headline": "Burger franchisee closed 60 units, files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1848,106 +1947,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-373",
-      "headline": "Volato Group Appoints Chris Ensey As CEO; Merges With Alignment At Around $500 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/volato-group-appoints-chris-ensey-ceo-merges-alignment-around-500-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T13:46:55Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Volato Group is merging with Alignment in a deal valued at approximately $500 million and appointing a new CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volato Group is merging with Alignment in a deal valued at approximately $500 million and appointing a new CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volato Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-334",
-      "headline": "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/real-estate/articles/lennar-cuts-full-2026-delivery-133941748.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T13:39:41Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Homebuilder Lennar cuts full-year 2026 delivery guidance for the second time and reports lower Q3 earnings, signaling demand or operational weakness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Homebuilder Lennar cuts full-year 2026 delivery guidance for the second time and reports lower Q3 earnings, signaling demand or operational weakness.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lennar Corporation",
-          "ticker": "LEN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123335,79 +123334,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-23d292b4cefa",
-      "idea_version": "IDEAV-487eb1749b503763",
-      "idea_version_started_at": "2026-09-17T23:19:18Z",
-      "ticker": "RWC",
-      "company": "Reliance Worldwide Corporation",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Brookfield has agreed to acquire the company for $2.9 billion, providing a clear exit valuation for shareholders.",
-      "why_now": "The buyout agreement was reported on 2026-09-16; the stock should trade toward the offer price.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1414f175e192"
-      ],
-      "primary_source_event_id": "EVT-1414f175e192",
-      "source_headlines": [
-        "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid"
-      ],
-      "source_headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
-      "source_url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T11:51:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-17T23:19:18Z",
-      "decay_at": "2026-09-17T23:51:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aba8253ef457",
       "idea_version": "IDEAV-6e57e61b7da2bc39",
       "idea_version_started_at": "2026-09-17T23:19:18Z",
@@ -124891,6 +124817,79 @@
       "surfaced_at": "2026-09-15T04:47:56Z",
       "updated_at": "2026-09-15T04:47:56Z",
       "decay_at": "2026-09-16T13:42:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-23d292b4cefa",
+      "idea_version": "IDEAV-487eb1749b503763",
+      "idea_version_started_at": "2026-09-17T23:19:18Z",
+      "ticker": "RWC",
+      "company": "Reliance Worldwide Corporation",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Brookfield has agreed to acquire the company for $2.9 billion, providing a clear exit valuation for shareholders.",
+      "why_now": "The buyout agreement was reported on 2026-09-16; the stock should trade toward the offer price.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1414f175e192"
+      ],
+      "primary_source_event_id": "EVT-1414f175e192",
+      "source_headlines": [
+        "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid"
+      ],
+      "source_headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
+      "source_url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-16T11:51:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-16T03:36:22Z",
+      "updated_at": "2026-09-17T23:19:18Z",
+      "decay_at": "2026-09-17T23:51:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126768,14 +126767,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 266,
@@ -126799,6 +126798,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-23d292b4cefa",
+        "idea_version": "IDEAV-487eb1749b503763",
+        "idea_version_started_at": "2026-09-17T23:19:18Z",
+        "ticker": "RWC",
+        "company": "Reliance Worldwide Corporation",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Brookfield has agreed to acquire the company for $2.9 billion, providing a clear exit valuation for shareholders.",
+        "why_now": "The buyout agreement was reported on 2026-09-16; the stock should trade toward the offer price.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1414f175e192"
+        ],
+        "primary_source_event_id": "EVT-1414f175e192",
+        "source_headlines": [
+          "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid"
+        ],
+        "source_headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
+        "source_url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-16T11:51:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-16T03:36:22Z",
+        "updated_at": "2026-09-17T23:19:18Z",
+        "decay_at": "2026-09-17T23:51:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T23:51:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1cca59b30c7a",
         "idea_version": "IDEAV-e6e492d5833b6b1a",
@@ -155861,81 +155936,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9db64567877d",
-        "idea_version": "IDEAV-ce1685e0acce36dc",
-        "idea_version_started_at": "2026-09-06T18:59:32Z",
-        "ticker": "TCS",
-        "company": "Tata Consultancy Services",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is committing $7.4 billion to AI data center infrastructure, positioning it to capture significant demand in the high-growth artificial intelligence services market.",
-        "why_now": "The capital expenditure plan was announced on 2026-09-05.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b4a2a1b4daf1"
-        ],
-        "primary_source_event_id": "EVT-b4a2a1b4daf1",
-        "source_headlines": [
-          "India's TCS unit to invest up to $7.4 billion in AI data center campus"
-        ],
-        "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
-        "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T12:27:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T13:02:11Z",
-        "updated_at": "2026-09-06T18:59:32Z",
-        "decay_at": "2026-09-07T00:27:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T12:37:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2b72b57fa630",
         "idea_version": "IDEAV-b213b35b717884f8",
         "idea_version_started_at": "2026-09-05T15:28:18Z",
@@ -163965,7 +163965,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 874,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -163984,9 +163984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3745074,
-    "news_picked_today": 1003,
-    "news_dropped_today": 14069
+    "news_seen_today": 3768889,
+    "news_picked_today": 1019,
+    "news_dropped_today": 14173
   },
   "book_momentum": {
     "live_count": 8,
