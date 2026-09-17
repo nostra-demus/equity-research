@@ -39,6 +39,10 @@ function reachDefaultCommitter(entry: string, ticker: string, guardEnv: Record<s
   const bin = fs.mkdtempSync(path.join(tmp, 'bin-'))
   const calls = path.join(bin, 'bash-calls.log')
   fs.writeFileSync(path.join(bin, 'bash'), `#!/bin/sh\nprintf '%s\\n' "$*" >> '${calls}'\necho NOOP=1\n`, { mode: 0o755 })
+  // Windows resolves `bash` through PATHEXT, never an extensionless file, so give it the same stub there.
+  if (process.platform === 'win32') {
+    fs.writeFileSync(path.join(bin, 'bash.cmd'), `@echo off\r\necho %* >> "${calls}"\r\necho NOOP=1\r\n`)
+  }
   const env: NodeJS.ProcessEnv = { ...process.env }
   delete env[TEST_RUN_ENV]
   delete env[TEST_RUN_VIOLATIONS_ENV]
@@ -73,7 +77,7 @@ try {
     assert.match(run.stdout, /RUN_STATUS=incomplete/, run.stderr)
     assert.match(run.stdout, /NOTE_WRITTEN=1/)
     assert.equal(run.helperCalls.length, 1, `expected exactly one helper spawn, saw: ${JSON.stringify(run.helperCalls)}`)
-    assert.match(run.helperCalls[0], /scripts\/commit-run\.sh Run failure note: ZZGUARDC \(stopped at .*\) -- analyses\/ZZGUARDC_2099-01-01\/RUN_FAILURE\.md$/)
+    assert.match(run.helperCalls[0], /scripts[\\/]commit-run\.sh"? "?Run failure note: ZZGUARDC \(stopped at .*\)"? -- "?analyses\/ZZGUARDC_2099-01-01\/RUN_FAILURE\.md"?\s*$/)
     assert.equal(run.status, 0, run.stderr)
     assert.doesNotMatch(run.stderr, /TEST PUBLICATION GUARD/)
     assert.match(run.stdout, /^CHILD_GUARD_ENV=$/m, 'a production process never exports the guard to its children')
@@ -113,9 +117,14 @@ try {
         if (!/\.[cm]?tsx?$/.test(entry.name)) continue
         scanned++
         if (full === path.join(serverRoot, 'src', 'commit-run.ts')) continue
-        fs.readFileSync(full, 'utf8').split('\n').forEach((line, index) => {
+        // Blank out block comments first (newlines kept, so reported line numbers stay exact), then drop
+        // whole-line and trailing `//` comments. Only a trailing comment preceded by whitespace is cut, so a
+        // `https://…` inside a string literal never hides the rest of its line.
+        const withoutBlocks = fs.readFileSync(full, 'utf8')
+          .replace(/\/\*[\s\S]*?\*\//g, (block) => block.replace(/[^\r\n]/g, ' '))
+        withoutBlocks.split('\n').forEach((line, index) => {
           const trimmed = line.trim()
-          if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) return
+          if (trimmed.startsWith('//')) return
           const code = trimmed.replace(/\s\/\/.*$/, '')
           if (code.includes('commit-run.sh')) offenders.push(`${path.relative(serverRoot, full)}:${index + 1}`)
         })
