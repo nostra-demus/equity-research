@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T08:54:32Z",
+  "generated_at": "2026-09-17T08:59:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-119",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-156",
+      "headline": "Next Shares Rise After Guidance Lift",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/next-plc-nudges-up-guidance-after-better-than-expected-performance-52ce7355?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Next PLC raised its financial guidance, which directly impacts analyst expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Next PLC raised its financial guidance, which directly impacts analyst expectations and valuation.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Next",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -929,6 +978,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-158",
+      "headline": "Russia strikes Kyiv, other cities hours after US sanctions passed",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-injures-three-odesa-officials-say-2026-09-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T08:39:41Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Military escalation in Kyiv following sanctions represents a significant geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Military escalation in Kyiv following sanctions represents a significant geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,104 +1970,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-110",
-      "headline": "Debenhams reveals earnings jump as turnaround gathers pace",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/debenhams-pretty-little-thing-nasty-gal-boohoo-karen-millen-b1297293.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:10:13Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Debenhams reported an earnings jump indicating progress in its turnaround.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Debenhams reported an earnings jump indicating progress in its turnaround.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Debenhams",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-109",
-      "headline": "Oracle CFO Tells Staff to Be 'Thoughtful' With Spending Days After Company's Second Layoff Round",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/oracle-cfo-tells-staff-to-be-thoughtful-with-spending-days-after-companys-second-layoff-round",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T06:48:34Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Oracle CFO signaled spending caution following a second round of layoffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Oracle CFO signaled spending caution following a second round of layoffs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167535,9 +167529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 434414,
-    "news_picked_today": 155,
-    "news_dropped_today": 685
+    "news_seen_today": 452343,
+    "news_picked_today": 159,
+    "news_dropped_today": 705
   },
   "book_momentum": {
     "live_count": 8,
