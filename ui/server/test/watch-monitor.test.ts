@@ -679,6 +679,136 @@ async function main() {
       'BBB is left uninitialised and simply retries next tick')
   })
 
+  await check('a plan saved just before a restart is rehydrated, not left "waiting" for the whole outage', async () => {
+    // readResearchPlan (reader.ts) writes a non-`ok` plan to disk and RETURNS before the readChain callback
+    // below saves the monitor's own read record — a restart in between leaves exactly this on disk: a plan,
+    // no matching `rec`. Before the fix, the suppressed-read gate only rebuilt state for "no plan AND no rec",
+    // so this row was neither that (it has a plan) nor holding a `rec` planInfo could read a kind from, and
+    // fell through to "waiting to read" for as long as another row's usage limit kept holding the machine-wide
+    // probe — though its own record-only bad case is already sitting on disk, unread by nobody.
+    let t = new Date('2026-09-17T06:00:00Z')
+    const AAA = engineRow('AAA', 'USD', 'NYSE', 'AAA_2026-08-01')
+    const BBB = engineRow('BBB', 'USD', 'NYSE', 'BBB_2026-08-02')
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-14-'))
+    const bad = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet." },
+    })
+    // BBB's plan is already on disk exactly as readResearchPlan itself would leave it — but no read record for
+    // it was ever saved (the "process restarted in between" half of the bug).
+    fs.mkdirSync(path.join(dir, 'watchlist', 'plans'), { recursive: true })
+    fs.writeFileSync(path.join(dir, 'watchlist', 'plans', 'BBB_2026-08-02.json'), `${JSON.stringify(bad(BBB), null, 1)}\n`)
+    let rows: EngineWatchRow[] = [AAA]
+    const reads: string[] = []
+    const fallbacks: string[] = []
+    const m14 = createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => {
+        reads.push(row.listing.ticker)
+        return { status: 'limit', plan: bad(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+      },
+      buildFallbackPlan: (row) => { fallbacks.push(row.listing.ticker); return { status: 'limit', plan: bad(row), detail: "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.", cost_usd: 0 } },
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const views = () => m14.decorate(mergeWatchlist({
+      entries: [], engine: rows, today: t.toISOString().slice(0, 10),
+      quotes: new Map(rows.map((r) => [r.listing.listing_key, { quote: quoteOf(r.listing.ticker, 'USD', 50), reason: null }])),
+    }).rows)
+
+    // On the very first tick nothing has hit a limit yet, so a row with no rec would normally be read for real.
+    // To reproduce the restart mid-outage, drive one tick with only AAA present (it hits the limit for real),
+    // THEN let BBB's pre-existing on-disk plan be discovered while the machine-wide wait is already holding.
+    await m14.tick(); await m14.idle()
+    assert.deepEqual(reads, ['AAA'], 'AAA is read for real and hits the limit')
+
+    rows = [AAA, BBB]
+    t = new Date(t.getTime() + 2 * 60_000)
+    await m14.tick(); await m14.idle()
+    assert.deepEqual(reads, ['AAA'], 'no real read for BBB — the machine-wide wait still holds')
+    assert.deepEqual(fallbacks, [], "BBB already had a plan on disk — it needs its record rebuilt, not a fresh fallback plan")
+    const bbb = views().find((r) => r.watch.plan?.run_root === BBB.run_root)
+    assert.equal(bbb?.watch.plan?.state, 'limit', 'BBB is watched on the plan already sitting on disk, not left "waiting to read"')
+    assert.ok(bbb?.watch.plan?.items.some((i) => i.kind === 'price' && i.role === 'bad_case'), 'its record-only bad case is there')
+  })
+
+  await check('an outstanding probe is not queued behind twice while it runs past the tick interval', async () => {
+    // A read can run up to ~8 minutes; ticks run more often than that (5 minutes by default). If the single
+    // probe after the wait is still outstanding when the next tick fires, a probesLeft computed fresh from the
+    // wall clock alone resets to 1 again — the tick skips only the row already reading, but chains a SECOND
+    // report's real read right behind it in the same sequential readChain. It does not fire yet (the chain
+    // runs one at a time), but the moment the first probe's promise settles, the chain runs straight through
+    // to the second one too, in the same breath — the very burst the single-probe cap exists to prevent.
+    let t = new Date('2026-09-17T06:00:00Z')
+    const AAA = engineRow('AAA', 'USD', 'NYSE', 'AAA_2026-08-01')
+    const BBB = engineRow('BBB', 'USD', 'NYSE', 'BBB_2026-08-02')
+    let rows: EngineWatchRow[] = [AAA]
+    const reads: string[] = []
+    let calls = 0
+    let releaseSlowRead: (() => void) | null = null
+    const bad = (row: EngineWatchRow): WatchPlan => ({
+      ...planFor(row, [{ kind: 'price', id: 'p-bad', role: 'bad_case', low: 10, high: null, currency: 'USD', source: { file: 'decision_record.json', quote: null, field: 'scenario "bear"' }, note: null }]),
+      reader: { status: 'not_run', model: null, cost_usd: 0, at: null, detail: '' },
+    })
+    const m = createWatchMonitor({
+      stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-15-')), manual: true,
+      now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => rows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf(s.ticker, 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (row) => {
+        calls += 1
+        reads.push(row.listing.ticker)
+        if (calls === 2) {
+          // AAA's probe once the wait is over: deliberately slow, resolving only when released below —
+          // standing in for a real read still in flight after several tick intervals have gone by.
+          await new Promise<void>((resolve) => { releaseSlowRead = resolve })
+          return { status: 'ok', plan: planFor(row, []), detail: 'read', cost_usd: 0.3 }
+        }
+        return { status: 'limit', plan: bad(row), detail: 'Claude usage limit reached — try again after the plan resets.', cost_usd: 0 }
+      },
+      buildFallbackPlan: (row) => ({ status: 'limit', plan: bad(row), detail: "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.", cost_usd: 0 }),
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: null }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    // A single setImmediate turn drains every microtask already scheduled (the readChain callback up to its
+    // own await), without waiting for a deliberately-unresolved read the way idle() would.
+    const flush = () => new Promise<void>((resolve) => setImmediate(resolve))
+    const step = async (min: number) => { t = new Date(t.getTime() + min * 60_000); await m.tick(); await flush() }
+
+    await m.tick(); await m.idle()
+    assert.deepEqual(reads, ['AAA'], 'AAA is read for real and hits the limit at t0')
+
+    // BBB shows up once the wait is over; AAA's next probe is the slow one that will not resolve on its own.
+    rows = [AAA, BBB]
+    await step(16)
+    assert.deepEqual(reads, ['AAA', 'AAA'], 'the wait is over — exactly one probe goes out, for AAA')
+
+    // One more tick passes while AAA's probe is still outstanding. The old wall-clock-only probesLeft resets to
+    // 1 on this tick and (on the buggy code) chains BBB's real read right behind AAA's in the sequential
+    // readChain — BBB has not actually run yet either way (the chain has not reached it), so this alone does
+    // not yet distinguish the fix from the bug.
+    await step(2)
+    assert.deepEqual(reads, ['AAA', 'AAA'], "BBB has not run yet — the chain has not reached it")
+
+    // AAA's probe finally lands. On the buggy code, BBB was already chained behind it, so the SAME readChain
+    // resolution that lands AAA's outcome runs straight through to BBB too — a second real read fired in the
+    // same burst, before anyone has looked at whether the limit still holds. The fix means BBB was never
+    // chained at all, so it is untouched here.
+    releaseSlowRead?.()
+    await m.idle()
+    assert.deepEqual(reads, ['AAA', 'AAA'], "BBB's real read did not fire in the same burst as AAA's outcome")
+
+    // Only on a LATER tick, once AAA's outcome is known and the machine-wide gate is freshly evaluated, may
+    // BBB get its own turn.
+    await step(1)
+    await m.idle()
+    assert.deepEqual(reads, ['AAA', 'AAA', 'BBB'], "BBB gets its turn once AAA's outcome is known, not before")
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

@@ -164,6 +164,10 @@ export function createWatchMonitor(deps: MonitorDeps) {
   /** Reports whose files changed since the reading on disk — cleared when one is read again. */
   const digestChanged = new Set<string>()
   const queued = new Set<string>()
+  /** A model read whose outcome is not yet known — added the moment it is queued (needsModel reads only),
+   *  removed the moment readPlan returns. Persists across ticks, unlike a tick-local probesLeft: a read can
+   *  run longer than the tick interval, and while one is outstanding no other name may be queued behind it. */
+  const modelReadsInFlight = new Set<string>()
   const digestCheckedAt = new Map<string, number>()
   let readChain: Promise<void> = Promise.resolve()
   let market = new Map<string, { label: string; move_pct: number; session: string }>()
@@ -312,7 +316,15 @@ export function createWatchMonitor(deps: MonitorDeps) {
     const lastLimit = limitedAt()
     const waiting = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_RETRY_MS
     // The probe belongs to a limit just waited out, not to any limit there has ever been.
-    let probesLeft = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_PROBE_MS ? 1 : Number.POSITIVE_INFINITY
+    // A read can run past this tick's own interval (reads run up to ~8 minutes; ticks run more often than
+    // that), so a probesLeft computed from the wall clock alone would reset to 1 on every intervening tick
+    // and queue ANOTHER report behind the one still outstanding — recreating the very burst this cap exists
+    // to prevent by the time the first probe's outcome confirms the limit still holds. So the probe is spent
+    // for as long as an earlier one's outcome is not yet known, across ticks, not just within the one that
+    // queued it — confirmed only by that read actually landing (modelReadsInFlight going back to empty).
+    let probesLeft = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_PROBE_MS
+      ? Math.max(0, 1 - modelReadsInFlight.size)
+      : Number.POSITIVE_INFINITY
     for (const row of rows) {
       // A buy call is set up with no model at all — its record's own bad case and kill criteria are the whole
       // plan (readResearchPlan) — so a limit on the provider says nothing about it. Held back with the rest,
@@ -332,27 +344,46 @@ export function createWatchMonitor(deps: MonitorDeps) {
         // unwatched for the whole outage. It gets its own record-only plan now, built with no model call at all
         // — the only thing suppressed here is the actual read — and takes its normal turn at a real one once
         // the machine-wide wait allows it.
-        if (!plan && !rec) {
-          try {
-            const outcome = buildFallbackPlan(row)
-            // A synthetic fallback is not a fresh provider response, so a `limit` one must NOT advance the
-            // machine-wide limit clock (limitedAt reads the newest `limit` record's last_at). Stamp it with
-            // the limit already in force, not `at` — otherwise a name arriving mid-cooldown pushes the next
-            // probe out, and repeated arrivals could postpone probing indefinitely though no provider call
-            // confirmed the limit still holds. A `no_sources` fallback keeps its own `at` stamp (real backoff).
-            const stamp = outcome.status === 'limit' && lastLimit > 0
-              ? new Date(lastLimit).toISOString()
-              : at.toISOString()
-            state.reads[seg] = { attempts: 0, last_at: stamp, status: outcome.status, detail: outcome.detail }
-            if (outcome.plan) planCache.set(seg, outcome.plan)
-            else planCache.delete(seg)
+        if (!rec) {
+          if (!plan) {
+            try {
+              const outcome = buildFallbackPlan(row)
+              // A synthetic fallback is not a fresh provider response, so a `limit` one must NOT advance the
+              // machine-wide limit clock (limitedAt reads the newest `limit` record's last_at). Stamp it with
+              // the limit already in force, not `at` — otherwise a name arriving mid-cooldown pushes the next
+              // probe out, and repeated arrivals could postpone probing indefinitely though no provider call
+              // confirmed the limit still holds. A `no_sources` fallback keeps its own `at` stamp (real backoff).
+              const stamp = outcome.status === 'limit' && lastLimit > 0
+                ? new Date(lastLimit).toISOString()
+                : at.toISOString()
+              state.reads[seg] = { attempts: 0, last_at: stamp, status: outcome.status, detail: outcome.detail }
+              if (outcome.plan) planCache.set(seg, outcome.plan)
+              else planCache.delete(seg)
+              saveState()
+            } catch (e: any) {
+              // The fallback builder writes a plan to disk. A storage failure (plans dir unwritable, atomic
+              // rename fails) must not abort the whole tick and stop price/deal-breaker evaluation for EVERY
+              // name — the row is simply left uninitialised and retries next tick, the same containment the
+              // real read on the chain below already has.
+              console.error(`[watch] fallback plan for ${seg} could not be stored: ${String(e?.message ?? e)}`)
+            }
+          } else if (plan.reader.status !== 'ok') {
+            // readResearchPlan (reader.ts) saves a non-`ok` plan to disk and RETURNS before the readChain
+            // callback below saves the monitor's own read record — a restart in between leaves exactly this:
+            // a plan already on disk, no matching `rec`. Left alone this row is neither "no plan" (so the
+            // fallback above never runs for it) nor holding a `rec` planInfo can read a kind from, and it
+            // falls through to "waiting to read" for as long as the machine-wide limit keeps suppressing real
+            // reads — though its own record-only bad case and deal-breakers are already sitting on disk. The
+            // suppression above only ever holds for a genuine machine-wide limit, so the record is rebuilt as
+            // the same kind of `limit` a synthetic fallback gets, stamped the same way (the limit already in
+            // force, not `at`, so re-discovering this plan on a later tick cannot push the clock out either).
+            state.reads[seg] = {
+              attempts: 0,
+              last_at: lastLimit > 0 ? new Date(lastLimit).toISOString() : at.toISOString(),
+              status: 'limit',
+              detail: plan.reader.detail || "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.",
+            }
             saveState()
-          } catch (e: any) {
-            // The fallback builder writes a plan to disk. A storage failure (plans dir unwritable, atomic
-            // rename fails) must not abort the whole tick and stop price/deal-breaker evaluation for EVERY
-            // name — the row is simply left uninitialised and retries next tick, the same containment the
-            // real read on the chain below already has.
-            console.error(`[watch] fallback plan for ${seg} could not be stored: ${String(e?.message ?? e)}`)
           }
         }
         continue
@@ -383,14 +414,16 @@ export function createWatchMonitor(deps: MonitorDeps) {
         if (since < wait) continue
       }
       queued.add(seg)
-      if (needsModel) probesLeft -= 1
+      if (needsModel) { probesLeft -= 1; modelReadsInFlight.add(seg) }
       readChain = readChain.then(async () => {
         queued.delete(seg)
-        if (stopped) return
+        if (stopped) { modelReadsInFlight.delete(seg); return }
         reading.add(seg)
         let outcome: ReadOutcome
         try { outcome = await deps.readPlan(row) } catch (e: any) { outcome = { status: 'failed', plan: null, detail: String(e?.message ?? e), cost_usd: 0 } }
         reading.delete(seg)
+        // The outcome is known now — the next tick may count the machine-wide probe as free again.
+        modelReadsInFlight.delete(seg)
         const prev = state.reads[seg]
         const attempts = outcome.status === 'failed'
           ? (prev?.status === 'failed' && prev.attempts < READ_MAX_ATTEMPTS ? prev.attempts + 1 : 1)
