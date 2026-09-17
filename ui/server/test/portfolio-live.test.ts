@@ -148,6 +148,34 @@ await check('each priced row carries its own quote date and close status', async
   assert.equal(m.priced[0]!.asOfIsClose, true, 'a bare date is a settled session, not a live tick')
 })
 
+// ---- a symbol held more than once (two lots, or two currency lines) is carried on the statement ----
+// The blotter (positionMarks.ts livePriceIndex, `seen !== 1`) drops a symbol held by more than one position
+// and shows every such line on the statement. This estimate is the whole the blotter's weights and cash
+// residual divide by (navNow = live.nav), so a duplicated symbol must be carried on the SAME statement basis.
+// Pricing it here inflates live.nav by its move, which the blotter then leaks into displayed cash — the
+// precise §15 defect: a holding's move must not be absorbed into the cash residual.
+await check('a symbol held more than once is carried on the statement, not summed into the live NAV', async () => {
+  // Two lots of SHEL in one currency (the case the quote map genuinely double-counts) beside a uniquely-held
+  // SOLO. A two-currency SHEL is excluded the same way (heldCount keys by symbol); this covers the lot case.
+  const shelA = pos({ symbol: 'SHEL', conid: '10', currency: 'USD', markPrice: 50, positionValue: 1000, costBasisMoney: 800, quantity: 20, fxRateToBase: 1 })
+  const shelB = pos({ symbol: 'SHEL', conid: '11', currency: 'USD', markPrice: 50, positionValue: 1000, costBasisMoney: 800, quantity: 20, fxRateToBase: 1 })
+  const solo = pos({ symbol: 'SOLO', conid: '12', currency: 'USD', markPrice: 50, positionValue: 5000, costBasisMoney: 5000, quantity: 100, fxRateToBase: 1 })
+  const fetchFn = stubFetch(() => cnbcBody([
+    { symbol: 'SHEL', name: 'Shell', last: '55.00', last_time: '2026-07-22', currencyCode: 'USD', exchange: 'NYSE', curmktstatus: 'POST_MKT', realTime: 'true' },
+    { symbol: 'SOLO', name: 'Solo Co', last: '55.00', last_time: '2026-07-22', currencyCode: 'USD', exchange: 'NYSE', curmktstatus: 'POST_MKT', realTime: 'true' },
+  ]))
+  const m = await liveMark(bookOf([shelA, shelB, solo]), baseDeps(fetchFn))
+  // Only the uniquely-held symbol is priced; the duplicated SHEL never appears in `priced`.
+  // Pre-fix: both SHEL lots are priced (`['SOLO','SHEL','SHEL']`).
+  assert.deepEqual(m.priced.map((r) => r.symbol), ['SOLO'], `only the uniquely-held symbol is priced, got ${JSON.stringify(m.priced.map((r) => r.symbol))}`)
+  // SOLO moved 5,000 -> 5,500 (+500); SHEL is carried at its 2×1,000 statement value, so the live NAV moves
+  // by SOLO's +500 ONLY. Pre-fix, BOTH SHEL lots were priced at 1,100 (a +200 move), inflating NAV to 100,700
+  // — a move the blotter (which shows SHEL on the statement) would then leak into displayed cash.
+  assert.ok(m.nav !== null && Math.abs(m.nav - 100_500) < 0.01, `SHEL's move must NOT reach the live NAV (expected 100,500, got ${m.nav})`)
+  // Cash stays the statement residual (100,000 − 7,000 of priceable statement value).
+  assert.ok(m.cash !== null && Math.abs(m.cash - (100_000 - 7_000)) < 0.01, `cash is the statement residual (got ${m.cash})`)
+})
+
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

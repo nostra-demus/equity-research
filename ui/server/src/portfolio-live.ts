@@ -114,7 +114,35 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
   let delayed = false
   let stale = false
 
+  // A symbol held by more than one position (two currency lines, or two lots) cannot be priced from a
+  // ticker-keyed quote map — it cannot say which line a price belongs to. The blotter drops such a symbol
+  // (positionMarks.ts livePriceIndex, `seen !== 1`) and shows BOTH lines on the statement, so this estimate
+  // — the whole the blotter's weights and cash residual divide by — must carry those lines on the SAME
+  // statement basis. Pricing them here would push their move into the displayed cash residual, and for two
+  // currency lines would value one line at the OTHER currency's price (CLAUDE.md §15: a holding's move must
+  // not be absorbed into the cash residual; NAV = invested + cash must hold on one basis).
+  const heldCount = new Map<string, number>()
   for (const p of holdings) {
+    const k = p.symbol!.toUpperCase()
+    heldCount.set(k, (heldCount.get(k) ?? 0) + 1)
+  }
+
+  for (const p of holdings) {
+    if ((heldCount.get(p.symbol!.toUpperCase()) ?? 0) !== 1) {
+      // Carried at its STATEMENT value on both sides of the cash identity (added to holdingsValue AND
+      // statementValue, so `cash = nav - statementValue` is unchanged and NAV keeps its statement value),
+      // with its cost so `unrealised` stays the statement's own. Never entered into `priced`: it is
+      // deliberately not live-priced, exactly as the blotter shows it.
+      const dupRate = p.fxRateToBase
+      if (dupRate !== null && p.positionValue !== null && Number.isFinite(p.positionValue)) {
+        holdingsValue += p.positionValue * dupRate
+        statementValue += p.positionValue * dupRate
+        costBasis += (p.costBasisMoney ?? 0) * dupRate
+      } else {
+        unpriced.push(p.symbol!)
+      }
+      continue
+    }
     const q = outcomes.get(p.symbol!.toUpperCase()) ?? outcomes.get(p.symbol!)
     const price = q?.quote?.price ?? null
     // THE STATEMENT'S OWN RATE, because there is no live one. It is the same rate the reconciled
