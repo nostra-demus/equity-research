@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-17T11:22:47Z",
+  "generated_at": "2026-09-17T11:26:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-247",
+      "headline": "QMS Medical Allied Services Limited: QMS Medical Allied Services Limited has informed the Exchange about Acquisition by additional stake of 24% in Saarathi Healthcare Private Limited, a Subsidiary of the Company. Pursuant to the said acquisition the Company now holds 100% in Saarathi Healthcare Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/QMS_17092026164006_SdIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T11:10:27Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Company increased stake in subsidiary Saarathi Healthcare Private Limited to 100%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company increased stake in subsidiary Saarathi Healthcare Private Limited to 100%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QMS Medical Allied Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-188",
       "headline": "SKYWORTH GROUP (00751): ANNOUNCEMENT MONTHLY UPDATE IN RELATION TO (1) PROPOSED PRE-CONDITIONAL SHARE BUY-BACK OF SKYWORTH GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT (2) PROPOSED DISTRIBUTION OF SKYWORTH PHOTOVOLTAIC SHARES BY SKYWORTH GROUP LIMITED (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT AND (4) PROPOSED WITHDRAWAL OF LISTING OF SKYWORTH GROUP LIMITED",
@@ -934,6 +983,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-253",
+      "headline": "Bank of England holds interest rates at 3.75% but warns war could force future rises",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/17/bank-of-england-holds-interest-rates-inflation",
+      "source_name": "The Guardian — Economics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T11:16:50Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Central bank interest rate decision and geopolitical risk warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Central bank interest rate decision and geopolitical risk warning.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-209",
       "headline": "Crizac Limited: Crizac Limited has informed the Exchange about regard to disclosure dated June 15, 2026 on proposed Acquisition of Compulsory Convertible Preference Shares and Compulsory Convertible Debentures of Edument Consultancy Private Limited.",
       "headline_en": null,
@@ -1076,6 +1168,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-256",
+      "headline": "Emami announces share buyback worth Rs 282 crore at 29% premium. Here's what you need to know",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/emami-announces-share-buyback-worth-rs-282-crore-at-29-premium-heres-what-you-need-to-know/articleshow/134309969.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T11:08:45Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Share buyback announcement worth Rs 282 crore at a 29% premium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Share buyback announcement worth Rs 282 crore at a 29% premium.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emami",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1806,154 +1947,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-053",
-      "headline": "EVERG VEHICLE (00708): ANNOUNCEMENT OF ANNUAL RESULTS FOR THE YEAR ENDED 31 DECEMBER 2025",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T22:34:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Evergrande Vehicle reported annual results, reflecting ongoing financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Evergrande Vehicle reported annual results, reflecting ongoing financial distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evergrande Vehicle",
-          "ticker": "00708",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-025",
-      "headline": "CHANHIGH (02017): (1) CONNECTED TRANSACTIONS AND MAJOR TRANSACTIONS AND ADVANCES TO AN ENTITY UNDER THE YINZHOU FINANCIAL GUARANTEE AGREEMENTS; (2) NON-COMPLIANCE WITH LISTING RULES; AND (3) CONTINUING CONNECTED TRANSACTIONS AND MAJOR TRANSACTIONS AND ADVANCES TO AN ENTITY UNDER THE MASTER CROSS-GUARANTEE AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601425.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Chanhigh disclosed major connected transactions and non-compliance with listing rules.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Chanhigh disclosed major connected transactions and non-compliance with listing rules.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHANHIGH",
-          "ticker": "02017",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-224",
-      "headline": "Momentum plans acquisitions to grow South Africa adviser network",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/momentum-plans-acquisitions-to-grow-south-africa-adviser-network/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T10:41:14Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Momentum is pursuing acquisitions to expand its adviser network.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Momentum is pursuing acquisitions to expand its adviser network.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Momentum Metropolitan Holdings",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164349,9 +164342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 867701,
-    "news_picked_today": 293,
-    "news_dropped_today": 3523
+    "news_seen_today": 883997,
+    "news_picked_today": 305,
+    "news_dropped_today": 3535
   },
   "book_momentum": {
     "live_count": 8,
