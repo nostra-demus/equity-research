@@ -13,7 +13,7 @@ import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
-import { commitRunScriptFor } from './commit-run'
+import { assertCommitRunAllowed, commitRunScriptFor } from './commit-run'
 import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
@@ -6808,6 +6808,10 @@ const issuedParityAttestations = new Map<string, IssuedParityAttestation>()
 const PARITY_ATTESTATION_TTL_MS = 30 * 60_000
 
 let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
+  // Both branches below write calibration data and then publish it; the research one reaches commit-run.sh
+  // through calibrate-local.sh, where only the script-level refusal applies. Refuse here, before anything is
+  // written, so a test that forgot __setPostReviewCalibration fails loudly instead of dirtying the checkout.
+  assertCommitRunAllowed(REPO_ROOT)
   const env: NodeJS.ProcessEnv = { ...process.env, ENGINE_REPO_ROOT: REPO_ROOT }
   for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
   if (run.swarmId === RESEARCH_SWARM_ID) {

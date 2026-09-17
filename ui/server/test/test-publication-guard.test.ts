@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import ts from 'typescript'
 import { commitRunScriptFor, isTestProcess, TEST_RUN_ENV, TEST_RUN_VIOLATIONS_ENV } from '../src/commit-run'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
@@ -31,6 +32,22 @@ function check(name: string, fn: () => void) {
 }
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-guard-'))
+
+/** 1-based lines of every string or template literal that names the helper. A real parse, not a regex:
+ *  comments are excluded by construction and a glob such as watchlist/** can never open a false comment. */
+function helperLiteralLines(fileName: string, source: string): number[] {
+  const file = ts.createSourceFile(fileName, source, ts.ScriptTarget.Latest, false)
+  const lines = new Set<number>()
+  const visit = (node: ts.Node) => {
+    const literal = ts.isStringLiteralLike(node) || ts.isTemplateHead(node) || ts.isTemplateMiddle(node) || ts.isTemplateTail(node)
+    if (literal && node.text.includes('commit-run.sh')) {
+      lines.add(file.getLineAndCharacterOfPosition(node.getStart(file)).line + 1)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(file)
+  return [...lines].sort((x, y) => x - y)
+}
 
 /** Run the incident path in a child with a recording stub as `bash`, so neither this revision nor an
  *  unfixed one can reach the real helper. Two more belts for the unguarded case: git discovery is pointed
@@ -67,6 +84,10 @@ try {
   check('a sandbox repository under the OS temp directory may still use its own helper', () => {
     const sandbox = fs.mkdtempSync(path.join(tmp, 'sandbox-repo-'))
     assert.equal(commitRunScriptFor(sandbox), path.join(sandbox, 'scripts', 'commit-run.sh'))
+    // A sandbox path that does not exist yet must canonicalise like one that does (macOS: os.tmpdir() is
+    // /var/folders/… but its real path is /private/var/folders/…).
+    const unborn = path.join(os.tmpdir(), `publication-guard-unborn-${process.pid}`, 'repo')
+    assert.equal(commitRunScriptFor(unborn), path.join(unborn, 'scripts', 'commit-run.sh'))
   })
 
   // The control: outside a test the default committer still spawns the helper with the exact request. It
@@ -108,35 +129,53 @@ try {
   })
 
   check('every server spawn of the helper goes through the guarded door', () => {
+    // The scanner must see through the traps text heuristics fall into. The first is real: a `//` comment
+    // in server.ts mentions the glob watchlist/**, and a naive block-comment stripper treated that `/*` as
+    // an opening comment and blanked ~1,400 lines — including the watchlist publisher itself.
+    assert.deepEqual(helperLiteralLines('trap.ts', [
+      '// data paths: analyses/**, watchlist/** are published by the helper commit-run.sh',
+      '/* a block comment naming commit-run.sh',
+      '   on a starless line: commit-run.sh */',
+      'const url = "https://example.test/x" // trailing comment: commit-run.sh',
+      "const a = path.join(root, 'scripts', 'commit-run.sh')",
+      '/* c */ const b = "scripts/commit-run.sh"',
+      'const c = `${root}/scripts/commit-run.sh`',
+      'const d = /watchlist\\/\\*\\*/.test(x) ? `commit-run.sh` : null',
+    ].join('\n')), [5, 6, 7, 8], 'only string and template literals count; every comment form is ignored')
+
     const offenders: string[] = []
     let scanned = 0
+    const door = path.join(serverRoot, 'src', 'commit-run.ts')
     const walk = (dir: string) => {
       for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, entry.name)
         if (entry.isDirectory()) { walk(full); continue }
-        if (!/\.[cm]?tsx?$/.test(entry.name)) continue
+        if (!/\.[cm]?[jt]sx?$/.test(entry.name)) continue
         scanned++
-        if (full === path.join(serverRoot, 'src', 'commit-run.ts')) continue
-        // Blank out block comments first (newlines kept, so reported line numbers stay exact), then drop
-        // whole-line and trailing `//` comments. Only a trailing comment preceded by whitespace is cut, so a
-        // `https://…` inside a string literal never hides the rest of its line.
-        const withoutBlocks = fs.readFileSync(full, 'utf8')
-          .replace(/\/\*[\s\S]*?\*\//g, (block) => block.replace(/[^\r\n]/g, ' '))
-        withoutBlocks.split('\n').forEach((line, index) => {
-          const trimmed = line.trim()
-          if (trimmed.startsWith('//')) return
-          const code = trimmed.replace(/\s\/\/.*$/, '')
-          if (code.includes('commit-run.sh')) offenders.push(`${path.relative(serverRoot, full)}:${index + 1}`)
-        })
+        const lines = helperLiteralLines(full, fs.readFileSync(full, 'utf8'))
+        if (full === door) { assert.ok(lines.length > 0, 'the scan found the helper where it must be named'); continue }
+        for (const line of lines) offenders.push(`${path.relative(serverRoot, full)}:${line}`)
       }
     }
     walk(path.join(serverRoot, 'src'))
     assert.ok(scanned > 50, `expected to scan the server source tree, scanned ${scanned} files`)
-    assert.match(fs.readFileSync(path.join(serverRoot, 'src', 'commit-run.ts'), 'utf8'),
+    assert.match(fs.readFileSync(door, 'utf8'),
       /assertCommitRunAllowed\(repoRoot\)\n\s*return path\.join\(repoRoot, 'scripts', 'commit-run\.sh'\)/,
       'the door resolves the helper only after the guard')
     assert.deepEqual(offenders, [],
       'name scripts/commit-run.sh only in src/commit-run.ts — resolve it with commitRunScriptFor() so the test guard cannot be skipped')
+  })
+
+  check('a helper that ends at the committer is gated before it writes anything', () => {
+    // calibrate-local.sh reaches commit-run.sh on its own, where only the script-level refusal applies — and
+    // that is invisible without the suite runner, after calibration files are already written.
+    const launcher = fs.readFileSync(path.join(serverRoot, 'src', 'launcher.ts'), 'utf8')
+    const body = launcher.slice(launcher.indexOf('let postReviewCalibration'))
+    const gate = body.indexOf('assertCommitRunAllowed(REPO_ROOT)')
+    const firstSpawn = body.indexOf('execa(')
+    assert.ok(gate > 0 && firstSpawn > gate, 'postReviewCalibration refuses before its first spawn')
+    assert.match(fs.readFileSync(path.join(serverRoot, 'src', 'config.ts'), 'utf8'), /^import '\.\/commit-run'/m,
+      'config arms the guard for child processes of any test that loads server code')
   })
 
   check('the suite runner exports the guard, and the helper refuses it before any git discovery', () => {
