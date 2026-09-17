@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T22:58:39Z",
+  "generated_at": "2026-09-17T23:02:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-413",
@@ -1374,6 +1374,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-414",
+      "headline": "Burger franchisee closed 60 units, files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/57-year-old-burger-chain-franchisee-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T21:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A burger franchisee has filed for Chapter 11 bankruptcy and closed 60 units.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A burger franchisee has filed for Chapter 11 bankruptcy and closed 60 units.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Burger franchisee",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-410",
       "headline": "57-year-old giant burger franchisee files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1903,49 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-316",
-      "headline": "Another airline files for bankruptcy, cancels all flights",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/omni-aviacao-files-for-bankruptcy-cancels-all-flights",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T12:50:35Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "An airline has filed for bankruptcy and ceased operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An airline has filed for bankruptcy and ceased operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -163909,9 +163916,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3422395,
-    "news_picked_today": 963,
-    "news_dropped_today": 13725
+    "news_seen_today": 3434470,
+    "news_picked_today": 964,
+    "news_dropped_today": 13748
   },
   "book_momentum": {
     "live_count": 8,
