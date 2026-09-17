@@ -250,4 +250,14 @@ await check('an explicit listing mute still outranks a first engine call', () =>
   assert.equal(archived.length, 1)
 })
 
+await check('a listing the price batch never answered for still says why it has no price', () => {
+  // On the live list one name in ten had no quote AND no reason, so the row showed "no price" with nothing
+  // behind it: the batch simply came back without that listing in it.
+  const { rows } = mergeWatchlist({ entries: [entry({ ticker: 'NVO', currency: 'USD' })], engine: [], today: TODAY, quotes: new Map() })
+  assert.equal(rows[0].quote, null)
+  assert.equal(rows[0].quote_reason, 'not_quoted')
+  const noCurrency = mergeWatchlist({ entries: [entry({ ticker: 'NVO', currency: null })], engine: [], today: TODAY, quotes: new Map() })
+  assert.equal(noCurrency.rows[0].quote_reason, 'no_currency', 'and a listing with no currency says that instead')
+})
+
 console.log(`\nwatchlist-merge.test.ts: ${passed} passed`)

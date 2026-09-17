@@ -74,7 +74,10 @@ function near(title: string, item?: WatchPlanItem): Signal {
 
 /** A name's signal: the thing that happened to it that matters most (its leading condition), else "Watching". */
 export function rowSignal(row: WatchRow): Signal {
-  const lead = row.watch?.conditions?.[0]
+  // The LEADING LIVE condition. A condition you have said you have seen stays on the name but stops speaking
+  // for it — the server already reads the status off the unseen ones (watch/evaluate.ts), and a chip still
+  // saying "Research old" over a name sitting in Watching is the same fact told two ways.
+  const lead = row.watch?.conditions?.find((c) => !c.seen_at)
   if (lead?.type === 'getting_close') {
     const itemId = lead.id.slice(lead.id.indexOf(':') + 1)
     return near(lead.title, (row.watch?.plan?.items ?? []).find((i) => i.id === itemId))
@@ -193,7 +196,9 @@ export function planStateWords(p: WatchPlanView | null | undefined): string | nu
   }
   if (p.state === 'reading') return 'Reading the research now…'
   if (p.state === 'waiting') return p.detail || 'Waiting to read the research.'
-  return p.detail
+  // WHEN IT LAST TRIED, said out loud. Without it a spent allowance and a provider limit from two days before
+  // read as one story, and nothing on screen let a reader tell today's answer from an old one.
+  return p.at ? `${p.detail} (as of ${shortDate(p.at)})` : p.detail
 }
 
 /** What happened to a message's email, in words — including why most messages are never emailed. */

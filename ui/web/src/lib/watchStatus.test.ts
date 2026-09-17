@@ -63,6 +63,16 @@ check('a signal says what happened, in a colour that always means the same', () 
   assert.deepEqual(pick(rowSignal(row('A', { watch: watch('waiting') }))), ['Watching', 'grey'])
 })
 
+check('a condition you have seen stops speaking for the name, and the next live one takes over', () => {
+  const cond = (type: string, seen_at: string | null) => ({ id: type, type, urgent: false, title: '', detail: '', quote: null, source: null, can_ack: true, seen_at })
+  // Caught in the live preview: BG's only condition was acknowledged, the server moved it to 'waiting' and the
+  // list sorted it with the quiet names — while its chip still read "Research old" over the Watching group.
+  const seen = row('A', { watch: { ...watch('waiting')!, conditions: [cond('research_old', '2026-09-17T09:15:48Z')] } })
+  assert.deepEqual(pick(rowSignal(seen)), ['Watching', 'grey'], 'the chip agrees with the group the name sits in')
+  const both = row('A', { watch: { ...watch('check_now')!, conditions: [cond('research_old', '2026-09-17T09:15:48Z'), cond('results_out', null)] } })
+  assert.deepEqual(pick(rowSignal(both)), ['Event passed', 'amber'], 'and names whatever is still unanswered')
+})
+
 check('"near" names the line its plan item is, whatever the words say', () => {
   const r = row('A', {
     watch: {

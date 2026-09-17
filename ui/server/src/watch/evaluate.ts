@@ -41,6 +41,20 @@ export const URGENT_CONDITIONS: ReadonlySet<ConditionType> = new Set<ConditionTy
   'buy_price_reached', 'look_again_reached', 'bad_case_broken', 'near_after_big_drop', 'your_level_reached',
 ])
 
+/**
+ * Conditions that CANNOT clear themselves, and so can be acknowledged.
+ *
+ * A price condition ends when the price moves; these three do not. A date that has passed stays passed, and
+ * research written in June only gets younger by being re-run — so a name carrying them sat in "Needs you" for
+ * ever, which is how five of ten names came to live there and the group stopped meaning anything. Saying "seen
+ * it" does not make the fact untrue: the condition stays on the name, in its own words, with the day you saw
+ * it. It stops deciding the status, and a NEW fact — another date passing, a new reading — is a new id, so the
+ * name comes back on its own.
+ */
+export const ACKNOWLEDGEABLE: ReadonlySet<ConditionType> = new Set<ConditionType>([
+  'results_out', 'research_old', 'your_date_due',
+])
+
 export const CONDITION_STATUS: Record<ConditionType, StatusWord> = {
   buy_price_reached: 'buy_price_reached',
   look_again_reached: 'check_now',
@@ -105,6 +119,11 @@ export interface Condition {
   line: number | null
   /** The line is reached by a RISE (your own at-or-above trigger), so it re-arms after a move back BELOW it. */
   rises?: boolean
+  /** When you said you had seen this — set only for a condition that cannot clear itself (ACKNOWLEDGEABLE).
+   *  A seen condition is still true and still shown; it simply stops deciding the name's status. */
+  seen_at?: string | null
+  /** Whether saying "seen it" is offered for this condition at all. */
+  can_ack?: boolean
 }
 
 export interface NextLine {
@@ -176,12 +195,30 @@ const quoteOf = (item: { source: { quote: string | null } }) => item.source.quot
 
 export interface EvaluateInput {
   plan: WatchPlan | null
+  /** Conditions you have said you have seen, by id, with when you said it (monitor state). */
+  seen?: Record<string, string>
   /** Your own triggers and their evaluation (watchlist.ts evaluateTrigger), for names you added. */
   triggers: WatchTrigger[]
   evals: TriggerEval[]
   facts: PriceFacts
   today: string
   thresholds?: Thresholds
+}
+
+/**
+ * A window the sentence can use — "~17-Sep-2026", "late October 2026" — or nothing.
+ *
+ * `window` is whatever the report wrote around the day, and it is only sometimes a date phrase. On the live
+ * list one is an entire table row ("| ~21-Oct-2026 (CIQ-modeled estimate, no board-meeting intimation filed) |
+ * Q2 FY27 results | …") and another is a sentence about consensus, so "X was expected <window>" printed as
+ * "H1 2026 interim results was expected The nearest dated, evidenced cata…". A phrase qualifies only if it is
+ * short, carries a number, and has none of the punctuation that marks prose or a table; otherwise the ISO day
+ * is used, and the report's own wording is still shown as the quote beneath.
+ */
+export function datePhrase(window: string | null | undefined): string | null {
+  const text = String(window ?? '').replace(/^\s*(?:~|(?:est(?:imated)?|expected)\b\.?)\s*/i, '').trim()
+  if (!text || text.length > 24 || !/\d/.test(text)) return null
+  return /^[A-Za-z0-9][A-Za-z0-9 .,'/~–-]*$/.test(text) ? text : null
 }
 
 export function evaluateName(input: EvaluateInput): NameEvaluation {
@@ -318,9 +355,7 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     // A day the research only estimates says so wherever it appears ("expected 21-Oct-2026"): no message claims
     // more than the research did (CLAUDE.md §3).
     const estimated = d.estimated === true
-    const when = estimated
-      ? `expected ${d.window ? String(d.window).replace(/^\s*(?:~|(?:est(?:imated)?|expected)\b\.?)\s*/i, '') : d.date}`
-      : `on ${d.date}`
+    const when = estimated ? `expected ${datePhrase(d.window) ?? d.date}` : `on ${d.date}`
     if (td >= 0 && td <= t.comingUpTradingDays) {
       // "Today" is the calendar's word: a weekend date seen on the Friday before is 0 trading days away, not today.
       const cal = daysBetween(today, d.date) ?? td
@@ -390,12 +425,20 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     for (let i = out.length - 1; i >= 0; i--) if (!kept.has(out[i].type)) out.splice(i, 1)
   }
   out.sort((a, b) => STATUS_RANK[CONDITION_STATUS[a.type]] - STATUS_RANK[CONDITION_STATUS[b.type]])
-  const status: StatusWord = out.length ? CONDITION_STATUS[out[0].type] : 'waiting'
+  // What you have already seen stays on the name and stops speaking for it: the status and the headline are
+  // read off the conditions you have NOT seen. A name whose every standing condition is acknowledged is
+  // watching again, until something new happens.
+  for (const c of out) {
+    c.can_ack = ACKNOWLEDGEABLE.has(c.type)
+    c.seen_at = c.can_ack ? (input.seen?.[c.id] ?? null) : null
+  }
+  const live = out.filter((c) => !c.seen_at)
+  const status: StatusWord = live.length ? CONDITION_STATUS[live[0].type] : 'waiting'
   return {
     status,
     status_label: STATUS_LABEL[status],
     conditions: out,
-    headline: out[0]?.title ?? null,
+    headline: live[0]?.title ?? null,
     next_line: nextLine(prices, input, price, pricedIn),
     next_date: nextDate(dates, input, today),
   }

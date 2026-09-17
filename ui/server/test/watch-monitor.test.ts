@@ -361,6 +361,62 @@ async function main() {
     assert.ok(shutdown.indexOf('watchMonitor.idle()') < shutdown.indexOf('process.exit(code)'))
   })
 
+  await check('"seen it" survives a restart, and a NEW passed date brings the name back', async () => {
+    let t = new Date('2026-09-15T14:00:00Z')
+    const row = engineRow('KKK', 'USD', 'NYSE', 'KKK_2026-08-01')
+    const other = engineRow('LLL', 'USD', 'NYSE', 'LLL_2026-08-01')
+    let engineRows = [row, other]
+    const dated = (id: string, date: string) => ({
+      kind: 'date' as const, id, label: `Event ${id}`, date, window: null, estimated: false,
+      what_to_check: null, source: { file: 'final_thesis.md', quote: `Event on ${date}`, field: null },
+    })
+    let items: PlanItem[] = [dated('d1', '2026-09-04')]
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'watch-monitor-11-'))
+    const make = () => createWatchMonitor({
+      stateDir: dir, manual: true, now: () => t, today: () => t.toISOString().slice(0, 10),
+      loadEngineRows: async () => engineRows, loadEntries: () => [],
+      quote: async (subjects) => new Map<string, QuoteOutcome>(subjects.map((s) => [s.key, { quote: quoteOf('KKK', 'USD', 50), reason: null }])),
+      indexLevels: async () => new Map(),
+      readPlan: async (r: EngineWatchRow) => ({
+        status: 'ok' as const, plan: planFor(r, r.listing.ticker === 'KKK' ? items : []), detail: 'read', cost_usd: 0.3,
+      }),
+      emailConfig: () => ({ enabled: false, recipients: [], appUrl: '', reason: 'Email is off.' }),
+      sendEmail: async () => ({ ok: true, detail: '' }),
+    })
+    const seen = (m: ReturnType<typeof createWatchMonitor>) => m.decorate(mergeWatchlist({
+      entries: [], engine: [row], today: t.toISOString().slice(0, 10),
+      quotes: new Map([[row.listing.listing_key, { quote: quoteOf('KKK', 'USD', 50), reason: null }]]),
+    }).rows)[0].watch
+    const seenIds = () => Object.keys(JSON.parse(
+      fs.readFileSync(path.join(dir, 'watchlist', 'monitor-state.json'), 'utf8')).seen ?? {})
+    const m11 = make()
+    await m11.tick(); await m11.idle(); await m11.tick()
+    assert.equal(seen(m11).status, 'check_now', 'a passed date needs a look')
+    m11.setSeen(row.listing.listing_key, 'results_out:d1', true)
+    assert.equal(seen(m11).status, 'waiting', 'and stops needing one once it is seen')
+    assert.equal(seen(m11).conditions.length, 1, 'while staying on the name')
+    assert.ok(seen(m11).conditions[0].seen_at, 'with the day it was seen')
+    m11.stop()
+
+    // A fresh monitor on the same state directory — the acknowledgement is not memory.
+    const m12 = make()
+    assert.equal(seen(m12).status, 'waiting', 'a restart does not bring it back')
+    // A second date passes: a new fact, a new id, and the name is back.
+    items = [dated('d1', '2026-09-04'), dated('d2', '2026-09-16')]
+    t = new Date('2026-09-17T14:00:00Z')
+    await m12.tick(); await m12.idle(); await m12.tick()
+    assert.equal(seen(m12).status, 'check_now', 'the new date speaks for itself')
+    assert.equal(seen(m12).conditions.filter((c) => !c.seen_at).length, 1)
+    m12.setSeen(row.listing.listing_key, 'results_out:d2', true)
+    assert.deepEqual(seenIds(), [row.listing.listing_key], 'the acknowledgements are stored under the name')
+    // The name comes off the list. What you said you had seen goes with it, so re-adding it does not arrive
+    // pre-silenced — the ids are built from the dates, which have not changed.
+    engineRows = [other]
+    await m12.tick(); await m12.idle(); await m12.tick()
+    assert.deepEqual(seenIds(), [], 'and leave with it')
+    m12.stop()
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

@@ -55,6 +55,9 @@ interface MonitorState {
   last_tick_at: string | null
   names: Record<string, NameAlertState>
   email_paused: string[]
+  /** Conditions you have said you have seen: listing key -> condition id -> when you said it. A fact you have
+   *  looked at stops deciding the name's status without pretending it went away (evaluate.ts ACKNOWLEDGEABLE). */
+  seen: Record<string, Record<string, string>>
   reads: Record<string, ReadRecord>
   /** What was already true for each name when it was first seen, held for the one first-day summary. */
   pending_summary: Record<string, { ticker: string; items: WatchMessageItem[] }>
@@ -63,13 +66,17 @@ interface MonitorState {
 
 const emptyState = (): MonitorState => ({
   schema_version: MONITOR_STATE_SCHEMA, switched_on_at: null, summary_sent_at: null, last_tick_at: null,
-  names: {}, email_paused: [], reads: {}, pending_summary: {}, email_test: null,
+  names: {}, email_paused: [], seen: {}, reads: {}, pending_summary: {}, email_test: null,
 })
 
 /** What the screen shows about a name's watch plan. */
 export interface PlanView {
   state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
   detail: string
+  /** When this state was established — the read record's own time, or the reading's. A panel that cannot say
+   *  WHEN it last tried leaves the reader unable to tell today's answer from one two days old, which is how
+   *  a spent allowance and a provider limit from another day came to be shown as one story. */
+  at: string | null
   run_root: string
   decision: string | null
   decision_date: string | null
@@ -122,6 +129,7 @@ const ABSENT_TEXT: Record<AbsentReason, string> = {
   stale_feed: 'The newest price on offer is too old to call current.',
   implausible_price: "The price is far out of line with the research's — likely the wrong units or listing.",
   feed_unavailable: 'The price feed could not be reached just now.',
+  not_quoted: 'The price feed came back without this listing in it.',
 }
 
 // A message stands alone — in the cockpit and in an email — so a passed date's tests are spelled out in it.
@@ -197,12 +205,17 @@ export function createWatchMonitor(deps: MonitorDeps) {
     const cached = cachedPlan(seg)
     const plan = cached && cached.run_root === eng.run_root ? cached : null
     const rec = state.reads[seg]
-    const view = (st: PlanView['state'], detail: string): PlanView => ({
-      state: st, detail, run_root: eng.run_root, decision: eng.decision, decision_date: eng.decision_date,
-      items: plan?.items ?? [], left_out: plan?.left_out ?? [], reader: plan?.reader ?? null,
+    const view = (st: PlanView['state'], detail: string, at: string | null = null): PlanView => ({
+      state: st, detail, at, run_root: eng.run_root, decision: eng.decision, decision_date: eng.decision_date,
+      items: plan?.items ?? [], left_out: plan?.left_out ?? [],
+      // The reading's own record belongs to the plan on screen. A plan carried through a later failure keeps
+      // the reading that produced it; the failure's own words and time are the view's, above.
+      reader: plan?.reader ?? null,
     })
-    if (plan && plan.reader.status === 'ok') return { plan, ready: true, view: view('ready', plan.reader.detail), basis: `${eng.run_root}|read` }
-    if (rec?.status === 'no_sources') return { plan: null, ready: true, view: view('failed', rec.detail), basis: `${eng.run_root}|none` }
+    if (plan && plan.reader.status === 'ok') {
+      return { plan, ready: true, view: view('ready', plan.reader.detail, plan.reader.at ?? rec?.last_at ?? null), basis: `${eng.run_root}|read` }
+    }
+    if (rec?.status === 'no_sources') return { plan: null, ready: true, view: view('failed', rec.detail, rec.last_at), basis: `${eng.run_root}|none` }
     // A read that could not happen — the model's sign-in expired, or today's reading limit is spent — must not
     // leave the name silent for hours. Until the text is read, it is watched on what the decision record
     // itself stores as data (its bad case, its kill criteria, big drops); when the read succeeds, the basis
@@ -211,12 +224,13 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const retry = reading.has(seg) || queued.has(seg) ? ' Trying again now.' : ''
       return {
         plan, ready: true,
-        view: view(rec.status === 'budget' ? 'budget' : 'failed', `${rec.status === 'budget' ? rec.detail : `Could not read the research: ${rec.detail}`}${retry}`),
+        view: view(rec.status === 'budget' ? 'budget' : 'failed',
+          `${rec.status === 'budget' ? rec.detail : `Could not read the research: ${rec.detail}`}${retry}`, rec.last_at),
         basis: `${eng.run_root}|partial`,
       }
     }
-    if (reading.has(seg)) return { plan, ready: false, view: view('reading', 'Reading the research now.'), basis: `${eng.run_root}|reading` }
-    return { plan, ready: false, view: view('waiting', 'Waiting to read the research.'), basis: `${eng.run_root}|waiting` }
+    if (reading.has(seg)) return { plan, ready: false, view: view('reading', 'Reading the research now.', null), basis: `${eng.run_root}|reading` }
+    return { plan, ready: false, view: view('waiting', 'Waiting to read the research.', rec?.last_at ?? null), basis: `${eng.run_root}|waiting` }
   }
 
   function factsFor(row: MergedWatchRow, at: Date, record: boolean): PriceFacts {
@@ -408,7 +422,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
       present.add(key)
       const info = planInfo(row)
       const facts = factsFor(row, at, true)
-      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t })
+      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t, seen: state.seen[row.listing_key] })
       if (!info.ready) { notReady++; continue }
       const prev = state.names[key]
       const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: ev.conditions, price: facts.price, now: at }, t.rearmPct)
@@ -453,6 +467,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // more likely a failed read of the calls than every call changing at once, so nothing is removed on it.
     const engineReadLooksEmpty = engineAll.length === 0 && Object.values(state.names).some((n) => n.run_root && n.run_root !== 'yours')
     if (!engineReadLooksEmpty) {
+      // What you said you had seen goes with the name. Kept, it would silence a condition on the day the name
+      // came back — under the same id, because the id is built from the date, not from when it was last read.
+      for (const key of Object.keys(state.seen)) if (!present.has(key)) delete state.seen[key]
       for (const key of Object.keys(state.names)) {
         if (present.has(key)) continue
         delete state.names[key]
@@ -574,7 +591,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     const out = rows.map((row) => {
       const info = planInfo(row)
       const facts = factsFor(row, at, false)
-      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t })
+      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t, seen: state.seen[row.listing_key] })
       const watch: RowWatch = {
         status: ev.status, status_label: ev.status_label, headline: ev.headline,
         conditions: ev.conditions.map(({ line: _line, ...c }) => c),
@@ -601,6 +618,24 @@ export function createWatchMonitor(deps: MonitorDeps) {
     if (paused) inbox.pauseEmail(listingKey, now())
   }
 
+  /**
+   * Say you have seen a condition, or take it back.
+   *
+   * Only a condition that cannot clear itself can be acknowledged (evaluate.ts ACKNOWLEDGEABLE), and saying so
+   * changes nothing about the fact: it is still evaluated, still shown, still in its own words. It stops
+   * deciding the status, so the name leaves "Needs you" until something NEW happens — a further date passing,
+   * or a fresh reading, each of which is a different id.
+   */
+  function setSeen(listingKey: string, conditionId: string, seen: boolean): void {
+    const forName = { ...(state.seen[listingKey] ?? {}) }
+    if (seen) forName[conditionId] = now().toISOString()
+    else delete forName[conditionId]
+    if (Object.keys(forName).length) state.seen[listingKey] = forName
+    else delete state.seen[listingKey]
+    saveState()
+    scheduleTick(2_000)
+  }
+
   function status() {
     return {
       last_tick_at: state.last_tick_at,
@@ -614,7 +649,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
-  return { start, stop, tick, idle, nudge: () => scheduleTick(5_000), decorate, setEmailPaused, status, inbox }
+  return { start, stop, tick, idle, nudge: () => scheduleTick(5_000), decorate, setEmailPaused, setSeen, status, inbox }
 }
 
 export type WatchMonitor = ReturnType<typeof createWatchMonitor>

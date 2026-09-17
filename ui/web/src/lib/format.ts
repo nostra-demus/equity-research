@@ -340,6 +340,7 @@ export const ABSENT_PRICE_COPY: Record<QuoteAbsentReason, string> = {
   stale_feed: 'The newest price on offer is too old to call current, so it was refused rather than shown as if it were live.',
   implausible_price: 'The price that came back is wildly out of scale with the entry price — usually a different listing or different units — so it was refused.',
   feed_unavailable: 'The market-data source could not be reached just now. This is temporary; the price returns on the next refresh.',
+  not_quoted: 'The price request came back without this listing in it — it was asked for and never answered. It returns on the next refresh if the source starts carrying it.',
 }
 
 /**

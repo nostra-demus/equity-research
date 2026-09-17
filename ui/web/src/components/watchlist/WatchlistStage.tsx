@@ -54,8 +54,11 @@ export function WatchlistStage() {
   // first thing on the screen is also the first thing explained.
   const selected = useMemo(() => rows.find((r) => r.listing_key === picked) ?? rows[0] ?? null, [rows, picked])
   const needYou = rows.filter((r) => NEEDS_YOU.has(rowStatus(r))).length
-  const engineCount = read?.rows.filter((r) => r.origin !== 'manual').length ?? 0
-  const mineCount = read?.rows.filter((r) => r.origin !== 'engine').length ?? 0
+  // EACH NAME COUNTED ONCE. A name that is both researched and yours used to be counted in both halves, so
+  // "7 from research · 6 yours" stood over ten names and neither number could be checked against the list.
+  const engineOnly = read?.rows.filter((r) => r.origin === 'engine').length ?? 0
+  const mineOnly = read?.rows.filter((r) => r.origin === 'manual').length ?? 0
+  const bothCount = read?.rows.filter((r) => r.origin === 'both').length ?? 0
 
   return (
     <div className="wl">
@@ -66,7 +69,7 @@ export function WatchlistStage() {
           <div className="wl__count">
             {source.length} {source.length === 1 ? 'name' : 'names'}
             {!showArchived && needYou > 0 && <> · <b>{needYou} {needYou === 1 ? 'needs' : 'need'} you</b></>}
-            {!showArchived && <> · {engineCount} from research · {mineCount} yours</>}
+            {!showArchived && <> · {engineOnly} from research · {mineOnly} yours{bothCount > 0 ? <> · {bothCount} both</> : null}</>}
             {read && !read.quotes_enabled && (staticMode ? <> · read-only snapshot, no live prices</> : <> · prices are off in this engine</>)}
             {read?.unreadable.length ? <> · {read.unreadable.length} entr{read.unreadable.length === 1 ? 'y' : 'ies'} could not be read</> : null}
           </div>
@@ -117,9 +120,9 @@ export function WatchlistStage() {
               <div className="wlist__cols" aria-hidden="true">
                 <span>Status</span>
                 <span>Name</span>
-                <span className="wlist__num">Price</span>
                 <span>Waiting for</span>
                 <span className="wlist__col--date">Next date</span>
+                <span className="wlist__num">Live price</span>
                 <span />
               </div>
               {groups.map((g) => (
@@ -167,6 +170,8 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
           </span>
           <span className="wrow__co">{row.company_name ?? ''}</span>
         </span>
+        <Cell parts={wait} lead />
+        <Cell parts={date} className="wrow__cell--date" />
         <span className="wrow__px">
           {row.quote ? (
             <>
@@ -177,8 +182,6 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
             <span className="wrow__none" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : 'No live price for this listing.'}>no price</span>
           )}
         </span>
-        <Cell parts={wait} />
-        <Cell parts={date} className="wrow__cell--date" />
         {unread > 0
           ? <span className="wrow__dot" title={`${unread} unread ${unread === 1 ? 'message' : 'messages'}`} aria-label={`${unread} unread messages`} />
           : <span aria-hidden />}
@@ -187,10 +190,12 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
   )
 }
 
-/** A value with its quiet label above it — or a dash, so an empty cell reads as empty rather than as a gap. */
-function Cell({ parts, className = '' }: { parts: { label: string; value: string } | null; className?: string }) {
+/** A value with its quiet label above it — or a dash, so an empty cell reads as empty rather than as a gap.
+ *  `lead` marks the column the list exists for: what this name is waiting for carries the weight that today's
+ *  price used to, so the eye lands on the thing that has not happened yet. */
+function Cell({ parts, className = '', lead = false }: { parts: { label: string; value: string } | null; className?: string; lead?: boolean }) {
   return (
-    <span className={`wrow__cell ${className}`.trim()}>
+    <span className={`wrow__cell ${lead ? 'wrow__cell--lead ' : ''}${className}`.trim()}>
       {parts ? (
         <>
           <span className="wrow__label">{parts.label}</span>

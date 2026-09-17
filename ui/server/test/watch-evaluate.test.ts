@@ -5,7 +5,7 @@
 // Run: npx tsx test/watch-evaluate.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { CONDITION_STATUS, URGENT_CONDITIONS, evaluateName, tradingDaysUntil, type PriceFacts } from '../src/watch/evaluate'
+import { CONDITION_STATUS, URGENT_CONDITIONS, datePhrase, evaluateName, tradingDaysUntil, type PriceFacts } from '../src/watch/evaluate'
 import type { PlanItem, WatchPlan } from '../src/watch/plan'
 import { evaluateTrigger, type WatchTrigger } from '../src/watchlist'
 import type { LiveQuote } from '../src/news/equity-quote'
@@ -272,6 +272,54 @@ check('editing a manual threshold changes its message identity within a grouping
   const old = evalFor(trigger).conditions.find((c) => c.type === 'your_level_reached')!
   const edited = evalFor({ ...trigger, level: 90 }).conditions.find((c) => c.type === 'your_level_reached')!
   assert.notEqual(old.id, edited.id, 'grouping cannot discard the edited crossing as a duplicate item')
+})
+
+check('a passed date you have seen stops speaking for the name, and stays on it', () => {
+  // Five of ten names on the live list sat in "Needs you" for ever: a date that has passed cannot pass again,
+  // and research written in June only gets younger by being re-run. Saying "seen it" does not make either
+  // untrue — it stops them deciding the status.
+  const past: PlanItem = { kind: 'date', id: 'd-past', label: 'FQ1 earnings', date: '2026-09-04', window: null, estimated: false, what_to_check: null, source: src('FQ1 FY2027 earnings release on 2026-09-04') }
+  const later: PlanItem = { kind: 'date', id: 'd-later', label: 'Proxy filed', date: '2026-09-10', window: null, estimated: false, what_to_check: null, source: src('the 2026 DEF 14A, due 2026-09-10') }
+  const input = { plan: plan([past, later]), triggers: [], evals: [], facts: facts(210), today: TODAY }
+  const before = evaluateName(input)
+  assert.equal(before.status, 'check_now')
+  assert.deepEqual(before.conditions.map((c) => [c.id, c.can_ack, c.seen_at]),
+    [['results_out:d-past', true, null], ['results_out:d-later', true, null]])
+
+  // Seeing ONE leaves the other speaking.
+  const one = evaluateName({ ...input, seen: { 'results_out:d-past': '2026-09-15T09:00:00Z' } })
+  assert.equal(one.status, 'check_now')
+  assert.match(one.headline!, /Proxy filed/, 'the headline is the condition still unseen')
+  assert.equal(one.conditions.length, 2, 'and the seen one is still on the name')
+  assert.equal(one.conditions.find((c) => c.id === 'results_out:d-past')!.seen_at, '2026-09-15T09:00:00Z')
+
+  // Seeing both leaves the name watching again.
+  const both = evaluateName({ ...input, seen: { 'results_out:d-past': 'x', 'results_out:d-later': 'y' } })
+  assert.equal(both.status, 'waiting')
+  assert.equal(both.headline, null)
+  assert.equal(both.conditions.length, 2, 'nothing was hidden — only silenced')
+})
+
+check('a price condition can never be acknowledged — it clears itself when the price moves', () => {
+  const e = evaluateName({ plan: plan([buy, bad]), triggers: [], evals: [], facts: facts(195), today: TODAY,
+    seen: { 'buy_price_reached:p-buy': '2026-09-15T09:00:00Z' } })
+  const buyCond = e.conditions.find((c) => c.type === 'buy_price_reached')!
+  assert.equal(buyCond.can_ack, false)
+  assert.equal(buyCond.seen_at, null, 'a seen mark on a self-clearing condition is ignored')
+  assert.equal(e.status, 'buy_price_reached', 'so it still speaks for the name')
+})
+
+check('a date window is used only where it reads as one', () => {
+  // Verbatim from the live list: the report's own window is a table row and a sentence about consensus, and
+  // "X was expected <window>" printed them as the date.
+  assert.equal(datePhrase('~21-Oct-2026'), '21-Oct-2026')
+  assert.equal(datePhrase('late October 2026'), 'late October 2026')
+  assert.equal(datePhrase('| ~21-Oct-2026 (CIQ-modeled estimate, no board-meeting intimation filed) |'), null)
+  assert.equal(datePhrase('The nearest dated, evidenced catalyst window'), null)
+  assert.equal(datePhrase('FY2026 EPS consensus (CNY 2.13 as of 2026-09-01)'), null)
+  const prose: PlanItem = { kind: 'date', id: 'd-prose', label: 'H1 2026 interim results', date: '2026-09-10', window: 'The nearest dated, evidenced catalyst window', estimated: true, what_to_check: null, source: src('H1 2026 interim results, expected around 2026-09-10') }
+  const e = evaluateName({ plan: plan([prose]), triggers: [], evals: [], facts: facts(210), today: TODAY })
+  assert.equal(e.conditions[0]!.detail, 'H1 2026 interim results was expected 2026-09-10, and no research has run since.')
 })
 
 console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

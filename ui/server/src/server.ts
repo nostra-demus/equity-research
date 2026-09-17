@@ -4915,6 +4915,13 @@ app.get('/api/watchlist/messages', { config: { rateLimit: { max: 600, timeWindow
 const WatchMessageRead = z.object({ read: z.boolean().default(true) }).strip()
 const WatchMessageFeedback = z.object({ verdict: z.enum(['yes', 'no']), note: z.string().max(1000).default('') }).strip()
 const WatchEmailPause = z.object({ ticker: z.string().trim().min(1).max(15), currency: z.string().trim().max(8).nullable(), paused: z.boolean() }).strip()
+/** Saying you have seen a standing condition — a passed date, ageing research, a date of your own. */
+const WatchConditionSeen = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  currency: z.string().trim().max(8).nullable(),
+  condition_id: z.string().trim().min(1).max(200),
+  seen: z.boolean(),
+}).strip()
 
 function watchMessageId(req: FastifyRequest): string | null {
   const id = String((req.params as any)?.id ?? '')
@@ -4963,6 +4970,18 @@ app.post('/api/watchlist/email-pause', { config: { rateLimit: { max: 120, timeWi
   const body = WatchEmailPause.safeParse(req.body ?? {})
   if (!body.success) return reply.code(400).send({ error: 'invalid body' })
   watchMonitor.setEmailPaused(listingKey(body.data.ticker, body.data.currency), body.data.paused)
+  return { ok: true }
+})
+
+/**
+ * "Seen it" on a condition that cannot clear itself: the fact stays, and stops deciding the name's status
+ * (watch/evaluate.ts ACKNOWLEDGEABLE). Sending `seen: false` takes it back.
+ */
+app.post('/api/watchlist/condition-seen', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = WatchConditionSeen.safeParse(req.body ?? {})
+  if (!body.success) return reply.code(400).send({ error: 'invalid body' })
+  watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
   return { ok: true }
 })
 
