@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T19:21:58Z",
+  "generated_at": "2026-09-17T19:22:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-397",
@@ -122423,6 +122423,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-4b7517872828",
+      "idea_version": "IDEAV-9b5d5ea9fe194693",
+      "idea_version_started_at": "2026-09-17T19:22:08Z",
+      "ticker": "LEN",
+      "company": "Lennar Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a decline in Q3 earnings and reduced its full-year 2026 delivery guidance, signaling ongoing weakness in housing demand.",
+      "why_now": "The guidance cut was announced on 2026-09-17.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4e9930946b18"
+      ],
+      "primary_source_event_id": "EVT-4e9930946b18",
+      "source_headlines": [
+        "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall"
+      ],
+      "source_headline": "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall",
+      "source_url": "https://finance.yahoo.com/real-estate/articles/lennar-cuts-full-2026-delivery-133941748.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T13:39:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T19:22:08Z",
+      "updated_at": "2026-09-17T19:22:08Z",
+      "decay_at": "2026-09-19T01:39:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d7139893a187",
       "idea_version": "IDEAV-71045569c67f5a6f",
       "idea_version_started_at": "2026-09-17T16:21:54Z",
@@ -123047,6 +123117,77 @@
       "surfaced_at": "2026-09-16T13:28:55Z",
       "updated_at": "2026-09-16T13:28:55Z",
       "decay_at": "2026-09-17T21:45:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0ee45ba091ad",
+      "idea_version": "IDEAV-00058a4c2a4f34e4",
+      "idea_version_started_at": "2026-09-17T19:22:08Z",
+      "ticker": "GPTINFRA",
+      "company": "GPT Infraprojects Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new orders worth Rs.483.72 Crore, providing a direct boost to its order book and future revenue recognition.",
+      "why_now": "The order win was officially disclosed on 2026-09-17.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8ff7ed3bf21c"
+      ],
+      "primary_source_event_id": "EVT-8ff7ed3bf21c",
+      "source_headlines": [
+        "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore"
+      ],
+      "source_headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore",
+      "source_url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_17092026184749_Press_Release_intimation_Contract_win_480_Cr_170926_SGD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T13:18:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T19:22:08Z",
+      "updated_at": "2026-09-17T19:22:08Z",
+      "decay_at": "2026-09-19T01:18:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -125977,79 +126118,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-db48ea3f1818",
-      "idea_version": "IDEAV-5d19bc47583fbf23",
-      "idea_version_started_at": "2026-09-14T23:07:56Z",
-      "ticker": "HFCL",
-      "company": "HFCL Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is aggressively expanding its manufacturing capacity for optical fiber and cables with an additional ₹820 crore investment, signaling strong demand and potential for future revenue growth.",
-      "why_now": "The board approval and press release were issued on September 14, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb3dda1a5f10",
-        "EVT-193c6a487ac1"
-      ],
-      "primary_source_event_id": "EVT-bb3dda1a5f10",
-      "source_headlines": [
-        "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
-        "HFCL Limited: HFCL Limited has informed the Exchange regarding a press release dated September 14, 2026, titled \"Press Release on approval of Additional Investment of Approximately ₹820 crore for expansion of Optical Fiber, Optical Fiber Cable and Preform manufacturing capacities \"."
-      ],
-      "source_headline": "HFCL raises planned capex to ₹1,800 crore to expand optical fibre production",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/hfcl-raises-planned-capex-to-1800-crore-to-expand-optical-fibre-production/article71466354.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T17:06:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T23:07:56Z",
-      "updated_at": "2026-09-14T23:07:56Z",
-      "decay_at": "2026-09-16T05:06:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1bc0605be1ed",
       "idea_version": "IDEAV-d8324e0c16cac5fa",
       "idea_version_started_at": "2026-09-15T10:07:26Z",
@@ -126631,14 +126699,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 264,
@@ -126648,12 +126716,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 307,
+      "evicted_count": 308,
       "oldest_retained_at": "2026-08-27T20:43:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 213,
-          "oldest_retained_at": "2026-09-05T06:44:33Z"
+          "evicted_count": 214,
+          "oldest_retained_at": "2026-09-05T09:15:13Z"
         },
         "short": {
           "evicted_count": 94,
@@ -129552,8 +129620,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T05:06:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T19:22:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -163830,8 +163898,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 867,
-    "live_count": 20,
+    "surfaced_total": 869,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
