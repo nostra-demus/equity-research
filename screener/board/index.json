@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T09:06:35Z",
+  "generated_at": "2026-09-17T09:09:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-119",
@@ -122794,6 +122794,221 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4fe90fc86d10",
+      "idea_version": "IDEAV-b03fcadc0ad33fe3",
+      "idea_version_started_at": "2026-09-17T09:06:55Z",
+      "ticker": "08140",
+      "company": "BOSATECH",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a deterioration in earnings performance.",
+      "why_now": "The profit warning was filed today, September 16, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e18491ebfa0d"
+      ],
+      "primary_source_event_id": "EVT-e18491ebfa0d",
+      "source_headlines": [
+        "BOSATECH (08140): PROFIT WARNING"
+      ],
+      "source_headline": "BOSATECH (08140): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0916/2026091601061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-16T10:54:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T09:06:55Z",
+      "updated_at": "2026-09-17T09:06:55Z",
+      "decay_at": "2026-09-17T22:54:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-62acdf0448b6",
+      "idea_version": "IDEAV-0c94fa31c0cfd093",
+      "idea_version_started_at": "2026-09-17T09:06:55Z",
+      "ticker": "SMWH",
+      "company": "WH Smith",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is experiencing margin compression due to increased discounting, signaling persistent weakness in its retail operations.",
+      "why_now": "The profit warning was issued today, September 16, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-351fed7207de"
+      ],
+      "primary_source_event_id": "EVT-351fed7207de",
+      "source_headlines": [
+        "WH Smith warns on profit again as discounting hits margins"
+      ],
+      "source_headline": "WH Smith warns on profit again as discounting hits margins",
+      "source_url": "https://www.cityam.com/wh-smith-warns-on-profit-again-as-discounting-hits-margins/",
+      "source_name": "City A.M.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-16T06:47:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T09:06:55Z",
+      "updated_at": "2026-09-17T09:06:55Z",
+      "decay_at": "2026-09-17T18:47:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bacb61cda38f",
+      "idea_version": "IDEAV-bf60ba27352a43d5",
+      "idea_version_started_at": "2026-09-17T09:06:55Z",
+      "ticker": "ENT",
+      "company": "Entain",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing significant headwinds from UK tax hikes, leading to job cuts and a warning of further losses.",
+      "why_now": "The announcement of job cuts and loss warnings occurred today, September 16, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b08d3df56736"
+      ],
+      "primary_source_event_id": "EVT-b08d3df56736",
+      "source_headlines": [
+        "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses"
+      ],
+      "source_headline": "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses",
+      "source_url": "https://www.independent.co.uk/news/business/ladbrokes-entain-job-cuts-burnham-budget-gambling-tax-b3051024.html",
+      "source_name": "The Independent — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-16T08:48:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T09:06:55Z",
+      "updated_at": "2026-09-17T09:06:55Z",
+      "decay_at": "2026-09-17T20:48:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6a71fdaeebf7",
       "idea_version": "IDEAV-aedd46021f4467c6",
       "idea_version_started_at": "2026-09-16T13:28:55Z",
@@ -123991,76 +124206,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-511ecbe8c270",
-      "idea_version": "IDEAV-c43986ca0bb3f97f",
-      "idea_version_started_at": "2026-09-14T05:36:16Z",
-      "ticker": "VSAT",
-      "company": "Viasat",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Viasat has signed a deal with UAE's Space42 to establish Equatys as part of a $1 billion satellite push, expanding its commercial footprint and infrastructure capabilities.",
-      "why_now": "The deal was announced on September 14, 2026, creating an immediate catalyst for the stock as the market digests the scale of the $1 billion partnership.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f5108f582151"
-      ],
-      "primary_source_event_id": "EVT-f5108f582151",
-      "source_headlines": [
-        "UAE’s Space42 and US firm Viasat sign deal to establish Equatys in $1 billion satellite push"
-      ],
-      "source_headline": "UAE’s Space42 and US firm Viasat sign deal to establish Equatys in $1 billion satellite push",
-      "source_url": "https://www.khaleejtimes.com/business/uaes-space42-and-us-firm-viasat-sign-deal-to-establish-equatys-in-1-billion-satellite-push",
-      "source_name": "Khaleej Times — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T05:02:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:36:16Z",
-      "updated_at": "2026-09-14T05:36:16Z",
-      "decay_at": "2026-09-15T17:02:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-65f4ff924ce7",
       "idea_version": "IDEAV-0a3e8bb9e769d472",
       "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -124341,76 +124486,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-34f433d67296",
-      "idea_version": "IDEAV-09889b39ede26227",
-      "idea_version_started_at": "2026-09-13T19:16:47Z",
-      "ticker": "300750.SZ",
-      "company": "Contemporary Amperex Technology Co. Limited",
-      "exchange": "Shenzhen",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is involved in a contract to establish a significant EGP 2bn electric battery plant in Egypt, which represents a substantial capital expenditure and potential for future revenue growth.",
-      "why_now": "The contract signing was reported on September 13, 2026, indicating a new and material development.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-56bbe6da814e"
-      ],
-      "primary_source_event_id": "EVT-56bbe6da814e",
-      "source_headlines": [
-        "Egypt signs contract to establish EGP 2bn electric battery plant with CATL"
-      ],
-      "source_headline": "Egypt signs contract to establish EGP 2bn electric battery plant with CATL",
-      "source_url": "https://www.dailynewsegypt.com/2026/09/13/egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl/?utm_source=rss&utm_medium=rss&utm_campaign=egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl",
-      "source_name": "Daily News Egypt — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T18:54:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T19:16:47Z",
-      "updated_at": "2026-09-13T19:16:47Z",
-      "decay_at": "2026-09-15T06:54:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-79efe2854a36",
       "idea_version": "IDEAV-dc1979b42a6d1e83",
       "idea_version_started_at": "2026-09-13T17:56:30Z",
@@ -124615,76 +124690,6 @@
       "surfaced_at": "2026-09-15T05:22:27Z",
       "updated_at": "2026-09-15T05:22:27Z",
       "decay_at": "2026-09-16T12:00:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4d4f61c3a9ac",
-      "idea_version": "IDEAV-e74d548b7ff9b214",
-      "idea_version_started_at": "2026-09-14T05:51:52Z",
-      "ticker": "000660.KS",
-      "company": "SK hynix Inc.",
-      "exchange": "Korea",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rally of the Korean Won is expected to cut 21 trillion Won from SK hynix's profit outlook.",
-      "why_now": "The impact of the Won's rally on profit outlook was reported today.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "fx_rates",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5166bcfbbbad"
-      ],
-      "primary_source_event_id": "EVT-5166bcfbbbad",
-      "source_headlines": [
-        "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
-      ],
-      "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-14T05:51:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:51:52Z",
-      "updated_at": "2026-09-14T05:51:52Z",
-      "decay_at": "2026-09-15T17:51:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126909,79 +126914,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-37801473907d",
-      "idea_version": "IDEAV-5c217deaa8216cd2",
-      "idea_version_started_at": "2026-09-14T07:26:54Z",
-      "ticker": "CER",
-      "company": "Cerillion",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Cerillion shares are tumbling after the company issued a warning on revenue due to slipping customer orders, directly impacting near-term top-line growth and operating margins.",
-      "why_now": "The revenue warning was just announced on September 14, 2026, triggering immediate downward revisions to financial forecasts.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1aefa1f6075c"
-      ],
-      "primary_source_event_id": "EVT-1aefa1f6075c",
-      "source_headlines": [
-        "Cerillion shares tumble after warning on revenue as customer orders slip"
-      ],
-      "source_headline": "Cerillion shares tumble after warning on revenue as customer orders slip",
-      "source_url": "https://ukinvestormagazine.co.uk/cerillion-shares-tumble-after-warning-on-revenue-as-customer-orders-slip/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T07:13:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T07:26:54Z",
-      "updated_at": "2026-09-14T07:26:54Z",
-      "decay_at": "2026-09-15T19:13:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-cd3cba919b04",
       "idea_version": "IDEAV-34c422c48b1976fd",
       "idea_version_started_at": "2026-09-14T05:51:52Z",
@@ -127049,149 +126981,6 @@
       "surfaced_at": "2026-09-14T05:51:52Z",
       "updated_at": "2026-09-14T05:51:52Z",
       "decay_at": "2026-09-15T16:07:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3060680a62c4",
-      "idea_version": "IDEAV-b7f97f7a3b1186aa",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "KEC",
-      "company": "KEC International Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "KEC International Limited announced winning new orders worth Rs. 1,303 crores, which will directly contribute to its revenue and project pipeline.",
-      "why_now": "The order win was announced on September 14, 2026, providing a clear and immediate catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6da39680525"
-      ],
-      "primary_source_event_id": "EVT-e6da39680525",
-      "source_headlines": [
-        "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores"
-      ],
-      "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,303 crores",
-      "source_url": "https://nsearchives.nseindia.com/corporate/KEC_14092026090455_PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T03:36:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T15:36:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3c162423bb69",
-      "idea_version": "IDEAV-c35bd18c0ffca97c",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "HSP",
-      "company": "Healthscope",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Calvary Health Care consortium has won the battle for Healthscope, indicating a likely acquisition at a premium that will lead to delisting.",
-      "why_now": "The news on September 14, 2026, confirms the successful bid.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c025be4ba901"
-      ],
-      "primary_source_event_id": "EVT-c025be4ba901",
-      "source_headlines": [
-        "Calvary Health Care consortium wins battle for Healthscope"
-      ],
-      "source_headline": "Calvary Health Care consortium wins battle for Healthscope",
-      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/calvary-health-care-consortium-wins-the-battle-for-healthscope-20260908-p60vdw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T02:24:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T14:24:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -127626,225 +127415,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-06721dd3bc7b",
-      "idea_version": "IDEAV-326a6ebb15cfc2b9",
-      "idea_version_started_at": "2026-09-13T22:07:30Z",
-      "ticker": "UCA",
-      "company": "United Cooperative Assurance",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Riyadh court has accepted the application for the company's liquidation proceedings.",
-      "why_now": "The court accepted the liquidation application on September 13, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c4188219bded"
-      ],
-      "primary_source_event_id": "EVT-c4188219bded",
-      "source_headlines": [
-        "‎Riyadh court accepts application for UCA’s liquidation proceedings"
-      ],
-      "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T17:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:07:30Z",
-      "updated_at": "2026-09-13T22:07:30Z",
-      "decay_at": "2026-09-15T05:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-06f821eb0804",
-      "idea_version": "IDEAV-2ec06f01116ac547",
-      "idea_version_started_at": "2026-09-13T22:07:30Z",
-      "ticker": "ZAI",
-      "company": "Z.AI",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
-      "why_now": "The capital raise was reported on September 13, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c7461e1eb2a"
-      ],
-      "primary_source_event_id": "EVT-4c7461e1eb2a",
-      "source_headlines": [
-        "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
-      ],
-      "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
-      "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T20:02:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:07:30Z",
-      "updated_at": "2026-09-13T22:07:30Z",
-      "decay_at": "2026-09-15T08:02:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4b167833bba9",
-      "idea_version": "IDEAV-fa54853f884f8525",
-      "idea_version_started_at": "2026-09-13T22:07:30Z",
-      "ticker": "CATL",
-      "company": "Contemporary Amperex Technology Co. Limited",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is involved in establishing a EGP 2 billion electric battery plant in Egypt.",
-      "why_now": "The contract to establish the plant was signed on September 13, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-56bbe6da814e"
-      ],
-      "primary_source_event_id": "EVT-56bbe6da814e",
-      "source_headlines": [
-        "Egypt signs contract to establish EGP 2bn electric battery plant with CATL"
-      ],
-      "source_headline": "Egypt signs contract to establish EGP 2bn electric battery plant with CATL",
-      "source_url": "https://www.dailynewsegypt.com/2026/09/13/egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl/?utm_source=rss&utm_medium=rss&utm_campaign=egypt-signs-contract-to-establish-egp-2bn-electric-battery-plant-with-catl",
-      "source_name": "Daily News Egypt — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T18:54:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T22:07:30Z",
-      "updated_at": "2026-09-13T22:07:30Z",
-      "decay_at": "2026-09-15T06:54:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b6fc2ebf2d67",
       "idea_version": "IDEAV-60f859ae1b7f965d",
       "idea_version_started_at": "2026-09-13T22:07:30Z",
@@ -127991,79 +127561,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-2aedf447b3f7",
-      "idea_version": "IDEAV-e1273991742b3326",
-      "idea_version_started_at": "2026-09-13T21:29:53Z",
-      "ticker": "IDEA",
-      "company": "Vodafone Idea",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is seeking a massive ₹35,000-crore loan to fund a decade-long capex cycle, which is critical for network competitiveness and 5G rollout.",
-      "why_now": "The news of the loan pursuit for long-term capex emerged on September 13, 2024.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2dc33fe1bbb0"
-      ],
-      "primary_source_event_id": "EVT-2dc33fe1bbb0",
-      "source_headlines": [
-        "Vi eyes ₹35,000-crore loan to fund next decade's capex"
-      ],
-      "source_headline": "Vi eyes ₹35,000-crore loan to fund next decade's capex",
-      "source_url": "https://economictimes.indiatimes.com/industry/telecom/telecom-news/vi-eyes-35000-crore-loan-to-fund-next-decades-capex/articleshow/134220187.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T18:58:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T21:29:53Z",
-      "updated_at": "2026-09-13T21:29:53Z",
-      "decay_at": "2026-09-15T06:58:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f92cc8ec25f6",
       "idea_version": "IDEAV-412c81fd6dbe9c33",
       "idea_version_started_at": "2026-09-13T19:36:39Z",
@@ -128130,79 +127627,6 @@
       "surfaced_at": "2026-09-13T19:36:39Z",
       "updated_at": "2026-09-13T19:36:39Z",
       "decay_at": "2026-09-15T06:54:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-51ba4c166653",
-      "idea_version": "IDEAV-94d94748a7b2314e",
-      "idea_version_started_at": "2026-09-13T19:16:47Z",
-      "ticker": "8210.SR",
-      "company": "United Cooperative Assurance",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Riyadh court has accepted an application for the liquidation proceedings of the company, indicating severe financial distress and likely cessation of operations.",
-      "why_now": "The court's decision was reported on September 13, 2026, making this an immediate event.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c4188219bded"
-      ],
-      "primary_source_event_id": "EVT-c4188219bded",
-      "source_headlines": [
-        "‎Riyadh court accepts application for UCA’s liquidation proceedings"
-      ],
-      "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-13T17:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-13T19:16:47Z",
-      "updated_at": "2026-09-13T19:16:47Z",
-      "decay_at": "2026-09-15T05:29:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128716,79 +128140,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1089731bbcf8",
-      "idea_version": "IDEAV-ba236278519390af",
-      "idea_version_started_at": "2026-09-14T05:51:52Z",
-      "ticker": "Z.AI",
-      "company": "Z.ai",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Z.ai shares are tumbling after announcing a $5 billion fundraising plan, indicating potential dilution or unfavorable terms.",
-      "why_now": "The share price drop occurred today following the announcement of the fundraising plan.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8a7bc853863"
-      ],
-      "primary_source_event_id": "EVT-f8a7bc853863",
-      "source_headlines": [
-        "Z.ai shares tumble 10% after $5 billion fundraising plan"
-      ],
-      "source_headline": "Z.ai shares tumble 10% after $5 billion fundraising plan",
-      "source_url": "https://www.cnbctv18.com/market/z-ai-share-price-tumbles-after-usd-5-billion-fundraising-plan-19990203.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-14T05:17:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:51:52Z",
-      "updated_at": "2026-09-14T05:51:52Z",
-      "decay_at": "2026-09-15T17:17:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ee2c34bed048",
       "idea_version": "IDEAV-952488cd2340b593",
       "idea_version_started_at": "2026-09-14T05:17:21Z",
@@ -128855,223 +128206,6 @@
       "surfaced_at": "2026-09-14T05:17:21Z",
       "updated_at": "2026-09-14T05:17:21Z",
       "decay_at": "2026-09-15T16:00:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4cc18e7635ee",
-      "idea_version": "IDEAV-fb3e9b00bd7d324f",
-      "idea_version_started_at": "2026-09-14T06:26:20Z",
-      "ticker": "9502",
-      "company": "Chubu Electric Power",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The president and chairman of Chubu Electric have resigned following a severe earthquake data-tampering scandal, exposing the utility to regulatory penalties and reputational damage.",
-      "why_now": "The resignations were announced on September 14, 2026, following the breaking scandal.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08fa7dc4b15c",
-        "EVT-6a7ca518f683"
-      ],
-      "primary_source_event_id": "EVT-6a7ca518f683",
-      "source_headlines": [
-        "Japan’s Chubu Electric bosses resign over quake data-tampering scandal",
-        "BREAKING NEWS: Scandal-tainted Chubu Electric announces resignations of president, chair"
-      ],
-      "source_headline": "Japan’s Chubu Electric bosses resign over quake data-tampering scandal",
-      "source_url": "https://www.scmp.com/news/asia/east-asia/article/3367418/japans-chubu-electric-bosses-resign-over-quake-data-tampering-scandal?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-14T06:11:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:04:41Z",
-      "updated_at": "2026-09-14T06:26:20Z",
-      "decay_at": "2026-09-15T18:11:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3f16c02405f0",
-      "idea_version": "IDEAV-ffaeac1548d6cf7c",
-      "idea_version_started_at": "2026-09-14T05:17:21Z",
-      "ticker": "6762",
-      "company": "TDK",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TDK plans to ramp up production of electronic components specifically for AI servers, positioning the company to benefit from the growing demand in the AI sector and increase its revenue.",
-      "why_now": "The news of TDK's production ramp-up was reported on 2026-09-14, indicating a current strategic move.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7b488da8ed3d"
-      ],
-      "primary_source_event_id": "EVT-7b488da8ed3d",
-      "source_headlines": [
-        "TDK to ramp up production of electronic components for AI servers"
-      ],
-      "source_headline": "TDK to ramp up production of electronic components for AI servers",
-      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-14T03:18:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T05:17:21Z",
-      "updated_at": "2026-09-14T05:17:21Z",
-      "decay_at": "2026-09-15T15:18:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0f5a41d01622",
-      "idea_version": "IDEAV-8d09f09cec5e66cc",
-      "idea_version_started_at": "2026-09-14T04:51:58Z",
-      "ticker": "TDK",
-      "company": "TDK",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TDK is increasing production of electronic components essential for AI servers, directly benefiting from the growing demand in the AI infrastructure market.",
-      "why_now": "The news on September 14, 2026, indicates a ramp-up in production, suggesting a current strategic move.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7b488da8ed3d"
-      ],
-      "primary_source_event_id": "EVT-7b488da8ed3d",
-      "source_headlines": [
-        "TDK to ramp up production of electronic components for AI servers"
-      ],
-      "source_headline": "TDK to ramp up production of electronic components for AI servers",
-      "source_url": "https://asia.nikkei.com/business/technology/tdk-to-ramp-up-production-of-electronic-components-for-ai-servers",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-14T03:18:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T04:51:58Z",
-      "updated_at": "2026-09-14T04:51:58Z",
-      "decay_at": "2026-09-15T15:18:35Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -129217,78 +128351,6 @@
       "surfaced_at": "2026-09-14T00:16:27Z",
       "updated_at": "2026-09-14T00:16:27Z",
       "decay_at": "2026-09-15T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14e8a146693a",
-      "idea_version": "IDEAV-d839ab9742f748e8",
-      "idea_version_started_at": "2026-09-14T06:09:44Z",
-      "ticker": "005930",
-      "company": "Samsung Electronics",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A rally in the Korean Won is expected to cut 21 trillion Won from the profit outlook for Samsung Electronics and SK hynix, impacting their earnings.",
-      "why_now": "The news report on September 14, 2026, highlights the immediate impact of the Won's rally on the profit outlook for the current period.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "fx_rates",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5166bcfbbbad"
-      ],
-      "primary_source_event_id": "EVT-5166bcfbbbad",
-      "source_headlines": [
-        "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
-      ],
-      "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-14T05:51:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T06:09:44Z",
-      "updated_at": "2026-09-14T06:09:44Z",
-      "decay_at": "2026-09-15T17:51:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -129505,77 +128567,6 @@
       "surfaced_at": "2026-09-14T01:06:30Z",
       "updated_at": "2026-09-14T01:06:30Z",
       "decay_at": "2026-09-15T12:34:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5161e4ad3826",
-      "idea_version": "IDEAV-ae051b7ac3b536b5",
-      "idea_version_started_at": "2026-09-14T02:21:22Z",
-      "ticker": "PRM",
-      "company": "PRM",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "An independent assessment indicates prospective resources at PRM's Eyre Project, suggesting potential upside for the company.",
-      "why_now": "The assessment results were filed on September 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6920d0057836"
-      ],
-      "primary_source_event_id": "EVT-6920d0057836",
-      "source_headlines": [
-        "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]"
-      ],
-      "source_headline": "PRM: Independent Prospective Resources Assessment at Eyre Project [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRM?key=2924-03135085-6A1343646",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-14T00:30:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:21:22Z",
-      "updated_at": "2026-09-14T02:21:22Z",
-      "decay_at": "2026-09-15T12:30:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -130008,78 +128999,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-03259272947f",
-      "idea_version": "IDEAV-34fc153de52c06ff",
-      "idea_version_started_at": "2026-09-14T02:21:22Z",
-      "ticker": "REVOLUT",
-      "company": "Revolut",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Revolut is reportedly facing threats of daily customer data leaks, indicating a significant cybersecurity vulnerability that could lead to customer attrition and regulatory fines.",
-      "why_now": "The threat of data leaks was reported on September 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cae1018010e5"
-      ],
-      "primary_source_event_id": "EVT-cae1018010e5",
-      "source_headlines": [
-        "Revolut attackers threaten daily customer data leaks"
-      ],
-      "source_headline": "Revolut attackers threaten daily customer data leaks",
-      "source_url": "https://cointelegraph.com/news/revolut-attackers-threaten-daily-customer-data-leaks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-14T00:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T02:21:22Z",
-      "updated_at": "2026-09-14T02:21:22Z",
-      "decay_at": "2026-09-15T12:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1fab37e5db24",
       "idea_version": "IDEAV-038ebc68219e7030",
       "idea_version_started_at": "2026-09-15T01:17:59Z",
@@ -130304,33 +129223,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 600,
+    "total_count": 582,
     "shown_count": 500,
-    "hidden_count": 100,
+    "hidden_count": 82,
     "side_counts": {
       "long": {
-        "total_count": 307,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 57
+        "hidden_count": 48
       },
       "short": {
-        "total_count": 293,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 34
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 238,
-      "oldest_retained_at": "2026-08-25T20:32:00Z",
+      "evicted_count": 256,
+      "oldest_retained_at": "2026-08-26T01:52:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 175,
-          "oldest_retained_at": "2026-09-01T17:36:10Z"
+          "evicted_count": 184,
+          "oldest_retained_at": "2026-09-02T13:04:02Z"
         },
         "short": {
-          "evicted_count": 63,
-          "oldest_retained_at": "2026-08-25T20:32:00Z"
+          "evicted_count": 72,
+          "oldest_retained_at": "2026-08-26T01:52:00Z"
         }
       }
     },
@@ -134043,8 +132962,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T19:13:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -134195,8 +133114,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T18:11:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -134268,81 +133187,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T17:51:53Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a7b0cf284225",
-        "idea_version": "IDEAV-c2bbeec89ca85091",
-        "idea_version_started_at": "2026-09-14T05:51:52Z",
-        "ticker": "005930.KS",
-        "company": "Samsung Electronics Co., Ltd.",
-        "exchange": "Korea",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The rally of the Korean Won is expected to cut 21 trillion Won from Samsung Electronics' profit outlook.",
-        "why_now": "The impact of the Won's rally on profit outlook was reported today.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "fx_rates",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5166bcfbbbad"
-        ],
-        "primary_source_event_id": "EVT-5166bcfbbbad",
-        "source_headlines": [
-          "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
-        ],
-        "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-14T05:51:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T05:51:52Z",
-        "updated_at": "2026-09-14T05:51:52Z",
-        "decay_at": "2026-09-15T17:51:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T17:51:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -134411,6 +133257,79 @@
         },
         "surfaced_at": "2026-09-14T06:09:44Z",
         "updated_at": "2026-09-14T06:09:44Z",
+        "decay_at": "2026-09-15T17:51:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a7b0cf284225",
+        "idea_version": "IDEAV-c2bbeec89ca85091",
+        "idea_version_started_at": "2026-09-14T05:51:52Z",
+        "ticker": "005930.KS",
+        "company": "Samsung Electronics Co., Ltd.",
+        "exchange": "Korea",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The rally of the Korean Won is expected to cut 21 trillion Won from Samsung Electronics' profit outlook.",
+        "why_now": "The impact of the Won's rally on profit outlook was reported today.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "fx_rates",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5166bcfbbbad"
+        ],
+        "primary_source_event_id": "EVT-5166bcfbbbad",
+        "source_headlines": [
+          "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
+        ],
+        "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
+        "source_name": "Business Korea — All English Articles",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-14T05:51:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T05:51:52Z",
+        "updated_at": "2026-09-14T05:51:52Z",
         "decay_at": "2026-09-15T17:51:53Z",
         "status": "expired",
         "promoted_signal_id": null,
@@ -134567,8 +133486,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T17:17:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -134714,8 +133633,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T17:02:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -134939,8 +133858,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T15:36:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135014,8 +133933,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T15:18:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135089,8 +134008,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T15:18:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135238,8 +134157,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T14:24:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135463,8 +134382,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T12:54:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135762,8 +134681,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T12:30:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -136952,8 +135871,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T08:02:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -137101,8 +136020,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T06:58:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -137250,8 +136169,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T06:54:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -137326,8 +136245,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T06:54:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -137477,8 +136396,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T05:29:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -137553,8 +136472,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-15T05:29:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T09:07:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -167508,8 +166427,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 849,
-    "live_count": 10,
+    "surfaced_total": 852,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

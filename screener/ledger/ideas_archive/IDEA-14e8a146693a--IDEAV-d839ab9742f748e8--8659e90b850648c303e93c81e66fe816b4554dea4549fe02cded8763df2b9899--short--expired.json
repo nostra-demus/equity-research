@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-27T11:49:42Z",
+  "archived_at": "2026-09-17T09:07:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-33be1fdd6647",
-    "idea_version": "IDEAV-2b62a45ebc1796dd",
-    "idea_version_started_at": "2026-08-24T21:01:02Z",
-    "ticker": "02266",
-    "company": "LAI SI ENT",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-14e8a146693a",
+    "idea_version": "IDEAV-d839ab9742f748e8",
+    "idea_version_started_at": "2026-09-14T06:09:44Z",
+    "ticker": "005930",
+    "company": "Samsung Electronics",
+    "exchange": "KRX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The profit warning indicates a negative trend in the company's financial results.",
-    "why_now": "The announcement was made on 2026-08-24.",
-    "conviction": 70,
+    "reason": "A rally in the Korean Won is expected to cut 21 trillion Won from the profit outlook for Samsung Electronics and SK hynix, impacting their earnings.",
+    "why_now": "The news report on September 14, 2026, highlights the immediate impact of the Won's rally on the profit outlook for the current period.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "fx_rates",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-4c88decf78bd"
+      "EVT-5166bcfbbbad"
     ],
-    "primary_source_event_id": "EVT-4c88decf78bd",
+    "primary_source_event_id": "EVT-5166bcfbbbad",
     "source_headlines": [
-      "LAI SI ENT (02266): PROFIT WARNING"
+      "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
     ],
-    "source_headline": "LAI SI ENT (02266): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401187.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-08-24T11:14:00Z",
+    "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
+    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
+    "source_name": "Business Korea — All English Articles",
+    "materiality_max": 92,
+    "newest_source_at": "2026-09-14T05:51:53Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T21:01:02Z",
-    "updated_at": "2026-08-24T21:01:02Z",
-    "decay_at": "2026-08-25T23:14:00Z",
+    "surfaced_at": "2026-09-14T06:09:44Z",
+    "updated_at": "2026-09-14T06:09:44Z",
+    "decay_at": "2026-09-15T17:51:53Z",
     "status": "live",
     "promoted_signal_id": null
   }

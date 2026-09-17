@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-27T08:58:43Z",
+  "archived_at": "2026-09-17T09:07:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-12c28e70afc8",
-    "idea_version": "IDEAV-37d94828c446e08e",
-    "idea_version_started_at": "2026-08-24T12:14:28Z",
-    "ticker": "08668",
-    "company": "Ying Hai Group",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-06721dd3bc7b",
+    "idea_version": "IDEAV-326a6ebb15cfc2b9",
+    "idea_version_started_at": "2026-09-13T22:07:30Z",
+    "ticker": "UCA",
+    "company": "United Cooperative Assurance",
+    "exchange": null,
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company issued a profit warning, indicating a decline in profitability that will likely pressure the stock price.",
-    "why_now": "The profit warning was released on August 24, 2026.",
-    "conviction": 60,
+    "reason": "A Riyadh court has accepted the application for the company's liquidation proceedings.",
+    "why_now": "The court accepted the liquidation application on September 13, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 20,
+      "evidence": 14,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "price and market expectations",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
-    "thesis_type": "company_specific",
+    "priced_in": "unknown",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-07f58c0ade0b"
+      "EVT-c4188219bded"
     ],
-    "primary_source_event_id": "EVT-07f58c0ade0b",
+    "primary_source_event_id": "EVT-c4188219bded",
     "source_headlines": [
-      "YING HAI GROUP (08668): PROFIT WARNING"
+      "‎Riyadh court accepts application for UCA’s liquidation proceedings"
     ],
-    "source_headline": "YING HAI GROUP (08668): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082400476.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
+    "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
+    "source_name": "Argaam — Main News (English)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-24T08:32:00Z",
+    "newest_source_at": "2026-09-13T17:29:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T12:14:28Z",
-    "updated_at": "2026-08-24T12:14:28Z",
-    "decay_at": "2026-08-25T20:32:00Z",
+    "surfaced_at": "2026-09-13T22:07:30Z",
+    "updated_at": "2026-09-13T22:07:30Z",
+    "decay_at": "2026-09-15T05:29:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
