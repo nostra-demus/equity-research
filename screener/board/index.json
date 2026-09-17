@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T17:43:02Z",
+  "generated_at": "2026-09-17T17:51:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-397",
@@ -1080,6 +1080,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-404",
+      "headline": "SC HOLDINGS (00413): INSIDE INFORMATION - WINDING-UP ORDER ISSUED AGAINST A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700137.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T00:25:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A winding-up order against a subsidiary of SC HOLDINGS indicates significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A winding-up order against a subsidiary of SC HOLDINGS indicates significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SC HOLDINGS",
+          "ticker": "00413",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-050",
       "headline": "CHINA CBS INTL (00989): JOINT ANNOUNCEMENT DESPATCH OF COMPOSITE DOCUMENT RELATING TO UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF GROUND GROUP (HONG KONG) CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT)",
       "headline_en": null,
@@ -1898,55 +1947,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-071",
-      "headline": "Nippon Steel builds on U.S. Steel takeover with new European plant in Slovakia",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/materials/nippon-steel-builds-on-u.s.-steel-takeover-with-new-european-plant-in-slovakia",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T08:21:14Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Major capital expenditure announcement for a new plant in Slovakia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major capital expenditure announcement for a new plant in Slovakia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nippon Steel",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -163849,9 +163849,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2229502,
-    "news_picked_today": 683,
-    "news_dropped_today": 10045
+    "news_seen_today": 2242733,
+    "news_picked_today": 693,
+    "news_dropped_today": 10227
   },
   "book_momentum": {
     "live_count": 8,
