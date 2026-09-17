@@ -79,6 +79,9 @@ const emptyState = (): MonitorState => ({
 })
 
 /** What the screen shows about a name's watch plan. */
+/** Why an acknowledgement did not take, so the route can say which it was rather than one vague refusal. */
+export type SetSeenResult = 'ok' | 'not_acknowledgeable' | 'not_saved'
+
 export interface PlanView {
   state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
   detail: string
@@ -185,14 +188,18 @@ export function createWatchMonitor(deps: MonitorDeps) {
     return emptyState()
   }
 
-  function saveState(): void {
+  /** True when the bytes actually landed. Callers that must not claim success on a dropped write read it;
+   *  the periodic ones ignore it and rely on the log, as before. */
+  function saveState(): boolean {
     try {
       fs.mkdirSync(dir, { recursive: true, mode: 0o700 })
       const tmp = `${stateFile}.tmp-${process.pid}-${crypto.randomBytes(4).toString('hex')}`
       fs.writeFileSync(tmp, JSON.stringify(state) + '\n', { mode: 0o600 })
       fs.renameSync(tmp, stateFile)
+      return true
     } catch (e: any) {
       deps.log?.(`[watchlist] could not save its state: ${e?.message ?? e}`)
+      return false
     }
   }
 
@@ -645,21 +652,23 @@ export function createWatchMonitor(deps: MonitorDeps) {
    * deciding the status, so the name leaves "Needs you" until something NEW happens — a further date passing,
    * or a fresh reading, each of which is a different id.
    */
-  function setSeen(listingKey: string, conditionId: string, seen: boolean): boolean {
+  function setSeen(listingKey: string, conditionId: string, seen: boolean): SetSeenResult {
     // ONLY A CONDITION THAT COULD BE ACKNOWLEDGED. An id names its own type before the colon, and a write
     // for any other type would be stored, re-serialised on every tick and read by nobody — so it is refused
     // at the door rather than left for the sweep to find.
-    if (seen && !ACKNOWLEDGEABLE.has(conditionId.split(':')[0] as ConditionType)) return false
+    if (seen && !ACKNOWLEDGEABLE.has(conditionId.split(':')[0] as ConditionType)) return 'not_acknowledgeable'
     const forName = { ...(state.seen[listingKey] ?? {}) }
     if (seen) forName[conditionId] = now().toISOString()
     else delete forName[conditionId]
     if (Object.keys(forName).length) state.seen[listingKey] = forName
     else delete state.seen[listingKey]
-    saveState()
+    // AN UNWRITABLE STATE DIRECTORY IS NOT AN ACKNOWLEDGEMENT. Without this the mark lived in memory only,
+    // the route answered {ok:true}, and it was gone at the next restart with nobody told.
+    if (!saveState()) return 'not_saved'
     // No tick. Nothing the tick computes depends on this — the screen re-reads through decorate(), which
     // reads state.seen directly — and scheduleTick REPLACES the pending timer, so a click here would cancel
     // the run a just-finished plan read had queued, and re-quote every listing for nothing.
-    return true
+    return 'ok'
   }
 
   function status() {

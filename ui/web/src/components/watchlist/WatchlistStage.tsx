@@ -56,8 +56,11 @@ export function WatchlistStage() {
   // PIN WHAT IS ON SCREEN. Until something is clicked the panel falls back to rows[0], which re-sorting moves
   // — so acknowledging a condition on the default-selected name dropped it out of "Needs you" and swapped the
   // panel (and the Undo that reverses it) for another company's. Naming it makes the fallback stick.
+  //
+  // WHENEVER it disagrees, not only when it is null: a picked name that leaves the list (the archived toggle,
+  // a search) leaves a stale key behind, the panel silently falls back, and the same swap returns.
   useEffect(() => {
-    if (!picked && selected) setPicked(selected.listing_key)
+    if (selected && picked !== selected.listing_key) setPicked(selected.listing_key)
   }, [picked, selected])
   const needYou = rows.filter((r) => NEEDS_YOU.has(rowStatus(r))).length
   // EACH NAME COUNTED ONCE. A name that is both researched and yours used to be counted in both halves, so

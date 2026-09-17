@@ -414,16 +414,25 @@ async function main() {
     // reader that will always ignore it.
     const stored = () => JSON.parse(fs.readFileSync(path.join(dir, 'watchlist', 'monitor-state.json'), 'utf8'))
       .seen[row.listing.listing_key] ?? {}
-    assert.equal(m12.setSeen(row.listing.listing_key, 'buy_price_reached:p1', true), false)
+    assert.equal(m12.setSeen(row.listing.listing_key, 'buy_price_reached:p1', true), 'not_acknowledgeable')
     assert.equal('buy_price_reached:p1' in stored(), false, 'nothing was written')
 
     // An id whose condition does not exist is swept on the next tick. Ids are built from their own content —
     // a decision date, a date item's hash — so every re-run mints new ones, and without the sweep the old
     // run's marks would sit in the state file for the life of the install.
-    assert.equal(m12.setSeen(row.listing.listing_key, 'results_out:ghost', true), true, 'the type is allowed')
+    assert.equal(m12.setSeen(row.listing.listing_key, 'results_out:ghost', true), 'ok', 'the type is allowed')
     assert.ok('results_out:ghost' in stored(), 'so it is stored')
     await m12.tick(); await m12.idle()
     assert.equal('results_out:ghost' in stored(), false, 'and swept once no condition answers to it')
+
+    // A STATE DIRECTORY THAT WILL NOT TAKE THE WRITE IS NOT AN ACKNOWLEDGEMENT. saveState logs and carries on,
+    // so without propagating it the mark lived in memory, the route answered {ok:true}, and a restart lost it.
+    fs.chmodSync(path.join(dir, 'watchlist'), 0o500)
+    try {
+      assert.equal(m12.setSeen(row.listing.listing_key, 'results_out:d1', false), 'not_saved')
+    } finally {
+      fs.chmodSync(path.join(dir, 'watchlist'), 0o700)
+    }
     assert.deepEqual(Object.keys(stored()).sort(), ['results_out:d1', 'results_out:d2'], 'the real ones stay')
     // The name comes off the list. What you said you had seen goes with it, so re-adding it does not arrive
     // pre-silenced — the ids are built from the dates, which have not changed.

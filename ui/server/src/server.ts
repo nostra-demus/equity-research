@@ -4983,8 +4983,11 @@ app.post('/api/watchlist/condition-seen', { config: { rateLimit: { max: 240, tim
   if (!body.success) return reply.code(400).send({ error: 'invalid body' })
   // A refusal is said out loud. Silently answering `ok` to a write that was dropped is how a client comes to
   // believe a thing was acknowledged when nothing was stored.
-  const ok = watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
-  if (!ok) return reply.code(422).send({ error: 'this kind of condition cannot be acknowledged' })
+  const r = watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
+  // A condition that clears itself is the CALLER's mistake; a state directory that will not take the write is
+  // this engine's. Answering {ok:true} to either would leave a client believing a mark it does not have.
+  if (r === 'not_acknowledgeable') return reply.code(422).send({ error: 'this kind of condition cannot be acknowledged' })
+  if (r === 'not_saved') return reply.code(500).send({ error: 'the acknowledgement could not be saved' })
   return { ok: true }
 })
 

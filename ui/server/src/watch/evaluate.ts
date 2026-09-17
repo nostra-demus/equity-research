@@ -44,12 +44,16 @@ export const URGENT_CONDITIONS: ReadonlySet<ConditionType> = new Set<ConditionTy
 /**
  * Conditions that CANNOT clear themselves, and so can be acknowledged.
  *
- * A price condition ends when the price moves; these three do not. A date that has passed stays passed, and
+ * A price condition ends when the price moves; these two do not. A date that has passed stays passed, and
  * research written in June only gets younger by being re-run — so a name carrying them sat in "Needs you" for
  * ever, which is how five of ten names came to live there and the group stopped meaning anything. Saying "seen
  * it" does not make the fact untrue: the condition stays on the name, in its own words, with the day you saw
- * it. It stops deciding the status, and a NEW fact — another date passing, a new reading — is a new id, so the
- * name comes back on its own.
+ * it. It stops deciding the status, and the name comes back on its own when the fact CHANGES: another date
+ * passes (a new id), the research ages into the next band (a new id), or NEW RESEARCH runs — which moves the
+ * decision day past the old dates, so they stop being raised at all and the tick sweeps their marks away.
+ *
+ * Re-READING the same report is not one of those. Nothing about the fact changed, so the mark stands; only a
+ * fresh run does.
  */
 export const ACKNOWLEDGEABLE: ReadonlySet<ConditionType> = new Set<ConditionType>([
   'results_out', 'research_old',

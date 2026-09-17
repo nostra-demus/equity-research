@@ -342,6 +342,23 @@ check('seeing that the research is old holds for that age, not for ever', () => 
   assert.equal(later.status, 'check_now', 'so the name asks to be looked at again')
 })
 
+check('new research retires a passed date outright — a mere re-read of the same report does not', () => {
+  // What the acknowledgement doc promises, pinned. Re-reading a report changes no fact, so a mark you made
+  // stands; a fresh RUN moves the decision day past the old dates, which stop being raised at all — and the
+  // monitor's sweep then drops the marks that answer to nothing.
+  const past: PlanItem = { kind: 'date', id: 'd-past', label: 'FQ1 earnings', date: '2026-09-04', window: null,
+    estimated: false, what_to_check: null, source: src('FQ1 earnings on 2026-09-04') }
+  const reread = evaluateName({ plan: plan([past], { decision_date: '2026-07-10' }), triggers: [], evals: [],
+    facts: facts(210), today: TODAY, seen: { 'results_out:d-past': '2026-09-15T09:00:00Z' } })
+  assert.equal(reread.conditions.filter((c) => c.type === 'results_out').length, 1, 'the date is still raised')
+  assert.equal(reread.status, 'waiting', 'and the mark still silences it')
+
+  const rerun = evaluateName({ plan: plan([past], { decision_date: '2026-09-15' }), triggers: [], evals: [],
+    facts: facts(210), today: TODAY, seen: { 'results_out:d-past': '2026-09-15T09:00:00Z' } })
+  assert.deepEqual(rerun.conditions.filter((c) => c.type === 'results_out'), [],
+    'research newer than the date retires it — nothing is left to acknowledge')
+})
+
 check('a date window is used only where it reads as one', () => {
   // Verbatim from the live list: the report's own window is a table row and a sentence about consensus, and
   // "X was expected <window>" printed them as the date.
