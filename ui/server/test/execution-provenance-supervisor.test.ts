@@ -14,7 +14,8 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
-  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
+  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupersededPublicationProbe,
+  __setSupervisorCommitter, __setSupervisorCommitVerifier,
   SUPERVISOR_CONTROL_MARKERS, drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
@@ -465,6 +466,74 @@ try {
     __setSupervisorCommitter(failedRecoveryCommitter)
     __setSupervisorCommitVerifier(recoveryVerifier)
     finishRun(recoveryRun, 'error')
+  }
+
+  // A retained receipt commits the OLD bytes frozen when it was sealed. The live path keeps admitting runs
+  // while a receipt is retained, and /research:rerun writes into the latest existing run root, so a newer run
+  // can publish the same paths before the old receipt is retried. Retrying it then reverts published
+  // research to stale bytes. A superseded receipt must commit nothing, stay on disk, and be reported.
+  const supersededRelative = `${root}/reviews/2099-01-05_superseded_review.json`
+  const supersededAbsolute = path.join(REPO_ROOT, supersededRelative)
+  const supersededRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(supersededAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  supersededRun.publicationToken = randomUUID()
+  beginExecutionAttempt(supersededRun)
+  fs.writeFileSync(supersededAbsolute, '{"verdict":"sealed before a newer run published this path"}\n')
+  const supersededReceipt = path.join(STATE_DIR, 'publication-ready', `${supersededRun.runId}.json`)
+  const supersededFailedCommitter = __setSupervisorCommitter(async () => { throw new Error('fixture push failed') })
+  const supersededVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(supersededRun.runId, supersededRun.publicationToken, {
+      phase: 'commit', message: 'superseded fixture', pathspecs: [supersededRelative],
+    })
+    await assert.rejects(drainPublicationIntents(supersededRun), /fixture push failed/)
+    assert.equal(fs.existsSync(supersededReceipt), true, 'the failed live commit retained its sealed receipt')
+    const sealedAt = JSON.parse(fs.readFileSync(supersededReceipt, 'utf8')).created_at as string
+    const snapshotDirectory = path.dirname(JSON.parse(fs.readFileSync(supersededReceipt, 'utf8')).snapshot_manifest)
+
+    let staleCommits = 0
+    const staleCommitter = __setSupervisorCommitter(async () => {
+      staleCommits++
+      return 'COMMIT_SHA=7777777777777777777777777777777777777777'
+    })
+    const probed: Array<{ entries: Array<{ path: string; snapshot: string }>; sealedAt: string; ownCommit?: string }> = []
+    // The real probe reads git history, and this suite runs inside the real checkout where a test must never
+    // create commits. It is covered against a throwaway repository in publication-supersession.test.ts.
+    const realProbe = __setSupersededPublicationProbe((input) => {
+      probed.push(input)
+      return [{ path: supersededRelative, commit: '8'.repeat(40), committedAt: Math.floor(Date.parse(sealedAt) / 1000) + 600 }]
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 0, 'a superseded receipt is not counted as recovered')
+      assert.equal(staleCommits, 0, 'a superseded receipt never reaches Git: its stale bytes must not revert newer ones')
+      assert.equal(fs.existsSync(supersededReceipt), true, 'a superseded receipt is retained, never deleted')
+      assert.equal(fs.existsSync(snapshotDirectory), true, 'its immutable snapshot is retained with it')
+      const reported = listReadyPublicationFailures().filter((item) => item.entry === `${supersededRun.runId}.json`)
+      assert.equal(reported.length, 1, 'the refusal is reported through the stuck-publication surface')
+      assert.match(reported[0].error, /superseded and was not committed/)
+      assert.ok(reported[0].error.includes(supersededRelative), 'the report names the path a newer run published')
+      assert.deepEqual(probed.map((input) => [input.entries.map((item) => item.path), input.sealedAt]),
+        [[[supersededRelative], sealedAt]],
+        "the check is driven by the signed receipt's own path list and creation time, with no new receipt field")
+    } finally { __setSupersededPublicationProbe(realProbe) }
+
+    // Once nothing newer stands in the way, the same receipt publishes through the real probe: HEAD has
+    // never published this fixture path, so the ordinary first-publication retry is unaffected.
+    try {
+      assert.equal(await recoverReadyPublications(), 1, 'a receipt that is not superseded still recovers')
+      assert.equal(staleCommits, 1)
+      assert.equal(fs.existsSync(supersededReceipt), false)
+      assert.deepEqual(listReadyPublicationFailures(), [], 'a later successful pass clears the report')
+    } finally { __setSupervisorCommitter(staleCommitter) }
+  } finally {
+    __setSupervisorCommitter(supersededFailedCommitter)
+    __setSupervisorCommitVerifier(supersededVerifier)
+    finishRun(supersededRun, 'error')
   }
 
   // Commit verification can succeed and the process can die before the provider/profile publication seal.

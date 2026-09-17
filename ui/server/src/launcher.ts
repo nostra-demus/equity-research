@@ -8142,6 +8142,94 @@ function runFromReadyPublication(record: ReadyPublicationRecord): RunState {
   } as RunState
 }
 
+export interface SupersededPublicationPath {
+  path: string
+  /** The commit that gave the path the bytes HEAD publishes today. */
+  commit: string
+  /** That commit's committer time, in epoch seconds. */
+  committedAt: number
+}
+const SUPERSEDED_REPORT_LIMIT = 5
+
+/**
+ * Which of a sealed receipt's paths were published again, with different bytes, AFTER it was sealed.
+ *
+ * A retained receipt is retried at a later startup and commits its OLD snapshot. The live path keeps
+ * admitting runs while a receipt is retained, and /research:rerun writes into the latest existing run root,
+ * so a newer run can publish the same paths first. Retrying the old receipt then reverts published files to
+ * stale bytes. A path is superseded when both hold:
+ *   1. HEAD publishes it with bytes other than the sealed snapshot's, and
+ *   2. the commit that gave it those bytes is newer than the receipt.
+ * Neither alone is enough. (1) alone is every ordinary update of an existing file; (2) alone is the
+ * receipt's own commit landing before a crash, which leaves HEAD equal to the snapshot.
+ *
+ * It needs nothing beyond the signed receipt's existing `created_at`, so receipts sealed before this check
+ * existed are covered too. Git committer time has one-second resolution and a full run commits its primary
+ * snapshot, then seals the RUN_METADATA backfill moments later, often inside the same second. The
+ * comparison is therefore strict: a same-second commit is the receipt's own predecessor, never a newer run
+ * (no run can be admitted, execute and publish inside one second). `ownCommit` excludes the receipt's
+ * recorded primary commit outright, so a clock step cannot misread it either.
+ *
+ * Any git failure throws. The caller retains and reports the receipt, which commits nothing.
+ */
+export function supersededPublicationPaths(input: {
+  entries: Array<{ path: string; snapshot: string }>
+  sealedAt: string
+  ownCommit?: string
+}, repoRoot: string = REPO_ROOT): SupersededPublicationPath[] {
+  const sealedSeconds = Math.floor(Date.parse(input.sealedAt) / 1000)
+  if (!Number.isFinite(sealedSeconds)) throw new Error('ready-publication receipt has no valid creation time')
+  // Literal pathspecs: a published file name may contain glob characters, and `a[1].md` must never be
+  // dated by a newer commit to `a1.md`.
+  const git = (args: string[], stdin?: string): string => execFileSync('git', ['--literal-pathspecs', ...args], {
+    cwd: repoRoot, encoding: 'utf8', input: stdin, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 32 * 1024 * 1024,
+  })
+  const wanted = new Set(input.entries.map((entry) => entry.path))
+  const published = new Map<string, string>()
+  const all = [...wanted]
+  for (let start = 0; start < all.length; start += 256) {
+    for (const row of git(['ls-tree', '-r', '-z', 'HEAD', '--', ...all.slice(start, start + 256)]).split('\0')) {
+      const tab = row.indexOf('\t')
+      if (tab < 0) continue
+      const [, type, oid] = row.slice(0, tab).split(' ')
+      const relative = row.slice(tab + 1)
+      if (type === 'blob' && wanted.has(relative)) published.set(relative, oid)
+    }
+  }
+  // A path HEAD does not publish has no newer bytes to revert: that is a first publication.
+  const candidates = input.entries.filter((entry) => published.has(entry.path))
+  if (!candidates.length) return []
+  if (candidates.some((entry) => entry.snapshot.includes('\n'))) throw new Error('unsafe ready-publication snapshot path')
+  // --no-filters hashes the raw snapshot bytes. The commit verifier already requires the committed blob to
+  // equal those raw bytes, so equal object ids mean HEAD already publishes exactly this snapshot.
+  const sealed = git(['hash-object', '--no-filters', '--stdin-paths'],
+    `${candidates.map((entry) => entry.snapshot).join('\n')}\n`).split('\n').filter(Boolean)
+  if (sealed.length !== candidates.length) throw new Error('could not hash every sealed publication snapshot')
+  const superseded: SupersededPublicationPath[] = []
+  for (const [index, entry] of candidates.entries()) {
+    if (published.get(entry.path) === sealed[index]) continue
+    const [commit, stamp] = git(['log', '-1', '--format=%H %ct', 'HEAD', '--', entry.path]).trim().split(' ')
+    const committedAt = Number(stamp)
+    if (!commit || !Number.isFinite(committedAt)) throw new Error(`cannot date the published bytes of ${entry.path}`)
+    if (commit === input.ownCommit || committedAt <= sealedSeconds) continue
+    superseded.push({ path: entry.path, commit, committedAt })
+    // One path is enough to refuse. A permanently superseded receipt is re-examined at every startup
+    // until an operator clears it, and this runs before listen(): name a few paths, then stop.
+    if (superseded.length >= SUPERSEDED_REPORT_LIMIT) break
+  }
+  return superseded
+}
+
+type SupersededPublicationProbe = (input: Parameters<typeof supersededPublicationPaths>[0]) => SupersededPublicationPath[]
+let supersededPublicationProbe: SupersededPublicationProbe = (input) => supersededPublicationPaths(input)
+
+/** Focused test seam: the recovery tests run against the real checkout and must not create commits in it. */
+export function __setSupersededPublicationProbe(fn: SupersededPublicationProbe): SupersededPublicationProbe {
+  const previous = supersededPublicationProbe
+  supersededPublicationProbe = fn
+  return previous
+}
+
 export interface ReadyPublicationFailure {
   /** The receipt file name: the only identity available when the receipt itself cannot be verified. */
   entry: string
@@ -8166,7 +8254,11 @@ export function listReadyPublicationFailures(): ReadyPublicationFailure[] {
  * in a crash loop overnight, until an operator intervened. Git, the catalogue, the network and the push are external dependencies
  * (doctrine §31): a receipt that cannot publish fails visibly, keeps its receipt and snapshot for the next
  * pass, and never blocks the other receipts or admission. Skipping is the fail-closed outcome for the
- * publication itself — an unverifiable or rejected receipt commits nothing. */
+ * publication itself — an unverifiable or rejected receipt commits nothing.
+ *
+ * A receipt is also refused when it is superseded: a newer run has since published different bytes over one
+ * of its paths (see supersededPublicationPaths). Its snapshot is older than what main now holds, so
+ * committing it would revert published research. It is retained and reported like any other failure. */
 export async function recoverReadyPublications(): Promise<number> {
   fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
   fs.chmodSync(readyPublicationDir, 0o700)
@@ -8189,10 +8281,26 @@ async function recoverReadyPublication(entry: fs.Dirent): Promise<boolean> {
   if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
   let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
   if (!record) return false
+  const sealedEntries = readySnapshotEntries(record)
+  // This retry commits bytes frozen when the receipt was sealed. If a newer run has published any of the
+  // same paths since, committing them would revert published research to stale bytes. Refuse: the error
+  // retains the receipt and snapshot and reports them through listReadyPublicationFailures(). The receipt
+  // is immutable and its path list is signed, so there is no subset left to publish; the run's files are
+  // intact on disk and need a fresh publication.
+  const superseded = supersededPublicationProbe({
+    entries: sealedEntries, sealedAt: record.created_at, ownCommit: record.primary_commit_sha,
+  })
+  if (superseded.length) {
+    const first = superseded[0]
+    const more = superseded.length > 1 ? ` (and at least ${superseded.length - 1} more path(s))` : ''
+    throw new Error(`sealed publication is superseded and was not committed: ${first.path} was published again by `
+      + `${first.commit.slice(0, 12)} at ${new Date(first.committedAt * 1000).toISOString()}, after this receipt was `
+      + `sealed at ${record.created_at}${more}; committing the sealed snapshot would revert it`)
+  }
   const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
   for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
   const output = await supervisorCommitter(record.message, record.paths, env)
-  const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
+  const snapshotHashes = Object.fromEntries(sealedEntries.map((item) => [item.path, item.sha256]))
   await supervisorCommitVerifier(output, record.paths, snapshotHashes)
   let recoveredRevision = verifiedPublishedRevision(output)
 
