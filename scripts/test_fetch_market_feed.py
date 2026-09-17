@@ -159,6 +159,36 @@ def test_pool_path_is_redacted_from_refresh_status() -> None:
         assert "5 closes through 2026-09-15" in reported["detail"], reported
 
 
+def test_repo_path_is_not_leaked_into_refresh_status() -> None:
+    # The two fatal-checkout breadcrumbs (cd fail / not-a-git-worktree) fire BEFORE redact_pool_path exists,
+    # and $REPO is a filesystem path carrying the owner's account identity (e.g. /Users/<owner>/nostra-prod).
+    # /api/health serves refresh.detail back to every caller, so that path must never reach the status file —
+    # it stays in the local $LOG only (CLAUDE.md §2). Point ENGINE_REPO_ROOT at a username-bearing path that
+    # does not exist so `cd "$REPO"` fails and the failed-checkout breadcrumb is what writes the status.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home = root / "home"
+        ops = home / ".nostra-ops"
+        ops.mkdir(parents=True)
+        ops.chmod(0o700)
+        missing_repo = root / "Users" / "some-owner-name" / "nostra-prod"  # deliberately never created
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(missing_repo),
+                   HOUSEKEEPING_LOG=str(root / "job.log"), MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 2, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "failed", reported
+        # The served detail must carry neither the path nor the owner account name inside it.
+        assert str(missing_repo) not in reported["detail"], reported
+        assert "some-owner-name" not in reported["detail"], reported
+        # It is still kept in the local housekeeping log, which never leaves the machine.
+        assert "some-owner-name" in (root / "job.log").read_text(), "the path must still reach the local log"
+
+
 def test_long_refresh_detail_is_bounded() -> None:
     # fetch_market_feed.py can echo a provider CSV row (up to its 8 MiB response cap) into its final error
     # line. /api/health serves refresh.detail back to every caller on every ~20s heartbeat, so an
@@ -405,6 +435,7 @@ def main() -> int:
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
     check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)
+    check("the repo path (owner identity) never reaches the refresh status detail", test_repo_path_is_not_leaked_into_refresh_status)
     check("a long provider line is bounded before it reaches the status file", test_long_refresh_detail_is_bounded)
     check("the schedule docs match the installed plist", test_schedule_documentation_matches_the_installed_plist)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)

@@ -37,8 +37,12 @@ note() { # note <ok|failed|skipped> <detail>
   mv -f "$STATUS.tmp" "$STATUS" 2>/dev/null || return 0
 }
 
-cd "$REPO" 2>/dev/null || { log "MARKET-FEED FATAL cannot cd $REPO"; note failed "cannot reach the checkout at $REPO"; exit 2; }
-GIT_DIR="$(git rev-parse --git-dir 2>/dev/null)" || { log "MARKET-FEED FATAL $REPO is not a git worktree"; note failed "$REPO is not a git worktree"; exit 2; }
+# These two breadcrumbs fire BEFORE $POOL_ROOT / redact_pool_path exist, and $REPO is a filesystem path that
+# carries the owner's account identity (e.g. /Users/<owner>/nostra-prod). /api/health serves refresh.detail
+# back to every caller, so the path must never reach the status detail — it stays in the local $LOG only
+# (CLAUDE.md §2: private identities never in logs that leave the machine; matches redact_pool_path's reason).
+cd "$REPO" 2>/dev/null || { log "MARKET-FEED FATAL cannot cd $REPO"; note failed "cannot reach the engine checkout (see the housekeeping log)"; exit 2; }
+GIT_DIR="$(git rev-parse --git-dir 2>/dev/null)" || { log "MARKET-FEED FATAL $REPO is not a git worktree"; note failed "the engine checkout is not a git worktree (see the housekeeping log)"; exit 2; }
 case "$GIT_DIR" in /*) ;; *) GIT_DIR="$REPO/$GIT_DIR" ;; esac
 LOCK="$GIT_DIR/nostra-market-feed.lock.d"
 
