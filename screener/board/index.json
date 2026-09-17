@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T12:18:21Z",
+  "generated_at": "2026-09-17T12:23:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-274",
@@ -1893,48 +1893,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260917-150",
-      "headline": "Precision Wires India Limited: Precision Wires India Limited has informed the Exchange regarding 'Intimation regarding start of trial production at Zaroli Plant'.",
+      "inbox_id": "INB-20260917-290",
+      "headline": "SCHEDULE 13D - 111, Inc. (0001738906) (Subject)",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PRECWIRE_17092026124044_letter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:10:54Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1738906/000110465926108394/0001104659-26-108394-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-17T10:16:56Z",
       "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Trial production start at a named new plant (Zaroli) signals imminent operational capacity expansion that could materially increase future production volumes and impact margins.",
+      "prelim_note": "A Schedule 13D filing indicates a significant change in ownership or potential activist interest.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Trial production start at a named new plant (Zaroli) signals imminent operational capacity expansion that could materially increase future production volumes and impact margins.",
-      "region": "IN",
+      "triage_reason": "A Schedule 13D filing indicates a significant change in ownership or potential activist interest.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 52,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 52,
+        "materiality": 50,
         "source_tier": 8,
         "scope": 6,
         "event": 6,
         "size": 0,
         "recency": 4,
-        "materiality_label_floor": 18,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "capex",
+        "event_id": "ownership_activist",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capex",
-        "operations"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Precision Wires India Limited",
+          "name": "111, Inc.",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -164334,9 +164333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1242059,
-    "news_picked_today": 390,
-    "news_dropped_today": 4002
+    "news_seen_today": 1258422,
+    "news_picked_today": 398,
+    "news_dropped_today": 4066
   },
   "book_momentum": {
     "live_count": 8,
