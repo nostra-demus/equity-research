@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T21:24:10Z",
+  "generated_at": "2026-09-17T21:24:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-406",
@@ -123191,6 +123191,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-abd218ca6c78",
+      "idea_version": "IDEAV-d856597c81a67d61",
+      "idea_version_started_at": "2026-09-17T21:24:23Z",
+      "ticker": "RGR",
+      "company": "Sturm Ruger & Co Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Beretta Holding S.A. has launched a tender offer to acquire Sturm Ruger & Co Inc.",
+      "why_now": "The tender offer was filed on September 17, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-112ff420bf0e",
+        "EVT-9fadddd6b520"
+      ],
+      "primary_source_event_id": "EVT-112ff420bf0e",
+      "source_headlines": [
+        "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
+        "SC TO-T - STURM RUGER & CO INC (0000095029) (Subject)"
+      ],
+      "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T20:05:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T21:24:23Z",
+      "updated_at": "2026-09-17T21:24:23Z",
+      "decay_at": "2026-09-19T08:05:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d10a45580c7f",
       "idea_version": "IDEAV-8d5ad6a0e2dfb984",
       "idea_version_started_at": "2026-09-17T20:23:46Z",
@@ -124543,76 +124615,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-dd376736c57e",
-      "idea_version": "IDEAV-cc1adc2efe8f96a7",
-      "idea_version_started_at": "2026-09-15T00:08:18Z",
-      "ticker": "VCYT",
-      "company": "Veracyte",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Convergent Genomics for $150 million in cash expands the company's diagnostic capabilities and product pipeline in the genomic testing market.",
-      "why_now": "The acquisition was announced on September 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-177211ed4cb3"
-      ],
-      "primary_source_event_id": "EVT-177211ed4cb3",
-      "source_headlines": [
-        "Veracyte Acquires Convergent Genomics For $150 Mln In Cash"
-      ],
-      "source_headline": "Veracyte Acquires Convergent Genomics For $150 Mln In Cash",
-      "source_url": "https://www.nasdaq.com/articles/veracyte-acquires-convergent-genomics-150-mln-cash",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T20:37:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T00:08:18Z",
-      "updated_at": "2026-09-15T00:08:18Z",
-      "decay_at": "2026-09-16T08:37:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-19d921e177b0",
       "idea_version": "IDEAV-bc9b60d7a1106ff2",
       "idea_version_started_at": "2026-09-16T11:53:50Z",
@@ -124889,77 +124891,6 @@
       "surfaced_at": "2026-09-15T04:47:56Z",
       "updated_at": "2026-09-15T04:47:56Z",
       "decay_at": "2026-09-16T13:42:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c278fd7f3d70",
-      "idea_version": "IDEAV-019187fe797a30d5",
-      "idea_version_started_at": "2026-09-14T23:34:02Z",
-      "ticker": "SYY",
-      "company": "Sysco",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is diluting existing shareholders by raising $1 billion in a share sale to fund the acquisition of Jetro, which creates immediate downward pressure on earnings per share.",
-      "why_now": "The capital raise was announced on September 14, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6881bae142e8"
-      ],
-      "primary_source_event_id": "EVT-6881bae142e8",
-      "source_headlines": [
-        "Sysco to Raise $1 Billion in Share Sale for Jetro Acquisition"
-      ],
-      "source_headline": "Sysco to Raise $1 Billion in Share Sale for Jetro Acquisition",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-14/sysco-to-raise-1-billion-in-share-sale-for-jetro-acquisition",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T20:36:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T23:34:02Z",
-      "updated_at": "2026-09-14T23:34:02Z",
-      "decay_at": "2026-09-16T08:36:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126908,33 +126839,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 308,
-      "oldest_retained_at": "2026-08-27T20:43:00Z",
+      "evicted_count": 310,
+      "oldest_retained_at": "2026-08-28T01:27:05Z",
       "side_counts": {
         "long": {
-          "evicted_count": 214,
-          "oldest_retained_at": "2026-09-05T09:15:13Z"
+          "evicted_count": 215,
+          "oldest_retained_at": "2026-09-05T09:26:54Z"
         },
         "short": {
-          "evicted_count": 94,
-          "oldest_retained_at": "2026-08-27T20:43:00Z"
+          "evicted_count": 95,
+          "oldest_retained_at": "2026-08-28T01:27:05Z"
         }
       }
     },
@@ -129901,8 +129832,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T08:37:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T21:24:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129975,8 +129906,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T08:36:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T21:24:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -164106,8 +164037,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 872,
-    "live_count": 22,
+    "surfaced_total": 873,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
