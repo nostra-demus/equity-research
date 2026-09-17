@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T11:12:19Z",
+  "generated_at": "2026-09-17T11:22:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-188",
@@ -1081,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-245",
+      "headline": "Seamec Limited: Seamec Limited has informed the Exchange about General Updates on Sale of Vessel \"SEAMEC GALLANT\" owned by SEAMEC INTERNATIONAL FZE, Wholly Owned Subsidiary.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SEAMECLTD_17092026160716_BSENSEIntimationSALESEAMECGALLANT17092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T10:37:27Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Seamec Limited is providing updates on the sale of a vessel owned by its subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Seamec Limited is providing updates on the sale of a vessel owned by its subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seamec Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-228",
       "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Dr Reddy s gets voluntary licence for Gilead s once-yearly HIV prevention drug. The response from the Company is awaited.",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-165",
-      "headline": "Next warns Burnham against 'stifling growth' with tax hikes as it upgrades profits again",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16138479/Next-warns-Burnham-against-stifling-growth-tax-hikes-upgrades-profits-again.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T08:55:44Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Next has upgraded its profit guidance again, signaling strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Next has upgraded its profit guidance again, signaling strong operational performance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Next",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123278,78 +123278,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-23d292b4cefa",
-      "idea_version": "IDEAV-cb739de077dfef2d",
-      "idea_version_started_at": "2026-09-16T03:36:22Z",
-      "ticker": "RWC",
-      "company": "Reliance Worldwide Corporation",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The signing of a Scheme Implementation Deed with Brookfield typically signals a takeover offer at a premium to the current market price.",
-      "why_now": "The filing was released on 2026-09-15 as a price-sensitive announcement.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-272f84518fc6"
-      ],
-      "primary_source_event_id": "EVT-272f84518fc6",
-      "source_headlines": [
-        "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]"
-      ],
-      "source_headline": "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RWC?key=2924-03135940-3A701850",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T23:14:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-16T03:36:22Z",
-      "decay_at": "2026-09-17T11:14:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a88eed4d242c",
       "idea_version": "IDEAV-930f8e09e0b3f675",
       "idea_version_started_at": "2026-09-16T04:30:41Z",
@@ -124541,6 +124469,78 @@
       "surfaced_at": "2026-09-14T20:43:51Z",
       "updated_at": "2026-09-14T20:43:51Z",
       "decay_at": "2026-09-16T01:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-23d292b4cefa",
+      "idea_version": "IDEAV-cb739de077dfef2d",
+      "idea_version_started_at": "2026-09-16T03:36:22Z",
+      "ticker": "RWC",
+      "company": "Reliance Worldwide Corporation",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The signing of a Scheme Implementation Deed with Brookfield typically signals a takeover offer at a premium to the current market price.",
+      "why_now": "The filing was released on 2026-09-15 as a price-sensitive announcement.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-272f84518fc6"
+      ],
+      "primary_source_event_id": "EVT-272f84518fc6",
+      "source_headlines": [
+        "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]"
+      ],
+      "source_headline": "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RWC?key=2924-03135940-3A701850",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-15T23:14:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-16T03:36:22Z",
+      "updated_at": "2026-09-16T03:36:22Z",
+      "decay_at": "2026-09-17T11:14:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126707,14 +126707,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 270,
@@ -126738,6 +126738,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-23d292b4cefa",
+        "idea_version": "IDEAV-cb739de077dfef2d",
+        "idea_version_started_at": "2026-09-16T03:36:22Z",
+        "ticker": "RWC",
+        "company": "Reliance Worldwide Corporation",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The signing of a Scheme Implementation Deed with Brookfield typically signals a takeover offer at a premium to the current market price.",
+        "why_now": "The filing was released on 2026-09-15 as a price-sensitive announcement.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-272f84518fc6"
+        ],
+        "primary_source_event_id": "EVT-272f84518fc6",
+        "source_headlines": [
+          "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]"
+        ],
+        "source_headline": "RWC: RWC signs Scheme Implementation Deed with Brookfield [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RWC?key=2924-03135940-3A701850",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-15T23:14:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-16T03:36:22Z",
+        "updated_at": "2026-09-16T03:36:22Z",
+        "decay_at": "2026-09-17T11:14:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T11:14:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-299dbb415ee4",
         "idea_version": "IDEAV-c4be914c7b4ac755",
@@ -155816,82 +155891,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b160aa66bf32",
-        "idea_version": "IDEAV-7b893634cfde291b",
-        "idea_version_started_at": "2026-09-05T06:26:09Z",
-        "ticker": "IVEG",
-        "company": "Iveco Group N.V.",
-        "exchange": "BIT",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors has launched a voluntary all-cash tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
-        "why_now": "The tender offer was formally announced via exchange filing on September 5, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-64c9bc1f307e",
-          "EVT-94ade6585275"
-        ],
-        "primary_source_event_id": "EVT-64c9bc1f307e",
-        "source_headlines": [
-          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"Tata Motors launches recommended all-cash Voluntary totalitariantender offer for IVECO Group Common shares .",
-          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-        ],
-        "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"Tata Motors launches recommended all-cash Voluntary totalitariantender offer for IVECO Group Common shares .",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_05092026013217_IVECOPR.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T20:02:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T06:26:09Z",
-        "updated_at": "2026-09-05T06:26:09Z",
-        "decay_at": "2026-09-06T08:02:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T20:15:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-e633cd092e64",
         "idea_version": "IDEAV-248bb710ef1bc45f",
         "idea_version_started_at": "2026-09-05T07:11:02Z",
@@ -163910,7 +163909,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 855,
-    "live_count": 14,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -163929,9 +163928,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 786737,
-    "news_picked_today": 289,
-    "news_dropped_today": 3431
+    "news_seen_today": 867701,
+    "news_picked_today": 293,
+    "news_dropped_today": 3523
   },
   "book_momentum": {
     "live_count": 8,
