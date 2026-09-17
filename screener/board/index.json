@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-17T13:03:53Z",
+  "generated_at": "2026-09-17T13:12:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-318",
+      "headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-17T12:36:11Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Copart Inc. has filed a third-party tender offer, indicating potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Copart Inc. has filed a third-party tender offer, indicating potential M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Copart Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-317",
+      "headline": "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1637873/000119312526393827/0001193125-26-393827-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-17T12:36:11Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A third-party tender offer filing for ACV Auctions Inc. indicates potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A third-party tender offer filing for ACV Auctions Inc. indicates potential M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACV Auctions Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-274",
       "headline": "GLOBAL UIN (08496): 1) INSIDE INFORMATION; 2) DELAY IN PUBLICATION OF ANNUAL RESULTS; 3) POSSIBLE DELAY IN DESPATCH OF ANNUAL REPORT; 4) POSTPONEMENT OF BOARD MEETING; AND 5) CONTINUED SUSPENSION OF TRADING",
@@ -1831,105 +1929,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-272",
-      "headline": "Century Extrusions Limited: Century Extrusions Limited has informed the Exchange about Credit Rating- Revision",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CENTEXT_17092026165953_IntimationofrevisioninCreditRating17092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T11:30:01Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Credit rating revision for Century Extrusions Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Credit rating revision for Century Extrusions Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_upgrade",
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Century Extrusions Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-228",
-      "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Dr Reddy s gets voluntary licence for Gilead s once-yearly HIV prevention drug. The response from the Company is awaited.",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DRREDDY&seq=106783179",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T10:27:20Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Dr. Reddy's is reportedly securing a voluntary license for a Gilead HIV drug, pending company confirmation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Dr. Reddy's is reportedly securing a voluntary license for a Gilead HIV drug, pending company confirmation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr. Reddy's Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164263,9 +164262,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1405531,
-    "news_picked_today": 436,
-    "news_dropped_today": 4820
+    "news_seen_today": 1486246,
+    "news_picked_today": 438,
+    "news_dropped_today": 5010
   },
   "book_momentum": {
     "live_count": 8,
