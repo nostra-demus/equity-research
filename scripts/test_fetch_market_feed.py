@@ -228,6 +228,62 @@ def test_long_refresh_detail_is_bounded() -> None:
         assert long_line not in reported["detail"], "the unbounded provider line must not reach the status file"
 
 
+def _extract_note_function(wrapper_path: Path) -> str:
+    """The verbatim `note()` function body from the real wrapper, so a test of it tracks the actual
+    shipped code rather than a description of it."""
+    text = wrapper_path.read_text(encoding="utf-8")
+    m = re.search(r"\nnote\(\) \{.*?\n\}\n", text, re.DOTALL)
+    assert m, "note() function not found verbatim in market-feed-local.sh"
+    return m.group(0)
+
+
+def test_each_refresh_status_write_uses_a_unique_temp_file() -> None:
+    # A manual/catch-up invocation can overlap the scheduled one, and both call note(). Before the fix,
+    # both wrote through the SAME fixed name ("$STATUS.tmp") before the atomic rename — so one process's
+    # truncate/write could land on, or be clobbered by, the other's in-flight write, corrupting the JSON
+    # or publishing the wrong outcome (e.g. `skipped` after the concurrent refresh actually just
+    # succeeded) (PR #706 review). Prove the fix without needing to win an actual OS-scheduling race:
+    # capture the SOURCE path note() hands to `mv` — via a stub `mv` placed ahead of the real one on
+    # PATH — across two separate invocations. Reused fixed name = a guaranteed collision every single
+    # time (deterministically red on the pre-fix code); a fresh mktemp name each call = never colliding
+    # (deterministically green after the fix).
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home = root / "home"
+        (home / ".nostra-ops").mkdir(parents=True)
+        status = root / "market-feed.json"
+        mv_log = root / "mv.log"
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        (fake_bin / "mv").write_text(
+            "#!/usr/bin/env bash\n"
+            f"printf '%s\\n' \"$2\" >> \"{mv_log}\"\n"
+            "exec /bin/mv \"$@\"\n"
+        )
+        (fake_bin / "mv").chmod(0o755)
+        note_fn = _extract_note_function(ops_source / "market-feed-local.sh")
+        driver = root / "driver.sh"
+        driver.write_text(
+            "#!/usr/bin/env bash\nset -uo pipefail\n"
+            f'STATUS="{status}"\n' + note_fn + '\nnote "$1" "$2"\n'
+        )
+        driver.chmod(0o755)
+        env = dict(os.environ)
+        env["PATH"] = f"{fake_bin}:{env.get('PATH', '')}"
+        env["HOME"] = str(home)
+        for i in range(2):
+            result = subprocess.run(["/bin/bash", str(driver), "ok", f"detail-{i}"],
+                                    env=env, capture_output=True, text=True, timeout=15)
+            assert result.returncode == 0, result.stderr
+        lines = [ln for ln in mv_log.read_text().splitlines() if ln]
+        assert len(lines) == 2, lines
+        assert lines[0] != lines[1], f"both invocations were renamed from the SAME shared temp file: {lines}"
+        # And the shared, well-known name must never be the thing renamed — that name is exactly what a
+        # concurrent second writer could also be targeting.
+        assert str(status) + ".tmp" not in lines, lines
+
+
 def test_schedule_documentation_matches_the_installed_plist() -> None:
     # The installed timer moved from one daily window to three (07:10/13:10/19:10). Every place that
     # describes the schedule must describe the one actually installed, or an operator reads a different
@@ -437,6 +493,7 @@ def main() -> int:
     check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)
     check("the repo path (owner identity) never reaches the refresh status detail", test_repo_path_is_not_leaked_into_refresh_status)
     check("a long provider line is bounded before it reaches the status file", test_long_refresh_detail_is_bounded)
+    check("each refresh-status write uses its own unique temp file", test_each_refresh_status_write_uses_a_unique_temp_file)
     check("the schedule docs match the installed plist", test_schedule_documentation_matches_the_installed_plist)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)

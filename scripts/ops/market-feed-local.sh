@@ -19,7 +19,7 @@ log() { echo "$(ts) $*" >> "$LOG"; }
 # already uses (~/.nostra-ops/connector-supervisor.json), so the engine reads it the same way.
 STATUS="${MARKET_FEED_STATUS:-$HOME/.nostra-ops/market-feed.json}"
 note() { # note <ok|failed|skipped> <detail>
-  local at detail raw
+  local at detail raw tmp
   at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   raw="${2:-}"
   # Bound the detail before it is stored. fetch_market_feed.py echoes provider output (up to its 8 MiB
@@ -33,8 +33,16 @@ note() { # note <ok|failed|skipped> <detail>
   # a run whose output was lost. Every outcome carries words.
   [ -n "$detail" ] || detail="no detail reported"
   mkdir -p "$(dirname "$STATUS")" 2>/dev/null || return 0
-  printf '{"at":"%s","outcome":"%s","detail":"%s"}\n' "$at" "$1" "$detail" > "$STATUS.tmp" 2>/dev/null || return 0
-  mv -f "$STATUS.tmp" "$STATUS" 2>/dev/null || return 0
+  # Per-process temp file, never the shared "$STATUS.tmp": a scheduled run overlapping a manual/catch-up
+  # run both invoke this wrapper concurrently, and a shared fixed name let their writes race on the SAME
+  # file before either atomic rename ran — one process's truncate/write could interleave with or be
+  # clobbered by the other's, corrupting the JSON, or either process's rename could steal the other's
+  # write out from under it and publish the wrong outcome (e.g. `skipped` after the concurrent refresh
+  # actually succeeded). mktemp gives each invocation its own file; only the final atomic `mv -f` ever
+  # touches the shared $STATUS path (PR #706 review).
+  tmp="$(mktemp "$STATUS.XXXXXX.tmp" 2>/dev/null)" || return 0
+  printf '{"at":"%s","outcome":"%s","detail":"%s"}\n' "$at" "$1" "$detail" > "$tmp" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; return 0; }
+  mv -f "$tmp" "$STATUS" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; return 0; }
 }
 
 # These two breadcrumbs fire BEFORE $POOL_ROOT / redact_pool_path exist, and $REPO is a filesystem path that
