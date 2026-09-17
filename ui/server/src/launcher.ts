@@ -7060,6 +7060,9 @@ interface ReadyPublicationRecord {
   paths: string[]
   artifact_hashes: Record<string, string>
   primary_commit_sha?: string
+  /** Set on a RUN_METADATA backfill receipt derived from a receipt a newer run had taken the root over from:
+   * its retry must not record provider/profile authority or sync the paper account either. */
+  authority_withheld?: true
   created_at: string
   self_sha256: string
 }
@@ -7085,6 +7088,7 @@ function writeReadyPublication(
   stage: ReadyPublicationStage,
   artifactHashes: Record<string, string>,
   primaryCommitSha?: string,
+  authorityWithheld = false,
 ): ReadyPublicationRecord {
   if (!run.runRoot || !/^[0-9a-f-]{36}$/.test(run.runId)) throw new Error('ready publication has no canonical run identity')
   const manifestInfo = assertRegularArtifact(snapshot.manifest, 'ready publication snapshot manifest')
@@ -7101,6 +7105,7 @@ function writeReadyPublication(
     snapshot_manifest_sha256: fileSha256(snapshot.manifest),
     paths: [...snapshot.paths], artifact_hashes: { ...artifactHashes },
     ...(primaryCommitSha ? { primary_commit_sha: primaryCommitSha } : {}),
+    ...(authorityWithheld ? { authority_withheld: true as const } : {}),
     created_at: new Date().toISOString(),
   }
   const record: ReadyPublicationRecord = { ...unsigned, self_sha256: readyPublicationDigest(unsigned) }
@@ -8162,11 +8167,15 @@ function runFromReadyPublication(record: ReadyPublicationRecord): RunState {
 
 export interface SupersededPublicationPath {
   path: string
-  /** The commit that gave the path the bytes HEAD publishes today. */
+  /** The commit that gave the path the bytes HEAD publishes today (or removed it from HEAD). Empty when a
+   * newer retained receipt holds the path instead (see `receipt`). */
   commit: string
-  /** That commit's committer time, in epoch seconds. */
+  /** That commit's committer time (or that receipt's sealing time), in epoch seconds. */
   committedAt: number
+  /** A newer retained receipt, not yet published, that carries this path. */
+  receipt?: string
 }
+/** How many superseded paths one log line or error message names. The probe itself returns all of them. */
 const SUPERSEDED_REPORT_LIMIT = 5
 
 /**
@@ -8176,10 +8185,14 @@ const SUPERSEDED_REPORT_LIMIT = 5
  * admitting runs while a receipt is retained, and /research:rerun writes into the latest existing run root,
  * so a newer run can publish the same paths first. Retrying the old receipt then reverts published files to
  * stale bytes. A path is superseded when both hold:
- *   1. HEAD publishes it with bytes other than the sealed snapshot's, and
- *   2. the commit that gave it those bytes is newer than the receipt.
- * Neither alone is enough. (1) alone is every ordinary update of an existing file; (2) alone is the
- * receipt's own commit landing before a crash, which leaves HEAD equal to the snapshot.
+ *   1. HEAD publishes it with bytes other than the sealed ones, or no longer publishes it at all, and
+ *   2. the commit that gave it those bytes (or removed it) is newer than the receipt.
+ * Neither alone is enough. (1) alone is every ordinary update of an existing file, or a first publication;
+ * (2) alone is the receipt's own commit landing before a crash, which leaves HEAD equal to the snapshot.
+ *
+ * `entries` are the snapshot files the receipt would commit. `boundHashes` may name further paths the
+ * receipt binds only by sha256 — a RUN_METADATA backfill receipt binds its already-committed primary files
+ * that way — and those are compared by content instead.
  *
  * It needs nothing beyond the signed receipt's existing `created_at`, so receipts sealed before this check
  * existed are covered too. Git committer time has one-second resolution and a full run commits its primary
@@ -8188,7 +8201,9 @@ const SUPERSEDED_REPORT_LIMIT = 5
  * (no run can be admitted, execute and publish inside one second). `ownCommit` excludes the receipt's
  * recorded primary commit outright, so a clock step cannot misread it either.
  *
- * Any git failure throws. The caller retains and reports the receipt, which commits nothing.
+ * Every superseded path is returned: recovery publishes exactly the rest, so a partial answer would commit
+ * stale bytes. Any git failure or unreadable newer commit throws, and the caller retains and reports the
+ * receipt, which commits nothing.
  *
  * Callers must retry receipts NEWEST FIRST. A recovery commit is stamped "now", not the time its bytes were
  * sealed, so an older receipt committed first would make every newer receipt that shares a path look
@@ -8196,6 +8211,7 @@ const SUPERSEDED_REPORT_LIMIT = 5
  */
 export function supersededPublicationPaths(input: {
   entries: Array<{ path: string; snapshot: string }>
+  boundHashes?: Record<string, string>
   sealedAt: string
   ownCommit?: string
 }, repoRoot: string = REPO_ROOT): SupersededPublicationPath[] {
@@ -8206,7 +8222,9 @@ export function supersededPublicationPaths(input: {
   const git = (args: string[], stdin?: string): string => execFileSync('git', ['--literal-pathspecs', ...args], {
     cwd: repoRoot, encoding: 'utf8', input: stdin, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 32 * 1024 * 1024,
   })
-  const wanted = new Set(input.entries.map((entry) => entry.path))
+  const snapshotPaths = new Set(input.entries.map((entry) => entry.path))
+  const boundOnly = Object.entries(input.boundHashes ?? {}).filter(([relative]) => !snapshotPaths.has(relative))
+  const wanted = new Set([...snapshotPaths, ...boundOnly.map(([relative]) => relative)])
   const published = new Map<string, string>()
   const all = [...wanted]
   for (let start = 0; start < all.length; start += 256) {
@@ -8218,30 +8236,64 @@ export function supersededPublicationPaths(input: {
       if (type === 'blob' && wanted.has(relative)) published.set(relative, oid)
     }
   }
-  // A path HEAD does not publish has no newer bytes to revert: that is a first publication.
-  const candidates = input.entries.filter((entry) => published.has(entry.path))
-  if (!candidates.length) return []
-  if (candidates.some((entry) => entry.snapshot.includes('\n'))) throw new Error('unsafe ready-publication snapshot path')
-  // --no-filters hashes the raw snapshot bytes. The commit verifier already requires the committed blob to
-  // equal those raw bytes, so equal object ids mean HEAD already publishes exactly this snapshot.
-  const sealed = git(['hash-object', '--no-filters', '--stdin-paths'],
-    `${candidates.map((entry) => entry.snapshot).join('\n')}\n`).split('\n').filter(Boolean)
-  if (sealed.length !== candidates.length) throw new Error('could not hash every sealed publication snapshot')
-  const differing = candidates.filter((entry, index) => published.get(entry.path) !== sealed[index]).map((entry) => entry.path)
+  // A path HEAD does not publish differs from the sealed bytes too. It is a first publication unless a
+  // commit newer than the receipt removed it, which the walk below decides like any other difference.
+  const differing = input.entries.filter((entry) => !published.has(entry.path)).map((entry) => entry.path)
+  const present = input.entries.filter((entry) => published.has(entry.path))
+  if (present.some((entry) => entry.snapshot.includes('\n'))) throw new Error('unsafe ready-publication snapshot path')
+  if (present.length) {
+    // --no-filters hashes the raw snapshot bytes. The commit verifier already requires the committed blob to
+    // equal those raw bytes, so equal object ids mean HEAD already publishes exactly this snapshot.
+    const sealed = git(['hash-object', '--no-filters', '--stdin-paths'],
+      `${present.map((entry) => entry.snapshot).join('\n')}\n`).split('\n').filter(Boolean)
+    if (sealed.length !== present.length) throw new Error('could not hash every sealed publication snapshot')
+    differing.push(...present.filter((entry, index) => published.get(entry.path) !== sealed[index]).map((entry) => entry.path))
+  }
+  const boundPresent = boundOnly.filter(([relative]) => published.has(relative))
+  differing.push(...boundOnly.filter(([relative]) => !published.has(relative)).map(([relative]) => relative))
+  if (boundPresent.length) {
+    // Only a sha256 was bound for these, so compare HEAD's blob content. One cat-file process streams them all.
+    const stream = execFileSync('git', ['cat-file', '--batch'], {
+      cwd: repoRoot, input: `${boundPresent.map(([relative]) => published.get(relative)).join('\n')}\n`,
+      stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 512 * 1024 * 1024,
+    })
+    let offset = 0
+    for (const [relative, expected] of boundPresent) {
+      const headerEnd = stream.indexOf(0x0a, offset)
+      const size = Number(stream.subarray(offset, headerEnd).toString('utf8').split(' ')[2])
+      if (headerEnd < 0 || !Number.isSafeInteger(size)) throw new Error(`could not read the published bytes of ${relative}`)
+      const body = stream.subarray(headerEnd + 1, headerEnd + 1 + size)
+      if (body.length !== size) throw new Error(`could not read the published bytes of ${relative}`)
+      if (`sha256:${createHash('sha256').update(body).digest('hex')}` !== expected) differing.push(relative)
+      offset = headerEnd + 1 + size + 1
+    }
+  }
   if (!differing.length) return []
   // ONE walk, bounded by date, for every differing path together. --max-age makes git stop at commits older
   // than the receipt, so the cost tracks the commits made since sealing, not the size of history or the
   // number of paths. This runs before listen(), and the watchdog restarts an engine that stays unresponsive:
   // a walk per path cost ~110 ms each here, 12 s for one ordinary 113-file run root, at every startup.
-  // `sealedSeconds + 1` is the strict comparison above. -m gives a merge commit a name list too.
-  // The bound trusts committer dates: a commit backdated to before the receipt would be missed. Data
-  // commits are stamped by commit-run.sh on the same machine clock that stamped `created_at`.
+  // `sealedSeconds + 1` is the strict comparison above. --diff-merges=separate gives a merge commit a name
+  // list per parent whatever `log.diffMerges` a machine configures (with `combined`, the synthetic data
+  // merges commit-run.sh makes list no names at all, which the doubt rule below would refuse at every
+  // startup). --no-renames lists a moved-away path under its own name, so a removal is dated like any
+  // other change. The bound trusts committer dates: a commit backdated to before the receipt would be
+  // missed. Data commits are stamped by commit-run.sh on the same machine clock that stamped `created_at`.
   const newest = new Map<string, SupersededPublicationPath>()
   const wantedDiffering = new Set(differing)
+  // A sealed file that is a directory at HEAD is listed by its contents: `x.md/child`, never `x.md`.
+  const differingOwner = (name: string): string | null => {
+    for (let candidate = name; ;) {
+      if (wantedDiffering.has(candidate)) return candidate
+      const slash = candidate.lastIndexOf('/')
+      if (slash < 0) return null
+      candidate = candidate.slice(0, slash)
+    }
+  }
   let unattributed: string | null = null
   for (let start = 0; start < differing.length; start += 256) {
-    const log = git(['log', '-m', `--max-age=${sealedSeconds + 1}`, '--format=%x01%H %ct', '--name-only', '-z',
-      'HEAD', '--', ...differing.slice(start, start + 256)])
+    const log = git(['log', '--diff-merges=separate', '--no-renames', `--max-age=${sealedSeconds + 1}`,
+      '--format=%x01%H %ct', '--name-only', '-z', 'HEAD', '--', ...differing.slice(start, start + 256)])
     for (const record of log.split('\x01').slice(1)) {
       const headerEnd = record.indexOf('\0')
       const [commit, stamp] = (headerEnd < 0 ? record : record.slice(0, headerEnd)).trim().split(' ')
@@ -8250,8 +8302,8 @@ export function supersededPublicationPaths(input: {
       if (commit === input.ownCommit) continue
       let attributed = false
       for (const raw of headerEnd < 0 ? [] : record.slice(headerEnd + 1).split('\0')) {
-        const relative = raw.replace(/^\n+/, '')
-        if (!wantedDiffering.has(relative)) continue
+        const relative = differingOwner(raw.replace(/^\n+/, ''))
+        if (!relative) continue
         attributed = true
         // git lists newest first, so the first commit seen for a path is the one that set HEAD's bytes.
         if (!newest.has(relative)) newest.set(relative, { path: relative, commit, committedAt })
@@ -8260,11 +8312,12 @@ export function supersededPublicationPaths(input: {
     }
   }
   // A newer commit git listed for these paths but whose names could not be read is still a newer
-  // publication. Never resolve that doubt in favour of committing the older bytes.
-  if (!newest.size && unattributed) {
+  // publication, and recovery publishes every path this probe does not name. Never resolve that doubt in
+  // favour of committing the older bytes.
+  if (unattributed) {
     throw new Error(`commit ${unattributed.slice(0, 12)} republished a sealed path after the receipt, but its paths could not be read`)
   }
-  return [...newest.values()].slice(0, SUPERSEDED_REPORT_LIMIT)
+  return [...newest.values()]
 }
 
 type SupersededPublicationProbe = (input: Parameters<typeof supersededPublicationPaths>[0]) => SupersededPublicationPath[]
@@ -8291,6 +8344,141 @@ export function listReadyPublicationFailures(): ReadyPublicationFailure[] {
   return [...readyPublicationFailures.values()]
 }
 
+export interface SupersededReadyPublication {
+  /** The receipt file name, as in ReadyPublicationFailure. */
+  entry: string
+  runRoot: string
+  /** `published-remainder`: the paths nothing newer replaced were committed. `retired`: every path was. */
+  outcome: 'published-remainder' | 'retired'
+  publishedPaths: number
+  supersededPaths: number
+  /** The first few superseded paths, with the newer commit that replaced each. */
+  examples: SupersededPublicationPath[]
+  /** A newer publication wrote inside this run's own root, so it was not re-credited with that root. */
+  runRootRepublished: boolean
+  /** Owner-only directory holding the original receipt and every sealed byte, superseded ones included. */
+  archive: string
+  at: string
+}
+const supersededReadyPublications = new Map<string, SupersededReadyPublication>()
+
+/** Receipts the last recovery pass settled around newer published data (see recoverReadyPublication).
+ * They are resolved, not stuck: nothing here is retried, and nothing here reverted a newer publication. */
+export function listSupersededReadyPublications(): SupersededReadyPublication[] {
+  return [...supersededReadyPublications.values()]
+}
+
+const supersededPublicationArchiveDir = path.join(STATE_DIR, 'publication-superseded')
+
+/** Commit input for a superseded receipt's remainder: a fresh protected manifest over copies of the sealed
+ * bytes it still owns. The signed receipt and its snapshot are never edited. */
+function writeRemainderSnapshot(
+  record: ReadyPublicationRecord, kept: Array<{ path: string; snapshot: string; sha256: string }>,
+): { manifest: string; paths: string[]; hashes: Record<string, string>; cleanup: () => void } {
+  const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
+  fs.chmodSync(directory, 0o700)
+  try {
+    const entries = kept.map((item, index) => {
+      const bytes = fs.readFileSync(item.snapshot)
+      if (`sha256:${createHash('sha256').update(bytes).digest('hex')}` !== item.sha256) {
+        throw new Error(`ready-publication snapshot entry changed: ${item.path}`)
+      }
+      const snapshot = path.join(directory, String(index))
+      fs.writeFileSync(snapshot, bytes, { flag: 'wx', mode: 0o600 })
+      return { path: item.path, snapshot, sha256: item.sha256 }
+    })
+    const manifest = path.join(directory, 'manifest.json')
+    fs.writeFileSync(manifest, JSON.stringify({
+      schema_version: 'cockpit-publication-snapshot/1.0', run_id: record.run_id,
+      requested_pathspecs: entries.map((item) => item.path), entries,
+    }, null, 2) + '\n', { flag: 'wx', mode: 0o600 })
+    return {
+      manifest, paths: entries.map((item) => item.path),
+      hashes: Object.fromEntries(entries.map((item) => [item.path, item.sha256])),
+      cleanup: () => fs.rmSync(directory, { recursive: true, force: true }),
+    }
+  } catch (error) {
+    fs.rmSync(directory, { recursive: true, force: true })
+    throw error
+  }
+}
+
+/** Owner-only archive for a settled superseded receipt, holding the original receipt and its whole snapshot:
+ * superseded bytes never reached main, so they are kept rather than deleted. `superseded.json` is written
+ * last, so an archive without it marks a crash part-way, never a settled receipt.
+ *
+ * By default the receipt moves out of the retry directory. `replaceReceipt` instead keeps an exact copy and
+ * lets the caller atomically replace the ready receipt with its successor (the RUN_METADATA backfill), so
+ * there is never a moment without a ready receipt for work still to publish. Returns '' when another
+ * recovery owner already consumed this exact receipt. */
+function archiveSupersededReceipt(
+  record: ReadyPublicationRecord, detail: Record<string, unknown>, replaceReceipt?: () => void,
+): string {
+  fs.mkdirSync(supersededPublicationArchiveDir, { recursive: true, mode: 0o700 })
+  fs.chmodSync(supersededPublicationArchiveDir, 0o700)
+  const archive = fs.mkdtempSync(path.join(supersededPublicationArchiveDir, `${record.run_id}-`))
+  fs.chmodSync(archive, 0o700)
+  const target = readyPublicationPath(record.run_id)
+  try {
+    const current = readReadyPublication(target)
+    if (!current) {
+      fs.rmSync(archive, { recursive: true, force: true })
+      return ''
+    }
+    if (current.self_sha256 !== record.self_sha256) throw new Error('a newer ready publication replaced this receipt')
+    if (replaceReceipt) {
+      fs.copyFileSync(target, path.join(archive, 'receipt.json'), fs.constants.COPYFILE_EXCL)
+      replaceReceipt()
+    } else {
+      // The receipt leaves the retry directory before its snapshot moves: a crash in between orphans a
+      // snapshot directory (bytes intact), never a receipt whose snapshot has gone and cannot be verified.
+      fs.renameSync(target, path.join(archive, 'receipt.json'))
+      syncDirectory(readyPublicationDir)
+    }
+  } catch (error) {
+    fs.rmSync(archive, { recursive: true, force: true })
+    throw error
+  }
+  try { fs.renameSync(path.dirname(record.snapshot_manifest), path.join(archive, 'snapshot')) } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  const descriptor = fs.openSync(path.join(archive, 'superseded.json'), 'wx', 0o600)
+  try {
+    fs.writeFileSync(descriptor, `${JSON.stringify({
+      schema_version: 'cockpit-publication-superseded/1.0', run_id: record.run_id, run_root: record.run_root,
+      subject: record.subject, swarm: record.swarm, kind: record.kind, stage: record.stage,
+      receipt_sha256: record.self_sha256, sealed_at: record.created_at, archived_at: new Date().toISOString(),
+      ...detail,
+    }, null, 2)}\n`)
+    fs.fsyncSync(descriptor)
+  } finally { fs.closeSync(descriptor) }
+  syncDirectory(archive)
+  return archive
+}
+
+/** What newer retained receipts in this recovery pass carry. `paths`: every snapshot path a verified receipt
+ * would commit, with its bytes. `unverified`: paths a newer receipt that could NOT be verified lists, which no
+ * older receipt may race past. `registered`: receipts whose paths are already in `paths`. */
+interface NewerReceiptClaims {
+  paths: Map<string, { entry: string; sealedAt: string; sha256: string }>
+  unverified: Map<string, string>
+  registered: Set<string>
+}
+
+/**
+ * The run's own terminal records: what a newer terminal publication of the same run root rewrites. Those are
+ * the swarm's declared decision artifacts, the supervisor's root-level execution receipt (written afresh by
+ * every terminal publication), and the run metadata. When one of them was superseded, a newer run owns
+ * the root.
+ */
+function isRunTerminalRecord(record: ReadyPublicationRecord, relative: string): boolean {
+  const root = record.run_root.replace(/\/+$/, '')
+  if (!relative.startsWith(`${root}/`)) return false
+  const inside = relative.slice(root.length + 1)
+  return inside === EXECUTION_PROVENANCE_RECEIPT || inside === 'RUN_METADATA.md'
+    || (swarmById(record.swarm)?.decisionArtifacts ?? []).includes(inside)
+}
+
 /** Retry only post-extinction publications whose immutable snapshot and provider identity were sealed in
  * protected supervisor state before Git began. Live/queued intents are intentionally unrecoverable: the
  * preserved run is marked interrupted and requires an explicit continuation after a crash.
@@ -8298,25 +8486,28 @@ export function listReadyPublicationFailures(): ReadyPublicationFailure[] {
  * One receipt is one failure domain. This runs before listen(), so an error that escapes it stops the
  * whole cockpit and launchd restarts it straight back into the same error: on 2026-09-16/17 one re-run whose
  * sealed path list the data catalogue rejects (a deterministic failure no retry can cure) held the engine
- * in a crash loop overnight, until an operator intervened. Git, the catalogue, the network and the push are external dependencies
- * (doctrine §31): a receipt that cannot publish fails visibly, keeps its receipt and snapshot for the next
- * pass, and never blocks the other receipts or admission. Skipping is the fail-closed outcome for the
- * publication itself — an unverifiable or rejected receipt commits nothing.
+ * in a crash loop overnight, until an operator intervened. Git, the catalogue, the network and the push are
+ * external dependencies (doctrine §31): a receipt that cannot publish fails visibly, keeps its receipt and
+ * snapshot for the next pass, and never blocks the other receipts or admission. Skipping is the fail-closed
+ * outcome for the publication itself — an unverifiable or rejected receipt commits nothing.
  *
- * A receipt is also refused when it is superseded: a newer run has since published different bytes over one
- * of its paths (see supersededPublicationPaths). Its snapshot is older than what main now holds, so
- * committing it would revert published research. It is retained and reported like any other failure. */
+ * A receipt may also be superseded: newer bytes have since been published over some of its paths (see
+ * supersededPublicationPaths), or a newer retained receipt carries different bytes for them. Those paths
+ * are never committed, since that would revert newer research; the rest still publish (see
+ * recoverReadyPublication). */
 export async function recoverReadyPublications(): Promise<number> {
   fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
   fs.chmodSync(readyPublicationDir, 0o700)
   readyPublicationFailures.clear()
+  supersededReadyPublications.clear()
   let recovered = 0
   // Newest receipt first. Receipt names are random run ids, so name order is arbitrary, and the order now
   // decides the outcome: a recovery commit is stamped "now", so an older receipt retried first would make a
   // newer one that shares a path (a continuation of the same run root after a failed push) look superseded
-  // by it, and the older bytes would win. Newest first, the newest bytes publish and the older receipt is
-  // the one refused. `created_at` is read here only as a sort key, before verification; each receipt still
-  // gets the full digest-checked read below, and an unreadable one simply sorts last.
+  // by it, and the older bytes would win. Newest first, the newest bytes publish and the older receipt's
+  // overlapping paths are the ones dropped. `created_at` is read here only as a sort key, before
+  // verification; each receipt still gets the full digest-checked read below, and an unreadable one simply
+  // sorts last.
   const sealedAtMs = (entry: fs.Dirent): number => {
     try {
       const absolute = path.join(readyPublicationDir, entry.name)
@@ -8330,10 +8521,26 @@ export async function recoverReadyPublications(): Promise<number> {
     .filter((entry) => entry.name.endsWith('.json'))
     .map((entry) => ({ entry, sealedAt: sealedAtMs(entry) }))
     .sort((a, b) => (b.sealedAt - a.sealedAt) || a.entry.name.localeCompare(b.entry.name))
+  // Newest first is not enough on its own: a newer receipt can FAIL this pass (a push that fails, a timeout)
+  // while an older one sharing a path succeeds. The older bytes would land now, and at the next pass the
+  // newer receipt would read them as a newer publication and drop its own newer bytes for good. So every
+  // verified receipt claims its paths here, whatever its outcome, and an older receipt never commits a path
+  // a newer receipt carries with different bytes.
+  const newerClaims: NewerReceiptClaims = { paths: new Map(), unverified: new Map(), registered: new Set() }
   for (const { entry } of receipts) {
     try {
-      if (await recoverReadyPublication(entry)) recovered++
+      if (await recoverReadyPublication(entry, newerClaims)) recovered++
     } catch (error: any) {
+      if (!newerClaims.registered.has(entry.name)) {
+        // It failed before its own paths could be verified. Its bytes may still be the newest for those paths
+        // (a read that fails today can succeed at the next pass), so older receipts wait rather than race it.
+        try {
+          const raw = JSON.parse(fs.readFileSync(path.join(readyPublicationDir, entry.name), 'utf8'))
+          for (const relative of Array.isArray(raw?.paths) ? raw.paths : []) {
+            if (typeof relative === 'string' && !newerClaims.unverified.has(relative)) newerClaims.unverified.set(relative, entry.name)
+          }
+        } catch { /* nothing readable to claim: it cannot publish anything either */ }
+      }
       const detail = String(error?.stderr || error?.shortMessage || error?.message || error).trim().slice(0, 1000)
       readyPublicationFailures.set(entry.name, { entry: entry.name, error: detail, failedAt: new Date().toISOString() })
       console.error(`[publication] sealed publication ${entry.name} could not be recovered; its receipt and snapshot are retained for the next pass: ${detail}`) // eslint-disable-line no-console
@@ -8342,75 +8549,169 @@ export async function recoverReadyPublications(): Promise<number> {
   return recovered
 }
 
-async function recoverReadyPublication(entry: fs.Dirent): Promise<boolean> {
+/**
+ * Publish one retained receipt: every path nothing newer replaced, and never a path something did.
+ *
+ * When nothing was superseded this is the plain retry: the sealed snapshot, the RUN_METADATA backfill for a
+ * full research run, the provider/profile authority, the paper-account sync, and clearing the receipt.
+ *
+ * When some paths were superseded, those are dropped and the rest publish. That leaves main exactly as it
+ * would be had this receipt published when it was sealed, with the newer publications landing after it:
+ * each path carries either this receipt's bytes (nothing newer touched it) or the newer bytes (they win in
+ * both orders). The engine already produces that state routinely. Refusing instead left the run's own files
+ * unpublished forever, since a superseded receipt never becomes un-superseded, and a shared projection like
+ * a screener board index is rewritten often enough that most retained signal receipts would be refused.
+ * The signed receipt is never edited: the remainder is committed from a fresh protected manifest over the
+ * same sealed bytes, and the original receipt stays the durable record until its commit succeeds, so a
+ * failure part-way keeps it for the next pass. Once settled it is archived with every sealed byte.
+ *
+ * Whose root it is now: when a newer run has taken the root over (see `handedOver` below), this receipt does
+ * not re-record its provider/profile authority over the newer run's (review dispatch and automatic intake
+ * read that record), and does not re-run the paper-account sync for a replaced decision. A shared board index
+ * or ledger replaced outside the root leaves the run's own publication whole, so both still happen.
+ * RUN_METADATA is filled whenever it is still this receipt's, since it names the commit that published this
+ * run; that decision travels on the backfill receipt so its own retry cannot reverse it.
+ */
+async function recoverReadyPublication(entry: fs.Dirent, newerClaims: NewerReceiptClaims): Promise<boolean> {
   if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
-  let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
-  if (!record) return false
-  const sealedEntries = readySnapshotEntries(record)
-  // This retry commits bytes frozen when the receipt was sealed. If a newer run has published any of the
-  // same paths since, committing them would revert published research to stale bytes. Refuse: the error
-  // retains the receipt and snapshot and reports them through listReadyPublicationFailures(). The receipt
-  // is immutable and its path list is signed, so there is no subset left to publish; the run's files are
-  // intact on disk and need a fresh publication.
-  const superseded = supersededPublicationProbe({
-    entries: sealedEntries, sealedAt: record.created_at, ownCommit: record.primary_commit_sha,
-  })
-  if (superseded.length) {
-    const first = superseded[0]
-    const more = superseded.length > 1 ? ` (and at least ${superseded.length - 1} more path(s))` : ''
-    throw new Error(`sealed publication is superseded and was not committed: ${first.path} was published again by `
-      + `${first.commit.slice(0, 12)} at ${new Date(first.committedAt * 1000).toISOString()}, after this receipt was `
-      + `sealed at ${record.created_at}${more}; committing the sealed snapshot would revert it`)
-  }
-  const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
-  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
-  const output = await supervisorCommitter(record.message, record.paths, env)
-  const snapshotHashes = Object.fromEntries(sealedEntries.map((item) => [item.path, item.sha256]))
-  await supervisorCommitVerifier(output, record.paths, snapshotHashes)
-  let recoveredRevision = verifiedPublishedRevision(output)
-
-  if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
-    const primarySha = verifiedPublishedRevision(output)
-    const metadataRelative = `${record.run_root}/RUN_METADATA.md`
-    const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
-    if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
-    {
-      const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
-      const placeholder = '(to be filled after commit)'
-      if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
-        throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
-      }
-      writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
-      const run = runFromReadyPublication(record)
-      const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
-      const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
-      const backfillRecord = writeReadyPublication(
-        run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
-        'backfill-ready', finalHashes, primarySha,
-      )
-      fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
-      record = backfillRecord
-      const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
-      const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
-      await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
-      await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
-      recoveredRevision = verifiedPublishedRevision(backfillOutput)
+  const original = readReadyPublication(path.join(readyPublicationDir, entry.name))
+  if (!original) return false
+  const sealedEntries = readySnapshotEntries(original)
+  // Claims cover the paths a receipt would COMMIT. Paths a backfill receipt binds only by hash are already
+  // on main through a real commit, which the git probe below judges on its own.
+  const heldByNewer: SupersededPublicationPath[] = []
+  for (const item of sealedEntries) {
+    const claim = newerClaims.paths.get(item.path)
+    if (!claim) newerClaims.paths.set(item.path, { entry: entry.name, sealedAt: original.created_at, sha256: item.sha256 })
+    else if (claim.sha256 !== item.sha256) {
+      heldByNewer.push({ path: item.path, commit: '', committedAt: Math.floor(Date.parse(claim.sealedAt) / 1000), receipt: claim.entry })
     }
-  } else {
-    await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+  }
+  newerClaims.registered.add(entry.name)
+  const waitingOn = sealedEntries.find((item) => newerClaims.unverified.has(item.path))
+  if (waitingOn) {
+    throw new Error(`not committed yet: ${waitingOn.path} is also carried by the newer retained receipt `
+      + `${newerClaims.unverified.get(waitingOn.path)}, which could not be verified this pass; retried at the next pass`)
+  }
+  // This retry commits bytes frozen when the receipt was sealed. If a newer run has published any of the
+  // same paths since, committing them would revert published research to stale bytes. The bound hashes are
+  // probed too: a RUN_METADATA backfill receipt commits one file but vouches for its whole primary snapshot.
+  const probed = supersededPublicationProbe({
+    entries: sealedEntries, boundHashes: original.artifact_hashes,
+    sealedAt: original.created_at, ownCommit: original.primary_commit_sha,
+  })
+  const superseded = [...probed, ...heldByNewer.filter((held) => !probed.some((item) => item.path === held.path))]
+  const dropped = new Set(superseded.map((item) => item.path))
+  const kept = sealedEntries.filter((item) => !dropped.has(item.path))
+  const boundHashes = Object.fromEntries(Object.entries(original.artifact_hashes).filter(([relative]) => !dropped.has(relative)))
+  // Whether a newer run has taken this run's root over. A receipt that carries the run's own terminal records
+  // is taken over only when one of THOSE was superseded; an unrelated file replaced in the root says nothing
+  // about who owns it. A receipt that carries none of them (a module, agent, review or handoff publication)
+  // has nothing to tell the two apart, so any superseded path inside the root counts. The live path never
+  // records authority for those at all, and an older one must never overwrite a newer run's.
+  const rootPrefix = `${original.run_root.replace(/\/+$/, '')}/`
+  const ownsTerminalRecords = Object.keys(original.artifact_hashes).some((relative) => isRunTerminalRecord(original, relative))
+  const handedOver = original.authority_withheld === true
+    || superseded.some((item) => isRunTerminalRecord(original, item.path))
+    || (!ownsTerminalRecords && superseded.some((item) => item.path.startsWith(rootPrefix)))
+  const settle = (outcome: SupersededReadyPublication['outcome'], archive: string, revision?: string) => {
+    supersededReadyPublications.set(entry.name, {
+      entry: entry.name, runRoot: original.run_root, outcome, publishedPaths: kept.length,
+      supersededPaths: superseded.length, examples: superseded.slice(0, SUPERSEDED_REPORT_LIMIT),
+      runRootRepublished: handedOver, archive, at: new Date().toISOString(),
+    })
+    const first = superseded[0]
+    console.warn(`[publication] sealed publication ${entry.name} (${original.run_root}) was ${outcome === 'retired' ? 'fully' : 'partly'} superseded: ` // eslint-disable-line no-console
+      + `${outcome === 'retired' ? 'nothing was left to publish' : `published the ${kept.length} path(s) nothing newer replaced${revision ? ` at ${revision.slice(0, 12)}` : ''}`}; `
+      + `kept the newer bytes of ${superseded.length} path(s), e.g. ${first.path} from `
+      + `${first.receipt ? `newer retained receipt ${first.receipt}` : first.commit.slice(0, 12)}; `
+      + `${handedOver ? 'a newer run owns this run root; ' : ''}original receipt and sealed bytes archived at ${archive || '(already consumed)'}`)
+  }
+  const settledDetail = (outcome: SupersededReadyPublication['outcome'], revision?: string) => ({
+    outcome, run_root_republished: handedOver, ...(revision ? { published_revision: revision } : {}),
+    published_paths: kept.map((item) => item.path),
+    superseded: superseded.map((item) => ({
+      path: item.path, committed_at: item.committedAt, ...(item.receipt ? { newer_receipt: item.receipt } : { commit: item.commit }),
+    })),
+  })
+  if (!kept.length) {
+    settle('retired', archiveSupersededReceipt(original, settledDetail('retired')))
+    return false
   }
 
-  recordRecoveredPublicationAuthority({
-    runId: record.run_id, runRoot: record.run_root, provider: record.provider,
-    model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
-    executionProfile: record.execution_profile,
-  }, record.artifact_hashes)
-  await runIbkrPaperAutoSyncAfterPublication({
-    runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
-    willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
-    publicationRevision: recoveredRevision,
-  })
-  clearReadyPublication(record)
+  const env: NodeJS.ProcessEnv = { ...process.env }
+  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+  const remainder = superseded.length ? writeRemainderSnapshot(original, kept) : null
+  let output: string
+  try {
+    const paths = remainder?.paths ?? original.paths
+    output = await supervisorCommitter(original.message, paths, {
+      ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: remainder?.manifest ?? original.snapshot_manifest,
+    })
+    await supervisorCommitVerifier(output, paths, Object.fromEntries(kept.map((item) => [item.path, item.sha256])))
+  } finally { remainder?.cleanup() }
+  let recoveredRevision = verifiedPublishedRevision(output)
+  let record = original
+  let archive = ''
+
+  // RUN_METADATA names the commit that published THIS run, whoever owns the root now: it is filled whenever
+  // it is still this receipt's to publish. Only a superseded RUN_METADATA (a newer run filled its own) is left.
+  const metadataRelative = `${original.run_root}/RUN_METADATA.md`
+  const metadataEntry = kept.find((item) => item.path === metadataRelative)
+  if (original.stage === 'primary-ready' && original.kind === 'full' && original.swarm === RESEARCH_SWARM_ID
+      && (metadataEntry || !dropped.has(metadataRelative))) {
+    const primarySha = recoveredRevision
+    if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
+    const body = fs.readFileSync(metadataEntry.snapshot, 'utf8')
+    const placeholder = '(to be filled after commit)'
+    if (!body.includes(placeholder) || body.replace(placeholder, primarySha).includes(placeholder)) {
+      throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
+    }
+    writeSupervisorRunFile(original.run_root, 'RUN_METADATA.md', body.replace(placeholder, primarySha))
+    const run = runFromReadyPublication(original)
+    const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
+    const finalHashes = { ...boundHashes, [metadataRelative]: backfill.hashes[metadataRelative] }
+    const replaceWithBackfill = () => {
+      record = writeReadyPublication(
+        run, backfill, `Backfill commit SHA in RUN_METADATA for ${original.subject}`,
+        'backfill-ready', finalHashes, primarySha, handedOver,
+      )
+    }
+    // The backfill receipt atomically replaces this one and owns the remaining work; the obsolete primary
+    // snapshot then goes (or, when paths were superseded, is archived) without a recovery gap.
+    if (superseded.length) {
+      archive = archiveSupersededReceipt(original, settledDetail('published-remainder', primarySha), replaceWithBackfill)
+    } else {
+      replaceWithBackfill()
+      fs.rmSync(path.dirname(original.snapshot_manifest), { recursive: true, force: true })
+    }
+    if (record === original) throw new Error('the ready publication was consumed before its RUN_METADATA backfill was sealed')
+    const backfillOutput = await supervisorCommitter(record.message, record.paths, {
+      ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest,
+    })
+    await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
+    await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
+    recoveredRevision = verifiedPublishedRevision(backfillOutput)
+  } else {
+    await supervisorCommitVerifier(output, Object.keys(boundHashes), boundHashes)
+  }
+
+  if (!handedOver) {
+    recordRecoveredPublicationAuthority({
+      runId: original.run_id, runRoot: original.run_root, provider: original.provider,
+      model: original.model, reasoningLevel: original.reasoning_level, profileKey: original.profile_key,
+      executionProfile: original.execution_profile,
+    }, record === original ? boundHashes : record.artifact_hashes)
+    await runIbkrPaperAutoSyncAfterPublication({
+      runId: original.run_id, kind: original.kind, ticker: original.subject, swarmId: original.swarm,
+      willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
+      publicationRevision: recoveredRevision,
+    })
+  }
+  if (record !== original) clearReadyPublication(record)
+  else if (superseded.length) archive = archiveSupersededReceipt(original, settledDetail('published-remainder', recoveredRevision))
+  else clearReadyPublication(original)
+  if (superseded.length) settle('published-remainder', archive, recoveredRevision)
   return true
 }
 

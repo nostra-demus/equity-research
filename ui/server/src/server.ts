@@ -28,7 +28,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, listSupersededReadyPublications, sigIdFor,
   isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -378,6 +378,9 @@ app.get('/api/health', async (_req, reply) => {
     // Sealed publications the startup recovery pass could not publish (count only: no run identity).
     // They no longer stop the engine, so this is where a monitor sees them.
     stuckPublications: listReadyPublicationFailures().length,
+    // Sealed publications the last pass settled around newer published data: their unreplaced paths were
+    // published and the newer bytes kept. Resolved, not stuck; the detail is in the startup log and archive.
+    supersededPublications: listSupersededReadyPublications().length,
   }
 })
 
