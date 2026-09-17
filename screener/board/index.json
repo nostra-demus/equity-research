@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T08:59:47Z",
+  "generated_at": "2026-09-17T09:06:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-119",
@@ -1729,6 +1729,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-159",
+      "headline": "Jain Irrigation Systems Limited: Jain Irrigation Systems Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"JAIN IRRIGATION SECURES ₹117.96 CRORE EMPANELMENT FROM MSEDCL FOR 5,000 SOLAR PUMPS\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JISLDVREQS_17092026133944_SE_Letter_Press_Release_MSEDCL_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:09:54Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Jain Irrigation secured a contract worth ₹117.96 crore for 5,000 solar pumps from MSEDCL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Jain Irrigation secured a contract worth ₹117.96 crore for 5,000 solar pumps from MSEDCL.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jain Irrigation Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-107",
       "headline": "NSE Raises ₹6,746 Crore From Anchor Investors, Global Funds Back India’s Largest Stock Exchange",
       "headline_en": null,
@@ -1920,56 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-030",
-      "headline": "CTP: FY2026 Results and Drilling Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTP?key=2924-03136656-6A1344258",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T06:48:20Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "FY2026 annual results and drilling update from mining operator; lacks numeric outcome in headline but could affect reserves, production guidance, capex, or resource base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "FY2026 annual results and drilling update from mining operator; lacks numeric outcome in headline but could affect reserves, production guidance, capex, or resource base.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CTP",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167529,9 +167528,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 452343,
-    "news_picked_today": 159,
-    "news_dropped_today": 705
+    "news_seen_today": 470429,
+    "news_picked_today": 165,
+    "news_dropped_today": 795
   },
   "book_momentum": {
     "live_count": 8,
