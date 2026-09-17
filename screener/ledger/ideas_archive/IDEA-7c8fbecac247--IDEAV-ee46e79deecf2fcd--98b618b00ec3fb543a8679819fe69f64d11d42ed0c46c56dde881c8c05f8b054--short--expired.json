@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-29T08:47:42Z",
+  "archived_at": "2026-09-17T13:02:02Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-c3365d772313",
-    "idea_version": "IDEAV-6082786c91a4db9a",
-    "idea_version_started_at": "2026-08-25T10:36:18Z",
-    "ticker": "01335",
-    "company": "SHEEN TAI",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-7c8fbecac247",
+    "idea_version": "IDEAV-ee46e79deecf2fcd",
+    "idea_version_started_at": "2026-09-14T12:11:23Z",
+    "ticker": "CMILIMITED",
+    "company": "CMI Limited",
+    "exchange": "BSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "SHEEN TAI issued a profit warning, signaling that its financial results will be worse than anticipated.",
-    "why_now": "The company filed a profit warning today, indicating an immediate negative revision to its earnings outlook.",
-    "conviction": 60,
+    "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a total breakdown in financial viability.",
+    "why_now": "The exchange notification was filed today, September 14, 2026.",
+    "conviction": 90,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 19,
+      "impact": 23,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
-    "thesis_type": "company_specific",
+    "priced_in": "priced",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-d29a8f8ea7ca"
+      "EVT-4543e6a52940"
     ],
-    "primary_source_event_id": "EVT-d29a8f8ea7ca",
+    "primary_source_event_id": "EVT-4543e6a52940",
     "source_headlines": [
-      "SHEEN TAI (01335): PROFIT WARNING"
+      "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process"
     ],
-    "source_headline": "SHEEN TAI (01335): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501051.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+    "source_url": "https://nsearchives.nseindia.com/corporate/CMICABLES_14092026170353_Notice_48.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-25T10:16:00Z",
+    "newest_source_at": "2026-09-14T11:34:01Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-25T10:36:18Z",
-    "updated_at": "2026-08-25T10:36:18Z",
-    "decay_at": "2026-08-26T22:16:00Z",
+    "surfaced_at": "2026-09-14T12:11:23Z",
+    "updated_at": "2026-09-14T12:11:23Z",
+    "decay_at": "2026-09-15T23:34:01Z",
     "status": "live",
     "promoted_signal_id": null
   }
