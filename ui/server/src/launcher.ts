@@ -6947,6 +6947,17 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
   })
 }
 
+/** scripts/commit-run.sh refuses a supervisor snapshot manifest with more entries than this (`len(entries) > 512`). */
+const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512
+/**
+ * scripts/commit-run.sh refuses one supervisor snapshot file larger than this
+ * (`protected_file(…, 128 * 1024 * 1024)`). This mirrors THAT limit and nothing else. Two tighter per-file
+ * ceilings sit further downstream and are NOT closed here: supervisorCommitVerifier reads each published blob
+ * back through a 32 MiB buffer, so a larger file publishes and then fails verification at every retry; and
+ * the remote's own per-file push limit. Neither is a commit-run.sh refusal.
+ */
+const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024
+
 /**
  * Refuse a path list the data catalogue does not cover BEFORE it is frozen into a snapshot. On the
  * post-exit drain path that snapshot is sealed into a digest-signed ready receipt that can never change, and
@@ -6964,11 +6975,6 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
  * What this does NOT cover: stores the catalogue declares with a blanket glob (commodity/runs/**,
  * screener/runs/**, analyses/provider-parity/**) accept any file name, so there is nothing to refuse there.
  */
-/** scripts/commit-run.sh refuses a supervisor snapshot manifest with more entries than this (`len(entries) > 512`). */
-const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512
-/** scripts/commit-run.sh refuses one supervisor snapshot file larger than this (`protected_file(…, 128 * 1024 * 1024)`). */
-const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024
-
 function assertPublicationPathsCatalogued(paths: string[]): void {
   try {
     execFileSync('python3', [
@@ -6998,7 +7004,14 @@ function assertPublicationPathsCatalogued(paths: string[]): void {
  *
  * What this does NOT make deterministic: the verdict also depends on the checked-out program (the live
  * `.claude/agents` orb roster) and on HEAD. A deploy that renames an orb, or another publication of the same
- * path landing between sealing and commit, can still change commit-run.sh's later answer.
+ * path landing between sealing and commit, can still change commit-run.sh's later answer. (The validator
+ * also reads today's date, but only to require the v2 contract from 2026-08-14 on; that date has passed,
+ * so it can no longer flip a verdict.)
+ *
+ * The timeout is deliberately far below the neighbouring calls'. This call is synchronous, and the
+ * production watchdog SIGKILLs an engine whose /api/health misses two 5-second probes 30 seconds apart. A
+ * hang allowed to run that long would end as a kill halfway through a freeze, not as a refusal. The gate
+ * takes about 0.1-0.3 s; past 20 s it is refused here, visibly, and the snapshot directory is removed.
  */
 function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snapshot: string }>): void {
   try {
@@ -7006,10 +7019,11 @@ function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snap
       path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT, '--records',
     ], {
       cwd: REPO_ROOT, input: entries.flatMap((entry) => [entry.path, entry.snapshot]).join('\0'),
-      encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'], timeout: 120_000, maxBuffer: 1024 * 1024,
+      encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'], timeout: 20_000, maxBuffer: 1024 * 1024,
     })
   } catch (error: any) {
-    const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    // stderr that is only whitespace is truthy: trim BEFORE falling back, or the refusal names nothing.
+    const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
     throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${detail}`)
   }
 }
@@ -7050,7 +7064,8 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       const absolute = path.join(REPO_ROOT, relative)
       const before = assertRegularArtifact(absolute, 'fixed publication artifact')
       // Same class as the entry-count limit above: commit-run.sh's snapshot staging refuses a larger file,
-      // and no retry shrinks a sealed one. Judged from the stat, before the bytes are read into memory.
+      // and no retry shrinks a sealed one. Judged from the very stat the freeze below relies on, before
+      // these bytes are read. Earlier files are already copied by now; the catch removes all of it.
       if (before.size > MAX_PUBLICATION_SNAPSHOT_FILE_BYTES) {
         throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${relative} is `
           + `${before.size} bytes, above the ${MAX_PUBLICATION_SNAPSHOT_FILE_BYTES}-byte limit commit-run.sh `

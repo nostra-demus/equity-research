@@ -628,7 +628,8 @@ try {
 
   // A gate that cannot reach a verdict is not permission to seal. The blind-validator block above cannot
   // prove this call site: its shim fails the FIRST python3 call (the catalogue). This shim lets the catalogue
-  // validator through and silences only the decision gate, which runs for every snapshot.
+  // validator through and silences only the decision gate, which runs for every snapshot. It "says" one
+  // blank line: whitespace-only stderr is truthy, and a refusal built from it used to name nothing at all.
   const muteRelative = `${root}/reviews/2099-01-07_mute_gate_review.json`
   const muteAbsolute = path.join(REPO_ROOT, muteRelative)
   fs.mkdirSync(path.dirname(muteAbsolute), { recursive: true })
@@ -647,7 +648,7 @@ try {
   const muteShimDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'decision-gate-mute-'))
   fs.writeFileSync(path.join(muteShimDirectory, 'python3'), [
     '#!/bin/sh',
-    'case "${1:-}" in */decision_publication_gate.py) exit 3 ;; esac',
+    'case "${1:-}" in */decision_publication_gate.py) echo "" >&2; exit 3 ;; esac',
     `exec '${realPython}' "$@"`,
     '',
   ].join('\n'), { mode: 0o755 })
@@ -662,8 +663,14 @@ try {
       phase: 'commit', message: 'mute decision gate fixture', pathspecs: [muteRelative],
     })
     process.env.PATH = `${muteShimDirectory}${path.delimiter}${gateOriginalPath ?? ''}`
-    await assert.rejects(drainPublicationIntents(muteRun), /refused before its frozen snapshot was sealed/,
-      'a decision gate that cannot reach a verdict refuses the publication instead of waving it through')
+    await assert.rejects(
+      drainPublicationIntents(muteRun),
+      // The size limit shares this prefix, so the prefix alone would not show WHICH check refused. The
+      // detail must fall back to the failed command, which names the gate script.
+      (error: any) => /refused before its frozen snapshot was sealed: \S/.test(String(error?.message))
+        && /decision_publication_gate\.py/.test(String(error?.message)),
+      'a decision gate that cannot reach a verdict refuses the publication, and the refusal says what failed',
+    )
     assert.equal(muteCommits, 0)
     assert.equal(fs.existsSync(muteReceipt), false, 'an unjudged snapshot is never sealed')
     assert.deepEqual(snapshotDirectories(), muteSnapshotsBefore, 'an unjudged snapshot is not left behind')
@@ -680,8 +687,8 @@ try {
   }
 
   // commit-run.sh's snapshot staging also refuses one file above 128 MiB, and no retry shrinks a sealed file.
-  // Append-only ledgers grow towards that limit on their own. The file is sparse: the refusal comes from
-  // its stat, so nothing of that size is read, copied or written by this test.
+  // The file is sparse: the refusal comes from its stat, so nothing of that size is read, copied or written
+  // by this test. (The exact boundary is not pinned, because a file AT the limit would be read in full.)
   const oversizedRoot = `${root}_oversized`
   const oversizedAbsolute = path.join(REPO_ROOT, oversizedRoot)
   extraCleanup.push(oversizedAbsolute)

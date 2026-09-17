@@ -22,6 +22,7 @@ Run: python3 scripts/test_commit_run.py   (exit 0 = all pass)
 import json
 import hashlib
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -1081,8 +1082,8 @@ FORMER_INLINE_SELECTION = (
 )
 
 
-def run_gate(args, stdin=b"", cwd=None):
-    return subprocess.run(["python3", DECISION_GATE, *args], input=stdin, cwd=cwd, capture_output=True)
+def run_gate(args, stdin=b"", cwd=None, env=None):
+    return subprocess.run(["python3", DECISION_GATE, *args], input=stdin, cwd=cwd, env=env, capture_output=True)
 
 
 def test_decision_gate_selects_exactly_what_the_former_inline_rule_selected():
@@ -1186,8 +1187,14 @@ EXIT_5_SITES = {
     # `.claude/agents` roster and on HEAD, so a deploy or another publication of the same path between
     # sealing and commit can still change it.
     "data-needs prewrite rejected staged publication": (1, "pre-seal"),
+    # Only a failed redirect of the selected-path list: the file vanished from a private mktemp directory.
+    "cannot read selected decision publications": (1, "environmental"),
     "git commit failed": (1, "environmental"),
-    # Runs after the local commit exists. It would mean the index was mutated under the repository lock.
+    # Runs after the local commit exists. Two causes: the index was mutated under the repository lock, or
+    # the repository rewrites bytes on the way in (`core.autocrlf`, a clean filter), so the committed blob
+    # no longer hashes to the snapshot. The second IS deterministic for a record those settings touch, and
+    # is not asked first: the gate mirrors commit-run.sh's own `hash-object` (filters on) so that "differs
+    # from HEAD" agrees with it. Neither setting is configured and no .gitattributes is tracked.
     "committed tree disagrees with protected supervisor snapshot": (1, "environmental"),
 }
 
@@ -1195,6 +1202,30 @@ EXIT_5_SITES = {
 def test_every_exit_5_has_a_decision_about_sealed_receipts():
     lines = Path(COMMIT_RUN).read_text().splitlines()
     found = {}
+    # The inventory keys on the plain spellings `exit 5` and `SystemExit(5)`. Any OTHER way to leave with a
+    # status is refused outright unless listed here, so a refusal cannot slip past by being spelled
+    # `exit "$RC"`, `exit  5`, `return 5 … || exit $?` or `sys.exit(5)`.
+    computed_exits_allowed = {"exit $?": 1}  # the cockpit request client, propagating its SystemExit(5)
+    literal_exits = {"exit 0", "exit 2", "exit 3", "exit 4", "exit 5"}  # exactly one space: `exit  5` is not one
+    unexplained = []
+    for number, code in enumerate(lines, start=1):
+        if code.lstrip().startswith("#"):
+            continue
+        for match in re.finditer(r"\bexit\b[^\n;&|)}]*", code):
+            spelled = " ".join(match.group(0).split())
+            if match.group(0).rstrip() in literal_exits:
+                continue
+            if computed_exits_allowed.get(spelled, 0) > 0:
+                computed_exits_allowed[spelled] -= 1
+                continue
+            unexplained.append(f"line {number}: {spelled}")
+        for needle in ("sys.exit(", "return 5", "os._exit("):
+            if needle in code:
+                unexplained.append(f"line {number}: {needle}")
+    check("commit-run.sh has no exit status the exit-5 inventory cannot read "
+          "(spell a refusal as a plain `exit 5` so EXIT_5_SITES sees it)",
+          not unexplained and not any(computed_exits_allowed.values()),
+          f"unexplained={unexplained} unused allowances={computed_exits_allowed}")
     for number, line in enumerate(lines):
         if "exit 5" not in line and "SystemExit(5)" not in line:
             continue
@@ -1207,7 +1238,7 @@ def test_every_exit_5_has_a_decision_about_sealed_receipts():
                 break
         key = next((known for known in EXIT_5_SITES if message and message.startswith(known)), message)
         found[key] = found.get(key, 0) + 1
-    check("the exit-5 inventory actually found commit-run.sh's refusals", sum(found.values()) >= 15, repr(found))
+    check("the exit-5 inventory actually found commit-run.sh's refusals", sum(found.values()) >= 16, repr(found))
     unclassified = sorted(str(key) for key in found if key not in EXIT_5_SITES)
     check("every exit 5 in commit-run.sh states whether a sealed receipt can hit it deterministically "
           "(add it to EXIT_5_SITES, and give a deterministic one a pre-seal twin in launcher.ts)",
@@ -1227,7 +1258,7 @@ def test_every_exit_5_has_a_decision_about_sealed_receipts():
           and "const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024\n" in launcher_text)
 
 
-def test_decision_gate_workspace_is_removed_on_every_exit():
+def test_decision_gate_workspace_is_removed_whether_a_record_passes_or_fails():
     """commit-run.sh removes its validation workspace by naming each file, then `rmdir`s it and ignores a
     failure. A file it writes but does not name would therefore leak one directory per commit, silently."""
     for name, body, expected_rc in [
@@ -1248,6 +1279,71 @@ def test_decision_gate_workspace_is_removed_on_every_exit():
             check(f"a record that is {name} leaves no validation workspace behind",
                   result.returncode == expected_rc and os.listdir(workspace_parent) == [],
                   f"rc={result.returncode} left={os.listdir(workspace_parent)!r} stderr={result.stderr!r}")
+
+
+def test_commit_run_refuses_when_the_gate_script_cannot_run():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-gate-missing-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        relative = "analyses/NOGATE_2099-01-01/module.txt"
+        write_text(agent, relative, "not even a decision record\n")
+        os.remove(os.path.join(agent, "scripts", "decision_publication_gate.py"))
+        workspace_parent = os.path.join(tmp, "tmpdir")
+        os.makedirs(workspace_parent)
+        run_env = no_push_env(env)
+        run_env["TMPDIR"] = workspace_parent
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        result = run(["bash", COMMIT_RUN, "test: no gate", "--", relative], cwd=agent, env=run_env, check_rc=False)
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("a checkout whose gate script cannot run commits nothing, whatever is being published",
+              result.returncode == 5 and before == after
+              and "cannot select staged decision publications" in result.stderr,
+              f"rc={result.returncode} stderr={result.stderr!r}")
+        check("that refusal unstages its paths and removes its workspace",
+              cached.returncode == 0 and os.listdir(workspace_parent) == [], repr(os.listdir(workspace_parent)))
+
+
+def test_commit_run_refuses_when_the_selected_list_cannot_be_read():
+    """bash reports a failed `done <file` redirect, SKIPS the loop, and carries on. There is no `set -e`, so
+    without an explicit refusal commit-run.sh would go on to commit a record that nobody judged."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-gate-unreadable-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_prewrite_fixture(agent)
+        relative = "analyses/FRESH_2099-01-01/decision_record.json"
+        write_json(agent, relative, {"decision_date": "2099-01-01", "data_needs_schema_version": "2.0",
+                                     "data_needs": "not-an-array"})
+        workspace_parent = os.path.join(tmp, "tmpdir")
+        os.makedirs(workspace_parent)
+        # Let --select succeed, then remove the list it wrote before the loop opens it.
+        wrappers = os.path.join(tmp, "wrappers")
+        os.makedirs(wrappers)
+        python_wrapper = os.path.join(wrappers, "python3")
+        with open(python_wrapper, "w") as f:
+            f.write(
+                "#!/bin/sh\n"
+                "if [ \"${2:-}\" = \"--select\" ]; then\n"
+                f"  {shlex.quote(sys.executable)} \"$@\"\n"
+                "  rc=$?\n"
+                "  rm -f \"$TMPDIR\"/nostra-data-needs-prewrite.*/selected-paths\n"
+                "  exit \"$rc\"\n"
+                "fi\n"
+                f"exec {shlex.quote(sys.executable)} \"$@\"\n"
+            )
+        os.chmod(python_wrapper, 0o755)
+        run_env = no_push_env(env)
+        run_env["TMPDIR"] = workspace_parent
+        run_env["PATH"] = wrappers + os.pathsep + run_env.get("PATH", "")
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        result = run(["bash", COMMIT_RUN, "test: unreadable selection", "--", relative],
+                     cwd=agent, env=run_env, check_rc=False)
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("an unreadable selected-path list refuses instead of committing a record nobody judged",
+              result.returncode == 5 and before == after
+              and "cannot read selected decision publications" in result.stderr,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("that refusal unstages its paths and removes its workspace",
+              cached.returncode == 0 and os.listdir(workspace_parent) == [], repr(os.listdir(workspace_parent)))
 
 
 def make_protected_snapshot(tmp, name, files):
@@ -1312,8 +1408,10 @@ def test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_by
             manifest, paths, pairs = make_protected_snapshot(tmp, "protected-snapshot", files)
 
             head_before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            objects_before = run(["git", "count-objects", "-v"], cwd=agent, env=env).stdout
             preseal = run_gate(["--repo", agent, "--records"], pairs)
             head_after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            objects_after = run(["git", "count-objects", "-v"], cwd=agent, env=env).stdout
             status = run(["git", "status", "--porcelain"], cwd=agent, env=env).stdout
             snapshot_env = no_push_env(env)
             snapshot_env["NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST"] = manifest
@@ -1324,8 +1422,11 @@ def test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_by
                   (preseal.returncode == 0) == (committed.returncode == 0) == publishes,
                   f"preseal rc={preseal.returncode} {preseal.stderr!r}; "
                   f"commit-run rc={committed.returncode} {committed.stderr!r}")
+            # The frozen files live outside the worktree, so `git status` alone would not see the gate
+            # writing them into the object store (`hash-object -w`); the object count does.
             check(f"asking before sealing changes nothing in the repository: {name}",
-                  head_before == head_after and "analyses/" not in status, status)
+                  head_before == head_after and "analyses/" not in status and objects_before == objects_after,
+                  f"{status!r} {objects_before!r} -> {objects_after!r}")
             if publishes:
                 check(f"pre-seal judged exactly the records commit-run.sh judged: {name}",
                       f"{validated} new terminal decision record(s) validated" in preseal.stdout.decode()
@@ -1356,16 +1457,42 @@ def test_preseal_decision_gate_fails_closed():
         control = run_gate(["--repo", agent, "--records"], pairs)
         check("positive control: this exact shape passes when nothing is wrong",
               control.returncode == 0, f"rc={control.returncode} stderr={control.stderr!r}")
-        for name, stdin in [
-            ("an empty publication (a vacuous PASS could be sealed)", b""),
-            ("a path with no bytes file", record.encode()),
-            ("an empty field", record.encode() + b"\0\0"),
-            ("a frozen file that does not exist", record.encode() + b"\0" + frozen + b".missing"),
+        # A bytes file given RELATIVELY used to be read from the gate's own directory but hashed from the
+        # repository's. Put HEAD-identical bytes at the repository-relative spot and rejected bytes at the
+        # cwd-relative one: the gate then skipped the record as "unchanged" and passed bytes nobody judged.
+        elsewhere = os.path.join(tmp, "elsewhere")
+        os.makedirs(os.path.join(elsewhere, "snap"))
+        os.makedirs(os.path.join(agent, "snap"))
+        with open(os.path.join(elsewhere, "snap", "0"), "wb") as handle:
+            handle.write(b'{"decision_date": "2099-01-01", "data_needs_schema_version": "2.0", "data_needs": "no"}\n')
+        with open(os.path.join(agent, "snap", "0"), "wb") as handle:
+            handle.write(b"A\n")
+        other = b"analyses/FRESH_2099-01-01/final_thesis.md"
+        for name, stdin, cwd in [
+            ("an empty publication (a vacuous PASS could be sealed)", b"", None),
+            ("a path with no bytes file", record.encode(), None),
+            ("an empty field", record.encode() + b"\0\0", None),
+            ("a frozen file that does not exist", record.encode() + b"\0" + frozen + b".missing", None),
+            ("a relative bytes file, which two directories would resolve differently",
+             b"analyses/base/a.txt\0snap/0", elsewhere),
+            ("a list shifted by one field, which hides a record in a bytes-file slot",
+             other + b"\0" + record.encode() + b"\0" + frozen + b"\0" + other, None),
+            ("a bytes file that does not exist, even for a path that is not gated",
+             other + b"\0" + frozen + b".missing", None),
+            ("an absolute publication path", frozen + b"\0" + frozen, None),
         ]:
-            result = run_gate(["--repo", agent, "--records"], stdin)
+            result = run_gate(["--repo", agent, "--records"], stdin, cwd=cwd)
             check(f"no verdict, no PASS: {name}",
                   result.returncode == 2 and b"DECISION-PUBLICATION-GATE: FAIL" in result.stderr
                   and result.stdout == b"", f"rc={result.returncode} stderr={result.stderr!r}")
+
+        ascii_env = dict(os.environ, PYTHONIOENCODING="ascii", PYTHONUTF8="0")
+        unicode_record = "analyses/日本_2099-01-01/decision_record.json"
+        _, _, unicode_pairs = make_protected_snapshot(tmp, "snapshot-unicode", {unicode_record: valid})
+        result = run_gate(["--repo", agent, "--records"], unicode_pairs, env=ascii_env)
+        check("a process that cannot print an em dash or the run's name still reaches the same verdict",
+              result.returncode == 0 and b"1 new terminal decision record(s) validated" in result.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr[-300:]!r}")
 
         not_a_repo = os.path.join(tmp, "not-a-repo")
         os.makedirs(not_a_repo)
@@ -1408,7 +1535,9 @@ if __name__ == "__main__":
     test_unchanged_historical_decision_is_not_regraded()
     test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate()
     test_decision_gate_selects_exactly_what_the_former_inline_rule_selected()
-    test_decision_gate_workspace_is_removed_on_every_exit()
+    test_decision_gate_workspace_is_removed_whether_a_record_passes_or_fails()
+    test_commit_run_refuses_when_the_gate_script_cannot_run()
+    test_commit_run_refuses_when_the_selected_list_cannot_be_read()
     test_every_exit_5_has_a_decision_about_sealed_receipts()
     test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
     test_preseal_decision_gate_fails_closed()

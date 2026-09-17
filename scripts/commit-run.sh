@@ -20,7 +20,8 @@
 # that is deterministic for those bytes therefore never clears. Give it a pre-seal twin in
 # ui/server/src/launcher.ts that asks the same script (validate_data_catalogue.py --paths and
 # decision_publication_gate.py --records are the pattern), and record the decision in EXIT_5_SITES in
-# scripts/test_commit_run.py, which fails until you do.
+# scripts/test_commit_run.py. That test fails on an unrecorded literal `exit 5` / `SystemExit(5)`, and on
+# any computed exit status (`exit "$RC"`, `exit $?`) it has not been told about, so spell a refusal plainly.
 set -u
 
 RETRY_SHA=""
@@ -411,7 +412,13 @@ while IFS= read -r -d '' STAGED_PATH; do
     echo "commit-run: data-needs prewrite rejected staged publication: $STAGED_PATH — nothing was committed or pushed" >&2
     exit 5
   fi
-done <"$PREWRITE_TMP/selected-paths"
+done <"$PREWRITE_TMP/selected-paths" || {
+  # Only a failed redirect lands here (the loop body ends in an `if`, status 0). Without this, bash reports
+  # the error, skips the loop, and carries on to commit a record nobody judged.
+  unstage_own_paths "$@"
+  echo "commit-run: cannot read selected decision publications — nothing was committed or pushed" >&2
+  exit 5
+}
 
 # The index was empty before this invocation and now contains only this run's staged snapshot. Commit
 # that snapshot directly: passing pathspecs to `git commit` would read mutable worktree bytes again and
