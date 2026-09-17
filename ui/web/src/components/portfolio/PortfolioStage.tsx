@@ -408,7 +408,11 @@ function positionMarks(book: PortfolioBook, live: PortfolioLiveMark | null) {
   const live_ = live && !live.unavailable && live.bookAsOf === book.asOf
     && live.asOf !== null && statementDay !== null && live.asOf > statementDay
     ? live : null
-  const index = livePriceIndex(live_, book.positions)
+  // `statementDay` again here, not only in the aggregate gate above: `live_.asOf` is the LATEST date
+  // across every row, so a cross-market response can pass the aggregate check on one fresh row while
+  // another cached or prior-close row is not actually newer than the statement. livePriceIndex rejects
+  // each row on its own date before either can be looked up.
+  const index = livePriceIndex(live_, book.positions, statementDay)
   const marks = new Map<PortfolioPosition, MarkedPosition>()
   for (const p of book.positions) marks.set(p, markPosition(p, index, live_?.nav ?? null))
   const liveMarks = [...marks.values()].filter((m) => m.live)
@@ -457,10 +461,18 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   // BIGGEST FIRST. The statement's own order is the order the account happened to acquire things, which
   // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
   // list. Sorted by what it is worth, the top of the table is always the part worth reading.
-  // WHAT A POSITION IS WORTH NOW, live where the feed reached it (see positionMarks). Exposure asks where
-  // the risk is TODAY, so a holding that has fallen a tenth since the statement must weigh a tenth less here
-  // — the same figure the table shows, so the two can never disagree about the same holding.
-  const valueNow = (p: PortfolioPosition) => baseValue(marks.of(p).value, p)
+  // The HOLDINGS SNAPSHOT must be current before a live price can move the EXPOSURE totals — see the note
+  // by `holdingsCurrent` below. Computed here, ahead of `valueNow`, because a stale snapshot means a
+  // position the feed still quotes might already be gone from the book; the row can still show that
+  // quote (informational — this ticker, if still held, is worth this now), but Invested/Cash/the sort
+  // order must not move on a holding the current snapshot cannot vouch for.
+  const holdingsCurrent = book.positionsAsOf == null || book.positionsAsOf === book.asOf
+  // WHAT A POSITION IS WORTH NOW, live where the feed reached it (see positionMarks) AND the snapshot is
+  // current — otherwise the statement's own value, same as the row falls back to when it is not live.
+  // Exposure asks where the risk is TODAY, so a holding that has fallen a tenth since the statement must
+  // weigh a tenth less here — the same figure the table shows, so the two can never disagree about the
+  // same holding, and never claim a "priced at the market" total while quoting a stale snapshot's shares.
+  const valueNow = (p: PortfolioPosition) => baseValue(holdingsCurrent ? marks.of(p).value : p.positionValue, p)
   const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
     Math.abs(valueNow(b) ?? 0) - Math.abs(valueNow(a) ?? 0)
   const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
@@ -506,11 +518,9 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   // keeps NAV = invested + parked + cash true on whichever basis is on screen — and the residual works out
   // to the statement's own broker cash, since the estimate cannot see cash move (portfolio-live.ts).
   //
-  // The HOLDINGS SNAPSHOT must be current too, not only the live quotes. When the newest export carries
-  // NAV or trades but no OpenPositions, `positionsAsOf` is deliberately older than `asOf` (buildBook) — a
-  // position sold since that snapshot could still be quoted here and counted as current exposure, with
-  // the difference silently absorbed into cash. One quote succeeding is not enough on a stale snapshot.
-  const holdingsCurrent = book.positionsAsOf == null || book.positionsAsOf === book.asOf
+  // `holdingsCurrent` (computed above, ahead of `valueNow`) already keeps `invested`/`parkedValue` off the
+  // live basis on a stale snapshot; this reuses the same flag so the NAV denominator and the aggregate
+  // label agree with the numbers that built them.
   const liveForBasis = marks.livePriced > 0 && holdingsCurrent ? marks.live : null
   const navNow = liveForBasis ? liveForBasis.nav : nav
   const pricedWords = liveForBasis
@@ -1162,7 +1172,7 @@ function unrealisedPct(p: PortfolioPosition, unrealised: number | null): number 
 
 // ---------- performance ----------
 
-function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
+export function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
   const { risk, benchmark: bm } = perf
   const ratio = (v: number | null) => (risk.sufficient && v !== null ? v.toFixed(2) : '—')
   const inception = perf.periods.find((p) => p.label === 'Since inception') ?? null
@@ -1240,7 +1250,12 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
         <div className="fundbook__panelhead">
           <div>
             <strong>Return by period</strong>
-            <small>Cash hurdle {cashRatePct.toFixed(2)}%{rateHasMoved ? ` (window average — ${perf.riskFreeAnnualPct}% now)` : ''} · ratios from {risk.sampleDays} funded days</small>
+            {/* This heading names the SINCE-INCEPTION rate only — the same one the ratios above and the
+                Since inception row below are charged. Each shorter row (MTD, QTD, YTD) is charged the
+                average over its OWN window (returnsByPeriod, per-row `rateOver`), which a book that spans
+                a rate cycle can differ from materially; its own "Cash" column cell is that row's real
+                figure, never this heading's. */}
+            <small>Since-inception cash hurdle {cashRatePct.toFixed(2)}%{rateHasMoved ? ` (window average — ${perf.riskFreeAnnualPct}% now)` : ''} — the rows below are each charged their own window's rate · ratios from {risk.sampleDays} funded days</small>
           </div>
         </div>
         <div className="fundbook__scroll">

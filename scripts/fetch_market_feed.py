@@ -114,6 +114,13 @@ def parse(raw: bytes, series: Series = SP500) -> list[tuple[str, float]]:
     header = [c.strip().lower() for c in rows[0]]
     if len(header) < 2 or not header[0].startswith("observation_date"):
         raise RuntimeError(f"unexpected FRED header: {rows[0]!r}")
+    # THE COLUMN MUST BE THE SERIES ASKED FOR, not merely a well-formed FRED CSV. `parse` is now shared by
+    # both series (SP500 and DTB3): a cached, misrouted, or otherwise wrong response — e.g. a stale
+    # `observation_date,SP500` body served back for a DTB3 request — would otherwise be accepted, and
+    # index LEVELS (~7,000) would be written under the DTB3 filename and provenance as if they were a
+    # PERCENT rate, corrupting every Sharpe/Sortino/hurdle the TypeScript reader charges against them.
+    if header[1] != series.symbol.lower():
+        raise RuntimeError(f"expected the {series.symbol} column, got {rows[0]!r}")
     out: list[tuple[str, float]] = []
     for row in rows[1:]:
         if len(row) < 2:

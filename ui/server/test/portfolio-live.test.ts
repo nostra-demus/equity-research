@@ -176,6 +176,30 @@ await check('a symbol held more than once is carried on the statement, not summe
   assert.ok(m.cash !== null && Math.abs(m.cash - (100_000 - 7_000)) < 0.01, `cash is the statement residual (got ${m.cash})`)
 })
 
+// ---- a quote with no STATEMENT value to net out of cash is left unpriced, never double-counted ----
+
+await check('a holding with no statement value is folded into cash, never priced off a bare quote', async () => {
+  // GOOD has a real statement value; BAD's `positionValue` is null (a Flex extraction gap) even though
+  // the feed can still quote its symbol. Pricing BAD anyway would add its live `value` to `holdingsValue`
+  // while `statementValue` still adds zero for it (nothing to subtract from cash for a row with no
+  // statement value) — the exact double-count this test exists to catch.
+  const good = pos({ symbol: 'GOOD', markPrice: 50, positionValue: 5000, costBasisMoney: 4000, quantity: 100, fxRateToBase: 1 })
+  const bad = pos({ symbol: 'BAD', markPrice: null, positionValue: null, costBasisMoney: null, quantity: 100, fxRateToBase: 1 })
+  const fetchFn = stubFetch(() => cnbcBody([
+    { symbol: 'GOOD', name: 'Good Co', last: '55.00', last_time: '2026-07-22', currencyCode: 'USD', exchange: 'NYSE', curmktstatus: 'POST_MKT', realTime: 'true' },
+    { symbol: 'BAD', name: 'Bad Co', last: '200.00', last_time: '2026-07-22', currencyCode: 'USD', exchange: 'NYSE', curmktstatus: 'POST_MKT', realTime: 'true' },
+  ]))
+  const m = await liveMark(bookOf([good, bad]), baseDeps(fetchFn))
+  assert.deepEqual(m.priced.map((r) => r.symbol), ['GOOD'], 'BAD is never priced — there is no statement value to reconcile it against')
+  assert.equal(m.unpriced.includes('BAD'), true, 'named, not silently dropped')
+  // statementValue = 5,000 (GOOD only; BAD contributes 0 on both sides). cash = 100,000 − 5,000 = 95,000.
+  // holdingsValue = 5,500 (GOOD's live value). nav = 95,000 + 5,500 = 100,500.
+  // Pre-fix, BAD would have priced at 200 × 100 × 1 = 20,000 with nothing subtracted from cash for it,
+  // inflating nav to 120,500 — a $20,000 value invented from a quote with no statement basis behind it.
+  assert.ok(m.cash !== null && Math.abs(m.cash - 95_000) < 0.01, `cash must be the 95,000 statement residual, got ${m.cash}`)
+  assert.ok(m.nav !== null && Math.abs(m.nav - 100_500) < 0.01, `nav must not include BAD's invented value, got ${m.nav}`)
+})
+
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

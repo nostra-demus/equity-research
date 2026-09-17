@@ -149,15 +149,21 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
     // figures use, so the estimate moves with the PRICE only — which is what it claims to measure. A
     // holding with no rate is left out and named, never added at one-for-one.
     const rate = p.fxRateToBase
-    if (price === null || !Number.isFinite(price) || rate === null) {
+    // A holding with no STATEMENT value has no figure in `statementValue` to net out of cash below
+    // (`cash = nav - statementValue`): pricing it anyway would add a live `value` to `holdingsValue`
+    // while `statementValue` still adds zero for the same row, so its statement-era contribution to NAV
+    // stays uncounted in cash AND its live value is now also counted in holdings — double-counted, even
+    // though the price has not moved. Left unpriced (folded into cash below, same as a derivative's) is
+    // the answer that does not invent a value nothing here can vouch for.
+    if (price === null || !Number.isFinite(price) || rate === null
+      || p.positionValue === null || !Number.isFinite(p.positionValue)) {
       unpriced.push(p.symbol!)
       continue
     }
-    // SCALED FROM THE STATEMENT'S OWN VALUE where it has one, not re-derived. A bond or bill is quoted as a
+    // SCALED FROM THE STATEMENT'S OWN VALUE, not re-derived. A bond or bill is quoted as a
     // percentage of par, so quantity × price overstates it about a hundredfold — the same reason the blotter
     // refuses that formula for PAR_PRICED rows — and scaling preserves whatever basis the broker used while
-    // moving only what moved. Without a stated value or mark there is nothing to scale, and the ordinary
-    // formula stands.
+    // moving only what moved.
     //
     // ALIGNED TO ONE UNIT before it is used as the scale's denominator. A London Stock Exchange holding is
     // imported with its per-share price in PENCE while its own position value is in POUNDS — both under one
@@ -167,7 +173,10 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
     const alignedStmt = stmt !== null
       ? stmt / statementMinorUnitDivisor(p.assetCategory, p.positionValue, stmt, p.quantity, p.multiplier)
       : null
-    const value = p.positionValue !== null && alignedStmt !== null && alignedStmt > 0
+    // Without a mark to align against, there is nothing to scale FROM — the statement value is still
+    // known (checked above), so the ordinary per-share formula stands rather than leaving a priceable
+    // holding unpriced over a missing mark alone.
+    const value = alignedStmt !== null && alignedStmt > 0
       ? p.positionValue * (price / alignedStmt) * rate
       : price * p.quantity! * rate * (p.multiplier || 1)
     const rowAsOfRaw = q?.quote?.as_of ?? null

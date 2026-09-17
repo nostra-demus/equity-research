@@ -99,6 +99,31 @@ def test_non_finite_rates_are_dropped_not_accepted_as_zero() -> None:
     assert M.parse(raw2, M.DTB3) == [("2026-09-14", 4.10)], M.parse(raw2, M.DTB3)
 
 
+def test_a_misrouted_response_is_refused_not_written_under_the_wrong_series() -> None:
+    # `parse` is shared by both series. A cached, misrouted, or stale response carrying the OTHER series'
+    # column — e.g. an `observation_date,SP500` body served back for a DTB3 request — must be refused
+    # outright, not accepted and written under the wrong filename and provenance: index LEVELS (~7,000)
+    # treated as a PERCENT rate would corrupt every Sharpe/Sortino/hurdle computed from it.
+    sp500_body = b"observation_date,SP500\n2026-09-14,7674.37\n2026-09-15,7652.86\n"
+    try:
+        M.parse(sp500_body, M.DTB3)
+    except RuntimeError as exc:
+        assert "DTB3" in str(exc), exc
+    else:
+        raise AssertionError("an SP500 body answering a DTB3 request must be refused, not accepted")
+    # And the reverse: a DTB3 body must not be accepted as SP500.
+    dtb3_body = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,4.11\n"
+    try:
+        M.parse(dtb3_body, M.SP500)
+    except RuntimeError as exc:
+        assert "SP500" in str(exc), exc
+    else:
+        raise AssertionError("a DTB3 body answering an SP500 request must be refused, not accepted")
+    # The matching column for the series actually asked for still parses normally.
+    assert M.parse(sp500_body, M.SP500) == [("2026-09-14", 7674.37), ("2026-09-15", 7652.86)]
+    assert M.parse(dtb3_body, M.DTB3) == [("2026-09-14", 4.10), ("2026-09-15", 4.11)]
+
+
 def test_the_rate_series_writes_its_own_file_and_its_own_rights() -> None:
     # Same lane, same shape, different rights: Treasury data is public domain where the index is not, and a
     # sidecar that claimed the index's terms for it — or the reverse — would be wrong about both.
@@ -323,6 +348,7 @@ def main() -> int:
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
     check("a rate keeps its zeroes while an index drops them", test_a_rate_keeps_its_zeroes_while_an_index_drops_them)
     check("non-finite rates (nan/inf) are dropped, not accepted as a real observation", test_non_finite_rates_are_dropped_not_accepted_as_zero)
+    check("a misrouted response answering the wrong series is refused, not written under the wrong name", test_a_misrouted_response_is_refused_not_written_under_the_wrong_series)
     check("the rate series writes its own file and its own rights", test_the_rate_series_writes_its_own_file_and_its_own_rights)
     check("both series are fetched, and one failing does not cost the other",
           test_both_series_are_fetched_and_one_failure_does_not_cost_the_other)

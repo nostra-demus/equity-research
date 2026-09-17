@@ -221,11 +221,25 @@ export function riskFreeNow(
   series: { rows: Close[]; provider: string | null } = readRateSeries(RISK_FREE_SERIES),
   /** The day the book is measured to, so an observation can be called old against something real. */
   asOfBook: string | null = null,
+  /** Real wall-clock today (injectable for tests), never the book's own date — a feed date genuinely
+   *  AHEAD of a stale statement is the whole reason this function exists (the feed refreshes daily; the
+   *  book only advances on import) and must stay usable. A row dated after TODAY cannot be a real
+   *  observation at all — an operator-dropped CSV with a mistyped year is the failure this guards, and
+   *  bounding by the book's own (possibly stale) date would have refused the legitimate ahead-of-book case
+   *  along with it. */
+  today: string = new Date().toISOString().slice(0, 10),
 ): { pct: number; asOf: string; source: string; fromFeed: boolean } {
-  const rows = series.rows
+  // Rows the CSV reader already proved are real ISO dates (market-feed.ts) — a string compare on that
+  // fixed YYYY-MM-DD shape sorts identically to a date compare, with no parsing needed here.
+  const rows = series.rows.filter((r) => r.date <= today)
   const last = rows.length ? rows[rows.length - 1]! : null
   if (!last || !Number.isFinite(last.close)) {
-    return { ...RISK_FREE, fromFeed: false, source: `${RISK_FREE.source} — no feed loaded, so this rate is the one last written into the engine` }
+    // Named separately from "no feed at all": a feed WITH rows, every one of them dated after today, is a
+    // malformed/mistyped observation, not an absent series — the reader should not be told nothing loaded.
+    const reason = series.rows.length > 0
+      ? 'every observation the feed carries is dated after today, so none of them can be used'
+      : 'no feed loaded, so this rate is the one last written into the engine'
+    return { ...RISK_FREE, fromFeed: false, source: `${RISK_FREE.source} — ${reason}` }
   }
   // WHICHEVER PROVIDER ANSWERED, named. The reader picks the widest series it can find, which need not be
   // the one usually expected, and publishing an operator-dropped number under FRED's name would be a

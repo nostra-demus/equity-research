@@ -36,8 +36,16 @@ export interface MarkedPosition {
  * ticker, so it cannot say which line a price belongs to. Such a symbol is dropped rather than guessed —
  * both its positions then stay on the statement, which is the honest answer rather than a price on the
  * wrong line.
+ *
+ * `statementDay`, when given, rejects each row on its OWN quote date, not the mark's aggregate `asOf` —
+ * a cross-market response can hold one row newer than the statement and another cached or prior-close row
+ * that is not, and the newer row alone can make the caller's aggregate `live.asOf > statementDay` check
+ * pass. Filtering here, before either row is looked up, is what stops the older row from overwriting an
+ * already-current statement mark once the aggregate gate has already let the mark through.
  */
-export function livePriceIndex(live: PortfolioLiveMark | null, positions: PortfolioPosition[]): Map<string, PortfolioLiveRow> {
+export function livePriceIndex(
+  live: PortfolioLiveMark | null, positions: PortfolioPosition[], statementDay: string | null = null,
+): Map<string, PortfolioLiveRow> {
   const out = new Map<string, PortfolioLiveRow>()
   if (!live || live.unavailable || !live.priced) return out
   const seen = new Map<string, number>()
@@ -57,6 +65,10 @@ export function livePriceIndex(live: PortfolioLiveMark | null, positions: Portfo
     // or already-excluded symbol); more than one means it is genuinely ambiguous which line the quote
     // belongs to — both stay on the statement rather than guessing.
     if (!key || seen.get(key) !== 1) continue
+    // THIS row's own date against the statement it would reprice — never the mark's aggregate, which is
+    // only the latest date across every row and so can pass while an individual row is not actually
+    // newer. A row with no date of its own cannot be proven newer, so it is refused the same way.
+    if (statementDay !== null && (row.asOf === null || row.asOf <= statementDay)) continue
     out.set(key, row)
   }
   return out

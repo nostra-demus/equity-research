@@ -285,6 +285,25 @@ check('a rate that stopped arriving is still used, and the source says how far b
   assert.match(rf.source, /not refreshed since, 46 days before the book/)
 })
 
+check('a future-dated row (an operator typo) is excluded — the latest USABLE rate wins, not the latest row', () => {
+  // A mistyped year (2026-09-20 instead of, say, 2025) sorts last but has not happened yet as of the
+  // injected "today" of 2026-09-16. Before the fix this became "the rate now" and the fallback every
+  // historical window with no coverage of its own would be charged.
+  const rf = store.riskFreeNow(
+    { rows: [{ date: '2026-09-14', close: 4.05 }, { date: '2026-09-20', close: 9.99 }], provider: 'fred' },
+    '2026-09-14', '2026-09-16',
+  )
+  assert.equal(rf.pct, 4.05, 'the future row must never be selected as the current rate')
+  assert.equal(rf.asOf, '2026-09-14')
+})
+
+check('a feed whose every observation is future-dated falls back to the constant, and says why', () => {
+  const rf = store.riskFreeNow({ rows: [{ date: '2026-09-20', close: 9.99 }], provider: 'fred' }, '2026-09-14', '2026-09-16')
+  assert.equal(rf.pct, store.RISK_FREE.pct)
+  assert.equal(rf.fromFeed, false)
+  assert.match(rf.source, /dated after today/, 'named separately from "no feed loaded" — the feed IS present, just unusable')
+})
+
 check('a rate published from another provider is not attributed to FRED', () => {
   // readRates picks the widest series it can find, which need not be the one usually expected; naming FRED
   // over an operator-dropped file would cite a source the number did not come from (§5).

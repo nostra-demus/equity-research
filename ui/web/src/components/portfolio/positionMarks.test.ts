@@ -153,6 +153,33 @@ check('a pence statement mark is scaled to pounds before it is compared with the
   assert.ok(near(m.value!, 1250 * (12.75 / 12.50), 0.02), `expected ~1,275, got ${m.value}`)
 })
 
+// ---- each row is rejected on ITS OWN quote date, not the mark's aggregate (latest-across-all) asOf ----
+
+check('a per-row quote no newer than the statement is refused even when another row makes the aggregate pass', () => {
+  // A cross-market response: NHYDY's own quote is genuinely newer than the statement, so the mark's
+  // aggregate `asOf` (the latest across every row) is 2026-09-16 — newer than the 2026-09-09 statement,
+  // which is what the caller's own `live_` gate checks. But GOOG's row is a cached/prior-close quote
+  // dated the SAME day as the statement: on its own it would fail the aggregate check, and it must not
+  // be smuggled through just because a sibling row happens to be fresher.
+  const goog = pos({ symbol: 'GOOG' })
+  const nhydy = pos({ symbol: 'NHYDY' })
+  const rows = [
+    priced({ symbol: 'GOOG', asOf: '2026-09-09' }),
+    priced({ symbol: 'NHYDY', asOf: '2026-09-16' }),
+  ]
+  const index = livePriceIndex(mark(rows), [goog, nhydy], '2026-09-09')
+  assert.equal(index.has('GOOG'), false, 'GOOG’s own quote is no newer than the statement it would reprice')
+  assert.equal(index.has('NHYDY'), true, 'NHYDY’s own quote genuinely is newer')
+  assert.equal(markPosition(goog, index, 100_000).live, false)
+  assert.equal(markPosition(nhydy, index, 100_000).live, true)
+})
+
+check('a row with no quote date of its own cannot be proven newer than the statement, and is refused', () => {
+  const p = pos({ symbol: 'GOOG' })
+  const index = livePriceIndex(mark([priced({ symbol: 'GOOG', asOf: null })]), [p], '2026-09-09')
+  assert.equal(index.has('GOOG'), false)
+})
+
 check('a genuine ~5x move between the statement and today is never mistaken for a pence/pounds mismatch', () => {
   const p = pos({ symbol: 'MOON', markPrice: 10, positionValue: 1000, quantity: 100 })
   const m = markPosition(p, livePriceIndex(mark([priced({ symbol: 'MOON', statementPrice: 10, price: 48 })]), [p]), 100_000)

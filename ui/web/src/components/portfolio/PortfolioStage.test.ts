@@ -6,9 +6,10 @@ import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type {
-  PortfolioBook, PortfolioClosure, PortfolioExecution, PortfolioLiveMark, PortfolioManualRead, PortfolioPosition,
+  PortfolioBook, PortfolioClosure, PortfolioExecution, PortfolioLiveMark, PortfolioManualRead,
+  PortfolioPerformance, PortfolioPeriodReturn, PortfolioPosition,
 } from '../../lib/types'
-import { Holdings, Trades } from './PortfolioStage'
+import { Holdings, Performance, Trades } from './PortfolioStage'
 
 // One FIFO lot, closed, in the shape the engine sends.
 const closure = (o: Partial<PortfolioClosure>): PortfolioClosure => ({
@@ -258,6 +259,39 @@ check('a stale HOLDINGS snapshot never lets one live quote pass off as current p
   const invested = piece(html, 'fundbook__card"', 'fundbook__cardlabel">Invested<')
   assert.match(invested, /as the statement of 2026-09-09 states them/, 'no "priced at the market" aggregate on a stale holdings snapshot')
   assert.doesNotMatch(invested, /priced at the market/)
+  // The LABEL saying "statement" is not enough on its own — the DOLLAR figure behind it must be the
+  // statement's too. GOOG's live quote (900) is genuinely newer than the stale positions snapshot, so
+  // the row itself may show it, but a position that might already be gone from the book must not still
+  // move the Invested total: $1,000 (the statement value), never $900 (the live-priced value).
+  assert.match(invested, />\$1,000</, 'Invested must total the statement value on a stale holdings snapshot, not the live one')
+})
+
+// ---- the "Return by period" heading names the window it actually describes ----
+
+const periodReturn = (o: Partial<PortfolioPeriodReturn> & { label: string }): PortfolioPeriodReturn => ({
+  from: '2026-01-01', to: '2026-09-01', twr: 5, days: 200, hurdle: 3, overHurdle: 2,
+  benchmark: 4, excess: 1, partial: false, ...o,
+})
+const perf = (o: Partial<PortfolioPerformance> = {}): PortfolioPerformance => ({
+  periods: [periodReturn({ label: 'Since inception' })],
+  months: [], betaAlpha: { beta: null, alpha: null, pairedDays: 0 },
+  growth: [], benchmarkForward: [], moneyWeightedAnnualisedPct: null,
+  risk: { sampleDays: 180, sufficient: true, volatility: 10, sharpe: 1, sortino: 1.2, calmar: null,
+    drawdown: { depth: null, peakDate: null, troughDate: null, recoveredDate: null, toTroughDays: null, underWaterDays: null, episodesOver3pct: 0 } },
+  benchmark: { symbol: 'SP500', benchmarkTwr: 4, excess: 1, from: '2026-01-01', to: '2026-09-01', unavailable: null },
+  riskFreeAnnualPct: 5.0, riskFreeAsOf: '2026-09-01', riskFreeSource: 'FRED DTB3',
+  riskFreeSinceInceptionPct: 3.0, benchmarkBasis: 'price index', feedPresent: true, ...o,
+})
+const performanceHtml = (p: PortfolioPerformance) => renderToStaticMarkup(createElement(Performance, { perf: p, cashShare: null }))
+
+check('the "Return by period" heading names the SINCE-INCEPTION rate, not every row below it', () => {
+  // riskFreeAnnualPct (5%, the latest observation) and riskFreeSinceInceptionPct (3%, this window's own
+  // average) differ materially — a book that spans a rate cycle. Each shorter row (MTD/QTD/YTD) below is
+  // charged its OWN window's average (returnsByPeriod), which need be neither of these two.
+  const html = performanceHtml(perf())
+  assert.match(html, /Since-inception cash hurdle 3\.00%/, 'the heading must name the rate as the since-inception one, not an unscoped "the" rate')
+  assert.match(html, /window average — 5% now/)
+  assert.match(html, /the rows below are each charged their own window/, 'must not let a reader attribute a short period’s hurdle to this heading’s figure')
 })
 
 console.log(`PortfolioStage: ${passed} passed`)

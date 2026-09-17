@@ -353,11 +353,6 @@ export function betaAlpha(
   benchmarkCloses: { date: string; close: number }[],
   riskFree: RiskFreeRate,
 ): BetaAlpha {
-  // Asked for the window these returns actually cover, so alpha is measured against the cash of its own
-  // period rather than of the day the page was opened.
-  const riskFreeAnnualPct = bookReturns.length
-    ? rateOver(riskFree, bookReturns[0]!.date, bookReturns[bookReturns.length - 1]!.date)
-    : rateOver(riskFree, '0000-01-01', '9999-12-31')
   const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
   const bmReturns = new Map<string, number>()
   for (let i = 1; i < sorted.length; i++) {
@@ -373,8 +368,14 @@ export function betaAlpha(
   }
   const pairs = bookReturns
     .filter((b) => bmReturns.has(b.date))
-    .map((b) => ({ rb: b.r, rm: bmReturns.get(b.date)! }))
+    .map((b) => ({ date: b.date, rb: b.r, rm: bmReturns.get(b.date)! }))
   if (pairs.length < MIN_RATIO_DAYS) return { beta: null, alpha: null, pairedDays: pairs.length }
+
+  // Asked for the window the REGRESSION actually covers — the paired dates — not the book's own full
+  // return series. A benchmark that starts later, or that has gaps `MAX_FEED_GAP_DAYS` filters out, can
+  // leave `pairs` materially narrower than `bookReturns`; charging alpha the cash of days the regression
+  // never used mixes a rate from one window into a result measured over a different, shorter one.
+  const riskFreeAnnualPct = rateOver(riskFree, pairs[0]!.date, pairs[pairs.length - 1]!.date)
 
   const mb = pairs.reduce((a, p) => a + p.rb, 0) / pairs.length
   const mm = pairs.reduce((a, p) => a + p.rm, 0) / pairs.length
