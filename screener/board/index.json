@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T08:01:42Z",
+  "generated_at": "2026-09-17T08:27:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-041",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-055",
+      "headline": "Wizz Air cuts capacity forecast as Iran war fuels industry's cost crunch",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/wizz-air-cuts-h2-capacity-forecast-5-as-iran-war-drives-fuel-costs-sets-10b-revenue-target-by-2030/5735",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T07:24:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Wizz Air cut its capacity forecast citing geopolitical conflict and cost pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wizz Air cut its capacity forecast citing geopolitical conflict and cost pressures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wizz Air",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291,6 +340,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-053",
+      "headline": "EVERG VEHICLE (00708): ANNOUNCEMENT OF ANNUAL RESULTS FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700045.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-16T22:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Evergrande Vehicle reported annual results, reflecting ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Evergrande Vehicle reported annual results, reflecting ongoing financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evergrande Vehicle",
+          "ticker": "00708",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -853,6 +951,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-058",
+      "headline": "11:11 | US Russia sanctions bill; Tata Sons board meet; NSE IPO opens",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/us-russia-sanctions-bill-tata-sons-board-meet-nse-ipo-opens-19992570.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T05:54:56Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Multiple significant events including US sanctions, Tata Sons board meeting, and NSE IPO opening.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Multiple significant events including US sanctions, Tata Sons board meeting, and NSE IPO opening.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "National Stock Exchange",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-047",
       "headline": "Next Nudges Up Guidance After Better-than-Expected Performance",
       "headline_en": null,
@@ -897,6 +1050,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-063",
+      "headline": "India warns new US tariffs over Russian oil could impact ties",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/9/17/india-warns-new-us-tariffs-over-russian-oil-could-impact-ties?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-17T07:32:49Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "India warned that new US tariffs over Russian oil could impact ties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "India warned that new US tariffs over Russian oil could impact ties.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -985,6 +1181,135 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-056",
+      "headline": "India warns US tariffs over Russian oil could hit ties, vows to protect energy security",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/india-warns-us-100-tariffs-over-russian-oil-could-strain-ties-pledges-to-protect-energy-security/5736",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T07:26:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "India warned that US sanctions on Russian oil could impact bilateral trade and energy security.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "India warned that US sanctions on Russian oil could impact bilateral trade and energy security.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-064",
+      "headline": "'Firmly Committed To Energy Security': India Vows To Protect Trade Interests After US House Passes Russia Sanctions Bill",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/firmly-committed-to-energy-security-india-vows-to-protect-trade-interests-after-us-house-passes-russia-sanctions-bill",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T05:40:21Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "India vows to protect trade interests after US House passes Russia sanctions bill.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "India vows to protect trade interests after US House passes Russia sanctions bill.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-062",
+      "headline": "India Warns US Oil Sanctions Bill Could Hurt Bilateral Ties",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-17/india-warns-us-oil-sanctions-bill-could-hurt-bilateral-ties",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T05:32:14Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "India warned that US oil sanctions bill could hurt bilateral ties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "India warned that US oil sanctions bill could hurt bilateral ties.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1097,6 +1422,114 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-057",
+      "headline": "Adidas cuts jobs at tech hub in Gurugram to align operating model",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/adidas-cuts-jobs-at-tech-hub-in-gurugram-to-align-operating-model/article71475330.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T05:45:58Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Adidas is cutting jobs at its tech hub in Gurugram to align its operating model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Adidas is cutting jobs at its tech hub in Gurugram to align its operating model.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adidas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-059",
+      "headline": "Daiwa House to Acquire a Significant Minority Stake in Miller Homes from Apollo Funds",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/17/3363702/0/en/daiwa-house-to-acquire-a-significant-minority-stake-in-miller-homes-from-apollo-funds.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T07:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Daiwa House is acquiring a significant minority stake in Miller Homes from Apollo Funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Daiwa House is acquiring a significant minority stake in Miller Homes from Apollo Funds.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daiwa House",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Miller Homes",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Apollo Funds",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-020",
       "headline": "Tata Chemicals Limited: Significant increase in volume has been observed in Tata Chemicals Limited. The Exchange, in order to ensure that investors have latest relevant information about the company and to inform the market place so that the interest of the investors is safeguarded, had written to the company. Tata Chemicals Limited has submitted their response.",
       "headline_en": null,
@@ -1141,6 +1574,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-060",
+      "headline": "BitMEX faces Celsius lawsuit ahead of exchange closure",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/celsius-estate-bitmex-6360-btc-liquidation-lawsuit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T05:55:18Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "BitMEX faces a lawsuit from Celsius ahead of its planned closure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "BitMEX faces a lawsuit from Celsius ahead of its planned closure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BitMEX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1485,473 +1967,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-026",
-      "headline": "ZGC TEC LEASING (01601): DISCLOSEABLE TRANSACTION FINANCE LEASE TRANSACTIONS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601423.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "ZGC Tec Leasing entered into discloseable finance lease transactions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "ZGC Tec Leasing entered into discloseable finance lease transactions.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZGC TEC LEASING",
-          "ticker": "01601",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-032",
-      "headline": "US Sanctions Act puts India at risk of tariffs of up to 100%: GTRI",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/us-sanctions-act-puts-india-at-risk-of-tariffs-of-up-to-100-gtri/article71475322.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T05:00:16Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Think tank GTRI analysis of potential US tariffs up to 100% on India; real sector-level risk but sourced from non-official analysis, not confirmed law.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Think tank GTRI analysis of potential US tariffs up to 100% on India; real sector-level risk but sourced from non-official analysis, not confirmed law.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-002",
-      "headline": "Charter Communications (CHTR): Cox Merger and Wireless Growth Signal Stronger Future Ahead",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/charter-communications-chtr-cox-merger-134918958.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T13:49:18Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Speculative commentary on potential merger and growth prospects for Charter Communications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Speculative commentary on potential merger and growth prospects for Charter Communications.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Charter Communications",
-          "ticker": "CHTR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-016",
-      "headline": "SEC Proposes Rescission of Shareholder Proposal Rule and Reforms to Proxy Solicitation Process",
-      "headline_en": null,
-      "url": "https://www.sec.gov/newsroom/press-releases/2026-89-sec-proposes-rescission-shareholder-proposal-rule-reforms-proxy-solicitation-process",
-      "source_name": "U.S. Securities & Exchange Commission (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-16T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The SEC is proposing changes to proxy solicitation rules, which is a broad regulatory update rather than a company-specific event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "The SEC is proposing changes to proxy solicitation rules, which is a broad regulatory update rather than a company-specific event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-012",
-      "headline": "Enhanced Surveillance Measure (ESM)",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260916-40/20260916-40.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:47:19Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Routine exchange notice regarding surveillance measures for market integrity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Routine exchange notice regarding surveillance measures for market integrity.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-013",
-      "headline": "Applicability of Long Term Additional Surveillance Measure (LT-ASM)",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260916-39/20260916-39.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:47:15Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Routine exchange notice regarding long-term surveillance measures for market integrity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Routine exchange notice regarding long-term surveillance measures for market integrity.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-017",
-      "headline": "Yes Bank Limited: YES Bank Limited has informed the Exchange regarding Appointment of Mr Harish Sehgal as Interim Chief Vigilance Officer of the Bank w.e.f. September 16, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/YESBANK_16092026194241_YBL_SE_Intimation_Interim_CVO_Appointment_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T14:13:02Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Appointment of an interim Chief Vigilance Officer is a routine management change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Appointment of an interim Chief Vigilance Officer is a routine management change.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-042",
-      "headline": "Exosens raises full-year 2026 guidance, driven by faster-than-expected capacity ramp-up and strong commercial momentum",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/17/3363676/0/en/exosens-raises-full-year-2026-guidance-driven-by-faster-than-expected-capacity-ramp-up-and-strong-commercial-momentum.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-17T05:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Company raises full-year 2026 guidance driven by faster-than-expected capacity ramp-up and strong commercial momentum, shifting revenue and margin expectations upward.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Company raises full-year 2026 guidance driven by faster-than-expected capacity ramp-up and strong commercial momentum, shifting revenue and margin expectations upward.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Exosens",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-018",
-      "headline": "Bajaj Hindusthan Sugar Limited: Bajaj Hindusthan Sugar Limited has informed the Exchange about change in Management i.e. Appointment of Mrs. Priyanaka Baya (DIN: 05249229) as Woman Independent Director of the Company and Cessation of Ms. Shalu Bhandari (DIN: 00012556) as Woman Independent Director due to completion of two consecutive terms of 5 years.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BAJAJNEAPS1_16092026193240_SE_Intimation_Change_in_Director_16092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T14:03:05Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Routine board composition change involving an Independent Director.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine board composition change involving an Independent Director.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Hindusthan Sugar Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-011",
-      "headline": "Navi Mumbai: 6 Counterfeit ₹500 Notes Detected In HDFC Bank Cash Deposit Machine, Police Probe Underway",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/navi-mumbai-6-counterfeit-500-notes-detected-in-hdfc-bank-cash-deposit-machine-police-probe-underway",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T13:17:42Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Detection of counterfeit notes in a bank machine is an operational issue but immaterial to the bank's overall financial health.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Detection of counterfeit notes in a bank machine is an operational issue but immaterial to the bank's overall financial health.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167511,9 +167526,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 198287,
-    "news_picked_today": 51,
-    "news_dropped_today": 477
+    "news_seen_today": 326326,
+    "news_picked_today": 63,
+    "news_dropped_today": 489
   },
   "book_momentum": {
     "live_count": 8,
