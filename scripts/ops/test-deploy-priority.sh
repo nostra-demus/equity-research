@@ -75,3 +75,54 @@ assert precheck < shared < postcheck < release
 
 print('test-deploy-priority.sh: only an exact green push drains readers and receives writer priority')
 PY
+
+# The self-update loop's actual behaviour, not just its membership list: extract it verbatim (so this
+# tracks the shipped code) and run it against a bootstrap scenario where $changed is EMPTY — exactly what
+# the CURRENTLY RUNNING (old-inode) deploy.sh process sees on the very first deploy of a commit that adds
+# a name to this list, since that process's own git-diff-derived $changed was computed before this loop
+# ever iterated the new name (PR #706 review, "Bootstrap newly enrolled ops wrappers during this
+# deployment"). Before the fix (gated on `case "$changed" in *scripts/ops/$opsscript*)`), an empty
+# $changed matches nothing and the installed copy is never touched. After the fix (gated on `cmp -s`
+# against the checked-out source), a differing installed copy is refreshed regardless of $changed.
+python3 -I - "$DEPLOY" <<'PY2'
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+
+deploy = Path(sys.argv[1]).read_text(encoding="utf-8")
+# "for opsscript in" alone also matches this PR's own prose comment describing the loop — anchor on the
+# actual code line (the literal script-name list) so this extracts the real loop, not a sentence about it.
+start = deploy.index("for opsscript in watchdog.sh")
+end = deploy.index("\n  done", start) + len("\n  done")
+loop = deploy[start:end]
+assert "market-feed-local.sh" in loop
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    prod, ops = root / "prod" / "scripts" / "ops", root / "ops"
+    prod.mkdir(parents=True)
+    ops.mkdir(parents=True)
+    (prod / "market-feed-local.sh").write_text("#!/usr/bin/env bash\necho NEW\n")
+    (ops / "market-feed-local.sh").write_text("#!/usr/bin/env bash\necho OLD\n")  # the stale installed copy
+    driver = f"""#!/usr/bin/env bash
+set -uo pipefail
+PROD="{root / 'prod'}"
+OPS="{ops}"
+changed=""
+failed=0
+log() {{ :; }}
+{loop}
+printf '%s' "$failed"
+"""
+    result = subprocess.run(["/bin/bash", "-c", driver], capture_output=True, text=True, timeout=15)
+    assert result.returncode == 0, result.stderr
+    installed = (ops / "market-feed-local.sh").read_text(encoding="utf-8")
+    assert "NEW" in installed, (
+        "the newly-enrolled wrapper's stale installed copy was never refreshed with an empty $changed "
+        f"(the exact bootstrap gap): {installed!r}"
+    )
+    assert result.stdout.strip() == "0", f"self-update must not report failed for a normal content sync: {result.stdout!r}"
+
+print('test-deploy-priority.sh: a wrapper newly enrolled in the self-update list heals on an empty $changed')
+PY2
