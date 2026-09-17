@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-17T14:46:54Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-41f871048ef0",
+    "idea_version": "IDEAV-ae646f7e42b2e218",
+    "idea_version_started_at": "2026-09-14T13:46:28Z",
+    "ticker": "ORCL",
+    "company": "Oracle",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "An additional $700 million in restructuring costs due to upscaled layoffs indicates deeper-than-expected operational challenges and potential pressure on near-term earnings.",
+    "why_now": "The news broke on 2026-09-14, and the market is currently digesting the impact of these increased costs on the bottom line.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-5a623ff7a90e"
+    ],
+    "primary_source_event_id": "EVT-5a623ff7a90e",
+    "source_headlines": [
+      "Oracle upscales layoffs, expected to increase restructuring costs by $700m"
+    ],
+    "source_headline": "Oracle upscales layoffs, expected to increase restructuring costs by $700m",
+    "source_url": "https://www.datacenterdynamics.com/en/news/oracle-upscales-layoffs-expected-to-increase-restructuring-costs-by-700m/",
+    "source_name": "DataCenterDynamics",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-14T13:32:47Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/ORCL_2026-08-14",
+      "latest_decision": "Watchlist",
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-09-12T05:48:12Z",
+    "updated_at": "2026-09-14T13:46:28Z",
+    "decay_at": "2026-09-16T01:32:47Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

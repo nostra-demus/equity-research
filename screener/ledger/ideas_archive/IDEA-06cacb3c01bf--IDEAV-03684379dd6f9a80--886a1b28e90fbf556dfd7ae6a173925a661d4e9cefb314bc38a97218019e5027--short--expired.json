@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-29T08:47:42Z",
+  "archived_at": "2026-09-17T14:46:54Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-5f1c0e265bed",
-    "idea_version": "IDEAV-e01ccb929650611e",
-    "idea_version_started_at": "2026-08-26T06:46:12Z",
-    "ticker": "01608",
-    "company": "VPOWER GROUP",
+    "idea_id": "IDEA-06cacb3c01bf",
+    "idea_version": "IDEAV-03684379dd6f9a80",
+    "idea_version_started_at": "2026-09-14T21:24:14Z",
+    "ticker": "02479",
+    "company": "TIANJUDIHE",
     "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Winding-up petitions signal potential liquidation, reducing cash flow.",
-    "why_now": "Update on winding-up petitions announced on 26 Aug 2026.",
-    "conviction": 55,
+    "reason": "The company has released key findings from an independent forensic investigation and internal control review, which are typically negative and can lead to accounting restatements or other financial impairments.",
+    "why_now": "The announcement of the investigation's findings is a fresh catalyst.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 14,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "price and market expectations",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "unknown",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-abc30e2ed39c"
+      "EVT-28ec5d52c90a"
     ],
-    "primary_source_event_id": "EVT-abc30e2ed39c",
+    "primary_source_event_id": "EVT-28ec5d52c90a",
     "source_headlines": [
-      "VPOWER GROUP (01608): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE WINDING-UP PETITIONS"
+      "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT"
     ],
-    "source_headline": "VPOWER GROUP (01608): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE WINDING-UP PETITIONS",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600243.pdf",
+    "source_headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
     "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 96,
-    "newest_source_at": "2026-08-26T04:14:00Z",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-14T14:45:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-26T06:46:12Z",
-    "updated_at": "2026-08-26T06:46:12Z",
-    "decay_at": "2026-08-27T16:14:00Z",
+    "surfaced_at": "2026-09-14T21:24:14Z",
+    "updated_at": "2026-09-14T21:24:14Z",
+    "decay_at": "2026-09-16T02:45:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
