@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T16:05:30Z",
+  "generated_at": "2026-09-17T16:09:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-387",
@@ -1080,6 +1080,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-388",
+      "headline": "India's Tata Trusts reveal SP Group's $2.6 billion Tata Sons stake sale plan amid feud",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-tata-trusts-reveal-sp-groups-26-billion-tata-sons-stake-sale-plan-amid-2026-09-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T15:57:42Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Tata Trusts disclosed a $2.6 billion stake sale plan by SP Group in Tata Sons, signaling a major liquidity event and ongoing shareholder conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Trusts disclosed a $2.6 billion stake sale plan by SP Group in Tata Sons, signaling a major liquidity event and ongoing shareholder conflict.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-384",
       "headline": "Allegro raises 2026 outlook as growth accelerates, shares hit five-year high",
       "headline_en": null,
@@ -1125,6 +1174,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-389",
+      "headline": "Historic liquor brand's saga adds forced Chapter 7 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/170-year-old-uncle-nearest-whiskey-saga-adds-forced-chapter-7-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T14:10:43Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A historic liquor brand has filed for Chapter 7 bankruptcy, indicating a total liquidation of assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A historic liquor brand has filed for Chapter 7 bankruptcy, indicating a total liquidation of assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1855,109 +1947,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-076",
-      "headline": "Berentzen shares soar after it confirms talks over potential takeover by Sazerac",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/berentzen-shares-soar-after-it-confirms-talks-over-potential-takeover-by-sazerac-2026-09-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:30:18Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Confirmation of takeover talks typically leads to a significant price move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Confirmation of takeover talks typically leads to a significant price move.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berentzen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-093",
-      "headline": "DNO Raises Capricorn Energy Offer To Approx $396 Mln In Revised Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dno-raises-capricorn-energy-offer-approx-396-mln-revised-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:26:11Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "DNO has increased its acquisition offer for Capricorn Energy to approximately $396 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DNO has increased its acquisition offer for Capricorn Energy to approximately $396 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DNO",
-          "ticker": null,
-          "listing_country": "NO"
-        },
-        {
-          "name": "Capricorn Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -163936,9 +163925,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1902724,
-    "news_picked_today": 596,
-    "news_dropped_today": 7492
+    "news_seen_today": 1949730,
+    "news_picked_today": 623,
+    "news_dropped_today": 7561
   },
   "book_momentum": {
     "live_count": 8,
