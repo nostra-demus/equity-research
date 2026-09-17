@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-27T11:49:42Z",
+  "archived_at": "2026-09-17T09:07:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8ebbe2edbfcb",
-    "idea_version": "IDEAV-fd3fed37ef7b0da3",
-    "idea_version_started_at": "2026-08-24T21:01:02Z",
-    "ticker": "01900",
-    "company": "CHINA ITS",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-37801473907d",
+    "idea_version": "IDEAV-5c217deaa8216cd2",
+    "idea_version_started_at": "2026-09-14T07:26:54Z",
+    "ticker": "CER",
+    "company": "Cerillion",
+    "exchange": "LSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance.",
-    "why_now": "The filing was released on 2026-08-24, making the negative outlook immediate news.",
-    "conviction": 75,
+    "reason": "Cerillion shares are tumbling after the company issued a warning on revenue due to slipping customer orders, directly impacting near-term top-line growth and operating margins.",
+    "why_now": "The revenue warning was just announced on September 14, 2026, triggering immediate downward revisions to financial forecasts.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 21,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-3a8f593bfac2"
+      "EVT-1aefa1f6075c"
     ],
-    "primary_source_event_id": "EVT-3a8f593bfac2",
+    "primary_source_event_id": "EVT-1aefa1f6075c",
     "source_headlines": [
-      "CHINA ITS (01900): PROFIT WARNING"
+      "Cerillion shares tumble after warning on revenue as customer orders slip"
     ],
-    "source_headline": "CHINA ITS (01900): PROFIT WARNING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Cerillion shares tumble after warning on revenue as customer orders slip",
+    "source_url": "https://ukinvestormagazine.co.uk/cerillion-shares-tumble-after-warning-on-revenue-as-customer-orders-slip/",
+    "source_name": "UK Investor Magazine",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-24T11:24:00Z",
+    "newest_source_at": "2026-09-14T07:13:07Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T21:01:02Z",
-    "updated_at": "2026-08-24T21:01:02Z",
-    "decay_at": "2026-08-25T23:24:00Z",
+    "surfaced_at": "2026-09-14T07:26:54Z",
+    "updated_at": "2026-09-14T07:26:54Z",
+    "decay_at": "2026-09-15T19:13:07Z",
     "status": "live",
     "promoted_signal_id": null
   }

@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-06f821eb0804",
-  "idea_version": "IDEAV-2ec06f01116ac547",
-  "idea_version_started_at": "2026-09-13T22:07:30Z",
-  "ticker": "ZAI",
-  "company": "Z.AI",
-  "exchange": null,
+  "idea_id": "IDEA-4fe90fc86d10",
+  "idea_version": "IDEAV-b03fcadc0ad33fe3",
+  "idea_version_started_at": "2026-09-17T09:06:55Z",
+  "ticker": "08140",
+  "company": "BOSATECH",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
-  "why_now": "The capital raise was reported on September 13, 2026.",
+  "reason": "The company issued a profit warning, indicating a deterioration in earnings performance.",
+  "why_now": "The profit warning was filed today, September 16, 2026.",
   "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 19,
+    "evidence": 25,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,8 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -45,31 +43,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-4c7461e1eb2a"
+    "EVT-e18491ebfa0d"
   ],
-  "primary_source_event_id": "EVT-4c7461e1eb2a",
+  "primary_source_event_id": "EVT-e18491ebfa0d",
   "source_headlines": [
-    "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
+    "BOSATECH (08140): PROFIT WARNING"
   ],
-  "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
-  "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
-  "source_name": "Reuters — Latest (news sitemap)",
+  "source_headline": "BOSATECH (08140): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0916/2026091601061.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-13T20:02:47Z",
+  "newest_source_at": "2026-09-16T10:54:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-13T22:07:30Z",
-  "updated_at": "2026-09-13T22:07:30Z",
-  "decay_at": "2026-09-15T08:02:47Z",
+  "surfaced_at": "2026-09-17T09:06:55Z",
+  "updated_at": "2026-09-17T09:06:55Z",
+  "decay_at": "2026-09-17T22:54:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
