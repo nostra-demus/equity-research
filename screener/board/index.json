@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T16:12:42Z",
+  "generated_at": "2026-09-17T16:22:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-387",
@@ -122423,6 +122423,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d7139893a187",
+      "idea_version": "IDEAV-71045569c67f5a6f",
+      "idea_version_started_at": "2026-09-17T16:21:54Z",
+      "ticker": "ACVA",
+      "company": "ACV Auctions Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Copart Inc. has filed a tender offer for ACV Auctions, which typically results in the target stock trading up toward the offer price.",
+      "why_now": "The SEC filing for the tender offer was made on 2026-09-17.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11899fb46dab",
+        "EVT-3c933bb0b0ee"
+      ],
+      "primary_source_event_id": "EVT-11899fb46dab",
+      "source_headlines": [
+        "SC TO-T - COPART INC (0000900075) (Filed by)",
+        "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)"
+      ],
+      "source_headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T12:36:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T16:21:54Z",
+      "updated_at": "2026-09-17T16:21:54Z",
+      "decay_at": "2026-09-19T00:36:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-163e0fa1bed7",
       "idea_version": "IDEAV-f9413c81707f9e13",
       "idea_version_started_at": "2026-09-17T11:22:21Z",
@@ -123122,31 +123193,33 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-19d921e177b0",
-      "idea_version": "IDEAV-bc9b60d7a1106ff2",
-      "idea_version_started_at": "2026-09-16T11:53:50Z",
-      "ticker": "TME",
-      "company": "Tencent Music",
-      "exchange": "NYSE",
-      "direction": "long",
+      "idea_id": "IDEA-01a3bdc0a127",
+      "idea_version": "IDEAV-f26a5945be582be6",
+      "idea_version_started_at": "2026-09-17T16:21:54Z",
+      "ticker": "GBF",
+      "company": "Bilfinger SE",
+      "exchange": "XETRA",
+      "direction": "short",
       "pair_with": null,
-      "reason": "The company announced a $400 million share repurchase program, which provides a direct floor for the stock and signals management's confidence in cash flow generation.",
-      "why_now": "The announcement was made on September 16, 2026, and is effective immediately.",
+      "reason": "The company issued a profit warning and announced restructuring layoffs, indicating significant operational headwinds and margin compression.",
+      "why_now": "The news was released on 2026-09-17, and the stock is likely still adjusting to the lowered outlook.",
       "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
+        "impact": 21,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "independent confirmation",
@@ -123166,26 +123239,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-a0822e7997a1"
+        "EVT-287b5f6f9185"
       ],
-      "primary_source_event_id": "EVT-a0822e7997a1",
+      "primary_source_event_id": "EVT-287b5f6f9185",
       "source_headlines": [
-        "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline"
+        "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts"
       ],
-      "source_headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
-      "source_url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-16T04:20:01Z",
+      "source_headline": "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts",
+      "source_url": "https://www.wsj.com/business/earnings/bilfinger-shares-fall-20-on-lowered-outlook-job-cuts-c843f681?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T09:37:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-16T11:53:50Z",
-      "updated_at": "2026-09-16T11:53:50Z",
-      "decay_at": "2026-09-17T16:20:01Z",
+      "surfaced_at": "2026-09-17T16:21:54Z",
+      "updated_at": "2026-09-17T16:21:54Z",
+      "decay_at": "2026-09-18T21:37:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -124405,23 +124478,23 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6c411243ff00",
-      "idea_version": "IDEAV-8fc97cfa3605d8db",
-      "idea_version_started_at": "2026-09-14T21:24:14Z",
-      "ticker": "NFE",
-      "company": "New Fortress Energy",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-19d921e177b0",
+      "idea_version": "IDEAV-bc9b60d7a1106ff2",
+      "idea_version_started_at": "2026-09-16T11:53:50Z",
+      "ticker": "TME",
+      "company": "Tencent Music",
+      "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "New Fortress Energy has erased nearly $6 billion in debt through a completed restructuring, significantly improving its balance sheet and financial stability.",
-      "why_now": "The debt restructuring has just been completed, providing immediate financial relief.",
-      "conviction": 65,
+      "reason": "The company announced a $400 million share repurchase program, which provides a direct floor for the stock and signals management's confidence in cash flow generation.",
+      "why_now": "The announcement was made on September 16, 2026, and is effective immediately.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 20,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -124449,26 +124522,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-fdd2049d08e7"
+        "EVT-a0822e7997a1"
       ],
-      "primary_source_event_id": "EVT-fdd2049d08e7",
+      "primary_source_event_id": "EVT-a0822e7997a1",
       "source_headlines": [
-        "New Fortress Energy Erases Nearly $6B in Debt as Restructuring Completed"
+        "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline"
       ],
-      "source_headline": "New Fortress Energy Erases Nearly $6B in Debt as Restructuring Completed",
-      "source_url": "https://www.rigzone.com/news/new_fortress_energy_erases_nearly_6b_in_debt_as_restructuring_completed-14-sep-2026-184612-article/?rss=true",
-      "source_name": "Rigzone",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T15:50:24Z",
+      "source_headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
+      "source_url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
+      "source_name": "Nasdaq",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-16T04:20:01Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-14T21:24:14Z",
-      "updated_at": "2026-09-14T21:24:14Z",
-      "decay_at": "2026-09-16T03:50:24Z",
+      "surfaced_at": "2026-09-16T11:53:50Z",
+      "updated_at": "2026-09-16T11:53:50Z",
+      "decay_at": "2026-09-17T16:20:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -125977,151 +126050,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6088f8734a17",
-      "idea_version": "IDEAV-c13982183c91865f",
-      "idea_version_started_at": "2026-09-14T21:24:14Z",
-      "ticker": "0859",
-      "company": "Leopalace21",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Leopalace21 is being taken private in a $1.7 billion buyout, which typically results in shareholders receiving a premium but removes the stock from public trading.",
-      "why_now": "The buyout is a current transaction being announced.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a8f157318ad3"
-      ],
-      "primary_source_event_id": "EVT-a8f157318ad3",
-      "source_headlines": [
-        "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21"
-      ],
-      "source_headline": "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21",
-      "source_url": "https://asia.nikkei.com/business/business-deals/hikari-tsushin-mbk-nec-unit-launch-1.7bn-buyout-for-japan-s-leopalace212",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T16:18:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T21:24:14Z",
-      "updated_at": "2026-09-14T21:24:14Z",
-      "decay_at": "2026-09-16T04:18:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4f0e3a3e17fb",
-      "idea_version": "IDEAV-0b4d25817559d3bf",
-      "idea_version_started_at": "2026-09-14T19:12:02Z",
-      "ticker": "8848",
-      "company": "Leopalace21",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A consortium including Hikari Tsushin and MBK Partners has launched a $1.7 billion buyout offer for the company, providing a clear floor for the share price.",
-      "why_now": "The buyout offer was announced on 2026-09-14.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a8f157318ad3"
-      ],
-      "primary_source_event_id": "EVT-a8f157318ad3",
-      "source_headlines": [
-        "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21"
-      ],
-      "source_headline": "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21",
-      "source_url": "https://asia.nikkei.com/business/business-deals/hikari-tsushin-mbk-nec-unit-launch-1.7bn-buyout-for-japan-s-leopalace212",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T16:18:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-14T19:12:02Z",
-      "updated_at": "2026-09-14T19:12:02Z",
-      "decay_at": "2026-09-16T04:18:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1bc0605be1ed",
       "idea_version": "IDEAV-d8324e0c16cac5fa",
       "idea_version_started_at": "2026-09-15T10:07:26Z",
@@ -126703,37 +126631,110 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 304,
-      "oldest_retained_at": "2026-08-27T20:28:07Z",
+      "evicted_count": 307,
+      "oldest_retained_at": "2026-08-27T20:43:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 211,
-          "oldest_retained_at": "2026-09-05T01:26:00Z"
+          "evicted_count": 213,
+          "oldest_retained_at": "2026-09-05T06:44:33Z"
         },
         "short": {
-          "evicted_count": 93,
-          "oldest_retained_at": "2026-08-27T20:28:07Z"
+          "evicted_count": 94,
+          "oldest_retained_at": "2026-08-27T20:43:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-19d921e177b0",
+        "idea_version": "IDEAV-bc9b60d7a1106ff2",
+        "idea_version_started_at": "2026-09-16T11:53:50Z",
+        "ticker": "TME",
+        "company": "Tencent Music",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company announced a $400 million share repurchase program, which provides a direct floor for the stock and signals management's confidence in cash flow generation.",
+        "why_now": "The announcement was made on September 16, 2026, and is effective immediately.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a0822e7997a1"
+        ],
+        "primary_source_event_id": "EVT-a0822e7997a1",
+        "source_headlines": [
+          "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline"
+        ],
+        "source_headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
+        "source_url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
+        "source_name": "Nasdaq",
+        "materiality_max": 98,
+        "newest_source_at": "2026-09-16T04:20:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-16T11:53:50Z",
+        "updated_at": "2026-09-16T11:53:50Z",
+        "decay_at": "2026-09-17T16:20:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T16:20:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a88eed4d242c",
         "idea_version": "IDEAV-930f8e09e0b3f675",
@@ -129406,8 +129407,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T04:18:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T16:22:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129481,8 +129482,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T04:18:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T16:22:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129554,8 +129555,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T03:50:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-17T16:22:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -155662,81 +155663,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8dc0eabbd79f",
-        "idea_version": "IDEAV-006cb0d894266c7c",
-        "idea_version_started_at": "2026-09-05T04:38:24Z",
-        "ticker": "CPB",
-        "company": "Campbell Soup Company",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Campbell Soup is cutting 13% of salaried staff and closing plants in a structured turnaround that should lower fixed costs and improve margins if executed.",
-        "why_now": "Restructuring announced 2026-09-04 with immediate implementation timeline; cost savings are measurable and near-term.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-21f6eddbc19c"
-        ],
-        "primary_source_event_id": "EVT-21f6eddbc19c",
-        "source_headlines": [
-          "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
-        ],
-        "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-        "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-        "source_name": "Fox Business — Markets",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T21:58:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T04:38:24Z",
-        "updated_at": "2026-09-05T04:38:24Z",
-        "decay_at": "2026-09-06T09:58:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T22:41:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-9033b1d67836",
         "idea_version": "IDEAV-271d2a951da11553",
         "idea_version_started_at": "2026-09-05T20:32:18Z",
@@ -163905,8 +163831,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 865,
-    "live_count": 22,
+    "surfaced_total": 867,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -163925,9 +163851,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1980833,
+    "news_seen_today": 1996551,
     "news_picked_today": 624,
-    "news_dropped_today": 7584
+    "news_dropped_today": 7752
   },
   "book_momentum": {
     "live_count": 8,
