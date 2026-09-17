@@ -766,8 +766,13 @@ try {
   //        and the retained backfill receipt must carry that decision: its retry cannot credit the run either.
   //    (c) Its live primary commit landed and only the backfill push failed; a newer rerun then re-published
   //        a primary file it binds by hash alone. The backfill publishes, verified against the rest.
+  // A decision record that commit-run.sh's creation-time data-needs gate accepts, so the fixture stays a real
+  // publishable run wherever that gate is applied (the same minimum fields scripts/test_commit_run.py uses).
+  const fullDecision = (label: string, version: number) => `${JSON.stringify({
+    ticker: `ZZ${label}`, version, decision_date: '2099-01-01', data_needs_schema_version: '2.0', data_needs: [],
+  })}\n`
   const fullFiles = (fullRoot: string, label: string) => ({
-    [`${fullRoot}/decision_record.json`]: `{"ticker":"ZZ${label}","version":2}\n`,
+    [`${fullRoot}/decision_record.json`]: fullDecision(label, 2),
     [`${fullRoot}/RUN_METADATA.md`]: 'Commit SHA: (to be filled after commit)\n',
     [`${fullRoot}/valuation/2099-01-11_superseded_note.md`]: 'sealed module output\n',
     [`${fullRoot}/valuation/2099-01-11_kept_note.md`]: 'module output nothing newer replaced\n',
@@ -776,7 +781,7 @@ try {
     const fullRoot = `${root}_${suffix}`
     extraCleanup.push(path.join(REPO_ROOT, fullRoot))
     fs.mkdirSync(path.join(REPO_ROOT, fullRoot, 'valuation'), { recursive: true })
-    fs.writeFileSync(path.join(REPO_ROOT, fullRoot, 'decision_record.json'), `{"ticker":"ZZ${suffix.toUpperCase()}","version":1}\n`)
+    fs.writeFileSync(path.join(REPO_ROOT, fullRoot, 'decision_record.json'), fullDecision(suffix.toUpperCase(), 1))
     return { fullRoot, retained: await retainedReceipt({ kind: 'full', runRoot: fullRoot, files: fullFiles(fullRoot, suffix.toUpperCase()), failBackfillOnly }) }
   }
   const ordinary = await fullRun('fullremainder')
