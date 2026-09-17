@@ -6966,6 +6966,8 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
  */
 /** scripts/commit-run.sh refuses a supervisor snapshot manifest with more entries than this (`len(entries) > 512`). */
 const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512
+/** scripts/commit-run.sh refuses one supervisor snapshot file larger than this (`protected_file(…, 128 * 1024 * 1024)`). */
+const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024
 
 function assertPublicationPathsCatalogued(paths: string[]): void {
   try {
@@ -6978,6 +6980,37 @@ function assertPublicationPathsCatalogued(paths: string[]): void {
   } catch (error: any) {
     const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
     throw new Error(`cockpit publication refused before its path list was frozen: ${detail}`)
+  }
+}
+
+/**
+ * Refuse a frozen snapshot whose new terminal decision record commit-run.sh is certain to reject, BEFORE it
+ * is sealed. commit-run.sh's creation-time gate (`eval.py --data-needs-prewrite` on each newly staged
+ * `analyses/<RUN>/decision_record.json`) runs after staging, so on the post-exit drain path it judged a
+ * receipt that could no longer change: the same bytes fail the same way at every startup retry. The command
+ * prompts run that validator before they ask to publish, but the model is not the boundary; this is.
+ *
+ * Nothing about the gate lives here. scripts/decision_publication_gate.py decides which entries are gated,
+ * skips a record byte-identical to HEAD (commit-run.sh never regrades unchanged history, and neither may
+ * this), and judges the rest with the very invocation commit-run.sh uses, so the two cannot drift. It is
+ * handed the FROZEN bytes, which are exactly what commit-run.sh will stage, not the mutable worktree file.
+ * Anything short of a clean PASS refuses, including a gate that cannot run.
+ *
+ * What this does NOT make deterministic: the verdict also depends on the checked-out program (the live
+ * `.claude/agents` orb roster) and on HEAD. A deploy that renames an orb, or another publication of the same
+ * path landing between sealing and commit, can still change commit-run.sh's later answer.
+ */
+function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snapshot: string }>): void {
+  try {
+    execFileSync('python3', [
+      path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT, '--records',
+    ], {
+      cwd: REPO_ROOT, input: entries.flatMap((entry) => [entry.path, entry.snapshot]).join('\0'),
+      encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'], timeout: 120_000, maxBuffer: 1024 * 1024,
+    })
+  } catch (error: any) {
+    const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${detail}`)
   }
 }
 
@@ -7016,6 +7049,13 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       if (!DATA_PUBLICATION_ROOTS.has(relative.split('/')[0])) throw new Error(`snapshot refused non-data path: ${relative}`)
       const absolute = path.join(REPO_ROOT, relative)
       const before = assertRegularArtifact(absolute, 'fixed publication artifact')
+      // Same class as the entry-count limit above: commit-run.sh's snapshot staging refuses a larger file,
+      // and no retry shrinks a sealed one. Judged from the stat, before the bytes are read into memory.
+      if (before.size > MAX_PUBLICATION_SNAPSHOT_FILE_BYTES) {
+        throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${relative} is `
+          + `${before.size} bytes, above the ${MAX_PUBLICATION_SNAPSHOT_FILE_BYTES}-byte limit commit-run.sh `
+          + 'enforces on one supervisor snapshot file')
+      }
       const bytes = fs.readFileSync(absolute)
       const after = assertRegularArtifact(absolute, 'fixed publication artifact')
       if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
@@ -7024,6 +7064,10 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       fs.writeFileSync(snapshot, bytes, { flag: 'wx', mode: 0o600 })
       entries.push({ path: relative, snapshot, sha256: `sha256:${createHash('sha256').update(bytes).digest('hex')}` })
     }
+    // The bytes are frozen but nothing is sealed yet, and every sealed receipt is built from the snapshot
+    // returned below: the last point at which a record commit-run.sh will reject can still fail the live
+    // run. The catch removes this directory, so a refusal leaves no snapshot and no receipt behind.
+    assertNewDecisionRecordsPublishable(entries)
     const manifest = path.join(directory, 'manifest.json')
     fs.writeFileSync(manifest, JSON.stringify({
       schema_version: 'cockpit-publication-snapshot/1.0', run_id: run.runId,

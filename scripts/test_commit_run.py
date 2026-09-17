@@ -83,8 +83,7 @@ def setup_stale_local_main_scenario(tmp):
     run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
     install_catalogue_fixture(seed)
     write_text(seed, "analyses/base/a.txt", "A\n")
-    run(["git", "add", "analyses/base/a.txt", "scripts/validate_data_catalogue.py",
-         "frameworks/memory/phase0/catalogue.json"], cwd=seed, env=env)
+    run(["git", "add", "analyses/base/a.txt", *CATALOGUE_FIXTURE_PATHS], cwd=seed, env=env)
     run(["git", "commit", "-q", "-m", "commit A"], cwd=seed, env=env)
     run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -147,14 +146,20 @@ def write_text(repo, relative_path, body):
     return absolute
 
 
+# What commit-run.sh resolves from "$TOP/scripts" on EVERY commit, plus the catalogue it reads. A fixture
+# repository commits all of it, exactly as the real checkout carries it.
+CATALOGUE_FIXTURE_PATHS = [
+    "scripts/validate_data_catalogue.py", "scripts/decision_publication_gate.py",
+    "frameworks/memory/phase0/catalogue.json",
+]
+
+
 def install_catalogue_fixture(repo, patterns=None):
-    """Install the real validator with a small committed catalogue for isolated Git fixtures."""
+    """Install the real validators with a small committed catalogue for isolated Git fixtures."""
     scripts = os.path.join(repo, "scripts")
     os.makedirs(scripts, exist_ok=True)
-    shutil.copy2(
-        os.path.join(REPO_ROOT, "scripts", "validate_data_catalogue.py"),
-        os.path.join(scripts, "validate_data_catalogue.py"),
-    )
+    for name in ("validate_data_catalogue.py", "decision_publication_gate.py"):
+        shutil.copy2(os.path.join(REPO_ROOT, "scripts", name), os.path.join(scripts, name))
     write_json(repo, "frameworks/memory/phase0/catalogue.json", {
         "catalogue_version": "memory-current-state-catalogue/v1",
         "stores": [{
@@ -515,8 +520,7 @@ def test_conflicting_remote_reconciliation_leaves_checkout_untouched():
         install_catalogue_fixture(seed)
         shared_path = "analyses/shared/shared.ndjson"
         write_text(seed, shared_path, '{"side":"base"}\n')
-        run(["git", "add", shared_path, "scripts/validate_data_catalogue.py",
-             "frameworks/memory/phase0/catalogue.json"], cwd=seed, env=env)
+        run(["git", "add", shared_path, *CATALOGUE_FIXTURE_PATHS], cwd=seed, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -641,8 +645,7 @@ def setup_dirty_data_reconcile_scenario(tmp):
         f.write('{"generation":"base"}\n')
     with open(os.path.join(seed, "base.txt"), "w") as f:
         f.write("base\n")
-    run(["git", "add", "screener/board/live.json", "base.txt",
-         "scripts/validate_data_catalogue.py", "frameworks/memory/phase0/catalogue.json"],
+    run(["git", "add", "screener/board/live.json", "base.txt", *CATALOGUE_FIXTURE_PATHS],
         cwd=seed, env=env)
     run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
     run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
@@ -768,8 +771,7 @@ def test_retry_push_is_exact_main_only_and_serialized():
         install_catalogue_fixture(agent)
         with open(os.path.join(agent, "base.txt"), "w") as f:
             f.write("base\n")
-        run(["git", "add", "base.txt", "scripts/validate_data_catalogue.py",
-             "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
+        run(["git", "add", "base.txt", *CATALOGUE_FIXTURE_PATHS], cwd=agent, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=agent, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=agent, env=env)
         pending_path = "analyses/pending/pending.txt"
@@ -1068,6 +1070,318 @@ def test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree():
               f"rc={result.returncode} committed={committed!r} stderr={result.stderr!r}")
 
 
+DECISION_GATE = os.path.join(REPO_ROOT, "scripts", "decision_publication_gate.py")
+
+# The selection rule commit-run.sh carried inline before it moved into the shared gate, verbatim. It is the
+# oracle: the port must select exactly what this selected, byte for byte, in the same order.
+FORMER_INLINE_SELECTION = (
+    'while IFS= read -r -d "" p; do '
+    'if [[ "$p" =~ ^analyses/[^/]+/decision_record\\.json$ ]]; then printf "%s\\0" "$p"; fi; '
+    'done'
+)
+
+
+def run_gate(args, stdin=b"", cwd=None):
+    return subprocess.run(["python3", DECISION_GATE, *args], input=stdin, cwd=cwd, capture_output=True)
+
+
+def test_decision_gate_selects_exactly_what_the_former_inline_rule_selected():
+    gated = [
+        "analyses/FRESH_2099-01-01/decision_record.json",
+        "analyses/ODD name [x]_2099-01-01/decision_record.json",
+        "analyses/日本_2099-01-01/decision_record.json",
+        # NUL is the separator, so a newline is ordinary path data to both implementations.
+        "analyses/LINE\nBREAK_2099-01-01/decision_record.json",
+    ]
+    not_gated = [
+        "analyses/MODULE_2099-01-01/business-model/01_unit-economics.json",
+        "analyses/MODULE_2099-01-01/reviews/decision_record.json",
+        "analyses/decision_record.json",
+        "analyses//decision_record.json",
+        "analyses/X_2099-01-01/decision_record.json.bak",
+        "analyses/X_2099-01-01/decision_recordXjson",
+        "analyses/X_2099-01-01/decision_record.json\n",
+        "xanalyses/X_2099-01-01/decision_record.json",
+        "analyses/performance/2099-01-01_calibration_summary.json",
+        "commodity/runs/GOLD/decision_record.json",
+        "commodity/runs/GOLD/decisions/frozen-id/decision_record.json",
+        "screener/runs/SIG-1/decision_record.json",
+    ]
+    # Interleave so an implementation that reorders, or only gets a prefix right, cannot pass.
+    battery = [item for pair in zip(not_gated, gated + gated + gated) for item in pair] + not_gated[len(gated) * 3:]
+    raw = b"".join(path.encode("utf-8") + b"\0" for path in battery)
+    oracle = subprocess.run(["bash", "-c", FORMER_INLINE_SELECTION], input=raw, capture_output=True)
+    ported = run_gate(["--select"], raw)
+    expected = b"".join(path.encode("utf-8") + b"\0" for path in battery if path in gated)
+    check("the former inline rule still selects what this test believes it selected",
+          oracle.returncode == 0 and oracle.stdout == expected and expected.count(b"\0") == 12,
+          f"rc={oracle.returncode} stdout={oracle.stdout!r}")
+    check("the shared gate selects byte-for-byte what commit-run.sh's inline rule selected, in order",
+          ported.returncode == 0 and ported.stdout == oracle.stdout,
+          f"rc={ported.returncode} stdout={ported.stdout!r} stderr={ported.stderr!r}")
+    unterminated = run_gate(["--select"], raw[:-1])
+    check("a separator-style list (no trailing NUL) selects the same set, still NUL-terminated for `read -d ''`",
+          unterminated.returncode == 0 and unterminated.stdout == oracle.stdout, repr(unterminated.stdout))
+    empty = run_gate(["--select"], b"")
+    check("an empty staged list selects nothing and is not an error",
+          empty.returncode == 0 and empty.stdout == b"", f"rc={empty.returncode} stdout={empty.stdout!r}")
+
+    # One definition, two callers. If either caller grows its own copy of the rule, the two can drift again.
+    commit_run_text = Path(COMMIT_RUN).read_text()
+    launcher_text = Path(REPO_ROOT, "ui", "server", "src", "launcher.ts").read_text()
+    check("commit-run.sh asks the shared gate which staged paths are gated and how a record is judged",
+          "decision_publication_gate.py\" --select" in commit_run_text
+          and "decision_publication_gate.py\" --repo \"$TOP\" --check" in commit_run_text)
+    # Invocations, not prose: both files explain the gate in comments. `eval.py` appears in commit-run.sh
+    # only if it calls the validator itself; a quoted flag appears in launcher.ts only as an argv element.
+    check("commit-run.sh carries no inline copy of the path shape or of the validator call",
+          "decision_record\\.json" not in commit_run_text and "eval.py" not in commit_run_text)
+    check("the supervisor asks the same gate about the frozen snapshot and carries no copy of the rule",
+          "'decision_publication_gate.py'), '--repo', REPO_ROOT, '--records'" in launcher_text
+          and "'--data-needs-prewrite'" not in launcher_text and "decision_record\\.json" not in launcher_text)
+
+
+# Every way commit-run.sh can exit 5, keyed by the message it prints, with how many sites print it.
+#
+# Why this table exists: the cockpit supervisor seals a publication's exact bytes into an immutable ready
+# receipt and only then runs commit-run.sh. A sealed receipt that hits a refusal which is DETERMINISTIC for
+# those bytes is refused again at every engine startup, forever (2026-09-17 outage). So each refusal needs
+# a decision when it is introduced, and the test below fails until a new one is given one:
+#
+#   child-request      runs only in the NOSTRA_COCKPIT_RUN=1 request client. The supervisor strips that
+#                      variable before it invokes commit-run.sh, so a sealed receipt never reaches it.
+#   not-snapshot-mode  unreachable while staging a supervisor snapshot (entries are always staged as
+#                      regular 100644 blobs through `update-index`, never through `git add`).
+#   environmental      depends on the machine or the checkout, not on the sealed bytes: a later retry can
+#                      succeed, so retaining the receipt is the right outcome.
+#   pre-seal           deterministic for the sealed bytes, and the supervisor asks the SAME script before
+#                      it seals, so the live run fails visibly and no receipt is written.
+#   mixed              several causes behind one message; see the note beside it.
+EXIT_5_SITES = {
+    "a cockpit child cannot retry a supervisor publication": (1, "child-request"),
+    # Two sites share this message: the missing-capability refusal and the helper-directory `|| exit 5`.
+    "cockpit publication has no supervisor capability": (2, "child-request"),
+    "supervisor publication failed": (1, "child-request"),
+    # mixed. Deterministic and asked first: more than 512 entries and a file above 128 MiB (launcher.ts
+    # MAX_PUBLICATION_SNAPSHOT_*), a backslash or a `.`/`..`/empty segment (validate_data_catalogue.py
+    # --paths). True by construction: the manifest/requested-path agreement and the protected-file shape.
+    # Post-seal by definition: a digest mismatch means the sealed bytes were altered afterwards.
+    # Environmental: `hash-object -w` / `update-index` failing. KNOWN AND NOT ASKED FIRST: an entry
+    # byte-identical to HEAD whose HEAD mode is 100755 is staged as a mode change but is absent from the
+    # OID-only expected delta, so staging refuses it. No data file in HEAD is executable today, and the
+    # supervisor can never create one; only a plain `git add` publication of an executable file could.
+    "protected supervisor snapshot staging failed": (1, "mixed"),
+    "git add failed": (1, "not-snapshot-mode"),
+    # pre-seal for the paths this publication proposes (--paths). It also judges the WHOLE index, so
+    # unrelated uncatalogued data already in HEAD fails every publication until the repository is repaired:
+    # that is a repository fault, not a property of the sealed bytes.
+    "data catalogue rejected the staged publication": (1, "pre-seal"),
+    "cannot create data-needs validation workspace": (1, "environmental"),
+    "cannot enumerate staged publications": (1, "environmental"),
+    # The gate script is missing or cannot run. The supervisor's own call to it refuses for the same cause.
+    "cannot select staged decision publications": (1, "environmental"),
+    "staged decision publication is not a regular file": (1, "not-snapshot-mode"),
+    "cannot read staged decision publication": (1, "environmental"),
+    # pre-seal through decision_publication_gate.py --records. The verdict also depends on the checked-out
+    # `.claude/agents` roster and on HEAD, so a deploy or another publication of the same path between
+    # sealing and commit can still change it.
+    "data-needs prewrite rejected staged publication": (1, "pre-seal"),
+    "git commit failed": (1, "environmental"),
+    # Runs after the local commit exists. It would mean the index was mutated under the repository lock.
+    "committed tree disagrees with protected supervisor snapshot": (1, "environmental"),
+}
+
+
+def test_every_exit_5_has_a_decision_about_sealed_receipts():
+    lines = Path(COMMIT_RUN).read_text().splitlines()
+    found = {}
+    for number, line in enumerate(lines):
+        if "exit 5" not in line and "SystemExit(5)" not in line:
+            continue
+        if line.lstrip().startswith("#"):
+            continue
+        message = None
+        for earlier in reversed(lines[max(0, number - 4):number + 1]):
+            if "commit-run: " in earlier:
+                message = earlier.split("commit-run: ", 1)[1]
+                break
+        key = next((known for known in EXIT_5_SITES if message and message.startswith(known)), message)
+        found[key] = found.get(key, 0) + 1
+    check("the exit-5 inventory actually found commit-run.sh's refusals", sum(found.values()) >= 15, repr(found))
+    unclassified = sorted(str(key) for key in found if key not in EXIT_5_SITES)
+    check("every exit 5 in commit-run.sh states whether a sealed receipt can hit it deterministically "
+          "(add it to EXIT_5_SITES, and give a deterministic one a pre-seal twin in launcher.ts)",
+          not unclassified, f"unclassified: {unclassified}")
+    stale = sorted(key for key, (count, _) in EXIT_5_SITES.items() if found.get(key, 0) != count)
+    check("the inventory has no stale or miscounted entry", not stale,
+          f"{[(key, EXIT_5_SITES[key][0], found.get(key, 0)) for key in stale]}")
+
+    # The supervisor mirrors two of commit-run.sh's snapshot limits so it can refuse before sealing. A
+    # mirror that drifts either seals something commit-run.sh rejects, or refuses something it accepts.
+    commit_run_text = "\n".join(lines)
+    launcher_text = Path(REPO_ROOT, "ui", "server", "src", "launcher.ts").read_text()
+    check("the supervisor's entry-count limit is commit-run.sh's",
+          "len(entries) > 512" in commit_run_text and "const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512\n" in launcher_text)
+    check("the supervisor's per-file size limit is commit-run.sh's",
+          'protected_file(snapshot_raw, "snapshot file", 128 * 1024 * 1024)' in commit_run_text
+          and "const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024\n" in launcher_text)
+
+
+def test_decision_gate_workspace_is_removed_on_every_exit():
+    """commit-run.sh removes its validation workspace by naming each file, then `rmdir`s it and ignores a
+    failure. A file it writes but does not name would therefore leak one directory per commit, silently."""
+    for name, body, expected_rc in [
+        ("accepted", {"decision_date": "2099-01-01", "data_needs_schema_version": "2.0", "data_needs": []}, 0),
+        ("rejected", {"decision_date": "2099-01-01", "data_needs_schema_version": "2.0", "data_needs": "no"}, 5),
+    ]:
+        with tempfile.TemporaryDirectory(prefix="commit-run-test-gate-workspace-") as tmp:
+            _, agent, env = setup_stale_local_main_scenario(tmp)
+            install_prewrite_fixture(agent)
+            relative = "analyses/FRESH_2099-01-01/decision_record.json"
+            write_json(agent, relative, body)
+            workspace_parent = os.path.join(tmp, "tmpdir")
+            os.makedirs(workspace_parent)
+            run_env = no_push_env(env)
+            run_env["TMPDIR"] = workspace_parent
+            result = run(["bash", COMMIT_RUN, "test: gate workspace", "--", relative],
+                         cwd=agent, env=run_env, check_rc=False)
+            check(f"a record that is {name} leaves no validation workspace behind",
+                  result.returncode == expected_rc and os.listdir(workspace_parent) == [],
+                  f"rc={result.returncode} left={os.listdir(workspace_parent)!r} stderr={result.stderr!r}")
+
+
+def make_protected_snapshot(tmp, name, files):
+    """Freeze {publication path: bytes} the way the supervisor does: owner-only files named by index."""
+    snapshot_dir = Path(tmp) / name
+    snapshot_dir.mkdir(mode=0o700)
+    entries = []
+    for index, (relative, payload) in enumerate(files.items()):
+        frozen = snapshot_dir / str(index)
+        frozen.write_bytes(payload)
+        frozen.chmod(0o600)
+        entries.append({
+            "path": relative, "snapshot": str(frozen.resolve()),
+            "sha256": "sha256:" + hashlib.sha256(payload).hexdigest(),
+        })
+    manifest = snapshot_dir / "manifest.json"
+    manifest.write_text(json.dumps({
+        "schema_version": "cockpit-publication-snapshot/1.0", "run_id": "fixture",
+        "requested_pathspecs": [entry["path"] for entry in entries], "entries": entries,
+    }) + "\n")
+    manifest.chmod(0o600)
+    pairs = b"\0".join(
+        field.encode("utf-8") for entry in entries for field in (entry["path"], entry["snapshot"])
+    )
+    return str(manifest.resolve()), [entry["path"] for entry in entries], pairs
+
+
+def test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes():
+    """The supervisor's pre-seal answer is only useful if it IS commit-run.sh's later answer."""
+    valid = json.dumps({"decision_date": "2099-01-01", "data_needs_schema_version": "2.0", "data_needs": []}).encode() + b"\n"
+    invalid = json.dumps({"decision_date": "2099-01-01", "data_needs_schema_version": "2.0",
+                          "data_needs": "not-an-array"}).encode() + b"\n"
+    legacy = b"{ frozen legacy bytes\n"
+    legacy_record = "analyses/LEGACY_2020-01-01/decision_record.json"
+    legacy_thesis = "analyses/LEGACY_2020-01-01/final_thesis.md"
+    scenarios = [
+        # (name, frozen files, publishes?, records the pre-seal gate must report validating)
+        ("an unchanged historical record that fails today's gate is never regraded",
+         {legacy_record: legacy, legacy_thesis: b"original thesis\nappend-only correction\n"}, True, 0),
+        ("a new valid record publishes",
+         {"analyses/FRESH_2099-01-01/decision_record.json": valid}, True, 1),
+        ("a new invalid record is refused",
+         {"analyses/FRESH_2099-01-01/decision_record.json": invalid,
+          "analyses/FRESH_2099-01-01/final_thesis.md": b"thesis\n"}, False, None),
+        ("a historical record REWRITTEN with bytes the gate rejects is refused",
+         {legacy_record: invalid}, False, None),
+        ("a historical record rewritten with valid bytes publishes",
+         {legacy_record: valid}, True, 1),
+        ("module, review and commodity outputs are not gated",
+         {"analyses/MODULE_2099-01-01/reviews/decision_record.json": invalid,
+          "commodity/runs/GOLD/decision_record.json": invalid}, True, 0),
+    ]
+    for name, files, publishes, validated in scenarios:
+        with tempfile.TemporaryDirectory(prefix="commit-run-test-preseal-gate-") as tmp:
+            _, agent, env = setup_stale_local_main_scenario(tmp)
+            install_prewrite_fixture(agent)
+            write_text(agent, legacy_thesis, "original thesis\n")
+            with open(os.path.join(agent, legacy_record), "wb") as handle:
+                handle.write(legacy)
+            run(["git", "add", "analyses/LEGACY_2020-01-01"], cwd=agent, env=env)
+            run(["git", "commit", "-q", "-m", "fixture: frozen legacy run"], cwd=agent, env=env)
+            manifest, paths, pairs = make_protected_snapshot(tmp, "protected-snapshot", files)
+
+            head_before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            preseal = run_gate(["--repo", agent, "--records"], pairs)
+            head_after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            status = run(["git", "status", "--porcelain"], cwd=agent, env=env).stdout
+            snapshot_env = no_push_env(env)
+            snapshot_env["NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST"] = manifest
+            committed = run(["bash", COMMIT_RUN, f"test: {name}", "--", *paths],
+                            cwd=agent, env=snapshot_env, check_rc=False)
+
+            check(f"pre-seal and commit-run.sh agree: {name}",
+                  (preseal.returncode == 0) == (committed.returncode == 0) == publishes,
+                  f"preseal rc={preseal.returncode} {preseal.stderr!r}; "
+                  f"commit-run rc={committed.returncode} {committed.stderr!r}")
+            check(f"asking before sealing changes nothing in the repository: {name}",
+                  head_before == head_after and "analyses/" not in status, status)
+            if publishes:
+                check(f"pre-seal judged exactly the records commit-run.sh judged: {name}",
+                      f"{validated} new terminal decision record(s) validated" in preseal.stdout.decode()
+                      and committed.stdout.count("DATA-NEEDS-PREWRITE: PASS") == validated,
+                      f"preseal={preseal.stdout!r} commit-run={committed.stdout!r}")
+            else:
+                gated = next(path for path in paths if path.endswith("decision_record.json"))
+                check(f"both refusals are the same gate, and pre-seal names the record first: {name}",
+                      preseal.returncode == 1 and committed.returncode == 5
+                      and preseal.stderr.decode().startswith(
+                          f"DECISION-PUBLICATION-GATE: FAIL — data-needs prewrite rejected {gated}\n")
+                      and "DATA-NEEDS-PREWRITE: FAIL" in preseal.stderr.decode()
+                      and "DATA-NEEDS-PREWRITE: FAIL" in committed.stderr
+                      and f"data-needs prewrite rejected staged publication: {gated}" in committed.stderr,
+                      f"preseal={preseal.stderr!r} commit-run={committed.stderr!r}")
+
+
+def test_preseal_decision_gate_fails_closed():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-preseal-gate-closed-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_prewrite_fixture(agent)
+        valid = json.dumps({"decision_date": "2099-01-01", "data_needs_schema_version": "2.0",
+                            "data_needs": []}).encode() + b"\n"
+        record = "analyses/FRESH_2099-01-01/decision_record.json"
+        _, _, pairs = make_protected_snapshot(tmp, "snapshot", {record: valid})
+        frozen = pairs.split(b"\0")[1]
+
+        control = run_gate(["--repo", agent, "--records"], pairs)
+        check("positive control: this exact shape passes when nothing is wrong",
+              control.returncode == 0, f"rc={control.returncode} stderr={control.stderr!r}")
+        for name, stdin in [
+            ("an empty publication (a vacuous PASS could be sealed)", b""),
+            ("a path with no bytes file", record.encode()),
+            ("an empty field", record.encode() + b"\0\0"),
+            ("a frozen file that does not exist", record.encode() + b"\0" + frozen + b".missing"),
+        ]:
+            result = run_gate(["--repo", agent, "--records"], stdin)
+            check(f"no verdict, no PASS: {name}",
+                  result.returncode == 2 and b"DECISION-PUBLICATION-GATE: FAIL" in result.stderr
+                  and result.stdout == b"", f"rc={result.returncode} stderr={result.stderr!r}")
+
+        not_a_repo = os.path.join(tmp, "not-a-repo")
+        os.makedirs(not_a_repo)
+        result = run_gate(["--repo", not_a_repo, "--records"], pairs)
+        check("no verdict, no PASS: HEAD cannot be read",
+              result.returncode == 2 and result.stdout == b"", f"rc={result.returncode} stderr={result.stderr!r}")
+
+        os.remove(os.path.join(agent, "scripts", "eval.py"))
+        result = run_gate(["--repo", agent, "--records"], pairs)
+        check("a validator that cannot run refuses the record instead of waving it through",
+              result.returncode == 1 and record.encode() in result.stderr and result.stdout == b"",
+              f"rc={result.returncode} stderr={result.stderr!r}")
+        check("the same missing validator refuses through commit-run.sh's entry point too",
+              run_gate(["--repo", agent, "--check", os.fsdecode(frozen)]).returncode != 0)
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -1093,6 +1407,11 @@ if __name__ == "__main__":
     test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes()
     test_unchanged_historical_decision_is_not_regraded()
     test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate()
+    test_decision_gate_selects_exactly_what_the_former_inline_rule_selected()
+    test_decision_gate_workspace_is_removed_on_every_exit()
+    test_every_exit_5_has_a_decision_about_sealed_receipts()
+    test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
+    test_preseal_decision_gate_fails_closed()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:
