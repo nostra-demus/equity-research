@@ -8260,8 +8260,9 @@ export function supersededPublicationPaths(input: {
     let offset = 0
     for (const [relative, expected] of boundPresent) {
       const headerEnd = stream.indexOf(0x0a, offset)
+      if (headerEnd < 0) throw new Error(`could not read the published bytes of ${relative}`)
       const size = Number(stream.subarray(offset, headerEnd).toString('utf8').split(' ')[2])
-      if (headerEnd < 0 || !Number.isSafeInteger(size)) throw new Error(`could not read the published bytes of ${relative}`)
+      if (!Number.isSafeInteger(size)) throw new Error(`could not read the published bytes of ${relative}`)
       const body = stream.subarray(headerEnd + 1, headerEnd + 1 + size)
       if (body.length !== size) throw new Error(`could not read the published bytes of ${relative}`)
       if (`sha256:${createHash('sha256').update(body).digest('hex')}` !== expected) differing.push(relative)
