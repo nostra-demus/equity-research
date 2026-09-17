@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-03T03:15:31Z",
+  "archived_at": "2026-09-16T10:05:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-3f7560fdd91d",
-    "idea_version": "IDEAV-03efb992f7ae079d",
-    "idea_version_started_at": "2026-08-31T04:01:48Z",
-    "ticker": "BLS",
-    "company": "MA Financial Group",
-    "exchange": "ASX",
+    "idea_id": "IDEA-c8515606fa56",
+    "idea_version": "IDEAV-5f97f7f44dbeb066",
+    "idea_version_started_at": "2026-09-13T12:04:53Z",
+    "ticker": "00309",
+    "company": "XH NEWS MEDIA",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company released its FY2026 results alongside new FY2027 guidance, providing a clear window into forward earnings trajectory.",
-    "why_now": "The price-sensitive results and guidance were filed with the ASX on August 31, 2026.",
-    "conviction": 50,
+    "reason": "XH NEWS MEDIA faces a winding-up petition, indicating severe financial distress that could lead to liquidation and a complete loss of shareholder value.",
+    "why_now": "The winding-up petition was filed on September 13, 2026, making this an immediate and critical event.",
+    "conviction": 85,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,33 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
-    "thesis_type": "company_specific",
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-810ae964d409",
-      "EVT-77929fc5602a"
+      "EVT-dac3667e4fc3"
     ],
-    "primary_source_event_id": "EVT-810ae964d409",
+    "primary_source_event_id": "EVT-dac3667e4fc3",
     "source_headlines": [
-      "BLS: BLS FY2027 Guidance [price-sensitive]",
-      "BLS: BLS FY2026 Results Announcement [price-sensitive]"
+      "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION"
     ],
-    "source_headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLS?key=2924-03129273-2A1693772",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-31T02:51:40Z",
+    "newest_source_at": "2026-09-13T10:03:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-31T04:01:48Z",
-    "updated_at": "2026-08-31T04:01:48Z",
-    "decay_at": "2026-09-01T14:51:40Z",
+    "surfaced_at": "2026-09-13T12:04:53Z",
+    "updated_at": "2026-09-13T12:04:53Z",
+    "decay_at": "2026-09-14T22:03:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

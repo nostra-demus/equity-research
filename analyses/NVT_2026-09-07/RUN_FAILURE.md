@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: api_error_429
-- stopped_at_utc: 2026-09-10T17:31:53.719Z
+- stopped_at_utc: 2026-09-17T06:58:53.682Z
 
 ## Modules completed
 
@@ -20,7 +20,7 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-You've hit your weekly limit · resets Sep 16 at 11:30am (Asia/Calcutta)
+You've hit your session limit · resets 12:30pm (Asia/Calcutta)
 ```
 
 ## Resume
