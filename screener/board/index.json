@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-17T13:45:57Z",
+  "generated_at": "2026-09-17T14:01:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-327",
+      "headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_17092026184749_Press_Release_intimation_Contract_win_480_Cr_170926_SGD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T13:18:09Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "GPT Infraprojects Limited secured new contracts worth Rs. 483.72 Crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GPT Infraprojects Limited secured new contracts worth Rs. 483.72 Crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GPT Infraprojects Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-318",
       "headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
@@ -289,6 +338,55 @@
           "name": "QMS Medical Allied Services Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-329",
+      "headline": "SC HOLDINGS (00413): DELAY IN DESPATCH OF CIRCULAR IN RELATION TO DISCLOSEABLE AND CONNECTED TRANSACTION IN RESPECT OF THE DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF TWO WHOLLY-OWNED SUBSIDIARIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701449.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T11:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "SC Holdings announces disposal of entire issued share capital of two wholly-owned subsidiaries as a discloseable and connected transaction; circular despatch is delayed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SC Holdings announces disposal of entire issued share capital of two wholly-owned subsidiaries as a discloseable and connected transaction; circular despatch is delayed.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SC HOLDINGS",
+          "ticker": "00413",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1838,104 +1936,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-162",
-      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the Eleventh (11th) Committee of Creditors meeting held on Thursday, September 10, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_17092026134752_Letter_Adjournment_Intimation_11th_COC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T08:18:03Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The company is in ongoing Committee of Creditors meetings, indicating significant financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The company is in ongoing Committee of Creditors meetings, indicating significant financial distress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKIL Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-256",
-      "headline": "Emami announces share buyback worth Rs 282 crore at 29% premium. Here's what you need to know",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/emami-announces-share-buyback-worth-rs-282-crore-at-29-premium-heres-what-you-need-to-know/articleshow/134309969.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T11:08:45Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Share buyback announcement worth Rs 282 crore at a 29% premium.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Share buyback announcement worth Rs 282 crore at a 29% premium.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emami",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164269,9 +164269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1645997,
-    "news_picked_today": 492,
-    "news_dropped_today": 5580
+    "news_seen_today": 1694025,
+    "news_picked_today": 498,
+    "news_dropped_today": 5790
   },
   "book_momentum": {
     "live_count": 8,
