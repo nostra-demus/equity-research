@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T10:57:37Z",
+  "generated_at": "2026-09-17T11:02:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-188",
@@ -983,6 +983,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-228",
+      "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Dr Reddy s gets voluntary licence for Gilead s once-yearly HIV prevention drug. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DRREDDY&seq=106783179",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T10:27:20Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Dr. Reddy's is reportedly securing a voluntary license for a Gilead HIV drug, pending company confirmation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Dr. Reddy's is reportedly securing a voluntary license for a Gilead HIV drug, pending company confirmation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Reddy's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-065",
       "headline": "FCA opens investigation into Euro Exchange Securities UK Ltd",
       "headline_en": null,
@@ -1714,6 +1763,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-224",
+      "headline": "Momentum plans acquisitions to grow South Africa adviser network",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/momentum-plans-acquisitions-to-grow-south-africa-adviser-network/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T10:41:14Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Momentum is pursuing acquisitions to expand its adviser network.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Momentum is pursuing acquisitions to expand its adviser network.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Momentum Metropolitan Holdings",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-165",
       "headline": "Next warns Burnham against 'stifling growth' with tax hikes as it upgrades profits again",
       "headline_en": null,
@@ -1861,105 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-046",
-      "headline": "UK's Next nudges up profit guidance but expects sales growth to slow",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/britains-next-nudges-up-profit-guidance-again-2026-09-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T06:39:33Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Next raises profit guidance but signals sales growth deceleration; a mixed earnings revision from a large listed UK retailer alters consensus expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Next raises profit guidance but signals sales growth deceleration; a mixed earnings revision from a large listed UK retailer alters consensus expectations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Next",
-          "ticker": "NXT",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-048",
-      "headline": "Kakao Bets on Spin-Off to Accelerate AI Growth, Pledging 300 Billion Won in Shareholder Returns",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277167",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T05:25:40Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Kakao announces spin-off of AI subsidiary plus 300 billion won shareholder return commitment; affects capital structure, focus, and shareholder returns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Kakao announces spin-off of AI subsidiary plus 300 billion won shareholder return commitment; affects capital structure, focus, and shareholder returns.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kakao",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123356,77 +123355,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-299dbb415ee4",
-      "idea_version": "IDEAV-c4be914c7b4ac755",
-      "idea_version_started_at": "2026-09-16T03:36:22Z",
-      "ticker": "GL1",
-      "company": "Global Lithium Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Manna-Nova integration study indicates a 100% increase in post-tax net present value, significantly improving the project's economic viability.",
-      "why_now": "The study results were released via official exchange filing on 2026-09-15.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58976112f325"
-      ],
-      "primary_source_event_id": "EVT-58976112f325",
-      "source_headlines": [
-        "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]"
-      ],
-      "source_headline": "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GL1?key=2924-03135926-6A1343969",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T22:59:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-16T03:36:22Z",
-      "decay_at": "2026-09-17T10:59:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a88eed4d242c",
       "idea_version": "IDEAV-930f8e09e0b3f675",
       "idea_version_started_at": "2026-09-16T04:30:41Z",
@@ -124618,6 +124546,77 @@
       "surfaced_at": "2026-09-14T20:43:51Z",
       "updated_at": "2026-09-14T20:43:51Z",
       "decay_at": "2026-09-16T01:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-299dbb415ee4",
+      "idea_version": "IDEAV-c4be914c7b4ac755",
+      "idea_version_started_at": "2026-09-16T03:36:22Z",
+      "ticker": "GL1",
+      "company": "Global Lithium Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Manna-Nova integration study indicates a 100% increase in post-tax net present value, significantly improving the project's economic viability.",
+      "why_now": "The study results were released via official exchange filing on 2026-09-15.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58976112f325"
+      ],
+      "primary_source_event_id": "EVT-58976112f325",
+      "source_headlines": [
+        "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]"
+      ],
+      "source_headline": "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GL1?key=2924-03135926-6A1343969",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-15T22:59:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-16T03:36:22Z",
+      "updated_at": "2026-09-16T03:36:22Z",
+      "decay_at": "2026-09-17T10:59:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126713,14 +126712,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 270,
@@ -126744,6 +126743,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-299dbb415ee4",
+        "idea_version": "IDEAV-c4be914c7b4ac755",
+        "idea_version_started_at": "2026-09-16T03:36:22Z",
+        "ticker": "GL1",
+        "company": "Global Lithium Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The Manna-Nova integration study indicates a 100% increase in post-tax net present value, significantly improving the project's economic viability.",
+        "why_now": "The study results were released via official exchange filing on 2026-09-15.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-58976112f325"
+        ],
+        "primary_source_event_id": "EVT-58976112f325",
+        "source_headlines": [
+          "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]"
+        ],
+        "source_headline": "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GL1?key=2924-03135926-6A1343969",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-15T22:59:59Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-16T03:36:22Z",
+        "updated_at": "2026-09-16T03:36:22Z",
+        "decay_at": "2026-09-17T10:59:59Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T10:59:59Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4f939ccaa163",
         "idea_version": "IDEAV-343e192a7b271ca5",
@@ -155900,81 +155973,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-45c96bcc987e",
-        "idea_version": "IDEAV-03b8edfe407870bf",
-        "idea_version_started_at": "2026-09-05T07:11:02Z",
-        "ticker": "MEN",
-        "company": "Menarini Group",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Menarini signed a $771 million deal to commercialize Gan & Lee's GLP-1 drug in Europe, indicating significant revenue potential from this partnership.",
-        "why_now": "The deal was announced on September 4, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8314da9992f8"
-        ],
-        "primary_source_event_id": "EVT-8314da9992f8",
-        "source_headlines": [
-          "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market"
-        ],
-        "source_headline": "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market",
-        "source_url": "https://www.fiercebiotech.com/biotech/menarini-group-signs-771m-deal-take-gan-lee-glp-1-european-market",
-        "source_name": "FierceBiotech",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T18:27:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T07:11:02Z",
-        "updated_at": "2026-09-05T07:11:02Z",
-        "decay_at": "2026-09-06T06:27:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T18:37:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-177f467dfd2a",
         "idea_version": "IDEAV-eed1b52b265141e7",
         "idea_version_started_at": "2026-09-05T22:12:55Z",
@@ -163917,7 +163915,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 855,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -163936,9 +163934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 704590,
-    "news_picked_today": 260,
-    "news_dropped_today": 3316
+    "news_seen_today": 720947,
+    "news_picked_today": 266,
+    "news_dropped_today": 3334
   },
   "book_momentum": {
     "live_count": 8,
