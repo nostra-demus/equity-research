@@ -14,6 +14,7 @@
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
 #         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed.
+#         6 refused: invoked from a test run (ENGINE_TEST_RUN=1) — nothing was committed or pushed.
 set -u
 
 RETRY_SHA=""
@@ -34,6 +35,23 @@ else
     echo "usage: commit-run.sh \"<message>\" -- <pathspec> [<pathspec> ...]" >&2
     exit 2
   fi
+fi
+
+# Test-suite guard. ui/server/test/run-all.mjs exports ENGINE_TEST_RUN=1 to every test process, and whatever
+# a test spawns (bash, python, a child server) inherits it. On the operator's machine this helper holds the
+# `main` ruleset's bypass identity, so a unit test that reaches it publishes fixture data — "Run failure
+# note: ZZFINL (stopped at business-model)" landed on main twice that way. Refuse before ANY git discovery,
+# with a distinct exit code, and leave a line in the runner's violation ledger so a caller that swallows
+# the exit status still fails the suite. ENGINE_NO_PUSH is not enough here: it stops the push but still
+# commits on the author's branch. A hermetic test of THIS script against a sandbox repository must drop the
+# variable from that one child's environment explicitly (scripts/test_commit_run.py does).
+if [ "${ENGINE_TEST_RUN:-}" = "1" ]; then
+  REFUSED_WHAT="${MSG:-retry-push $RETRY_SHA}"
+  echo "commit-run: REFUSED under ENGINE_TEST_RUN=1 — a test reached the real data committer; nothing was committed or pushed: $REFUSED_WHAT" >&2
+  if [ -n "${ENGINE_TEST_RUN_VIOLATIONS:-}" ]; then
+    printf 'commit-run.sh\t%s\t%s\n' "$REFUSED_WHAT" "$PWD" >> "$ENGINE_TEST_RUN_VIOLATIONS" 2>/dev/null || true
+  fi
+  exit 6
 fi
 
 # Validation/dry-run authority never includes a remote push. Retry mode used to bypass the ordinary

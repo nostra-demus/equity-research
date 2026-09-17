@@ -13,6 +13,7 @@ import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
+import { commitRunScriptFor } from './commit-run'
 import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
@@ -479,7 +480,7 @@ const FAILURE_NOTE = 'RUN_FAILURE.md'
 const recordedFailure = new Set<string>() // runRoots already recorded this process (single-shot dedup)
 
 let commitRunFile: (runRoot: string, file: string, msg: string) => void = (runRoot, file, msg) => {
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  const script = commitRunScriptFor(REPO_ROOT)
   // Timeout must EXCEED commit-run.sh's own ~15-min git-lock wait — a 60s cap would kill the helper while
   // it legitimately waits behind a concurrent full/chained commit, so the note would never reach git
   // (defeating the durable off-host diagnostic). commit-run.sh gives up on its own at 15m (exit 4).
@@ -6851,7 +6852,7 @@ let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
 
 type SupervisorCommitter = (message: string, pathspecs: string[], env: NodeJS.ProcessEnv) => Promise<string>
 let supervisorCommitter: SupervisorCommitter = async (message, pathspecs, env) => {
-  const result = await execa('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...pathspecs], {
+  const result = await execa('bash', [commitRunScriptFor(REPO_ROOT), message, '--', ...pathspecs], {
     cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
   })
   return result.stdout

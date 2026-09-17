@@ -5,7 +5,9 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { evaluatePreSpawnGuard, evaluateTerminalGuard, finalizeRunOnClose, type PreSpawnGuard } from '../src/launcher'
+import {
+  evaluatePreSpawnGuard, evaluateTerminalGuard, finalizeRunOnClose, __setFailureNoteCommitter, type PreSpawnGuard,
+} from '../src/launcher'
 import { ANALYSES_DIR } from '../src/config'
 import { readRunMarker } from '../src/outputs'
 import { createRun } from '../src/registry'
@@ -56,6 +58,12 @@ assert.match(unpublished.note ?? '', /module_publish_failed/)
 
 const chainedRoot = 'analyses/ZZPUBCHAIN_2099-01-01'
 fs.mkdirSync(path.join(ANALYSES_DIR, 'ZZPUBCHAIN_2099-01-01'), { recursive: true })
+// The rejected chained child records RUN_FAILURE.md and hands it to the failure-note committer. Without this
+// seam that was the REAL scripts/commit-run.sh: a fixture commit on the author's branch, pushed to main.
+const failureNoteCommits: string[] = []
+const realFailureNoteCommitter = __setFailureNoteCommitter((runRoot, file, msg) => {
+  failureNoteCommits.push(`${runRoot}/${file} :: ${msg}`)
+})
 try {
   const chained = createRun({
     kind: 'module', ticker: 'ZZPUBCHAIN', module: 'earnings', provider: 'claude', model: 'sonnet',
@@ -68,7 +76,10 @@ try {
   finalizeRunOnClose(chained, { exitCode: 0 }, '', terminalFailure)
   assert.equal(readRunMarker(chainedRoot, '.interrupted')?.reason, 'module_publish_failed',
     'a terminal launch/publish rejection stays durably recoverable on the exact chain root')
+  assert.deepEqual(failureNoteCommits, [`${chainedRoot}/RUN_FAILURE.md :: Run failure note: ZZPUBCHAIN (stopped at earnings)`],
+    'the failure note goes to the committer seam exactly once — never to the real git helper')
 } finally {
+  __setFailureNoteCommitter(realFailureNoteCommitter)
   fs.rmSync(path.join(ANALYSES_DIR, 'ZZPUBCHAIN_2099-01-01'), { recursive: true, force: true })
 }
 

@@ -160,6 +160,14 @@ The one thing to reconcile with real judgment: two changes to the **same logic**
 
 Drop a `something.test.ts` file in `ui/server/test/`. That's it — `npm test` (→ `node test/run-all.mjs`) discovers and runs it; CI picks it up automatically.
 
+**A test never runs the real data committer.** On the operator's machine `scripts/commit-run.sh` holds the `main` ruleset's bypass identity, and unit tests that reached a default committer without a seam have committed fixture data on the author's branch and published it to `main` (`Run failure note: ZZFINL …`, twice). The class is closed in the tooling, not by care:
+
+- The server names the helper in exactly one place, `ui/server/src/commit-run.ts`. Every spawn site resolves it through `commitRunScriptFor(repoRoot)`, which refuses inside a test process — recognised from `ENGINE_TEST_RUN=1` (exported by `run-all.mjs`) or from a `*.test.ts` entry point, so a single file run with `npx tsx` is covered too. Only a sandbox repository under the OS temp directory is allowed.
+- The refusal is loud, never a silent skip: it throws, forces that process to exit non-zero (several callers are best-effort and swallow errors), and appends to the runner's violation ledger, which fails the suite even when the refusal happened in a grandchild.
+- `commit-run.sh` itself exits `6` under `ENGINE_TEST_RUN=1` before any git discovery — the backstop for shell and Python callers the server never sees. A hermetic test of the script against a sandbox repository drops the variable for that one child (`scripts/test_commit_run.py` does).
+
+So a test that finalizes a broken run, publishes a watchlist row, or checkpoints a module installs the committer seam (`__setFailureNoteCommitter`, `__setSupervisorCommitter`, an injected `command`) or works in a temp sandbox. `ENGINE_NO_PUSH=1` is not a substitute: it stops the push but still commits on your branch. `test/test-publication-guard.test.ts` holds all of this in place.
+
 ## One-time GitHub setup (repo admin)
 
 These are the enforcement layer — they bind every contributor. Do them once in **Settings**:
