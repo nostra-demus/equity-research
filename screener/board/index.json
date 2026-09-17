@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T09:09:59Z",
+  "generated_at": "2026-09-17T09:18:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-119",
@@ -595,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-184",
+      "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Puravankara secures Rs 2,600 crore redevelopment project inGoregaon West, Mumbai\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PURVA_17092026141319_SEintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:43:33Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Puravankara secures Rs 2,600 crore redevelopment project in Mumbai, a quantified addition to order book and revenue visibility for the real-estate developer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Puravankara secures Rs 2,600 crore redevelopment project in Mumbai, a quantified addition to order book and revenue visibility for the real-estate developer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puravankara Limited",
+          "ticker": "PURAVANKARA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-121",
       "headline": "HS RMB GOLD ETF (83168): Announcement and Notice of Termination, Voluntary Deauthorisation and Delisting",
       "headline_en": null,
@@ -636,6 +685,55 @@
           "name": "HS RMB Gold ETF",
           "ticker": "83168",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-162",
+      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the Eleventh (11th) Committee of Creditors meeting held on Thursday, September 10, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_17092026134752_Letter_Adjournment_Intimation_11th_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:18:03Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The company is in ongoing Committee of Creditors meetings, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company is in ongoing Committee of Creditors meetings, indicating significant financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -929,6 +1027,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-160",
+      "headline": "ZHENGWEI GROUP (02147): PROPOSED RIGHTS ISSUE ON THE BASIS OF SIX (6) RIGHTS SHARES FOR EVERY ONE (1) EXISTING SHARE HELD ON RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700669.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The company is proposing a highly dilutive rights issue of 6 shares for every 1 existing share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company is proposing a highly dilutive rights issue of 6 shares for every 1 existing share.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZHENGWEI GROUP",
+          "ticker": "02147",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1321,6 +1468,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-165",
+      "headline": "Next warns Burnham against 'stifling growth' with tax hikes as it upgrades profits again",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16138479/Next-warns-Burnham-against-stifling-growth-tax-hikes-upgrades-profits-again.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T08:55:44Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Next has upgraded its profit guidance again, signaling strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Next has upgraded its profit guidance again, signaling strong operational performance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Next",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1729,20 +1925,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260917-159",
-      "headline": "Jain Irrigation Systems Limited: Jain Irrigation Systems Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"JAIN IRRIGATION SECURES ₹117.96 CRORE EMPANELMENT FROM MSEDCL FOR 5,000 SOLAR PUMPS\".",
+      "inbox_id": "INB-20260917-181",
+      "headline": "Softtech Engineers Limited: Softtech Engineers Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"SoftTech Engineers Limited secures Rs. 92.95 crore JNPA Project for AI-Enabled Digital Twin and Integrated Command & Control centre for Intelligent port operations\".",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JISLDVREQS_17092026133944_SE_Letter_Press_Release_MSEDCL_.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/SOFTTECH_17092026142311_SoftTechJNPAPressRelease.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T08:09:54Z",
+      "found_at": "2026-09-17T08:54:40Z",
       "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Jain Irrigation secured a contract worth ₹117.96 crore for 5,000 solar pumps from MSEDCL.",
+      "prelim_note": "Softtech Engineers secured a project worth Rs. 92.95 crore for port operations technology.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Jain Irrigation secured a contract worth ₹117.96 crore for 5,000 solar pumps from MSEDCL.",
+      "triage_reason": "Softtech Engineers secured a project worth Rs. 92.95 crore for port operations technology.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -1767,208 +1963,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Jain Irrigation Systems Limited",
+          "name": "Softtech Engineers Limited",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-107",
-      "headline": "NSE Raises ₹6,746 Crore From Anchor Investors, Global Funds Back India’s Largest Stock Exchange",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nse-raises-6746-crore-from-anchor-investors-global-funds-back-indias-largest-stock-exchange",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:07:15Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "National Stock Exchange raised 6,746 crore rupees from anchor investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "National Stock Exchange raised 6,746 crore rupees from anchor investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-036",
-      "headline": "NSE Raises ₹6,746 Cr From LIC, Goldman Sachs And Others In Anchor Round Ahead Of Mega IPO",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/news/nse-raises-6746-cr-from-lic-goldman-sachs-and-others-in-anchor-round-ahead-of-mega-ipo",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T05:04:24Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "NSE raises ₹6,746 crore from LIC, Goldman Sachs, and institutional anchors, signaling valuation band and institutional demand ahead of mega-cap IPO; official primary source, major capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "NSE raises ₹6,746 crore from LIC, Goldman Sachs, and institutional anchors, signaling valuation band and institutional demand ahead of mega-cap IPO; official primary source, major capital structure event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-138",
-      "headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DIACABS_17092026125851_Regulation_30-Receipt_of_Letter_of_Award.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:28:58Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The company has announced the receipt of new orders or contracts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The company has announced the receipt of new orders or contracts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diamond Power Infrastructure Limited",
-          "ticker": "522163",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-021",
-      "headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange about Signing of Definitive Agreements by Fortis Hospotel Limited (wholly owned subsidiary of the Company) to provide Healthcare Services to a 400+ bedded Super Specialty Hospital in Ashok Vihar, New Delhi",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/FORTIS_16092026192102_FINAL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:53:16Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Fortis Healthcare subsidiary signed an agreement to provide services to a 400+ bed hospital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Fortis Healthcare subsidiary signed an agreement to provide services to a 400+ bed hospital.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortis Healthcare Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166447,9 +166447,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 470429,
-    "news_picked_today": 165,
-    "news_dropped_today": 795
+    "news_seen_today": 488456,
+    "news_picked_today": 191,
+    "news_dropped_today": 937
   },
   "book_momentum": {
     "live_count": 8,
