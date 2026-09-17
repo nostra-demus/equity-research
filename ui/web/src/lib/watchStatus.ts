@@ -1,5 +1,6 @@
 // How the armed watchlist's words are shown: the signal on each name and message, what each name is waiting
 // for, and what happened to each message's email. Pure, so the rules are tested without a DOM (watchStatus.test.ts).
+import { shortDay } from './format'
 import type { WatchMessage, WatchPlanItem, WatchPlanView, WatchRow, WatchStatusWord } from './types'
 
 export const STATUS_ORDER: readonly WatchStatusWord[] = ['warning', 'buy_price_reached', 'getting_close', 'check_now', 'coming_up', 'cant_check', 'waiting']
@@ -175,11 +176,9 @@ export function dateParts(d: { label: string; date: string; days_to: number; est
  *  their warnings are watched, so the row says so instead of showing nothing to wait for. */
 const BUY_CALLS = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
 
-export function shortDate(iso: string): string {
-  const t = Date.parse(`${iso.slice(0, 10)}T00:00:00Z`)
-  if (!Number.isFinite(t)) return iso
-  return new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' })
-}
+/** One spelling of a date across the cockpit. This used to format on its own and print "16 Sept" beside
+ *  shortDay's "16 Sep" — the same month, two ways, in one panel. */
+export const shortDate = (iso: string): string => shortDay(iso) || iso
 
 /** The next date in one line, for the detail panel: "Q2 FY27 results · ~21 Oct · in 36 days". */
 export function dateWords(d: { label: string; date: string; days_to: number; estimated?: boolean } | null | undefined): string | null {

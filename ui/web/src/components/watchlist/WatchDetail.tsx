@@ -11,7 +11,7 @@ import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
-import { dateWords, gapWords, hasResearchPrice, quoteNote, rowSignal, rowStatus, shortDate } from '../../lib/watchStatus'
+import { dateWords, gapWords, hasResearchPrice, quoteNote, rowSignal, rowStatus } from '../../lib/watchStatus'
 import { WatchPlanSection } from './WatchPlan'
 
 /** A trigger's chip state — the three-valued vocabulary, so a refusal never renders as "not met". */
@@ -174,7 +174,13 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const hasReason = !!(row.why && row.why.trim())
   // A date of your own is content, so it keeps its section — it just does not stop the name being otherwise
   // empty, which is the live case: NU carries a review date and nothing else at all.
-  const bare = !w?.plan && !conds.length && !row.evals?.length && !hasReason && !nextDate && !next
+  //
+  // `w` must be PRESENT first. It is absent whenever the watcher is off and always in the static snapshot
+  // (DESIGN.md §5: an absent field means the feature is off, never that the name is empty) — without this a
+  // fully-researched name read "Nothing else set up yet." A researched name is never empty either, and a
+  // name the engine has changed its mind about has something to say, so both disqualify.
+  const bare = !!w && !w.plan && !conds.length && !row.evals?.length && !hasReason && !nextDate && !next
+    && !row.engine && !row.run_root && !row.resurfaced
 
   return (
     <aside className="wdet" aria-label={`Details for ${row.ticker}`}>
@@ -270,12 +276,15 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
 
       {w && <WatchPlanSection key={row.listing_key} row={row} />}
 
+      {/* Keyed by LISTING. Condition ids are content-derived, so two names researched the same day share
+          `research_old:<date>` — React then reuses the same <li>, and an uncontrolled <details> the reader
+          opened on one name renders already-open on the next. */}
       {w && liveConds.length > 0 && (
-        <section className="wdet__sec">
+        <section className="wdet__sec" key={`live-${row.listing_key}`}>
           <h4 className="wdet__seclabel">{liveConds.length === 1 ? 'What this means' : `What this means · ${liveConds.length}`}</h4>
           <ul className="wdet__conds">
             {liveConds.map((c) => (
-              <li key={c.id} className="wdet__cond">
+              <li key={c.id} className={`wdet__cond${c.can_ack && !staticMode && !isArchived ? ' wdet__cond--ack' : ''}`}>
                 <b>{c.title}</b>
                 {/* A date that has passed cannot pass again, and research does not get younger on its own. Saying
                     you have seen one leaves it on the name, in its own words, and stops it deciding the status. */}
@@ -310,16 +319,16 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       )}
 
       {seenConds.length > 0 && (
-        <details className="wdet__sec wdet__seensec">
+        <details className="wdet__sec wdet__seensec" key={`seen-${row.listing_key}`}>
           <summary>Seen · {seenConds.length}</summary>
           <ul className="wdet__conds">
             {seenConds.map((c) => (
-              <li key={c.id} className="wdet__cond wdet__cond--seen">
+              <li key={c.id} className={`wdet__cond wdet__cond--seen${!staticMode && !isArchived ? ' wdet__cond--ack' : ''}`}>
                 <b>{c.title}</b>
                 {!staticMode && !isArchived && (
                   <button className="btn btn--mini wdet__seen" onClick={() => ackCond(c.id, false)} title="Let this ask for attention again">Undo</button>
                 )}
-                <div className="wdet__condtext">{c.detail} Seen {shortDate(c.seen_at!)}.</div>
+                <div className="wdet__condtext">{c.detail} Seen {shortDay(c.seen_at!)}.</div>
               </li>
             ))}
           </ul>
@@ -342,8 +351,11 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                 </span>
               </>
             ) : (
+              // The reason there is no PRICE. `absent` is about triggers ("No trigger set — reminder only.")
+              // and printing it here said nothing about the price, repeated a sentence the triggers section
+              // prints anyway, and left the real reason reachable only by hovering.
               <span className="wdet__factnote" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : undefined}>
-                {absent ?? 'no price'}
+                {row.quote_reason ? String(row.quote_reason).replace(/_/g, ' ') : 'no price'}
               </span>
             )}
           </div>
@@ -439,7 +451,9 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         </section>
       )}
 
-      {!bare && (multi || absent || row.resurfaced || !row.evals?.length) && (
+      {/* `row.resurfaced` is deliberately outside `bare`'s reach: the engine changing its mind about a name you
+          archived is the one thing this section says that nothing else on the panel does. */}
+      {(row.resurfaced || (!bare && (multi || absent || !row.evals?.length))) && (
         <section className="wdet__sec">
           {multi && <h4 className="wdet__seclabel">Your triggers · {row.evals.length}</h4>}
           <div className="wdet__trigs">
@@ -513,7 +527,9 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       {/* The rerun affordance, WITH the two durable staleness facts beside it — when the engine last ran and
           how many documents are in the pool — and the scoped new-data check as the primary action, because a
           rerun over unchanged documents reads the same evidence and reaches the same thesis. */}
-      {!isArchived && !staticMode && (row.engine || row.run_root) && (
+      {/* A name YOU added with documents in its pool is exactly the case that needs this: it is the only path
+          from "I dropped the filings in" to a run. Gating on research alone took it away. */}
+      {!isArchived && !staticMode && (row.engine || row.run_root || pool) && (
         <section className="wdet__sec">
           <h4 className="wdet__seclabel">Engine run</h4>
           {pool ? (

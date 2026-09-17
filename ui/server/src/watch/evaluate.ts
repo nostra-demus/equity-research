@@ -52,8 +52,11 @@ export const URGENT_CONDITIONS: ReadonlySet<ConditionType> = new Set<ConditionTy
  * name comes back on its own.
  */
 export const ACKNOWLEDGEABLE: ReadonlySet<ConditionType> = new Set<ConditionType>([
-  'results_out', 'research_old', 'your_date_due',
+  'results_out', 'research_old',
 ])
+// A date YOU set is deliberately not here: `WatchTrigger.acknowledged_at` already clears it at source
+// (watchlist.ts evaluateTrigger), from its own button on the trigger, and it lives in the tracked entry file
+// rather than in this machine's monitor state. Two stores for one act disagree, and the durable one loses.
 
 export const CONDITION_STATUS: Record<ConditionType, StatusWord> = {
   buy_price_reached: 'buy_price_reached',
@@ -215,10 +218,20 @@ export interface EvaluateInput {
  * short, carries a number, and has none of the punctuation that marks prose or a table; otherwise the ISO day
  * is used, and the report's own wording is still shown as the quote beneath.
  */
+const DATE_WORD = /^(?:early|mid|middle|late|by|around|about|before|after|end|start|beginning|of|the|in|on|to|and|or|onwards?|h1|h2|q[1-4]|cq[1-4]|fy\d*|cy\d*|\d{1,4}|jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)$/i
+const MONTH_OR_YEAR = /^(?:(?:19|20)\d{2}|fy\d{2,4}|cy\d{2,4}|jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)$/i
+
 export function datePhrase(window: string | null | undefined): string | null {
   const text = String(window ?? '').replace(/^\s*(?:~|(?:est(?:imated)?|expected)\b\.?)\s*/i, '').trim()
-  if (!text || text.length > 24 || !/\d/.test(text)) return null
-  return /^[A-Za-z0-9][A-Za-z0-9 .,'/~–-]*$/.test(text) ? text : null
+  if (!text || text.length > 24) return null
+  // EVERY WORD HAS TO BE A DATE WORD. Rejecting on punctuation and length alone still passed "Board
+  // approved 2 plants" and "CNY 6,000mn buyback" — the exact thing this exists to keep out of a sentence,
+  // and a bare four-digit-year test still passed "2027 approvals". So the phrase is read the other way
+  // round: split it, and let it through only if every piece is a month, a year, a day, a period marker or
+  // a connector, AND at least one piece actually names a month or a year.
+  const parts = text.split(/[^A-Za-z0-9]+/).filter(Boolean)
+  if (!parts.length || !parts.every((w) => DATE_WORD.test(w))) return null
+  return parts.some((w) => MONTH_OR_YEAR.test(w)) ? text : null
 }
 
 export function evaluateName(input: EvaluateInput): NameEvaluation {
@@ -387,7 +400,11 @@ export function evaluateName(input: EvaluateInput): NameEvaluation {
     const age = daysBetween(decisionDay, today)
     if (age != null && age >= t.researchOldDays) {
       add({
-        id: `research_old:${decisionDay}`, type: 'research_old', title: 'The research is getting old',
+        // BANDED BY AGE, so "seen it" holds for one band and no further. Keyed on the decision date alone the
+        // id never changed, which made the one condition whose fact keeps getting worse the one a single click
+        // could retire for ever — at 90 days, 400 and 900 alike.
+        id: `research_old:${decisionDay}:${Math.floor(age / t.researchOldDays)}`, type: 'research_old',
+        title: 'The research is getting old',
         detail: `It was written ${age} days ago, on ${decisionDay}.`,
         quote: null, source: null, line: null,
       })

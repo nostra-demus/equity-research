@@ -89,10 +89,35 @@ try {
   assert.ok(seen.includes('Seen · 1'), 'it is counted, not hidden')
   // Caught in the live preview: seen_at is an instant, and the date-only formatter handed it back untouched,
   // so the panel read "Seen 2026-09-16T09:00:00Z." to a person.
-  assert.ok(seen.includes('Seen 16 Sep'), 'and dated in words, not as a machine stamp')
+  assert.ok(/Seen \d+ [A-Z][a-z]{2}\./.test(seen), 'and dated in words, not as a machine stamp')
   assert.ok(!seen.includes('T09:00:00'), 'never the raw instant')
   assert.ok(seen.includes('Undo'), 'and can be brought back')
   assert.ok(!seen.includes('What this means'), 'while nothing still asks for attention')
+
+  // A MISSING PRICE SAYS WHY IT IS MISSING. The one-line branch printed absenceReason(row) here — a sentence
+  // about TRIGGERS — so NVO on the live list read "No trigger set — reminder only." in the price slot, twice
+  // on one panel, while the real reason was reachable only by hovering.
+  const noPrice = detail({ quote: null, quote_reason: 'no_currency' } as Partial<WatchRow>)
+  assert.ok(noPrice.includes('no currency'), 'the price slot names the price reason')
+  assert.ok(!noPrice.includes('No trigger set'), 'not the trigger reason')
+  const notQuoted = detail({ quote: null, quote_reason: 'not_quoted' } as Partial<WatchRow>)
+  assert.ok(notQuoted.includes('not quoted'), 'including the one this branch was written for')
+
+  // NOTHING SET UP is a fact the watcher has to have answered for. `watch` is absent when the watcher is off
+  // and always in the static snapshot; reading that as "this name is empty" printed "Nothing else set up
+  // yet." over a researched name with a decision, a thesis and a run root.
+  const noWatcher = detail({ watch: undefined } as unknown as Partial<WatchRow>)
+  assert.ok(!noWatcher.includes('Nothing else set up yet.'), 'an absent watcher is not an empty name')
+  const researched = detail({
+    engine: { decision: 'Watchlist', decision_date: '2026-08-01', size_in_trigger: null, next_review: null,
+      next_review_text: null, entry_price: null } as any,
+    run_root: 'analyses/ZZZ_2026-08-01',
+  } as Partial<WatchRow>)
+  assert.ok(!researched.includes('Nothing else set up yet.'), 'nor is a name the engine has researched')
+
+  // The engine changing its mind about a name you archived is the one thing this note says.
+  const back = detail({ resurfaced: true, archive: { at: '2026-08-02T00:00:00Z', note: '' } } as unknown as Partial<WatchRow>)
+  assert.ok(back.includes('back on the list'), 'a resurfaced name always says so')
 
   // Your own reason shows; the research quote that used to stand in for one does not.
   assert.ok(detail({ why: 'Sugar cycle turning' }).includes('Sugar cycle turning'))

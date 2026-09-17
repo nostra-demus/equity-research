@@ -4981,7 +4981,10 @@ app.post('/api/watchlist/condition-seen', { config: { rateLimit: { max: 240, tim
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const body = WatchConditionSeen.safeParse(req.body ?? {})
   if (!body.success) return reply.code(400).send({ error: 'invalid body' })
-  watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
+  // A refusal is said out loud. Silently answering `ok` to a write that was dropped is how a client comes to
+  // believe a thing was acknowledged when nothing was stored.
+  const ok = watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
+  if (!ok) return reply.code(422).send({ error: 'this kind of condition cannot be acknowledged' })
   return { ok: true }
 })
 

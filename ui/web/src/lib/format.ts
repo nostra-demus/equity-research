@@ -301,9 +301,21 @@ export function money(currency: string | null | undefined, v: number): string {
 }
 
 /** "2026-07-13" → "13 Jul". A bare calendar date, no year, for inline prose. */
+/** An ISO instant → the reader's own calendar day, as `YYYY-MM-DD`. Empty when unparseable. */
+export function localDay(iso?: string | null): string {
+  const t = Date.parse(String(iso ?? ''))
+  if (!Number.isFinite(t)) return ''
+  const d = new Date(t)
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`
+}
+
 export function shortDay(iso?: string | null): string {
   if (!iso) return ''
-  const [y, m, d] = iso.split('-').map(Number)
+  // An INSTANT is rendered as the READER's own day; a date-only string has no timezone to convert, so it is
+  // taken as written. Without this an instant fell through the Number() checks and came back raw, which is
+  // how a panel came to read "Seen 2026-09-17T09:15:48.310Z." to a person.
+  const [y, m, d] = (iso.includes('T') ? localDay(iso) : iso).split('-').map(Number)
   if (!y || !m || !d || m < 1 || m > 12) return iso
   return `${d} ${MONTHS_SHORT[m - 1]}`
 }

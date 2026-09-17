@@ -6,7 +6,8 @@
 // Run: npx tsx src/lib/watchStatus.test.ts
 import assert from 'node:assert/strict'
 import type { WatchMessage, WatchRow } from './types'
-import { dateParts, dateWords, emailWords, gapWords, hasResearchPrice, messageSignal, priceItemText, quoteNote, rowSignal, rowStatus, sortRows, waitingParts } from './watchStatus'
+import { shortDay } from './format'
+import { dateParts, dateWords, emailWords, gapWords, hasResearchPrice, messageSignal, priceItemText, quoteNote, rowSignal, rowStatus, shortDate, sortRows, waitingParts } from './watchStatus'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -61,6 +62,18 @@ check('a signal says what happened, in a colour that always means the same', () 
   assert.deepEqual(pick(rowSignal(lead('coming_up', 'coming_up'))), ['Event soon', 'blue'])
   assert.deepEqual(pick(rowSignal(lead('cant_check', 'cant_check'))), ['No price', 'off'])
   assert.deepEqual(pick(rowSignal(row('A', { watch: watch('waiting') }))), ['Watching', 'grey'])
+})
+
+check('one spelling of a date, and an instant is the reader\'s own day', () => {
+  // shortDate used to format on its own ("16 Sept") beside shortDay ("16 Sep") — the same month two ways in
+  // one panel, and one heading that switched between them depending on which field carried the date.
+  assert.equal(shortDate('2026-09-16'), shortDay('2026-09-16'))
+  assert.equal(shortDate('2026-09-16'), '16 Sep')
+  // An instant is not a day until a timezone says so. Formatted in UTC, an acknowledgement made at 02:00 IST
+  // read as the day before for the person who made it.
+  const iso = new Date(2026, 8, 17, 2, 0, 0).toISOString()
+  assert.equal(shortDay(iso), '17 Sep', 'the day the reader was on when they clicked')
+  assert.equal(shortDay('not a date'), 'not a date', 'and anything unparseable comes back untouched')
 })
 
 check('a condition you have seen stops speaking for the name, and the next live one takes over', () => {

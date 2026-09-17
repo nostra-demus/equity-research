@@ -76,6 +76,27 @@ async function main() {
     assert.deepEqual([...out.keys()].sort(), ['X|GBP', 'X|USD', 'Y|USD'])
   })
 
+  await check('a listing the batch never answered for says so — it is not left with no price and no reason', async () => {
+    // The live symptom: one name in ten showed a bare "no price" with an empty tooltip, because a listing the
+    // feed simply omitted came back with a null reason and nothing downstream could explain it.
+    const partial = async (s: QuoteSubject[]) => new Map<string, QuoteOutcome>(
+      s.filter((x) => x.ticker !== 'GONE').map((x) => [x.ticker, { quote: null, reason: 'unknown_symbol' }]))
+    const out = await quoteListings([
+      { key: 'HERE|USD', ticker: 'HERE', currency: 'USD', exchange: null, companyName: null, entryPrice: null },
+      { key: 'GONE|USD', ticker: 'GONE', currency: 'USD', exchange: null, companyName: null, entryPrice: null },
+    ], partial)
+    assert.equal(out.get('GONE|USD')?.reason, 'not_quoted', 'asked for, never answered')
+    assert.equal(out.get('HERE|USD')?.reason, 'unknown_symbol', 'and the answered one keeps its own reason')
+
+    // When the batch answers for NOBODY the feed itself is the story — prices off, or the source unreachable.
+    // Blaming each listing individually would be a different, and wrong, explanation.
+    const silent = async () => new Map<string, QuoteOutcome>()
+    const none = await quoteListings([
+      { key: 'HERE|USD', ticker: 'HERE', currency: 'USD', exchange: null, companyName: null, entryPrice: null },
+    ], silent)
+    assert.equal(none.get('HERE|USD')?.reason, null, 'a silent feed is not this listing being unquoted')
+  })
+
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)
 }
 

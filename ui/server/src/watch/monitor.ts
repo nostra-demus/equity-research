@@ -11,8 +11,17 @@ import crypto from 'node:crypto'
 import { mergeWatchlist, onTheWatchlist, type EngineWatchRow, type MergedWatchRow, type WatchEntry } from '../watchlist'
 import type { AbsentReason, QuoteOutcome } from '../news/equity-quote'
 import {
-  DEFAULT_THRESHOLDS, STATUS_RANK, evaluateName, priceText,
-  type Condition, type NameEvaluation, type PriceFacts, type StatusWord, type Thresholds,
+  ACKNOWLEDGEABLE,
+  DEFAULT_THRESHOLDS,
+  STATUS_RANK,
+  evaluateName,
+  priceText,
+  type Condition,
+  type ConditionType,
+  type NameEvaluation,
+  type PriceFacts,
+  type StatusWord,
+  type Thresholds,
 } from './evaluate'
 import { REARM_PCT, stepAlerts, type NameAlertState } from './alerts'
 import { WatchInbox, type WatchMessageItem } from './inbox'
@@ -229,7 +238,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
         basis: `${eng.run_root}|partial`,
       }
     }
-    if (reading.has(seg)) return { plan, ready: false, view: view('reading', 'Reading the research now.', null), basis: `${eng.run_root}|reading` }
+    if (reading.has(seg)) return { plan, ready: false, view: view('reading', 'Reading the research now.'), basis: `${eng.run_root}|reading` }
     return { plan, ready: false, view: view('waiting', 'Waiting to read the research.', rec?.last_at ?? null), basis: `${eng.run_root}|waiting` }
   }
 
@@ -424,6 +433,16 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const facts = factsFor(row, at, true)
       const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t, seen: state.seen[row.listing_key] })
       if (!info.ready) { notReady++; continue }
+      // WHAT YOU SAW IS FORGOTTEN ONCE THE THING IS GONE. Condition ids are built from their own content — a
+      // decision date, a date item's hash — so every re-run mints new ones, and without this the old run's
+      // acknowledgements stayed in the state file for the life of the install. Only a name whose plan is
+      // READY prunes: a name mid-read has no conditions yet, and must not lose what you told it.
+      const ack = state.seen[key]
+      if (ack) {
+        const live = new Set(ev.conditions.map((c) => c.id))
+        for (const id of Object.keys(ack)) if (!live.has(id)) delete ack[id]
+        if (!Object.keys(ack).length) delete state.seen[key]
+      }
       const prev = state.names[key]
       const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: ev.conditions, price: facts.price, now: at }, t.rearmPct)
       state.names[key] = step.state
@@ -626,14 +645,21 @@ export function createWatchMonitor(deps: MonitorDeps) {
    * deciding the status, so the name leaves "Needs you" until something NEW happens — a further date passing,
    * or a fresh reading, each of which is a different id.
    */
-  function setSeen(listingKey: string, conditionId: string, seen: boolean): void {
+  function setSeen(listingKey: string, conditionId: string, seen: boolean): boolean {
+    // ONLY A CONDITION THAT COULD BE ACKNOWLEDGED. An id names its own type before the colon, and a write
+    // for any other type would be stored, re-serialised on every tick and read by nobody — so it is refused
+    // at the door rather than left for the sweep to find.
+    if (seen && !ACKNOWLEDGEABLE.has(conditionId.split(':')[0] as ConditionType)) return false
     const forName = { ...(state.seen[listingKey] ?? {}) }
     if (seen) forName[conditionId] = now().toISOString()
     else delete forName[conditionId]
     if (Object.keys(forName).length) state.seen[listingKey] = forName
     else delete state.seen[listingKey]
     saveState()
-    scheduleTick(2_000)
+    // No tick. Nothing the tick computes depends on this — the screen re-reads through decorate(), which
+    // reads state.seen directly — and scheduleTick REPLACES the pending timer, so a click here would cancel
+    // the run a just-finished plan read had queued, and re-quote every listing for nothing.
+    return true
   }
 
   function status() {
