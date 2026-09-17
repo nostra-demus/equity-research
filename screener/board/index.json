@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T08:42:29Z",
+  "generated_at": "2026-09-17T08:54:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-119",
@@ -786,6 +786,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-150",
+      "headline": "Precision Wires India Limited: Precision Wires India Limited has informed the Exchange regarding 'Intimation regarding start of trial production at Zaroli Plant'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRECWIRE_17092026124044_letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T07:10:54Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Trial production start at a named new plant (Zaroli) signals imminent operational capacity expansion that could materially increase future production volumes and impact margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trial production start at a named new plant (Zaroli) signals imminent operational capacity expansion that could materially increase future production volumes and impact margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Precision Wires India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-126",
       "headline": "Drax improves profit guidance after heatwave boosts demand",
       "headline_en": null,
@@ -879,6 +929,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-145",
+      "headline": "DVP: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DVP?key=2924-03136684-6A1344277",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T07:16:25Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "ASX substantial-holder disclosure mandates filing when a stake crosses ~5% threshold (Corporations Act requirement), but headline provides no acquirer identity, final position size, or disclosed intent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "ASX substantial-holder disclosure mandates filing when a stake crosses ~5% threshold (Corporations Act requirement), but headline provides no acquirer identity, final position size, or disclosed intent.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 67,
+      "rank_factors": {
+        "materiality": 67,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DVP",
+          "ticker": "DVP",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1391,6 +1490,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-141",
+      "headline": "Imagicaaworld Entertainment Limited: Imagicaaworld Entertainment Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Imagicaaworld Entertainment Announces Rs. 248 CroreHotel Transaction, Unlocking Significant Value\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IMAGICAA_17092026125233_CovLetter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T07:25:32Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Imagicaaworld Entertainment Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-154",
+      "headline": "PIXELA CORPORATION(6731)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T07:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A trading halt on an exchange is a significant operational event indicating potential distress or material news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A trading halt on an exchange is a significant operational event indicating potential distress or material news.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PIXELA CORPORATION",
+          "ticker": "6731",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-129",
       "headline": "Next nudges up profit guidance but sees UK headwinds",
       "headline_en": null,
@@ -1533,6 +1730,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-138",
+      "headline": "Diamond Power Infrastructure Limited: Diamond Power Infrastructure Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DIACABS_17092026125851_Regulation_30-Receipt_of_Letter_of_Award.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T07:28:58Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The company has announced the receipt of new orders or contracts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company has announced the receipt of new orders or contracts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamond Power Infrastructure Limited",
+          "ticker": "522163",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1730,261 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-004",
-      "headline": "Lumson acquires packaging company Lombardi’s US and Asia units",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/small-business/articles/lumson-acquires-packaging-company-lombardi-135923238.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T13:59:23Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Lumson is expanding its footprint by acquiring Lombardi's US and Asia units.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Lumson is expanding its footprint by acquiring Lombardi's US and Asia units.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lumson",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Lombardi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-005",
-      "headline": "Karnataka HC quashes Rs 482-crore penalty on ACC, directs govt to execute mining lease",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/cement/karnataka-hc-quashes-rs-482-crore-penalty-on-acc-directs-govt-to-execute-mining-lease/articleshow/134289251.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T13:30:57Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The Karnataka High Court quashed a Rs 482-crore penalty against ACC, providing a significant financial relief.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The Karnataka High Court quashed a Rs 482-crore penalty against ACC, providing a significant financial relief.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-019",
-      "headline": "Shah Metacorp Limited: Shah Metacorp Limited has informed the Exchange regarding allotment of 6500000 securities pursuant to Convertible Securities at its meeting held on September 16, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GAL_16092026192812_BMoutcome_16092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T13:58:30Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "The company allotted 6.5 million securities pursuant to convertible securities, representing a capital expansion event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company allotted 6.5 million securities pursuant to convertible securities, representing a capital expansion event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shah Metacorp Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-130",
-      "headline": "Turkey approves liquidation of US-sanctioned Golden Global's funds",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/middle-east/turkey-approves-liquidation-us-sanctioned-golden-globals-funds-2026-09-17/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:20:05Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Liquidation of funds approved following sanctions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Liquidation of funds approved following sanctions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Golden Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-003",
-      "headline": "First Au proposes all-scrip takeover of Javelin Minerals",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/commodities/articles/first-au-proposes-scrip-takeover-140420182.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-16T14:04:20Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "First Au has proposed an all-scrip takeover of Javelin Minerals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "First Au has proposed an all-scrip takeover of Javelin Minerals.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Au",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Javelin Minerals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167544,9 +167535,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 398387,
-    "news_picked_today": 135,
-    "news_dropped_today": 537
+    "news_seen_today": 434414,
+    "news_picked_today": 155,
+    "news_dropped_today": 685
   },
   "book_momentum": {
     "live_count": 8,
