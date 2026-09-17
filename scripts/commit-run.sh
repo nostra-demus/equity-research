@@ -14,10 +14,11 @@
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
 #         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed;
-#         6 the data catalogue REFUSED this exact publication. 6 is reserved for that one verdict: it is a
-#         pure function of the staged path list and the checked-in catalogue, so retrying the same run cannot
-#         change it. The cockpit supervisor reads this code (never the message) to record the run as
-#         `publication_refused`, which is not auto-resumed. Do not reuse 6 for any other failure.
+#         7 the data catalogue REFUSED the proposed tree. 7 is reserved for that one verdict. The validator
+#         judges the WHOLE proposed index against the checked-in catalogue, so nothing a provider re-run does
+#         can change it: the same run is refused again, and so is every other run while the uncatalogued path
+#         or catalogue gap stands. The cockpit supervisor reads this code (never the message) to record the
+#         run as `publication_refused`, which is not auto-resumed. Do not reuse 7 for any other failure.
 set -u
 
 RETRY_SHA=""
@@ -341,7 +342,7 @@ if [ "$CATALOGUE_STATUS" -ne 0 ]; then
   # proves nothing about these paths, stays the generic 5, and may be retried.
   if [ "$CATALOGUE_STATUS" -eq 1 ]; then
     echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
-    exit 6
+    exit 7
   fi
   echo "commit-run: data catalogue validator could not run (status $CATALOGUE_STATUS) — nothing was committed or pushed" >&2
   exit 5

@@ -94,7 +94,7 @@ const log = (m: string) => console.log(`[resume] ${m}`) // eslint-disable-line n
 /** Say once per hold that a refused publication is waiting for a human; forget it when the hold ends so a
  * later refusal of the same root is reported again. The Activity row and the run's RUN_FAILURE.md carry the
  * cause itself; this line is for whoever reads the engine log. */
-function noteManualResumeHold(key: string, subject: string, held: boolean): void {
+export function noteManualResumeHold(key: string, subject: string, held: boolean): void {
   if (!held) { gaveUp.delete(key); return }
   if (gaveUp.has(key)) return
   gaveUp.add(key)
@@ -1056,6 +1056,79 @@ export async function dispatchRecoverableChainIntent(
     if (error instanceof SubjectBusyError) return 'busy'
     throw error
   }
+}
+
+export type ManualHeldChainResume =
+  | { kind: 'not_held' }
+  | { kind: 'profile_mismatch'; frozen: PreSpendRetryProfile }
+  | { kind: 'launched'; launch: Awaited<ReturnType<typeof launchFullChained>> }
+  | { kind: Exclude<RecoverableChainDispatchOutcome, 'launched' | 'manual_resume_required'> }
+
+export interface ManualHeldChainResumeInput {
+  subject: string
+  runRoot: string
+  selection: { provider: RunProvider; model?: string; reasoningLevel?: string; expectedProfileKey?: string }
+  user: string
+  /** The caller already owns this subject's mutation lock (the Continue route does). */
+  lockHeld?: boolean
+}
+
+export interface ManualHeldChainResumeDeps {
+  listChains: () => Promise<RecoverableChainIntentRecord[]>
+  heldReason: (record: RecoverableChainIntentRecord) => string | undefined
+  dispatch: typeof dispatchRecoverableChainIntent
+  chainDeps: RecoverableChainDispatchDeps
+}
+
+/**
+ * The explicit human exit from the `publication_refused` hold for a protected full chain.
+ *
+ * Without it the hold is a dead end in the case that matters most: the master has already written its thesis,
+ * so the planner calls the saved run complete and the ordinary Continue route answers `already_complete`. On
+ * `main` only the automatic lane ever got past that state. This hands a person's Continue to that SAME lane —
+ * same journal, same frozen profile, same sanitizer and master relaunch that recover every transient
+ * publication failure — with the hold lifted for this one dispatch. It refuses to act on anything that is
+ * not a chain held for exactly this reason, so it cannot become a second, unreviewed way to start a run.
+ */
+export async function resumeHeldChainManually(
+  input: ManualHeldChainResumeInput,
+  deps: ManualHeldChainResumeDeps = {
+    listChains: () => listRecoverableChainIntents(),
+    heldReason: recordedInterruptionReason,
+    dispatch: dispatchRecoverableChainIntent,
+    chainDeps: defaultRecoverableChainDispatchDeps,
+  },
+): Promise<ManualHeldChainResume> {
+  const record = (await deps.listChains())
+    .find((candidate) => candidate.subject === input.subject && candidate.targetRunRoot === input.runRoot)
+  if (!record || !requiresManualResume(deps.heldReason(record))) return { kind: 'not_held' }
+  // The chain lane can only continue with the profile it froze at admission. Say so instead of silently
+  // running a different profile from the one the person just chose in the Resume dialog.
+  const frozen = record.intent.selection
+  const chosen = input.selection
+  if (chosen.provider !== frozen.provider
+      || (chosen.expectedProfileKey !== undefined && chosen.expectedProfileKey !== frozen.profileKey)
+      || (chosen.model !== undefined && chosen.model !== frozen.model)
+      || (chosen.reasoningLevel !== undefined && chosen.reasoningLevel !== (frozen.reasoningLevel ?? undefined))) {
+    return { kind: 'profile_mismatch', frozen }
+  }
+  let launch: Awaited<ReturnType<typeof launchFullChained>> | null = null
+  const outcome = await deps.dispatch(record, Date.now(), {
+    ...deps.chainDeps,
+    ...(input.lockHeld ? { withLock: (async (_key: string, callback: () => Promise<unknown>) => callback()) as typeof withSubjectLock } : {}),
+    // The ONLY difference from an automatic tick: a person has taken responsibility for this resume.
+    manualResumeReason: () => undefined,
+    launchChain: async (...args) => {
+      launch = await deps.chainDeps.launchChain(...args)
+      return launch
+    },
+  })
+  if (outcome === 'launched' && launch) {
+    log(`${input.user} manually resumed ${input.subject} after its publication was refused (${input.runRoot})`)
+    return { kind: 'launched', launch }
+  }
+  if (outcome === 'launched' || outcome === 'manual_resume_required') return { kind: 'waiting' }
+  return { kind: outcome }
 }
 
 export interface ProtectedRecoveryQueueDeps {

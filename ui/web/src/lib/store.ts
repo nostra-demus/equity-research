@@ -7087,7 +7087,10 @@ export const useStore = create<State>((set, get) => ({
             ? { msg: 'Stopped — your finished checks are saved. Press Continue to resume from here.', tone: 'info' }
             : e.reason === 'out_of_credits' && eventProvider
               ? { msg: `${providerLabel(eventProvider)} plan usage is exhausted — finished checks are saved; the server resumes this run when its reset is due.`, tone: 'info' }
-              : { msg: 'The run paused — your finished checks are saved; the server resumes it when the connection is back.', tone: 'info' })
+              // Nothing resumes this one on its own: promising that it will would be a lie.
+              : e.reason === 'publication_refused'
+                ? { msg: 'The results were not published — the engine refused them for a reason that running again cannot change. Your finished checks are saved; this run will not resume on its own. Fix the cause shown in Activity, then press Continue.', tone: 'bad' }
+                : { msg: 'The run paused — your finished checks are saved; the server resumes it when the connection is back.', tone: 'info' })
         }
         break
       }
