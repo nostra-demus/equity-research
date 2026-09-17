@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-17T08:38:45Z",
+  "generated_at": "2026-09-17T08:42:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-119",
+      "headline": "TONTINE WINES (00389): DESPATCH OF RESPONSE DOCUMENT IN RELATION TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700472.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "A voluntary cash partial offer for 56,320,200 shares has reached the response document stage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A voluntary cash partial offer for 56,320,200 shares has reached the response document stage.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Tontine Wines Group Limited",
+          "ticker": "00389",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-041",
       "headline": "CONTINENTAL H (00513): PROFIT WARNING",
@@ -497,6 +546,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-121",
+      "headline": "HS RMB GOLD ETF (83168): Announcement and Notice of Termination, Voluntary Deauthorisation and Delisting",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700377.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The termination and delisting of an ETF is a terminal event for the fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The termination and delisting of an ETF is a terminal event for the fund.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HS RMB Gold ETF",
+          "ticker": "83168",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-065",
       "headline": "FCA opens investigation into Euro Exchange Securities UK Ltd",
       "headline_en": null,
@@ -539,55 +637,6 @@
           "name": "Euro Exchange Securities UK Ltd",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-049",
-      "headline": "TONTINE WINES (00389): RESPONSE DOCUMENT RELATING TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700333.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T04:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Conditional voluntary partial cash takeover offer for 56.3M shares in Tontine Wines (00389) by I Win Securities; material M&A bid, but conditional terms and missing price detail limit certainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Conditional voluntary partial cash takeover offer for 56.3M shares in Tontine Wines (00389) by I Win Securities; material M&A bid, but conditional terms and missing price detail limit certainty.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tontine Wines",
-          "ticker": "00389",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -732,6 +781,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-126",
+      "headline": "Drax improves profit guidance after heatwave boosts demand",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/drax-bluefield-press-association-b1297297.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T08:15:03Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Company upgraded profit guidance due to increased demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Company upgraded profit guidance due to increased demand.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Drax",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1086,6 +1184,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-134",
+      "headline": "UK watchdog probes AkzoNobel's $25 billion Axalta merger",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/uk-watchdog-probes-akzonobels-25-billion-axalta-merger-2026-09-17/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T06:53:49Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Regulatory probe into a $25 billion merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Regulatory probe into a $25 billion merger.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Axalta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-046",
       "headline": "UK's Next nudges up profit guidance but expects sales growth to slow",
       "headline_en": null,
@@ -1234,6 +1386,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-129",
+      "headline": "Next nudges up profit guidance but sees UK headwinds",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/britains-next-nudges-up-profit-guidance-again-2026-09-17/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T07:22:26Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Company nudged up profit guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Company nudged up profit guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Next",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1686,6 +1887,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-130",
+      "headline": "Turkey approves liquidation of US-sanctioned Golden Global's funds",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/turkey-approves-liquidation-us-sanctioned-golden-globals-funds-2026-09-17/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T07:20:05Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Liquidation of funds approved following sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Liquidation of funds approved following sanctions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Golden Global",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-003",
       "headline": "First Au proposes all-scrip takeover of Javelin Minerals",
       "headline_en": null,
@@ -1732,250 +1982,6 @@
           "name": "Javelin Minerals",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-068",
-      "headline": "Dr Reddy’s expands pact with Gilead for investigational HIV prevention drug",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/dr-reddys-expands-pact-with-gilead-for-investigational-hiv-prevention-drug/article71475705.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:38:45Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Expansion of a partnership agreement with Gilead for a drug product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Expansion of a partnership agreement with Gilead for a drug product.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr Reddy's",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Gilead",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-058",
-      "headline": "11:11 | US Russia sanctions bill; Tata Sons board meet; NSE IPO opens",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/us-russia-sanctions-bill-tata-sons-board-meet-nse-ipo-opens-19992570.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T05:54:56Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Multiple significant events including US sanctions, Tata Sons board meeting, and NSE IPO opening.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Multiple significant events including US sanctions, Tata Sons board meeting, and NSE IPO opening.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "National Stock Exchange",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-086",
-      "headline": "'Count your days': US Labor Department ramps up H-1B fraud probe amid increased scrutiny",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/count-your-days-us-labor-department-ramps-up-h-1b-fraud-probe-amid-increased-scrutiny-11789630081342.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:58:32Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Increased scrutiny and probes into H-1B visa fraud create operational and compliance risks for companies relying on foreign labor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Increased scrutiny and probes into H-1B visa fraud create operational and compliance risks for companies relying on foreign labor.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-118",
-      "headline": "House passes Russia sanctions bill championed by Graham, sending it to Trump",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/us-house-takes-up-russia-sanctions-bill-backed-by-late-senator-graham-2026-09-16/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:22:57Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "US House passed new sanctions against Russia, escalating geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "US House passed new sanctions against Russia, escalating geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-096",
-      "headline": "Venus Pipes and Tubes shares hit 52-week high after board approves ₹372 crore preferential issue",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/venus-pipes-and-tubes-share-price-52-week-high-preferential-issue-372-crore-ashish-kacholia-white-oak-among-investors-19992609.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:11:45Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Venus Pipes and Tubes approved a preferential issue of ₹372 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Venus Pipes and Tubes approved a preferential issue of ₹372 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Venus Pipes and Tubes",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -167538,9 +167544,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 362459,
-    "news_picked_today": 117,
-    "news_dropped_today": 531
+    "news_seen_today": 398387,
+    "news_picked_today": 135,
+    "news_dropped_today": 537
   },
   "book_momentum": {
     "live_count": 8,
