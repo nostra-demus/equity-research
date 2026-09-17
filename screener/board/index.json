@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-17T11:40:20Z",
+  "generated_at": "2026-09-17T11:47:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-270",
+      "headline": "Directions under Section 35A read with Section 56 of the Banking Regulation Act, 1949 – The Gauhati Co-operative Urban Bank Ltd., Guwahati – Extension of period",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63614",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-17T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "The RBI has extended regulatory restrictions on The Gauhati Co-operative Urban Bank Ltd, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The RBI has extended regulatory restrictions on The Gauhati Co-operative Urban Bank Ltd, indicating ongoing financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Gauhati Co-operative Urban Bank Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-247",
       "headline": "QMS Medical Allied Services Limited: QMS Medical Allied Services Limited has informed the Exchange about Acquisition by additional stake of 24% in Saarathi Healthcare Private Limited, a Subsidiary of the Company. Pursuant to the said acquisition the Company now holds 100% in Saarathi Healthcare Private Limited",
@@ -1887,55 +1937,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-268",
-      "headline": "Bharat Electronics Limited: Bharat Electronics Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BEL_17092026164308_Lettersigned.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T11:13:18Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Bharat Electronics Limited announced the receipt of new orders/contracts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Bharat Electronics Limited announced the receipt of new orders/contracts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Electronics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164331,9 +164332,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 965885,
-    "news_picked_today": 328,
-    "news_dropped_today": 3632
+    "news_seen_today": 1014815,
+    "news_picked_today": 330,
+    "news_dropped_today": 3702
   },
   "book_momentum": {
     "live_count": 8,
