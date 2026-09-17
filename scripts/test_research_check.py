@@ -18,9 +18,10 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from research_check import (  # noqa: E402
-    MARKER, ap_failures, classify, deleted_body, deleted_records, deleted_title, issue_actions, issue_body,
-    issue_title,
+    MARKER, ap_failures, changed_valuation_sidecars, classify, deleted_body, deleted_other_artifacts,
+    deleted_records, deleted_title, issue_actions, issue_body, issue_title,
     main, resolve_head, runs_from_paths, scored_only, status_of, suite_contract_failures, summary_markdown,
+    touches_global_inputs,
 )
 import subprocess  # noqa: E402
 
@@ -67,6 +68,36 @@ check("paths outside analyses/ are not runs", runs_from_paths([
 check("a folder under analyses/ with no decision record is not a run",
       scored_only(["AKAM_2026-09-15", "performance", "tracking"], lambda run: run.startswith("AKAM"))
       == ["AKAM_2026-09-15"], "analyses/ also holds the harness's reports and the calibration summaries")
+
+# ---- deletions of OTHER required run artifacts (not just decision_record.json) name their run too ----
+check("deleting final_thesis.md (decision record intact) still names the run",
+      deleted_other_artifacts(["analyses/THESISGONE_2026-09-16/final_thesis.md",
+                                "analyses/eval/2026-09-16_eval_report.json"]) == ["THESISGONE_2026-09-16"])
+check("deleting the decision record itself is NOT this function's job (deleted_records() owns that)",
+      deleted_other_artifacts(["analyses/GONE_2026-09-16/decision_record.json"]) == [])
+check("deleting an arbitrary non-required file does not name the run",
+      deleted_other_artifacts(["analyses/X_2026-09-16/notes.txt"]) == [])
+
+# ---- a change to a GLOBAL evaluation input (not tied to one run folder) is detected ----
+check("a calibration summary is a global input",
+      touches_global_inputs(["analyses/performance/2026-09-16_calibration_summary.json"]))
+check("an all-scope same-day rerun (which overwrites, per scripts/calibrate.py write_outputs) is still a match",
+      touches_global_inputs(["analyses/performance/2026-06-01_calibration_summary.json"]))
+check("a SCOPED (per-ticker) calibration summary under performance/scoped/ is NOT a global input — "
+      "calibration_gate_checks.py's own glob is non-recursive and never sees it (scripts/calibrate.py "
+      "deliberately keeps a one-ticker snapshot out of the Phase-6 population)",
+      not touches_global_inputs(["analyses/performance/scoped/2026-06-01_AKAM_calibration_summary.json"]))
+check("an unrelated file under analyses/performance/ is not a global input",
+      not touches_global_inputs(["analyses/performance/README.md"]))
+check("a per-run file is not a global input",
+      not touches_global_inputs(["analyses/AKAM_2026-09-15/decision_record.json"]))
+
+# ---- a changed valuation sidecar names its run, for the fixed-partial close fold ----
+check("a changed valuation sidecar names its run",
+      changed_valuation_sidecars(["analyses/PARTIAL_2026-09-16/valuation/valuation_summary.json"])
+      == ["PARTIAL_2026-09-16"])
+check("a different file in the valuation folder is not a sidecar change",
+      changed_valuation_sidecars(["analyses/PARTIAL_2026-09-16/valuation/99_valuation-synthesis.md"]) == [])
 
 # ---- what the check makes of the eval report ----
 
@@ -116,6 +147,22 @@ check("the summary names each run and its result",
 
 check("an empty push says so plainly",
       "Nothing to check." in summary_markdown({"in_scope": {}, "corpus_failing": {}}, "x", "abc1234"))
+
+# ---- a run BOTH failing (a leftover malformed sidecar) AND deleted (its decision record) gets ONE issue,
+# not two (Codex P2) — the two comprehensions used to fire independently under the same research-eval:<run>
+# marker, and research_check_issues.sh's one-time issue-list snapshot means the second action's lookup can
+# never see the issue the first one just created.
+_dual_result = {"failing": {"DUAL_2026-09-16": ["AP_valuation_summary_integrity: bull below base"]},
+                "deleted": ["DUAL_2026-09-16"], "passing": []}
+_dual_actions = issue_actions(_dual_result, "sha1234", "url")
+check("a run both failing and deleted in the same push gets exactly ONE open action",
+      len(_dual_actions) == 1, f"got {len(_dual_actions)}")
+check("the merged action is the removal (the more severe of the two), not the plain contract-failure issue",
+      _dual_actions and _dual_actions[0]["state"] == "open"
+      and _dual_actions[0]["title"] == deleted_title("DUAL_2026-09-16"))
+check("the merged body keeps BOTH failure reasons — nothing lost by not opening a second issue",
+      _dual_actions and "removed" in _dual_actions[0]["body"]
+      and "AP_valuation_summary_integrity: bull below base" in _dual_actions[0]["body"])
 
 # ---- end to end, against a report on disk (no harness run, no network) ----
 
@@ -439,6 +486,170 @@ with tempfile.TemporaryDirectory() as tmp:
     check("a touched partial run whose sidecar AP-fails is charged to the push (exit non-zero)", code == 1)
     check("the partial run's AP failure opens an issue for it",
           {a["run"] for a in partial["issues"] if a["state"] == "open"} == {"PARTIAL_2026-09-16"})
+
+
+# ---- a corrected partial sidecar closes its stale AP-failure issue instead of vanishing from scope forever
+# (Codex P2, "Close issues when a partial sidecar is corrected") ----
+# A partial run's malformed sidecar first opened an issue (the test above). Once a LATER push corrects that
+# same sidecar, AP no longer flags it, so it drops out of `_ap` — and, with no decision_record.json either,
+# it would otherwise never re-enter scope at all, so no close action is ever emitted and the stale issue
+# stays open forever (the nightly --all sweep cannot rediscover it either — it only unions in AP-FAILING
+# partial runs, not passing ones).
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    os.makedirs(os.path.join(tmp, "analyses", "FIXEDSC_2026-09-16", "valuation"))
+    sidecar_path = os.path.join(tmp, "analyses", "FIXEDSC_2026-09-16", "valuation", "valuation_summary.json")
+    with open(sidecar_path, "w") as handle:
+        handle.write('{"ok": false}\n')
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "a malformed partial sidecar (already flagged by an earlier push)")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    with open(sidecar_path, "w") as handle:
+        handle.write('{"ok": true}\n')
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "correct the sidecar")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    fixed_report = os.path.join(tmp, "report.json")
+    with open(fixed_report, "w", encoding="utf-8") as handle:
+        json.dump({"suite_pass": True, "runs": {},
+                   "valuation_summary_integrity": {"checked": 1, "failures": []}}, handle)  # AP no longer flags it
+    op = os.path.join(tmp, "fixed-out.json")
+    # Pre-fix: scored_only() drops it (no decision_record.json) and it is absent from `_ap`, so scope_runs
+    # stays empty — no PASS entry, no close action, and the earlier issue is never told to close.
+    code = main(["--changed", base, head, "--root", tmp, "--report", fixed_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        fixed = json.load(handle)
+    check("a corrected partial sidecar exits zero (nothing left to fail)", code == 0, f"got exit {code}")
+    check("the corrected partial sidecar gets a close action, not silence forever", (lambda a: (
+        len(a) == 1 and a[0]["run"] == "FIXEDSC_2026-09-16" and a[0]["state"] == "close"
+    ))(fixed["issues"]), f"got {fixed['issues']!r}")
+
+
+# ---- deleting a required run artifact OTHER than decision_record.json still runs the harness for that run
+# (Codex P1, "Evaluate deletions of other run artifacts") ----
+# The existing deleted-canonical-record path (deleted_records(), tested above) only special-cases
+# decision_record.json. Deleting final_thesis.md while the decision record stays in place leaves the run
+# fully visible to eval.py — and eval.py's own A_structural check needs final_thesis.md to exist and be
+# over 1KB, so the run would now fail it — but the deletion is neither an add/change (--diff-filter=ACMRT
+# drops it) nor a decision-record removal, so pre-fix this reported "nothing to check".
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    os.makedirs(os.path.join(tmp, "analyses", "THESISGONE_2026-09-16"))
+    with open(os.path.join(tmp, "analyses", "THESISGONE_2026-09-16", "decision_record.json"), "w") as handle:
+        handle.write("{}\n")
+    with open(os.path.join(tmp, "analyses", "THESISGONE_2026-09-16", "final_thesis.md"), "w") as handle:
+        handle.write(("x" * 2000) + "\n")
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "a complete run")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    _git(tmp, "rm", "-q", "analyses/THESISGONE_2026-09-16/final_thesis.md")
+    _git(tmp, "commit", "-qm", "delete final_thesis.md; decision_record.json stays")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    thesis_report = os.path.join(tmp, "report.json")
+    with open(thesis_report, "w", encoding="utf-8") as handle:
+        # Stands in for what eval.py would itself compute now that final_thesis.md is gone (A_structural FAIL).
+        json.dump({"suite_pass": False, "runs": {
+            "THESISGONE_2026-09-16": run_entry(passed=False, fails=["A_structural"]),
+        }}, handle)
+    op = os.path.join(tmp, "thesis-out.json")
+    # Pre-fix: --diff-filter=ACMRT drops the deletion, deleted_records() only names a decision-record
+    # deletion, so touched_runs/scope_runs are empty and this returns 0 ("nothing to check").
+    code = main(["--changed", base, head, "--root", tmp, "--report", thesis_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        thesis = json.load(handle)
+    check("deleting final_thesis.md (decision record intact) still runs the harness (exit non-zero)",
+          code == 1, f"got exit {code}")
+    check("the run is charged as failing A_structural, not silently skipped",
+          "THESISGONE_2026-09-16" in thesis.get("failing", {}), f"got {thesis.get('failing')!r}")
+
+
+# ---- a changed GLOBAL evaluation input escalates to full-corpus scope (Codex P2, "Evaluate global analysis
+# inputs as full scope") ----
+# scripts/calibration_gate_checks.py loads analyses/performance/*_calibration_summary.json ONCE and applies
+# it to every run's AG check. A push that only touches that file cannot be scoped by path — 'performance' has
+# no decision_record.json — so a bad or corrected summary's effect on OTHER runs must escalate to the same
+# full-corpus scope --all uses, not be silently deferred to the nightly sweep via corpus_failing.
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    os.makedirs(os.path.join(tmp, "analyses", "performance"))
+    os.makedirs(os.path.join(tmp, "analyses", "UNRELATED_2026-09-16"))
+    with open(os.path.join(tmp, "analyses", "UNRELATED_2026-09-16", "decision_record.json"), "w") as handle:
+        handle.write("{}\n")
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "base")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    with open(os.path.join(tmp, "analyses", "performance", "2026-09-16_calibration_summary.json"),
+              "w") as handle:
+        handle.write("{}\n")
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "publish a calibration summary")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    global_report = os.path.join(tmp, "report.json")
+    with open(global_report, "w", encoding="utf-8") as handle:
+        # A run this push never touched by path, now failing check AG because the calibration summary it
+        # reads back changed — exactly the failure runs_from_paths()/scored_only() cannot scope to.
+        json.dump({"suite_pass": True, "runs": {
+            "UNRELATED_2026-09-16": run_entry(passed=False, fails=["AG_calibration_feedback_gate"]),
+        }}, handle)
+    op = os.path.join(tmp, "global-out.json")
+    # Pre-fix: runs_from_paths() names only 'performance', scored_only() drops it (no decision_record.json),
+    # so scope_runs is [] and this push exits 0 with UNRELATED's failure parked only in corpus_failing.
+    code = main(["--changed", base, head, "--root", tmp, "--report", global_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        globaljson = json.load(handle)
+    check("a changed global calibration input escalates this push to full-corpus scope (exit non-zero)",
+          code == 1, f"got exit {code}")
+    check("a run failing only because the global input changed is charged to THIS push, not deferred",
+          "UNRELATED_2026-09-16" in globaljson.get("failing", {})
+          and "UNRELATED_2026-09-16" not in globaljson.get("corpus_failing", {}),
+          f"failing={globaljson.get('failing')!r} corpus_failing={globaljson.get('corpus_failing')!r}")
+
+
+# ---- a run deleted AND still-failing (a leftover malformed sidecar) in the SAME push gets ONE issue, not
+# two (Codex P2, "Emit only one issue action for a deleted failing run") — end-to-end mechanism proof ----
+with tempfile.TemporaryDirectory() as tmp:
+    _git(tmp, "init", "-q")
+    _git(tmp, "config", "user.email", "t@t.t")
+    _git(tmp, "config", "user.name", "t")
+    os.makedirs(os.path.join(tmp, "analyses", "DUALBUG_2026-09-16", "valuation"))
+    with open(os.path.join(tmp, "analyses", "DUALBUG_2026-09-16", "decision_record.json"), "w") as handle:
+        handle.write("{}\n")
+    dualbug_sidecar = os.path.join(tmp, "analyses", "DUALBUG_2026-09-16", "valuation", "valuation_summary.json")
+    with open(dualbug_sidecar, "w") as handle:
+        handle.write('{"ok": true}\n')
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "a complete run")
+    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    _git(tmp, "rm", "-q", "analyses/DUALBUG_2026-09-16/decision_record.json")
+    with open(dualbug_sidecar, "w") as handle:
+        handle.write('{"ok": false}\n')   # the SAME push also breaks the leftover sidecar
+    _git(tmp, "add", "-A")
+    _git(tmp, "commit", "-qm", "delete the decision record AND break the sidecar it leaves behind")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+    dualbug_report = os.path.join(tmp, "report.json")
+    with open(dualbug_report, "w", encoding="utf-8") as handle:
+        json.dump({"suite_pass": False, "runs": {},
+                   "valuation_summary_integrity": {"checked": 1, "failures": [
+                       {"run": "DUALBUG_2026-09-16", "violations": ["bull level below base level"]}]}},
+                  handle)
+    op = os.path.join(tmp, "dualbug-out.json")
+    # Pre-fix: result["failing"] AND result["deleted"] both name DUALBUG_2026-09-16, and issue_actions()
+    # emitted one open action from EACH — two issues for one run.
+    code = main(["--changed", base, head, "--root", tmp, "--report", dualbug_report, "--json-out", op])
+    with open(op, encoding="utf-8") as handle:
+        dualbug = json.load(handle)
+    _open_actions = [a for a in dualbug["issues"] if a["state"] == "open"]
+    check("a run deleted AND still-failing in the same push gets exactly ONE open action end to end",
+          len(_open_actions) == 1, f"got {len(_open_actions)}: {_open_actions!r}")
+    check("the one action is the removal, carrying the leftover sidecar failure in its body too",
+          _open_actions and _open_actions[0]["title"] == deleted_title("DUALBUG_2026-09-16")
+          and "bull level below base level" in _open_actions[0]["body"])
 
 
 # ---- full-corpus issues record the real SHA, not the literal 'HEAD' (Codex P2) ----

@@ -33,6 +33,27 @@ NOT_A_RUN = {"eval"}
 MARKER = "research-eval"
 DECISION_RECORD = "decision_record.json"
 
+# Other top-level run artifacts eval.py's validators require, besides decision_record.json (which
+# deleted_records() already special-cases: eval.py discovers a run ONLY via a decision_record.json still on
+# disk, so losing that one makes the run invisible to the harness entirely). Losing one of THESE leaves the
+# run fully visible to eval.py (its decision_record.json is still there) but makes a specific check FAIL:
+# A_structural needs final_thesis.md + RUN_METADATA.md; check L needs memo.md + audit_dossier.md; checks
+# O/X/AH need verification_report.json / pre_mortem.json / expectations_gap.json for a conviction-basket run
+# dated on/after their gates. Mirrors eval.py's own SCHEMA_FILES set, minus DECISION_RECORD.
+OTHER_REQUIRED_ARTIFACTS = {
+    "final_thesis.md", "RUN_METADATA.md", "memo.md", "audit_dossier.md",
+    "verification_report.json", "pre_mortem.json", "expectations_gap.json",
+}
+
+# The global evaluation inputs scripts/calibration_gate_checks.py loads ONCE and applies to EVERY run's AG
+# check (the Phase-6 calibration-feedback gate) — never scoped to a single run folder, so runs_from_paths()
+# cannot name a run for a change here. Mirrors that module's own CALIB_SUMMARIES glob verbatim.
+GLOBAL_INPUT_PATTERN = re.compile(r"^analyses/performance/[^/]*_calibration_summary\.json$")
+
+# The valuation lever sidecar AP validates globally (scripts/valuation_summary_checks.py:scan_committed),
+# including for a partial run with no decision_record.json yet. Mirrors that module's own glob verbatim.
+VALUATION_SIDECAR_PATH = re.compile(r"^analyses/([^/]+)/valuation/valuation_summary\.json$")
+
 
 def runs_from_paths(paths):
     """The run folders a list of changed paths belongs to, sorted, without repeats."""
@@ -55,6 +76,50 @@ def deleted_records(paths):
         p = raw.strip().replace("\\", "/")
         match = RUN_PATH.match(p)
         if match and match.group(1) not in NOT_A_RUN and os.path.basename(p) == DECISION_RECORD:
+            out.add(match.group(1))
+    return sorted(out)
+
+
+def deleted_other_artifacts(paths):
+    """
+    Runs that had one of OTHER_REQUIRED_ARTIFACTS removed (decision_record.json excluded — that is
+    deleted_records()'s job, above). A push that deletes only, say, final_thesis.md leaves the run's
+    decision_record.json in place, so eval.py still discovers and scores it — and A_structural now fails it
+    (final_thesis.md is one of the two files it checks for). Without this, such a deletion is invisible to
+    every path-based query here (it is neither an add/change nor a decision-record removal), so the run
+    never re-enters scope and the push reports 'nothing to check' while the harness would fail it.
+    """
+    out = set()
+    for raw in paths:
+        p = raw.strip().replace("\\", "/")
+        match = RUN_PATH.match(p)
+        if match and match.group(1) not in NOT_A_RUN and os.path.basename(p) in OTHER_REQUIRED_ARTIFACTS:
+            out.add(match.group(1))
+    return sorted(out)
+
+
+def touches_global_inputs(paths):
+    """
+    True when a push added, changed, or removed a GLOBAL evaluation input — one calibration_gate_checks.py
+    loads once and applies to every run's AG check, not one tied to a single run folder. runs_from_paths()
+    would derive a scope of just 'performance', which scored_only() then drops (that folder has no
+    decision_record.json) — so a bad or corrected calibration summary could silently fail OTHER runs' AG
+    check with the failures landing only in corpus_failing (nightly-only) and this push reporting PASS.
+    """
+    return any(GLOBAL_INPUT_PATTERN.match(raw.strip().replace("\\", "/")) for raw in paths)
+
+
+def changed_valuation_sidecars(paths):
+    """
+    Runs whose analyses/<run>/valuation/valuation_summary.json this push added or changed. AP's global scan
+    (scan_committed) validates this sidecar for a PARTIAL run (no decision_record.json yet) exactly as it
+    does for a scored one, so a corrected sidecar needs to re-enter scope too — not only a newly-broken one
+    (see the `fixed_partial` fold in main(), the counterpart to the existing `ap_touched` fold).
+    """
+    out = set()
+    for raw in paths:
+        match = VALUATION_SIDECAR_PATH.match(raw.strip().replace("\\", "/"))
+        if match and match.group(1) not in NOT_A_RUN:
             out.add(match.group(1))
     return sorted(out)
 
@@ -149,7 +214,7 @@ def run_eval(root="."):
         return json.load(handle)
 
 
-def status_of(report, run):
+def status_of(report, run, root="."):
     """(status, failing check names) for one run: PASS, WARN (evaluated, not gating), FAIL, or MISSING.
 
     An AP valuation-summary integrity violation HARD-FAILS the run: eval.py fails the whole suite on it
@@ -159,7 +224,17 @@ def status_of(report, run):
     ap_fails = [f"AP_valuation_summary_integrity: {v}" for v in ap] if ap else []
     entry = (report.get("runs") or {}).get(run)
     if entry is None:
-        return ("FAIL", ap_fails or ["AP_valuation_summary_integrity"]) if ap is not None else ("MISSING", [])
+        if ap is not None:
+            return "FAIL", ap_fails or ["AP_valuation_summary_integrity"]
+        # No scored decision record and no current AP violation. Most of the time this is simply not a
+        # scored run at all (an intake plan, say) — MISSING, reported but never failed. The one exception:
+        # main() folds a touched, still-committed valuation sidecar for a partial run into scope even after
+        # AP stops flagging it (the `fixed_partial` fold), specifically so a corrected sidecar can close a
+        # stale issue rather than vanish from scope with the issue left open forever. Recognize that case
+        # here so it reads PASS, not MISSING (classify()/issue_actions() only close a PASS).
+        if os.path.isfile(os.path.join(root, "analyses", run, "valuation", "valuation_summary.json")):
+            return "PASS", []
+        return "MISSING", []
     fails = [check.get("check") for check in entry.get("checks") or [] if check.get("status") == "FAIL"]
     fails += ap_fails
     if ap is not None:
@@ -169,19 +244,19 @@ def status_of(report, run):
     return ("PASS" if entry.get("pass") else "FAIL"), fails
 
 
-def classify(report, scope_runs):
+def classify(report, scope_runs, root="."):
     """
     What this check reports: every run in scope by status, plus anything ELSE in the corpus that fails.
     A run in the push with no entry in the report is not a scored run yet (an intake plan, say): reported,
     never failed — this check exists to name what just landed, not to invent a verdict about it.
     """
-    in_scope = {run: status_of(report, run) for run in scope_runs}
+    in_scope = {run: status_of(report, run, root) for run in scope_runs}
     corpus_failing = {}
     # Union of scored runs and AP-flagged runs: an AP failure can name a run that has no scored entry.
     for run in sorted(set((report.get("runs") or {}).keys()) | set(ap_failures(report).keys())):
         if run in in_scope:
             continue
-        status, fails = status_of(report, run)
+        status, fails = status_of(report, run, root)
         if status == "FAIL":
             corpus_failing[run] = fails
     return {
@@ -223,25 +298,45 @@ def deleted_title(run):
     return f"Research eval: {run} decision record was removed"
 
 
-def deleted_body(run, head, run_url):
-    """The issue a run gets when its decision_record.json is deleted from main."""
+def deleted_body(run, head, run_url, extra_fails=None):
+    """The issue a run gets when its decision_record.json is deleted from main.
+
+    `extra_fails`, when given, folds in contract-check failures the SAME push also left behind for this run
+    (e.g. AP flagged a malformed valuation sidecar the deletion did not touch) — one issue per run, not two
+    (see issue_actions(), which is what decides when to pass this).
+    """
+    extra = ""
+    if extra_fails:
+        checks = ", ".join(f"`{name}`" for name in extra_fails)
+        extra = f"\nWhat is left of the run also fails the eval harness: {checks}.\n"
     return (
         f"<!-- {MARKER}:{run} -->\n"
         f"`{run}`'s `{DECISION_RECORD}` was **removed** in `{head}`. The eval harness only sees records still "
         "on disk, so a deleted call falls out of the standing set and the calibration history silently — the "
         "nightly sweep cannot recover it. If this was intentional (a call retired), record why; if not, restore "
-        f"`analyses/{run}/{DECISION_RECORD}` from history.\n\n- Commit: `{head}`\n- Check: {run_url}\n"
+        f"`analyses/{run}/{DECISION_RECORD}` from history.\n{extra}\n- Commit: `{head}`\n- Check: {run_url}\n"
     )
 
 
 def issue_actions(result, head, run_url):
-    """One entry per run in scope: open an issue for a failing (or deleted) run, close a passing one's issue."""
+    """One entry per run in scope: open an issue for a failing (or deleted) run, close a passing one's issue.
+
+    A run can land in BOTH result['failing'] (e.g. AP flags its still-present, malformed valuation sidecar)
+    AND result['deleted'] (its decision_record.json was removed) in the SAME push. Both would open an issue
+    under the identical `research-eval:<run>` marker, and research_check_issues.sh snapshots the open-issue
+    list once at the start (an earlier fix in this PR) — so the second action's lookup cannot see the issue
+    the first one just created, and two issues open for one run. Emit exactly ONE open action per run: the
+    deletion (the more severe and more actionable of the two — the call itself is gone, not just a sidecar
+    it left behind), with the other failure's checks folded into its body so nothing is lost.
+    """
+    failing = dict(result["failing"])
+    deleted_runs = sorted(result.get("deleted") or [])
     actions = [{"run": run, "state": "open", "title": issue_title(run),
-                "body": issue_body(run, result["failing"][run], head, run_url)}
-               for run in sorted(result["failing"])]
+                "body": issue_body(run, failing[run], head, run_url)}
+               for run in sorted(failing) if run not in deleted_runs]
     actions += [{"run": run, "state": "open", "title": deleted_title(run),
-                 "body": deleted_body(run, head, run_url)}
-                for run in sorted(result.get("deleted") or [])]
+                 "body": deleted_body(run, head, run_url, extra_fails=failing.get(run))}
+                for run in deleted_runs]
     actions += [{"run": run, "state": "close", "title": issue_title(run),
                  "body": close_body(run, head, run_url)}
                 for run in sorted(result["passing"])]
@@ -310,6 +405,7 @@ def main(argv=None):
     full_scope = True   # --all, or a --changed push with no comparable base → the whole corpus is the scope
     deleted = []
     touched_runs = []
+    changed = []
     if args.changed:
         base, head = args.changed
         mode = "the runs this push touched"
@@ -319,13 +415,23 @@ def main(argv=None):
         else:
             full_scope = False
             changed = changed_paths(base, head, args.root)
-            touched_runs = runs_from_paths(changed)
-            scope_runs = scored_only(
-                touched_runs,
-                lambda run: os.path.isfile(os.path.join(args.root, "analyses", run, "decision_record.json")),
-            )
-            deleted = deleted_records(deleted_paths(base, head, args.root))
-            if not changed and not deleted:
+            deleted_all = deleted_paths(base, head, args.root)
+            deleted = deleted_records(deleted_all)
+            # A push that deletes some OTHER required run artifact (final_thesis.md, RUN_METADATA.md, ...)
+            # while leaving decision_record.json in place is not "nothing changed": the run stays fully
+            # visible to eval.py, and a validator that needs the deleted file (A_structural, check L, ...)
+            # now fails it. deleted_records() only special-cases decision_record.json — eval.py cannot see
+            # the run at all once THAT is gone — so fold these into touched_runs instead, re-entering scope
+            # via the normal scored_only() path below.
+            deleted_other = deleted_other_artifacts(deleted_all)
+            touched_runs = sorted(set(runs_from_paths(changed)) | set(deleted_other))
+            # A GLOBAL evaluation input (loaded once, for every run — e.g. the calibration summaries
+            # scripts/calibration_gate_checks.py globs from analyses/performance/) cannot be scoped by path:
+            # that folder has no decision_record.json, so runs_from_paths() names no run and scored_only()
+            # drops it, silently deferring a bad or corrected summary's failures on OTHER runs to the
+            # nightly sweep. Escalate to full-corpus scope instead, exactly like --all.
+            global_touch = touches_global_inputs(changed) or touches_global_inputs(deleted_all)
+            if not changed and not deleted and not deleted_other and not global_touch:
                 print("research check: this push changed no research artifact under analyses/ — nothing to check.")
                 empty = {"mode": mode, "head": head, "in_scope": {}, "failing": {}, "passing": [],
                          "missing": [], "corpus_failing": {}, "deleted": [], "suite_contracts": [],
@@ -333,9 +439,16 @@ def main(argv=None):
                 _write(args.json_out, json.dumps(empty, indent=2))
                 _write(args.summary_out, summary_markdown(empty, mode, head), mode="a")
                 return 0
-            if not changed:
-                # A push that ONLY deleted a run: report the removal without running the harness (the
-                # deletion is a git fact, not an eval fact) — but never treat it as "nothing changed".
+            if global_touch:
+                # scope_runs stays None so it is set from the eval report itself, below, exactly as the
+                # full-corpus sweep sets it; full_scope=True so a resulting suite_pass=false (e.g. the AG
+                # gate breaking on the changed summary) is charged to THIS push too, not deferred to nightly.
+                full_scope = True
+                mode = "every committed run (a global evaluation input changed)"
+            elif not changed and not deleted_other:
+                # A push that ONLY deleted decision record(s), touching no other artifact and no global
+                # input: report the removal without running the harness (the deletion is a git fact, not an
+                # eval fact) — but never treat it as "nothing changed".
                 result = {"in_scope": {}, "failing": {}, "passing": [], "missing": [], "corpus_failing": {},
                           "deleted": deleted, "suite_contracts": [], "suite_pass": True}
                 result.update({"mode": mode, "head": head,
@@ -346,10 +459,16 @@ def main(argv=None):
                 _write(args.summary_out, summary_markdown(result, mode, head), mode="a")
                 print(f"\nFAIL — {len(deleted)} run(s) had a decision record removed.")
                 return 1
-            # Otherwise the push changed analyses/ artifacts: fall through and RUN eval even when no run is
-            # scored yet. A valuation sidecar committed before its decision_record is not in scope_runs, but
-            # eval.py's AP scan_committed validates that partial sidecar and can hard-fail it — so the harness
-            # must run for it, not be skipped.
+            else:
+                scope_runs = scored_only(
+                    touched_runs,
+                    lambda run: os.path.isfile(os.path.join(args.root, "analyses", run, "decision_record.json")),
+                )
+            # Otherwise the push changed analyses/ artifacts (added/changed, deleted some OTHER required run
+            # artifact, or touched a global input): fall through and RUN eval even when no run is scored yet.
+            # A valuation sidecar committed before its decision_record is not in scope_runs, but eval.py's AP
+            # scan_committed validates that partial sidecar and can hard-fail it — so the harness must run
+            # for it, not be skipped.
 
     # The full-corpus head is the literal 'HEAD'; resolve it to the real SHA so issue provenance is traceable.
     head = resolve_head(head, args.root)
@@ -372,8 +491,22 @@ def main(argv=None):
     ap_touched = [run for run in touched_runs if run in _ap and run not in scope_runs]
     if ap_touched:
         scope_runs = sorted(set(scope_runs) | set(ap_touched))
+    # A partial run's sidecar may instead have been CORRECTED, not newly broken: it no longer appears in
+    # `_ap`, so ap_touched above never re-adds it, and — with no scored decision record either — it would
+    # otherwise vanish from scope with any AP-failure issue left open forever (the nightly --all sweep
+    # cannot rediscover a passing partial run either; it only unions in AP-FAILING ones). Fold in any
+    # touched, still-committed valuation sidecar AP no longer flags: status_of() reports it PASS, and
+    # closing an issue that was never open is a no-op (research_check_issues.sh).
+    sidecar_touched = changed_valuation_sidecars(changed)
+    fixed_partial = [
+        run for run in sidecar_touched
+        if run not in scope_runs and run not in _ap
+        and os.path.isfile(os.path.join(args.root, "analyses", run, "valuation", "valuation_summary.json"))
+    ]
+    if fixed_partial:
+        scope_runs = sorted(set(scope_runs) | set(fixed_partial))
 
-    result = classify(report, scope_runs)
+    result = classify(report, scope_runs, args.root)
     # The harness's own verdict is authoritative (a deterministic validator — CLAUDE.md/AGENTS.md §29, §31):
     # a suite that fails as a whole (framework source contracts, AZ correspondence, an unreadable report)
     # must be surfaced, never overridden by an all-runs-pass reading of the per-run map.
