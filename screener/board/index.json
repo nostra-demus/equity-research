@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-17T09:18:35Z",
+  "generated_at": "2026-09-17T09:37:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-188",
+      "headline": "SKYWORTH GROUP (00751): ANNOUNCEMENT MONTHLY UPDATE IN RELATION TO (1) PROPOSED PRE-CONDITIONAL SHARE BUY-BACK OF SKYWORTH GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT (2) PROPOSED DISTRIBUTION OF SKYWORTH PHOTOVOLTAIC SHARES BY SKYWORTH GROUP LIMITED (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT AND (4) PROPOSED WITHDRAWAL OF LISTING OF SKYWORTH GROUP LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700781.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T08:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Skyworth Group announced a proposed share buy-back, spin-off of photovoltaic shares, and potential delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Skyworth Group announced a proposed share buy-back, spin-off of photovoltaic shares, and potential delisting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Skyworth Group",
+          "ticker": "00751",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-119",
       "headline": "TONTINE WINES (00389): DESPATCH OF RESPONSE DOCUMENT IN RELATION TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM)",
@@ -46,6 +96,98 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-206",
+      "headline": "RBI cancels Certificate of Registration of 5 NBFCs",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63611",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-17T07:25:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Cancellation of registration for 5 NBFCs indicates regulatory action impacting the non-banking financial sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cancellation of registration for 5 NBFCs indicates regulatory action impacting the non-banking financial sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-207",
+      "headline": "Suspension of Trading in Debentures of Mahua Bharatpur Expressways Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260917-1/20260917-1.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T06:55:41Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Suspension of trading in a named company's debentures signals a credit event or distress affecting debt holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension of trading in a named company's debentures signals a credit event or distress affecting debt holders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahua Bharatpur Expressways Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1778,21 +1920,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260917-141",
-      "headline": "Imagicaaworld Entertainment Limited: Imagicaaworld Entertainment Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Imagicaaworld Entertainment Announces Rs. 248 CroreHotel Transaction, Unlocking Significant Value\".",
+      "inbox_id": "INB-20260917-191",
+      "headline": "FRS: Further Significant Drill Intercepts from British Hill [price-sensitive]",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IMAGICAA_17092026125233_CovLetter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRS?key=2924-03136715-6A1344293",
+      "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:25:32Z",
+      "found_at": "2026-09-17T08:40:05Z",
       "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
+      "prelim_note": "Mining company announces significant drill intercepts from exploration program at price-sensitive status; can shift mineral resource estimates and analyst fair-value views but headline lacks intercept width, grade, and length.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
-      "region": "IN",
+      "triage_reason": "Mining company announces significant drill intercepts from exploration program at price-sensitive status; can shift mineral resource estimates and analyst fair-value views but headline lacks intercept width, grade, and length.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
@@ -1800,175 +1942,29 @@
         "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imagicaaworld Entertainment Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-154",
-      "headline": "PIXELA CORPORATION(6731)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "A trading halt on an exchange is a significant operational event indicating potential distress or material news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A trading halt on an exchange is a significant operational event indicating potential distress or material news.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PIXELA CORPORATION",
-          "ticker": "6731",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-129",
-      "headline": "Next nudges up profit guidance but sees UK headwinds",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/britains-next-nudges-up-profit-guidance-again-2026-09-17/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:22:26Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Company nudged up profit guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Company nudged up profit guidance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Next",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-181",
-      "headline": "Softtech Engineers Limited: Softtech Engineers Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"SoftTech Engineers Limited secures Rs. 92.95 crore JNPA Project for AI-Enabled Digital Twin and Integrated Command & Control centre for Intelligent port operations\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SOFTTECH_17092026142311_SoftTechJNPAPressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T08:54:40Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Softtech Engineers secured a project worth Rs. 92.95 crore for port operations technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Softtech Engineers secured a project worth Rs. 92.95 crore for port operations technology.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
+        "product",
         "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Softtech Engineers Limited",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "FRS",
+          "ticker": "FRS",
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166447,9 +166443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 488456,
-    "news_picked_today": 191,
-    "news_dropped_today": 937
+    "news_seen_today": 523699,
+    "news_picked_today": 215,
+    "news_dropped_today": 1537
   },
   "book_momentum": {
     "live_count": 8,
