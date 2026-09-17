@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T13:30:56Z",
+  "generated_at": "2026-09-17T13:41:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-318",
@@ -1315,6 +1315,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-324",
+      "headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange about General Updates - approval of proposal for incorporation of 50:50 joint venture company between PLL and Gruner Renewable Energy Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PETRONET_17092026184157_CDpostBoard_Meeting_-_JV_with_Gruner_for_CBGsi.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T13:12:07Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Petronet LNG is forming a 50:50 joint venture with Gruner Renewable Energy, representing a strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Petronet LNG is forming a 50:50 joint venture with Gruner Renewable Energy, representing a strategic expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petronet LNG",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-184",
       "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Puravankara secures Rs 2,600 crore redevelopment project inGoregaon West, Mumbai\".",
       "headline_en": null,
@@ -1887,55 +1936,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-245",
-      "headline": "Seamec Limited: Seamec Limited has informed the Exchange about General Updates on Sale of Vessel \"SEAMEC GALLANT\" owned by SEAMEC INTERNATIONAL FZE, Wholly Owned Subsidiary.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SEAMECLTD_17092026160716_BSENSEIntimationSALESEAMECGALLANT17092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T10:37:27Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Seamec Limited is providing updates on the sale of a vessel owned by its subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Seamec Limited is providing updates on the sale of a vessel owned by its subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seamec Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164269,9 +164269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1581778,
-    "news_picked_today": 460,
-    "news_dropped_today": 5348
+    "news_seen_today": 1598153,
+    "news_picked_today": 489,
+    "news_dropped_today": 5535
   },
   "book_momentum": {
     "live_count": 8,
