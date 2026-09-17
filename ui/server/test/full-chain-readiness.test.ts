@@ -209,11 +209,18 @@ function writeFrozenReceipt(
   // killed, leaves exactly this tree in place. The writes below then fail with EACCES and the NEXT run fails
   // for the state the last one left, not for anything the code did. Do NOT guard this on fs.existsSync:
   // that call follows symlinks and reports false for a dangling one, so a leftover dangling symlink would
-  // skip the cleanup and then break mkdirSync. makeTreeWritable already no-ops on an absent/dangling path
-  // (it self-guards), and rmSync with force removes a real read-only tree or a dangling symlink without
-  // throwing when nothing is there.
+  // skip the cleanup and then break mkdirSync. lstatSync (never follows) decides instead: a symlink root —
+  // dangling or live — is unlinked directly, never handed to makeTreeWritable, which would otherwise follow
+  // it and chmod every directory inside whatever it points to, real tree or not. A real directory still goes
+  // through makeTreeWritable so its read-only tree can be removed; rmSync with force cleans up whichever of
+  // the two ran, or no-ops when nothing was there.
   try {
-    makeTreeWritable(generationDir)
+    const rootStat = fs.lstatSync(generationDir)
+    if (rootStat.isSymbolicLink()) {
+      fs.unlinkSync(generationDir)
+    } else {
+      makeTreeWritable(generationDir)
+    }
   } catch {
     // Ignore if the path does not exist.
   }
