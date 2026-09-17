@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T09:26:59Z",
+  "generated_at": "2026-09-17T09:37:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-188",
@@ -138,6 +138,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260917-207",
+      "headline": "Suspension of Trading in Debentures of Mahua Bharatpur Expressways Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260917-1/20260917-1.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T06:55:41Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Suspension of trading in a named company's debentures signals a credit event or distress affecting debt holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension of trading in a named company's debentures signals a credit event or distress affecting debt holders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahua Bharatpur Expressways Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-141",
-      "headline": "Imagicaaworld Entertainment Limited: Imagicaaworld Entertainment Limited has informed the Exchange regarding a press release dated September 17, 2026, titled \"Imagicaaworld Entertainment Announces Rs. 248 CroreHotel Transaction, Unlocking Significant Value\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IMAGICAA_17092026125233_CovLetter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:25:32Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "₹248 crore hotel asset disposal announced by Imagicaaworld Entertainment via exchange filing, framed as unlocking significant shareholder value.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imagicaaworld Entertainment Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166443,9 +166443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 488456,
-    "news_picked_today": 191,
-    "news_dropped_today": 937
+    "news_seen_today": 523699,
+    "news_picked_today": 215,
+    "news_dropped_today": 1537
   },
   "book_momentum": {
     "live_count": 8,
