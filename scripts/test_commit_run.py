@@ -267,6 +267,96 @@ def test_uncatalogued_data_is_rejected_before_commit():
               result.stderr)
 
 
+def validate_catalogue(repo, env, mode, proposed=None):
+    """Run the fixture repo's installed validator; ``proposed`` is the NUL-separated --paths stdin."""
+    return subprocess.run(
+        ["python3", os.path.join(repo, "scripts", "validate_data_catalogue.py"), "--repo", repo, mode],
+        cwd=repo, env=env, capture_output=True,
+        input=b"".join(item.encode("utf-8") + b"\0" for item in proposed) if proposed is not None else None,
+    )
+
+
+def rejected_names(result):
+    """The paths a catalogue rejection names, parsed from its one-line verdict."""
+    stderr = result.stderr.decode("utf-8", "replace")
+    marker = "has uncatalogued data: "
+    if marker not in stderr:
+        return None
+    return sorted(stderr.split(marker, 1)[1].strip().split(", "))
+
+
+def test_presealed_path_list_gets_the_same_verdict_as_the_staged_index():
+    """The supervisor seals an immutable receipt from a path list, then commit-run.sh checks the staged
+    index. A list the second check rejects can never publish, so --paths must predict it exactly."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-preseal-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_catalogue_fixture(agent, ["analyses/*/*.txt", "analyses/*/.aborted"])
+        run(["git", "add", "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: restrict catalogue"], cwd=agent, env=env)
+        root = "analyses/FRESH_2099-01-01"
+        catalogued = [f"{root}/notes.txt", f"{root}/.aborted"]
+        # The 2026-09-17 outage list: a run-root sweep that picked up the supervisor's publication gate.
+        uncatalogued = [f"{root}/.requires_idea_publication", f"{root}/readiness_override.json"]
+        for relative in catalogued + uncatalogued:
+            write_text(agent, relative, "fixture\n")
+
+        presealed = validate_catalogue(agent, env, "--paths", catalogued + uncatalogued)
+        run(["git", "add", "--", *catalogued, *uncatalogued], cwd=agent, env=env)
+        staged = validate_catalogue(agent, env, "--index")
+        check("an uncatalogued path list is rejected before it is sealed",
+              presealed.returncode == 1 and rejected_names(presealed) == sorted(uncatalogued),
+              f"rc={presealed.returncode} stderr={presealed.stderr!r}")
+        check("the pre-seal verdict names exactly what the staged-index check rejects",
+              staged.returncode == 1 and rejected_names(staged) == rejected_names(presealed),
+              f"staged={staged.stderr!r} presealed={presealed.stderr!r}")
+
+        run(["git", "reset", "-q", "--", *uncatalogued], cwd=agent, env=env)
+        clean_presealed = validate_catalogue(agent, env, "--paths", catalogued)
+        clean_staged = validate_catalogue(agent, env, "--index")
+        check("a fully catalogued path list passes both checks",
+              clean_presealed.returncode == 0 and clean_staged.returncode == 0,
+              f"presealed={clean_presealed.stderr!r} staged={clean_staged.stderr!r}")
+
+
+def test_presealed_path_list_fails_closed():
+    """Only a clean PASS may be sealed. A check that could not look at any path is not a PASS."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-preseal-closed-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        empty = validate_catalogue(agent, env, "--paths", [])
+        check("an empty proposed path list never passes vacuously",
+              empty.returncode == 1 and b"no proposed paths were supplied" in empty.stderr,
+              f"rc={empty.returncode} stderr={empty.stderr!r}")
+        undecodable = subprocess.run(
+            ["python3", os.path.join(agent, "scripts", "validate_data_catalogue.py"), "--repo", agent, "--paths"],
+            cwd=agent, env=env, capture_output=True, input=b"analyses/X/\xff.txt\0",
+        )
+        check("a non-UTF-8 proposed path is refused, not skipped",
+              undecodable.returncode == 1 and b"non-UTF-8 path" in undecodable.stderr,
+              f"rc={undecodable.returncode} stderr={undecodable.stderr!r}")
+        run(["git", "rm", "-q", "--cached", "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
+        blind = validate_catalogue(agent, env, "--paths", ["analyses/base/a.txt"])
+        check("a missing catalogue refuses the list instead of passing it unchecked",
+              blind.returncode == 1 and b"DATA-CATALOGUE: FAIL" in blind.stderr,
+              f"rc={blind.returncode} stderr={blind.stderr!r}")
+
+
+def test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots():
+    """Pin the real catalogue's verdict on the run-root files a whole-root publication can sweep up.
+    Control markers must stay rejected (the launcher drops them from the snapshot on that basis); the
+    terminal records must stay accepted (dropping those would hide a failed or aborted run)."""
+    root = "analyses/ZZGUARD_2099-01-01"
+    env = dict(os.environ)
+    for name in (".requires_idea_publication", ".interrupted"):
+        result = validate_catalogue(REPO_ROOT, env, "--paths", [f"{root}/{name}"])
+        check(f"real catalogue rejects supervisor control state: {name}",
+              result.returncode == 1 and rejected_names(result) == [f"{root}/{name}"],
+              f"rc={result.returncode} stderr={result.stderr!r}")
+    accepted = [f"{root}/.aborted", f"{root}/RUN_FAILURE.md", f"{root}/RUN_METADATA.md"]
+    result = validate_catalogue(REPO_ROOT, env, "--paths", accepted)
+    check("real catalogue accepts the terminal run records",
+          result.returncode == 0, f"rc={result.returncode} stderr={result.stderr!r}")
+
+
 def test_catalogue_globs_do_not_cross_path_segments():
     paths = ["watchlist/entries/archive/x.json", "analyses/TEST/module/nested/memo.md"]
     patterns = ["watchlist/entries/*.json", "analyses/*/*/*.md"]
@@ -942,6 +1032,9 @@ if __name__ == "__main__":
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
     test_no_op_when_no_matching_pathspec()
     test_uncatalogued_data_is_rejected_before_commit()
+    test_presealed_path_list_gets_the_same_verdict_as_the_staged_index()
+    test_presealed_path_list_fails_closed()
+    test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots()
     test_catalogue_globs_do_not_cross_path_segments()
     test_git_add_failure_is_not_a_noop()
     test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge()

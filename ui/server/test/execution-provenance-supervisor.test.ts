@@ -1,5 +1,6 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { spawnSync } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -14,7 +15,7 @@ import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
   __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  SUPERVISOR_CONTROL_MARKERS, drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
 
@@ -46,6 +47,20 @@ assert.equal(requiresSupervisorPublication('module', 'module'), false,
   'a frozen intermediate child must not enter the terminal publication protocol')
 assert.equal(requiresSupervisorPublication('full', 'final'), true,
   'the frozen terminal adjudicator must stamp and verify its decision before success')
+
+// The snapshot sweep drops supervisor control markers, and the pre-seal check refuses anything else the
+// data catalogue does not cover. The two must agree: a name may be dropped only while the real catalogue
+// rejects it. If the catalogue ever admits one, dropping it would silently withhold catalogued data, so
+// fail here and force the decision instead.
+assert.ok(SUPERVISOR_CONTROL_MARKERS.size > 0, 'the control-marker guard must never scan an empty set')
+for (const marker of SUPERVISOR_CONTROL_MARKERS) {
+  const verdict = spawnSync('python3', [
+    path.join(REPO_ROOT, 'scripts', 'validate_data_catalogue.py'), '--repo', REPO_ROOT, '--paths',
+  ], { cwd: REPO_ROOT, input: `analyses/ZZGUARD_2099-01-01/${marker}`, encoding: 'utf8' })
+  assert.equal(verdict.status, 1, `validator must reach a verdict for ${marker}: ${verdict.stderr}`)
+  assert.match(verdict.stderr, /has uncatalogued data/,
+    `${marker} is excluded from publication as control state, so the data catalogue must not cover it`)
+}
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
@@ -321,6 +336,9 @@ try {
   // and /research:full publishes the whole run root. The gate is control state the data catalogue rejects:
   // sealed into the snapshot it made a publication no retry could publish (2026-09-17 outage).
   fs.writeFileSync(path.join(deferredAbsolute, '.requires_idea_publication'), '')
+  // The resume marker is the same class of control state: a technical-readiness retry preserves it and the
+  // `done` path clears it only after publication, so it is on disk while a run-root pathspec is swept.
+  writeRunMarker(deferredRoot, '.interrupted', { reason: 'fixture: marker still on disk at publication' })
   let deferredCommits = 0
   const deferredPublishedPaths: string[][] = []
   const deferredCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
@@ -341,6 +359,10 @@ try {
     assert.ok(deferredPublishedPaths[0].includes(`${deferredRoot}/decision_record.json`))
     assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.requires_idea_publication')), [],
       'a run-root pathspec never sweeps the supervisor publication gate into the immutable snapshot')
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.interrupted')), [],
+      'a run-root pathspec never sweeps the supervisor resume marker into the immutable snapshot')
+    assert.equal(fs.existsSync(path.join(deferredAbsolute, '.interrupted')), true,
+      'excluding control state from the snapshot never removes it from disk')
     assert.equal(deferred.publicationCompleted, true)
     assert.ok(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance)
     assert.doesNotMatch(fs.readFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'utf8'), /to be filled/)
@@ -348,6 +370,63 @@ try {
     __setSupervisorCommitter(deferredCommitter)
     __setSupervisorCommitVerifier(deferredVerifier)
     finishRun(deferred, 'done')
+  }
+
+  // A path list the data catalogue rejects must be refused BEFORE it is sealed. Sealed, it becomes an
+  // immutable digest-signed receipt that can never publish and is retried at every startup. The real-world
+  // instance is an audit artifact such as the human readiness-override trace: it is not control state, so it
+  // is not silently excluded, and the catalogue has no entry for it. This fixture uses a neutral name so the
+  // test keeps holding whichever way that file's catalogue decision goes. The refusal must land on the live
+  // run (still in Activity) and leave nothing behind for recovery to retry.
+  const presealRoot = `${root}_preseal-refusal`
+  const presealAbsolute = path.join(REPO_ROOT, presealRoot)
+  extraCleanup.push(presealAbsolute)
+  fs.mkdirSync(presealAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), '{"ticker":"ZZPRESEAL","version":1}\n')
+  fs.writeFileSync(path.join(presealAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const preseal = createRun({
+    kind: 'full', ticker: 'ZZPRESEAL', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: presealRoot, willCommitToMain: true,
+    writeTargetsAbs: [presealAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  preseal.publicationToken = randomUUID()
+  beginExecutionAttempt(preseal)
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), '{"ticker":"ZZPRESEAL","version":2}\n')
+  fs.writeFileSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json'), '{"fixture":true}\n')
+  const presealReceipt = path.join(STATE_DIR, 'publication-ready', `${preseal.runId}.json`)
+  const snapshotDirectories = () => fs.readdirSync(STATE_DIR).filter((name) => name.startsWith('publication-snapshot-')).sort()
+  const snapshotsBefore = snapshotDirectories()
+  let presealCommits = 0
+  const presealCommitter = __setSupervisorCommitter(async () => {
+    presealCommits++
+    return 'COMMIT_SHA=6666666666666666666666666666666666666666'
+  })
+  const presealVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(preseal.runId, preseal.publicationToken, {
+      phase: 'commit', message: 'pre-seal refusal fixture', pathspecs: [presealRoot],
+    })
+    await assert.rejects(
+      drainPublicationIntents(preseal),
+      (error: any) => /refused before sealing/.test(String(error?.message))
+        && /DATA-CATALOGUE: FAIL/.test(String(error?.message))
+        && String(error?.message).includes(`${presealRoot}/zz_uncatalogued_audit_trace.json`),
+      'an uncatalogued path fails the live publication and names the file that needs a catalogue decision',
+    )
+    assert.equal(presealCommits, 0, 'a refused path list never reaches Git')
+    assert.equal(fs.existsSync(presealReceipt), false, 'a refused path list is never sealed into a ready receipt')
+    assert.deepEqual(snapshotDirectories(), snapshotsBefore, 'a refused path list leaves no protected snapshot behind')
+    assert.notEqual(preseal.publicationCompleted, true)
+    assert.equal(await recoverReadyPublications(), 0)
+    assert.deepEqual(listReadyPublicationFailures(), [], 'with no receipt there is nothing for startup to retry forever')
+    assert.equal(fs.existsSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json')), true,
+      'the audit trace is refused, never deleted or silently dropped')
+  } finally {
+    __setSupervisorCommitter(presealCommitter)
+    __setSupervisorCommitVerifier(presealVerifier)
+    finishRun(preseal, 'error')
   }
 
   // Once the provider group is extinct, a Git/push failure retains a protected immutable ready receipt.

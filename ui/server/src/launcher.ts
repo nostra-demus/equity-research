@@ -341,6 +341,19 @@ export function moduleTerminalOutcome(
 
 const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
 
+/**
+ * Run-root files that are supervisor control state, never research data. A publication must not carry
+ * them: none has ever been tracked, and the data catalogue rejects each one.
+ *  - the Idea-publication gate stays on disk until the supervisor finishes the commit it guards;
+ *  - `.interrupted` is the resume marker. A technical-readiness retry deliberately preserves it as the
+ *    only crash-recovery proof, and it is cleared on the `done` path, which runs after publication. It is
+ *    also still present when /research:rerun writes into a root whose earlier run was interrupted.
+ * This list is for control state only. An audit artifact the catalogue does not cover (for example the
+ * human `readiness_override.json` trace) does not belong here: dropping it would hide it. It is refused
+ * before sealing instead, so the gap is visible and gets a deliberate catalogue decision.
+ */
+export const SUPERVISOR_CONTROL_MARKERS: ReadonlySet<string> = new Set([IDEA_PUBLICATION_MARKER, '.interrupted'])
+
 function ideaPublicationMarkerPath(runRoot: string): string {
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   return path.join(root, IDEA_PUBLICATION_MARKER)
@@ -6931,6 +6944,30 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
   })
 }
 
+/**
+ * Refuse a path list the data catalogue does not cover BEFORE it is sealed. commit-run.sh applies the same
+ * catalogue after staging, but by then the list is frozen into a digest-signed ready receipt that can never
+ * change: a rejected receipt cannot publish and was retried at every startup (2026-09-17 outage). Failing
+ * here keeps the failure on the live run, where Activity shows it, and leaves no receipt behind.
+ *
+ * The verdict comes from scripts/validate_data_catalogue.py itself, the validator commit-run.sh runs, so
+ * the two cannot disagree about a glob. Anything short of a clean PASS refuses the publication, including
+ * a validator that cannot run: an unchecked list is exactly what must not be sealed.
+ */
+function assertPublicationPathsCatalogued(paths: string[]): void {
+  try {
+    execFileSync('python3', [
+      path.join(REPO_ROOT, 'scripts', 'validate_data_catalogue.py'), '--repo', REPO_ROOT, '--paths',
+    ], {
+      cwd: REPO_ROOT, input: paths.join('\0'), encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'],
+      timeout: 60_000, maxBuffer: 1024 * 1024,
+    })
+  } catch (error: any) {
+    const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    throw new Error(`cockpit publication refused before sealing: ${detail}`)
+  }
+}
+
 function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredPaths: string[]): {
   manifest: string; directory: string; paths: string[]
   entries: Array<{ path: string; snapshot: string; sha256: string }>
@@ -6943,14 +6980,16 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
   const untracked = nulPaths(execFileSync('git', [
     'ls-files', '--others', '--exclude-standard', '-z', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
-  // The Idea-publication gate deliberately stays on disk until the supervisor finishes this very commit,
-  // so a run-root pathspec (what /research:full and /research:rerun pass) always sweeps it up as an
-  // untracked file. It is supervisor control state, not research data: it has never been tracked and the
-  // data catalogue rejects it, so sealing it into the immutable snapshot makes a publication no retry can
-  // ever publish (2026-09-17 outage). Keep it out of the snapshot whether it was swept or named.
+  // A run-root pathspec (what /research:full and /research:rerun pass) sweeps up every untracked,
+  // non-ignored file in the root. Supervisor control markers are on disk there by design while this very
+  // commit runs; they are not research data, have never been tracked, and the data catalogue rejects them.
+  // Keep them out of the snapshot whether they were swept or named (2026-09-17 outage).
   const paths = [...new Set([...changed, ...untracked, ...requiredPaths])]
-    .filter((relative) => path.posix.basename(relative) !== IDEA_PUBLICATION_MARKER).sort()
+    .filter((relative) => !SUPERVISOR_CONTROL_MARKERS.has(path.posix.basename(relative))).sort()
   if (!paths.length) throw new Error('cockpit publication resolved to no exact files')
+  // Every sealed receipt is built from the snapshot returned here, so this is the one place the exact
+  // path list can still be refused. Ask before any protected state exists.
+  assertPublicationPathsCatalogued(paths)
   const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
   fs.chmodSync(directory, 0o700)
   const entries: Array<{ path: string; snapshot: string; sha256: string }> = []
