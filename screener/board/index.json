@@ -1,6 +1,57 @@
 {
-  "generated_at": "2026-09-17T15:16:41Z",
+  "generated_at": "2026-09-17T15:23:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260917-387",
+      "headline": "AOM INT'L (00381): (1) PROPOSED SHARE CONSOLIDATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) SUPPLEMENTAL AGREEMENT IN RELATION TO ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE FOR LOAN CAPITALISATION IN RESPECT OF HUBEI CB; AND (4) UPDATE ON MAJOR TRANSACTION IN RELATION TO THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701803.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T14:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Acquiring 51% controlling equity interest in target company via convertible bond issuance; share consolidation; and new share issuance under specific mandate for debt capitalisation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquiring 51% controlling equity interest in target company via convertible bond issuance; share consolidation; and new share issuance under specific mandate for debt capitalisation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AOM INT'L",
+          "ticker": "00381",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260917-348",
       "headline": "HANHUA HOLDING (03903): (1) KEY FINDINGS OF THE INDEPENDENT FORENSIC INVESTIGATION; (2) KEY FINDINGS OF THE INTERNAL CONTROL REVIEW; AND (3) CONTINUED SUSPENSION OF TRADING",
@@ -1904,55 +1955,6 @@
           "name": "Capricorn Energy",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-055",
-      "headline": "Wizz Air cuts capacity forecast as Iran war fuels industry's cost crunch",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/business/wizz-air-cuts-h2-capacity-forecast-5-as-iran-war-drives-fuel-costs-sets-10b-revenue-target-by-2030/5735",
-      "source_name": "Emirates 24|7 — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-17T07:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Wizz Air cut its capacity forecast citing geopolitical conflict and cost pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wizz Air cut its capacity forecast citing geopolitical conflict and cost pressures.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wizz Air",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -163934,9 +163936,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1761476,
-    "news_picked_today": 562,
-    "news_dropped_today": 6566
+    "news_seen_today": 1777923,
+    "news_picked_today": 580,
+    "news_dropped_today": 6668
   },
   "book_momentum": {
     "live_count": 8,
