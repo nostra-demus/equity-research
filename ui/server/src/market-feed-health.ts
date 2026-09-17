@@ -14,7 +14,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { readCloses } from './market-feed'
+import { readNewestClose } from './market-feed'
 
 /** Where the refresher leaves its last word — beside `connector-supervisor.json`, the same ops directory
  *  this engine already reads a scheduled job's status from, and the one place that survives the Drive
@@ -87,14 +87,26 @@ export async function readRefresh(statusPath: string = REFRESH_STATUS_PATH): Pro
 
 const WORST: Record<MarketFeedState, number> = { healthy: 0, stale: 1, missing: 2 }
 
-/** Trading days a burst of concurrent /api/health polls may share one parse of the feed. `readCloses`
- *  walks every CSV under every provider on every call, and `fetch_market_feed.py` never prunes old
- *  daily snapshot files — so an unbounded, unparsed feed reread on every poll from every open browser
- *  tab is the one thing this health check must not itself become. Only the real, unwrapped reader is
- *  memoized: every unit test below injects its own `deps.closes`, so tests stay isolated from this
- *  cache and from each other, and production data is never more than this TTL stale to the health
- *  check (the underlying series is still re-read in full by anything that needs it, e.g. the actual
- *  benchmark-return computation — this cache exists only for the /api/health hot path).
+/** Trading days a burst of concurrent /api/health polls may share one parse of the feed. Two layers keep
+ *  this hot path bounded, not one:
+ *
+ *  1. The reader itself: `readNewestClose` (market-feed.ts), not `readCloses`. `readCloses` walks and
+ *     merges every CSV under every provider — the right answer for an actual benchmark-return
+ *     computation, but `fetch_market_feed.py` writes a brand-new whole-history file every trading day and
+ *     never prunes old ones, so that cost is UNBOUNDED and grows with every day the feed has been
+ *     running. In production this directory is a Google Drive projection, the cache below is necessarily
+ *     cold on every server restart, and `deploy.sh` uses `/api/health` as its release gate — so an
+ *     uncached full scan risks blocking the event loop, or the release gate itself, right when a release
+ *     is being judged (PR #706 review, "Keep full feed scans out of the deployment health gate"; raising
+ *     the TTL alone does not help a cold cache, which every restart necessarily has). `readNewestClose`
+ *     reads only the newest file per provider, bounded by that one file's size rather than by how long
+ *     the feed has existed.
+ *  2. This memoization: even a bounded read is unnecessary work to repeat for every open browser tab
+ *     inside one poll cadence. Only the real, unwrapped reader is memoized: every unit test below injects
+ *     its own `deps.closes`, so tests stay isolated from this cache and from each other, and production
+ *     data is never more than this TTL stale to the health check (the underlying series is still re-read
+ *     in full by anything that needs it, e.g. the actual benchmark-return computation, via `readCloses` —
+ *     this cache exists only for the /api/health hot path).
  *
  *  It MUST exceed the health poll cadence, or it expires before every poll and memoizes nothing: the
  *  cockpit polls /api/health every HEALTH_OK_MS (20s, ui/web/src/lib/store.ts), so a 15s TTL let every
@@ -119,7 +131,7 @@ export function memoizeCloses(
   }
 }
 
-const cachedReadCloses = memoizeCloses(readCloses)
+const cachedReadCloses = memoizeCloses(readNewestClose)
 
 /**
  * The state of each series the engine depends on, and one sentence about it.

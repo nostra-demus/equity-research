@@ -117,6 +117,19 @@ await check('the real reader is cached across a burst of calls, so concurrent /a
   assert.equal(calls, 3)
 })
 
+await check('the default reader behind /api/health is the bounded newest-file reader, not the full-history scan', async () => {
+  // A raised TTL only helps a WARM cache — every server restart necessarily starts cold (deploy.sh uses
+  // /api/health as its release gate right after restarting the engine), and `fetch_market_feed.py` never
+  // prunes old daily snapshots, so an uncached call to the full-history reader on this hot path is
+  // unbounded by design (PR #706 review, "Keep full feed scans out of the deployment health gate"). Pin
+  // the actual wiring rather than only the cache-adjacent behaviour above: the source the cold-cache path
+  // falls through to must be the bounded reader.
+  const src = fs.readFileSync(new URL('../src/market-feed-health.ts', import.meta.url), 'utf8')
+  assert.match(src, /import \{ readNewestClose \} from '\.\/market-feed'/, 'must import the bounded reader')
+  assert.doesNotMatch(src, /import \{ readCloses \}/, 'must not import the unbounded full-history reader')
+  assert.match(src, /memoizeCloses\(readNewestClose\)/, 'the memoized default must wrap the bounded reader, not readCloses')
+})
+
 await check('the closes cache outlives the /api/health poll cadence, so successive heartbeats reuse one parse', () => {
   // ui/web/src/lib/store.ts polls /api/health every HEALTH_OK_MS (20s). The default cache TTL MUST exceed
   // that cadence, or the cache expires before each poll and memoizes nothing — the codex P2 this pins.
