@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T11:32:28Z",
+  "generated_at": "2026-09-17T11:36:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-247",
@@ -1118,6 +1118,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260917-267",
+      "headline": "Reliance Home Finance Limited: Reliance Home Finance Limited has informed the Exchange that Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 (''Listing Regulations'') and in accordance with sub-clause 16(g) of Para A of Part A of Schedule III of the Listing Regulations, We hereby inform you that the 14th Meeting of the Committee of Creditors (''CoC''), of Reliance Home Finance Limited (In CIRP) was duly held on Thursday, September 17, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RHFL_17092026164347_RHFL_-_Disclosure_of_the_14th_CoC_Meeting_17092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T11:13:59Z",
+      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
+      "prelim_note": "Reliance Home Finance remains in Corporate Insolvency Resolution Process with ongoing creditor committee meetings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Reliance Home Finance remains in Corporate Insolvency Resolution Process with ongoing creditor committee meetings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Home Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260917-209",
       "headline": "Crizac Limited: Crizac Limited has informed the Exchange about regard to disclosure dated June 15, 2026 on proposed Acquisition of Compulsory Convertible Preference Shares and Compulsory Convertible Debentures of Edument Consultancy Private Limited.",
       "headline_en": null,
@@ -1843,99 +1892,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260917-145",
-      "headline": "DVP: Becoming a substantial holder",
+      "inbox_id": "INB-20260917-268",
+      "headline": "Bharat Electronics Limited: Bharat Electronics Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DVP?key=2924-03136684-6A1344277",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/BEL_17092026164308_Lettersigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T07:16:25Z",
+      "found_at": "2026-09-17T11:13:18Z",
       "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "ASX substantial-holder disclosure mandates filing when a stake crosses ~5% threshold (Corporations Act requirement), but headline provides no acquirer identity, final position size, or disclosed intent.",
+      "prelim_note": "Bharat Electronics Limited announced the receipt of new orders/contracts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "ASX substantial-holder disclosure mandates filing when a stake crosses ~5% threshold (Corporations Act requirement), but headline provides no acquirer identity, final position size, or disclosed intent.",
-      "region": "OTHER",
+      "triage_reason": "Bharat Electronics Limited announced the receipt of new orders/contracts.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 67,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 67,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
+        "event_id": null,
+        "size_bucket": "large"
       },
       "event_types": [
-        "ownership_activist"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DVP",
-          "ticker": "DVP",
-          "listing_country": "AU"
+          "name": "Bharat Electronics Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260917-023",
-      "headline": "SUNSHINE OIL (02012): INSIDE INFORMATION LITIGATION PROCEEDINGS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601451.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-16T14:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-17_sweep.json",
-      "prelim_note": "Sunshine Oil disclosed new litigation proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Sunshine Oil disclosed new litigation proceedings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SUNSHINE OIL",
-          "ticker": "02012",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164331,9 +164331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 916665,
-    "news_picked_today": 315,
-    "news_dropped_today": 3573
+    "news_seen_today": 933146,
+    "news_picked_today": 322,
+    "news_dropped_today": 3614
   },
   "book_momentum": {
     "live_count": 8,
