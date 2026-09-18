@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-18T01:56:30Z",
+  "generated_at": "2026-09-18T01:59:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-151",
+      "headline": "FRS: Tycho Pre-Feasibility Study and Ore Reserve [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRS?key=2924-03136978-6A1344382",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T01:38:59Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "FRS released a pre-feasibility study and ore reserve estimate for the Tycho project, which is price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FRS released a pre-feasibility study and ore reserve estimate for the Tycho project, which is price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FRS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-011",
       "headline": "RAFFLESINTERIOR (01376): INSIDE INFORMATION - UPDATE ON LEGAL PROCEEDINGS IN THE CAYMAN ISLANDS RESIGNATION OF CERTAIN DIRECTORS, INDEPENDENT NON-EXECUTIVE DIRECTORS, AUTHORISED REPRESENTATIVES, COMPANY SECRETARY AND PROCESSING AGENT AND CONTINUED SUSPENSION OF TRADING",
@@ -790,55 +839,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260918-027",
-      "headline": "FRS: Johnson Range Pre-Feasibility Study and Ore Reserve [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRS?key=2924-03136931-6A1344366",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T00:10:33Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The company released a pre-feasibility study and ore reserve estimate for the Johnson Range project, which is a material development for its asset base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company released a pre-feasibility study and ore reserve estimate for the Johnson Range project, which is a material development for its asset base.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Frontier Resources",
-          "ticker": "FRS",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260918-066",
       "headline": "Immunology Drugmaker Electra Raises $350 Million in Upsized IPO",
       "headline_en": null,
@@ -1397,6 +1397,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-155",
+      "headline": "Noel Tata vows to veto IPO listing, seeks 3-yr window from RBI: ‘If I’m forced to vote…'",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/noel-tata-vows-to-veto-ipo-listing-seeks-3-yr-window-from-rbi-n-chandrasekaran-tata-sons-revenue-101789694106973.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T01:21:39Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Noel Tata is seeking to block an IPO listing, creating uncertainty for the company's capital plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Noel Tata is seeking to block an IPO listing, creating uncertainty for the company's capital plans.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-102",
       "headline": "Tata Sons board gives Chandrasekaran 5 more years; move illegal, say Trusts",
       "headline_en": null,
@@ -1931,60 +1980,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-105",
-      "headline": "Huawei debuts 11 AI-related chips in challenge to Nvidia, Intel, AMD",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/huawei-debuts-11-ai-related-chips-in-challenge-to-nvidia-intel-amd",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:24:12Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Huawei's launch of 11 AI chips increases competitive pressure on Nvidia, Intel, and AMD.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Huawei's launch of 11 AI chips increases competitive pressure on Nvidia, Intel, and AMD.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165686,9 +165681,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 607366,
-    "news_picked_today": 175,
-    "news_dropped_today": 761
+    "news_seen_today": 629582,
+    "news_picked_today": 180,
+    "news_dropped_today": 780
   },
   "book_momentum": {
     "live_count": 8,
