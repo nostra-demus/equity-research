@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T17:45:40Z",
+  "generated_at": "2026-09-18T17:49:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -1134,6 +1134,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-534",
+      "headline": "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/782ad1f0-f2a8-41e1-a01d-b916008f33f8?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:39:34Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen warned of a potential 10 billion euro hit due to Porsche writedowns and restructuring costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen warned of a potential 10 billion euro hit due to Porsche writedowns and restructuring costs.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-518",
       "headline": "Volkswagen crisis worsens with profit warning over Porsche-led $11.5 billion hit",
       "headline_en": null,
@@ -1910,55 +1960,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-460",
-      "headline": "'Insufficient funds' to pay Brewdog creditors after takeover deal",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cw1mvjyv937eo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T13:19:34Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Reported insufficient funds to pay creditors following a takeover deal suggests severe liquidity or solvency issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported insufficient funds to pay creditors following a takeover deal suggests severe liquidity or solvency issues.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brewdog",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164943,9 +164944,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8563540,
-    "news_picked_today": 1127,
-    "news_dropped_today": 8425
+    "news_seen_today": 8615818,
+    "news_picked_today": 1129,
+    "news_dropped_today": 8471
   },
   "book_momentum": {
     "live_count": 8,
