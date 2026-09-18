@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T01:13:27Z",
+  "generated_at": "2026-09-18T01:19:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -740,6 +740,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-085",
+      "headline": "Qantas ground workers to strike over pay next week",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/qantas-ground-workers-strike-over-pay-next-week-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:21:45Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Planned strikes by ground workers threaten to disrupt Qantas's operational capacity and increase labor costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Planned strikes by ground workers threaten to disrupt Qantas's operational capacity and increase labor costs.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qantas",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-002",
       "headline": "Russia and China veto UN Iran sanctions proposal",
       "headline_en": null,
@@ -1458,6 +1508,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-084",
+      "headline": "Pepsi and Kroger hit hard by changing food trend",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/pepsi-hershey-costco-and-kroger-face-a-73-billion-problem",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:41:02Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Changing consumer food trends are negatively impacting the sales performance of major retailers and food producers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Changing consumer food trends are negatively impacting the sales performance of major retailers and food producers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Kroger",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-005",
       "headline": "CUE: Mahato and Palm Valley Drilling Update",
       "headline_en": null,
@@ -1838,114 +1942,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-020",
-      "headline": "استحواذ Beacon على Haize Labs لتعزيز الذكاء الاصطناعي للاقتصاد الحقيقي",
-      "headline_en": "Beacon acquires Haize Labs to enhance AI for the real economy",
-      "url": "http://www.businesswire.com/news/home/20260917463198/ar/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-17T23:23:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Beacon acquired Haize Labs to enhance AI capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Beacon acquired Haize Labs to enhance AI capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beacon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Haize Labs",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-032",
-      "headline": "Beacon adquiere Haize Labs para impulsar la inteligencia artificial en la economía tradicional",
-      "headline_en": "Beacon acquires Haize Labs to boost artificial intelligence in the traditional economy",
-      "url": "http://www.businesswire.com/news/home/20260917641805/es/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-17T22:55:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beacon",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Haize Labs",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125210,77 +125206,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a31f38029430",
-      "idea_version": "IDEAV-f72a489a1e831551",
-      "idea_version_started_at": "2026-09-18T00:05:46Z",
-      "ticker": "JBHT",
-      "company": "J.B. Hunt Transport Services",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a negative earnings warning for the third quarter, signaling margin compression and weaker demand.",
-      "why_now": "The warning was released on 2026-09-16, and the stock has already reacted, but the fundamental downgrade suggests further downside.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1aae26b4532a"
-      ],
-      "primary_source_event_id": "EVT-1aae26b4532a",
-      "source_headlines": [
-        "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall"
-      ],
-      "source_headline": "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall",
-      "source_url": "https://www.cnbc.com/2026/09/16/jb-hunt-stock-jbht-earnings.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T13:17:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T10:57:20Z",
-      "updated_at": "2026-09-18T00:05:46Z",
-      "decay_at": "2026-09-18T01:17:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d10a45580c7f",
       "idea_version": "IDEAV-8d5ad6a0e2dfb984",
       "idea_version_started_at": "2026-09-17T20:23:46Z",
@@ -126624,6 +126549,77 @@
       "surfaced_at": "2026-09-16T11:53:50Z",
       "updated_at": "2026-09-16T11:53:50Z",
       "decay_at": "2026-09-17T16:20:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a31f38029430",
+      "idea_version": "IDEAV-f72a489a1e831551",
+      "idea_version_started_at": "2026-09-18T00:05:46Z",
+      "ticker": "JBHT",
+      "company": "J.B. Hunt Transport Services",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a negative earnings warning for the third quarter, signaling margin compression and weaker demand.",
+      "why_now": "The warning was released on 2026-09-16, and the stock has already reacted, but the fundamental downgrade suggests further downside.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1aae26b4532a"
+      ],
+      "primary_source_event_id": "EVT-1aae26b4532a",
+      "source_headlines": [
+        "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall"
+      ],
+      "source_headline": "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall",
+      "source_url": "https://www.cnbc.com/2026/09/16/jb-hunt-stock-jbht-earnings.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-16T13:17:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T10:57:20Z",
+      "updated_at": "2026-09-18T00:05:46Z",
+      "decay_at": "2026-09-18T01:17:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128432,9 +128428,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -128442,9 +128438,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -128463,6 +128459,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a31f38029430",
+        "idea_version": "IDEAV-f72a489a1e831551",
+        "idea_version_started_at": "2026-09-18T00:05:46Z",
+        "ticker": "JBHT",
+        "company": "J.B. Hunt Transport Services",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a negative earnings warning for the third quarter, signaling margin compression and weaker demand.",
+        "why_now": "The warning was released on 2026-09-16, and the stock has already reacted, but the fundamental downgrade suggests further downside.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1aae26b4532a"
+        ],
+        "primary_source_event_id": "EVT-1aae26b4532a",
+        "source_headlines": [
+          "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall"
+        ],
+        "source_headline": "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall",
+        "source_url": "https://www.cnbc.com/2026/09/16/jb-hunt-stock-jbht-earnings.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-16T13:17:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T10:57:20Z",
+        "updated_at": "2026-09-18T00:05:46Z",
+        "decay_at": "2026-09-18T01:17:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-18T01:17:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0df99569639a",
         "idea_version": "IDEAV-e92ebd1af27b53f8",
@@ -165549,86 +165619,12 @@
         "archived_at": "2026-08-31T09:15:39Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-dfcaa49f64a2",
-        "idea_version": "IDEAV-63e75ccd6ed2e15d",
-        "idea_version_started_at": "2026-08-29T17:43:44Z",
-        "ticker": "08370",
-        "company": "ZHI SHENG GP",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "ZHI SHENG GP issued a profit warning, indicating that its earnings will be lower than previously expected.",
-        "why_now": "The profit warning was filed on August 28, 2026, signaling an immediate downward revision to earnings expectations.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-26e8a16e42fc"
-        ],
-        "primary_source_event_id": "EVT-26e8a16e42fc",
-        "source_headlines": [
-          "ZHI SHENG GP (08370): PROFIT WARNING"
-        ],
-        "source_headline": "ZHI SHENG GP (08370): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0828/2026082800529.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T08:34:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T17:43:44Z",
-        "updated_at": "2026-08-29T17:43:44Z",
-        "decay_at": "2026-08-29T20:34:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T09:15:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 877,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165647,9 +165643,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 360035,
-    "news_picked_today": 99,
-    "news_dropped_today": 477
+    "news_seen_today": 382813,
+    "news_picked_today": 103,
+    "news_dropped_today": 521
   },
   "book_momentum": {
     "live_count": 8,
