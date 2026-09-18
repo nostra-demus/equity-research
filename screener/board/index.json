@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T01:41:29Z",
+  "generated_at": "2026-09-18T01:45:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -48,6 +48,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-129",
+      "headline": "Nissan to invest $228m in Sunderland UK plant to make Kicks hybrid SUV",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/nissan-to-invest-228m-in-sunderland-uk-plant-to-make-kicks-hybrid-suv",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T01:34:13Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Nissan is investing $228 million in its Sunderland plant to expand production capacity for the Kicks hybrid SUV.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nissan is investing $228 million in its Sunderland plant to expand production capacity for the Kicks hybrid SUV.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nissan",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -340,6 +389,55 @@
           "name": "Fu Shou Yuan International Group",
           "ticker": "01448",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-131",
+      "headline": "Vietnam's VinFast seeks financial boost with $1.2bn property deal",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/vietnam-s-vinfast-seeks-financial-boost-with-1.2bn-property-deal",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T01:34:13Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "VinFast is seeking a $1.2 billion financial boost through a property deal to support its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "VinFast is seeking a $1.2 billion financial boost through a property deal to support its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VinFast",
+          "ticker": null,
+          "listing_country": "VN"
         }
       ],
       "size_bucket": "mid",
@@ -1044,6 +1142,55 @@
           "name": "Heidelberg",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-127",
+      "headline": "Panasonic to hike production of in-flight entertainment systems",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/electronics/panasonic-to-hike-production-of-in-flight-entertainment-systems",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T01:34:13Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Panasonic is increasing production capacity for in-flight entertainment systems, indicating positive demand growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Panasonic is increasing production capacity for in-flight entertainment systems, indicating positive demand growth.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panasonic",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1827,141 +1974,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-086",
-      "headline": "Yen weak ahead of BOJ decision; rate hike expected",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/yen-weak-ahead-boj-decision-rate-hike-expected-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:03:02Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The Yen is trading lower as markets await a Bank of Japan interest rate decision, with a hike widely expected.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The Yen is trading lower as markets await a Bank of Japan interest rate decision, with a hike widely expected.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-095",
-      "headline": "RBI's OMO sale exceeds expectations, absorbing excess liquidity with higher bond yields",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/rbis-omo-sale-exceeds-expectations-absorbing-excess-liquidity-with-higher-bond-yields/articleshow/134323461.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:59:17Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The RBI's OMO sale absorbing liquidity at higher yields signals a tightening of monetary conditions in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The RBI's OMO sale absorbing liquidity at higher yields signals a tightening of monetary conditions in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-067",
-      "headline": "HMX: Change in Substantial Shareholding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HMX?key=2924-03136951-6A1344370",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T00:35:08Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Hammer Metals reported a change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Hammer Metals reported a change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hammer Metals",
-          "ticker": "HMX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165663,9 +165675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 495641,
-    "news_picked_today": 145,
-    "news_dropped_today": 671
+    "news_seen_today": 540371,
+    "news_picked_today": 150,
+    "news_dropped_today": 690
   },
   "book_momentum": {
     "live_count": 8,
