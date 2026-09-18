@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T11:23:34Z",
+  "generated_at": "2026-09-18T11:29:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-376",
@@ -594,20 +594,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260918-406",
-      "headline": "Warren Buffett steps down as Berkshire chairman after six decades, as son takes over",
+      "inbox_id": "INB-20260918-416",
+      "headline": "Warren Buffett steps down as Berkshire chair, becomes chairman emeritus",
       "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/2026/09/18/warren-buffett-steps-down-as-berkshire-chairman-after-six-decades-as-son-takes-over/",
-      "source_name": "The National — All News",
+      "url": "https://www.theglobeandmail.com/business/article-warren-buffett-steps-down-as-berkshire-chair-becomes-chairman-emeritus/",
+      "source_name": "The Globe and Mail",
       "input_nature": "news_headline",
-      "found_at": "2026-09-18T11:08:35Z",
+      "found_at": "2026-09-18T11:13:53Z",
       "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett is stepping down as chairman of Berkshire Hathaway, a major leadership transition for the conglomerate.",
+      "prelim_note": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Warren Buffett is stepping down as chairman of Berkshire Hathaway, a major leadership transition for the conglomerate.",
+      "triage_reason": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -615,7 +615,7 @@
         "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 4,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -623,12 +623,60 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
+        "event_id": "management",
         "size_bucket": "mega"
       },
       "event_types": [
-        "management",
-        "executive_exit"
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-415",
+      "headline": "'Right Time For Transition': Warren Buffett Steps Down As Berkshire Chairman With Immediate Effect",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/berkshire-hathaway-names-warren-buffet-as-chairman-emeritus-with-immediate-effect-12064209#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T11:12:09Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1941,55 +1989,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-287",
-      "headline": "Sandisk Unveiled an $14 Billion Buyback and Warren Buffett Has Something to Say About It",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sandisk-unveiled-14-billion-buyback-and-warren-buffett-has-something-say-about-it",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T04:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Sandisk announced a $14 billion share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sandisk announced a $14 billion share buyback program.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sandisk",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165401,9 +165400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5128909,
-    "news_picked_today": 799,
-    "news_dropped_today": 5321
+    "news_seen_today": 5161638,
+    "news_picked_today": 815,
+    "news_dropped_today": 5353
   },
   "book_momentum": {
     "live_count": 8,
