@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-07T16:59:20Z",
+  "archived_at": "2026-09-18T11:53:56Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-5d7419f0c968",
-    "idea_version": "IDEAV-5f4373d70d5503f4",
-    "idea_version_started_at": "2026-09-05T23:08:05Z",
-    "ticker": "MIS",
-    "company": "Al Moammar Information Systems",
-    "exchange": "TADAWUL",
+    "idea_id": "IDEA-6fcad17ab2e4",
+    "idea_version": "IDEAV-593420699b8de2b5",
+    "idea_version_started_at": "2026-09-15T22:10:38Z",
+    "ticker": "01903",
+    "company": "JBB Builders",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company is partnering with HUMAIN on a massive $2.5 billion fund dedicated to data center expansion, significantly increasing its capex and future revenue capacity.",
-    "why_now": "The fund details and partnership were disclosed on September 4, 2026.",
+    "reason": "The company issued a profit warning, indicating a significant decline in profitability likely due to project delays or cost overruns in the construction sector.",
+    "why_now": "The profit warning filing was published today, September 15, 2026.",
     "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 19,
+      "evidence": 25,
+      "impact": 20,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-bac2d9481c05"
+      "EVT-1817befbafd4"
     ],
-    "primary_source_event_id": "EVT-bac2d9481c05",
+    "primary_source_event_id": "EVT-1817befbafd4",
     "source_headlines": [
-      "‎HUMAIN eyes $2.5B fund to build data centers with MIS"
+      "JBB BUILDERS (01903): PROFIT WARNING"
     ],
-    "source_headline": "‎HUMAIN eyes $2.5B fund to build data centers with MIS",
-    "source_url": "https://www.argaam.com/en/article/articledetail/id/1934135",
-    "source_name": "Argaam — Main News (English)",
+    "source_headline": "JBB BUILDERS (01903): PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500893.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-04T14:58:00Z",
+    "newest_source_at": "2026-09-15T10:30:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-05T23:08:05Z",
-    "updated_at": "2026-09-05T23:08:05Z",
-    "decay_at": "2026-09-06T02:58:00Z",
+    "surfaced_at": "2026-09-15T22:10:38Z",
+    "updated_at": "2026-09-15T22:10:38Z",
+    "decay_at": "2026-09-16T22:30:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
