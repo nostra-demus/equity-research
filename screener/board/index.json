@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T21:31:16Z",
+  "generated_at": "2026-09-18T21:40:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-566",
+      "headline": "Warren Buffett Steps Down As Chairman, Names Son Howard As Successor",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/warren-buffett-steps-down-chairman-names-son-howard-successor",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T21:18:38Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett stepping down as Chairman is a major leadership transition for Berkshire Hathaway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett stepping down as Chairman is a major leadership transition for Berkshire Hathaway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-564",
       "headline": "Warren Buffett steps down as Berkshire chairman, replaced by his son Howard",
       "headline_en": null,
@@ -1932,56 +1981,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-499",
-      "headline": "Software defect blamed for UK air traffic control chaos; FTSE 100’s worst day since July; Volkswagen cuts outlook – as it happened",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/sep/18/japan-raises-interest-rates-central-bankers-fight-inflation-gb-retail-sales-rise-latest-news-updates",
-      "source_name": "The Guardian — Economics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:56:23Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Volkswagen cut its profit outlook due to China sales slump and rising costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen cut its profit outlook due to China sales slump and rising costs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125679,78 +125678,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-01a3bdc0a127",
-      "idea_version": "IDEAV-f26a5945be582be6",
-      "idea_version_started_at": "2026-09-17T16:21:54Z",
-      "ticker": "GBF",
-      "company": "Bilfinger SE",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning and announced restructuring layoffs, indicating significant operational headwinds and margin compression.",
-      "why_now": "The news was released on 2026-09-17, and the stock is likely still adjusting to the lowered outlook.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-287b5f6f9185"
-      ],
-      "primary_source_event_id": "EVT-287b5f6f9185",
-      "source_headlines": [
-        "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts"
-      ],
-      "source_headline": "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts",
-      "source_url": "https://www.wsj.com/business/earnings/bilfinger-shares-fall-20-on-lowered-outlook-job-cuts-c843f681?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T09:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T16:21:54Z",
-      "updated_at": "2026-09-17T16:21:54Z",
-      "decay_at": "2026-09-18T21:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5efadd64af04",
       "idea_version": "IDEAV-0d4f3ec9fae0cf3e",
       "idea_version_started_at": "2026-09-18T10:19:04Z",
@@ -126808,6 +126735,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-01a3bdc0a127",
+      "idea_version": "IDEAV-f26a5945be582be6",
+      "idea_version_started_at": "2026-09-17T16:21:54Z",
+      "ticker": "GBF",
+      "company": "Bilfinger SE",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning and announced restructuring layoffs, indicating significant operational headwinds and margin compression.",
+      "why_now": "The news was released on 2026-09-17, and the stock is likely still adjusting to the lowered outlook.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-287b5f6f9185"
+      ],
+      "primary_source_event_id": "EVT-287b5f6f9185",
+      "source_headlines": [
+        "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts"
+      ],
+      "source_headline": "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts",
+      "source_url": "https://www.wsj.com/business/earnings/bilfinger-shares-fall-20-on-lowered-outlook-job-cuts-c843f681?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T09:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T16:21:54Z",
+      "updated_at": "2026-09-17T16:21:54Z",
+      "decay_at": "2026-09-18T21:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3eb47bedf20c",
       "idea_version": "IDEAV-c7b4931ea965620b",
       "idea_version_started_at": "2026-09-17T13:01:51Z",
@@ -127751,9 +127750,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -127761,9 +127760,9 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -127782,6 +127781,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-01a3bdc0a127",
+        "idea_version": "IDEAV-f26a5945be582be6",
+        "idea_version_started_at": "2026-09-17T16:21:54Z",
+        "ticker": "GBF",
+        "company": "Bilfinger SE",
+        "exchange": "XETRA",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning and announced restructuring layoffs, indicating significant operational headwinds and margin compression.",
+        "why_now": "The news was released on 2026-09-17, and the stock is likely still adjusting to the lowered outlook.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-287b5f6f9185"
+        ],
+        "primary_source_event_id": "EVT-287b5f6f9185",
+        "source_headlines": [
+          "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts"
+        ],
+        "source_headline": "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts",
+        "source_url": "https://www.wsj.com/business/earnings/bilfinger-shares-fall-20-on-lowered-outlook-job-cuts-c843f681?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T09:37:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T16:21:54Z",
+        "updated_at": "2026-09-17T16:21:54Z",
+        "decay_at": "2026-09-18T21:37:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-18T21:37:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-83131c32c3ef",
         "idea_version": "IDEAV-242bb3cc002b9f5a",
@@ -164863,86 +164937,12 @@
         "archived_at": "2026-08-31T11:51:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1139cfa830dc",
-        "idea_version": "IDEAV-eb39829adccd0e98",
-        "idea_version_started_at": "2026-08-29T12:26:38Z",
-        "ticker": "00017.HK",
-        "company": "New World Development Company Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "New World Development deferred distribution on perpetual securities guaranteed by the company, signaling severe liquidity stress and heightened default risk for the guarantor.",
-        "why_now": "Filed on HKEXnews 2026-08-28; the deferral is effective immediately and marks a critical credit event.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b9bd6e73e4a6"
-        ],
-        "primary_source_event_id": "EVT-b9bd6e73e4a6",
-        "source_headlines": [
-          "NEW WORLD DEV NWD FIN GSPCSA (00017 05856): DISTRIBUTION DEFERRAL IN RESPECT OF RELEVANT PERPETUAL SECURITIES ISSUED BY NWD FINANCE (BVI) LIMITED AND GUARANTEED BY NEW WORLD DEVELOPMENT COMPANY LIMITED"
-        ],
-        "source_headline": "NEW WORLD DEV NWD FIN GSPCSA (00017 05856): DISTRIBUTION DEFERRAL IN RESPECT OF RELEVANT PERPETUAL SECURITIES ISSUED BY NWD FINANCE (BVI) LIMITED AND GUARANTEED BY NEW WORLD DEVELOPMENT COMPANY LIMITED",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801281.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T09:59:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T12:26:38Z",
-        "updated_at": "2026-08-29T12:26:38Z",
-        "decay_at": "2026-08-29T21:59:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T11:51:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 886,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -164961,9 +164961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10562956,
-    "news_picked_today": 1257,
-    "news_dropped_today": 10215
+    "news_seen_today": 10623226,
+    "news_picked_today": 1262,
+    "news_dropped_today": 10282
   },
   "book_momentum": {
     "live_count": 8,
