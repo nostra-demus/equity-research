@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T22:26:00Z",
+  "generated_at": "2026-09-18T22:30:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -124414,6 +124414,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-49a2653dd307",
+      "idea_version": "IDEAV-9b738a6d2a61d4ce",
+      "idea_version_started_at": "2026-09-18T22:30:22Z",
+      "ticker": "VWAGY",
+      "company": "Volkswagen AG",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a major profit warning citing up to €10 billion in restructuring costs and a significant writedown related to its Porsche stake.",
+      "why_now": "The warning was issued on September 18, 2026, indicating immediate pressure on margins and capital structure.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-416514b51562",
+        "EVT-4df7176073f5",
+        "EVT-793488585b46"
+      ],
+      "primary_source_event_id": "EVT-416514b51562",
+      "source_headlines": [
+        "Volkswagen Slashes Guidance as Woes Pile Up",
+        "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs",
+        "Volkswagen issues profit warning over $11.5-billion hit led by Porsche"
+      ],
+      "source_headline": "Volkswagen Slashes Guidance as Woes Pile Up",
+      "source_url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T17:51:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T22:30:22Z",
+      "updated_at": "2026-09-18T22:30:22Z",
+      "decay_at": "2026-09-20T05:51:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a883ce45268c",
       "idea_version": "IDEAV-51ac111eb96e5da5",
       "idea_version_started_at": "2026-09-18T12:42:52Z",
@@ -127749,77 +127822,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4f939ccaa163",
-      "idea_version": "IDEAV-343e192a7b271ca5",
-      "idea_version_started_at": "2026-09-16T03:36:22Z",
-      "ticker": "TNC",
-      "company": "True North Copper",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The 18% increase in copper resources at the Cloncurry project directly expands the company's mineable asset base and future production potential.",
-      "why_now": "The resource update was filed on 2026-09-15 and is price-sensitive information.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-921ae42680fa"
-      ],
-      "primary_source_event_id": "EVT-921ae42680fa",
-      "source_headlines": [
-        "TNC: Cloncurry Resource Update Delivers 18% Copper Increase [price-sensitive]"
-      ],
-      "source_headline": "TNC: Cloncurry Resource Update Delivers 18% Copper Increase [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TNC?key=2924-03135872-6A1343942",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T22:27:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-16T03:36:22Z",
-      "decay_at": "2026-09-17T10:27:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a88eed4d242c",
       "idea_version": "IDEAV-930f8e09e0b3f675",
       "idea_version_started_at": "2026-09-16T04:30:41Z",
@@ -127901,14 +127903,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       },
       "short": {
         "total_count": 260,
@@ -127918,12 +127920,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 338,
+      "evicted_count": 339,
       "oldest_retained_at": "2026-08-29T00:51:55Z",
       "side_counts": {
         "long": {
-          "evicted_count": 232,
-          "oldest_retained_at": "2026-09-06T06:05:00Z"
+          "evicted_count": 233,
+          "oldest_retained_at": "2026-09-06T06:27:02Z"
         },
         "short": {
           "evicted_count": 106,
@@ -129928,8 +129930,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T10:27:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T22:30:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -165092,8 +165094,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 888,
-    "live_count": 22,
+    "surfaced_total": 889,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165112,9 +165114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11002927,
+    "news_seen_today": 11022863,
     "news_picked_today": 1289,
-    "news_dropped_today": 10639
+    "news_dropped_today": 10663
   },
   "book_momentum": {
     "live_count": 8,
