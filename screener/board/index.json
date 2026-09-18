@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T19:08:05Z",
+  "generated_at": "2026-09-18T19:10:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -239,6 +239,55 @@
         {
           "name": "WEB3 META",
           "ticker": "08093",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-558",
+      "headline": "CHINA ECOTOUR (01371): Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T14:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The company issued a profit alert, indicating a potential decline in earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit alert, indicating a potential decline in earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA ECOTOUR",
+          "ticker": "01371",
           "listing_country": "CN"
         }
       ],
@@ -1919,55 +1968,6 @@
           "name": "Volkswagen",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-489",
-      "headline": "Legendary Investor Warren Buffett Is Resigning as Berkshire Chairman",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/18/legendary-investor-warren-buffett-is-resigning-as-berkshire-chairman/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:10:58Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett is resigning as Berkshire Hathaway chairman, marking a major leadership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett is resigning as Berkshire Hathaway chairman, marking a major leadership change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -164955,9 +164955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9210448,
-    "news_picked_today": 1186,
-    "news_dropped_today": 9062
+    "news_seen_today": 9245110,
+    "news_picked_today": 1187,
+    "news_dropped_today": 9085
   },
   "book_momentum": {
     "live_count": 8,
