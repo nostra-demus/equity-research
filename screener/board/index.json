@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T16:40:58Z",
+  "generated_at": "2026-09-18T16:45:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -1085,6 +1085,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-518",
+      "headline": "Volkswagen crisis worsens with profit warning over Porsche-led $11.5 billion hit",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/volkswagen-porsche-holding-cut-outlook-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:32:53Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen issued a profit warning linked to an $11.5 billion hit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen issued a profit warning linked to an $11.5 billion hit.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-514",
       "headline": "CBI files FIR against Reliance Capital, Anil Ambani over Rs 2,684 crore LIC investment 'fraud'; Ambani denies 'any wrongdoing'",
       "headline_en": null,
@@ -1521,6 +1571,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-522",
+      "headline": "FIVE Raises 2026 Outlook as Traffic and Margins Drive Earnings Higher",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/five-raises-2026-outlook-traffic-and-margins-drive-earnings-higher",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T14:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "FIVE raised its 2026 outlook due to strong traffic and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FIVE raised its 2026 outlook due to strong traffic and margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Five Below",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-486",
       "headline": "Warren Buffett abruptly steps down as Berkshire chair as ‘Father Time’ wins, handing role to son Howard who will ‘guard its culture and values’",
       "headline_en": null,
@@ -1854,104 +1953,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-450",
-      "headline": "Warren Buffett steps down as chair of Berkshire Hathaway after over 50 years",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/sep/18/warren-buffett-steps-down-berkshire-hathaway",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T12:22:17Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett stepping down as Berkshire Hathaway chairman is a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett stepping down as Berkshire Hathaway chairman is a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-431",
-      "headline": "CVS division completes Chapter 11 bankruptcy liquidation",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/cvs-omnicare-completes-chapter-11-bankruptcy-liquidation",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T12:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A CVS division has completed a Chapter 11 bankruptcy liquidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A CVS division has completed a Chapter 11 bankruptcy liquidation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165149,9 +165150,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8062072,
-    "news_picked_today": 1091,
-    "news_dropped_today": 7981
+    "news_seen_today": 8113642,
+    "news_picked_today": 1101,
+    "news_dropped_today": 8019
   },
   "book_momentum": {
     "live_count": 8,
