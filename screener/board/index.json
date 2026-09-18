@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-18T18:29:51Z",
+  "generated_at": "2026-09-18T18:35:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-555",
+      "headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T18:23:38Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The resignation of a statutory auditor is a significant governance red flag for HMA Agro Industries Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a statutory auditor is a significant governance red flag for HMA Agro Industries Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HMA Agro Industries Limited",
+          "ticker": "543929",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-553",
       "headline": "The Federal Bank Limited: The Federal Bank Limited has informed the Exchange about establishment of US$ 500 million medium term note programme ( MTN Programme )",
@@ -1921,56 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-486",
-      "headline": "Warren Buffett abruptly steps down as Berkshire chair as ‘Father Time’ wins, handing role to son Howard who will ‘guard its culture and values’",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/09/18/warren-buffett-resignation-chairman-berkshire-hathaway-brk-stock-howard-succession/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T14:19:03Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett is stepping down as chair of Berkshire Hathaway, a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett is stepping down as chair of Berkshire Hathaway, a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164955,9 +164955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8931535,
-    "news_picked_today": 1154,
-    "news_dropped_today": 8734
+    "news_seen_today": 8949049,
+    "news_picked_today": 1158,
+    "news_dropped_today": 8778
   },
   "book_momentum": {
     "live_count": 8,
