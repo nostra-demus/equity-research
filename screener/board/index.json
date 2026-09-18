@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T06:12:47Z",
+  "generated_at": "2026-09-18T06:15:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-295",
@@ -1828,6 +1828,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-314",
+      "headline": "Turkey mandates Isbank and Ziraat to liquidate $18.3 billion funds",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/turkey-mandates-isbank-ziraat-liquidate-183-billion-funds-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T05:11:14Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Turkey has mandated the liquidation of $18.3 billion in funds held by Isbank and Ziraat, representing a major capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Turkey has mandated the liquidation of $18.3 billion in funds held by Isbank and Ziraat, representing a major capital event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Isbank",
+          "ticker": null,
+          "listing_country": "TR"
+        },
+        {
+          "name": "Ziraat Bank",
+          "ticker": null,
+          "listing_country": "TR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-260",
       "headline": "UN mission finds evidence signaling U.S. war crimes in Iran; Washington rejects report",
       "headline_en": null,
@@ -1915,55 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-003",
-      "headline": "SPY: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPY?key=2924-03136904-2A1697840",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T23:46:23Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A trading pause on an exchange-traded product is a significant operational event requiring investigation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A trading pause on an exchange-traded product is a significant operational event requiring investigation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPDR S&P 500 ETF Trust",
-          "ticker": "SPY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165523,9 +165528,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2160662,
-    "news_picked_today": 572,
-    "news_dropped_today": 2692
+    "news_seen_today": 2184412,
+    "news_picked_today": 588,
+    "news_dropped_today": 2724
   },
   "book_momentum": {
     "live_count": 8,
