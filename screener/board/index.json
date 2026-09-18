@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T05:11:57Z",
+  "generated_at": "2026-09-18T05:16:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-267",
@@ -195,6 +195,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-293",
+      "headline": "Yatharth Hospitals shares rally 10% to fresh record high as Advent set to acquire 25% stake; stock up 20% in two days",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/yatharth-hospitals-shares-rally-10-to-fresh-record-high-as-advent-set-to-acquire-25-stake-stock-up-20-in-two-days/articleshow/134326269.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T05:00:57Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Advent International is set to acquire a 25% stake in Yatharth Hospitals, driving shares up 10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Advent International is set to acquire a 25% stake in Yatharth Hospitals, driving shares up 10%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yatharth Hospital & Trauma Care Services Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1903,55 +1952,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-246",
-      "headline": "ByteDance spin-off Anew Labs raises US$290m as AI drug developers enjoy fundraising boom",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/china-business/article/3367926/bytedance-spin-anew-labs-raises-us290m-ai-drug-developers-enjoy-fundraising-boom?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T03:00:08Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Anew Labs, a ByteDance spin-off, raised US$290 million for AI drug development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Anew Labs, a ByteDance spin-off, raised US$290 million for AI drug development.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ByteDance",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -165656,9 +165656,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1824903,
-    "news_picked_today": 550,
-    "news_dropped_today": 2234
+    "news_seen_today": 1849106,
+    "news_picked_today": 551,
+    "news_dropped_today": 2281
   },
   "book_momentum": {
     "live_count": 8,
