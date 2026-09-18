@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:27:24Z",
+  "generated_at": "2026-09-18T02:32:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -1725,6 +1725,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-229",
+      "headline": "Noel Tata outvoted as Tata Sons board backs IPO and Chandrasekaran extension",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-chairman-natarajan-chandrasekaran-noel-tata-trusts-tata-sons-ipo-listing-11789651170924.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:00:12Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Tata Sons board backed an IPO and extended the CEO's term, signaling strategic continuity and a major capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Tata Sons board backed an IPO and extended the CEO's term, signaling strategic continuity and a major capital event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-207",
       "headline": "India faces 100% US tariffs for buying Russia, Iran oil",
       "headline_en": null,
@@ -1907,60 +1957,6 @@
           "name": "Singapore Airlines",
           "ticker": null,
           "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-100",
-      "headline": "ASX to rise; FIRB approves Maas’s $1.7b sale to Heidelberg",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-wall-st-rallies-as-oil-ease-global-bond-yields-drop-20260918-p60yfd?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:00:36Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Regulatory approval (FIRB) for a $1.7 billion sale is a major milestone for the transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Regulatory approval (FIRB) for a $1.7 billion sale is a major milestone for the transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maas",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Heidelberg",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -165665,9 +165661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 772533,
-    "news_picked_today": 273,
-    "news_dropped_today": 1023
+    "news_seen_today": 794248,
+    "news_picked_today": 278,
+    "news_dropped_today": 1042
   },
   "book_momentum": {
     "live_count": 8,
