@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T00:05:04Z",
+  "generated_at": "2026-09-18T00:06:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260917-433",
@@ -123123,24 +123123,24 @@
     },
     {
       "idea_id": "IDEA-a31f38029430",
-      "idea_version": "IDEAV-b830ae09bf95501a",
-      "idea_version_started_at": "2026-09-17T10:57:20Z",
+      "idea_version": "IDEAV-f72a489a1e831551",
+      "idea_version_started_at": "2026-09-18T00:05:46Z",
       "ticker": "JBHT",
       "company": "J.B. Hunt Transport Services",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company issued a warning that third-quarter earnings will fall, indicating broader freight recessionary pressures and margin compression.",
-      "why_now": "The earnings warning was released today, September 16, 2026.",
+      "reason": "The company issued a negative earnings warning for the third quarter, signaling margin compression and weaker demand.",
+      "why_now": "The warning was released on 2026-09-16, and the stock has already reacted, but the fundamental downgrade suggests further downside.",
       "conviction": 80,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 55,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
         "impact": 23,
         "specificity": 15,
-        "timing": 10,
+        "timing": 6,
         "expression": 6,
         "corroboration": 0,
         "learning_adjustment": 0
@@ -123149,6 +123149,7 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "priced-in risk",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -123161,7 +123162,7 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "room",
+      "priced_in": "priced",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
@@ -123184,7 +123185,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-17T10:57:20Z",
-      "updated_at": "2026-09-17T10:57:20Z",
+      "updated_at": "2026-09-18T00:05:46Z",
       "decay_at": "2026-09-18T01:17:09Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -124605,76 +124606,6 @@
       "surfaced_at": "2026-09-16T11:53:50Z",
       "updated_at": "2026-09-16T11:53:50Z",
       "decay_at": "2026-09-17T16:20:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-aee6ec71570ec791",
-      "idea_version_started_at": "2026-09-15T05:22:27Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.2 billion Army contract for PrSM Inc. 2 missiles bolsters the company's missile and fire control segment, which is a key growth driver for the firm.",
-      "why_now": "The contract award was announced on September 15, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ae7d8bd9f484"
-      ],
-      "primary_source_event_id": "EVT-ae7d8bd9f484",
-      "source_headlines": [
-        "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2"
-      ],
-      "source_headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
-      "source_url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
-      "source_name": "Defense Daily",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-15T00:00:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T05:22:27Z",
-      "updated_at": "2026-09-15T05:22:27Z",
-      "decay_at": "2026-09-16T12:00:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126186,77 +126117,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7b576c9bae72",
-      "idea_version": "IDEAV-80a7771629d4c052",
-      "idea_version_started_at": "2026-09-15T00:37:13Z",
-      "ticker": "EQR",
-      "company": "EQ Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The signing of a binding agreement for a joint venture to build a US APT (Ammonium Paratungstate) plant provides a clear pathway for geographic expansion and vertical integration in the tungsten supply chain.",
-      "why_now": "The binding agreement was filed with the ASX on September 14, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71ceb046032e"
-      ],
-      "primary_source_event_id": "EVT-71ceb046032e",
-      "source_headlines": [
-        "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]"
-      ],
-      "source_headline": "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQR?key=2924-03135532-2A1697060",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-14T23:24:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T00:37:13Z",
-      "updated_at": "2026-09-15T00:37:13Z",
-      "decay_at": "2026-09-16T11:24:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1bc0605be1ed",
       "idea_version": "IDEAV-d8324e0c16cac5fa",
       "idea_version_started_at": "2026-09-15T10:07:26Z",
@@ -126471,290 +126331,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-dcbe8a433cc7",
-      "idea_version": "IDEAV-e4f6e8ed65e6fb79",
-      "idea_version_started_at": "2026-09-15T03:13:27Z",
-      "ticker": "00370",
-      "company": "HK Robotics",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A rights issue on a 1-for-2 basis is highly dilutive to existing shareholders and signals a need for capital to cover operational cash burn.",
-      "why_now": "The filing was released on 2026-09-14.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-043e88dd4355"
-      ],
-      "primary_source_event_id": "EVT-043e88dd4355",
-      "source_headlines": [
-        "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE"
-      ],
-      "source_headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-14T23:34:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T03:13:27Z",
-      "updated_at": "2026-09-15T03:13:27Z",
-      "decay_at": "2026-09-16T11:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-67ef6a40fe95",
-      "idea_version": "IDEAV-6ae2571eac382137",
-      "idea_version_started_at": "2026-09-15T02:26:35Z",
-      "ticker": "02595.HK",
-      "company": "Genfleet Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase II efficacy data for GFH375 in NSCLC validates the company's core drug pipeline and increases the probability of future commercial success.",
-      "why_now": "The data was presented at the 2026 World Conference on Lung Cancer on 2026-09-15, providing a fresh catalyst for re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-231ab8410879"
-      ],
-      "primary_source_event_id": "EVT-231ab8410879",
-      "source_headlines": [
-        "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)"
-      ],
-      "source_headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-15T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T02:26:35Z",
-      "updated_at": "2026-09-15T02:26:35Z",
-      "decay_at": "2026-09-16T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c216e8a1a5f7",
-      "idea_version": "IDEAV-6295c63f05186693",
-      "idea_version_started_at": "2026-09-15T02:26:35Z",
-      "ticker": "00370.HK",
-      "company": "HK Robotics",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A rights issue on the basis of one share for every two held represents significant dilution to existing equity holders.",
-      "why_now": "The filing was released on 2026-09-14, and the stock will likely trade down to reflect the dilutive impact of the new shares.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-043e88dd4355"
-      ],
-      "primary_source_event_id": "EVT-043e88dd4355",
-      "source_headlines": [
-        "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE"
-      ],
-      "source_headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-14T23:34:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T02:26:35Z",
-      "updated_at": "2026-09-15T02:26:35Z",
-      "decay_at": "2026-09-16T11:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1fab37e5db24",
-      "idea_version": "IDEAV-038ebc68219e7030",
-      "idea_version_started_at": "2026-09-15T01:17:59Z",
-      "ticker": "EVN",
-      "company": "Evolution Mining",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a capital management initiative, which typically involves returning excess cash to shareholders via dividends or buybacks.",
-      "why_now": "The filing was released on September 14, 2026, with the specific details of the capital management plan to follow.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aca580e3b0ec"
-      ],
-      "primary_source_event_id": "EVT-aca580e3b0ec",
-      "source_headlines": [
-        "EVN: Capital management [price-sensitive]"
-      ],
-      "source_headline": "EVN: Capital management [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03135570-2A1697186",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 81,
-      "newest_source_at": "2026-09-14T23:46:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-15T01:17:59Z",
-      "updated_at": "2026-09-15T01:17:59Z",
-      "decay_at": "2026-09-16T11:46:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -126767,33 +126343,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 534,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 20
       },
       "short": {
-        "total_count": 266,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 312,
-      "oldest_retained_at": "2026-08-28T01:27:05Z",
+      "evicted_count": 318,
+      "oldest_retained_at": "2026-08-28T06:27:16Z",
       "side_counts": {
         "long": {
-          "evicted_count": 216,
-          "oldest_retained_at": "2026-09-05T09:26:54Z"
+          "evicted_count": 220,
+          "oldest_retained_at": "2026-09-05T16:52:09Z"
         },
         "short": {
-          "evicted_count": 96,
-          "oldest_retained_at": "2026-08-28T01:27:05Z"
+          "evicted_count": 98,
+          "oldest_retained_at": "2026-08-28T06:27:16Z"
         }
       }
     },
@@ -129391,8 +128967,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T12:00:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129465,8 +129041,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129539,8 +129115,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T11:46:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129613,8 +129189,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T11:34:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129687,8 +129263,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T11:34:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129761,8 +129337,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-16T11:24:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T00:05:50Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
