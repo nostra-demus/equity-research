@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T20:19:17Z",
+  "generated_at": "2026-09-18T20:23:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -1233,6 +1233,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-564",
+      "headline": "Warren Buffett steps down as Berkshire chairman, replaced by his son Howard",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/berkshire-hathaway-names-warren-buffett-chairman-emeritus-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T19:52:20Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett stepping down as chairman of Berkshire Hathaway is a major leadership transition for the conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett stepping down as chairman of Berkshire Hathaway is a major leadership transition for the conglomerate.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-565",
+      "headline": "CBI Registers FIR Against Reliance Capital, Anil Ambani Over Alleged ₹2,684.57 Crore LIC Investment Fraud Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-registers-fir-against-reliance-capital-anil-ambani-over-alleged-268457-crore-lic-investment-fraud-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T19:30:56Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Reliance Capital and Anil Ambani are facing a criminal investigation regarding an alleged ₹2,684.57 crore fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Capital and Anil Ambani are facing a criminal investigation regarding an alleged ₹2,684.57 crore fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-561",
       "headline": "FedEx, Advent-led consortium secures over 89% of InPost shares in takeover offer",
       "headline_en": null,
@@ -1884,104 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-497",
-      "headline": "Volkswagen cuts outlook on $11.5 billion one-off hit",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/china/volkswagen-porsche-holding-cut-outlook-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:43:17Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Volkswagen cut its outlook due to a quantified $11.5 billion one-off hit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen cut its outlook due to a quantified $11.5 billion one-off hit.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-493",
-      "headline": "Wendy's franchisee files for Chapter 11 bankruptcy protection as burger chain struggles",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/18/wendys-franchisee-files-for-chapter-11-bankruptcy-protection.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:41:28Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A franchisee filing for Chapter 11 bankruptcy is a material credit event affecting the brand's operational footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A franchisee filing for Chapter 11 bankruptcy is a material credit event affecting the brand's operational footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124967,76 +124967,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1b8fe79c0404",
-      "idea_version": "IDEAV-f51ef5f0f951b57f",
-      "idea_version_started_at": "2026-09-17T11:22:21Z",
-      "ticker": "2371.T",
-      "company": "Kakaku.com",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A bidding war between a Bain-backed group and EQT is driving up the acquisition premium for the company.",
-      "why_now": "The increased offer was reported on 2026-09-17, signaling active M&A interest.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-928b045b99b4"
-      ],
-      "primary_source_event_id": "EVT-928b045b99b4",
-      "source_headlines": [
-        "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
-      ],
-      "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
-      "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T08:21:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T11:22:21Z",
-      "updated_at": "2026-09-17T11:22:21Z",
-      "decay_at": "2026-09-18T20:21:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-622d9386e914",
       "idea_version": "IDEAV-239c742a1d76a857",
       "idea_version_started_at": "2026-09-18T00:48:37Z",
@@ -125821,78 +125751,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3eb47bedf20c",
-      "idea_version": "IDEAV-c7b4931ea965620b",
-      "idea_version_started_at": "2026-09-17T13:01:51Z",
-      "ticker": "2371",
-      "company": "Kakaku.com",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A Bain-backed group has raised its takeover offer, creating a bidding war that increases the likelihood of a higher exit price for shareholders.",
-      "why_now": "The increased offer was reported today, September 17, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-928b045b99b4"
-      ],
-      "primary_source_event_id": "EVT-928b045b99b4",
-      "source_headlines": [
-        "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
-      ],
-      "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
-      "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T08:21:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T13:01:51Z",
-      "updated_at": "2026-09-17T13:01:51Z",
-      "decay_at": "2026-09-18T20:21:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83131c32c3ef",
       "idea_version": "IDEAV-242bb3cc002b9f5a",
       "idea_version_started_at": "2026-09-17T13:01:51Z",
@@ -126245,6 +126103,76 @@
       "surfaced_at": "2026-09-17T11:22:21Z",
       "updated_at": "2026-09-17T11:22:21Z",
       "decay_at": "2026-09-18T20:03:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1b8fe79c0404",
+      "idea_version": "IDEAV-f51ef5f0f951b57f",
+      "idea_version_started_at": "2026-09-17T11:22:21Z",
+      "ticker": "2371.T",
+      "company": "Kakaku.com",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A bidding war between a Bain-backed group and EQT is driving up the acquisition premium for the company.",
+      "why_now": "The increased offer was reported on 2026-09-17, signaling active M&A interest.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-928b045b99b4"
+      ],
+      "primary_source_event_id": "EVT-928b045b99b4",
+      "source_headlines": [
+        "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
+      ],
+      "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
+      "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T08:21:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T11:22:21Z",
+      "updated_at": "2026-09-17T11:22:21Z",
+      "decay_at": "2026-09-18T20:21:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126949,6 +126877,78 @@
       "surfaced_at": "2026-09-17T10:57:20Z",
       "updated_at": "2026-09-17T22:38:57Z",
       "decay_at": "2026-09-18T00:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3eb47bedf20c",
+      "idea_version": "IDEAV-c7b4931ea965620b",
+      "idea_version_started_at": "2026-09-17T13:01:51Z",
+      "ticker": "2371",
+      "company": "Kakaku.com",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A Bain-backed group has raised its takeover offer, creating a bidding war that increases the likelihood of a higher exit price for shareholders.",
+      "why_now": "The increased offer was reported today, September 17, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-928b045b99b4"
+      ],
+      "primary_source_event_id": "EVT-928b045b99b4",
+      "source_headlines": [
+        "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
+      ],
+      "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
+      "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T08:21:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T13:01:51Z",
+      "updated_at": "2026-09-17T13:01:51Z",
+      "decay_at": "2026-09-18T20:21:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -127751,14 +127751,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 16
       },
       "short": {
         "total_count": 259,
@@ -127782,6 +127782,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1b8fe79c0404",
+        "idea_version": "IDEAV-f51ef5f0f951b57f",
+        "idea_version_started_at": "2026-09-17T11:22:21Z",
+        "ticker": "2371.T",
+        "company": "Kakaku.com",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A bidding war between a Bain-backed group and EQT is driving up the acquisition premium for the company.",
+        "why_now": "The increased offer was reported on 2026-09-17, signaling active M&A interest.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-928b045b99b4"
+        ],
+        "primary_source_event_id": "EVT-928b045b99b4",
+        "source_headlines": [
+          "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
+        ],
+        "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
+        "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T08:21:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T11:22:21Z",
+        "updated_at": "2026-09-17T11:22:21Z",
+        "decay_at": "2026-09-18T20:21:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-18T20:21:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3eb47bedf20c",
+        "idea_version": "IDEAV-c7b4931ea965620b",
+        "idea_version_started_at": "2026-09-17T13:01:51Z",
+        "ticker": "2371",
+        "company": "Kakaku.com",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A Bain-backed group has raised its takeover offer, creating a bidding war that increases the likelihood of a higher exit price for shareholders.",
+        "why_now": "The increased offer was reported today, September 17, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-928b045b99b4"
+        ],
+        "primary_source_event_id": "EVT-928b045b99b4",
+        "source_headlines": [
+          "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
+        ],
+        "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
+        "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T08:21:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T13:01:51Z",
+        "updated_at": "2026-09-17T13:01:51Z",
+        "decay_at": "2026-09-18T20:21:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-18T20:21:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1ab96b799316",
         "idea_version": "IDEAV-0a0d16a06eb6f0f9",
@@ -156684,81 +156832,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f9e57ac4023c",
-        "idea_version": "IDEAV-356ce18b87b89dd9",
-        "idea_version_started_at": "2026-09-06T19:44:58Z",
-        "ticker": "CON",
-        "company": "Continental AG",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Continental AG is convening an extraordinary Sunday board meeting to finalize and approve the sale of its 'mycar' business unit to a new owner.",
-        "why_now": "The board meeting is scheduled for Sunday, September 6, 2026, indicating an official transaction announcement is imminent.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-74abcdb05d21"
-        ],
-        "primary_source_event_id": "EVT-74abcdb05d21",
-        "source_headlines": [
-          "Continetal AG calls Sunday board huddle to anoint mycar’s new owner"
-        ],
-        "source_headline": "Continetal AG calls Sunday board huddle to anoint mycar’s new owner",
-        "source_url": "https://www.afr.com/street-talk/continetal-ag-calls-sunday-board-huddle-to-anoint-mycar-s-new-owner-20260906-p60uuf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-06T03:19:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T03:55:04Z",
-        "updated_at": "2026-09-06T19:44:58Z",
-        "decay_at": "2026-09-07T15:19:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T03:36:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-205ed939316f",
         "idea_version": "IDEAV-23b289b6cd7b7c5b",
         "idea_version_started_at": "2026-09-06T03:18:09Z",
@@ -156828,84 +156901,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-09T03:36:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ffd3303f2ba5",
-        "idea_version": "IDEAV-7ca58afb2ce1f40a",
-        "idea_version_started_at": "2026-09-06T03:55:04Z",
-        "ticker": "688169",
-        "company": "Beijing Roborock Technology",
-        "exchange": "SSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported 27.6% revenue growth for H1 2026, demonstrating successful global expansion and market share gains in the robotic vacuum sector despite broader consumer electronics headwinds.",
-        "why_now": "The H1 2026 interim results were officially released on September 6, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d9e93e3e0c0",
-          "EVT-a6dd22d392b6"
-        ],
-        "primary_source_event_id": "EVT-0d9e93e3e0c0",
-        "source_headlines": [
-          "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
-          "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership"
-        ],
-        "source_headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
-        "source_url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
-        "source_name": "PR Newswire — All News Releases",
-        "materiality_max": 65,
-        "newest_source_at": "2026-09-06T01:30:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T03:55:04Z",
-        "updated_at": "2026-09-06T03:55:04Z",
-        "decay_at": "2026-09-07T13:30:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T01:49:23Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -164947,7 +164942,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 886,
-    "live_count": 24,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -164966,9 +164961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9830937,
-    "news_picked_today": 1212,
-    "news_dropped_today": 9660
+    "news_seen_today": 9886812,
+    "news_picked_today": 1218,
+    "news_dropped_today": 9678
   },
   "book_momentum": {
     "live_count": 8,
