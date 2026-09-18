@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T00:41:26Z",
+  "generated_at": "2026-09-18T00:44:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -1732,6 +1732,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-050",
+      "headline": "Brown-Forman Announces $500 Million Debt Offering | BF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BF/brown-forman-announces-500-million-debt-xxf8j073p87l.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T21:27:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Brown-Forman is raising $500 million in debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Brown-Forman is raising $500 million in debt.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brown-Forman",
+          "ticker": "BF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-052",
+      "headline": "Churchill Downs Incorporated Announces Pricing of $500 Million Senior Secured Term Loan B Due 2033",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/17/3364414/12388/en/churchill-downs-incorporated-announces-pricing-of-500-million-senior-secured-term-loan-b-due-2033.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T21:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Churchill Downs priced a $500 million senior secured term loan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Churchill Downs priced a $500 million senior secured term loan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Churchill Downs",
+          "ticker": "CHDN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-031",
       "headline": "Orion180 Insurance Group Inc. Announces Pricing of Initial Public Offering | OIG Stock News",
       "headline_en": null,
@@ -1867,98 +1965,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-026",
-      "headline": "Report: Israel's security lines cannot be maintained amid financial crisis, Israeli army warns Netanyahu",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/report-israels-security-lines-cannot-be-maintained-amid-financial-crisis",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:18:16Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The Israeli military warned that security operations are unsustainable due to a financial crisis, indicating significant geopolitical and fiscal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The Israeli military warned that security operations are unsustainable due to a financial crisis, indicating significant geopolitical and fiscal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-043",
-      "headline": "شركة STRONG Pilates تُعزّز حضورها في الشرق الأوسط عن طريق التوسع في المملكة العربية السعودية، وتعلن عن شراكة امتياز رئيسية مع Healthpreneurs",
-      "headline_en": "STRONG Pilates strengthens its presence in the Middle East by expanding into Saudi Arabia, and announces a major franchise partnership with Healthpreneurs",
-      "url": "http://www.businesswire.com/news/home/20260917517555/ar/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-17T21:47:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "STRONG Pilates is expanding into Saudi Arabia through a franchise partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "STRONG Pilates is expanding into Saudi Arabia through a franchise partnership.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "STRONG Pilates",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -165521,9 +165527,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 187115,
-    "news_picked_today": 50,
-    "news_dropped_today": 238
+    "news_seen_today": 210251,
+    "news_picked_today": 54,
+    "news_dropped_today": 258
   },
   "book_momentum": {
     "live_count": 8,
