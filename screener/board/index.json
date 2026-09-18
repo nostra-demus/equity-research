@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T08:59:16Z",
+  "generated_at": "2026-09-18T09:02:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-353",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-355",
+      "headline": "ZJ TRANS B2807 (05737): Completion of redemption of U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800323.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Zhenjiang Transportation Industry Group completed the redemption of $220 million in bonds due 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhenjiang Transportation Industry Group completed the redemption of $220 million in bonds due 2028.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhenjiang Transportation Industry Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,60 +1979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-264",
-      "headline": "OpenAI’s listing delay raises stakes for SoftBank’s $50bn data centre IPO",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/6c467774-9d91-425e-a901-26db055e37ad?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T03:04:36Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "SoftBank's potential $50 billion data center IPO is a major capital market event linked to OpenAI's listing status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SoftBank's potential $50 billion data center IPO is a major capital market event linked to OpenAI's listing status.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165395,9 +165390,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3743127,
-    "news_picked_today": 665,
-    "news_dropped_today": 4087
+    "news_seen_today": 3758807,
+    "news_picked_today": 669,
+    "news_dropped_today": 4107
   },
   "book_momentum": {
     "live_count": 8,
