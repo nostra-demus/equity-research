@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T01:24:19Z",
+  "generated_at": "2026-09-18T01:28:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -796,6 +796,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-100",
+      "headline": "ASX to rise; FIRB approves Maas’s $1.7b sale to Heidelberg",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-wall-st-rallies-as-oil-ease-global-bond-yields-drop-20260918-p60yfd?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:00:36Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Regulatory approval (FIRB) for a $1.7 billion sale is a major milestone for the transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Regulatory approval (FIRB) for a $1.7 billion sale is a major milestone for the transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maas",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Heidelberg",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-093",
+      "headline": "Suspended Glencore executive told Radiant ‘say nothing on email’",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/suspended-glencore-executive-told-radiant-say-nothing-email",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:37:12Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Reports of an executive instructing staff to conceal information suggest potential legal or compliance risks for Glencore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Reports of an executive instructing staff to conceal information suggest potential legal or compliance risks for Glencore.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glencore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-009",
       "headline": "1AD: Oribiotech deal validates AdAlta manufacturing strategy [price-sensitive]",
       "headline_en": null,
@@ -1100,6 +1204,49 @@
       "triage_score": 77,
       "triage_reason": "The Yen is trading lower as markets await a Bank of Japan interest rate decision, with a hike widely expected.",
       "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-095",
+      "headline": "RBI's OMO sale exceeds expectations, absorbing excess liquidity with higher bond yields",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/rbis-omo-sale-exceeds-expectations-absorbing-excess-liquidity-with-higher-bond-yields/articleshow/134323461.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:59:17Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The RBI's OMO sale absorbing liquidity at higher yields signals a tightening of monetary conditions in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "The RBI's OMO sale absorbing liquidity at higher yields signals a tightening of monetary conditions in India.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
@@ -1802,152 +1949,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-025",
-      "headline": "Australia news live: RBA governor paves way for rate hike; Labor to ‘look at’ following Canada in pulling closer to EU",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/australia-news/live/2026/sep/18/labor-migration-plan-tony-burke-coalition-qantas-renewable-energy-ntwnfb",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:03:48Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The RBA governor signaled a potential interest rate hike, which impacts the Australian economic outlook and borrowing costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The RBA governor signaled a potential interest rate hike, which impacts the Australian economic outlook and borrowing costs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-084",
-      "headline": "Pepsi and Kroger hit hard by changing food trend",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/pepsi-hershey-costco-and-kroger-face-a-73-billion-problem",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:41:02Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Changing consumer food trends are negatively impacting the sales performance of major retailers and food producers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Changing consumer food trends are negatively impacting the sales performance of major retailers and food producers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-005",
-      "headline": "CUE: Mahato and Palm Valley Drilling Update",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CUE?key=2924-03136906-3A702037",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T23:47:48Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Routine operational update on drilling progress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine operational update on drilling progress.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CUE",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -165650,9 +165651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428113,
-    "news_picked_today": 110,
-    "news_dropped_today": 562
+    "news_seen_today": 439422,
+    "news_picked_today": 118,
+    "news_dropped_today": 578
   },
   "book_momentum": {
     "live_count": 8,
