@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-18T12:24:36Z",
+  "generated_at": "2026-09-18T12:26:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-428",
+      "headline": "SHAW BROTHERS (00953): INSIDE INFORMATION TERMINATION OF POTENTIAL EXTREME AND CONNECTED TRANSACTION IN RELATION TO AN ACQUISITION OF THE ENTIRE ISSUED SHARE CAPITAL OF CMC MOON HOLDINGS LIMITED AND RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801474.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T12:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Termination of a previously announced acquisition deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Termination of a previously announced acquisition deal.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHAW BROTHERS",
+          "ticker": "00953",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-376",
       "headline": "IDT INT'L (00167): JOINT ANNOUNCEMENT - (1) CLOSE OF MANDATORY UNCONDITIONAL CASH OFFER BY LEGO SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF IDT INTERNATIONAL LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-271",
-      "headline": "WB1: Removal from Official List",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WB1?key=2924-03137031-2A1697902",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T03:30:59Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Company removal from official list indicates delisting or insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company removal from official list indicates delisting or insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WB1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165115,9 +165115,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5757422,
-    "news_picked_today": 854,
-    "news_dropped_today": 5890
+    "news_seen_today": 5773656,
+    "news_picked_today": 867,
+    "news_dropped_today": 5901
   },
   "book_momentum": {
     "live_count": 8,
