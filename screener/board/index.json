@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:26:27Z",
+  "generated_at": "2026-09-18T02:27:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -805,6 +805,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-225",
+      "headline": "Saudi Arabia, Houthis trade fresh strikes as spreading Middle East war threatens oil supplies",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/saudi-arabia-houthis-trade-fresh-strikes-spreading-middle-east-war-threatens-oil-supplies",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T01:59:28Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Escalating conflict between Saudi Arabia and Houthis threatens global oil supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalating conflict between Saudi Arabia and Houthis threatens global oil supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-222",
-      "headline": "Tesla Settles Potentially Costly Lawsuit Over Autopilot Death",
-      "headline_en": null,
-      "url": "https://www.carscoops.com/2026/09/tesla-settles-potentially-costly-lawsuit-over-autopilot-death/",
-      "source_name": "Carscoops",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T02:06:44Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Tesla settled a lawsuit regarding an Autopilot-related death, potentially impacting legal risk and brand perception.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tesla settled a lawsuit regarding an Autopilot-related death, potentially impacting legal risk and brand perception.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165671,9 +165665,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 761652,
-    "news_picked_today": 270,
-    "news_dropped_today": 1002
+    "news_seen_today": 772533,
+    "news_picked_today": 273,
+    "news_dropped_today": 1023
   },
   "book_momentum": {
     "live_count": 8,
