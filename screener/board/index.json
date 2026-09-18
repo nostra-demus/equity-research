@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T16:45:53Z",
+  "generated_at": "2026-09-18T16:57:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -1135,6 +1135,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-527",
+      "headline": "CBI Registers FIR Against Reliance Capital, Anil Ambani Over Alleged ₹2,684.57 Crore LIC Fraud Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/cbi-registers-fir-against-reliance-capital-anil-ambani-over-alleged-268457-crore-lic-fraud-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:17:20Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "CBI registered an FIR against Reliance Capital and Anil Ambani regarding an alleged 26.8 billion rupee fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI registered an FIR against Reliance Capital and Anil Ambani regarding an alleged 26.8 billion rupee fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-514",
       "headline": "CBI files FIR against Reliance Capital, Anil Ambani over Rs 2,684 crore LIC investment 'fraud'; Ambani denies 'any wrongdoing'",
       "headline_en": null,
@@ -1910,49 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-453",
-      "headline": "Bank Of Japan Raises Interest Rate To 1.25%, Highest Level In Three Decades",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/bank-of-japan-raises-interest-rate-to-125-highest-level-in-three-decades",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T12:24:29Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Bank of Japan raised interest rates to 1.25%, a significant shift in monetary policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of Japan raised interest rates to 1.25%, a significant shift in monetary policy.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165150,9 +165156,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8113642,
-    "news_picked_today": 1101,
-    "news_dropped_today": 8019
+    "news_seen_today": 8233965,
+    "news_picked_today": 1108,
+    "news_dropped_today": 8108
   },
   "book_momentum": {
     "live_count": 8,
