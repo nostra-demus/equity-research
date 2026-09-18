@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-07T16:59:20Z",
+  "archived_at": "2026-09-18T12:43:01Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-99a574f2e453",
-    "idea_version": "IDEAV-d48874a256e338b5",
-    "idea_version_started_at": "2026-09-04T21:55:24Z",
-    "ticker": "LLY",
-    "company": "Eli Lilly",
+    "idea_id": "IDEA-1bea3b52b765",
+    "idea_version": "IDEAV-bbcf11c8ea921b0e",
+    "idea_version_started_at": "2026-09-15T23:04:51Z",
+    "ticker": "KO",
+    "company": "Coca-Cola",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Eli Lilly agreed to a $2.88B acquisition to expand beyond obesity into autoimmune diseases, diversifying its pipeline and reducing single-franchise concentration risk.",
-    "why_now": "Deal announced Sept 4, 2026 — near-term pipeline diversification catalyst with clear strategic rationale.",
-    "conviction": 60,
+    "reason": "A $10 billion capital expenditure commitment through 2030 signals long-term growth and capacity expansion in the U.S. market.",
+    "why_now": "The CFO announced the investment plan today, September 15, 2026.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 62,
+    "trade_score": 55,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 20,
       "specificity": 15,
       "timing": 10,
       "expression": 6,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-8241fa6e6671"
+      "EVT-6a065f9fab87"
     ],
-    "primary_source_event_id": "EVT-8241fa6e6671",
+    "primary_source_event_id": "EVT-6a065f9fab87",
     "source_headlines": [
-      "Lilly looks beyond obesity with $2.88B autoimmune buyout"
+      "Coca-Cola to invest $10 billion in U.S. growth through 2030, says CFO"
     ],
-    "source_headline": "Lilly looks beyond obesity with $2.88B autoimmune buyout",
-    "source_url": "https://finance.yahoo.com/healthcare/articles/lilly-looks-beyond-obesity-2-161700320.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "Coca-Cola to invest $10 billion in U.S. growth through 2030, says CFO",
+    "source_url": "https://fortune.com/2026/09/15/coca-cola-invest-10-billion-us-growth-through-2030-cfo/",
+    "source_name": "Fortune",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-04T16:17:00Z",
+    "newest_source_at": "2026-09-15T12:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-04T13:46:23Z",
-    "updated_at": "2026-09-04T21:55:24Z",
-    "decay_at": "2026-09-06T04:17:00Z",
+    "surfaced_at": "2026-09-15T23:04:51Z",
+    "updated_at": "2026-09-15T23:04:51Z",
+    "decay_at": "2026-09-17T00:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
