@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T17:04:43Z",
+  "generated_at": "2026-09-18T17:05:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -125434,6 +125434,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-75e7e0d545c9",
+      "idea_version": "IDEAV-b4a076a0fe2c362e",
+      "idea_version_started_at": "2026-09-18T17:05:00Z",
+      "ticker": "08366",
+      "company": "ZJ United Inv",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is initiating a dilutive rights issue on a non-fully underwritten basis, which typically signals significant capital pressure and creates downward price pressure on existing shares.",
+      "why_now": "The announcement was made on September 18, 2026, and the market has not yet fully digested the impact of the non-underwritten rights issue.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-717692d8d979"
+      ],
+      "primary_source_event_id": "EVT-717692d8d979",
+      "source_headlines": [
+        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
+      ],
+      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T12:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T17:05:00Z",
+      "updated_at": "2026-09-18T17:05:00Z",
+      "decay_at": "2026-09-20T00:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50561c4c019b",
       "idea_version": "IDEAV-9645f40d68ed9f35",
       "idea_version_started_at": "2026-09-18T12:42:52Z",
@@ -126720,76 +126791,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-173014fa1310",
-      "idea_version": "IDEAV-16cbb880adc47ac7",
-      "idea_version_started_at": "2026-09-16T01:34:59Z",
-      "ticker": "DASH",
-      "company": "DoorDash",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $300 million acquisition of Grubhub Campus Dining expands DoorDash's reach into the high-frequency university food delivery market, while the $125 million investment in Wonder signals a strategic pivot into broader food tech infrastructure.",
-      "why_now": "The announcement occurred today, September 15, 2026, and represents a clear expansion of their total addressable market.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d0ae6c8d9abe"
-      ],
-      "primary_source_event_id": "EVT-d0ae6c8d9abe",
-      "source_headlines": [
-        "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder"
-      ],
-      "source_headline": "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder",
-      "source_url": "https://www.nasdaq.com/articles/doordash-buy-grubhub-campus-dining-300-mln-invests-125-mln-wonder",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T13:35:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T01:34:59Z",
-      "updated_at": "2026-09-16T01:34:59Z",
-      "decay_at": "2026-09-17T01:35:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-19d921e177b0",
       "idea_version": "IDEAV-bc9b60d7a1106ff2",
       "idea_version_started_at": "2026-09-16T11:53:50Z",
@@ -127646,220 +127647,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1327c0d32ef1",
-      "idea_version": "IDEAV-204cb94afc4eebe6",
-      "idea_version_started_at": "2026-09-16T02:35:22Z",
-      "ticker": "00092",
-      "company": "CHAMPION TECH",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning signals a failure to meet earnings expectations, which typically results in a sharp sell-off as institutional investors adjust their models.",
-      "why_now": "The filing was released today, September 15, 2026, making the information fresh and actionable.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88a96cc80762"
-      ],
-      "primary_source_event_id": "EVT-88a96cc80762",
-      "source_headlines": [
-        "CHAMPION TECH (00092): PROFIT WARNING"
-      ],
-      "source_headline": "CHAMPION TECH (00092): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501445.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T14:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T02:35:22Z",
-      "updated_at": "2026-09-16T02:35:22Z",
-      "decay_at": "2026-09-17T02:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-df0c67c7416a",
-      "idea_version": "IDEAV-84111d6ff6b44498",
-      "idea_version_started_at": "2026-09-16T02:35:22Z",
-      "ticker": "01059",
-      "company": "KANTONE HOLDING",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A formal profit warning suggests a deterioration in the company's core business performance, likely leading to a contraction in valuation multiples.",
-      "why_now": "The announcement was made today, September 15, 2026, creating an immediate negative catalyst for the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f74ca20ca5d"
-      ],
-      "primary_source_event_id": "EVT-4f74ca20ca5d",
-      "source_headlines": [
-        "KANTONE HOLDING (01059): PROFIT WARNING"
-      ],
-      "source_headline": "KANTONE HOLDING (01059): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501403.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T14:47:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T02:35:22Z",
-      "updated_at": "2026-09-16T02:35:22Z",
-      "decay_at": "2026-09-17T02:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b89460c407f6",
-      "idea_version": "IDEAV-31d65d151ca3a27a",
-      "idea_version_started_at": "2026-09-16T01:34:59Z",
-      "ticker": "08645",
-      "company": "Byte Meta",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a formal profit warning, indicating significant deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
-      "why_now": "The filing was released today, September 15, 2026, and typically precedes a sharp negative reaction in equity price.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b411ead946c4"
-      ],
-      "primary_source_event_id": "EVT-b411ead946c4",
-      "source_headlines": [
-        "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT"
-      ],
-      "source_headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T14:23:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T01:34:59Z",
-      "updated_at": "2026-09-16T01:34:59Z",
-      "decay_at": "2026-09-17T02:23:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a88eed4d242c",
       "idea_version": "IDEAV-930f8e09e0b3f675",
       "idea_version_started_at": "2026-09-16T04:30:41Z",
@@ -127941,33 +127728,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 517,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 17,
     "side_counts": {
       "long": {
-        "total_count": 260,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 9
       },
       "short": {
-        "total_count": 261,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 8
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 334,
-      "oldest_retained_at": "2026-08-28T18:27:54Z",
+      "evicted_count": 338,
+      "oldest_retained_at": "2026-08-29T00:51:55Z",
       "side_counts": {
         "long": {
-          "evicted_count": 231,
+          "evicted_count": 232,
           "oldest_retained_at": "2026-09-06T06:05:00Z"
         },
         "short": {
-          "evicted_count": 103,
-          "oldest_retained_at": "2026-08-28T18:27:54Z"
+          "evicted_count": 106,
+          "oldest_retained_at": "2026-08-29T00:51:55Z"
         }
       }
     },
@@ -129299,8 +129086,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T02:59:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T17:05:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129373,8 +129160,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T02:47:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T17:05:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129448,8 +129235,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T02:23:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T17:05:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -129521,8 +129308,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T01:35:56Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-18T17:05:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -165136,8 +164923,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 885,
-    "live_count": 29,
+    "surfaced_total": 886,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
