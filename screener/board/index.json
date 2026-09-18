@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T04:06:55Z",
+  "generated_at": "2026-09-18T04:08:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-267",
@@ -1000,6 +1000,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-285",
+      "headline": "BOJ raises rates to 1.25% in split vote with 2 members opposing hike",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/economy/bank-of-japan/boj-raises-rates-to-1.25-in-split-vote-with-2-members-opposing-hike",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T04:04:24Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The Bank of Japan raised interest rates to 1.25% in a split vote.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The Bank of Japan raised interest rates to 1.25% in a split vote.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-266",
       "headline": "Bank of Japan raises policy interest rate to 1.25% from 1.0%",
       "headline_en": null,
@@ -1865,87 +1908,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260918-274",
-      "headline": "Bank of Japan: Japans Notenbank erhöht Leitzins auf höchsten Stand seit 31 Jahren",
-      "headline_en": "Bank of Japan: Japan's central bank raises key interest rate to the highest level in 31 years",
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/bank-of-japan-japans-notenbank-erhoeht-leitzins-auf-hoechsten-stand-seit-31-jahren/100255529.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T03:36:57Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The Bank of Japan raised its policy rate to the highest level in 31 years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Bank of Japan raised its policy rate to the highest level in 31 years.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-278",
-      "headline": "BOJ Decides to Raise Policy Rate to 1.25 Pct",
+      "inbox_id": "INB-20260918-279",
+      "headline": "FB MULTIASSET (03427): ANNOUNCEMENT AND NOTICE OF TIMETABLE UPDATE FOR TERMINATION, DEAUTHORISATION AND DELISTING",
       "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026091800484/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T03:27:53Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800167.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T04:01:00Z",
       "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The Bank of Japan officially raised its policy rate to 1.25%.",
+      "prelim_note": "FB Multiasset is terminating and delisting its fund, impacting investors and capital structure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "The Bank of Japan officially raised its policy rate to 1.25%.",
-      "region": "JP",
+      "triage_reason": "FB Multiasset is terminating and delisting its fund, impacting investors and capital structure.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
       },
       "event_types": [
-        "macro_sector"
+        "restructuring_layoffs"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FB Multiasset",
+          "ticker": "03427",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165649,9 +165655,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1414849,
-    "news_picked_today": 493,
-    "news_dropped_today": 1643
+    "news_seen_today": 1425310,
+    "news_picked_today": 503,
+    "news_dropped_today": 1657
   },
   "book_momentum": {
     "live_count": 8,
