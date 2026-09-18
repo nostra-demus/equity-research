@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:49:24Z",
+  "generated_at": "2026-09-18T02:51:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -192,6 +192,55 @@
           "name": "Doosan",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-238",
+      "headline": "Haji Isam swoops on Bayan to create an Indonesian coal giant",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/haji-isam-swoops-bayan-create-indonesian-coal-giant",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T02:30:31Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Haji Isam is acquiring a stake in Bayan Resources to consolidate the Indonesian coal sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Haji Isam is acquiring a stake in Bayan Resources to consolidate the Indonesian coal sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayan Resources",
+          "ticker": null,
+          "listing_country": "ID"
         }
       ],
       "size_bucket": "large",
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-110",
-      "headline": "SoftBank's record $6.4bn bond sale tests limits of Japan's debt market",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/markets/bonds/softbank-s-record-6.4bn-bond-sale-tests-limits-of-japan-s-debt-market",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:24:12Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "SoftBank's $6.4bn bond sale is a significant capital market event testing liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SoftBank's $6.4bn bond sale is a significant capital market event testing liquidity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165661,9 +165661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 923273,
-    "news_picked_today": 308,
-    "news_dropped_today": 1156
+    "news_seen_today": 933991,
+    "news_picked_today": 314,
+    "news_dropped_today": 1174
   },
   "book_momentum": {
     "live_count": 8,
