@@ -68,6 +68,29 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
     cards.push(card)
     reports.forEach((r) => assigned.add(r.family))
   }
+  // Inject cross-theme aliases so projectDiscovery's union-find merges cards for the same real-world
+  // event. Only 'related' links (same directional thesis) are merged; 'opposite' links stay separate.
+  const themeToCard = new Map<string, DiscoveryCard>()
+  for (const card of cards) {
+    for (const alias of card.aliases) {
+      if (alias.startsWith('theme:')) themeToCard.set(alias.slice(6), card)
+    }
+  }
+  for (const theme of themes) {
+    if (theme.status !== 'live') continue
+    const card = themeToCard.get(theme.theme_id)
+    if (!card) continue
+    for (const rel of theme.related_themes || []) {
+      if (rel.kind !== 'related') continue
+      const peer = themeToCard.get(rel.theme_id)
+      if (!peer) continue
+      // Deterministic shared alias: sort the two theme_ids so the alias is identical from both sides.
+      const pair = [theme.theme_id, rel.theme_id].sort().join('+')
+      const shared = `related:${pair}`
+      if (!card.aliases.includes(shared)) card.aliases.push(shared)
+      if (!peer.aliases.includes(shared)) peer.aliases.push(shared)
+    }
+  }
   const groups = new Map<string, FeedItem[]>()
   for (const item of feed) {
     const family = themeStoryFamilyKey(item)
