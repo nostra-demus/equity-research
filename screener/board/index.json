@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-18T17:49:57Z",
+  "generated_at": "2026-09-18T18:16:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-553",
+      "headline": "The Federal Bank Limited: The Federal Bank Limited has informed the Exchange about establishment of US$ 500 million medium term note programme ( MTN Programme )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/FEDERALBNK_18092026231557_SE_Intimation_MTN_Est_180926_S.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T17:48:28Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The company is establishing a US$ 500 million medium term note programme to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is establishing a US$ 500 million medium term note programme to raise capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Federal Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-491",
       "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1085,6 +1134,116 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-540",
+      "headline": "Volkswagen issues profit warning over $11.5-billion hit led by Porsche",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/international-business/article-volkswagen-issues-profit-warning-over-115-billion-hit-led-by-porsche/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:51:50Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen issued a profit warning due to a $11.5-billion hit related to Porsche.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen issued a profit warning due to a $11.5-billion hit related to Porsche.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-539",
+      "headline": "Volkswagen Warns on Profit After Big Porsche Write-Down",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen issued a profit warning due to a significant $11.5 billion write-down related to Porsche.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen issued a profit warning due to a significant $11.5 billion write-down related to Porsche.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-532",
       "headline": "Volkswagen Slashes Guidance as Woes Pile Up",
       "headline_en": null,
@@ -1134,6 +1293,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-544",
+      "headline": "Buffett Steps Down at Berkshire",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-18/open-interest-9-18-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:05:25Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett stepping down from Berkshire Hathaway is a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett stepping down from Berkshire Hathaway is a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-534",
       "headline": "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs",
       "headline_en": null,
@@ -1169,56 +1377,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-518",
-      "headline": "Volkswagen crisis worsens with profit warning over Porsche-led $11.5 billion hit",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/china/volkswagen-porsche-holding-cut-outlook-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:32:53Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Volkswagen issued a profit warning linked to an $11.5 billion hit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen issued a profit warning linked to an $11.5 billion hit.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1813,153 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-472",
-      "headline": "Major Wendy’s franchisee declares bankruptcy",
-      "headline_en": null,
-      "url": "https://www.restaurantdive.com/news/wendys-franchisee-meritage-hospitality-group-files-chapter-11-bankruptcy/830750/",
-      "source_name": "Restaurant Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T13:57:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A major Wendy's franchisee has declared bankruptcy, indicating potential credit risk and operational disruption for the brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major Wendy's franchisee has declared bankruptcy, indicating potential credit risk and operational disruption for the brand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-480",
-      "headline": "Warren Buffett Steps Down as Berkshire Hathaway Chairman",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-18/warren-buffett-steps-down-as-berkshire-chairman-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T13:56:53Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Major leadership change at a globally significant holding company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major leadership change at a globally significant holding company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-473",
-      "headline": "Luxus-Krise: Die deutsche Tochter des Luxuslabels Bally ist insolvent",
-      "headline_en": "Luxury crisis: The German subsidiary of the luxury label Bally is insolvent",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/bally-die-deutsche-tochter-des-luxuslabels-ist-insolvent/100255696.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T13:50:52Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The German subsidiary of luxury brand Bally has filed for insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The German subsidiary of luxury brand Bally has filed for insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bally",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164944,9 +164955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8615818,
-    "news_picked_today": 1129,
-    "news_dropped_today": 8471
+    "news_seen_today": 8791748,
+    "news_picked_today": 1149,
+    "news_dropped_today": 8619
   },
   "book_momentum": {
     "live_count": 8,
