@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T16:23:44Z",
+  "generated_at": "2026-09-18T16:25:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -1085,6 +1085,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-514",
+      "headline": "CBI files FIR against Reliance Capital, Anil Ambani over Rs 2,684 crore LIC investment 'fraud'; Ambani denies 'any wrongdoing'",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/cbi-files-fir-against-reliance-capital-anil-ambani-over-rs-2684-crore-lic-investment-fraud-ambani-denies-any-wrongdoing-4151293",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:05:46Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "CBI filed an FIR against Reliance Capital and Anil Ambani regarding an alleged Rs 2,684 crore fraud.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI filed an FIR against Reliance Capital and Anil Ambani regarding an alleged Rs 2,684 crore fraud.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-505",
       "headline": "Longtime Christmas decor retailer files for bankruptcy",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
           "name": "CVS",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-415",
-      "headline": "'Right Time For Transition': Warren Buffett Steps Down As Berkshire Chairman With Immediate Effect",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/berkshire-hathaway-names-warren-buffet-as-chairman-emeritus-with-immediate-effect-12064209#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T11:12:09Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway, a significant leadership transition for the conglomerate.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -126291,77 +126291,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3e37a6bd1d90",
-      "idea_version": "IDEAV-7fcf6a663bad55ee",
-      "idea_version_started_at": "2026-09-17T11:22:21Z",
-      "ticker": "00513.HK",
-      "company": "Continental Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue shortfalls that will likely lead to downward earnings revisions.",
-      "why_now": "The profit warning was filed on 2026-09-17, making this a live catalyst for immediate repricing.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-571a3e0b9e93"
-      ],
-      "primary_source_event_id": "EVT-571a3e0b9e93",
-      "source_headlines": [
-        "CONTINENTAL H (00513): PROFIT WARNING"
-      ],
-      "source_headline": "CONTINENTAL H (00513): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700353.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T04:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T11:22:21Z",
-      "updated_at": "2026-09-17T11:22:21Z",
-      "decay_at": "2026-09-18T16:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5efadd64af04",
       "idea_version": "IDEAV-0d4f3ec9fae0cf3e",
       "idea_version_started_at": "2026-09-18T10:19:04Z",
@@ -127133,6 +127062,77 @@
       "surfaced_at": "2026-09-17T10:57:20Z",
       "updated_at": "2026-09-17T22:38:57Z",
       "decay_at": "2026-09-18T00:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3e37a6bd1d90",
+      "idea_version": "IDEAV-7fcf6a663bad55ee",
+      "idea_version_started_at": "2026-09-17T11:22:21Z",
+      "ticker": "00513.HK",
+      "company": "Continental Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue shortfalls that will likely lead to downward earnings revisions.",
+      "why_now": "The profit warning was filed on 2026-09-17, making this a live catalyst for immediate repricing.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-571a3e0b9e93"
+      ],
+      "primary_source_event_id": "EVT-571a3e0b9e93",
+      "source_headlines": [
+        "CONTINENTAL H (00513): PROFIT WARNING"
+      ],
+      "source_headline": "CONTINENTAL H (00513): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700353.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T04:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T11:22:21Z",
+      "updated_at": "2026-09-17T11:22:21Z",
+      "decay_at": "2026-09-18T16:25:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -127934,9 +127934,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 520,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 20,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
         "total_count": 260,
@@ -127944,9 +127944,9 @@
         "hidden_count": 10
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -127965,6 +127965,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3e37a6bd1d90",
+        "idea_version": "IDEAV-7fcf6a663bad55ee",
+        "idea_version_started_at": "2026-09-17T11:22:21Z",
+        "ticker": "00513.HK",
+        "company": "Continental Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating margins or revenue shortfalls that will likely lead to downward earnings revisions.",
+        "why_now": "The profit warning was filed on 2026-09-17, making this a live catalyst for immediate repricing.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-571a3e0b9e93"
+        ],
+        "primary_source_event_id": "EVT-571a3e0b9e93",
+        "source_headlines": [
+          "CONTINENTAL H (00513): PROFIT WARNING"
+        ],
+        "source_headline": "CONTINENTAL H (00513): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700353.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T04:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T11:22:21Z",
+        "updated_at": "2026-09-17T11:22:21Z",
+        "decay_at": "2026-09-18T16:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-18T16:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a31f38029430",
         "idea_version": "IDEAV-f72a489a1e831551",
@@ -165051,86 +165125,12 @@
         "archived_at": "2026-08-31T11:51:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0bcb86bfbe51",
-        "idea_version": "IDEAV-75d92ee54c01d1cc",
-        "idea_version_started_at": "2026-08-29T12:04:51Z",
-        "ticker": "01152",
-        "company": "MOMENTUM FIN",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Momentum Financial Holdings Limited issued a profit warning, signaling that its upcoming financial results will be weaker than anticipated, which will likely reduce its profitability.",
-        "why_now": "The company released this inside information and profit warning on August 28, 2026, providing a current negative catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-962cfd08eae3"
-        ],
-        "primary_source_event_id": "EVT-962cfd08eae3",
-        "source_headlines": [
-          "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800863.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T09:02:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T12:04:51Z",
-        "updated_at": "2026-08-29T12:04:51Z",
-        "decay_at": "2026-08-29T21:02:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T09:15:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 885,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165149,9 +165149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7907907,
-    "news_picked_today": 1081,
-    "news_dropped_today": 7823
+    "news_seen_today": 7925070,
+    "news_picked_today": 1086,
+    "news_dropped_today": 7842
   },
   "book_momentum": {
     "live_count": 8,
