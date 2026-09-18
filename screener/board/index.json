@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T04:46:55Z",
+  "generated_at": "2026-09-18T04:54:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-267",
@@ -192,6 +192,56 @@
           "name": "Raffles Interior",
           "ticker": "01376",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-289",
+      "headline": "Kore Digital shares crash 10% as Sebi alleges Rs 541 cr revenue misstatement, bars CEO, CFO and MD from capital market",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/kore-digital-shares-crash-10-as-sebi-alleges-rs-541-cr-revenue-misstatement-bars-ceo-cfo-and-md-from-capital-market/articleshow/134325722.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T04:36:50Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Sebi alleged a Rs 541 crore revenue misstatement and barred the company's top management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sebi alleged a Rs 541 crore revenue misstatement and barred the company's top management.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kore Digital",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1000,6 +1050,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-287",
+      "headline": "Sandisk Unveiled an $14 Billion Buyback and Warren Buffett Has Something to Say About It",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sandisk-unveiled-14-billion-buyback-and-warren-buffett-has-something-say-about-it",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T04:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Sandisk announced a $14 billion share buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Sandisk announced a $14 billion share buyback program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sandisk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-285",
       "headline": "BOJ raises rates to 1.25% in split vote with 2 members opposing hike",
       "headline_en": null,
@@ -1038,55 +1137,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-286",
-      "headline": "Sandisk Unveiled an $14 Billion Buyback and Warren Buffett Has Something to Say About It",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/18/sandisk-unveiled-an-14-billion-buyback-and-warren/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Sandisk announced a $14 billion share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sandisk announced a $14 billion share buyback program.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sandisk",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1380,6 +1430,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-292",
+      "headline": "JSHINE B2909-R (85175): Publication of the Offering Circular - CNY2,378,000,000 2.18 per cent. Guaranteed Green Bonds due 2029 issued by Jinshine International Co., Ltd unconditionally and irrevocably guaranteed by Xuzhou Industry Development Holding Group Co., Ltd.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800207.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T04:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Jinshine International issued CNY 2.378 billion in guaranteed green bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Jinshine International issued CNY 2.378 billion in guaranteed green bonds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jinshine International",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,104 +1953,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-066",
-      "headline": "Immunology Drugmaker Electra Raises $350 Million in Upsized IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-18/immunology-drugmaker-electra-raises-350-million-in-upsized-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:39:03Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Electra raised $350 million in an upsized IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Electra raised $350 million in an upsized IPO.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Electra",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-019",
-      "headline": "Orion180 Insurance prices US IPO below range, raises $240 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/orion180-insurance-prices-us-ipo-below-range-raises-240-million-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:07:43Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Orion180 Insurance raised $240 million in its US IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Orion180 Insurance raised $240 million in its US IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orion180 Insurance",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165655,9 +165656,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1652884,
-    "news_picked_today": 532,
-    "news_dropped_today": 2036
+    "news_seen_today": 1706391,
+    "news_picked_today": 538,
+    "news_dropped_today": 2102
   },
   "book_momentum": {
     "live_count": 8,
