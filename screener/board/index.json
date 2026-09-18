@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T04:37:45Z",
+  "generated_at": "2026-09-18T04:41:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-267",
@@ -1043,6 +1043,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-286",
+      "headline": "Sandisk Unveiled an $14 Billion Buyback and Warren Buffett Has Something to Say About It",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/18/sandisk-unveiled-an-14-billion-buyback-and-warren/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Sandisk announced a $14 billion share buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Sandisk announced a $14 billion share buyback program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sandisk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-266",
       "headline": "Bank of Japan raises policy interest rate to 1.25% from 1.0%",
       "headline_en": null,
@@ -1903,55 +1952,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-279",
-      "headline": "FB MULTIASSET (03427): ANNOUNCEMENT AND NOTICE OF TIMETABLE UPDATE FOR TERMINATION, DEAUTHORISATION AND DELISTING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800167.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T04:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "FB Multiasset is terminating and delisting its fund, impacting investors and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "FB Multiasset is terminating and delisting its fund, impacting investors and capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FB Multiasset",
-          "ticker": "03427",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165655,9 +165655,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1591257,
-    "news_picked_today": 528,
-    "news_dropped_today": 1968
+    "news_seen_today": 1611685,
+    "news_picked_today": 530,
+    "news_dropped_today": 1990
   },
   "book_momentum": {
     "live_count": 8,
