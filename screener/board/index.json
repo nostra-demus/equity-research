@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T00:53:25Z",
+  "generated_at": "2026-09-18T00:58:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -1354,6 +1354,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-063",
+      "headline": "Gentherm and Modine Manufacturing Company Announce Additional Information in Connection with Proposed Combination of Gentherm and Modine’s Performance Technologies Business | THRM Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/THRM/gentherm-and-modine-manufacturing-company-announce-additional-pxv1f0oglmj1.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T20:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Gentherm and Modine provide additional information regarding their proposed business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Gentherm and Modine provide additional information regarding their proposed business combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gentherm",
+          "ticker": "THRM",
+          "listing_country": "US"
+        },
+        {
+          "name": "Modine Manufacturing Company",
+          "ticker": "MOD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-060",
       "headline": "Ammann betting on India as global manufacturing and export hub: CEO Schneider",
       "headline_en": null,
@@ -1917,55 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-050",
-      "headline": "Brown-Forman Announces $500 Million Debt Offering | BF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BF/brown-forman-announces-500-million-debt-xxf8j073p87l.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-17T21:27:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Brown-Forman is raising $500 million in debt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Brown-Forman is raising $500 million in debt.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brown-Forman",
-          "ticker": "BF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165737,9 +165742,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 268234,
-    "news_picked_today": 66,
-    "news_dropped_today": 294
+    "news_seen_today": 279825,
+    "news_picked_today": 72,
+    "news_dropped_today": 336
   },
   "book_momentum": {
     "live_count": 8,
