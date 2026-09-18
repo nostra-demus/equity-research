@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T16:05:39Z",
+  "generated_at": "2026-09-18T16:16:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -27,6 +27,55 @@
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-509",
+      "headline": "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026204804_Outcome_of_1st_COC_meeting_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T15:18:19Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "TV Vision Limited has entered the Committee of Creditors process, indicating insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TV Vision Limited has entered the Committee of Creditors process, indicating insolvency proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1036,6 +1085,99 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-505",
+      "headline": "Longtime Christmas decor retailer files for bankruptcy",
+      "headline_en": null,
+      "url": "https://www.retaildive.com/news/christmas-decor-retailer-gordon-companies-files-chapter-11-bankruptcy/830777/",
+      "source_name": "Retail Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "A major Christmas decor retailer has filed for bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major Christmas decor retailer has filed for bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-499",
+      "headline": "Software defect blamed for UK air traffic control chaos; FTSE 100’s worst day since July; Volkswagen cuts outlook – as it happened",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/live/2026/sep/18/japan-raises-interest-rates-central-bankers-fight-inflation-gb-retail-sales-rise-latest-news-updates",
+      "source_name": "The Guardian — Economics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:56:23Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen cut its profit outlook due to China sales slump and rising costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen cut its profit outlook due to China sales slump and rising costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-497",
       "headline": "Volkswagen cuts outlook on $11.5 billion one-off hit",
       "headline_en": null,
@@ -1148,6 +1290,55 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Volkswagen issued a profit warning citing decline in China and restructuring costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-504",
+      "headline": "VW Cuts Profit Outlook After China Sales Slump, Costs Rise",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/vw-cuts-outlook-after-writedown-on-porsche-decline-in-china",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:25:38Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen cut its profit outlook due to a China sales slump and rising costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen cut its profit outlook due to a China sales slump and rising costs.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1761,203 +1952,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-400",
-      "headline": "‘Father Time always wins’: Warren Buffett steps down as Berkshire chair at 96",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/father-time-always-wins-warren-buffett-steps-down-as-berkshire-chair-at-96-20260918-p60ypm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T11:01:24Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett is stepping down as Chairman of Berkshire Hathaway.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-402",
-      "headline": "Crusoe raises $3.9bn for AI data center build-out",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/crusoe-raises-39bn-for-ai-data-center-build-out/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T10:22:53Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Crusoe Energy has raised $3.9 billion for AI data center infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crusoe Energy has raised $3.9 billion for AI data center infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crusoe Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-371",
-      "headline": "Bilfinger CEO on Trimmed Outlook, Job Cuts",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-18/bilfinger-ceo-on-trimmed-outlook-job-cuts-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T10:10:40Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Bilfinger CEO announced a trimmed outlook and job cuts, indicating operational and financial headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bilfinger CEO announced a trimmed outlook and job cuts, indicating operational and financial headwinds.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bilfinger",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-351",
-      "headline": "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/mothercare-middle-east-iran-london-holly-williams-b3052295.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T07:04:49Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Mothercare warns that its future is highly uncertain following a franchise blow in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mothercare warns that its future is highly uncertain following a franchise blow in the Middle East.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mothercare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165155,9 +165149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7753697,
-    "news_picked_today": 1064,
-    "news_dropped_today": 7720
+    "news_seen_today": 7856497,
+    "news_picked_today": 1078,
+    "news_dropped_today": 7778
   },
   "book_momentum": {
     "live_count": 8,
