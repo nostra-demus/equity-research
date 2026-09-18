@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T01:33:26Z",
+  "generated_at": "2026-09-18T01:39:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -1096,6 +1096,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-118",
+      "headline": "FDA drops warning letter on Bausch & Lomb, citing contamination concerns",
+      "headline_en": null,
+      "url": "https://www.fiercepharma.com/manufacturing/fda-drops-warning-letter-bausch-lomb-contamination-concerns",
+      "source_name": "FiercePharma",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:59:11Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "An FDA warning letter regarding contamination concerns poses operational and reputational risk to Bausch & Lomb.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "An FDA warning letter regarding contamination concerns poses operational and reputational risk to Bausch & Lomb.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bausch & Lomb",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-102",
       "headline": "Tata Sons board gives Chandrasekaran 5 more years; move illegal, say Trusts",
       "headline_en": null,
@@ -1298,6 +1348,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-112",
+      "headline": "Chandra needs majority support from Tata Trusts' nominees: Ex-CJI",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/chandra-needs-majority-support-from-tata-trusts-nominees-ex-cji/articleshow/134323468.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:32:17Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Governance commentary regarding the leadership structure of Tata Trusts, which controls the Tata Group, impacts management stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Governance commentary regarding the leadership structure of Tata Trusts, which controls the Tata Group, impacts management stability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-116",
+      "headline": "Tata group dispute: Panel sought 5-year term for Chandrasekaran early September",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/tata-group-dispute-panel-sought-5-year-term-for-chandrasekaran-early-september/articleshow/134323455.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T00:28:38Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Ongoing governance dispute regarding the term length for the Tata Group chairman.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Ongoing governance dispute regarding the term length for the Tata Group chairman.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-117",
+      "headline": "FDA approves Ultragenyx’s gene therapy Fayuvi for rare neurodegenerative disorder",
+      "headline_en": null,
+      "url": "https://www.fiercepharma.com/pharma/fda-approves-ultragenyx-gene-therapy-fayuvi-rare-neurodegenerative-disorder",
+      "source_name": "FiercePharma",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:59:11Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "FDA approval of a new gene therapy provides a new revenue stream for Ultragenyx.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "FDA approval of a new gene therapy provides a new revenue stream for Ultragenyx.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ultragenyx",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-107",
       "headline": "Japan, US in talks to build chip factory as part of tariff deal",
       "headline_en": null,
@@ -1482,6 +1679,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-119",
+      "headline": "AZ, Daiichi's Enhertu scores long-awaited NICE blessing in HER2-low breast cancer",
+      "headline_en": null,
+      "url": "https://www.fiercepharma.com/pharma/az-daiichis-enhertu-wins-long-awaited-nice-blessing",
+      "source_name": "FiercePharma",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:59:11Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "NICE approval expands the market access and revenue potential for Enhertu in the UK.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "NICE approval expands the market access and revenue potential for Enhertu in the UK.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Daiichi Sankyo",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-125",
+      "headline": "Moore says he would 'absolutely sign' statewide data center moratorium",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/technology/6096844-moore-supports-data-center-moratorium/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T22:53:49Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "A proposed moratorium on data centers would negatively impact the infrastructure and tech sector in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "A proposed moratorium on data centers would negatively impact the infrastructure and tech sector in the region.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-086",
       "headline": "Yen weak ahead of BOJ decision; rate hike expected",
       "headline_en": null,
@@ -1617,344 +1912,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260918-089",
-      "headline": "Electra's $350M IPO will help it become a commercial biotech",
+      "inbox_id": "INB-20260918-122",
+      "headline": "BMS, Ono take Amgen to task as FDA's Opdivo biosimilar decision looms",
       "headline_en": null,
-      "url": "https://endpoints.news/electras-350m-ipo-will-help-it-become-a-commercial-biotech/",
-      "source_name": "Endpoints News",
+      "url": "https://www.fiercepharma.com/pharma/bms-ono-take-amgen-task-fdas-opdivo-biosimilar-decision-looms",
+      "source_name": "FiercePharma",
       "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:43:12Z",
+      "found_at": "2026-09-17T23:59:11Z",
       "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Follow-up on Electra's $350 million IPO confirming its transition to a commercial-stage biotech.",
+      "prelim_note": "Legal challenge against Amgen regarding a biosimilar decision creates uncertainty for Amgen's product pipeline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Follow-up on Electra's $350 million IPO confirming its transition to a commercial-stage biotech.",
+      "triage_score": 73,
+      "triage_reason": "Legal challenge against Amgen regarding a biosimilar decision creates uncertainty for Amgen's product pipeline.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Electra",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-028",
-      "headline": "VTX: Operational Update - Varied EPL Issued",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VTX?key=2924-03136926-6A1344364",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T00:07:43Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The company provided an operational update regarding a varied Environmental Protection License, which affects ongoing site operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "The company provided an operational update regarding a varied Environmental Protection License, which affects ongoing site operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vertex Minerals",
-          "ticker": "VTX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-046",
-      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800039.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T23:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "HSBC Holdings executed a share buyback transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "HSBC Holdings executed a share buyback transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
+        "event": 6,
         "size": 2,
         "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HSBC Holdings",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-068",
-      "headline": "CLW: CLW Board Changes",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CLW?key=2924-03136945-2A1697860",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T00:26:58Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Charter Hall Long WALE REIT announced board changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Charter Hall Long WALE REIT announced board changes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Charter Hall Long WALE REIT",
-          "ticker": "CLW",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-049",
-      "headline": "CQR: CQR Board Changes",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CQR?key=2924-03136944-2A1697859",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T00:24:03Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Routine board composition change for Charter Hall Retail REIT.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Routine board composition change for Charter Hall Retail REIT.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Charter Hall Retail REIT",
+          "name": "Amgen",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-004",
-      "headline": "TEK: Update - Notification of buy-back - TEK",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TEK?key=2924-03136907-3A702038",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T23:48:53Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Company announced a share buy-back program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Company announced a share buy-back program.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TEK",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-101",
-      "headline": "IPT: Successful Completion of the Renounceable Rights Issue [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IPT?key=2924-03136970-6A1344377",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T01:17:33Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The company successfully completed a renounceable rights issue, confirming capital raise completion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The company successfully completed a renounceable rights issue, confirming capital raise completion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Impact Minerals",
-          "ticker": "IPT",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165656,9 +165657,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 473138,
-    "news_picked_today": 129,
-    "news_dropped_today": 615
+    "news_seen_today": 484415,
+    "news_picked_today": 144,
+    "news_dropped_today": 648
   },
   "book_momentum": {
     "live_count": 8,
