@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T22:10:55Z",
+  "generated_at": "2026-09-18T22:15:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -1331,6 +1331,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-568",
+      "headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
+      "source_name": "Gulf Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen warned of a 10 billion euro hit to profits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen warned of a 10 billion euro hit to profits.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-564",
       "headline": "Warren Buffett steps down as Berkshire chairman, replaced by his son Howard",
       "headline_en": null,
@@ -1919,55 +1969,6 @@
         "size": 1,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-514",
-      "headline": "CBI files FIR against Reliance Capital, Anil Ambani over Rs 2,684 crore LIC investment 'fraud'; Ambani denies 'any wrongdoing'",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/cbi-files-fir-against-reliance-capital-anil-ambani-over-rs-2684-crore-lic-investment-fraud-ambani-denies-any-wrongdoing-4151293",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:05:46Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "CBI filed an FIR against Reliance Capital and Anil Ambani regarding an alleged Rs 2,684 crore fraud.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CBI filed an FIR against Reliance Capital and Anil Ambani regarding an alleged Rs 2,684 crore fraud.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -165111,9 +165112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10863136,
-    "news_picked_today": 1283,
-    "news_dropped_today": 10501
+    "news_seen_today": 10923052,
+    "news_picked_today": 1284,
+    "news_dropped_today": 10524
   },
   "book_momentum": {
     "live_count": 8,
