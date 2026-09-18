@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T23:12:14Z",
+  "generated_at": "2026-09-18T23:17:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-569",
+      "headline": "Another national airline bankrupt, all flights canceled",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/congo-airways-remains-bankrupt-all-flights-canceled",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "A national airline has filed for bankruptcy and ceased all operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A national airline has filed for bankruptcy and ceased all operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown Airline",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-567",
       "headline": "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-527",
-      "headline": "CBI Registers FIR Against Reliance Capital, Anil Ambani Over Alleged ₹2,684.57 Crore LIC Fraud Case",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/cbi-registers-fir-against-reliance-capital-anil-ambani-over-alleged-268457-crore-lic-fraud-case",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:17:20Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "CBI registered an FIR against Reliance Capital and Anil Ambani regarding an alleged 26.8 billion rupee fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CBI registered an FIR against Reliance Capital and Anil Ambani regarding an alleged 26.8 billion rupee fraud case.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165114,9 +165114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11279818,
-    "news_picked_today": 1305,
-    "news_dropped_today": 11103
+    "news_seen_today": 11299499,
+    "news_picked_today": 1309,
+    "news_dropped_today": 11147
   },
   "book_momentum": {
     "live_count": 8,
