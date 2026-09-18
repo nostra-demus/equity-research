@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T09:14:17Z",
+  "generated_at": "2026-09-18T09:17:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-361",
@@ -1735,6 +1735,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-363",
+      "headline": "UNI MEDICAL (02666): ANNOUNCEMENT IN RELATION TO THE PROPOSED PUBLIC ISSUANCE OF CORPORATE BONDS (TRANCHE 3) IN THE PRC BY CHINA UNIVERSAL LEASING CO., LTD., A WHOLLY-OWNED SUBSIDIARY OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800497.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Uni Medical's subsidiary is planning a third tranche of corporate bond issuance in the PRC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Uni Medical's subsidiary is planning a third tranche of corporate bond issuance in the PRC.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uni Medical",
+          "ticker": "02666",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-315",
       "headline": "TDO: Receipt of Notice to Exercise Buy-Out Right [price-sensitive]",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-013",
-      "headline": "FU SHOU YUAN (01448): DESPATCH OF OFFER DOCUMENT RELATING TO THE UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T22:23:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Formal dispatch of offer document for a partial cash acquisition of 115 million shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Formal dispatch of offer document for a partial cash acquisition of 115 million shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fu Shou Yuan International Group",
-          "ticker": "01448",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165386,9 +165386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3899864,
-    "news_picked_today": 681,
-    "news_dropped_today": 4191
+    "news_seen_today": 3915661,
+    "news_picked_today": 683,
+    "news_dropped_today": 4213
   },
   "book_momentum": {
     "live_count": 8,
