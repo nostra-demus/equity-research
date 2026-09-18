@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T15:05:42Z",
+  "generated_at": "2026-09-18T15:09:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-483",
@@ -987,6 +987,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-486",
+      "headline": "Warren Buffett abruptly steps down as Berkshire chair as ‘Father Time’ wins, handing role to son Howard who will ‘guard its culture and values’",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/18/warren-buffett-resignation-chairman-berkshire-hathaway-brk-stock-howard-succession/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T14:19:03Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett is stepping down as chair of Berkshire Hathaway, a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett is stepping down as chair of Berkshire Hathaway, a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-472",
       "headline": "Major Wendy’s franchisee declares bankruptcy",
       "headline_en": null,
@@ -1914,56 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-167",
-      "headline": "CPIB hauls Multi-Chem CEO, COO in for questioning; stock hits circuit breaker",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/cpib-hauls-multi-chem-ceo-coo-questioning-stock-hits-circuit-breaker",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:52:34Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Multi-Chem CEO and COO were detained for questioning by authorities, triggering a stock circuit breaker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Multi-Chem CEO and COO were detained for questioning by authorities, triggering a stock circuit breaker.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Multi-Chem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165161,9 +165161,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7312975,
-    "news_picked_today": 1017,
-    "news_dropped_today": 7191
+    "news_seen_today": 7346349,
+    "news_picked_today": 1024,
+    "news_dropped_today": 7208
   },
   "book_momentum": {
     "live_count": 8,
