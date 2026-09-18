@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T03:07:28Z",
+  "generated_at": "2026-09-18T03:09:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -1756,6 +1756,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-256",
+      "headline": "BOJ Hikes Rates at Fastest Pace Since 1990 as Inflation Persists",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/boj-hikes-rates-at-fastest-pace-since-1990-as-inflation-persists",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T02:54:25Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Bank of Japan hikes rates at the fastest pace since 1990, a major shift in global liquidity and carry trade dynamics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Bank of Japan hikes rates at the fastest pace since 1990, a major shift in global liquidity and carry trade dynamics.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-196",
       "headline": "BOJ decision live: Japan's policy interest rate set to rise to 31-year high",
       "headline_en": null,
@@ -1892,61 +1935,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-088",
-      "headline": "SK Hynix has a $4 billion problem Intel could help solve",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/sk-hynix-intel-hbm-manufacturing-deal",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:33:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "SK Hynix faces a $4 billion issue that may involve a strategic partnership or transaction with Intel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "SK Hynix faces a $4 billion issue that may involve a strategic partnership or transaction with Intel.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165650,9 +165638,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1029986,
-    "news_picked_today": 335,
-    "news_dropped_today": 1225
+    "news_seen_today": 1051258,
+    "news_picked_today": 346,
+    "news_dropped_today": 1238
   },
   "book_momentum": {
     "live_count": 8,
