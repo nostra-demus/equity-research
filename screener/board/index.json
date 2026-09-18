@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-18T09:08:16Z",
+  "generated_at": "2026-09-18T09:14:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-361",
+      "headline": "Z.AI (02513): (1) COMPLETION OF PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) COMPLETION OF THE ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800399.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Z.AI completed a share placement and issued RMB 20.14 billion in convertible bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Z.AI completed a share placement and issued RMB 20.14 billion in convertible bonds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Z.AI",
+          "ticker": "02513",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-353",
       "headline": "SFK (01447): MAJOR TRANSACTION - DISPOSAL OF A SUBSIDIARY AND THE GRANT OF THE PUT OPTION",
@@ -1925,60 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-341",
-      "headline": "Osaka Gas to buy 5% stake in Australia's Browse gas project from BP",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/osaka-gas-buy-5-stake-australias-browse-gas-project-bp-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T07:42:25Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Osaka Gas is acquiring a 5% stake in the Browse gas project from BP.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Osaka Gas is acquiring a 5% stake in the Browse gas project from BP.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Osaka Gas",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "BP",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165390,9 +165386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3836976,
-    "news_picked_today": 674,
-    "news_dropped_today": 4150
+    "news_seen_today": 3899864,
+    "news_picked_today": 681,
+    "news_dropped_today": 4191
   },
   "book_momentum": {
     "live_count": 8,
