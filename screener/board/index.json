@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T17:14:52Z",
+  "generated_at": "2026-09-18T17:21:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-491",
@@ -1085,6 +1085,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-532",
+      "headline": "Volkswagen Slashes Guidance as Woes Pile Up",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Volkswagen has slashed its financial guidance due to mounting operational woes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen has slashed its financial guidance due to mounting operational woes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-518",
       "headline": "Volkswagen crisis worsens with profit warning over Porsche-led $11.5 billion hit",
       "headline_en": null,
@@ -1910,55 +1959,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-463",
-      "headline": "Bank of Maharashtra raises $500 million in global debt",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/bank-of-maharashtra-raises-500-million-in-global-debt/article71480666.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T13:15:22Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Bank of Maharashtra raised $500 million in global debt, impacting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of Maharashtra raised $500 million in global debt, impacting its capital structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Maharashtra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164943,9 +164943,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8389358,
-    "news_picked_today": 1113,
-    "news_dropped_today": 8223
+    "news_seen_today": 8441484,
+    "news_picked_today": 1119,
+    "news_dropped_today": 8265
   },
   "book_momentum": {
     "live_count": 8,
