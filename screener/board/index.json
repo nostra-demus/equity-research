@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:35:27Z",
+  "generated_at": "2026-09-18T02:36:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -1818,6 +1818,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-236",
+      "headline": "Amer Sports' 2026 Outlook: Margin Expansion Drives Growth as Direct-to-Consumer Model Scales",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/moneyball/2026/09/17/amer-sports-2026-outlook-margin-expansion-drives-growth-as-direct-to-consumer-model-scales/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T02:00:02Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Amer Sports provided a 2026 outlook highlighting margin expansion and direct-to-consumer growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Amer Sports provided a 2026 outlook highlighting margin expansion and direct-to-consumer growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amer Sports",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-166",
       "headline": "US sanctions Iran’s BitBank, saying it processes ‘Hormuz Safe’ Bitcoin payments",
       "headline_en": null,
@@ -1908,55 +1957,6 @@
           "name": "SoftBank",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-080",
-      "headline": "UOBKH downgrades SIA to ‘sell’ as jet fuel price nears all-time high",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/uobkh-downgrades-sia-sell-jet-fuel-price-nears-all-time-high",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:30:07Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "UOBKH downgraded Singapore Airlines to sell due to rising jet fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "UOBKH downgraded Singapore Airlines to sell due to rising jet fuel costs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -165661,9 +165661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 805079,
-    "news_picked_today": 283,
-    "news_dropped_today": 1061
+    "news_seen_today": 826669,
+    "news_picked_today": 291,
+    "news_dropped_today": 1077
   },
   "book_momentum": {
     "live_count": 8,
