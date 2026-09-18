@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T08:27:23Z",
+  "generated_at": "2026-09-18T08:31:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-295",
@@ -1729,6 +1729,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-341",
+      "headline": "Osaka Gas to buy 5% stake in Australia's Browse gas project from BP",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/osaka-gas-buy-5-stake-australias-browse-gas-project-bp-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T07:42:25Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Osaka Gas is acquiring a 5% stake in the Browse gas project from BP.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Osaka Gas is acquiring a 5% stake in the Browse gas project from BP.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Osaka Gas",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "BP",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-264",
       "headline": "OpenAI’s listing delay raises stakes for SoftBank’s $50bn data centre IPO",
       "headline_en": null,
@@ -1925,55 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-022",
-      "headline": "SCHEDULE 13D - ORASURE TECHNOLOGIES INC (0001116463) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1116463/000094562126001163/0000945621-26-001163-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-18T00:08:47Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A Schedule 13D filing was made regarding OraSure Technologies, indicating a significant ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A Schedule 13D filing was made regarding OraSure Technologies, indicating a significant ownership stake.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OraSure Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165462,9 +165467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3423907,
-    "news_picked_today": 622,
-    "news_dropped_today": 3890
+    "news_seen_today": 3467002,
+    "news_picked_today": 636,
+    "news_dropped_today": 3900
   },
   "book_momentum": {
     "live_count": 8,
