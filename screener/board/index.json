@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-18T08:48:16Z",
+  "generated_at": "2026-09-18T08:52:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-353",
+      "headline": "SFK (01447): MAJOR TRANSACTION - DISPOSAL OF A SUBSIDIARY AND THE GRANT OF THE PUT OPTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800375.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "SFK announced a major transaction involving the disposal of a subsidiary and the grant of a put option.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SFK announced a major transaction involving the disposal of a subsidiary and the grant of a put option.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SFK",
+          "ticker": "01447",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-295",
       "headline": "QMS Medical Allied Services Limited: QMS Medical Allied Services Limited has informed the Exchange regarding a press release dated September 18, 2026, titled \"QMS Medical Allied Services Completes 100% Acquisition of Saarathi Healthcare Pvt Ltd.\".",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-131",
-      "headline": "Vietnam's VinFast seeks financial boost with $1.2bn property deal",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/vietnam-s-vinfast-seeks-financial-boost-with-1.2bn-property-deal",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:34:13Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "VinFast is seeking a $1.2 billion financial boost through a property deal to support its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "VinFast is seeking a $1.2 billion financial boost through a property deal to support its capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VinFast",
-          "ticker": null,
-          "listing_country": "VN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165467,9 +165467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3633952,
-    "news_picked_today": 657,
-    "news_dropped_today": 4023
+    "news_seen_today": 3665128,
+    "news_picked_today": 658,
+    "news_dropped_today": 4046
   },
   "book_momentum": {
     "live_count": 8,
