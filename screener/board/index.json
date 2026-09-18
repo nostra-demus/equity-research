@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T03:09:35Z",
+  "generated_at": "2026-09-18T03:13:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-223",
@@ -1246,6 +1246,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-260",
+      "headline": "UN mission finds evidence signaling U.S. war crimes in Iran; Washington rejects report",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/18/us-iran-war-trump-hormuz.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T02:59:38Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "UN report alleging U.S. war crimes in Iran represents a major geopolitical and legal risk escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "UN report alleging U.S. war crimes in Iran represents a major geopolitical and legal risk escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-021",
       "headline": "SCHEDULE 13D - Islet Management, LP (0001721508) (Filed by)",
       "headline_en": null,
@@ -1892,49 +1935,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-198",
-      "headline": "BOJ set to raise policy rate at 2-day meeting to counter inflation risks",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/85444",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The Bank of Japan is expected to raise its policy rate at a two-day meeting to counter inflation risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The Bank of Japan is expected to raise its policy rate at a two-day meeting to counter inflation risks.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165638,9 +165638,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1051258,
-    "news_picked_today": 346,
-    "news_dropped_today": 1238
+    "news_seen_today": 1072450,
+    "news_picked_today": 360,
+    "news_dropped_today": 1272
   },
   "book_momentum": {
     "live_count": 8,
