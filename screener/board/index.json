@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T12:54:11Z",
+  "generated_at": "2026-09-18T12:55:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-434",
@@ -741,6 +741,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-450",
+      "headline": "Warren Buffett steps down as chair of Berkshire Hathaway after over 50 years",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/18/warren-buffett-steps-down-berkshire-hathaway",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T12:22:17Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Warren Buffett stepping down as Berkshire Hathaway chairman is a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett stepping down as Berkshire Hathaway chairman is a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-431",
       "headline": "CVS division completes Chapter 11 bankruptcy liquidation",
       "headline_en": null,
@@ -780,55 +829,6 @@
       "companies": [
         {
           "name": "CVS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-430",
-      "headline": "Warren Buffett steps down as Berkshire Hathaway chairman",
-      "headline_en": null,
-      "url": "https://thehill.com/business/6097409-warren-buffett-steps-down-berkshire-hathaway-chair/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T11:54:32Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Warren Buffett stepping down as chairman of Berkshire Hathaway is a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warren Buffett stepping down as chairman of Berkshire Hathaway is a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
           "ticker": null,
           "listing_country": null
         }
@@ -165187,9 +165187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6050762,
-    "news_picked_today": 887,
-    "news_dropped_today": 6025
+    "news_seen_today": 6084110,
+    "news_picked_today": 896,
+    "news_dropped_today": 6040
   },
   "book_momentum": {
     "live_count": 8,
