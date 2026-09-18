@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T06:22:06Z",
+  "generated_at": "2026-09-18T06:29:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-295",
@@ -1148,6 +1148,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-321",
+      "headline": "NHC: Amended Announcement Coal Resources and Reserves 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHC?key=2924-03137121-2A1697948",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T05:57:24Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Updated coal resources and reserves report is price-sensitive operational data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Updated coal resources and reserves report is price-sensitive operational data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Hope Corporation",
+          "ticker": "NHC",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-271",
       "headline": "WB1: Removal from Official List",
       "headline_en": null,
@@ -1921,60 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-314",
-      "headline": "Turkey mandates Isbank and Ziraat to liquidate $18.3 billion funds",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/middle-east/turkey-mandates-isbank-ziraat-liquidate-183-billion-funds-2026-09-18/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T05:11:14Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Turkey has mandated the liquidation of $18.3 billion in funds held by Isbank and Ziraat, representing a major capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Turkey has mandated the liquidation of $18.3 billion in funds held by Isbank and Ziraat, representing a major capital event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Isbank",
-          "ticker": null,
-          "listing_country": "TR"
-        },
-        {
-          "name": "Ziraat Bank",
-          "ticker": null,
-          "listing_country": "TR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165534,9 +165529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2231951,
-    "news_picked_today": 592,
-    "news_dropped_today": 2768
+    "news_seen_today": 2279763,
+    "news_picked_today": 597,
+    "news_dropped_today": 2835
   },
   "book_momentum": {
     "live_count": 8,
