@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T22:10:28Z",
+  "generated_at": "2026-09-18T22:10:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -125112,6 +125112,150 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-083c9caae543",
+      "idea_version": "IDEAV-98b94504ca535abb",
+      "idea_version_started_at": "2026-09-18T22:10:41Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Volkswagen is facing a significant earnings hit of up to €10 billion due to restructuring costs and a writedown related to Porsche, signaling severe operational and margin pressure.",
+      "why_now": "The guidance cut and massive writedown warning were issued on September 18, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-416514b51562",
+        "EVT-4df7176073f5"
+      ],
+      "primary_source_event_id": "EVT-416514b51562",
+      "source_headlines": [
+        "Volkswagen Slashes Guidance as Woes Pile Up",
+        "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs"
+      ],
+      "source_headline": "Volkswagen Slashes Guidance as Woes Pile Up",
+      "source_url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T17:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T22:10:41Z",
+      "updated_at": "2026-09-18T22:10:41Z",
+      "decay_at": "2026-09-20T05:11:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c5dd20f0abc",
+      "idea_version": "IDEAV-23de9d5eed9283c4",
+      "idea_version_started_at": "2026-09-18T22:10:41Z",
+      "ticker": "543929",
+      "company": "HMA Agro Industries Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of the statutory auditor is a high-conviction red flag for potential accounting irregularities or governance failures.",
+      "why_now": "The cessation of the auditor was filed on September 18, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a92173c6c45"
+      ],
+      "primary_source_event_id": "EVT-0a92173c6c45",
+      "source_headlines": [
+        "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026."
+      ],
+      "source_headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T18:23:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T22:10:41Z",
+      "updated_at": "2026-09-18T22:10:41Z",
+      "decay_at": "2026-09-20T06:23:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-75e7e0d545c9",
       "idea_version": "IDEAV-b4a076a0fe2c362e",
       "idea_version_started_at": "2026-09-18T17:05:00Z",
@@ -164947,8 +165091,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 886,
-    "live_count": 20,
+    "surfaced_total": 888,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
