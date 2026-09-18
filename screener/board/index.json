@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-18T13:44:13Z",
+  "generated_at": "2026-09-18T13:55:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260918-471",
+      "headline": "NEW CONCEPTS (02221): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 70% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801692.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T13:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Acquisition of a 70% equity interest in a target company via consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of a 70% equity interest in a target company via consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Concepts",
+          "ticker": "02221",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-434",
       "headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
@@ -1931,57 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-216",
-      "headline": "Trust deficit: Bombay House splits over Tata Sons listing and Chandrasekaran's return as chairman",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/trust-deficit-bombay-house-splits-over-tata-sons-listing-and-chandrasekarans-return-as-chairman/articleshow/134320643.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A split within Bombay House over Tata Sons listing and Chandrasekaran's return as chairman signifies a significant governance dispute with potential impact on the company's future.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A split within Bombay House over Tata Sons listing and Chandrasekaran's return as chairman signifies a significant governance dispute with potential impact on the company's future.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "management",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165179,9 +165177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6498621,
-    "news_picked_today": 948,
-    "news_dropped_today": 6516
+    "news_seen_today": 6564817,
+    "news_picked_today": 968,
+    "news_dropped_today": 6568
   },
   "book_momentum": {
     "live_count": 8,
