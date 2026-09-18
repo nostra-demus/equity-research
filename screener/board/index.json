@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T14:46:36Z",
+  "generated_at": "2026-09-18T14:47:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-475",
@@ -242,6 +242,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-481",
+      "headline": "GAC GROUP (02238): Overseas Regulatory Announcement - Announcement on the Progress of Suspension of Trading in relation to the Contemplation of a Material Asset Reorganisation",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801432.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T11:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "GAC Group announced progress on a material asset reorganization and continued trading suspension.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GAC Group announced progress on a material asset reorganization and continued trading suspension.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC GROUP",
+          "ticker": "02238",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,60 +1967,6 @@
           "name": "Nissan",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-170",
-      "headline": "Brookfield to invest up to $600mn in ACME's business",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/brookfield-to-invest-up-to-600mn-in-acmes-business/articleshow/134323648.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T01:25:04Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Brookfield is investing $600 million into ACME's business, a significant capital injection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is investing $600 million into ACME's business, a significant capital injection.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "ACME Solar",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -165171,9 +165167,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7117664,
-    "news_picked_today": 1009,
-    "news_dropped_today": 7031
+    "news_seen_today": 7149610,
+    "news_picked_today": 1011,
+    "news_dropped_today": 7053
   },
   "book_momentum": {
     "live_count": 8,
