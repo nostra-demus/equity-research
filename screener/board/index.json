@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T22:05:21Z",
+  "generated_at": "2026-09-18T22:10:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-555",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-567",
+      "headline": "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/wendys-franchisee-meritage-hospitality-files-chapter-11-bankruptcy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T21:20:30Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Meritage Hospitality, a Wendy's franchisee, has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meritage Hospitality, a Wendy's franchisee, has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meritage Hospitality",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-566",
       "headline": "Warren Buffett Steps Down As Chairman, Names Son Howard As Successor",
       "headline_en": null,
@@ -1938,49 +1987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-505",
-      "headline": "Longtime Christmas decor retailer files for bankruptcy",
-      "headline_en": null,
-      "url": "https://www.retaildive.com/news/christmas-decor-retailer-gordon-companies-files-chapter-11-bankruptcy/830777/",
-      "source_name": "Retail Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A major Christmas decor retailer has filed for bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major Christmas decor retailer has filed for bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164961,9 +164967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10843125,
-    "news_picked_today": 1282,
-    "news_dropped_today": 10478
+    "news_seen_today": 10863136,
+    "news_picked_today": 1283,
+    "news_dropped_today": 10501
   },
   "book_momentum": {
     "live_count": 8,
