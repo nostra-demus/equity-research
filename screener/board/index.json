@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T00:27:23Z",
+  "generated_at": "2026-09-18T00:34:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -116,55 +116,6 @@
       "launched_signal_id": null,
       "triage_score": 97,
       "triage_reason": "Formal dispatch of offer document for a partial cash acquisition of 115 million shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fu Shou Yuan International Group",
-          "ticker": "01448",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-015",
-      "headline": "FU SHOU YUAN (01448): OFFER DOCUMENT RELATING TO THE UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T22:16:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Duplicate filing regarding the dispatch of offer documents for partial acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Duplicate filing regarding the dispatch of offer documents for partial acquisition.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -441,6 +392,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-048",
+      "headline": ": Notice of Listing on The Stock Exchange of Hong Kong Limited - U.S.$3,500,000,000 Medium Term Note Programme of Eurasian Development Bank",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800037.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Eurasian Development Bank listed a $3.5 billion medium-term note program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Eurasian Development Bank listed a $3.5 billion medium-term note program.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eurasian Development Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -729,6 +729,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-046",
+      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800039.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-17T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "HSBC Holdings executed a share buyback transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "HSBC Holdings executed a share buyback transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-004",
       "headline": "TEK: Update - Notification of buy-back - TEK",
       "headline_en": null,
@@ -974,6 +1023,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-030",
+      "headline": "Meritage Initiates Voluntary Chapter 11 Process to Strengthen Its Balance Sheet and Position the Company for Long-Term Success | MHGU Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MHGU/meritage-initiates-voluntary-chapter-11-process-to-strengthen-its-kc0cw7jbpckq.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T23:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The company has initiated a voluntary Chapter 11 bankruptcy process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The company has initiated a voluntary Chapter 11 bankruptcy process.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meritage",
+          "ticker": "MHGU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-025",
       "headline": "Australia news live: RBA governor paves way for rate hike; Labor to ‘look at’ following Canada in pulling closer to EU",
       "headline_en": null,
@@ -1109,6 +1207,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-044",
+      "headline": "Clean Harbors Prices Offering of Senior Notes Due 2034",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260917040366/en/Clean-Harbors-Prices-Offering-of-Senior-Notes-Due-2034/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Clean Harbors priced a new offering of senior notes due 2034.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Clean Harbors priced a new offering of senior notes due 2034.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clean Harbors",
+          "ticker": "CLH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-020",
       "headline": "استحواذ Beacon على Haize Labs لتعزيز الذكاء الاصطناعي للاقتصاد الحقيقي",
       "headline_en": "Beacon acquires Haize Labs to enhance AI for the real economy",
@@ -1155,6 +1302,60 @@
           "name": "Haize Labs",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-032",
+      "headline": "Beacon adquiere Haize Labs para impulsar la inteligencia artificial en la economía tradicional",
+      "headline_en": "Beacon acquires Haize Labs to boost artificial intelligence in the traditional economy",
+      "url": "http://www.businesswire.com/news/home/20260917641805/es/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beacon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Haize Labs",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1271,6 +1472,315 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-037",
+      "headline": "Beacon rachète Haize Labs pour renforcer l’intelligence artificielle au service de l’économie réelle",
+      "headline_en": "Beacon acquires Haize Labs to strengthen artificial intelligence for the real economy",
+      "url": "http://www.businesswire.com/news/home/20260917064733/fr/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beacon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Haize Labs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-035",
+      "headline": "A Beacon a reálgazdaság mesterséges intelligenciával való támogatása érdekében felvásárolja a Haize Labs vállalatot",
+      "headline_en": "Beacon acquires Haize Labs to support the real economy with artificial intelligence",
+      "url": "http://www.businesswire.com/news/home/20260917740037/hu/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beacon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Haize Labs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-039",
+      "headline": "Společnost Beacon získává společnost Haize Labs, aby posílila využití umělé inteligence v reálné ekonomice",
+      "headline_en": "Beacon acquires Haize Labs to strengthen the use of artificial intelligence in the real economy",
+      "url": "http://www.businesswire.com/news/home/20260917370717/cs/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Beacon is acquiring Haize Labs to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beacon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Haize Labs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-045",
+      "headline": "Walker & Dunlop Arranges $300 Million Refinancing for Mixed-Use Property in Manhattan’s Meatpacking District",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260917599591/en/Walker-Dunlop-Arranges-300-Million-Refinancing-for-Mixed-Use-Property-in-Manhattan%E2%80%99s-Meatpacking-District/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Walker & Dunlop arranged $300 million in refinancing for a Manhattan property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Walker & Dunlop arranged $300 million in refinancing for a Manhattan property.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walker & Dunlop",
+          "ticker": "WD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-031",
+      "headline": "Orion180 Insurance Group Inc. Announces Pricing of Initial Public Offering | OIG Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OIG/orion180-insurance-group-inc-announces-pricing-of-initial-public-cnzsyvi75j2i.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The company announced the pricing of its initial public offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "The company announced the pricing of its initial public offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orion180 Insurance Group Inc.",
+          "ticker": "OIG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-047",
+      "headline": "Hagens Berman Alerts Capricor Therapeutics, Inc. (NASDAQ: CAPR) Investors to FDA Review Extension for Deramiocel Amid Ongoing Securities Class Action and September 28 Lead Plaintiff Deadline",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/hagens-berman-alerts-capricor-therapeutics-inc-nasdaq-capr-investors-to-fda-review-extension-for-deramiocel-amid-ongoing-securities-class-action-and-september-28-lead-plaintiff-deadline-302882607.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T22:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Capricor Therapeutics faces an FDA review extension for Deramiocel alongside existing litigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Capricor Therapeutics faces an FDA review extension for Deramiocel alongside existing litigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capricor Therapeutics",
+          "ticker": "CAPR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-007",
       "headline": "Turkish Owner and Crew File War Crimes Complaint Over Ukrainian Ship Attack",
       "headline_en": null,
@@ -1352,6 +1862,109 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-043",
+      "headline": "شركة STRONG Pilates تُعزّز حضورها في الشرق الأوسط عن طريق التوسع في المملكة العربية السعودية، وتعلن عن شراكة امتياز رئيسية مع Healthpreneurs",
+      "headline_en": "STRONG Pilates strengthens its presence in the Middle East by expanding into Saudi Arabia, and announces a major franchise partnership with Healthpreneurs",
+      "url": "http://www.businesswire.com/news/home/20260917517555/ar/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T21:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "STRONG Pilates is expanding into Saudi Arabia through a franchise partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "STRONG Pilates is expanding into Saudi Arabia through a franchise partnership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STRONG Pilates",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-042",
+      "headline": "Paradium.AI Signs 10-Year Strategic Platform Agreement with Roundtable (Nasdaq: RTB) | RTB Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/RTB/paradium-ai-signs-10-year-strategic-platform-agreement-with-rwfihm44uyem.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T21:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Paradium.AI signed a 10-year strategic platform agreement with Roundtable.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "Paradium.AI signed a 10-year strategic platform agreement with Roundtable.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paradium.AI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Roundtable",
+          "ticker": "RTB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164904,7 +165517,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2555,
+    "inbox_unconsumed": 2567,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -164913,9 +165526,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117374,
-    "news_picked_today": 29,
-    "news_dropped_today": 139
+    "news_seen_today": 129086,
+    "news_picked_today": 48,
+    "news_dropped_today": 168
   },
   "book_momentum": {
     "live_count": 8,
