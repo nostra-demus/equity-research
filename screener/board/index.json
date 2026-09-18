@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T00:44:17Z",
+  "generated_at": "2026-09-18T00:48:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-011",
@@ -1830,6 +1830,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260918-058",
+      "headline": "Gentherm and Modine Manufacturing Company Announce Additional Information in Connection with Proposed Combination of Gentherm and Modine’s Performance Technologies Business",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/17/3364397/0/en/gentherm-and-modine-manufacturing-company-announce-additional-information-in-connection-with-proposed-combination-of-gentherm-and-modine-s-performance-technologies-business.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-17T20:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Additional information provided regarding a previously announced business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Additional information provided regarding a previously announced business combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gentherm",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Modine Manufacturing Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260918-031",
       "headline": "Orion180 Insurance Group Inc. Announces Pricing of Initial Public Offering | OIG Stock News",
       "headline_en": null,
@@ -1923,49 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-007",
-      "headline": "Turkish Owner and Crew File War Crimes Complaint Over Ukrainian Ship Attack",
-      "headline_en": null,
-      "url": "https://maritime-executive.com/article/turkish-owner-and-crew-file-war-crimes-complaint-over-ukrainian-ship-attack",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-09-17T20:23:32Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "A war crimes complaint regarding a ship attack highlights ongoing geopolitical and operational risks in the shipping sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "A war crimes complaint regarding a ship attack highlights ongoing geopolitical and operational risks in the shipping sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -33,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "official_data",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165527,9 +165538,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 210251,
-    "news_picked_today": 54,
-    "news_dropped_today": 258
+    "news_seen_today": 221874,
+    "news_picked_today": 61,
+    "news_dropped_today": 275
   },
   "book_momentum": {
     "live_count": 8,
