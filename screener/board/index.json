@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:13:28Z",
+  "generated_at": "2026-09-18T02:17:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-151",
@@ -903,6 +903,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-220",
+      "headline": "US approves sale of 48 F-35 jets to Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/us-approves-sale-48-f-35-jets-saudi-arabia",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-17T23:44:37Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "The US government approved the sale of 48 F-35 jets to Saudi Arabia, a major defense contract for Lockheed Martin.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The US government approved the sale of 48 F-35 jets to Saudi Arabia, a major defense contract for Lockheed Martin.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-009",
-      "headline": "1AD: Oribiotech deal validates AdAlta manufacturing strategy [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.1AD?key=2924-03136913-3A702040",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-17T23:52:38Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "The company announced a deal with Oribiotech that validates its manufacturing strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The company announced a deal with Oribiotech that validates its manufacturing strategy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AdAlta Limited",
-          "ticker": "1AD",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165672,9 +165672,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 695955,
-    "news_picked_today": 248,
-    "news_dropped_today": 928
+    "news_seen_today": 706958,
+    "news_picked_today": 251,
+    "news_dropped_today": 949
   },
   "book_momentum": {
     "live_count": 8,
