@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T08:31:13Z",
+  "generated_at": "2026-09-18T08:34:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260918-295",
@@ -290,6 +290,55 @@
           "name": "Raffles Interior",
           "ticker": "01376",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260918-351",
+      "headline": "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/mothercare-middle-east-iran-london-holly-williams-b3052295.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T07:04:49Z",
+      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
+      "prelim_note": "Mothercare warns that its future is highly uncertain following a franchise blow in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mothercare warns that its future is highly uncertain following a franchise blow in the Middle East.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mothercare",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "small",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260918-292",
-      "headline": "JSHINE B2909-R (85175): Publication of the Offering Circular - CNY2,378,000,000 2.18 per cent. Guaranteed Green Bonds due 2029 issued by Jinshine International Co., Ltd unconditionally and irrevocably guaranteed by Xuzhou Industry Development Holding Group Co., Ltd.",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800207.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T04:22:00Z",
-      "sweep_file": "screener/inbox/2026-09-18_sweep.json",
-      "prelim_note": "Jinshine International issued CNY 2.378 billion in guaranteed green bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Jinshine International issued CNY 2.378 billion in guaranteed green bonds.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jinshine International",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165467,9 +165467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3467002,
-    "news_picked_today": 636,
-    "news_dropped_today": 3900
+    "news_seen_today": 3495676,
+    "news_picked_today": 648,
+    "news_dropped_today": 3912
   },
   "book_momentum": {
     "live_count": 8,
