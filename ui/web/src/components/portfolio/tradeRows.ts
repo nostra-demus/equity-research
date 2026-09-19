@@ -408,7 +408,18 @@ export function fillAction(r: Pick<PortfolioExecution, 'side' | 'effect' | 'posi
     case 'close': return 'closed'
     case 'flip': return r.positionAfter < 0 ? 'reversed to short' : 'reversed to long'
     case 'unmatched': return 'no open lot'
+    case 'convert': return 'converted currency'
   }
+}
+
+/** A conversion in words, from the pair the broker names it by: IBKR writes "AUD.USD" for buying AUD with
+ *  USD, so a buy reads left-to-right and a sale the other way. Anything not shaped like a pair says only
+ *  what it is, rather than guessing which currency went which way. */
+export function conversionWords(r: Pick<PortfolioExecution, 'symbol' | 'side'>): string | null {
+  const parts = (r.symbol ?? '').split('.')
+  if (parts.length !== 2 || !parts[0] || !parts[1]) return null
+  const [bought, paid] = r.side === 'buy' ? [parts[0], parts[1]] : [parts[1], parts[0]]
+  return `${paid} → ${bought}`
 }
 
 /** What is left of what a fill opened: all of it, part of it, or none. Null for a fill that opened
@@ -424,6 +435,9 @@ export function fillStatus(r: Pick<PortfolioExecution, 'openedQuantity' | 'still
 export function fillSummary(rows: FillRow[]): {
   fills: number; buys: number; sells: number; adds: number; positions: number; inferred: number; costsUnknown: number
   partial: number
+  /** Currency conversions among them, counted apart: one buys money rather than a position, so counting it
+   *  as a buy would overstate what was actually bought. */
+  conversions: number
 } {
   let buys = 0
   let sells = 0
@@ -431,9 +445,11 @@ export function fillSummary(rows: FillRow[]): {
   let inferred = 0
   let costsUnknown = 0
   let partial = 0
+  let conversions = 0
   const open = new Set<string>()
   for (const r of rows) {
-    if (r.side === 'buy') buys += 1
+    if (r.effect === 'convert') conversions += 1
+    else if (r.side === 'buy') buys += 1
     else sells += 1
     if (r.effect === 'add') adds += 1
     if (r.current) open.add(r.key)
@@ -442,5 +458,5 @@ export function fillSummary(rows: FillRow[]): {
     if (r.costsUnknown === true) costsUnknown += 1
     if (r.partialHistory === true) partial += 1
   }
-  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown, partial }
+  return { fills: rows.length, buys, sells, adds, positions: open.size, inferred, costsUnknown, partial, conversions }
 }

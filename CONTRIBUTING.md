@@ -122,6 +122,13 @@ remote `main`, but it must never rebase, merge, reset, or check out newer remote
 worktree. Pure data pushes are excluded from release CI and must not cancel a code workflow, publish update
 intent, rebuild, restart, or pause admissions.
 
+Excluded from release CI does not mean unchecked. `.github/workflows/research-check.yml` runs
+`scripts/eval.py` over the runs a research push added or changed — and over the whole corpus nightly — then
+opens one issue per failing run, closed again when that run passes. It is a separate workflow on purpose: it
+must never cancel a code workflow, and `ci.yml` must keep exactly the five release jobs
+`scripts/ops/deploy-authorization.py` verifies. It never runs on a pull request, so a research failure is
+reported to whoever owns the research instead of being charged to the next code change.
+
 The manual receipt command is break-glass/bootstrap only and requires separate explicit production authority:
 
 ```sh
