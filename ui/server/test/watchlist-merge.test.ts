@@ -11,6 +11,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import {
   fingerprintEngineRow,
+  listingKey,
   makeListing,
   mergeWatchlist,
   readEngineWatch,
@@ -248,6 +249,30 @@ await check('an explicit listing mute still outranks a first engine call', () =>
   const { rows, archived } = mergeWatchlist({ entries: [e], engine: eng, today: TODAY })
   assert.equal(rows.length, 0, 'a deliberate permanent mute is still honoured')
   assert.equal(archived.length, 1)
+})
+
+await check('a listing the price batch never answered for still says why it has no price', () => {
+  // On the live list one name in ten had no quote AND no reason, so the row showed "no price" with nothing
+  // behind it: the batch simply came back without that listing in it.
+  const { rows } = mergeWatchlist({ entries: [entry({ ticker: 'NVO', currency: 'USD' })], engine: [], today: TODAY, quotes: new Map() })
+  assert.equal(rows[0].quote, null)
+  assert.equal(rows[0].quote_reason, 'not_quoted')
+  const noCurrency = mergeWatchlist({ entries: [entry({ ticker: 'NVO', currency: null })], engine: [], today: TODAY, quotes: new Map() })
+  assert.equal(noCurrency.rows[0].quote_reason, 'no_currency', 'and a listing with no currency says that instead')
+})
+
+await check('the key the acknowledge route derives is byte-identical to the row it must match', () => {
+  // POST /api/watchlist/condition-seen stores under listingKey(ticker, currency); decorate() reads under
+  // MergedWatchRow.listing_key. If those ever drifted the write would land under a key nobody reads, the
+  // route would still answer {ok:true}, and nothing would be acknowledged — a silent no-op.
+  const cases: [string, string | null][] = [['nu', 'usd'], ['NU', 'USD'], [' bp.l ', 'GBp'], ['BP.L', 'GBP'], ['X', null]]
+  for (const [t, c] of cases) {
+    assert.equal(listingKey(t, c), makeListing({ ticker: t, currency: c }).listing_key, `${t}|${c}`)
+  }
+  // Both sides normalise case the same way, so a client that sends the feed's own "GBp" still reaches the
+  // row keyed "GBP" rather than writing under a key nobody reads. (Pence vs pounds is settled by the major
+  // unit divisor in equity-quote, not by this key — the key must not split one listing in two.)
+  assert.equal(listingKey('BP.L', 'GBp'), makeListing({ ticker: 'BP.L', currency: 'GBP' }).listing_key)
 })
 
 console.log(`\nwatchlist-merge.test.ts: ${passed} passed`)

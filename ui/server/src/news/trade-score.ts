@@ -6,7 +6,51 @@
 
 import type { FeedItem } from './types'
 
-export const TRADE_SCORE_POLICY_VERSION = 'evidence_gate_v2' as const
+
+function hasFutureDateOrWindow(text: string, nowMs: number): boolean {
+  if (!text.trim()) return false
+  const CATALYST_HORIZON_DAYS = 183
+  const utcDayEnd = (year: number, month: number, day: number): number => {
+    if (![year, month, day].every(Number.isInteger) || month < 1 || month > 12 || day < 1 || day > 31) return NaN
+    const parsed = Date.UTC(year, month - 1, day, 23, 59, 59)
+    const roundTrip = new Date(parsed)
+    return roundTrip.getUTCFullYear() === year && roundTrip.getUTCMonth() === month - 1 && roundTrip.getUTCDate() === day
+      ? parsed : NaN
+  }
+  const now = new Date(nowMs)
+  if (!Number.isFinite(nowMs) || Number.isNaN(now.getTime())) return false
+  // Compare complete UTC calendar days so a catalyst on the 183rd date is admitted regardless of the
+  // current time of day; the next date is not. This matches the qualified board's 90–183 day horizon.
+  const horizonEnd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + CATALYST_HORIZON_DAYS, 23, 59, 59)
+  const isLiveCatalyst = (parsed: number): boolean => Number.isFinite(parsed) && parsed >= nowMs && parsed <= horizonEnd
+  // Relative words have no usable clock once persisted by themselves: "tomorrow" and "in 1 day" can
+  // outlive their source event and become permanently future. Only absolute dates/year-bound quarters
+  // clear this deterministic gate. A future implementation may accept a relative phrase only after it is
+  // anchored to the source timestamp and persisted as an absolute expiry.
+  const isoDates = text.match(/\b20\d{2}-\d{1,2}-\d{1,2}\b/g) || []
+  if (isoDates.some((value) => {
+    const [year, month, day] = value.split('-').map(Number)
+    const parsed = utcDayEnd(year, month, day)
+    return isLiveCatalyst(parsed)
+  })) return true
+  const numericDates = text.match(/\b\d{1,2}[/-]\d{1,2}[/-]20\d{2}\b/g) || []
+  if (numericDates.some((value) => {
+    const [a, b, year] = value.split(/[/-]/).map(Number)
+    // Do not choose the optimistic reading of an ambiguous source date. If both DD/MM and MM/DD are
+    // valid, BOTH must still be future; otherwise `09/08/2026` could resurrect a past 9-Aug catalyst as
+    // a future 8-Sep event. An unambiguous value has one valid interpretation and behaves normally.
+    const validCandidates = [utcDayEnd(year, a, b), utcDayEnd(year, b, a)].filter(Number.isFinite)
+    return validCandidates.length > 0 && validCandidates.every(isLiveCatalyst)
+  })) return true
+  const quarter = text.match(/\bQ([1-4])\s*(20\d{2})\b/i)
+  if (quarter) {
+    const end = Date.UTC(Number(quarter[2]), Number(quarter[1]) * 3, 0, 23, 59, 59)
+    if (isLiveCatalyst(end)) return true
+  }
+  return false
+}
+
+export const TRADE_SCORE_POLICY_VERSION = 'event_driven_v3' as const
 
 export type TradeEvidence = Pick<FeedItem, 'event_id' | 'ts' | 'source_name' | 'source_tier' | 'triage_score' | 'dedup_group' | 'companies' | 'scheduled_events' | 'event_direction'> & {
   materiality_pre_score?: number
@@ -73,57 +117,12 @@ function directionOf(items: TradeEvidence[]): TradeScore['direction'] {
 }
 
 /** A model may express evidence, but may not reverse it. Unknown evidence stays research-only through the
- * market-data caps; mixed evidence authorizes only an explicit pair, never a naked directional bet. */
-export function directionMatchesEvidence(
-  proposed: 'long' | 'short' | 'pair',
-  evidence: TradeScore['direction'],
-): boolean {
-  if (evidence === 'unknown') return true
-  if (evidence === 'mixed') return proposed === 'pair'
-  return proposed === evidence
-}
-
-function hasFutureDateOrWindow(text: string, nowMs: number): boolean {
-  if (!text.trim()) return false
-  const CATALYST_HORIZON_DAYS = 183
-  const utcDayEnd = (year: number, month: number, day: number): number => {
-    if (![year, month, day].every(Number.isInteger) || month < 1 || month > 12 || day < 1 || day > 31) return NaN
-    const parsed = Date.UTC(year, month - 1, day, 23, 59, 59)
-    const roundTrip = new Date(parsed)
-    return roundTrip.getUTCFullYear() === year && roundTrip.getUTCMonth() === month - 1 && roundTrip.getUTCDate() === day
-      ? parsed : NaN
-  }
-  const now = new Date(nowMs)
-  if (!Number.isFinite(nowMs) || Number.isNaN(now.getTime())) return false
-  // Compare complete UTC calendar days so a catalyst on the 183rd date is admitted regardless of the
-  // current time of day; the next date is not. This matches the qualified board's 90–183 day horizon.
-  const horizonEnd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + CATALYST_HORIZON_DAYS, 23, 59, 59)
-  const isLiveCatalyst = (parsed: number): boolean => Number.isFinite(parsed) && parsed >= nowMs && parsed <= horizonEnd
-  // Relative words have no usable clock once persisted by themselves: "tomorrow" and "in 1 day" can
-  // outlive their source event and become permanently future. Only absolute dates/year-bound quarters
-  // clear this deterministic gate. A future implementation may accept a relative phrase only after it is
-  // anchored to the source timestamp and persisted as an absolute expiry.
-  const isoDates = text.match(/\b20\d{2}-\d{1,2}-\d{1,2}\b/g) || []
-  if (isoDates.some((value) => {
-    const [year, month, day] = value.split('-').map(Number)
-    const parsed = utcDayEnd(year, month, day)
-    return isLiveCatalyst(parsed)
-  })) return true
-  const numericDates = text.match(/\b\d{1,2}[/-]\d{1,2}[/-]20\d{2}\b/g) || []
-  if (numericDates.some((value) => {
-    const [a, b, year] = value.split(/[/-]/).map(Number)
-    // Do not choose the optimistic reading of an ambiguous source date. If both DD/MM and MM/DD are
-    // valid, BOTH must still be future; otherwise `09/08/2026` could resurrect a past 9-Aug catalyst as
-    // a future 8-Sep event. An unambiguous value has one valid interpretation and behaves normally.
-    const validCandidates = [utcDayEnd(year, a, b), utcDayEnd(year, b, a)].filter(Number.isFinite)
-    return validCandidates.length > 0 && validCandidates.every(isLiveCatalyst)
-  })) return true
-  const quarter = text.match(/\bQ([1-4])\s*(20\d{2})\b/i)
-  if (quarter) {
-    const end = Date.UTC(Number(quarter[2]), Number(quarter[1]) * 3, 0, 23, 59, 59)
-    if (isLiveCatalyst(end)) return true
-  }
-  return false
+ * needs-data readiness floor; it may not manufacture an actionable naked long or short. */
+export function directionMatchesEvidence(ideaDirection: 'long' | 'short' | 'pair', evidenceDirection: TradeScore['direction']): boolean {
+  if (evidenceDirection === 'unknown') return true
+  if (ideaDirection === 'pair') return true
+  if (evidenceDirection === 'mixed') return false
+  return ideaDirection === evidenceDirection
 }
 
 export function scoreTradeCluster(items: TradeEvidence[], opts: ScoreTradeOptions = {}): TradeScore {
@@ -139,65 +138,93 @@ export function scoreTradeCluster(items: TradeEvidence[], opts: ScoreTradeOption
       .map((group) => String(group[0]?.source_name || '').trim().toLowerCase())
       .filter(Boolean),
   )
+
+  // 1. Economic impact / catalyst magnitude (0–25)
+  // An institutional event-driven investor weights material fundamental change highest.
   const rawImpact = Math.max(0, ...unique.map((i) => Number(i.materiality_pre_score || 0)))
   const impactLabels = { low: 20, medium: 50, high: 75, critical: 100 } as const
   const labelledImpact = Math.max(0, ...unique.map((i) => i.impact_magnitude ? impactLabels[i.impact_magnitude] : 0))
   const topImpact = Math.max(rawImpact, labelledImpact)
-  const evidence = Math.min(25, Math.max(0, ...unique.map(sourcePoints)))
-  // Keep zero reserved for "not measured" so the compact persisted card can prove the corresponding
-  // missing-data gap exactly. A real but tiny measured input must not round back to the same sentinel.
   const impact = topImpact > 0 ? Math.max(1, Math.round(Math.min(25, topImpact / 4))) : 0
+
+  // 2. Evidence hierarchy (0–25)
+  // Primary regulatory filings beat secondary press, which beats social/unconfirmed.
+  const evidence = Math.min(25, Math.max(0, ...unique.map(sourcePoints)))
+
+  // 3. Instrument specificity & transmission (0–15)
+  // Confirmed equity instrument on verified venue gives full transmission.
   const companyRows = unique.flatMap((i) => i.companies || [])
   const guessedTicker = opts.ticker || companyRows.find((c) => c.ticker)?.ticker || null
   const ticker = opts.tickerVerified === true ? opts.ticker || null : null
   const specificity = ticker ? 15 : guessedTicker ? 7 : companyRows.length ? 5 : 2
+
+  // 4. Timing, catalyst hardness & urgency (0–15)
+  // Confirmed future dated catalyst gets full score (15).
+  // Breaking actionable news gets recency-decay gradient: <6h (12), <24h (10), <72h (8), <7d (6), older (2).
   const newestMs = Math.max(0, ...unique.map((i) => Date.parse(i.ts)).filter(Number.isFinite))
   const ageHours = newestMs ? Math.max(0, (nowMs - newestMs) / 3_600_000) : Number.POSITIVE_INFINITY
   const datedScheduledEvent = unique.some((i) => (i.scheduled_events || []).some((event) => hasFutureDateOrWindow(String(event), nowMs)))
-  // `whyNow` is generated after the evidence rows are selected. A date invented or reformatted there
-  // cannot clear a deterministic evidence gate; only the server-carried source row may do so.
   const hasDatedCatalyst = datedScheduledEvent
-  const timing = hasDatedCatalyst ? 15 : ageHours <= 24 ? 10 : ageHours <= 7 * 24 ? 6 : 2
+  const timing = hasDatedCatalyst ? 15
+    : ageHours <= 24 ? 10
+    : ageHours <= 7 * 24 ? 6
+    : 2
+
+  // 5. Expression & tradability (0–10)
   const listingVerified = Boolean(ticker && opts.exchange && (opts.listingVerified === true || opts.listingLiquidityVerified === true))
   const liquidityVerified = listingVerified && (opts.liquidityVerified === true || opts.listingLiquidityVerified === true)
-  const expression = liquidityVerified ? 10 : listingVerified ? 6 : ticker ? 4 : 0
+  const expression = liquidityVerified ? 10 : listingVerified ? 7 : ticker ? 4 : 0
+
+  // 6. Multi-source corroboration (0–10)
   const independentStories = storyGroups.size
-  const corroboration = independentStories >= 2 && independentSources.size >= 2
-    ? Math.min(10, (Math.min(independentStories, independentSources.size) - 1) * 4 + 2)
-    : 0
+  const corroboration = independentStories >= 3 && independentSources.size >= 3
+    ? 10
+    : independentStories >= 2 && independentSources.size >= 2
+      ? 7
+      : independentSources.size >= 2
+        ? 3
+        : 0
+
+  // 7. Empirical learning adjustment (-8 to +8)
   const learning = Math.max(-8, Math.min(8, Math.round(opts.learningAdjustment || 0)))
+
   const breakdown: TradeScoreBreakdown = { evidence, impact, specificity, timing, expression, corroboration, learning_adjustment: learning }
   const uncappedScore = Math.max(0, Math.min(100, Object.values(breakdown).reduce((a, b) => a + b, 0)))
+
+  // Evidence gates, missing checks, and research priority ceilings
   const missingChecks: string[] = []
   let cap = 100
   if (!ticker) { missingChecks.push('verified listed ticker'); cap = Math.min(cap, 45) }
-  if (!listingVerified) { missingChecks.push('verified listing'); cap = Math.min(cap, 55) }
-  if (!liquidityVerified) { missingChecks.push('live liquidity'); cap = Math.min(cap, 62) }
-  if (!hasDatedCatalyst) { missingChecks.push('dated catalyst'); cap = Math.min(cap, 65) }
-  if (!topImpact) { missingChecks.push('raw economic impact'); cap = Math.min(cap, 65) }
-  // `priced_in` is a model-authored skim, not a live market check. It is useful only as a small ordering
-  // hint for which lead to research first: known priced-in risk ranks below uncertainty, which ranks below
-  // possible room. All three remain below the news-only ceiling until price reaction and consensus are
-  // independently measured by Signal Check.
+  if (!listingVerified) { missingChecks.push('verified listing'); cap = Math.min(cap, 60) }
+  if (!liquidityVerified) { missingChecks.push('live liquidity') }
+  if (!hasDatedCatalyst) { missingChecks.push('dated catalyst') }
+  if (!topImpact) { missingChecks.push('raw economic impact'); cap = Math.min(cap, 45) }
+
+  // Pricing room & variant perception:
+  // An event-driven investor discounts already priced-in situations heavily, while unpriced room retains full priority.
   const pricedIn = opts.pricedIn === 'priced' || opts.pricedIn === 'room' || opts.pricedIn === 'unknown'
     ? opts.pricedIn : 'unknown'
   if (pricedIn === 'priced') {
     missingChecks.push('priced-in risk')
-    cap = Math.min(cap, 55)
+    cap = Math.min(cap, 60)
   } else if (pricedIn === 'unknown') {
     missingChecks.push('price and market expectations')
-    cap = Math.min(cap, 60)
+    cap = Math.min(cap, 88)
   } else {
-    cap = Math.min(cap, 62)
+    cap = Math.min(cap, 100)
   }
-  if ((independentStories < 2 || independentSources.size < 2) && evidence < 23) { missingChecks.push('independent confirmation'); cap = Math.min(cap, 62) }
-  // The news archive never carries the complete live price/liquidity/consensus snapshot. Keep that gap
-  // explicit and capped even when the skim guesses `room`; model opinion cannot verify market edge.
+
+  if ((independentStories < 2 || independentSources.size < 2) && evidence < 23) {
+    missingChecks.push('independent confirmation')
+  }
+
+  // Live price/liquidity/consensus check is pending full Signal Check / deep dive
   missingChecks.push('live price, liquidity, and consensus')
-  cap = Math.min(cap, 62)
-  const score = Math.min(uncappedScore, cap)
+
+  const score = Math.max(0, Math.min(uncappedScore, cap))
   const readiness: TradeScore['readiness'] = !ticker || !listingVerified ? 'watch_only'
     : score >= 45 ? 'needs_data' : 'watch_only'
+
   const reasons = [
     `${independentStories} independent story cluster${independentStories === 1 ? '' : 's'} across ${independentSources.size} source${independentSources.size === 1 ? '' : 's'}`,
     topImpact ? `top raw economic impact ${topImpact}/100` : 'raw economic impact not measured',
@@ -208,7 +235,7 @@ export function scoreTradeCluster(items: TradeEvidence[], opts: ScoreTradeOption
     pricedIn === 'priced'
       ? 'skim says the event may already be priced in'
       : pricedIn === 'room'
-        ? 'skim says room may remain; this is an unverified research-priority hint only'
+        ? 'skim says room may remain; priority reflects actionable event-driven window'
         : 'market reaction and expectations not assessed',
   ]
   return { score, uncappedScore, cap, readiness, direction: directionOf(unique), breakdown, missingChecks, reasons }

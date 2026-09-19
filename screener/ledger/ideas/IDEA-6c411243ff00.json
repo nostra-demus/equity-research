@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-6c411243ff00",
+  "idea_version": "IDEAV-bb737e4eae911147",
+  "idea_version_started_at": "2026-09-19T09:53:04Z",
+  "ticker": "NFE",
+  "company": "New Fortress Energy Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which typically precedes efforts to unlock value through strategic changes or board influence.",
+  "why_now": "The 13D filing was made public on 2026-09-19, signaling immediate potential for corporate governance or strategic shifts.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 72,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 15,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "governance_turnaround",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-7c528f3a7647"
+  ],
+  "primary_source_event_id": "EVT-7c528f3a7647",
+  "source_headlines": [
+    "SCHEDULE 13D - New Fortress Energy Inc. (0001749723) (Subject)"
+  ],
+  "source_headline": "SCHEDULE 13D - New Fortress Energy Inc. (0001749723) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1749723/000119312526395888/0001193125-26-395888-index.htm",
+  "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+  "materiality_max": 97,
+  "newest_source_at": "2026-09-19T01:49:57Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-19T09:53:04Z",
+  "updated_at": "2026-09-19T09:53:04Z",
+  "decay_at": "2026-09-20T13:49:57Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

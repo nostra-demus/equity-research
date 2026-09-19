@@ -77,7 +77,7 @@ export interface SurfacedIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy' // hard label — never the locked edge score (§7)
   trade_score: number // strict, capped readiness score; still not expected return or a verdict
-  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'event_driven_v3'
   trade_score_breakdown: TradeScoreBreakdown
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]
@@ -561,6 +561,47 @@ function validEvidenceGateV2State(value: Record<string, unknown>): boolean {
   return value.trade_readiness === expectedReadiness
 }
 
+function validEventDrivenV3State(value: Record<string, unknown>): boolean {
+  if (value.trade_score_basis !== 'event_driven_v3') return true
+  if (!validTradeBreakdown(value.trade_score_breakdown) || !Array.isArray(value.missing_checks)) return false
+  const breakdown = value.trade_score_breakdown as TradeScoreBreakdown
+  const missing = value.missing_checks as string[]
+  const has = (check: string): boolean => missing.includes(check)
+  if (missing.some((check) => !V2_MISSING_CHECKS.has(check))) return false
+
+  const listingVerified = value.listing_verified === true
+  if (value.ticker_verified !== listingVerified || value.liquidity_verified !== false) return false
+  if (breakdown.specificity !== (listingVerified ? 15 : 7)) return false
+  if (breakdown.expression !== (listingVerified ? 7 : 0)) return false
+  if (breakdown.learning_adjustment !== (value.learning as IdeaLearning).adjustment) return false
+  if (![0, 3, 7, 14, 18, 23, 25].includes(breakdown.evidence)) return false
+  if (![2, 6, 8, 10, 12, 15].includes(breakdown.timing)) return false
+  if (![0, 3, 7, 10].includes(breakdown.corroboration)) return false
+
+  if (has('verified listed ticker') !== !listingVerified || has('verified listing') !== !listingVerified) return false
+  if (!has('live liquidity') || !has(V2_LIVE_DATA_GAP)) return false
+  if (has('dated catalyst') !== (breakdown.timing !== 15)) return false
+  if (has('raw economic impact') !== (breakdown.impact === 0)) return false
+  if (has('priced-in risk') !== (value.priced_in === 'priced')) return false
+  if (has('price and market expectations') !== (value.priced_in === 'unknown')) return false
+
+  let cap = 100
+  if (!listingVerified) cap = Math.min(cap, 45)
+  if (!listingVerified) cap = Math.min(cap, 60)
+  if (breakdown.impact === 0) cap = Math.min(cap, 45)
+  if (value.priced_in === 'priced') cap = Math.min(cap, 60)
+  else if (value.priced_in === 'unknown') cap = Math.min(cap, 88)
+  else cap = Math.min(cap, 100)
+
+  const uncapped = Math.max(0, Math.min(100,
+    breakdown.evidence + breakdown.impact + breakdown.specificity + breakdown.timing +
+    breakdown.expression + breakdown.corroboration + breakdown.learning_adjustment,
+  ))
+  if (value.trade_score !== Math.min(uncapped, cap)) return false
+  const expectedReadiness = listingVerified && value.trade_score >= 45 ? 'needs_data' : 'watch_only'
+  return value.trade_readiness === expectedReadiness
+}
+
 function validLearning(value: unknown): value is IdeaLearning {
   if (!record(value)) return false
   const counts = [value.resolved, value.positive, value.negative, value.neutral]
@@ -643,10 +684,12 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   if (direction === 'pair' ? value.pair_with === null : value.pair_with !== null) return false
   if (!exactString(value.reason, 280) || !exactString(value.why_now, 240)) return false
   if (!boundedNumber(value.conviction, 0, 100, true) || value.conviction_basis !== 'pre_edge_proxy') return false
-  if (!boundedNumber(value.trade_score, 0, 100, true) || !['evidence_gate_v1', 'evidence_gate_v2'].includes(String(value.trade_score_basis))) return false
+  if (!boundedNumber(value.trade_score, 0, 100, true) || !['evidence_gate_v1', 'evidence_gate_v2', 'event_driven_v3'].includes(String(value.trade_score_basis))) return false
   if (!validTradeBreakdown(value.trade_score_breakdown) || !READINESS.has(value.trade_readiness as SurfacedIdea['trade_readiness'])) return false
   if (!exactStringArray(value.missing_checks, 32, 160, true, true) || !validLearning(value.learning)) return false
-  if (!validEvidenceGateV2State(value)) return false
+  if (value.trade_score_basis === 'event_driven_v3') {
+    if (!validEventDrivenV3State(value)) return false
+  } else if (!validEvidenceGateV2State(value)) return false
   if (!PRICED_IN.has(value.priced_in as PricedIn) || !THESIS_TYPE_SET.has(String(value.thesis_type))) return false
   if (!exactStringArray(value.source_event_ids, 64, 16, false, true) || !value.source_event_ids.every((id) => EVENT_ID_RE.test(id))) return false
   const hasPrimarySource = Object.prototype.hasOwnProperty.call(value, 'primary_source_event_id')

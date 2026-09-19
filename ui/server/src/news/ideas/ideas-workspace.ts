@@ -58,8 +58,12 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
     const narrative = theme.narrative
     if (!narrative || theme.needs_validation || theme.needs_rename || theme.narrative_update_overflow) continue
     const usableSummary = updates.length === 0 && !theme.needs_narrative_update && narrative.evidence.every((e) => reports.some((r) => r.event_id === e.event_id))
+    const peakMemberScore = Math.max(0, ...theme.members.map((m) => m.score))
+    const corroborationBonus = Math.min(10, (new Set(reports.map((r) => r.family)).size - 1) * 3)
+    const actionableBonus = usableSummary ? 5 : 0
+    const eventPriority = Math.min(100, peakMemberScore + corroborationBonus + actionableBonus)
     const aliases = [`theme:${theme.theme_id}`, ...reports.map((r) => `family:${r.family}`)]
-    const card = shell('event', aliases, {}, reports[0].at, Math.max(...theme.members.map((m) => m.score)))
+    const card = shell('event', aliases, {}, reports[0].at, eventPriority)
     card.event = { title: usableSummary ? theme.name : reports[0].headline, latest_change: reports[0].headline,
       implications: usableSummary ? narrative.mechanism_steps : [], summary_status: usableSummary ? 'available' : 'reports_only',
       regions: [...new Set(theme.members.flatMap((m) => m.country ? [m.country] : []))],
@@ -67,6 +71,29 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
       independent_stories: new Set(reports.map((r) => r.family)).size }
     cards.push(card)
     reports.forEach((r) => assigned.add(r.family))
+  }
+  // Inject cross-theme aliases so projectDiscovery's union-find merges cards for the same real-world
+  // event. Only 'related' links (same directional thesis) are merged; 'opposite' links stay separate.
+  const themeToCard = new Map<string, DiscoveryCard>()
+  for (const card of cards) {
+    for (const alias of card.aliases) {
+      if (alias.startsWith('theme:')) themeToCard.set(alias.slice(6), card)
+    }
+  }
+  for (const theme of themes) {
+    if (theme.status !== 'live') continue
+    const card = themeToCard.get(theme.theme_id)
+    if (!card) continue
+    for (const rel of theme.related_themes || []) {
+      if (rel.kind !== 'related') continue
+      const peer = themeToCard.get(rel.theme_id)
+      if (!peer) continue
+      // Deterministic shared alias: sort the two theme_ids so the alias is identical from both sides.
+      const pair = [theme.theme_id, rel.theme_id].sort().join('+')
+      const shared = `related:${pair}`
+      if (!card.aliases.includes(shared)) card.aliases.push(shared)
+      if (!peer.aliases.includes(shared)) peer.aliases.push(shared)
+    }
   }
   const groups = new Map<string, FeedItem[]>()
   for (const item of feed) {
