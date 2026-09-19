@@ -1589,6 +1589,11 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<{ ok: boolean }>('/api/watchlist/email-pause', { ticker, currency, paused })
   },
+  /** "Seen it" on a standing condition — a passed date, ageing research, a date of your own. */
+  watchConditionSeen: async (ticker: string, currency: string | null, conditionId: string, seen: boolean) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>('/api/watchlist/condition-seen', { ticker, currency, condition_id: conditionId, seen })
+  },
 
   // ---- Tasks board ----
   tasks: async (): Promise<import('./types').TasksRead> => {

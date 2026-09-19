@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { displayHeadline, originalHeadline, plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardThesis } from '../../lib/types'
-import { BookHealth, CheckpointTimeline, ConvictionStrip, NextCheck, ProofProgress, Sparkline, StancePill, VelocityBadge, convDir } from './ConvictionCard'
+import { BookHealth, CheckpointTimeline, ConvictionStrip, convDir } from './ConvictionCard'
 import { BookFilters, type BookRow, bookComparator, bookFiltersActive, emptyBookFilters, matchesBookFilters } from './BookFilters'
 
 // "Recent runs" — the screener's live book. Every event you put through the checks becomes an idea
@@ -301,6 +301,13 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
     const score = c?.edge_score_live ?? t?.edge_score
     const open = () => t && onOpen(t.thesis_id)
     const clickable = !!t
+
+    // Plain-English next check date
+    const nc = c?.next_checkpoint
+    const ncDays = nc?.due_at ? Math.round((new Date(nc.due_at).getTime() - Date.now()) / 86_400_000) : null
+    const ncWord = ncDays == null ? null : ncDays === 0 ? 'today' : ncDays > 0 ? `in ${ncDays}d` : `${-ncDays}d overdue`
+    const ncOverdue = ncDays != null && ncDays < 0
+
     return (
       <div
         key={s.signal_id}
@@ -313,7 +320,6 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
       >
         <div className="ideacard__cluster">
           <EdgeDial score={score} dir={archivedCard ? 'flat' : convDir(c)} size={archivedCard ? 32 : 38} />
-          {c && !archivedCard && <VelocityBadge conv={c} compact />}
         </div>
         <div className="ideacard__body">
           <div className="ideacard__topline">
@@ -328,8 +334,6 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
                 ↩ restore
               </button>
             )}
-            {/* soft-delete: hide this idea from the book. Reversible (an Undo toast + the Hidden tray), so a
-                single click is enough — no heavy confirm. Appears on hover; keyboard-reachable. */}
             {!archivedCard && (
               <button
                 className="ideacard__hide"
@@ -346,31 +350,25 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
           </div>
           {archivedCard ? (
             <div className="ideacard__note">{c?.plain_note || (c?.state === 'expired_unproven' ? 'The window closed without proof.' : 'Killed by its own rule.')}</div>
-          ) : c ? (
-            <>
-              <div className="ideacard__stance">
-                <StancePill conv={c} />
-                {c.validated && (c.trajectory?.length ?? 0) > 1 && <Sparkline conv={c} w={88} h={22} />}
-                <ProofProgress conv={c} />
-              </div>
-              <NextCheck conv={c} />
-            </>
+          ) : nc ? (
+            <div className="ideacard__nextplain">
+              <span className={`ideacard__nextlabel${ncOverdue ? ' ideacard__nextlabel--overdue' : ''}`}>
+                next check{ncWord ? ` · ${ncWord}` : ''}
+                {ncOverdue && ' — action required'}
+              </span>
+              <span className="ideacard__nextmetric">{nc.metric_name}</span>
+            </div>
+          ) : c && !c.validated ? (
+            <div className="ideacard__nextplain">
+              <span className="ideacard__nextlabel ideacard__nextlabel--await">awaiting first data point</span>
+            </div>
           ) : null}
           <div className="ideacard__meta">
             {s.source_name && <span className="ideacard__src">{s.source_name}</span>}
             <span>{fmtWhen(s.processed_at)}</span>
-            {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'} found</span> : null}
-            {/* surfaced signals the engine already computes (were hidden): materiality, novelty, pair relation */}
+            {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'}</span> : null}
             {typeof s.materiality_score === 'number' && (
               <span className="pcard__chip" title="How material the full check judged this event, 0–100">M {s.materiality_score}</span>
-            )}
-            {typeof s.novelty_score === 'number' && (
-              <span className="pcard__chip" title="How new this is vs the last few days — high = nobody's covered it yet">
-                {s.novelty_score >= 0.66 ? 'fresh' : s.novelty_score >= 0.33 ? 'developing' : 'known'} {Math.round(s.novelty_score * 100)}%
-              </span>
-            )}
-            {s.pair_label && s.pair_label !== 'new_event' && (
-              <span className="pcard__chip" title="How this event relates to earlier ones on the ledger">{s.pair_label.replace(/_/g, ' ')}</span>
             )}
           </div>
         </div>

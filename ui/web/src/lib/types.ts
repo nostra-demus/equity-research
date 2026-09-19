@@ -634,7 +634,7 @@ export interface LiveQuote {
 /** Why there is no price. Mirrors the server's AbsentReason so absence can be explained, not left blank. */
 export type QuoteAbsentReason =
   | 'no_currency' | 'unknown_symbol' | 'currency_mismatch'
-  | 'name_mismatch' | 'stale_feed' | 'implausible_price' | 'feed_unavailable'
+  | 'name_mismatch' | 'stale_feed' | 'implausible_price' | 'feed_unavailable' | 'not_quoted'
 
 /** The frozen call re-based onto the live price. The engine's own numbers are returned unchanged. */
 export interface CallVsLive {
@@ -1585,7 +1585,7 @@ export interface BoardIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy'
   trade_score: number
-  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'pre_edge_proxy_legacy'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'event_driven_v3' | 'pre_edge_proxy_legacy'
   trade_score_breakdown: { evidence: number; impact: number; specificity: number; timing: number; expression: number; corroboration: number; learning_adjustment: number } | null
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]
@@ -3575,6 +3575,8 @@ export interface WatchPlanView {
   /** `limit` is the provider's own usage limit — about this machine, not about the research; it clears when
    *  the plan resets, and the record's own bad case and deal-breakers are watched meanwhile. */
   state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget' | 'limit'
+  /** When this state was established. Absent from an engine that predates it (DESIGN.md §5). */
+  at?: string | null
   detail: string
   run_root: string
   decision: string | null
@@ -3597,6 +3599,11 @@ export interface WatchCondition {
   /** A passed date's tests to check by hand, apart from `detail` so the panel can fold them. Absent from an
    *  older engine, whose `detail` carries them instead. */
   checklist?: string[]
+  /** When you said you had seen this. A seen condition is still true and still shown — it stops deciding the
+   *  name's status. Absent from an engine that predates acknowledgement (DESIGN.md §5). */
+  seen_at?: string | null
+  /** Whether "seen it" is offered at all: only for a condition that cannot clear itself. */
+  can_ack?: boolean
 }
 
 export interface WatchRowWatch {
