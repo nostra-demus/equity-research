@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T17:38:44Z",
+  "generated_at": "2026-09-19T17:42:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-169",
+      "headline": "Wendy’s Franchisee Blames Bankruptcy on Ineffective Marketing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-19/wendy-s-franchisee-blames-bankruptcy-on-ineffective-marketing",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T17:25:06Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "A Wendy's franchisee filed for bankruptcy, citing ineffective marketing as a primary cause.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Wendy's franchisee filed for bankruptcy, citing ineffective marketing as a primary cause.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1874,55 +1923,6 @@
       "companies": [
         {
           "name": "GCash",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-038",
-      "headline": "AirAsia expects $1bn financing by January amid fuel cost pressure",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/transportation/airasia-expects-1bn-financing-by-january-amid-fuel-cost-pressure",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:58:47Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "AirAsia expects $1 billion in financing by January, which could alleviate fuel cost pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "AirAsia expects $1 billion in financing by January, which could alleviate fuel cost pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AirAsia",
           "ticker": null,
           "listing_country": null
         }
@@ -166958,9 +166958,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8486005,
-    "news_picked_today": 450,
-    "news_dropped_today": 8934
+    "news_seen_today": 8516755,
+    "news_picked_today": 451,
+    "news_dropped_today": 8957
   },
   "book_momentum": {
     "live_count": 8,
