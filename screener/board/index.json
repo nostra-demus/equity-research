@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T12:29:10Z",
+  "generated_at": "2026-09-19T12:40:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -126807,6 +126807,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-80566e7fce69",
+      "idea_version": "IDEAV-f82663b3219a08e7",
+      "idea_version_started_at": "2026-09-19T12:40:06Z",
+      "ticker": "NTPC",
+      "company": "NTPC Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of a Rs 413 crore battery energy storage system contract due to contractor default signals operational delays and potential cost overruns in the company's green energy infrastructure rollout.",
+      "why_now": "The contract termination was officially announced on 2026-09-19, creating immediate uncertainty regarding project timelines.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee9f07b20713"
+      ],
+      "primary_source_event_id": "EVT-ee9f07b20713",
+      "source_headlines": [
+        "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default"
+      ],
+      "source_headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
+      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T11:29:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T12:40:06Z",
+      "updated_at": "2026-09-19T12:40:06Z",
+      "decay_at": "2026-09-20T23:29:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1f05bd3420a7",
       "idea_version": "IDEAV-27b6f156ba686451",
       "idea_version_started_at": "2026-09-19T00:23:17Z",
@@ -128862,79 +128934,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-23d292b4cefa",
-      "idea_version": "IDEAV-487eb1749b503763",
-      "idea_version_started_at": "2026-09-17T23:19:18Z",
-      "ticker": "RWC",
-      "company": "Reliance Worldwide Corporation",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Brookfield has agreed to acquire the company for $2.9 billion, providing a clear exit valuation for shareholders.",
-      "why_now": "The buyout agreement was reported on 2026-09-16; the stock should trade toward the offer price.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1414f175e192"
-      ],
-      "primary_source_event_id": "EVT-1414f175e192",
-      "source_headlines": [
-        "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid"
-      ],
-      "source_headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
-      "source_url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T11:51:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-17T23:19:18Z",
-      "decay_at": "2026-09-17T23:51:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-aba8253ef457",
       "idea_version": "IDEAV-6e57e61b7da2bc39",
       "idea_version_started_at": "2026-09-17T23:19:18Z",
@@ -129000,77 +128999,6 @@
       "surfaced_at": "2026-09-17T23:19:18Z",
       "updated_at": "2026-09-17T23:19:18Z",
       "decay_at": "2026-09-19T01:38:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0df99569639a",
-      "idea_version": "IDEAV-e92ebd1af27b53f8",
-      "idea_version_started_at": "2026-09-17T22:38:57Z",
-      "ticker": "01540",
-      "company": "Left Field Printing Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has completed a major disposal and announced a special dividend of HK$0.30 per share, providing a direct cash return to shareholders.",
-      "why_now": "The announcement was made on 2026-09-16, and the special dividend provides a clear, immediate catalyst for price appreciation.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2ed679807cd8"
-      ],
-      "primary_source_event_id": "EVT-2ed679807cd8",
-      "source_headlines": [
-        "LEFTFIELD PRINT (01540): JOINT ANNOUNCEMENT - (1) COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF THE ISSUED SHARES OF THE TARGET COMPANY; AND (2) PAYMENT OF SPECIAL DIVIDEND OF HK$0.30 PER LEFT FIELD SHARE"
-      ],
-      "source_headline": "LEFTFIELD PRINT (01540): JOINT ANNOUNCEMENT - (1) COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF THE ISSUED SHARES OF THE TARGET COMPANY; AND (2) PAYMENT OF SPECIAL DIVIDEND OF HK$0.30 PER LEFT FIELD SHARE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601277.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T12:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T10:57:20Z",
-      "updated_at": "2026-09-17T22:38:57Z",
-      "decay_at": "2026-09-18T00:12:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -129511,78 +129439,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1cca59b30c7a",
-      "idea_version": "IDEAV-e6e492d5833b6b1a",
-      "idea_version_started_at": "2026-09-17T10:57:20Z",
-      "ticker": "BDEV",
-      "company": "Barratt Developments",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is slowing land acquisition and cutting its sales outlook, signaling a significant deterioration in housing market demand and margin pressure.",
-      "why_now": "The guidance change was announced today, September 16, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8cb36e2164e2"
-      ],
-      "primary_source_event_id": "EVT-8cb36e2164e2",
-      "source_headlines": [
-        "Britain’s biggest housebuilder slows land buying and cuts home sales outlook"
-      ],
-      "source_headline": "Britain’s biggest housebuilder slows land buying and cuts home sales outlook",
-      "source_url": "https://www.independent.co.uk/news/business/iran-britain-government-b3051176.html",
-      "source_name": "The Independent — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T11:27:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T10:57:20Z",
-      "updated_at": "2026-09-17T10:57:20Z",
-      "decay_at": "2026-09-17T23:27:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d38b8f11d860",
       "idea_version": "IDEAV-90dabdbb8475e0c6",
       "idea_version_started_at": "2026-09-18T08:52:41Z",
@@ -129664,33 +129520,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 18
       },
       "short": {
-        "total_count": 257,
+        "total_count": 256,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 6
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 350,
-      "oldest_retained_at": "2026-08-29T15:19:41Z",
+      "evicted_count": 353,
+      "oldest_retained_at": "2026-08-29T20:34:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 239,
-          "oldest_retained_at": "2026-09-07T00:27:44Z"
+          "evicted_count": 241,
+          "oldest_retained_at": "2026-09-07T04:47:24Z"
         },
         "short": {
-          "evicted_count": 111,
-          "oldest_retained_at": "2026-08-29T15:19:41Z"
+          "evicted_count": 112,
+          "oldest_retained_at": "2026-08-29T20:34:00Z"
         }
       }
     },
@@ -131535,8 +131391,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-18T00:12:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T12:40:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -131611,8 +131467,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T23:51:30Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T12:40:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -131686,8 +131542,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T23:27:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T12:40:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -166838,8 +166694,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 898,
-    "live_count": 20,
+    "surfaced_total": 899,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -166858,9 +166714,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6290058,
+    "news_seen_today": 6398294,
     "news_picked_today": 319,
-    "news_dropped_today": 6305
+    "news_dropped_today": 6401
   },
   "book_momentum": {
     "live_count": 8,
