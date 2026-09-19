@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T04:23:44Z",
+  "generated_at": "2026-09-19T04:27:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -1864,50 +1864,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260919-110",
-      "headline": "Gemini hacked three companies in first known breakout by Google's AI",
+      "inbox_id": "INB-20260919-116",
+      "headline": "Tata Group stocks reel from aftershocks as Trusts opposes third term for N Chandra",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai-19993947.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-group-stocks-reel-from-aftershocks-as-trusts-opposes-third-term-for-n-chandra/articleshow/134347371.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-19T03:11:44Z",
+      "found_at": "2026-09-19T03:55:49Z",
       "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Google's AI model Gemini was involved in a security breach affecting three companies, posing a reputational and operational risk.",
+      "prelim_note": "Internal conflict within Tata Trusts regarding the leadership of N. Chandrasekaran creates governance uncertainty for Tata Group companies.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "Google's AI model Gemini was involved in a security breach affecting three companies, posing a reputational and operational risk.",
-      "region": "GLOBAL",
+      "triage_reason": "Internal conflict within Tata Trusts regarding the leadership of N. Chandrasekaran creates governance uncertainty for Tata Group companies.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 6,
         "event": 4,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
+        "event_id": "management",
+        "size_bucket": "large"
       },
       "event_types": [
-        "cybersecurity"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Alphabet Inc",
+          "name": "Tata Group",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126748,75 +126748,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-91c73c597aa6",
-      "idea_version": "IDEAV-b6e2bcbe6e2c4d20",
-      "idea_version_started_at": "2026-09-17T20:23:46Z",
-      "ticker": "ASIANPAINT.NS",
-      "company": "Asian Paints Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The commencement of commercial production at the new VAE manufacturing facility in Dahej increases domestic capacity and reduces reliance on imports for key raw materials.",
-      "why_now": "The official exchange filing confirming the start of production was released on 2026-09-17.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3d8b2085003"
-      ],
-      "primary_source_event_id": "EVT-d3d8b2085003",
-      "source_headlines": [
-        "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat."
-      ],
-      "source_headline": "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ASIANPAINT_17092026215233_Reg_30_commencement_of_VAE_facility_for_filing-signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T16:26:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T20:23:46Z",
-      "updated_at": "2026-09-17T20:23:46Z",
-      "decay_at": "2026-09-19T04:26:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-622d9386e914",
       "idea_version": "IDEAV-239c742a1d76a857",
       "idea_version_started_at": "2026-09-18T00:48:37Z",
@@ -127882,6 +127813,75 @@
       "surfaced_at": "2026-09-17T20:23:46Z",
       "updated_at": "2026-09-17T20:23:46Z",
       "decay_at": "2026-09-19T02:13:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-91c73c597aa6",
+      "idea_version": "IDEAV-b6e2bcbe6e2c4d20",
+      "idea_version_started_at": "2026-09-17T20:23:46Z",
+      "ticker": "ASIANPAINT.NS",
+      "company": "Asian Paints Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The commencement of commercial production at the new VAE manufacturing facility in Dahej increases domestic capacity and reduces reliance on imports for key raw materials.",
+      "why_now": "The official exchange filing confirming the start of production was released on 2026-09-17.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3d8b2085003"
+      ],
+      "primary_source_event_id": "EVT-d3d8b2085003",
+      "source_headlines": [
+        "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat."
+      ],
+      "source_headline": "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ASIANPAINT_17092026215233_Reg_30_commencement_of_VAE_facility_for_filing-signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T16:26:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T20:23:46Z",
+      "updated_at": "2026-09-17T20:23:46Z",
+      "decay_at": "2026-09-19T04:26:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -129887,14 +129887,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 261,
@@ -129918,6 +129918,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-91c73c597aa6",
+        "idea_version": "IDEAV-b6e2bcbe6e2c4d20",
+        "idea_version_started_at": "2026-09-17T20:23:46Z",
+        "ticker": "ASIANPAINT.NS",
+        "company": "Asian Paints Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The commencement of commercial production at the new VAE manufacturing facility in Dahej increases domestic capacity and reduces reliance on imports for key raw materials.",
+        "why_now": "The official exchange filing confirming the start of production was released on 2026-09-17.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d3d8b2085003"
+        ],
+        "primary_source_event_id": "EVT-d3d8b2085003",
+        "source_headlines": [
+          "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat."
+        ],
+        "source_headline": "Asian Paints Limited: Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ASIANPAINT_17092026215233_Reg_30_commencement_of_VAE_facility_for_filing-signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T16:26:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T20:23:46Z",
+        "updated_at": "2026-09-17T20:23:46Z",
+        "decay_at": "2026-09-19T04:26:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T04:26:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-30c412e2e80e",
         "idea_version": "IDEAV-46fa22e8b3f49195",
@@ -158662,81 +158734,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a499ce26ab02",
-        "idea_version": "IDEAV-7113bf0dae83b7ef",
-        "idea_version_started_at": "2026-09-06T19:44:58Z",
-        "ticker": "SBIN",
-        "company": "State Bank of India",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "State Bank of India plans to unlock significant balance sheet value by diluting a 1% stake in the highly anticipated National Stock Exchange (NSE) IPO while expanding its physical footprint.",
-        "why_now": "The bank announced these concrete capital actions and hiring plans for the upcoming fiscal period on September 6, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6cf7661d47e1"
-        ],
-        "primary_source_event_id": "EVT-6cf7661d47e1",
-        "source_headlines": [
-          "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO"
-        ],
-        "source_headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
-        "source_url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
-        "source_name": "Free Press Journal",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-06T06:27:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T05:50:29Z",
-        "updated_at": "2026-09-06T19:44:58Z",
-        "decay_at": "2026-09-07T18:27:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T11:02:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fe979375f297",
         "idea_version": "IDEAV-6f176b62dcc5277f",
         "idea_version_started_at": "2026-09-06T07:07:02Z",
@@ -167075,7 +167072,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 892,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -167094,9 +167091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2412583,
-    "news_picked_today": 158,
-    "news_dropped_today": 2098
+    "news_seen_today": 2430236,
+    "news_picked_today": 160,
+    "news_dropped_today": 2120
   },
   "book_momentum": {
     "live_count": 8,
