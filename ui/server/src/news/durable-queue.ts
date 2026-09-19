@@ -557,3 +557,17 @@ export function durableQueueDatabasePath(stateDir: string): string {
 export function durableQueueEstablishedPath(stateDir: string): string {
   return establishedPath(stateDir)
 }
+
+export function isTerminalEvent(stateDir: string, eventId: string): boolean {
+  let db: DatabaseSync | undefined
+  try {
+    db = openQueue(stateDir)
+    if (!db) return false
+    const row = db.prepare('SELECT 1 FROM news_queue_terminal_ids WHERE event_id = ?').get(eventId)
+    return !!row
+  } catch {
+    return false
+  } finally {
+    try { db?.close() } catch {}
+  }
+}
