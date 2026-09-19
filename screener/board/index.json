@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-19T00:06:52Z",
+  "generated_at": "2026-09-19T00:16:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260919-003",
+      "headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:44:01Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Netflix has $27 billion remaining in its share buyback authorization, representing approximately 8% of its market capitalization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Netflix has $27 billion remaining in its share buyback authorization, representing approximately 8% of its market capitalization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260919-001",
       "headline": "Trump officially signs Russia sanctions bill into law",
@@ -88,6 +137,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-004",
+      "headline": "Two hospital systems settle US probe over transgender care billing for $9.5 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/two-hospital-systems-settle-us-probe-over-transgender-care-billing-95-million-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:56:58Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Two hospital systems agreed to pay $9.5 million to settle a probe regarding transgender care billing practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Two hospital systems agreed to pay $9.5 million to settle a probe regarding transgender care billing practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -165197,7 +165289,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2569,
+    "inbox_unconsumed": 2571,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165206,9 +165298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 38616,
-    "news_picked_today": 2,
-    "news_dropped_today": 22
+    "news_seen_today": 77205,
+    "news_picked_today": 4,
+    "news_dropped_today": 92
   },
   "book_momentum": {
     "live_count": 8,
