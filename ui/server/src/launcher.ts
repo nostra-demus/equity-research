@@ -7069,7 +7069,13 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
   const untracked = nulPaths(execFileSync('git', [
     'ls-files', '--others', '--exclude-standard', '-z', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
-  const paths = [...new Set([...changed, ...untracked, ...requiredPaths])].sort()
+  // The Idea-publication gate deliberately stays on disk until the supervisor finishes this very commit,
+  // so a run-root pathspec (what /research:full and /research:rerun pass) always sweeps it up as an
+  // untracked file. It is supervisor control state, not research data: it has never been tracked and the
+  // data catalogue rejects it, so sealing it into the immutable snapshot makes a publication no retry can
+  // ever publish (2026-09-17 outage). Keep it out of the snapshot whether it was swept or named.
+  const paths = [...new Set([...changed, ...untracked, ...requiredPaths])]
+    .filter((relative) => path.posix.basename(relative) !== IDEA_PUBLICATION_MARKER).sort()
   if (!paths.length) throw new Error('cockpit publication resolved to no exact files')
   const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
   fs.chmodSync(directory, 0o700)
@@ -8223,70 +8229,103 @@ function runFromReadyPublication(record: ReadyPublicationRecord): RunState {
   } as RunState
 }
 
+export interface ReadyPublicationFailure {
+  /** The receipt file name: the only identity available when the receipt itself cannot be verified. */
+  entry: string
+  error: string
+  failedAt: string
+}
+const readyPublicationFailures = new Map<string, ReadyPublicationFailure>()
+
+/** Sealed publications the last recovery pass could not publish. Each keeps its protected receipt and
+ * immutable snapshot, publishes nothing, and is retried by the next pass. */
+export function listReadyPublicationFailures(): ReadyPublicationFailure[] {
+  return [...readyPublicationFailures.values()]
+}
+
 /** Retry only post-extinction publications whose immutable snapshot and provider identity were sealed in
  * protected supervisor state before Git began. Live/queued intents are intentionally unrecoverable: the
- * preserved run is marked interrupted and requires an explicit continuation after a crash. */
+ * preserved run is marked interrupted and requires an explicit continuation after a crash.
+ *
+ * One receipt is one failure domain. This runs before listen(), so an error that escapes it stops the
+ * whole cockpit and launchd restarts it straight back into the same error: on 2026-09-16/17 one re-run whose
+ * sealed path list the data catalogue rejects (a deterministic failure no retry can cure) held the engine
+ * in a crash loop overnight, until an operator intervened. Git, the catalogue, the network and the push are external dependencies
+ * (doctrine §31): a receipt that cannot publish fails visibly, keeps its receipt and snapshot for the next
+ * pass, and never blocks the other receipts or admission. Skipping is the fail-closed outcome for the
+ * publication itself — an unverifiable or rejected receipt commits nothing. */
 export async function recoverReadyPublications(): Promise<number> {
   fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
   fs.chmodSync(readyPublicationDir, 0o700)
+  readyPublicationFailures.clear()
   let recovered = 0
   for (const entry of fs.readdirSync(readyPublicationDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
     if (!entry.name.endsWith('.json')) continue
-    if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
-    let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
-    if (!record) continue
-    const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
-    for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
-    const output = await supervisorCommitter(record.message, record.paths, env)
-    const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
-    await supervisorCommitVerifier(output, record.paths, snapshotHashes)
-    let recoveredRevision = verifiedPublishedRevision(output)
-
-    if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
-      const primarySha = verifiedPublishedRevision(output)
-      const metadataRelative = `${record.run_root}/RUN_METADATA.md`
-      const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
-      if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
-      {
-        const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
-        const placeholder = '(to be filled after commit)'
-        if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
-          throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
-        }
-        writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
-        const run = runFromReadyPublication(record)
-        const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
-        const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
-        const backfillRecord = writeReadyPublication(
-          run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
-          'backfill-ready', finalHashes, primarySha,
-        )
-        fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
-        record = backfillRecord
-        const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
-        const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
-        await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
-        await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
-        recoveredRevision = verifiedPublishedRevision(backfillOutput)
-      }
-    } else {
-      await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+    try {
+      if (await recoverReadyPublication(entry)) recovered++
+    } catch (error: any) {
+      const detail = String(error?.stderr || error?.shortMessage || error?.message || error).trim().slice(0, 1000)
+      readyPublicationFailures.set(entry.name, { entry: entry.name, error: detail, failedAt: new Date().toISOString() })
+      console.error(`[publication] sealed publication ${entry.name} could not be recovered; its receipt and snapshot are retained for the next pass: ${detail}`) // eslint-disable-line no-console
     }
-
-    recordRecoveredPublicationAuthority({
-      runId: record.run_id, runRoot: record.run_root, provider: record.provider,
-      model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
-      executionProfile: record.execution_profile,
-    }, record.artifact_hashes)
-    await runIbkrPaperAutoSyncAfterPublication({
-      runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
-      willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
-      publicationRevision: recoveredRevision,
-    })
-    clearReadyPublication(record)
-    recovered++
   }
   return recovered
+}
+
+async function recoverReadyPublication(entry: fs.Dirent): Promise<boolean> {
+  if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
+  let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
+  if (!record) return false
+  const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
+  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+  const output = await supervisorCommitter(record.message, record.paths, env)
+  const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
+  await supervisorCommitVerifier(output, record.paths, snapshotHashes)
+  let recoveredRevision = verifiedPublishedRevision(output)
+
+  if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
+    const primarySha = verifiedPublishedRevision(output)
+    const metadataRelative = `${record.run_root}/RUN_METADATA.md`
+    const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
+    if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
+    {
+      const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
+      const placeholder = '(to be filled after commit)'
+      if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
+        throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
+      }
+      writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
+      const run = runFromReadyPublication(record)
+      const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
+      const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
+      const backfillRecord = writeReadyPublication(
+        run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
+        'backfill-ready', finalHashes, primarySha,
+      )
+      fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
+      record = backfillRecord
+      const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
+      const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
+      await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
+      await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
+      recoveredRevision = verifiedPublishedRevision(backfillOutput)
+    }
+  } else {
+    await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+  }
+
+  recordRecoveredPublicationAuthority({
+    runId: record.run_id, runRoot: record.run_root, provider: record.provider,
+    model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
+    executionProfile: record.execution_profile,
+  }, record.artifact_hashes)
+  await runIbkrPaperAutoSyncAfterPublication({
+    runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
+    willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
+    publicationRevision: recoveredRevision,
+  })
+  clearReadyPublication(record)
+  return true
 }
 
 /** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay
