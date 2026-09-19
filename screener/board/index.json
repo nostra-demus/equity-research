@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T03:48:21Z",
+  "generated_at": "2026-09-19T03:54:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -957,6 +957,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-101",
+      "headline": "SC HOLDINGS (00413): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE AND CONNECTED TRANSACTION IN RESPECT OF THE DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF TWO WHOLLY-OWNED SUBSIDIARIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800916.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T09:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The company is disclosing a connected transaction involving the disposal of two subsidiaries, which is a material corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company is disclosing a connected transaction involving the disposal of two subsidiaries, which is a material corporate action.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SC HOLDINGS",
+          "ticker": "00413",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-076",
       "headline": "Hatteras Investment Partners, LP and David B. Perkins",
       "headline_en": null,
@@ -1234,6 +1283,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-100",
+      "headline": "WEBX HOLDING (00339): CLARIFICATION ANNOUNCEMENT REGARDING MEDIA REPORTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800930.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T09:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The company is issuing a clarification regarding media reports, which may impact market perception or address potential misinformation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The company is issuing a clarification regarding media reports, which may impact market perception or address potential misinformation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WEBX HOLDING",
+          "ticker": "00339",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1819,104 +1917,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-002",
-      "headline": "Turkey revokes licence of Iran's Bank Mellat as US sanctions intensify",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/turkey-revokes-licence-irans-bank-mellat-us-sanctions-intensify",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T23:56:06Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Turkey has revoked the license of Bank Mellat, a significant regulatory action impacting the bank's operations in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Turkey has revoked the license of Bank Mellat, a significant regulatory action impacting the bank's operations in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank Mellat",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-079",
-      "headline": "TRANSTHERA-B (02617): VOLUNTARY ANNOUNCEMENT FIRST PATIENT DOSED IN PHASE II CLINICAL TRIAL OF TINENGOTINIB IN COMBINATION WITH NOVEL HORMONAL THERAPY FOR PRETREATED AND PROGRESSED METASTATIC CASTRATION-RESISTANT PROSTATE CANCER IN CHINA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801256.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T10:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Company announced the first patient dosed in a Phase II clinical trial for a cancer treatment, representing a milestone in drug development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company announced the first patient dosed in a Phase II clinical trial for a cancer treatment, representing a milestone in drug development.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TransThera Biosciences",
-          "ticker": "02617",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167103,9 +167103,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2092763,
-    "news_picked_today": 124,
-    "news_dropped_today": 1820
+    "news_seen_today": 2181981,
+    "news_picked_today": 126,
+    "news_dropped_today": 1866
   },
   "book_momentum": {
     "live_count": 8,
