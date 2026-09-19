@@ -95,28 +95,67 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
   return cards.sort((a, b) => b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
 }
 
-export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: DiscoveryCard[]; notices: string[] } {
+export function readDiscoveryCatalog(root: string, archiveDir = '', lane?: string): { cards: DiscoveryCard[]; notices: string[] } {
   let index: any = {}
   try { index = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8')) } catch { /* canonical stores below remain authoritative */ }
-  const projection = projectLiveIdeas(root, index)
-  const themes = loadThemesLedger(root)
-  const feed = readFeed(root, 7, { archiveDir, maxItems: 6000, preservePersistedDedupGroups: true })
-  const families = new Map(feed.items.map((i) => [i.event_id, themeStoryFamilyKey(i)]))
-  for (const t of themes.themes) for (const m of t.members) families.set(m.event_id, themeStoryFamilyKey(m))
-  const cards = [...projection.ideas, ...projection.ideas_archive.rows].map((r) => discoveryIdea(r, families))
-  const chain = buildSupplyChainBoard(root)
-  for (const lead of chain.leads) {
-    const card = shell('chain', [`chain:${lead.anchor_ticker}|${lead.listing || lead.name}|${lead.role}|${lead.path.map((p) => p.listing || p.name).join('>')}`],
-      lead as unknown as Record<string, unknown>, iso(lead.anchor_decision_date), lead.lead_score)
-    card.listings = { long: discoveryListing(lead.symbol || lead.listing, lead.exchange), short: null }
-    cards.push(card)
-  }
-  cards.push(...buildDiscoveryEvents(themes.themes, feed.items))
+  
   const notices: string[] = []
-  if (projection.ideas_archive.health.status === 'degraded' || projection.ideas_archive.health.status === 'unreadable') notices.push('Some saved idea history could not be read.')
-  if (projection.ideas_archive.retention.evicted_count) notices.push(`${projection.ideas_archive.retention.evicted_count} older automatically expired records are no longer stored. Manually archived cards are retained.`)
-  if (chain.health.status === 'degraded') notices.push(chain.health.reason)
-  if (!feed.items.length && !themes.themes.length) notices.push('No event reports are available from the saved news and story records yet.')
+  const cards: DiscoveryCard[] = []
+  
+  const loadIdeas = !lane || lane === 'long' || lane === 'short' || lane === 'archives'
+  const loadChain = !lane || lane === 'chain' || lane === 'archives'
+  const loadEvents = !lane || lane === 'events' || lane === 'archives'
+  const loadFamilies = loadIdeas || loadEvents
+
+  let themes: { themes: Theme[] } = { themes: [] }
+  let feed: { items: FeedItem[] } = { items: [] }
+  const families = new Map<string, string>()
+
+  if (loadFamilies) {
+    try {
+      themes = loadThemesLedger(root)
+      feed = readFeed(root, 7, { archiveDir, maxItems: 6000, preservePersistedDedupGroups: true })
+      for (const i of feed.items) families.set(i.event_id, themeStoryFamilyKey(i))
+      for (const t of themes.themes) for (const m of t.members) families.set(m.event_id, themeStoryFamilyKey(m))
+    } catch (e: any) {
+      if (lane === 'events') throw e
+      notices.push('Event reports are currently unavailable.')
+    }
+  }
+
+  if (loadIdeas) {
+    try {
+      const projection = projectLiveIdeas(root, index)
+      cards.push(...[...projection.ideas, ...projection.ideas_archive.rows].map((r) => discoveryIdea(r, families)))
+      if (projection.ideas_archive.health.status === 'degraded' || projection.ideas_archive.health.status === 'unreadable') notices.push('Some saved idea history could not be read.')
+      if (projection.ideas_archive.retention.evicted_count) notices.push(`${projection.ideas_archive.retention.evicted_count} older automatically expired records are no longer stored. Manually archived cards are retained.`)
+    } catch (e: any) {
+      if (lane === 'long' || lane === 'short' || lane === 'archives') throw e
+      notices.push('Idea records are currently unavailable.')
+    }
+  }
+
+  if (loadChain) {
+    try {
+      const chain = buildSupplyChainBoard(root)
+      for (const lead of chain.leads) {
+        const card = shell('chain', [`chain:${lead.anchor_ticker}|${lead.listing || lead.name}|${lead.role}|${lead.path.map((p) => p.listing || p.name).join('>')}`],
+          lead as unknown as Record<string, unknown>, iso(lead.anchor_decision_date), lead.lead_score)
+        card.listings = { long: discoveryListing(lead.symbol || lead.listing, lead.exchange), short: null }
+        cards.push(card)
+      }
+      if (chain.health.status === 'degraded') notices.push(chain.health.reason)
+    } catch (e: any) {
+      if (lane === 'chain') throw e
+      notices.push('Supply chain data is currently unavailable.')
+    }
+  }
+
+  if (loadEvents) {
+    cards.push(...buildDiscoveryEvents(themes.themes, feed.items))
+    if (!feed.items.length && !themes.themes.length) notices.push('No event reports are available from the saved news and story records yet.')
+  }
+
   return { cards, notices }
 }
 
@@ -124,12 +163,24 @@ export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: Di
 export async function readFilingActions(root: string): Promise<FilingAction[]> {
   let text: string
   try { text = await fs.promises.readFile(ledgerPath(root), 'utf8') } catch (e: any) { if (e.code === 'ENOENT') return []; throw e }
-  return text.split('\n').filter(Boolean).map((line) => {
-    const row = JSON.parse(line) as FilingAction
-    if (row.schema_version !== 'idea-filing/v1' || !['archive', 'restore', 'update'].includes(row.action)
-      || !iso(row.at) || !row.operation_id || !isDiscoveryCard(row.card)) throw new Error('Saved archive history is unreadable; filing actions are paused.')
-    return row
-  })
+  const lines = text.split('\n')
+  const valid: FilingAction[] = []
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    if (!line) continue
+    try {
+      const row = JSON.parse(line) as FilingAction
+      if (row.schema_version !== 'idea-filing/v1' || !['archive', 'restore', 'update'].includes(row.action)
+        || !iso(row.at) || !row.operation_id || !isDiscoveryCard(row.card)) {
+        throw new Error('Saved archive history is unreadable; filing actions are paused.')
+      }
+      valid.push(row)
+    } catch (e: any) {
+      if (e instanceof SyntaxError && (i === lines.length - 1 || (i === lines.length - 2 && !lines[lines.length - 1]))) continue
+      throw e
+    }
+  }
+  return valid
 }
 
 
@@ -199,14 +250,14 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
 
 export async function readFilingActionsSafely(root: string): Promise<FilingAction[]> {
   if (isMainThread) return runDiscoveryInWorker('readFilingActionsSafely', [root])
-  return locked(root, () => readFilingActions(root), 'shared')
+  return readFilingActions(root)
 }
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
-  let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null
-  const catalog = () => {
-    if (!cached || cached.until <= Date.now()) cached = { until: Date.now() + 30_000, value: readDiscoveryCatalog(root, archiveDir) }
-    return cached.value
+  let cached: Record<string, { until: number; value: ReturnType<typeof readDiscoveryCatalog> }> = {}
+  const catalog = (lane: string) => {
+    if (!cached[lane] || cached[lane].until <= Date.now()) cached[lane] = { until: Date.now() + 30_000, value: readDiscoveryCatalog(root, archiveDir, lane === 'all' ? undefined : lane) }
+    return cached[lane].value
   }
   const query = z.object({ lane: z.enum(['long', 'events', 'short', 'chain', 'archives']).default('events'),
     hide: z.string().default('HK,IN'), kind: z.enum(['all', 'idea', 'event', 'chain']).default('all'),
@@ -216,8 +267,8 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
   app.get('/api/screener/idea-workspace', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     const parsed = query.safeParse(req.query)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid Ideas filters.' })
-    if (parsed.data.refresh === '1') cached = null
-    const { cards, notices } = catalog()
+    if (parsed.data.refresh === '1') cached = {}
+    const { cards, notices } = catalog(parsed.data.lane)
     const { lane, hide, kind, cursor } = parsed.data
     const actions = await readFilingActionsSafely(root)
     return discoveryPage(projectDiscovery(cards, actions), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor, notices)
@@ -225,8 +276,9 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
   app.post('/api/screener/idea-workspace/actions', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     const parsed = mutation.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid filing action.' })
-    const { cards } = catalog()
+    const { cards } = catalog('all')
     onMutation()
+    cached = {}
     const card = await fileDiscoveryCard(root, cards, parsed.data)
     return { card }
   })

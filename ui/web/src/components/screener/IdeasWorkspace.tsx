@@ -57,7 +57,7 @@ export function IdeasWorkspace() {
   const [kind, setKind] = useState('all')
   const [page, setPage] = useState<DiscoveryPage | null>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [errorState, setErrorState] = useState<{ key: string, message: string } | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
   const [undo, setUndo] = useState<DiscoveryCard | null>(null)
   const count = useRef(30)
@@ -65,11 +65,14 @@ export function IdeasWorkspace() {
   const pending = useRef(false)
   const mounted = useRef(true)
   const hideKey = [...hidden].sort().join(',')
+  const requestKey = `${lane}|${hideKey}|${kind}`
+  const error = errorState?.key === requestKey ? errorState.message : null
 
   const load = useCallback(async (refresh = false) => {
     const seq = ++sequence.current
     pending.current = true
     setLoading(true)
+    const currentRequestKey = `${lane}|${hideKey}|${kind}`
     try {
       let next = await api.ideasWorkspace(lane, hideKey, kind, '0', refresh)
       const rows = [...next.rows]
@@ -84,9 +87,9 @@ export function IdeasWorkspace() {
       }
       if (seq !== sequence.current || !mounted.current) return
       setPage({ ...next, rows: [...new Map(rows.map((r) => [r.key, r])).values()] })
-      setError(null)
+      setErrorState(null)
     } catch (e: any) {
-      if (seq === sequence.current && mounted.current) setError(e?.message || 'Could not load ideas. Please retry.')
+      if (seq === sequence.current && mounted.current) setErrorState({ key: currentRequestKey, message: e?.message || 'Could not load ideas. Please retry.' })
     } finally {
       if (seq === sequence.current && mounted.current) { pending.current = false; setLoading(false) }
     }
@@ -112,14 +115,14 @@ export function IdeasWorkspace() {
   const file = async (card: DiscoveryCard, action: 'archive' | 'restore') => {
     if (busy) return
     setBusy(card.key)
-    setError(null)
+    setErrorState(null)
     try {
       const { card: updated } = await api.fileIdeaCard(card, action, crypto.randomUUID())
       if (!mounted.current) return
       setUndo(action === 'archive' ? updated : null)
       setPage((p) => p ? { ...p, rows: p.rows.filter((r) => r.key !== card.key), total: Math.max(0, p.total - 1) } : p)
       await loadRef.current()
-    } catch (e: any) { if (mounted.current) setError(e?.message || 'Could not save the filing action. Please retry.') }
+    } catch (e: any) { if (mounted.current) setErrorState({ key: requestKey, message: e?.message || 'Could not save the filing action. Please retry.' }) }
     finally { if (mounted.current) setBusy(null) }
   }
 

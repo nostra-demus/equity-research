@@ -164,5 +164,19 @@ try {
   const bytes = fs.readFileSync(ledger, 'utf8')
   await assert.rejects(async () => await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: randomUUID(), expected_revision: null }))
   assert.equal(fs.readFileSync(ledger, 'utf8'), bytes)
+  // Integration regression for PR #700 lock contention.
+  // A repository writer holding the repository mutation lease (e.g. news publisher)
+  // must not cause the Ideas GET endpoint to return HTTP 500.
+  const app2 = Fastify()
+  registerIdeasWorkspace(app2, root)
+  const repoLockFd = acquireRetainedFlockSync(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'held by publisher' })
+  try {
+    const contentionResponse = await app2.inject('/api/screener/idea-workspace?lane=events&hide=HK,IN&kind=all&cursor=0&refresh=0')
+    assert.equal(contentionResponse.statusCode, 200, 'Ideas workspace GET must succeed even when repository mutation lease is held by a publisher')
+  } finally {
+    releaseRetainedFlock(repoLockFd)
+    await app2.close()
+  }
+
   console.log('ideas workspace: listing, archive lifecycle, story correction, identity merge and API tests passed')
 } finally { fs.rmSync(root, { recursive: true, force: true }) }
