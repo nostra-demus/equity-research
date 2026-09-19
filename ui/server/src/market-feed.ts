@@ -161,14 +161,21 @@ export function readNewestClose(symbol: string): Close[] {
   const providers = feedProviders()
   if (providers.length === 0) return []
 
+  // Sibling series in the same provider directory (e.g. FRED writing dtb3_<date>.csv right after
+  // sp500_<date>.csv) must not shadow each other. Prioritize files whose name matches the symbol slug;
+  // fall back to all CSV files only if no symbol-named files exist (for generic feeds like feed.csv).
+  const norm = want.toLowerCase().replace(/[^a-z0-9]/g, '')
+
   const perProvider = new Map<string, Map<string, number>>()
   for (const provider of providers.slice().sort()) {
     const dir = path.join(MARKET_FEED_DIR, provider)
     let files: string[] = []
     try { files = fs.readdirSync(dir).filter((n) => n.toLowerCase().endsWith('.csv')) } catch { continue }
+    const symbolFiles = norm ? files.filter((f) => f.toLowerCase().replace(/[^a-z0-9]/g, '').includes(norm)) : []
+    const candidates = symbolFiles.length > 0 ? symbolFiles : files
     let newest: string | null = null
     let newestMtime = -Infinity
-    for (const file of files) {
+    for (const file of candidates) {
       let mtime = -Infinity
       try { mtime = fs.statSync(path.join(dir, file)).mtimeMs } catch { continue }
       if (mtime > newestMtime) { newestMtime = mtime; newest = file }
