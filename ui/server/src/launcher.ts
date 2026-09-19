@@ -13,6 +13,7 @@ import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
+import { assertCommitRunAllowed, commitRunScriptFor } from './commit-run'
 import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
 import { PUBLICATION_REFUSED_REASON, requiresManualResume } from './resume-policy'
 import { buildSwarmGraph, downstreamCascade } from './roster'
@@ -480,7 +481,7 @@ const FAILURE_NOTE = 'RUN_FAILURE.md'
 const recordedFailure = new Set<string>() // runRoots already recorded this process (single-shot dedup)
 
 let commitRunFile: (runRoot: string, file: string, msg: string) => void = (runRoot, file, msg) => {
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  const script = commitRunScriptFor(REPO_ROOT)
   // Timeout must EXCEED commit-run.sh's own ~15-min git-lock wait — a 60s cap would kill the helper while
   // it legitimately waits behind a concurrent full/chained commit, so the note would never reach git
   // (defeating the durable off-host diagnostic). commit-run.sh gives up on its own at 15m (exit 4).
@@ -6922,6 +6923,10 @@ const issuedParityAttestations = new Map<string, IssuedParityAttestation>()
 const PARITY_ATTESTATION_TTL_MS = 30 * 60_000
 
 let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
+  // Both branches below write calibration data and then publish it; the research one reaches commit-run.sh
+  // through calibrate-local.sh, where only the script-level refusal applies. Refuse here, before anything is
+  // written, so a test that forgot __setPostReviewCalibration fails loudly instead of dirtying the checkout.
+  assertCommitRunAllowed(REPO_ROOT)
   const env: NodeJS.ProcessEnv = { ...process.env, ENGINE_REPO_ROOT: REPO_ROOT }
   for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
   if (run.swarmId === RESEARCH_SWARM_ID) {
@@ -6965,14 +6970,16 @@ let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
 }
 
 type SupervisorCommitter = (message: string, pathspecs: string[], env: NodeJS.ProcessEnv) => Promise<string>
+
 /** The production committer. `script` is a parameter only so the regression can run this exact function —
  * including the catch that types a refusal — against a harmless stand-in helper. */
 export function commitRunCommitter(
-  script: string = path.join(REPO_ROOT, 'scripts', 'commit-run.sh'),
+  script?: string,
 ): SupervisorCommitter {
   return async (message, pathspecs, env) => {
+    const resolvedScript = script ?? commitRunScriptFor(REPO_ROOT)
     try {
-      const result = await execa('bash', [script, message, '--', ...pathspecs], {
+      const result = await execa('bash', [resolvedScript, message, '--', ...pathspecs], {
         cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
       })
       return result.stdout

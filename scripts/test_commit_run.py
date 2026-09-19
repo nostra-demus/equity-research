@@ -60,6 +60,10 @@ def git_env():
         # isolate from any real engine App credential helper on the test machine
         "NOSTRA_ENGINE_CONFIG_DIR": tempfile.mkdtemp(prefix="commit-run-test-noapp-"),
     })
+    # These tests drive the REAL helper against sandbox repositories, which is exactly what the test-run
+    # guard refuses — so drop it here, explicitly, even when a parent test runner exported it.
+    env.pop("ENGINE_TEST_RUN", None)
+    env.pop("ENGINE_TEST_RUN_VIOLATIONS", None)
     return env
 
 
@@ -233,6 +237,47 @@ def test_no_op_when_no_matching_pathspec():
         )
         check("NOOP path exits 0 when nothing matches the given pathspec", result.returncode == 0, result.stdout)
         check("NOOP path reports NOOP=1", "NOOP=1" in result.stdout, result.stdout)
+
+
+def test_test_run_guard_refuses_before_any_commit_or_push():
+    """Under ENGINE_TEST_RUN=1 the helper must refuse loudly: no commit, no push, a ledger line, exit 6."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-guard-") as tmp:
+        origin, agent, env = setup_stale_local_main_scenario(tmp)
+        write_text(agent, "analyses/base/guarded.txt", "would have leaked\n")
+        head_before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        origin_before = run(["git", "rev-parse", "main"], cwd=origin, env=env).stdout.strip()
+        ledger = os.path.join(tmp, "violations.tsv")
+        guarded = dict(env, ENGINE_TEST_RUN="1", ENGINE_TEST_RUN_VIOLATIONS=ledger)
+        result = run(
+            ["bash", COMMIT_RUN, "Run failure note: ZZGUARD (stopped at business-model)", "--",
+             "analyses/base/guarded.txt"],
+            cwd=agent, env=guarded, check_rc=False,
+        )
+        check("test-run guard exits 6", result.returncode == 6, f"rc={result.returncode} stderr={result.stderr!r}")
+        check("test-run guard says so on stderr", "REFUSED under ENGINE_TEST_RUN=1" in result.stderr, result.stderr)
+        check("test-run guard reports no commit identity", "COMMIT_SHA=" not in result.stdout, result.stdout)
+        check("test-run guard leaves local HEAD untouched",
+              run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip() == head_before)
+        check("test-run guard leaves origin/main untouched",
+              run(["git", "rev-parse", "main"], cwd=origin, env=env).stdout.strip() == origin_before)
+        check("test-run guard stages nothing",
+              run(["git", "diff", "--cached", "--name-only"], cwd=agent, env=env).stdout.strip() == "")
+        recorded = Path(ledger).read_text() if os.path.exists(ledger) else ""
+        check("test-run guard records the refusal in the runner's ledger",
+              recorded.startswith("commit-run.sh\tRun failure note: ZZGUARD"), recorded)
+
+        retry = run(["bash", COMMIT_RUN, "--retry-push", head_before], cwd=agent, env=guarded, check_rc=False)
+        check("test-run guard also refuses retry-push", retry.returncode == 6, f"rc={retry.returncode}")
+        check("retry-push refusal leaves origin/main untouched",
+              run(["git", "rev-parse", "main"], cwd=origin, env=env).stdout.strip() == origin_before)
+
+        # The same request without the guard variable still publishes: the guard changes nothing in production.
+        result = run(["bash", COMMIT_RUN, "test: unguarded", "--", "analyses/base/guarded.txt"],
+                     cwd=agent, env=env, check_rc=False)
+        check("without the guard variable the helper still commits and pushes",
+              result.returncode == 0 and "COMMIT_SHA=" in result.stdout
+              and run(["git", "rev-parse", "main"], cwd=origin, env=env).stdout.strip() != origin_before,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
 
 
 def test_uncatalogued_data_is_rejected_before_commit():
@@ -927,6 +972,7 @@ if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
     test_no_op_when_no_matching_pathspec()
+    test_test_run_guard_refuses_before_any_commit_or_push()
     test_uncatalogued_data_is_rejected_before_commit()
     test_catalogue_globs_do_not_cross_path_segments()
     test_catalogue_validator_that_cannot_run_is_not_a_refusal()
