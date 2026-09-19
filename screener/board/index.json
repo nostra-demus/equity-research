@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T05:50:35Z",
+  "generated_at": "2026-09-19T06:05:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -497,6 +497,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-121",
+      "headline": "Ukrainian capital Kyiv under missile attack, mayor says",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/ukrainian-capital-kyiv-under-missile-attack-mayor-says",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T05:58:38Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "A major missile attack on the capital of Ukraine represents a significant escalation in the ongoing geopolitical conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A major missile attack on the capital of Ukraine represents a significant escalation in the ongoing geopolitical conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-051",
       "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
       "headline_en": null,
@@ -541,6 +584,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-122",
+      "headline": "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TIRUPATIFL_19092026112507_Press_Release_-_License_for_Defence_Manufacturing.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T05:55:45Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The company received an industrial license for defence manufacturing, which opens a new revenue stream.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company received an industrial license for defence manufacturing, which opens a new revenue stream.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tirupati Forge Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1803,105 +1896,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-003",
-      "headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T23:44:01Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Netflix has $27 billion remaining in its share buyback authorization, representing approximately 8% of its market capitalization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Netflix has $27 billion remaining in its share buyback authorization, representing approximately 8% of its market capitalization.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Netflix",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-097",
-      "headline": "Philippines: Billionaire Villar family hit with criminal, administrative complaints over PrimeWater deals",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/asia/philippines/philippines-billionaire-villar-family-hit-with-graft-complaints-over-primewater-deals-1.500680199",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:55:25Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Billionaire Villar family faces criminal and administrative complaints over PrimeWater deals, posing significant legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Billionaire Villar family faces criminal and administrative complaints over PrimeWater deals, posing significant legal and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PrimeWater",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167085,9 +167079,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2968821,
-    "news_picked_today": 206,
-    "news_dropped_today": 2842
+    "news_seen_today": 3070961,
+    "news_picked_today": 214,
+    "news_dropped_today": 2978
   },
   "book_momentum": {
     "live_count": 8,
