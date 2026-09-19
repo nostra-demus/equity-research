@@ -736,6 +736,8 @@ interface State {
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
+  scRailFullScreen: boolean
+  toggleRailFullScreen: () => void
   reports: { memo: boolean; thesis: boolean; dossier: boolean }
   // per-module three tiers (run-root-relative paths), keyed by module folder name. Generic — any module lights up.
   moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
@@ -1734,6 +1736,8 @@ export const useStore = create<State>((set, get) => ({
   coreBloom: false,
   decision: null,
   runRoot: null,
+  scRailFullScreen: false,
+  toggleRailFullScreen: () => set((s) => ({ scRailFullScreen: !s.scRailFullScreen })),
   reports: { memo: false, thesis: false, dossier: false },
   moduleReports: {},
   thesisPlan: null,

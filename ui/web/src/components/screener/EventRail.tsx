@@ -599,12 +599,19 @@ export function EventRail() {
     )
   }
 
+  const scRailFullScreen = useStore((s) => s.scRailFullScreen)
+  const toggleRailFullScreen = useStore((s) => s.toggleRailFullScreen)
+
   return (
     <aside className="evrail">
       <header className="evrail__head">
         <div className="evrail__titlerow">
           <span className="evrail__title">Events</span>
           <span className={`evrail__dot${status?.enabled ? ' evrail__dot--live' : ''}`} aria-hidden />
+          <div style={{ flex: 1 }} />
+          <button type="button" className={`evrail__segbtn ${scRailFullScreen ? 'evrail__segbtn--on' : ''}`} style={{ padding: '0 8px', height: '24px' }} onClick={toggleRailFullScreen} title={scRailFullScreen ? 'Exit full screen' : 'Full screen'}>
+            ⤢
+          </button>
         </div>
         <div className="evrail__status">{statusLine}</div>
         {today && status?.enabled && todayCopy && (
