@@ -1,0 +1,51 @@
+{
+  "schema_version": "watchlist-entry/v1",
+  "entry_id": "WL-20260917-88848a01",
+  "origin": "engine",
+  "listing": {
+    "ticker": "TMCV",
+    "ticker_raw": "TMCV",
+    "currency": "INR",
+    "exchange": "NSE",
+    "company_name": "Tata Motors Limited (Commercial Vehicles)",
+    "listing_key": "TMCV|INR"
+  },
+  "engine_ref": {
+    "run_root": "analyses/TMCV_2026-06-07",
+    "decision": "Watchlist",
+    "decision_date": "2026-06-07",
+    "fingerprint": "sha256:a5047df0d184"
+  },
+  "why": "",
+  "conviction": null,
+  "review_date": "2026-09-05",
+  "tags": [],
+  "triggers": [],
+  "attachments": [],
+  "assignee": "CK",
+  "task_id": null,
+  "archive": {
+    "at": "2026-09-17T07:36:56.445Z",
+    "by": "banks@alloc8.xyz",
+    "reason": "",
+    "muted_fingerprint": "sha256:a5047df0d184",
+    "mute_scope": "assertion"
+  },
+  "history": [
+    {
+      "at": "2026-09-17T07:36:43.278Z",
+      "by": "banks@alloc8.xyz",
+      "action": "assigned",
+      "detail": "CK"
+    },
+    {
+      "at": "2026-09-17T07:36:56.445Z",
+      "by": "banks@alloc8.xyz",
+      "action": "archived",
+      "detail": ""
+    }
+  ],
+  "created_at": "2026-09-17T07:36:43.278Z",
+  "created_by": "banks@alloc8.xyz",
+  "updated_at": "2026-09-17T07:36:56.445Z"
+}
