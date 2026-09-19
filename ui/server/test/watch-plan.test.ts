@@ -277,7 +277,7 @@ check("a date's timing is shown only in words its quote writes", () => {
   const dates = r.items.filter((i) => i.kind === 'date')
   assert.equal(dates.length, 3)
   assert.equal(dates[0].window, 'FTC investigations into fulfillment practices and Prime are active with no disclosed hearing date or decision deadline.')
-  assert.equal(dates[1].label, 'Research event', 'an unsupported proper name is not invented')
+  assert.equal(dates[1].label, 'A date the research gave', 'an unsupported proper name is not invented')
   assert.equal(dates[1].window, 'CFO committed to Q3 2026 commercial launch')
   assert.equal(dates[2].window, 'Globalstar close expected 2027 subject to regulatory approvals.')
   assert.equal(r.left_out.filter((l) => /timing is not written/.test(l.why)).length, 2)
@@ -308,12 +308,12 @@ check('a day the research only estimates is still the day to watch — kept with
     ],
   }, { sources, currency: 'INR', entryPrice: null })
   assert.deepEqual(r.items.map((i: any) => [i.label, i.date, i.estimated]), [
-    ['Research event', '2026-10-21', true],
+    ['A date the research gave', '2026-10-21', true],
     ['Q2 2026 print', '2026-08-10', true],
     ['H1 2026 interim results', '2026-08-27', true],
-    ['Research event', null, false],
+    ['A date the research gave', null, false],
     ['Q3 FY2026 earnings', '2026-11-03', true],
-    ['Research event', '2026-07-22', false],
+    ['A date the research gave', '2026-07-22', false],
     ['CNY 6,000mn buyback', '2027-03-26', false],
   ])
   for (const item of r.items) if (item.kind === 'date' && item.window) assert.equal(item.window, item.source.quote,
@@ -377,7 +377,7 @@ check('a model excerpt cannot cut source negation or reverse timing constraints'
   ] }, { sources: new Map([['final_thesis.md', timing + '\n' + maturity]]), currency: 'USD', entryPrice: 100 })
   const dates = d.items.filter((i) => i.kind === 'date')
   assert.equal(dates[0].window, timing)
-  assert.equal(dates[1].label, 'Research event')
+  assert.equal(dates[1].label, 'A date the research gave')
   assert.equal(dates[1].estimated, true)
 })
 
@@ -396,7 +396,7 @@ check('an exact earliest date and its negation never become an expected event da
     window: 'before October 23, 2026', quote, file: 'final_thesis.md' }] },
     { sources: new Map([['final_thesis.md', quote]]), currency: 'USD', entryPrice: 100 })
   const date = r.items.find((i) => i.kind === 'date')!
-  assert.equal(date.label, 'Research event')
+  assert.equal(date.label, 'A date the research gave')
   assert.equal(date.date, null, 'an earliest bound does not claim the event occurs that day')
   assert.equal(date.window, quote)
   const estimatedQuote = 'Approval is expected on October 23, 2026, subject to a vote.'

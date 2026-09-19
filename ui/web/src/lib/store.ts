@@ -848,6 +848,8 @@ interface State {
   deleteWatchMessage: (id: string) => Promise<void>
   answerWatchMessage: (id: string, verdict: 'yes' | 'no', note?: string) => Promise<void>
   setWatchEmailPaused: (ticker: string, currency: string | null, paused: boolean) => Promise<void>
+  /** Say you have seen a standing condition, or take it back. The fact stays; it stops deciding the status. */
+  setWatchConditionSeen: (ticker: string, currency: string | null, conditionId: string, seen: boolean) => Promise<void>
   /** The add/edit panel. `prefill` carries what the decision record already knows, so a researched name
    *  needs nothing retyped and is quotable the moment it is saved. */
   watchComposer: { open: boolean; entryId: string | null; prefill: WatchRowInput | null; openedAt: number } | null
@@ -2671,6 +2673,12 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: verdict === 'yes' ? 'Noted: this message was right.' : 'Noted: this message was not right.', tone: 'good' })
     } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not save your answer.', tone: 'bad' }) }
     await get().loadWatchMessages()
+  },
+  setWatchConditionSeen: async (ticker, currency, conditionId, seen) => {
+    try {
+      await api.watchConditionSeen(ticker, currency, conditionId, seen)
+    } catch (e: any) { get().setToast({ msg: e?.message ? String(e.message) : 'Could not save that.', tone: 'bad' }) }
+    await get().loadWatchlist(true)
   },
   setWatchEmailPaused: async (ticker, currency, paused) => {
     try {
