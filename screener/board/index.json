@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T18:56:16Z",
+  "generated_at": "2026-09-19T19:03:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-177",
+      "headline": "AMETEK’s (AME) $5B Deal Bets Big On A Hot Streak",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ametek-ame-5b-deal-bets-183135450.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T18:31:35Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "AMETEK announced a $5 billion acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMETEK announced a $5 billion acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMETEK",
+          "ticker": "AME",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,50 +1924,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-072",
-      "headline": "(LEAD) N. Korea rejects IAEA resolution, vows to maintain nuclear force amid U.S. threats",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260919000451315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:35:40Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "North Korea's rejection of IAEA resolutions and vow to maintain nuclear force increases geopolitical risk in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "North Korea's rejection of IAEA resolutions and vow to maintain nuclear force increases geopolitical risk in the region.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -166963,9 +166968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9033254,
-    "news_picked_today": 474,
-    "news_dropped_today": 9606
+    "news_seen_today": 9080154,
+    "news_picked_today": 480,
+    "news_dropped_today": 9720
   },
   "book_momentum": {
     "live_count": 8,
