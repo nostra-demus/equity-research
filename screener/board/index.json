@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-09-19T00:04:36Z",
+  "generated_at": "2026-09-19T00:06:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260919-001",
+      "headline": "Trump officially signs Russia sanctions bill into law",
+      "headline_en": null,
+      "url": "https://thehill.com/homenews/administration/6099322-trump-signs-russia-sanctions-bill/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:47:20Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The US government has enacted new sanctions against Russia, impacting geopolitical risk and trade relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The US government has enacted new sanctions against Russia, impacting geopolitical risk and trade relations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-002",
+      "headline": "Turkey revokes licence of Iran's Bank Mellat as US sanctions intensify",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/turkey-revokes-licence-irans-bank-mellat-us-sanctions-intensify",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:56:06Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Turkey has revoked the license of Bank Mellat, a significant regulatory action impacting the bank's operations in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Turkey has revoked the license of Bank Mellat, a significant regulatory action impacting the bank's operations in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank Mellat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260918-555",
       "headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
@@ -165105,7 +165197,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2567,
+    "inbox_unconsumed": 2569,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165114,9 +165206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 38616,
+    "news_picked_today": 2,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
