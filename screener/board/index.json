@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T08:59:31Z",
+  "generated_at": "2026-09-19T09:03:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -584,6 +584,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-149",
+      "headline": "Jaiprakash Power Ventures Limited: Disclosure under Regulation 30 of SEBI (LODR) 2015, on Settlement Terms",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JPPOWER_19092026134044_signedupdate_reg_30_19092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T08:11:12Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Jaiprakash Power Ventures Limited disclosed settlement terms, which is a material development for debt resolution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Jaiprakash Power Ventures Limited disclosed settlement terms, which is a material development for debt resolution.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaiprakash Power Ventures Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1846,49 +1895,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-123",
-      "headline": "Bolivia Eliminates Diesel Subsidy After IMF Loan Approval",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-19/bolivia-eliminates-diesel-subsidy-after-imf-loan-approval-mu7ydf34",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T05:34:35Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Bolivia is eliminating diesel subsidies following an IMF loan approval, which will likely increase fuel costs and impact inflation and consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Bolivia is eliminating diesel subsidies following an IMF loan approval, which will likely increase fuel costs and impact inflation and consumer spending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -166858,9 +166864,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4243922,
-    "news_picked_today": 278,
-    "news_dropped_today": 4330
+    "news_seen_today": 4288952,
+    "news_picked_today": 282,
+    "news_dropped_today": 4350
   },
   "book_momentum": {
     "live_count": 8,
