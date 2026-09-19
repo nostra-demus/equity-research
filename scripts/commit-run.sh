@@ -19,6 +19,14 @@
 #         can change it: the same run is refused again, and so is every other run while the uncatalogued path
 #         or catalogue gap stands. The cockpit supervisor reads this code (never the message) to record the
 #         run as `publication_refused`, which is not auto-resumed. Do not reuse 7 for any other failure.
+#
+# Adding an `exit 5`? The cockpit supervisor seals a publication's exact bytes into an immutable ready
+# receipt BEFORE it runs this script, and retries a retained receipt at every engine startup. A refusal
+# that is deterministic for those bytes therefore never clears. Give it a pre-seal twin in
+# ui/server/src/launcher.ts that asks the same script (validate_data_catalogue.py --paths and
+# decision_publication_gate.py --records are the pattern), and record the decision in EXIT_5_SITES in
+# scripts/test_commit_run.py. That test fails on an unrecorded literal `exit 5` / `SystemExit(5)`, and on
+# any computed exit status (`exit "$RC"`, `exit $?`) it has not been told about, so spell a refusal plainly.
 set -u
 
 RETRY_SHA=""
@@ -201,10 +209,33 @@ EOF
   # allowed in retry mode; the expected SHA proves exactly which ambiguous local commit is being retried.
   SHA="$CURRENT_SHA"
 else
-# the engine never pre-stages; anything already staged means something is wrong, so refuse.
+# The engine never pre-stages, and every engine writer serializes on the mutation lock held above. So a
+# DATA-lane path already staged here is the dead leftover of an earlier publication that was SIGKILLed
+# between staging and its own unstage_own_paths (a launchd restart kills the whole job; no trap survives
+# SIGKILL). Left alone, that one entry refuses every later autonomous commit until a human edits the
+# production index (2026-09-17 outage). Unstage exactly those leftovers — every worktree byte is kept —
+# and refuse exactly as before when anything outside the data lane is staged: that still means something
+# is wrong. Read the whole staged set before touching the index: a refusal then never mutates it, and the
+# single reset below never races the listing that is still streaming these paths.
 if ! git diff --cached --quiet; then
-  echo "commit-run: refusing — unrelated changes are already staged" >&2
-  exit 3
+  STAGED_LEFTOVERS=()
+  while IFS= read -r -d '' STAGED_PATH; do
+    if ! is_data_pathspec "$STAGED_PATH"; then
+      echo "commit-run: refusing — unrelated changes are already staged" >&2
+      exit 3
+    fi
+    STAGED_LEFTOVERS+=("$STAGED_PATH")
+  done < <(git diff --cached --name-only --no-renames -z)
+  if [ "${#STAGED_LEFTOVERS[@]}" -gt 0 ]; then
+    git reset -q HEAD -- "${STAGED_LEFTOVERS[@]}" 2>/dev/null || true
+    for STAGED_PATH in "${STAGED_LEFTOVERS[@]}"; do
+      echo "commit-run: unstaged a data-lane leftover from an interrupted publication: $STAGED_PATH" >&2
+    done
+  fi
+  if ! git diff --cached --quiet; then
+    echo "commit-run: refusing — unrelated changes are already staged" >&2
+    exit 3
+  fi
 fi
 
 # A valid data pathspec is not enough when HEAD itself sits atop an unreviewed code commit: pushing the
@@ -355,10 +386,15 @@ fi
 # `:<path>` snapshots the exact index blob, so a concurrent writer cannot swap the worktree file between
 # validation and commit. Exact path shapes exclude module outputs, reviews, calibration files, and the
 # immutable commodity `decisions/<id>/decision_record.json` archives.
+#
+# WHICH staged paths are gated and HOW one record is judged live in scripts/decision_publication_gate.py,
+# not here: the cockpit supervisor asks the same script about a frozen snapshot BEFORE sealing it into an
+# immutable ready receipt, because a sealed record this gate rejects is rejected again at every retry.
+# One definition keeps the two from drifting. Index handling and every message below stay here.
 PREWRITE_TMP=""
 cleanup_prewrite_tmp() {
   if [ -n "$PREWRITE_TMP" ] && [ -d "$PREWRITE_TMP" ]; then
-    rm -f -- "$PREWRITE_TMP/staged-paths" "$PREWRITE_TMP/decision_record.json"
+    rm -f -- "$PREWRITE_TMP/staged-paths" "$PREWRITE_TMP/selected-paths" "$PREWRITE_TMP/decision_record.json"
     rmdir -- "$PREWRITE_TMP" 2>/dev/null || true
   fi
 }
@@ -373,27 +409,37 @@ if ! git -C "$TOP" diff --cached --name-only --diff-filter=ACMRT -z -- >"$PREWRI
   echo "commit-run: cannot enumerate staged publications — nothing was committed or pushed" >&2
   exit 5
 fi
+if ! python3 "$TOP/scripts/decision_publication_gate.py" --select \
+    <"$PREWRITE_TMP/staged-paths" >"$PREWRITE_TMP/selected-paths"; then
+  unstage_own_paths "$@"
+  echo "commit-run: cannot select staged decision publications — nothing was committed or pushed" >&2
+  exit 5
+fi
 while IFS= read -r -d '' STAGED_PATH; do
-  if [[ "$STAGED_PATH" =~ ^analyses/[^/]+/decision_record\.json$ ]]; then
-    STAGED_MODE="$(git -C "$TOP" ls-files -s -- "$STAGED_PATH")"
-    STAGED_MODE="${STAGED_MODE%% *}"
-    if [ "$STAGED_MODE" != "100644" ] && [ "$STAGED_MODE" != "100755" ]; then
-      unstage_own_paths "$@"
-      echo "commit-run: staged decision publication is not a regular file: $STAGED_PATH — nothing was committed or pushed" >&2
-      exit 5
-    fi
-    if ! git -C "$TOP" cat-file blob ":$STAGED_PATH" >"$PREWRITE_TMP/decision_record.json"; then
-      unstage_own_paths "$@"
-      echo "commit-run: cannot read staged decision publication: $STAGED_PATH — nothing was committed or pushed" >&2
-      exit 5
-    fi
-    if ! (cd "$TOP" && python3 scripts/eval.py --data-needs-prewrite "$PREWRITE_TMP/decision_record.json"); then
-      unstage_own_paths "$@"
-      echo "commit-run: data-needs prewrite rejected staged publication: $STAGED_PATH — nothing was committed or pushed" >&2
-      exit 5
-    fi
+  STAGED_MODE="$(git -C "$TOP" ls-files -s -- "$STAGED_PATH")"
+  STAGED_MODE="${STAGED_MODE%% *}"
+  if [ "$STAGED_MODE" != "100644" ] && [ "$STAGED_MODE" != "100755" ]; then
+    unstage_own_paths "$@"
+    echo "commit-run: staged decision publication is not a regular file: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
   fi
-done <"$PREWRITE_TMP/staged-paths"
+  if ! git -C "$TOP" cat-file blob ":$STAGED_PATH" >"$PREWRITE_TMP/decision_record.json"; then
+    unstage_own_paths "$@"
+    echo "commit-run: cannot read staged decision publication: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
+  fi
+  if ! python3 "$TOP/scripts/decision_publication_gate.py" --repo "$TOP" --check "$PREWRITE_TMP/decision_record.json"; then
+    unstage_own_paths "$@"
+    echo "commit-run: data-needs prewrite rejected staged publication: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
+  fi
+done <"$PREWRITE_TMP/selected-paths" || {
+  # Only a failed redirect lands here (the loop body ends in an `if`, status 0). Without this, bash reports
+  # the error, skips the loop, and carries on to commit a record nobody judged.
+  unstage_own_paths "$@"
+  echo "commit-run: cannot read selected decision publications — nothing was committed or pushed" >&2
+  exit 5
+}
 
 # The index was empty before this invocation and now contains only this run's staged snapshot. Commit
 # that snapshot directly: passing pathspecs to `git commit` would read mutable worktree bytes again and

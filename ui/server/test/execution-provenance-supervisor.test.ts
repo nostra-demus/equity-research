@@ -1,7 +1,9 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { spawnSync } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
@@ -13,8 +15,9 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
-  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, finalizeRunOnClose, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupersededPublicationProbe,
+  __setSupervisorCommitter, __setSupervisorCommitVerifier,
+  SUPERVISOR_CONTROL_MARKERS, supersededPublicationPaths, drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
 
@@ -47,11 +50,34 @@ assert.equal(requiresSupervisorPublication('module', 'module'), false,
 assert.equal(requiresSupervisorPublication('full', 'final'), true,
   'the frozen terminal adjudicator must stamp and verify its decision before success')
 
+// The snapshot sweep drops supervisor control markers, and the pre-seal check refuses anything else the
+// data catalogue does not cover. In a RESEARCH run root (analyses/<RUN>/) the catalogue lists exact file
+// names, and the two must agree there: a name may be dropped only while the catalogue rejects it. If the
+// catalogue ever lists one by name, dropping it would silently withhold catalogued data, so fail here and
+// force the decision instead. This says nothing about blanket-glob stores (commodity/runs/**,
+// screener/runs/**), which accept any file name; scripts/test_commit_run.py pins that gap on purpose.
+assert.ok(SUPERVISOR_CONTROL_MARKERS.size > 0, 'the control-marker guard must never scan an empty set')
+for (const marker of SUPERVISOR_CONTROL_MARKERS) {
+  const verdict = spawnSync('python3', [
+    path.join(REPO_ROOT, 'scripts', 'validate_data_catalogue.py'), '--repo', REPO_ROOT, '--paths',
+  ], { cwd: REPO_ROOT, input: `analyses/ZZGUARD_2099-01-01/${marker}`, encoding: 'utf8' })
+  assert.equal(verdict.status, 1, `validator must reach a verdict for ${marker}: ${verdict.stderr}`)
+  assert.match(verdict.stderr, /has uncatalogued data/,
+    `${marker} is excluded from publication as control state, so a research run root must not catalogue it`)
+}
+
+// The supervisor applies commit-run.sh's creation-time gate to every NEW analyses/<RUN>/decision_record.json
+// before it seals a snapshot, so a fixture that is meant to publish must be a record that gate accepts.
+// These three fields are the minimum: the same shape scripts/test_commit_run.py uses for a valid record.
+const decisionFixture = (fields: Record<string, unknown>): string => JSON.stringify({
+  decision_date: '2099-01-01', data_needs_schema_version: '2.0', data_needs: [], ...fields,
+}) + '\n'
+
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
 const extraCleanup: string[] = []
 fs.mkdirSync(absolute, { recursive: true })
-fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 1 }) + '\n')
+fs.writeFileSync(path.join(absolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZPROVSUP', version: 1 }))
 
 const profile = { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
 const run = createRun({
@@ -134,7 +160,7 @@ try {
   // leaving the link in place. The surviving symlink then failed the metadata-only assertion below.
   fs.unlinkSync(path.join(absolute, 'decision_record.json'))
 
-  fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
+  fs.writeFileSync(path.join(absolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZPROVSUP', version: 2 }))
   assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
 
   const originalAuthor = run.currentExecutionAttempts?.find((row) =>
@@ -305,7 +331,7 @@ try {
   const deferredAbsolute = path.join(REPO_ROOT, deferredRoot)
   extraCleanup.push(deferredAbsolute)
   fs.mkdirSync(deferredAbsolute, { recursive: true })
-  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":1}\n')
+  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZDEFER', version: 1 }))
   fs.writeFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
   const deferred = createRun({
     kind: 'full', ticker: 'ZZDEFER', provider: 'claude', executionProfile: profile,
@@ -316,10 +342,19 @@ try {
   })
   deferred.publicationToken = randomUUID()
   beginExecutionAttempt(deferred)
-  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":2}\n')
+  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZDEFER', version: 2 }))
+  // The Idea-publication gate is still on disk while the supervisor commits (it is cleared only afterwards),
+  // and /research:full publishes the whole run root. The gate is control state the data catalogue rejects:
+  // sealed into the snapshot it made a publication no retry could publish (2026-09-17 outage).
+  fs.writeFileSync(path.join(deferredAbsolute, '.requires_idea_publication'), '')
+  // The resume marker is the same class of control state: a technical-readiness retry preserves it and the
+  // `done` path clears it only after publication, so it is on disk while a run-root pathspec is swept.
+  writeRunMarker(deferredRoot, '.interrupted', { reason: 'fixture: marker still on disk at publication' })
   let deferredCommits = 0
-  const deferredCommitter = __setSupervisorCommitter(async () => {
+  const deferredPublishedPaths: string[][] = []
+  const deferredCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
     deferredCommits++
+    deferredPublishedPaths.push([...pathspecs])
     return 'COMMIT_SHA=2222222222222222222222222222222222222222'
   })
   const deferredVerifier = __setSupervisorCommitVerifier(async () => {})
@@ -332,6 +367,13 @@ try {
     assert.equal(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance, undefined)
     await drainPublicationIntents(deferred)
     assert.equal(deferredCommits, 2, 'the close-owned drain publishes the primary bytes then the deterministic SHA backfill')
+    assert.ok(deferredPublishedPaths[0].includes(`${deferredRoot}/decision_record.json`))
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.requires_idea_publication')), [],
+      'a run-root pathspec never sweeps the supervisor publication gate into the immutable snapshot')
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.interrupted')), [],
+      'a run-root pathspec never sweeps the supervisor resume marker into the immutable snapshot')
+    assert.equal(fs.existsSync(path.join(deferredAbsolute, '.interrupted')), true,
+      'excluding control state from the snapshot never removes it from disk')
     assert.equal(deferred.publicationCompleted, true)
     assert.ok(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance)
     assert.doesNotMatch(fs.readFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'utf8'), /to be filled/)
@@ -339,6 +381,364 @@ try {
     __setSupervisorCommitter(deferredCommitter)
     __setSupervisorCommitVerifier(deferredVerifier)
     finishRun(deferred, 'done')
+  }
+
+  // A path list the data catalogue rejects must be refused BEFORE it is sealed. Sealed, it becomes an
+  // immutable digest-signed receipt that can never publish and is retried at every startup. The real-world
+  // instance is an audit artifact such as the human readiness-override trace: it is not control state, so it
+  // is not silently excluded, and the catalogue has no entry for it. This fixture uses a neutral name so the
+  // test keeps holding whichever way that file's catalogue decision goes. The refusal must land on the live
+  // run (still in Activity) and leave nothing behind for recovery to retry.
+  const presealRoot = `${root}_preseal-refusal`
+  const presealAbsolute = path.join(REPO_ROOT, presealRoot)
+  extraCleanup.push(presealAbsolute)
+  fs.mkdirSync(presealAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZPRESEAL', version: 1 }))
+  fs.writeFileSync(path.join(presealAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const preseal = createRun({
+    kind: 'full', ticker: 'ZZPRESEAL', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: presealRoot, willCommitToMain: true,
+    writeTargetsAbs: [presealAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  preseal.publicationToken = randomUUID()
+  beginExecutionAttempt(preseal)
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZPRESEAL', version: 2 }))
+  fs.writeFileSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json'), '{"fixture":true}\n')
+  const presealReceipt = path.join(STATE_DIR, 'publication-ready', `${preseal.runId}.json`)
+  const snapshotDirectories = () => fs.readdirSync(STATE_DIR).filter((name) => name.startsWith('publication-snapshot-')).sort()
+  const snapshotsBefore = snapshotDirectories()
+  let presealCommits = 0
+  const presealCommitter = __setSupervisorCommitter(async () => {
+    presealCommits++
+    return 'COMMIT_SHA=6666666666666666666666666666666666666666'
+  })
+  const presealVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(preseal.runId, preseal.publicationToken, {
+      phase: 'commit', message: 'pre-seal refusal fixture', pathspecs: [presealRoot],
+    })
+    await assert.rejects(
+      drainPublicationIntents(preseal),
+      (error: any) => /refused before its path list was frozen/.test(String(error?.message))
+        && /DATA-CATALOGUE: FAIL/.test(String(error?.message))
+        && String(error?.message).includes(`${presealRoot}/zz_uncatalogued_audit_trace.json`),
+      'an uncatalogued path fails the live publication and names the file that needs a catalogue decision',
+    )
+    assert.equal(presealCommits, 0, 'a refused path list never reaches Git')
+    assert.equal(fs.existsSync(presealReceipt), false, 'a refused path list is never sealed into a ready receipt')
+    assert.deepEqual(snapshotDirectories(), snapshotsBefore, 'a refused path list leaves no protected snapshot behind')
+    assert.notEqual(preseal.publicationCompleted, true)
+    // Assert on this run's own receipt only: the state directory is shared with every other block here.
+    await recoverReadyPublications()
+    assert.deepEqual(listReadyPublicationFailures().filter((item) => item.entry === `${preseal.runId}.json`), [],
+      'with no receipt there is nothing for startup to retry forever')
+    assert.equal(fs.existsSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json')), true,
+      'the audit trace is refused, never deleted or silently dropped')
+  } finally {
+    __setSupervisorCommitter(presealCommitter)
+    __setSupervisorCommitVerifier(presealVerifier)
+    finishRun(preseal, 'error')
+    // A regression that seals before refusing must not strand a receipt whose run root the cleanup below
+    // deletes: the next run's recovery pass would then fail on it on this machine until cleared by hand.
+    fs.rmSync(presealReceipt, { force: true })
+    for (const name of snapshotDirectories()) {
+      if (!snapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
+  }
+
+  // "Anything short of a clean PASS refuses": a validator that cannot reach a verdict must never be read as
+  // permission to seal. Shadow python3 with one that exits non-zero and says nothing.
+  const blindRelative = `${root}/reviews/2099-01-06_blind_validator_review.json`
+  const blindAbsolute = path.join(REPO_ROOT, blindRelative)
+  fs.mkdirSync(path.dirname(blindAbsolute), { recursive: true })
+  const blindRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(blindAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  blindRun.publicationToken = randomUUID()
+  beginExecutionAttempt(blindRun)
+  fs.writeFileSync(blindAbsolute, '{"verdict":"a catalogued path the validator never gets to judge"}\n')
+  const blindReceipt = path.join(STATE_DIR, 'publication-ready', `${blindRun.runId}.json`)
+  const shimDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'blind-validator-'))
+  fs.writeFileSync(path.join(shimDirectory, 'python3'), '#!/bin/sh\nexit 3\n', { mode: 0o755 })
+  const originalPath = process.env.PATH
+  let blindCommits = 0
+  const blindCommitter = __setSupervisorCommitter(async () => {
+    blindCommits++
+    return 'COMMIT_SHA=9999999999999999999999999999999999999999'
+  })
+  const blindVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(blindRun.runId, blindRun.publicationToken, {
+      phase: 'commit', message: 'blind validator fixture', pathspecs: [blindRelative],
+    })
+    process.env.PATH = `${shimDirectory}${path.delimiter}${originalPath ?? ''}`
+    await assert.rejects(drainPublicationIntents(blindRun), /refused before its path list was frozen/,
+      'a validator that cannot reach a verdict refuses the publication instead of waving it through')
+    assert.equal(blindCommits, 0)
+    assert.equal(fs.existsSync(blindReceipt), false, 'an unchecked path list is never sealed')
+  } finally {
+    process.env.PATH = originalPath
+    __setSupervisorCommitter(blindCommitter)
+    __setSupervisorCommitVerifier(blindVerifier)
+    finishRun(blindRun, 'error')
+    fs.rmSync(blindReceipt, { force: true })
+    fs.rmSync(shimDirectory, { recursive: true, force: true })
+  }
+
+  // commit-run.sh refuses a supervisor snapshot manifest above 512 entries, and no retry changes a sealed
+  // list's length. Every file here is catalogued (analyses/*/*.md), so only the count can refuse it.
+  const crowdedRoot = `${root}_crowded`
+  const crowdedAbsolute = path.join(REPO_ROOT, crowdedRoot)
+  extraCleanup.push(crowdedAbsolute)
+  fs.mkdirSync(crowdedAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(crowdedAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZCROWD', version: 1 }))
+  fs.writeFileSync(path.join(crowdedAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const crowded = createRun({
+    kind: 'full', ticker: 'ZZCROWD', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: crowdedRoot, willCommitToMain: true,
+    writeTargetsAbs: [crowdedAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  crowded.publicationToken = randomUUID()
+  beginExecutionAttempt(crowded)
+  fs.writeFileSync(path.join(crowdedAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZCROWD', version: 2 }))
+  for (let index = 0; index < 512; index++) fs.writeFileSync(path.join(crowdedAbsolute, `note-${index}.md`), 'x\n')
+  const crowdedReceipt = path.join(STATE_DIR, 'publication-ready', `${crowded.runId}.json`)
+  const crowdedSnapshotsBefore = snapshotDirectories()
+  let crowdedCommits = 0
+  const crowdedCommitter = __setSupervisorCommitter(async () => {
+    crowdedCommits++
+    return 'COMMIT_SHA=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+  })
+  const crowdedVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(crowded.runId, crowded.publicationToken, {
+      phase: 'commit', message: 'crowded fixture', pathspecs: [crowdedRoot],
+    })
+    await assert.rejects(drainPublicationIntents(crowded), /exceed the 512-entry limit/,
+      'a path list commit-run.sh is certain to refuse is never sealed')
+    assert.equal(crowdedCommits, 0)
+    assert.equal(fs.existsSync(crowdedReceipt), false)
+  } finally {
+    __setSupervisorCommitter(crowdedCommitter)
+    __setSupervisorCommitVerifier(crowdedVerifier)
+    finishRun(crowded, 'error')
+    fs.rmSync(crowdedReceipt, { force: true })
+    for (const name of snapshotDirectories()) {
+      if (!crowdedSnapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
+  }
+
+  // commit-run.sh has a second deterministic gate after staging: `eval.py --data-needs-prewrite` on every
+  // newly staged analyses/<RUN>/decision_record.json (exit 5). The command prompts run it before asking to
+  // publish, but the model is not the boundary. Sealed, a record that fails it is rejected identically at
+  // every startup retry, so the supervisor must ask the same gate about the FROZEN bytes before sealing.
+  // The committer is mocked here, so without the pre-seal check nothing in this suite would refuse it.
+  const gateRoot = `${root}_decision-gate-refusal`
+  const gateAbsolute = path.join(REPO_ROOT, gateRoot)
+  extraCleanup.push(gateAbsolute)
+  fs.mkdirSync(gateAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(gateAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZGATE', version: 1 }))
+  fs.writeFileSync(path.join(gateAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const gateRun = createRun({
+    kind: 'full', ticker: 'ZZGATE', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: gateRoot, willCommitToMain: true,
+    writeTargetsAbs: [gateAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  gateRun.publicationToken = randomUUID()
+  beginExecutionAttempt(gateRun)
+  // Every path here is catalogued, so the path-list check above passes: only the record's CONTENT is wrong.
+  fs.writeFileSync(path.join(gateAbsolute, 'decision_record.json'),
+    decisionFixture({ ticker: 'ZZGATE', version: 2, data_needs: 'not-an-array' }))
+  const gateReceipt = path.join(STATE_DIR, 'publication-ready', `${gateRun.runId}.json`)
+  const gateSnapshotsBefore = snapshotDirectories()
+  // Interpose on the gate only, to record what the supervisor handed it; everything else (the catalogue
+  // validator, the gate's own eval.py call) reaches the real interpreter untouched.
+  const realPython = spawnSync('python3', ['-c', 'import sys; print(sys.executable)'], { encoding: 'utf8' }).stdout.trim()
+  assert.ok(path.isAbsolute(realPython), 'the fixture needs the real interpreter to delegate to')
+  const gateShimDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'decision-gate-tap-'))
+  const gateStdinLog = path.join(gateShimDirectory, 'gate-stdin')
+  fs.writeFileSync(path.join(gateShimDirectory, 'python3'), [
+    '#!/bin/sh',
+    'case "${1:-}" in',
+    `  */decision_publication_gate.py) cat > '${gateStdinLog}'; exec '${realPython}' "$@" < '${gateStdinLog}' ;;`,
+    'esac',
+    `exec '${realPython}' "$@"`,
+    '',
+  ].join('\n'), { mode: 0o755 })
+  const gateOriginalPath = process.env.PATH
+  let gateCommits = 0
+  const gateCommitter = __setSupervisorCommitter(async () => {
+    gateCommits++
+    return 'COMMIT_SHA=7777777777777777777777777777777777777777'
+  })
+  const gateVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(gateRun.runId, gateRun.publicationToken, {
+      phase: 'commit', message: 'decision gate refusal fixture', pathspecs: [gateRoot],
+    })
+    process.env.PATH = `${gateShimDirectory}${path.delimiter}${gateOriginalPath ?? ''}`
+    await assert.rejects(
+      drainPublicationIntents(gateRun),
+      (error: any) => /refused before its frozen snapshot was sealed/.test(String(error?.message))
+        && /DATA-NEEDS-PREWRITE: FAIL/.test(String(error?.message))
+        && String(error?.message).includes(`${gateRoot}/decision_record.json`),
+      'a new decision record commit-run.sh will reject fails the live publication and names the record',
+    )
+    process.env.PATH = gateOriginalPath
+    assert.equal(gateCommits, 0, 'a record the creation-time gate rejects never reaches Git')
+    assert.equal(fs.existsSync(gateReceipt), false, 'a rejected record is never sealed into a ready receipt')
+    assert.deepEqual(snapshotDirectories(), gateSnapshotsBefore, 'a rejected record leaves no protected snapshot behind')
+    assert.notEqual(gateRun.publicationCompleted, true)
+    await recoverReadyPublications()
+    assert.deepEqual(listReadyPublicationFailures().filter((item) => item.entry === `${gateRun.runId}.json`), [],
+      'with no receipt there is nothing for startup to retry forever')
+    assert.equal(fs.existsSync(path.join(gateAbsolute, 'decision_record.json')), true,
+      'the rejected record is refused, never deleted')
+    // The verdict must be about the bytes commit-run.sh will stage. Those are the frozen snapshot files in
+    // protected supervisor state, not the run-root file a still-running descendant could rewrite.
+    const handed = fs.readFileSync(gateStdinLog, 'utf8').split('\0')
+    assert.ok(handed.length >= 2 && handed.length % 2 === 0, 'the gate receives (publication path, bytes file) pairs')
+    const handedRecord = handed.indexOf(`${gateRoot}/decision_record.json`)
+    assert.ok(handedRecord >= 0 && handedRecord % 2 === 0, 'the decision record is among the publication paths handed over')
+    for (let index = 1; index < handed.length; index += 2) {
+      assert.ok(handed[index].startsWith(`${path.join(STATE_DIR, 'publication-snapshot-')}`),
+        `the gate judges frozen snapshot bytes, never a worktree path: ${handed[index]}`)
+    }
+  } finally {
+    process.env.PATH = gateOriginalPath
+    __setSupervisorCommitter(gateCommitter)
+    __setSupervisorCommitVerifier(gateVerifier)
+    finishRun(gateRun, 'error')
+    fs.rmSync(gateReceipt, { force: true })
+    fs.rmSync(gateShimDirectory, { recursive: true, force: true })
+    for (const name of snapshotDirectories()) {
+      if (!gateSnapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
+  }
+
+  // A gate that cannot reach a verdict is not permission to seal. The blind-validator block above cannot
+  // prove this call site: its shim fails the FIRST python3 call (the catalogue). This shim lets the catalogue
+  // validator through and silences only the decision gate, which runs for every snapshot. It "says" one
+  // blank line: whitespace-only stderr is truthy, and a refusal built from it used to name nothing at all.
+  const muteRelative = `${root}/reviews/2099-01-07_mute_gate_review.json`
+  const muteAbsolute = path.join(REPO_ROOT, muteRelative)
+  fs.mkdirSync(path.dirname(muteAbsolute), { recursive: true })
+  const muteRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(muteAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  muteRun.publicationToken = randomUUID()
+  beginExecutionAttempt(muteRun)
+  fs.writeFileSync(muteAbsolute, '{"verdict":"a catalogued review the decision gate never gets to judge"}\n')
+  const muteReceipt = path.join(STATE_DIR, 'publication-ready', `${muteRun.runId}.json`)
+  const muteSnapshotsBefore = snapshotDirectories()
+  const muteShimDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'decision-gate-mute-'))
+  fs.writeFileSync(path.join(muteShimDirectory, 'python3'), [
+    '#!/bin/sh',
+    'case "${1:-}" in */decision_publication_gate.py) echo "" >&2; exit 3 ;; esac',
+    `exec '${realPython}' "$@"`,
+    '',
+  ].join('\n'), { mode: 0o755 })
+  let muteCommits = 0
+  const muteCommitter = __setSupervisorCommitter(async () => {
+    muteCommits++
+    return 'COMMIT_SHA=8888888888888888888888888888888888888888'
+  })
+  const muteVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(muteRun.runId, muteRun.publicationToken, {
+      phase: 'commit', message: 'mute decision gate fixture', pathspecs: [muteRelative],
+    })
+    process.env.PATH = `${muteShimDirectory}${path.delimiter}${gateOriginalPath ?? ''}`
+    await assert.rejects(
+      drainPublicationIntents(muteRun),
+      // The size limit shares this prefix, so the prefix alone would not show WHICH check refused: the
+      // refusal names the gate itself. What follows depends on how the process died (`Command failed: …`
+      // here, a bare `spawnSync python3 EPIPE` when it exits before reading its stdin, as on Linux CI), so
+      // only require that there IS a detail.
+      (error: any) => /refused before its frozen snapshot was sealed: scripts\/decision_publication_gate\.py did not pass: \S/
+        .test(String(error?.message)),
+      'a decision gate that cannot reach a verdict refuses the publication, and the refusal says what failed',
+    )
+    assert.equal(muteCommits, 0)
+    assert.equal(fs.existsSync(muteReceipt), false, 'an unjudged snapshot is never sealed')
+    assert.deepEqual(snapshotDirectories(), muteSnapshotsBefore, 'an unjudged snapshot is not left behind')
+  } finally {
+    process.env.PATH = gateOriginalPath
+    __setSupervisorCommitter(muteCommitter)
+    __setSupervisorCommitVerifier(muteVerifier)
+    finishRun(muteRun, 'error')
+    fs.rmSync(muteReceipt, { force: true })
+    fs.rmSync(muteShimDirectory, { recursive: true, force: true })
+    for (const name of snapshotDirectories()) {
+      if (!muteSnapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
+  }
+
+  // commit-run.sh's snapshot staging also refuses one file above 128 MiB, and no retry shrinks a sealed file.
+  // The file is sparse: the refusal comes from its stat, so nothing of that size is read, copied or written
+  // by this test. (The exact boundary is not pinned, because a file AT the limit would be read in full.)
+  const oversizedRoot = `${root}_oversized`
+  const oversizedAbsolute = path.join(REPO_ROOT, oversizedRoot)
+  extraCleanup.push(oversizedAbsolute)
+  fs.mkdirSync(oversizedAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(oversizedAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZHUGE', version: 1 }))
+  fs.writeFileSync(path.join(oversizedAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const oversized = createRun({
+    kind: 'full', ticker: 'ZZHUGE', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: oversizedRoot, willCommitToMain: true,
+    writeTargetsAbs: [oversizedAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  oversized.publicationToken = randomUUID()
+  beginExecutionAttempt(oversized)
+  fs.writeFileSync(path.join(oversizedAbsolute, 'decision_record.json'), decisionFixture({ ticker: 'ZZHUGE', version: 2 }))
+  fs.writeFileSync(path.join(oversizedAbsolute, 'oversized-note.md'), '')
+  fs.truncateSync(path.join(oversizedAbsolute, 'oversized-note.md'), 128 * 1024 * 1024 + 1)
+  const oversizedReceipt = path.join(STATE_DIR, 'publication-ready', `${oversized.runId}.json`)
+  const oversizedSnapshotsBefore = snapshotDirectories()
+  let oversizedCommits = 0
+  const oversizedCommitter = __setSupervisorCommitter(async () => {
+    oversizedCommits++
+    return 'COMMIT_SHA=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+  })
+  const oversizedVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(oversized.runId, oversized.publicationToken, {
+      phase: 'commit', message: 'oversized fixture', pathspecs: [oversizedRoot],
+    })
+    await assert.rejects(
+      drainPublicationIntents(oversized),
+      (error: any) => /refused before its frozen snapshot was sealed/.test(String(error?.message))
+        && String(error?.message).includes(`${oversizedRoot}/oversized-note.md`)
+        && /above the 134217728-byte limit/.test(String(error?.message)),
+      'a file commit-run.sh is certain to refuse is never sealed, and the refusal names it',
+    )
+    assert.equal(oversizedCommits, 0)
+    assert.equal(fs.existsSync(oversizedReceipt), false)
+    assert.deepEqual(snapshotDirectories(), oversizedSnapshotsBefore, 'a refused file leaves no protected snapshot behind')
+  } finally {
+    __setSupervisorCommitter(oversizedCommitter)
+    __setSupervisorCommitVerifier(oversizedVerifier)
+    finishRun(oversized, 'error')
+    fs.rmSync(oversizedReceipt, { force: true })
+    for (const name of snapshotDirectories()) {
+      if (!oversizedSnapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
   }
 
   // Once the provider group is extinct, a Git/push failure retains a protected immutable ready receipt.
@@ -377,6 +777,131 @@ try {
     __setSupervisorCommitter(failedRecoveryCommitter)
     __setSupervisorCommitVerifier(recoveryVerifier)
     finishRun(recoveryRun, 'error')
+  }
+
+  // A retained receipt commits the OLD bytes frozen when it was sealed. The live path keeps admitting runs
+  // while a receipt is retained, and /research:rerun writes into the latest existing run root, so a newer run
+  // can publish the same paths before the old receipt is retried. Retrying it then reverts published
+  // research to stale bytes. A superseded receipt must commit nothing, stay on disk, and be reported.
+  const supersededRelative = `${root}/reviews/2099-01-05_superseded_review.json`
+  const supersededAbsolute = path.join(REPO_ROOT, supersededRelative)
+  const supersededRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(supersededAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  supersededRun.publicationToken = randomUUID()
+  beginExecutionAttempt(supersededRun)
+  fs.writeFileSync(supersededAbsolute, '{"verdict":"sealed before a newer run published this path"}\n')
+  const supersededReceipt = path.join(STATE_DIR, 'publication-ready', `${supersededRun.runId}.json`)
+  const supersededFailedCommitter = __setSupervisorCommitter(async () => { throw new Error('fixture push failed') })
+  const supersededVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(supersededRun.runId, supersededRun.publicationToken, {
+      phase: 'commit', message: 'superseded fixture', pathspecs: [supersededRelative],
+    })
+    await assert.rejects(drainPublicationIntents(supersededRun), /fixture push failed/)
+    assert.equal(fs.existsSync(supersededReceipt), true, 'the failed live commit retained its sealed receipt')
+    const sealedAt = JSON.parse(fs.readFileSync(supersededReceipt, 'utf8')).created_at as string
+    const snapshotDirectory = path.dirname(JSON.parse(fs.readFileSync(supersededReceipt, 'utf8')).snapshot_manifest)
+
+    let staleCommits = 0
+    const staleCommitter = __setSupervisorCommitter(async () => {
+      staleCommits++
+      return 'COMMIT_SHA=7777777777777777777777777777777777777777'
+    })
+    const probed: Array<{ entries: Array<{ path: string; snapshot: string }>; sealedAt: string; ownCommit?: string }> = []
+    // The real probe reads git history, and this suite runs inside the real checkout where a test must never
+    // create commits. It is covered against a throwaway repository in publication-supersession.test.ts.
+    const realProbe = __setSupersededPublicationProbe((input) => {
+      probed.push(input)
+      return [{ path: supersededRelative, commit: '8'.repeat(40), committedAt: Math.floor(Date.parse(sealedAt) / 1000) + 600 }]
+    })
+    assert.equal(realProbe, supersededPublicationPaths,
+      'production recovery is wired to the real git probe, not to a stub that always answers "not superseded"')
+    try {
+      assert.equal(await recoverReadyPublications(), 0, 'a superseded receipt is not counted as recovered')
+      assert.equal(staleCommits, 0, 'a superseded receipt never reaches Git: its stale bytes must not revert newer ones')
+      assert.equal(fs.existsSync(supersededReceipt), true, 'a superseded receipt is retained, never deleted')
+      assert.equal(fs.existsSync(snapshotDirectory), true, 'its immutable snapshot is retained with it')
+      const reported = listReadyPublicationFailures().filter((item) => item.entry === `${supersededRun.runId}.json`)
+      assert.equal(reported.length, 1, 'the refusal is reported through the stuck-publication surface')
+      assert.match(reported[0].error, /superseded and was not committed/)
+      assert.ok(reported[0].error.includes(supersededRelative), 'the report names the path a newer run published')
+      assert.deepEqual(probed.map((input) => [input.entries.map((item) => item.path), input.sealedAt]),
+        [[[supersededRelative], sealedAt]],
+        "the check is driven by the signed receipt's own path list and creation time, with no new receipt field")
+    } finally { __setSupersededPublicationProbe(realProbe) }
+
+    // Once nothing newer stands in the way, the same receipt publishes through the real probe: HEAD has
+    // never published this fixture path, so the ordinary first-publication retry is unaffected.
+    try {
+      assert.equal(await recoverReadyPublications(), 1, 'a receipt that is not superseded still recovers')
+      assert.equal(staleCommits, 1)
+      assert.equal(fs.existsSync(supersededReceipt), false)
+      assert.deepEqual(listReadyPublicationFailures().filter((item) => item.entry === `${supersededRun.runId}.json`), [],
+        'a later successful pass clears the report')
+    } finally { __setSupervisorCommitter(staleCommitter) }
+  } finally {
+    __setSupervisorCommitter(supersededFailedCommitter)
+    __setSupervisorCommitVerifier(supersededVerifier)
+    finishRun(supersededRun, 'error')
+    fs.rmSync(supersededReceipt, { force: true })
+  }
+
+  // Retained receipts are retried NEWEST FIRST. A recovery commit is stamped "now", not the time its bytes
+  // were sealed, so an older receipt retried first makes a newer one that shares a path look superseded by
+  // it, and the older bytes win. The real case: a push fails, the run is auto-resumed into the same run root
+  // under a new run id, the network is still down, and both receipts are retained. Receipt files are named
+  // by random run id, so name order is arbitrary. To make the old name-order deterministic here, the run
+  // whose id sorts FIRST is sealed first: name order would retry the OLDER receipt first.
+  const orderedRuns = [0, 1].map((index) => {
+    const relative = `${root}/reviews/2099-01-07_ordering_${index}_review.json`
+    const created = createRun({
+      kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+      profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+      userVia: 'local', runRoot: root, willCommitToMain: true,
+      writeTargetsAbs: [path.dirname(path.join(REPO_ROOT, relative))], coveredModules: [], readDepsAbs: [],
+      closeWatcher: undefined, expected: new Map(),
+    })
+    created.publicationToken = randomUUID()
+    return { run: created, relative }
+  }).sort((a, b) => `${a.run.runId}.json`.localeCompare(`${b.run.runId}.json`))
+  const [olderSealed, newerSealed] = orderedRuns
+  const orderingReceipts = orderedRuns.map(({ run: item }) => path.join(STATE_DIR, 'publication-ready', `${item.runId}.json`))
+  const orderingFailedCommitter = __setSupervisorCommitter(async () => { throw new Error('fixture push failed') })
+  const orderingVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    for (const [index, { run: item, relative }] of orderedRuns.entries()) {
+      beginExecutionAttempt(item)
+      fs.writeFileSync(path.join(REPO_ROOT, relative), `{"verdict":"ordering fixture, sealed ${index === 0 ? 'first' : 'second'}"}\n`)
+      await queuePublicationIntent(item.runId, item.publicationToken!, {
+        phase: 'commit', message: `ordering fixture sealed ${index === 0 ? 'first' : 'second'}`, pathspecs: [relative],
+      })
+      await assert.rejects(drainPublicationIntents(item), /fixture push failed/)
+      await new Promise((resolve) => setTimeout(resolve, 25)) // created_at has millisecond resolution
+    }
+    const [olderAt, newerAt] = orderingReceipts.map((file) => Date.parse(JSON.parse(fs.readFileSync(file, 'utf8')).created_at))
+    assert.ok(olderAt < newerAt, 'the fixture sealed the name-first receipt strictly earlier')
+    const retried: string[] = []
+    const orderingCommitter = __setSupervisorCommitter(async (message) => {
+      retried.push(message)
+      return 'COMMIT_SHA=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+    })
+    try {
+      await recoverReadyPublications()
+      assert.deepEqual(retried.filter((message) => message.startsWith('ordering fixture')),
+        ['ordering fixture sealed second', 'ordering fixture sealed first'],
+        'the newest receipt is retried first, so its bytes publish and an older overlapping receipt is the one refused')
+      assert.ok(olderSealed.run.runId < newerSealed.run.runId, 'name order alone would have retried the older receipt first')
+    } finally { __setSupervisorCommitter(orderingCommitter) }
+  } finally {
+    __setSupervisorCommitter(orderingFailedCommitter)
+    __setSupervisorCommitVerifier(orderingVerifier)
+    for (const { run: item } of orderedRuns) finishRun(item, 'error')
+    for (const file of orderingReceipts) fs.rmSync(file, { force: true })
   }
 
   // Commit verification can succeed and the process can die before the provider/profile publication seal.
@@ -447,6 +972,23 @@ try {
       if (fs.existsSync(heldReadyPath)) fs.renameSync(heldReadyPath, readyPath)
     }
 
+    // 2026-09-17 outage: this pass runs before listen(), so a rejection that escaped it stopped the whole
+    // cockpit and launchd restarted it straight back into the same rejection until an operator intervened. A sealed
+    // publication Git/the catalogue refuses must be reported and retained, never thrown.
+    const rejectingCommitter = __setSupervisorCommitter(async () => {
+      throw Object.assign(new Error('Command failed with exit code 5'), {
+        stderr: 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data',
+      })
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 0,
+        'a sealed publication that cannot publish is reported, not thrown into the startup path')
+      assert.equal(fs.existsSync(readyPath), true, 'the rejected receipt is retained for the next recovery pass')
+      assert.deepEqual(listReadyPublicationFailures().map((item) => [item.entry, item.error]), [
+        [`${postCommitRun.runId}.json`, 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data'],
+      ])
+    } finally { __setSupervisorCommitter(rejectingCommitter) }
+
     __setPublicationAuthoritySealer(postCommitSealer)
     let recoveryCommits = 0
     const recoveryCommitter = __setSupervisorCommitter(async () => {
@@ -460,6 +1002,7 @@ try {
       assert.equal(providerCalls, 0, 'provider recovery is never involved in the publication crash window')
       assert.equal(readLastProviderSelection(postCommitRoot, 'published')?.profileKey, profile.key)
       assert.equal(await recoverReadyPublications(), 0, 'the receipt clears only after authority is durable')
+      assert.deepEqual(listReadyPublicationFailures(), [], 'a later successful pass clears the reported failure')
     } finally { __setSupervisorCommitter(recoveryCommitter) }
   } finally {
     __setPublicationAuthoritySealer(postCommitSealer)

@@ -342,6 +342,22 @@ export function moduleTerminalOutcome(
 
 const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
 
+/**
+ * Run-root files that are supervisor control state, never research data. A publication must not carry
+ * them, and none has ever been tracked. In a research run root (analyses/<RUN>/) the data catalogue lists
+ * exact file names and rejects each one, so dropping them is what lets the publication succeed. Under a
+ * blanket-glob store (commodity/runs/**, screener/runs/**) the catalogue would accept them, so this list is
+ * the only thing keeping control state out of main there.
+ *  - the Idea-publication gate stays on disk until the supervisor finishes the commit it guards;
+ *  - `.interrupted` is the resume marker. A technical-readiness retry deliberately preserves it as the
+ *    only crash-recovery proof, and it is cleared on the `done` path, which runs after publication. It is
+ *    also still present when /research:rerun writes into a root whose earlier run was interrupted.
+ * This list is for control state only. An audit artifact the catalogue does not cover (for example the
+ * human `readiness_override.json` trace) does not belong here: dropping it would hide it. It is refused
+ * before sealing instead, so the gap is visible and gets a deliberate catalogue decision.
+ */
+export const SUPERVISOR_CONTROL_MARKERS: ReadonlySet<string> = new Set([IDEA_PUBLICATION_MARKER, '.interrupted'])
+
 function ideaPublicationMarkerPath(runRoot: string): string {
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   return path.join(root, IDEA_PUBLICATION_MARKER)
@@ -7057,6 +7073,93 @@ function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
   })
 }
 
+/** scripts/commit-run.sh refuses a supervisor snapshot manifest with more entries than this (`len(entries) > 512`). */
+const MAX_PUBLICATION_SNAPSHOT_ENTRIES = 512
+/**
+ * scripts/commit-run.sh refuses one supervisor snapshot file larger than this
+ * (`protected_file(…, 128 * 1024 * 1024)`). This mirrors THAT limit and nothing else. Two tighter per-file
+ * ceilings sit further downstream and are NOT closed here: supervisorCommitVerifier reads each published blob
+ * back through a 32 MiB buffer, so a larger file publishes and then fails verification at every retry; and
+ * the remote's own per-file push limit. Neither is a commit-run.sh refusal.
+ */
+const MAX_PUBLICATION_SNAPSHOT_FILE_BYTES = 128 * 1024 * 1024
+
+/**
+ * Refuse a path list the data catalogue does not cover BEFORE it is frozen into a snapshot. On the
+ * post-exit drain path that snapshot is sealed into a digest-signed ready receipt that can never change, and
+ * commit-run.sh applies the catalogue only after staging: a rejected receipt cannot publish and was retried
+ * at every startup (2026-09-17 outage). Failing here keeps the failure on the live run, where Activity shows
+ * it, and leaves no receipt behind. Callers that never seal (the canary stamp, calibration) get the same
+ * answer commit-run.sh would give them, only earlier.
+ *
+ * The verdict comes from scripts/validate_data_catalogue.py itself, the validator commit-run.sh runs, so
+ * the two cannot disagree about these paths. (commit-run.sh additionally judges the WHOLE index, so it can
+ * still fail on unrelated uncatalogued data this publication did not propose.) Anything short of a clean
+ * PASS refuses the publication, including a validator that cannot run: an unchecked list is exactly what
+ * must not be sealed.
+ *
+ * What this does NOT cover: stores the catalogue declares with a blanket glob (commodity/runs/**,
+ * screener/runs/**, analyses/provider-parity/**) accept any file name, so there is nothing to refuse there.
+ */
+function assertPublicationPathsCatalogued(paths: string[]): void {
+  try {
+    execFileSync('python3', [
+      path.join(REPO_ROOT, 'scripts', 'validate_data_catalogue.py'), '--repo', REPO_ROOT, '--paths',
+    ], {
+      cwd: REPO_ROOT, input: paths.join('\0'), encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'],
+      timeout: 60_000, maxBuffer: 1024 * 1024,
+    })
+  } catch (error: any) {
+    const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    if (error?.status === 1) {
+      throw new PublicationRefusedError(`cockpit publication refused before its path list was frozen: ${detail}`, { cause: error })
+    }
+    throw new Error(`cockpit publication refused before its path list was frozen: ${detail}`)
+  }
+}
+
+/**
+ * Refuse a frozen snapshot whose new terminal decision record commit-run.sh is certain to reject, BEFORE it
+ * is sealed. commit-run.sh's creation-time gate (`eval.py --data-needs-prewrite` on each newly staged
+ * `analyses/<RUN>/decision_record.json`) runs after staging, so on the post-exit drain path it judged a
+ * receipt that could no longer change: the same bytes fail the same way at every startup retry. The command
+ * prompts run that validator before they ask to publish, but the model is not the boundary; this is.
+ *
+ * Nothing about the gate lives here. scripts/decision_publication_gate.py decides which entries are gated,
+ * skips a record byte-identical to HEAD (commit-run.sh never regrades unchanged history, and neither may
+ * this), and judges the rest with the very invocation commit-run.sh uses, so the two cannot drift. It is
+ * handed the FROZEN bytes, which are exactly what commit-run.sh will stage, not the mutable worktree file.
+ * Anything short of a clean PASS refuses, including a gate that cannot run.
+ *
+ * What this does NOT make deterministic: the verdict also depends on the checked-out program (the live
+ * `.claude/agents` orb roster) and on HEAD. A deploy that renames an orb, or another publication of the same
+ * path landing between sealing and commit, can still change commit-run.sh's later answer. (The validator
+ * also reads today's date, but only to require the v2 contract from 2026-08-14 on; that date has passed,
+ * so it can no longer flip a verdict.)
+ *
+ * The timeout is deliberately far below the neighbouring calls'. This call is synchronous, and the
+ * production watchdog SIGKILLs an engine whose /api/health misses two 5-second probes 30 seconds apart. A
+ * hang allowed to run that long would end as a kill halfway through a freeze, not as a refusal. The gate
+ * takes about 0.1-0.3 s; past 20 s it is refused here, visibly, and the snapshot directory is removed.
+ */
+function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snapshot: string }>): void {
+  try {
+    execFileSync('python3', [
+      path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT, '--records',
+    ], {
+      cwd: REPO_ROOT, input: entries.flatMap((entry) => [entry.path, entry.snapshot]).join('\0'),
+      encoding: 'utf8', stdio: ['pipe', 'ignore', 'pipe'], timeout: 20_000, maxBuffer: 1024 * 1024,
+    })
+  } catch (error: any) {
+    // stderr that is only whitespace is truthy: trim BEFORE falling back, or the refusal names nothing.
+    const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
+    // Name the check here rather than trusting the error text to: how the process died decides what that
+    // text says. A gate that exits before reading its stdin surfaces as a bare `spawnSync python3 EPIPE`.
+    throw new Error('cockpit publication refused before its frozen snapshot was sealed: '
+      + `scripts/decision_publication_gate.py did not pass: ${detail}`)
+  }
+}
+
 function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredPaths: string[]): {
   manifest: string; directory: string; paths: string[]
   entries: Array<{ path: string; snapshot: string; sha256: string }>
@@ -7069,8 +7172,21 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
   const untracked = nulPaths(execFileSync('git', [
     'ls-files', '--others', '--exclude-standard', '-z', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
-  const paths = [...new Set([...changed, ...untracked, ...requiredPaths])].sort()
+  // A run-root pathspec (what /research:full and /research:rerun pass) sweeps up every untracked,
+  // non-ignored file in the root. Supervisor control markers are on disk there by design while this very
+  // commit runs; they are not research data, have never been tracked, and the data catalogue rejects them.
+  // Keep them out of the snapshot whether they were swept or named (2026-09-17 outage).
+  const paths = [...new Set([...changed, ...untracked, ...requiredPaths])]
+    .filter((relative) => !SUPERVISOR_CONTROL_MARKERS.has(path.posix.basename(relative))).sort()
   if (!paths.length) throw new Error('cockpit publication resolved to no exact files')
+  // Every sealed receipt is built from the snapshot returned here, so this is the one place the exact
+  // path list can still be refused. Refuse here, before any protected state exists, whatever commit-run.sh
+  // is certain to reject later: its snapshot staging block refuses a manifest above this entry count.
+  if (paths.length > MAX_PUBLICATION_SNAPSHOT_ENTRIES) {
+    throw new Error(`cockpit publication refused before its path list was frozen: ${paths.length} files exceed the `
+      + `${MAX_PUBLICATION_SNAPSHOT_ENTRIES}-entry limit commit-run.sh enforces on a supervisor snapshot`)
+  }
+  assertPublicationPathsCatalogued(paths)
   const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
   fs.chmodSync(directory, 0o700)
   const entries: Array<{ path: string; snapshot: string; sha256: string }> = []
@@ -7079,6 +7195,14 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       if (!DATA_PUBLICATION_ROOTS.has(relative.split('/')[0])) throw new Error(`snapshot refused non-data path: ${relative}`)
       const absolute = path.join(REPO_ROOT, relative)
       const before = assertRegularArtifact(absolute, 'fixed publication artifact')
+      // Same class as the entry-count limit above: commit-run.sh's snapshot staging refuses a larger file,
+      // and no retry shrinks a sealed one. Judged from the very stat the freeze below relies on, before
+      // these bytes are read. Earlier files are already copied by now; the catch removes all of it.
+      if (before.size > MAX_PUBLICATION_SNAPSHOT_FILE_BYTES) {
+        throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${relative} is `
+          + `${before.size} bytes, above the ${MAX_PUBLICATION_SNAPSHOT_FILE_BYTES}-byte limit commit-run.sh `
+          + 'enforces on one supervisor snapshot file')
+      }
       const bytes = fs.readFileSync(absolute)
       const after = assertRegularArtifact(absolute, 'fixed publication artifact')
       if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
@@ -7087,6 +7211,10 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       fs.writeFileSync(snapshot, bytes, { flag: 'wx', mode: 0o600 })
       entries.push({ path: relative, snapshot, sha256: `sha256:${createHash('sha256').update(bytes).digest('hex')}` })
     }
+    // The bytes are frozen but nothing is sealed yet, and every sealed receipt is built from the snapshot
+    // returned below: the last point at which a record commit-run.sh will reject can still fail the live
+    // run. The catch removes this directory, so a refusal leaves no snapshot and no receipt behind.
+    assertNewDecisionRecordsPublishable(entries)
     const manifest = path.join(directory, 'manifest.json')
     fs.writeFileSync(manifest, JSON.stringify({
       schema_version: 'cockpit-publication-snapshot/1.0', run_id: run.runId,
@@ -8223,70 +8351,258 @@ function runFromReadyPublication(record: ReadyPublicationRecord): RunState {
   } as RunState
 }
 
+export interface SupersededPublicationPath {
+  path: string
+  /** The commit that gave the path the bytes HEAD publishes today. */
+  commit: string
+  /** That commit's committer time, in epoch seconds. */
+  committedAt: number
+}
+const SUPERSEDED_REPORT_LIMIT = 5
+
+/**
+ * Which of a sealed receipt's paths were published again, with different bytes, AFTER it was sealed.
+ *
+ * A retained receipt is retried at a later startup and commits its OLD snapshot. The live path keeps
+ * admitting runs while a receipt is retained, and /research:rerun writes into the latest existing run root,
+ * so a newer run can publish the same paths first. Retrying the old receipt then reverts published files to
+ * stale bytes. A path is superseded when both hold:
+ *   1. HEAD publishes it with bytes other than the sealed snapshot's, and
+ *   2. the commit that gave it those bytes is newer than the receipt.
+ * Neither alone is enough. (1) alone is every ordinary update of an existing file; (2) alone is the
+ * receipt's own commit landing before a crash, which leaves HEAD equal to the snapshot.
+ *
+ * It needs nothing beyond the signed receipt's existing `created_at`, so receipts sealed before this check
+ * existed are covered too. Git committer time has one-second resolution and a full run commits its primary
+ * snapshot, then seals the RUN_METADATA backfill moments later, often inside the same second. The
+ * comparison is therefore strict: a same-second commit is the receipt's own predecessor, never a newer run
+ * (no run can be admitted, execute and publish inside one second). `ownCommit` excludes the receipt's
+ * recorded primary commit outright, so a clock step cannot misread it either.
+ *
+ * Any git failure throws. The caller retains and reports the receipt, which commits nothing.
+ *
+ * Callers must retry receipts NEWEST FIRST. A recovery commit is stamped "now", not the time its bytes were
+ * sealed, so an older receipt committed first would make every newer receipt that shares a path look
+ * superseded by it, and the older bytes would win.
+ */
+export function supersededPublicationPaths(input: {
+  entries: Array<{ path: string; snapshot: string }>
+  sealedAt: string
+  ownCommit?: string
+}, repoRoot: string = REPO_ROOT): SupersededPublicationPath[] {
+  const sealedSeconds = Math.floor(Date.parse(input.sealedAt) / 1000)
+  if (!Number.isFinite(sealedSeconds)) throw new Error('ready-publication receipt has no valid creation time')
+  // Literal pathspecs: a published file name may contain glob characters, and `a[1].md` must never be
+  // dated by a newer commit to `a1.md`.
+  const git = (args: string[], stdin?: string): string => execFileSync('git', ['--literal-pathspecs', ...args], {
+    cwd: repoRoot, encoding: 'utf8', input: stdin, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 32 * 1024 * 1024,
+  })
+  const wanted = new Set(input.entries.map((entry) => entry.path))
+  const published = new Map<string, string>()
+  const all = [...wanted]
+  for (let start = 0; start < all.length; start += 256) {
+    for (const row of git(['ls-tree', '-r', '-z', 'HEAD', '--', ...all.slice(start, start + 256)]).split('\0')) {
+      const tab = row.indexOf('\t')
+      if (tab < 0) continue
+      const [, type, oid] = row.slice(0, tab).split(' ')
+      const relative = row.slice(tab + 1)
+      if (type === 'blob' && wanted.has(relative)) published.set(relative, oid)
+    }
+  }
+  // A path HEAD does not publish has no newer bytes to revert: that is a first publication.
+  const candidates = input.entries.filter((entry) => published.has(entry.path))
+  if (!candidates.length) return []
+  if (candidates.some((entry) => entry.snapshot.includes('\n'))) throw new Error('unsafe ready-publication snapshot path')
+  // --no-filters hashes the raw snapshot bytes. The commit verifier already requires the committed blob to
+  // equal those raw bytes, so equal object ids mean HEAD already publishes exactly this snapshot.
+  const sealed = git(['hash-object', '--no-filters', '--stdin-paths'],
+    `${candidates.map((entry) => entry.snapshot).join('\n')}\n`).split('\n').filter(Boolean)
+  if (sealed.length !== candidates.length) throw new Error('could not hash every sealed publication snapshot')
+  const differing = candidates.filter((entry, index) => published.get(entry.path) !== sealed[index]).map((entry) => entry.path)
+  if (!differing.length) return []
+  // ONE walk, bounded by date, for every differing path together. --max-age makes git stop at commits older
+  // than the receipt, so the cost tracks the commits made since sealing, not the size of history or the
+  // number of paths. This runs before listen(), and the watchdog restarts an engine that stays unresponsive:
+  // a walk per path cost ~110 ms each here, 12 s for one ordinary 113-file run root, at every startup.
+  // `sealedSeconds + 1` is the strict comparison above. -m gives a merge commit a name list too.
+  // The bound trusts committer dates: a commit backdated to before the receipt would be missed. Data
+  // commits are stamped by commit-run.sh on the same machine clock that stamped `created_at`.
+  const newest = new Map<string, SupersededPublicationPath>()
+  const wantedDiffering = new Set(differing)
+  let unattributed: string | null = null
+  for (let start = 0; start < differing.length; start += 256) {
+    const log = git(['log', '-m', `--max-age=${sealedSeconds + 1}`, '--format=%x01%H %ct', '--name-only', '-z',
+      'HEAD', '--', ...differing.slice(start, start + 256)])
+    for (const record of log.split('\x01').slice(1)) {
+      const headerEnd = record.indexOf('\0')
+      const [commit, stamp] = (headerEnd < 0 ? record : record.slice(0, headerEnd)).trim().split(' ')
+      const committedAt = Number(stamp)
+      if (!commit || !Number.isFinite(committedAt)) throw new Error('cannot date a commit newer than the sealed publication')
+      if (commit === input.ownCommit) continue
+      let attributed = false
+      for (const raw of headerEnd < 0 ? [] : record.slice(headerEnd + 1).split('\0')) {
+        const relative = raw.replace(/^\n+/, '')
+        if (!wantedDiffering.has(relative)) continue
+        attributed = true
+        // git lists newest first, so the first commit seen for a path is the one that set HEAD's bytes.
+        if (!newest.has(relative)) newest.set(relative, { path: relative, commit, committedAt })
+      }
+      if (!attributed) unattributed = commit
+    }
+  }
+  // A newer commit git listed for these paths but whose names could not be read is still a newer
+  // publication. Never resolve that doubt in favour of committing the older bytes.
+  if (!newest.size && unattributed) {
+    throw new Error(`commit ${unattributed.slice(0, 12)} republished a sealed path after the receipt, but its paths could not be read`)
+  }
+  return [...newest.values()].slice(0, SUPERSEDED_REPORT_LIMIT)
+}
+
+type SupersededPublicationProbe = (input: Parameters<typeof supersededPublicationPaths>[0]) => SupersededPublicationPath[]
+let supersededPublicationProbe: SupersededPublicationProbe = supersededPublicationPaths
+
+/** Focused test seam: the recovery tests run against the real checkout and must not create commits in it. */
+export function __setSupersededPublicationProbe(fn: SupersededPublicationProbe): SupersededPublicationProbe {
+  const previous = supersededPublicationProbe
+  supersededPublicationProbe = fn
+  return previous
+}
+
+export interface ReadyPublicationFailure {
+  /** The receipt file name: the only identity available when the receipt itself cannot be verified. */
+  entry: string
+  error: string
+  failedAt: string
+}
+const readyPublicationFailures = new Map<string, ReadyPublicationFailure>()
+
+/** Sealed publications the last recovery pass could not publish. Each keeps its protected receipt and
+ * immutable snapshot, publishes nothing, and is retried by the next pass. */
+export function listReadyPublicationFailures(): ReadyPublicationFailure[] {
+  return [...readyPublicationFailures.values()]
+}
+
 /** Retry only post-extinction publications whose immutable snapshot and provider identity were sealed in
  * protected supervisor state before Git began. Live/queued intents are intentionally unrecoverable: the
- * preserved run is marked interrupted and requires an explicit continuation after a crash. */
+ * preserved run is marked interrupted and requires an explicit continuation after a crash.
+ *
+ * One receipt is one failure domain. This runs before listen(), so an error that escapes it stops the
+ * whole cockpit and launchd restarts it straight back into the same error: on 2026-09-16/17 one re-run whose
+ * sealed path list the data catalogue rejects (a deterministic failure no retry can cure) held the engine
+ * in a crash loop overnight, until an operator intervened. Git, the catalogue, the network and the push are external dependencies
+ * (doctrine §31): a receipt that cannot publish fails visibly, keeps its receipt and snapshot for the next
+ * pass, and never blocks the other receipts or admission. Skipping is the fail-closed outcome for the
+ * publication itself — an unverifiable or rejected receipt commits nothing.
+ *
+ * A receipt is also refused when it is superseded: a newer run has since published different bytes over one
+ * of its paths (see supersededPublicationPaths). Its snapshot is older than what main now holds, so
+ * committing it would revert published research. It is retained and reported like any other failure. */
 export async function recoverReadyPublications(): Promise<number> {
   fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
   fs.chmodSync(readyPublicationDir, 0o700)
+  readyPublicationFailures.clear()
   let recovered = 0
-  for (const entry of fs.readdirSync(readyPublicationDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
-    if (!entry.name.endsWith('.json')) continue
-    if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
-    let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
-    if (!record) continue
-    const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
-    for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
-    const output = await supervisorCommitter(record.message, record.paths, env)
-    const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
-    await supervisorCommitVerifier(output, record.paths, snapshotHashes)
-    let recoveredRevision = verifiedPublishedRevision(output)
-
-    if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
-      const primarySha = verifiedPublishedRevision(output)
-      const metadataRelative = `${record.run_root}/RUN_METADATA.md`
-      const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
-      if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
-      {
-        const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
-        const placeholder = '(to be filled after commit)'
-        if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
-          throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
-        }
-        writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
-        const run = runFromReadyPublication(record)
-        const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
-        const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
-        const backfillRecord = writeReadyPublication(
-          run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
-          'backfill-ready', finalHashes, primarySha,
-        )
-        fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
-        record = backfillRecord
-        const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
-        const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
-        await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
-        await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
-        recoveredRevision = verifiedPublishedRevision(backfillOutput)
-      }
-    } else {
-      await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+  // Newest receipt first. Receipt names are random run ids, so name order is arbitrary, and the order now
+  // decides the outcome: a recovery commit is stamped "now", so an older receipt retried first would make a
+  // newer one that shares a path (a continuation of the same run root after a failed push) look superseded
+  // by it, and the older bytes would win. Newest first, the newest bytes publish and the older receipt is
+  // the one refused. `created_at` is read here only as a sort key, before verification; each receipt still
+  // gets the full digest-checked read below, and an unreadable one simply sorts last.
+  const sealedAtMs = (entry: fs.Dirent): number => {
+    try {
+      const absolute = path.join(readyPublicationDir, entry.name)
+      const info = fs.lstatSync(absolute)
+      if (!info.isFile() || info.size > 1024 * 1024) return Number.NEGATIVE_INFINITY
+      const value = Date.parse(JSON.parse(fs.readFileSync(absolute, 'utf8'))?.created_at)
+      return Number.isFinite(value) ? value : Number.NEGATIVE_INFINITY
+    } catch { return Number.NEGATIVE_INFINITY }
+  }
+  const receipts = fs.readdirSync(readyPublicationDir, { withFileTypes: true })
+    .filter((entry) => entry.name.endsWith('.json'))
+    .map((entry) => ({ entry, sealedAt: sealedAtMs(entry) }))
+    .sort((a, b) => (b.sealedAt - a.sealedAt) || a.entry.name.localeCompare(b.entry.name))
+  for (const { entry } of receipts) {
+    try {
+      if (await recoverReadyPublication(entry)) recovered++
+    } catch (error: any) {
+      const detail = String(error?.stderr || error?.shortMessage || error?.message || error).trim().slice(0, 1000)
+      readyPublicationFailures.set(entry.name, { entry: entry.name, error: detail, failedAt: new Date().toISOString() })
+      console.error(`[publication] sealed publication ${entry.name} could not be recovered; its receipt and snapshot are retained for the next pass: ${detail}`) // eslint-disable-line no-console
     }
-
-    recordRecoveredPublicationAuthority({
-      runId: record.run_id, runRoot: record.run_root, provider: record.provider,
-      model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
-      executionProfile: record.execution_profile,
-    }, record.artifact_hashes)
-    await runIbkrPaperAutoSyncAfterPublication({
-      runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
-      willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
-      publicationRevision: recoveredRevision,
-    })
-    clearReadyPublication(record)
-    recovered++
   }
   return recovered
+}
+
+async function recoverReadyPublication(entry: fs.Dirent): Promise<boolean> {
+  if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
+  let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
+  if (!record) return false
+  const sealedEntries = readySnapshotEntries(record)
+  // This retry commits bytes frozen when the receipt was sealed. If a newer run has published any of the
+  // same paths since, committing them would revert published research to stale bytes. Refuse: the error
+  // retains the receipt and snapshot and reports them through listReadyPublicationFailures(). The receipt
+  // is immutable and its path list is signed, so there is no subset left to publish; the run's files are
+  // intact on disk and need a fresh publication.
+  const superseded = supersededPublicationProbe({
+    entries: sealedEntries, sealedAt: record.created_at, ownCommit: record.primary_commit_sha,
+  })
+  if (superseded.length) {
+    const first = superseded[0]
+    const more = superseded.length > 1 ? ` (and at least ${superseded.length - 1} more path(s))` : ''
+    throw new Error(`sealed publication is superseded and was not committed: ${first.path} was published again by `
+      + `${first.commit.slice(0, 12)} at ${new Date(first.committedAt * 1000).toISOString()}, after this receipt was `
+      + `sealed at ${record.created_at}${more}; committing the sealed snapshot would revert it`)
+  }
+  const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
+  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+  const output = await supervisorCommitter(record.message, record.paths, env)
+  const snapshotHashes = Object.fromEntries(sealedEntries.map((item) => [item.path, item.sha256]))
+  await supervisorCommitVerifier(output, record.paths, snapshotHashes)
+  let recoveredRevision = verifiedPublishedRevision(output)
+
+  if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
+    const primarySha = verifiedPublishedRevision(output)
+    const metadataRelative = `${record.run_root}/RUN_METADATA.md`
+    const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
+    if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
+    {
+      const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
+      const placeholder = '(to be filled after commit)'
+      if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
+        throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
+      }
+      writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
+      const run = runFromReadyPublication(record)
+      const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
+      const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
+      const backfillRecord = writeReadyPublication(
+        run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
+        'backfill-ready', finalHashes, primarySha,
+      )
+      fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
+      record = backfillRecord
+      const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
+      const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
+      await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
+      await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
+      recoveredRevision = verifiedPublishedRevision(backfillOutput)
+    }
+  } else {
+    await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+  }
+
+  recordRecoveredPublicationAuthority({
+    runId: record.run_id, runRoot: record.run_root, provider: record.provider,
+    model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
+    executionProfile: record.execution_profile,
+  }, record.artifact_hashes)
+  await runIbkrPaperAutoSyncAfterPublication({
+    runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
+    willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
+    publicationRevision: recoveredRevision,
+  })
+  clearReadyPublication(record)
+  return true
 }
 
 /** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay

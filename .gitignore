@@ -62,5 +62,9 @@ screener/board/index.json.tmp.*
 screener/ledger/ideas/*.json.lock
 screener/ledger/ideas/*.promotion
 screener/ledger/.qualified-idea-outcomes-pass.flock
+# Retained flock beside the Idea workspace-actions ledger: created by the first archive action and never
+# unlinked. /screener:signal and /screener:handoff publish all of screener/ledger/, so left unignored it is
+# swept into their path list, where the data catalogue rejects it and the publication fails.
+screener/ledger/*.ndjson.lock
 # Stable runtime lease for sharded news-firehose mutation; never research data and never unlink on release.
 screener/inbox/.*_firehose.flock
