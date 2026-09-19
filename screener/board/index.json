@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T08:38:30Z",
+  "generated_at": "2026-09-19T08:43:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -1705,6 +1705,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-146",
+      "headline": "Unichem Laboratories receives ₹94 crore GST order over penalty, interest",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/unichem-laboratories-share-price-receives-rs-94-crore-gst-order-over-penalty-interest-19994050.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:35:14Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Unichem Laboratories received a GST order for ₹94 crore including penalty and interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Unichem Laboratories received a GST order for ₹94 crore including penalty and interest.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unichem Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-135",
       "headline": "Morgan Stanley fund limits withdrawals as investors rush to the exit",
       "headline_en": null,
@@ -1840,55 +1889,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-141",
-      "headline": "OpenAI Sees Burning Through $278 Billion by 2030: FT",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/technology/openai-sees-burning-through-278-billion-by-2030-ft-12067561#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T05:01:44Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "OpenAI's projected cash burn of $278 billion by 2030 highlights significant capital intensity and potential future funding requirements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "OpenAI's projected cash burn of $278 billion by 2030 highlights significant capital intensity and potential future funding requirements.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -167070,9 +167070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4122526,
-    "news_picked_today": 262,
-    "news_dropped_today": 4202
+    "news_seen_today": 4168191,
+    "news_picked_today": 263,
+    "news_dropped_today": 4225
   },
   "book_momentum": {
     "live_count": 8,
