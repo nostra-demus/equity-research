@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T07:10:51Z",
+  "generated_at": "2026-09-19T08:28:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -737,6 +737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-144",
+      "headline": "The Jammu & Kashmir Bank Limited: The Jammu & Kashmir Bank Limited has informed the Exchange regarding Change in Auditors of the company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARYA_19092026123739_Appointment_auditors.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T07:07:51Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Change in auditors can signal potential accounting or governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Change in auditors can signal potential accounting or governance concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Jammu & Kashmir Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-128",
       "headline": "K.M.Sugar Mills Limited: K.M.Sugar Mills Limited has informed the Exchange that Record date for the purpose of Merger/HiveOf is 02-Oct-2026.",
       "headline_en": null,
@@ -781,6 +830,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-145",
+      "headline": "Trump signs Russia sanctions bill into law",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/trump-signs-russia-sanctions-bill-into-law/article71483701.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:47:06Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "New sanctions on Russia represent a significant geopolitical and trade risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "New sanctions on Russia represent a significant geopolitical and trade risk event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1416,6 +1508,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-143",
+      "headline": "Aavas Financiers Limited: Aavas Financiers Limited has informed the Exchange about Resignation of Director/KMP/SMP",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AAVAS_ROID_98628_KMP_Doc.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T07:04:17Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aavas Financiers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-106",
       "headline": "China investigates Meituan unit for suspected violations of unfair competition laws",
       "headline_en": null,
@@ -1748,147 +1889,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-090",
-      "headline": "OpenAI sees burning through US$278 billion by 2030: FT",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/startups-tech/technology/openai-sees-burning-through-us278-billion-2030-ft",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Reported projection of $278 billion in cumulative losses by 2030 highlights extreme capital intensity and sustainability concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Reported projection of $278 billion in cumulative losses by 2030 highlights extreme capital intensity and sustainability concerns.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-075",
-      "headline": "Tata Sons sets ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-set-ball-rolling-for-listing-after-rbi-diktat-noel-tata-n-chandrasekaran/articleshow/134346169.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:18:19Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Tata Sons is initiating the process for a public listing by February 2027 to comply with RBI regulations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Tata Sons is initiating the process for a public listing by February 2027 to comply with RBI regulations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-034",
-      "headline": "BOJ hikes rates to 1.25% as chief Ueda cites shift in policy phase",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/economy/bank-of-japan/boj-hikes-rates-to-1.25-as-chief-ueda-cites-shift-in-policy-phase",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:58:47Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The Bank of Japan hiked rates to 1.25%, signaling a significant shift in monetary policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Bank of Japan hiked rates to 1.25%, signaling a significant shift in monetary policy.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -126661,75 +126661,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-abd218ca6c78",
-      "idea_version": "IDEAV-a76c716dcc418656",
-      "idea_version_started_at": "2026-09-17T22:38:57Z",
-      "ticker": "RGR",
-      "company": "Sturm Ruger & Co Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
-      "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-112ff420bf0e"
-      ],
-      "primary_source_event_id": "EVT-112ff420bf0e",
-      "source_headlines": [
-        "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
-      ],
-      "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T20:05:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T21:24:23Z",
-      "updated_at": "2026-09-17T22:38:57Z",
-      "decay_at": "2026-09-19T08:05:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d69eca070d00",
       "idea_version": "IDEAV-fadb833ffa868405",
       "idea_version_started_at": "2026-09-19T04:47:56Z",
@@ -127799,6 +127730,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-abd218ca6c78",
+      "idea_version": "IDEAV-a76c716dcc418656",
+      "idea_version_started_at": "2026-09-17T22:38:57Z",
+      "ticker": "RGR",
+      "company": "Sturm Ruger & Co Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
+      "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-112ff420bf0e"
+      ],
+      "primary_source_event_id": "EVT-112ff420bf0e",
+      "source_headlines": [
+        "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
+      ],
+      "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T20:05:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T21:24:23Z",
+      "updated_at": "2026-09-17T22:38:57Z",
+      "decay_at": "2026-09-19T08:05:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-30c412e2e80e",
@@ -129870,14 +129870,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 262,
@@ -129901,6 +129901,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-abd218ca6c78",
+        "idea_version": "IDEAV-a76c716dcc418656",
+        "idea_version_started_at": "2026-09-17T22:38:57Z",
+        "ticker": "RGR",
+        "company": "Sturm Ruger & Co Inc",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
+        "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-112ff420bf0e"
+        ],
+        "primary_source_event_id": "EVT-112ff420bf0e",
+        "source_headlines": [
+          "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
+        ],
+        "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
+        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T20:05:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T21:24:23Z",
+        "updated_at": "2026-09-17T22:38:57Z",
+        "decay_at": "2026-09-19T08:05:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T08:05:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d10a45580c7f",
         "idea_version": "IDEAV-8d5ad6a0e2dfb984",
@@ -158716,81 +158788,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ddeb10a10dec",
-        "idea_version": "IDEAV-c80451360011b6f6",
-        "idea_version_started_at": "2026-09-06T18:05:43Z",
-        "ticker": "RPGLIFE",
-        "company": "RPG Life Sciences",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is initiating a ₹500 crore capital expenditure program for manufacturing and API expansion, significantly increasing its long-term production capacity.",
-        "why_now": "The expansion plan was formally announced on September 6, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1dfc7e5c2114"
-        ],
-        "primary_source_event_id": "EVT-1dfc7e5c2114",
-        "source_headlines": [
-          "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion"
-        ],
-        "source_headline": "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion",
-        "source_url": "https://www.thehindubusinessline.com/companies/rpg-life-sciences-to-deploy-500-cr-for-manufacturing-api-expansion/article71434557.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-06T07:49:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T05:34:45Z",
-        "updated_at": "2026-09-06T18:05:43Z",
-        "decay_at": "2026-09-07T19:49:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T11:02:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fe979375f297",
         "idea_version": "IDEAV-6f176b62dcc5277f",
         "idea_version_started_at": "2026-09-06T07:07:02Z",
@@ -167054,7 +167051,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 894,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -167073,9 +167070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3474500,
-    "news_picked_today": 254,
-    "news_dropped_today": 4066
+    "news_seen_today": 4061321,
+    "news_picked_today": 259,
+    "news_dropped_today": 4085
   },
   "book_momentum": {
     "live_count": 8,
