@@ -7103,6 +7103,9 @@ function assertPublicationPathsCatalogued(paths: string[]): void {
     })
   } catch (error: any) {
     const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    if (error?.status === 1) {
+      throw new PublicationRefusedError(`cockpit publication refused before its path list was frozen: ${detail}`, { cause: error })
+    }
     throw new Error(`cockpit publication refused before its path list was frozen: ${detail}`)
   }
 }
