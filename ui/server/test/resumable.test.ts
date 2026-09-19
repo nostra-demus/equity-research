@@ -74,6 +74,13 @@ write(`analyses/DYING_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' }
 write('commodity/runs/GOLD/decision_record.json', '{"action":"Hold","old":true}\n')
 write('commodity/runs/GOLD/thesis/01_partial.md', '# retained partial refresh\n')
 write('commodity/runs/GOLD/.interrupted', JSON.stringify({ reason: 'out_of_credits', resetsAt: 4102444800 }))
+// SUGAR / SILVER: the same stable-root shape, stopped by a publication failure. A REFUSED publication (a
+// reason no retry can change) must never be reported as automatically due; a transient one still is.
+for (const [commodity, reason] of [['SUGAR', 'publication_refused'], ['SILVER', 'publication_failed']] as const) {
+  write(`commodity/runs/${commodity}/decision_record.json`, '{"action":"Hold","old":true}\n')
+  write(`commodity/runs/${commodity}/thesis/01_partial.md`, '# retained partial refresh\n')
+  write(`commodity/runs/${commodity}/.interrupted`, JSON.stringify({ reason }))
+}
 
 const { listResumableRuns } = await import('../src/resumable')
 const { createRun, setActiveSubjectRun } = await import('../src/registry')
@@ -132,6 +139,17 @@ check('a stable commodity root with an old decision and a newer quota interrupti
   assert.equal(item!.reason, 'out_of_credits')
   assert.equal(item!.resetsAt, 4102444800)
   assert.equal(item!.autoResumeDue, false)
+})
+
+check('a constellation swarm holds a refused publication for a human, and still auto-resumes a transient one', () => {
+  const find = (subject: string) => listResumableRuns().find((r) => r.swarm === 'commodity' && r.subject === subject && r.kind === 'full')
+  const refused = find('SUGAR')
+  assert.ok(refused, 'a refused run stays offered for manual resume')
+  assert.equal(refused!.reason, 'publication_refused')
+  assert.equal(refused!.autoResumeDue, false, 'never automatically due — this is the row the supervisor and browser read')
+  const transient = find('SILVER')
+  assert.ok(transient)
+  assert.equal(transient!.autoResumeDue, true, 'a transient publication failure keeps auto-resuming')
 })
 
 check('a deliberately-aborted run (.aborted) is STILL offered for manual resume (Cancel = pause)', () => {

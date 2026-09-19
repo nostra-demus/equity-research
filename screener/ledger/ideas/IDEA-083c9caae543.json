@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-083c9caae543",
+  "idea_version": "IDEAV-98b94504ca535abb",
+  "idea_version_started_at": "2026-09-18T22:10:41Z",
+  "ticker": "VOW3",
+  "company": "Volkswagen",
+  "exchange": "XETRA",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Volkswagen is facing a significant earnings hit of up to €10 billion due to restructuring costs and a writedown related to Porsche, signaling severe operational and margin pressure.",
+  "why_now": "The guidance cut and massive writedown warning were issued on September 18, 2026.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-416514b51562",
+    "EVT-4df7176073f5"
+  ],
+  "primary_source_event_id": "EVT-416514b51562",
+  "source_headlines": [
+    "Volkswagen Slashes Guidance as Woes Pile Up",
+    "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs"
+  ],
+  "source_headline": "Volkswagen Slashes Guidance as Woes Pile Up",
+  "source_url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-18T17:11:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-18T22:10:41Z",
+  "updated_at": "2026-09-18T22:10:41Z",
+  "decay_at": "2026-09-20T05:11:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

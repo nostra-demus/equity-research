@@ -204,6 +204,27 @@ function writeFrozenReceipt(
   const bindingJson = options.bindingJsonTransform?.(defaultBindingJson) ?? defaultBindingJson
   const generationDigest = createHash('sha256').update(bindingJson, 'utf8').digest('hex')
   const generationDir = path.join(outDir, '.extract-generations', generationDigest)
+  // START FROM NOTHING. This fixture is sealed read-only below (every file 0444, every directory 0555), and
+  // the digest names the directory — so a run that did not reach its cleanup, because it was interrupted or
+  // killed, leaves exactly this tree in place. The writes below then fail with EACCES and the NEXT run fails
+  // for the state the last one left, not for anything the code did. Do NOT guard this on fs.existsSync:
+  // that call follows symlinks and reports false for a dangling one, so a leftover dangling symlink would
+  // skip the cleanup and then break mkdirSync. lstatSync (never follows) decides instead: a symlink root —
+  // dangling or live — is unlinked directly, never handed to makeTreeWritable, which would otherwise follow
+  // it and chmod every directory inside whatever it points to, real tree or not. A real directory still goes
+  // through makeTreeWritable so its read-only tree can be removed; rmSync with force cleans up whichever of
+  // the two ran, or no-ops when nothing was there.
+  try {
+    const rootStat = fs.lstatSync(generationDir)
+    if (rootStat.isSymbolicLink()) {
+      fs.unlinkSync(generationDir)
+    } else {
+      makeTreeWritable(generationDir)
+    }
+  } catch {
+    // Ignore if the path does not exist.
+  }
+  fs.rmSync(generationDir, { recursive: true, force: true })
   fs.mkdirSync(path.join(generationDir, rawPrefix), { recursive: true })
   for (const { rawRel, raw } of rawEntries) {
     fs.mkdirSync(path.dirname(path.join(generationDir, rawPrefix, rawRel)), { recursive: true })

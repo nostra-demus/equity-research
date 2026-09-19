@@ -131,6 +131,10 @@ jobs:
       - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
         run: python3 scripts/test_ledger_records.py
 
+      # The check that reads those results when research lands on main (.github/workflows/research-check.yml).
+      - name: Research-check tests (which runs a push touched, and how a failing run is reported)
+        run: python3 scripts/test_research_check.py
+
       - name: Benchmark feed fetcher (offline parser + file-shape tests)
         run: python3 scripts/test_fetch_market_feed.py
 

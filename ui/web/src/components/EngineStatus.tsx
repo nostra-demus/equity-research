@@ -1,5 +1,5 @@
 import { useStore } from '../lib/store'
-import type { DeploymentLag, HealthState } from '../lib/types'
+import type { DeploymentLag, HealthState, MarketFeedStatus } from '../lib/types'
 
 // Two presentational pieces, both reading the heartbeat `health` from the store (logic lives there):
 //  - EngineStatusPill: the always-visible top-bar pill (mounted in CommandBar)
@@ -19,13 +19,19 @@ const PILL: Record<HealthState, PillMeta> = {
 export function EngineStatusPill() {
   const health = useStore((s) => s.health)
   const deploymentLag = useStore((s) => s.deploymentLag)
+  const marketFeed = useStore((s) => s.marketFeed)
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
   if (staticMode) return null // read-only showcase has no live engine to be offline
   const lag = health === 'online' && deploymentLag ? deploymentLagBanner(deploymentLag) : null
+  const feed = health === 'online' ? marketFeedBanner(marketFeed) : null
+  // A real outage/update always outranks a stale benchmark feed — the feed is a data-quality note about
+  // one series, not a reason to stop showing the engine as live.
   const m = lag
     ? { label: lag.pill, color: 'var(--accent)', pulse: lag.activity !== 'blocked' }
-    : PILL[health]
+    : feed
+      ? { label: feed.pill, color: 'var(--accent)', pulse: false }
+      : PILL[health]
   return (
     <button className="estatus" onClick={() => checkNow()} title="Engine connection — click to re-check">
       <span className={`estatus__dot${m.pulse ? ' estatus__dot--pulse' : ''}`} style={{ background: m.color }} />
@@ -87,13 +93,31 @@ export function deploymentLagBanner(lag: DeploymentLag, now = Date.now()): LagBa
   }
 }
 
+// The benchmark feed's own health — ui/server/src/market-feed-health.ts judges it from the files the
+// engine can actually read, not from whether the doer machine's refresh timer merely says it ran. Every
+// way that timer can fail was quiet before this: an empty benchmark line in one chart was the only
+// symptom, and nobody watches a chart caption. This is a data-quality note about ONE series, so it is
+// always the lowest-priority banner — a real outage or a pending update says so first.
+type FeedBanner = BannerMeta & { pill: string }
+export function marketFeedBanner(feed: MarketFeedStatus | null): FeedBanner | null {
+  if (!feed || feed.state === 'healthy') return null
+  return {
+    title: feed.state === 'missing' ? 'Benchmark feed missing' : 'Benchmark feed stale',
+    body: feed.detail,
+    cta: 'refresh',
+    pill: feed.state === 'missing' ? 'Live · feed missing' : 'Live · feed stale',
+  }
+}
+
 export function OfflineBanner() {
   const health = useStore((s) => s.health)
   const deploymentLag = useStore((s) => s.deploymentLag)
+  const marketFeed = useStore((s) => s.marketFeed)
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
   const lagInfo = health === 'online' && deploymentLag ? deploymentLagBanner(deploymentLag) : null
-  const info = staticMode ? null : BANNER[health] ?? lagInfo
+  const feedInfo = health === 'online' ? marketFeedBanner(marketFeed) : null
+  const info = staticMode ? null : BANNER[health] ?? lagInfo ?? feedInfo
   if (!info) return null // online/connecting/reconnecting -> no banner (React unmounts it instantly)
   return (
     <div className="offlinebar" role="alert" aria-live="polite">
