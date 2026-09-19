@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:47:11Z",
+  "generated_at": "2026-09-19T00:53:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -855,6 +855,153 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-019",
+      "headline": "Oscar Health Announces Thrive Capital’s Completion of Oscar Health Common Stock Distribution to its Limited Partners | OSCR Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OSCR/oscar-health-announces-thrive-capital-s-completion-of-oscar-health-b774zxafk7lk.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-19T00:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Thrive Capital completed the distribution of its Oscar Health common stock to limited partners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Thrive Capital completed the distribution of its Oscar Health common stock to limited partners.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oscar Health",
+          "ticker": "OSCR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-020",
+      "headline": "Liberty Gold Files Feasibility Study Technical Report for the Black Pine Project in Idaho, USA",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364980/0/en/liberty-gold-files-feasibility-study-technical-report-for-the-black-pine-project-in-idaho-usa.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T23:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Liberty Gold filed a feasibility study for its Black Pine project, a key step in project development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Liberty Gold filed a feasibility study for its Black Pine project, a key step in project development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liberty Gold",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-021",
+      "headline": "Liberty Gold Files Feasibility Study Technical Report for the Black Pine Project in Idaho, USA | LGDTF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LGDTF/liberty-gold-files-feasibility-study-technical-report-for-the-black-bnmi86h3y1wd.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T23:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Liberty Gold filed a feasibility study for its Black Pine project, a key step in project development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Liberty Gold filed a feasibility study for its Black Pine project, a key step in project development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liberty Gold",
+          "ticker": "LGDTF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165966,7 +166113,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2585,
+    "inbox_unconsumed": 2588,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165975,9 +166122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 442912,
-    "news_picked_today": 18,
-    "news_dropped_today": 246
+    "news_seen_today": 481306,
+    "news_picked_today": 21,
+    "news_dropped_today": 291
   },
   "book_momentum": {
     "live_count": 8,
