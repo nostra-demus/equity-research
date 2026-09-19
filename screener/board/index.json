@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:34:08Z",
+  "generated_at": "2026-09-19T00:36:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-012",
+      "headline": "425 - Iridium Communications Inc. (0001418819) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1418819/000095010326014201/0000950103-26-014201-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T20:26:14Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Iridium Communications filed a 425 form regarding business-combination communications, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Iridium Communications filed a 425 form regarding business-combination communications, indicating ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Iridium Communications Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165558,7 +165607,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2578,
+    "inbox_unconsumed": 2579,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165567,9 +165616,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 308516,
-    "news_picked_today": 11,
-    "news_dropped_today": 157
+    "news_seen_today": 346926,
+    "news_picked_today": 12,
+    "news_dropped_today": 180
   },
   "book_momentum": {
     "live_count": 8,
