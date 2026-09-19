@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:16:56Z",
+  "generated_at": "2026-09-19T00:23:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-003",
@@ -125370,6 +125370,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1f05bd3420a7",
+      "idea_version": "IDEAV-27b6f156ba686451",
+      "idea_version_started_at": "2026-09-19T00:23:17Z",
+      "ticker": "BRK.B",
+      "company": "Berkshire Hathaway Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of Warren Buffett as Chairman marks the end of a 56-year tenure, creating significant uncertainty regarding the company's long-term capital allocation strategy and leadership transition.",
+      "why_now": "The announcement occurred on September 18, 2026, and represents a fundamental shift in the company's governance structure.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc56bc6cc3d4",
+        "EVT-149a13f16a72"
+      ],
+      "primary_source_event_id": "EVT-fc56bc6cc3d4",
+      "source_headlines": [
+        "Buffett Steps Down at Berkshire",
+        "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward."
+      ],
+      "source_headline": "Buffett Steps Down at Berkshire",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-09-18/open-interest-9-18-2026-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T18:50:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T00:23:17Z",
+      "updated_at": "2026-09-19T00:23:17Z",
+      "decay_at": "2026-09-20T06:50:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-083c9caae543",
       "idea_version": "IDEAV-98b94504ca535abb",
       "idea_version_started_at": "2026-09-18T22:10:41Z",
@@ -127933,148 +128006,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-299dbb415ee4",
-      "idea_version": "IDEAV-c4be914c7b4ac755",
-      "idea_version_started_at": "2026-09-16T03:36:22Z",
-      "ticker": "GL1",
-      "company": "Global Lithium Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Manna-Nova integration study indicates a 100% increase in post-tax net present value, significantly improving the project's economic viability.",
-      "why_now": "The study results were released via official exchange filing on 2026-09-15.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58976112f325"
-      ],
-      "primary_source_event_id": "EVT-58976112f325",
-      "source_headlines": [
-        "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]"
-      ],
-      "source_headline": "GL1: Manna-Nova Integration Study increases post-tax NPV by 100% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GL1?key=2924-03135926-6A1343969",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-15T22:59:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T03:36:22Z",
-      "updated_at": "2026-09-16T03:36:22Z",
-      "decay_at": "2026-09-17T10:59:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a88eed4d242c",
-      "idea_version": "IDEAV-930f8e09e0b3f675",
-      "idea_version_started_at": "2026-09-16T04:30:41Z",
-      "ticker": "TOK",
-      "company": "Tolukuma",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "An 81% increase in gold resources to 909 koz significantly enhances the valuation of the company's primary asset.",
-      "why_now": "The resource upgrade was confirmed in a price-sensitive exchange filing on 2026-09-15.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1289ba1a9e40"
-      ],
-      "primary_source_event_id": "EVT-1289ba1a9e40",
-      "source_headlines": [
-        "TOK: Tolukuma Mineral Resource Grows 81% to 909 koz Gold [price-sensitive]"
-      ],
-      "source_headline": "TOK: Tolukuma Mineral Resource Grows 81% to 909 koz Gold [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOK?key=2924-03136001-6A1343999",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-15T23:54:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-16T04:30:41Z",
-      "updated_at": "2026-09-16T04:30:41Z",
-      "decay_at": "2026-09-17T11:54:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -128087,14 +128018,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 14
       },
       "short": {
         "total_count": 260,
@@ -128104,12 +128035,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 339,
+      "evicted_count": 341,
       "oldest_retained_at": "2026-08-29T00:51:55Z",
       "side_counts": {
         "long": {
-          "evicted_count": 233,
-          "oldest_retained_at": "2026-09-06T06:27:02Z"
+          "evicted_count": 235,
+          "oldest_retained_at": "2026-09-06T09:27:49Z"
         },
         "short": {
           "evicted_count": 106,
@@ -129966,8 +129897,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T11:54:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T00:23:20Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -130040,8 +129971,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T10:59:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T00:23:20Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -165278,8 +165209,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 889,
-    "live_count": 23,
+    "surfaced_total": 890,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165298,7 +165229,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 77205,
+    "news_seen_today": 134987,
     "news_picked_today": 4,
     "news_dropped_today": 92
   },
