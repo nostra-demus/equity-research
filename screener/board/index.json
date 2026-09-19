@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T12:12:09Z",
+  "generated_at": "2026-09-19T12:22:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -732,6 +732,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-160",
+      "headline": "Rays of Belief Limited: MOMSBELIEF: Rays of Belief Limited has informed the Exchange about Acquisition of City Pro Group Inc. by Mom s Belief US Inc., a step-down wholly owned subsidiary of Rays of Belief Limited.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ROBL_19092026174443_ROBL_-_Intimation_of_Step_Down_Subsidiary.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T12:15:08Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Rays of Belief Limited is acquiring City Pro Group Inc. through its subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Rays of Belief Limited is acquiring City Pro Group Inc. through its subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rays of Belief Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1847,55 +1896,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-155",
-      "headline": "Vishal Mega Mart Limited: Vishal Mega Mart Limited has informed the Exchange about change in Management",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VMMP2024_19092026151130_Disclosure_Change_in_Management__Sept_19_2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-19T09:46:13Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Vishal Mega Mart Limited announced a change in management, which is a material corporate governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Vishal Mega Mart Limited announced a change in management, which is a material corporate governance event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vishal Mega Mart Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166858,9 +166858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6166960,
-    "news_picked_today": 316,
-    "news_dropped_today": 6164
+    "news_seen_today": 6249153,
+    "news_picked_today": 318,
+    "news_dropped_today": 6258
   },
   "book_momentum": {
     "live_count": 8,
