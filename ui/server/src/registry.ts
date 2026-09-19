@@ -76,6 +76,9 @@ export interface RunState {
   publicationRequested?: boolean
   publicationCompleted?: boolean
   publicationError?: string
+  /** The publication failed with the typed deterministic refusal (launcher `PublicationRefusedError`). The
+   * close finalizer turns it into the distinct `publication_refused` reason, which is never auto-resumed. */
+  publicationRefused?: boolean
   publicationPhase?: RunPublicationPhase
   /** Exact supervisor-verified commit containing the decision used by post-publication consumers. */
   publicationRevision?: string
