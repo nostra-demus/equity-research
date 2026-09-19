@@ -18,6 +18,16 @@ export interface DeploymentLag {
   reason: string
 }
 
+// The benchmark-feed health `/api/health` carries (ui/server/src/market-feed-health.ts). Only the two
+// fields the cockpit actually surfaces — the worst state across every series it judged, and the one
+// plain-English sentence explaining it — are read out of the response; nothing else on the payload is
+// trusted structure.
+export type MarketFeedState = 'healthy' | 'stale' | 'missing'
+export interface MarketFeedStatus {
+  state: MarketFeedState
+  detail: string
+}
+
 // ---- shared research memory (GET /api/memory) ----
 // One small, read-only projection for every cockpit. The canonical records and the full memory payloads
 // stay behind the engine; this contract carries only the plain-English summary and enough proof to trace
@@ -2247,7 +2257,9 @@ export interface PortfolioExecution {
   /** Signed position in the contract immediately before and after this fill. */
   positionBefore: number
   positionAfter: number
-  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** `convert` is a currency conversion: it buys money, not a position, so it moves no position and
+   *  realises nothing here. An engine that predates it never sends one. */
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched' | 'convert'
   /** How much this fill opened, and how much of that is still open as of the last statement. */
   openedQuantity: number
   stillOpen: number
@@ -3546,7 +3558,9 @@ export type WatchPlanItem =
   | { kind: 'news'; id: string; topic: string; source: WatchPlanSource }
 
 export interface WatchPlanView {
-  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
+  /** `limit` is the provider's own usage limit — about this machine, not about the research; it clears when
+   *  the plan resets, and the record's own bad case and deal-breakers are watched meanwhile. */
+  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget' | 'limit'
   /** When this state was established. Absent from an engine that predates it (DESIGN.md §5). */
   at?: string | null
   detail: string

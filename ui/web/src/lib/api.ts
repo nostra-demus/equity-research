@@ -431,6 +431,8 @@ export interface ArchiveQuery {
   // server widens the text clause the same way the browser does — OR'd with the literal match, never
   // replacing it. Structurally a CompanyPick; typed inline so lib/ never imports from components/.
   textAs?: { ticker: string | null; name: string; aliases?: string[]; listingCountry?: string | null }[]
+  hideHKListings?: boolean
+  hideINListings?: boolean
 }
 export interface SearchCursor {
   ts: string
@@ -526,6 +528,8 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   // need a nested one and would break on the first company name containing it (the server bounds + validates
   // it, and falls back to plain literal text on anything malformed)
   if (q.textAs?.length) p.set('textAs', JSON.stringify(q.textAs))
+  if (q.hideHKListings) p.set('hideHKListings', 'true')
+  if (q.hideINListings) p.set('hideINListings', 'true')
   return p
 }
 

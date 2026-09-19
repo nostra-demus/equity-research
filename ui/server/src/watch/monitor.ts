@@ -26,8 +26,9 @@ import {
 import { REARM_PCT, stepAlerts, type NameAlertState } from './alerts'
 import { WatchInbox, type WatchMessageItem } from './inbox'
 import { selectEmailBatch, type Delivered, type EmailBatchEntry, type WatchEmailConfig } from './email'
+import { isUsageLimitError } from '../chat-llm'
 import { loadPriceRecord, marketIndexFor, observe, savePriceRecord, sessionMove, sessionOf, type ListingSubject } from './prices'
-import { loadPlan, runSegOf, type ReadOutcome } from './reader'
+import { fallbackLimitPlan, loadPlan, runSegOf, type ReadOutcome } from './reader'
 import { BUY_NOW_DECISIONS, ROLE_LABEL, type LeftOut, type PlanItem, type PlanPrice, type WatchPlan } from './plan'
 
 export const MONITOR_STATE_SCHEMA = 'watch-monitor/v1' as const
@@ -36,6 +37,12 @@ const COCKPIT_OFF_MS = 45 * 60_000
 const READ_RETRY_MS = 60 * 60_000
 const READ_GIVE_UP_MS = 24 * 60 * 60_000
 const READ_MAX_ATTEMPTS = 3
+/** How long to hold off after the provider's own usage limit. The limit is about the MACHINE — while it holds,
+ *  every read fails the same way — and the plan it belongs to resets in hours, not a day. */
+const READ_LIMIT_RETRY_MS = 15 * 60_000
+/** How recent a limit has to be for the next read to go out as a single probe. A record outlives the name it
+ *  belongs to, and an old one must not hold the whole list at one read a tick for ever. */
+const READ_LIMIT_PROBE_MS = 2 * READ_LIMIT_RETRY_MS
 /** How often a read report's files are checked for a correction made in place. */
 const DIGEST_CHECK_MS = 60 * 60_000
 /** How long the first-day summary waits for every report to be read before going out anyway. */
@@ -83,7 +90,7 @@ const emptyState = (): MonitorState => ({
 export type SetSeenResult = 'ok' | 'not_acknowledgeable' | 'not_saved'
 
 export interface PlanView {
-  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget'
+  state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget' | 'limit'
   detail: string
   /** When this state was established — the read record's own time, or the reading's. A panel that cannot say
    *  WHEN it last tried leaves the reader unable to tell today's answer from one two days old, which is how
@@ -121,6 +128,10 @@ export interface MonitorDeps {
   quote: (subjects: ListingSubject[]) => Promise<Map<string, QuoteOutcome>>
   indexLevels: (symbols: string[]) => Promise<Map<string, { last: number; as_of: string | null }>>
   readPlan: (row: EngineWatchRow) => Promise<ReadOutcome>
+  /** The record-only plan for a report that has never once been read, built with no model call at all — used
+   *  only while the usage-limit gate below is holding real reads off. Defaults to reader.ts's own provider-free
+   *  builder (fallbackLimitPlan); a test may inject its own to avoid touching real files. */
+  buildFallbackPlan?: (row: EngineWatchRow) => ReadOutcome
   emailConfig: () => WatchEmailConfig
   sendEmail: (batch: EmailBatchEntry[], cfg: WatchEmailConfig) => Promise<{ ok: boolean; detail: string; delivered?: Delivered[] }>
   /** The digest of a run's research files as they are now (reader.ts loadResearchSources). With it, a report
@@ -170,7 +181,13 @@ export function createWatchMonitor(deps: MonitorDeps) {
   const state = loadState()
   const planCache = new Map<string, WatchPlan | null>()
   const reading = new Set<string>()
+  /** Reports whose files changed since the reading on disk — cleared when one is read again. */
+  const digestChanged = new Set<string>()
   const queued = new Set<string>()
+  /** A model read whose outcome is not yet known — added the moment it is queued (needsModel reads only),
+   *  removed the moment readPlan returns. Persists across ticks, unlike a tick-local probesLeft: a read can
+   *  run longer than the tick interval, and while one is outstanding no other name may be queued behind it. */
+  const modelReadsInFlight = new Set<string>()
   const digestCheckedAt = new Map<string, number>()
   let readChain: Promise<void> = Promise.resolve()
   let market = new Map<string, { label: string; move_pct: number; session: string }>()
@@ -179,6 +196,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
   let soon: ReturnType<typeof setTimeout> | null = null
   let stopped = false
   let lastError: string | null = null
+  const buildFallbackPlan = deps.buildFallbackPlan ?? ((row: EngineWatchRow) => fallbackLimitPlan(row, { stateDir: deps.stateDir }))
 
   function loadState(): MonitorState {
     try {
@@ -236,12 +254,15 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // leave the name silent for hours. Until the text is read, it is watched on what the decision record
     // itself stores as data (its bad case, its kill criteria, big drops); when the read succeeds, the basis
     // changes and the name gets one "now watching" message with its full plan.
-    if (rec?.status === 'failed' || rec?.status === 'budget') {
+    if (rec?.status === 'failed' || rec?.status === 'budget' || rec?.status === 'limit') {
       const retry = reading.has(seg) || queued.has(seg) ? ' Trying again now.' : ''
+      // Only a real failure is said of the RESEARCH. A spent reading allowance and the plan's own usage limit
+      // are about this machine, and saying "could not read the research" of either blames the report for them.
+      const kind: PlanView['state'] = limitRecord(rec) ? 'limit' : rec.status === 'budget' ? 'budget' : 'failed'
+      const detail = kind === 'failed' ? `Could not read the research: ${rec.detail}` : rec.detail
       return {
         plan, ready: true,
-        view: view(rec.status === 'budget' ? 'budget' : 'failed',
-          `${rec.status === 'budget' ? rec.detail : `Could not read the research: ${rec.detail}`}${retry}`, rec.last_at),
+        view: view(kind, `${detail}${retry}`, rec.last_at),
         basis: `${eng.run_root}|partial`,
       }
     }
@@ -303,41 +324,142 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
+  /** A read the provider's own usage limit stopped. Records written before this was told apart say `failed`
+   *  with the limit's own words, and the state carries no version of its own — so they are read as what they
+   *  are, rather than left on the day-long backoff this exists to end. */
+  const limitRecord = (rec: ReadRecord | undefined): boolean =>
+    !!rec && (rec.status === 'limit' || (rec.status === 'failed' && isUsageLimitError(rec.detail)))
+  /** When the provider last said the plan is over its limit, across every report. 0 if it never has. */
+  function limitedAt(): number {
+    return Object.values(state.reads).reduce((latest, rec) => {
+      const at = limitRecord(rec) ? Date.parse(rec.last_at) : Number.NaN
+      return Number.isFinite(at) && at > latest ? at : latest
+    }, 0)
+  }
+
   function ensurePlans(rows: EngineWatchRow[], at: Date): void {
+    // THE USAGE LIMIT IS ONE CONDITION FOR THE WHOLE LIST, not a fact about any one report: while it holds,
+    // every read fails the same way. So it is waited out once, and the first read after it is a single probe —
+    // ten reads fired at a limited plan is ten failures, and the same ten again at the next interval. When the
+    // probe gets through, the rest follow on the ticks behind it (a finished read schedules the next).
+    const lastLimit = limitedAt()
+    const waiting = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_RETRY_MS
+    // The probe belongs to a limit just waited out, not to any limit there has ever been.
+    // A read can run past this tick's own interval (reads run up to ~8 minutes; ticks run more often than
+    // that), so a probesLeft computed from the wall clock alone would reset to 1 on every intervening tick
+    // and queue ANOTHER report behind the one still outstanding — recreating the very burst this cap exists
+    // to prevent by the time the first probe's outcome confirms the limit still holds. So the probe is spent
+    // for as long as an earlier one's outcome is not yet known, across ticks, not just within the one that
+    // queued it — confirmed only by that read actually landing (modelReadsInFlight going back to empty).
+    let probesLeft = lastLimit > 0 && at.getTime() - lastLimit < READ_LIMIT_PROBE_MS
+      ? Math.max(0, 1 - modelReadsInFlight.size)
+      : Number.POSITIVE_INFINITY
     for (const row of rows) {
+      // A buy call is set up with no model at all — its record's own bad case and kill criteria are the whole
+      // plan (readResearchPlan) — so a limit on the provider says nothing about it. Held back with the rest,
+      // its one "research says buy now" message would wait on a quota it never needed.
+      const needsModel = !BUY_NOW_DECISIONS.has(row.decision ?? '')
       const seg = runSegOf(row.run_root)
       if (!seg || reading.has(seg) || queued.has(seg)) continue
       const plan = cachedPlan(seg)
-      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root) {
+      const rec = state.reads[seg]
+      const suppressed = needsModel && (waiting || probesLeft <= 0)
+      if (suppressed) {
+        // A report with neither a saved plan nor a read record of any kind has never been through readPlan at
+        // all — not even a failed attempt — so it has none of the record-only watching every other name already
+        // falls back on, including one that has hit this very limit before. Left to the gate above, the same
+        // report already ahead of it in the list (which HAS a record) keeps winning each tick's one probe and
+        // refreshing the limit timestamp, so a report that only shows up after the limit is known can stay
+        // unwatched for the whole outage. It gets its own record-only plan now, built with no model call at all
+        // — the only thing suppressed here is the actual read — and takes its normal turn at a real one once
+        // the machine-wide wait allows it.
+        if (!rec) {
+          if (!plan) {
+            try {
+              const outcome = buildFallbackPlan(row)
+              // A synthetic fallback is not a fresh provider response, so a `limit` one must NOT advance the
+              // machine-wide limit clock (limitedAt reads the newest `limit` record's last_at). Stamp it with
+              // the limit already in force, not `at` — otherwise a name arriving mid-cooldown pushes the next
+              // probe out, and repeated arrivals could postpone probing indefinitely though no provider call
+              // confirmed the limit still holds. A `no_sources` fallback keeps its own `at` stamp (real backoff).
+              const stamp = outcome.status === 'limit' && lastLimit > 0
+                ? new Date(lastLimit).toISOString()
+                : at.toISOString()
+              state.reads[seg] = { attempts: 0, last_at: stamp, status: outcome.status, detail: outcome.detail }
+              if (outcome.plan) planCache.set(seg, outcome.plan)
+              else planCache.delete(seg)
+              saveState()
+            } catch (e: any) {
+              // The fallback builder writes a plan to disk. A storage failure (plans dir unwritable, atomic
+              // rename fails) must not abort the whole tick and stop price/deal-breaker evaluation for EVERY
+              // name — the row is simply left uninitialised and retries next tick, the same containment the
+              // real read on the chain below already has.
+              console.error(`[watch] fallback plan for ${seg} could not be stored: ${String(e?.message ?? e)}`)
+            }
+          } else if (plan.reader.status !== 'ok') {
+            // readResearchPlan (reader.ts) saves a non-`ok` plan to disk and RETURNS before the readChain
+            // callback below saves the monitor's own read record — a restart in between leaves exactly this:
+            // a plan already on disk, no matching `rec`. Left alone this row is neither "no plan" (so the
+            // fallback above never runs for it) nor holding a `rec` planInfo can read a kind from, and it
+            // falls through to "waiting to read" for as long as the machine-wide limit keeps suppressing real
+            // reads — though its own record-only bad case and deal-breakers are already sitting on disk. The
+            // suppression above only ever holds for a genuine machine-wide limit, so the record is rebuilt as
+            // the same kind of `limit` a synthetic fallback gets, stamped the same way (the limit already in
+            // force, not `at`, so re-discovering this plan on a later tick cannot push the clock out either).
+            state.reads[seg] = {
+              attempts: 0,
+              last_at: lastLimit > 0 ? new Date(lastLimit).toISOString() : at.toISOString(),
+              status: 'limit',
+              detail: plan.reader.detail || "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet.",
+            }
+            saveState()
+          }
+        }
+        continue
+      }
+      // A re-read the limit turned away keeps the earlier reading, so the plan still reads `ok` — and the hourly
+      // digest clock, stamped just before that attempt, would then hold the corrected report for the rest of the
+      // hour rather than the fifteen minutes the limit asks for. A known correction waiting on a limit skips the
+      // clock: what it is waiting for is the provider, not another look at the files.
+      const pending = limitRecord(rec) && digestChanged.has(seg)
+      if (plan && plan.reader.status === 'ok' && plan.run_root === row.run_root && !pending) {
         // Read once per version of the report: one corrected in place (a data fix to its record or thesis) is read
         // again. Its files are hashed at most hourly — cheap, but not every few minutes for nothing.
         if (!deps.currentDigest || at.getTime() - (digestCheckedAt.get(seg) ?? 0) < DIGEST_CHECK_MS) continue
         digestCheckedAt.set(seg, at.getTime())
         const digest = deps.currentDigest(row.run_root)
         if (!digest || digest === plan.source_digest) continue
+        // Remembered, so a limit in the way cannot turn a correction back into an hour of waiting.
+        digestChanged.add(seg)
       }
-      const rec = state.reads[seg]
       if (rec) {
         const since = at.getTime() - Date.parse(rec.last_at)
-        const wait = rec.status === 'failed' ? (rec.attempts >= READ_MAX_ATTEMPTS ? READ_GIVE_UP_MS : READ_RETRY_MS)
+        // A usage limit waits on the gate above, which is about the machine rather than this report, so it
+        // adds no wait of its own here — including one recorded as a failure before the two were told apart.
+        const wait = limitRecord(rec) ? 0
+          : rec.status === 'failed' ? (rec.attempts >= READ_MAX_ATTEMPTS ? READ_GIVE_UP_MS : READ_RETRY_MS)
           : rec.status === 'no_sources' ? READ_GIVE_UP_MS
             : rec.status === 'budget' ? READ_RETRY_MS : 0
         if (since < wait) continue
       }
       queued.add(seg)
+      if (needsModel) { probesLeft -= 1; modelReadsInFlight.add(seg) }
       readChain = readChain.then(async () => {
         queued.delete(seg)
-        if (stopped) return
+        if (stopped) { modelReadsInFlight.delete(seg); return }
         reading.add(seg)
         let outcome: ReadOutcome
         try { outcome = await deps.readPlan(row) } catch (e: any) { outcome = { status: 'failed', plan: null, detail: String(e?.message ?? e), cost_usd: 0 } }
         reading.delete(seg)
+        // The outcome is known now — the next tick may count the machine-wide probe as free again.
+        modelReadsInFlight.delete(seg)
         const prev = state.reads[seg]
         const attempts = outcome.status === 'failed'
           ? (prev?.status === 'failed' && prev.attempts < READ_MAX_ATTEMPTS ? prev.attempts + 1 : 1)
           : 0
         const doneAt = now()
         state.reads[seg] = { attempts, last_at: doneAt.toISOString(), status: outcome.status, detail: outcome.detail }
+        if (outcome.status === 'ok' || outcome.status === 'cached') digestChanged.delete(seg)
         if (outcome.plan) planCache.set(seg, outcome.plan)
         else planCache.delete(seg)
         // (Not when an earlier reading is still watched: then only a re-read of a corrected copy failed.)
