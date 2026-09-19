@@ -499,6 +499,35 @@ check('beta refuses an index step built across a hole in the feed', () => {
   assert.ok(near(beta!, 2, 1e-9), `the gap step must be dropped, leaving beta 2 — got ${beta}`)
 })
 
+check('alpha is charged the cash of the PAIRED window, not the book’s own wider span', () => {
+  // The benchmark starts 60 days AFTER the book's own return series does — a real, later-starting feed,
+  // not a hole (the gap check only trips on a break WITHIN the series). Charging alpha the rate of the
+  // book's full Jan-start window would mix in 60 days of cash the regression never touched.
+  const book: { date: string; r: number }[] = []
+  const closes: { date: string; close: number }[] = []
+  let close = 100
+  const d = new Date(Date.UTC(2026, 0, 1))
+  for (let i = 0; i <= 150; i++) {
+    const date = d.toISOString().slice(0, 10)
+    if (i > 0) {
+      const rm = i % 2 ? 0.01 : -0.005
+      close *= 1 + rm
+      book.push({ date, r: 2 * rm })
+    }
+    if (i >= 60) closes.push({ date, close })
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const calls: { from: string; to: string }[] = []
+  const riskFree = (from: string, to: string): number => { calls.push({ from, to }); return 0 }
+  const { pairedDays } = betaAlpha(book, closes, riskFree)
+  assert.ok(pairedDays >= MIN_RATIO_DAYS, `needs a usable sample, got ${pairedDays}`)
+  assert.equal(calls.length, 1, 'the resolver is asked for exactly one window')
+  // The first PAIRED date is one day after the benchmark begins (bmReturns needs a prior close to
+  // compute a return), never the book's own day-two start — 60 days earlier.
+  assert.equal(calls[0]!.from, closes[1]!.date, 'must be the paired window’s own start')
+  assert.notEqual(calls[0]!.from, book[0]!.date, 'never the book’s full span, which starts before the benchmark exists')
+})
+
 check('the benchmark month covers the days the BOOK held capital, not the whole calendar month', () => {
   // The book's first month starts the day capital arrived. Chaining the feed across the WHOLE month
   // credited the index with days the fund did not exist for — on the real book that read as April:
