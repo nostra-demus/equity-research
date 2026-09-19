@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T03:16:36Z",
+  "generated_at": "2026-09-19T03:30:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -918,6 +918,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-090",
+      "headline": "OpenAI sees burning through US$278 billion by 2030: FT",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/startups-tech/technology/openai-sees-burning-through-us278-billion-2030-ft",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Reported projection of $278 billion in cumulative losses by 2030 highlights extreme capital intensity and sustainability concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Reported projection of $278 billion in cumulative losses by 2030 highlights extreme capital intensity and sustainability concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-075",
       "headline": "Tata Sons sets ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
       "headline_en": null,
@@ -1196,6 +1245,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-097",
+      "headline": "Philippines: Billionaire Villar family hit with criminal, administrative complaints over PrimeWater deals",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/asia/philippines/philippines-billionaire-villar-family-hit-with-graft-complaints-over-primewater-deals-1.500680199",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:55:25Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Billionaire Villar family faces criminal and administrative complaints over PrimeWater deals, posing significant legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Billionaire Villar family faces criminal and administrative complaints over PrimeWater deals, posing significant legal and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PrimeWater",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1812,92 +1911,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-018",
-      "headline": "US woman falsely charged with bank theft sues for $10m over AI facial recognition",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/2026/sep/18/tennessee-woman-falsely-charged-bank-theft-lawsuit",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T23:34:48Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "A $10 million lawsuit involving AI facial recognition technology highlights operational and legal risks for the company involved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "A $10 million lawsuit involving AI facial recognition technology highlights operational and legal risks for the company involved.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-069",
-      "headline": "Mamata moves SC after EC freezes TMC symbol, calls it ‘black day’ for democracy",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/west-bengal/mamata-moves-sc-after-ec-freezes-tmc-symbol-calls-it-black-day-for-democracy-4151662",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:53:41Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The freezing of a major political party's symbol creates significant political uncertainty and potential instability in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The freezing of a major political party's symbol creates significant political uncertainty and potential instability in the region.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -167088,9 +167101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1750464,
-    "news_picked_today": 92,
-    "news_dropped_today": 1516
+    "news_seen_today": 1859313,
+    "news_picked_today": 115,
+    "news_dropped_today": 1661
   },
   "book_momentum": {
     "live_count": 8,
