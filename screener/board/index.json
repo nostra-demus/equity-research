@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T09:45:46Z",
+  "generated_at": "2026-09-19T09:52:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -1611,6 +1611,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-153",
+      "headline": "Kalyan Jewellers invests ₹350 crore in subsidiary Candere via rights issue",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/kalyan-jewellers-share-price-invests-rs-350-crore-in-subsidiary-candere-via-rights-issue-19994069.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T09:43:25Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Kalyan Jewellers is investing 350 crore in its subsidiary Candere to support growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Kalyan Jewellers is investing 350 crore in its subsidiary Candere to support growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalyan Jewellers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-103",
       "headline": "Donald Trump Signs Russia Sanctions Bill, India And China Face 100% Tariff Threat",
       "headline_en": null,
@@ -1847,55 +1896,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-146",
-      "headline": "Unichem Laboratories receives ₹94 crore GST order over penalty, interest",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/unichem-laboratories-share-price-receives-rs-94-crore-gst-order-over-penalty-interest-19994050.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:35:14Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Unichem Laboratories received a GST order for ₹94 crore including penalty and interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Unichem Laboratories received a GST order for ₹94 crore including penalty and interest.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unichem Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166864,9 +166864,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4747149,
-    "news_picked_today": 287,
-    "news_dropped_today": 4849
+    "news_seen_today": 4790941,
+    "news_picked_today": 288,
+    "news_dropped_today": 4896
   },
   "book_momentum": {
     "live_count": 8,
