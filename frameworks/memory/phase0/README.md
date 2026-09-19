@@ -30,6 +30,46 @@ introduced. It is deliberately read-only with respect to historical research art
   events. The CLI refuses a decrease so a wrong root or accidental corpus loss cannot replace a
   healthy projection with an empty or silently smaller database. Increases do not require a refresh.
 
+## The coverage check gates publication, in two places
+
+`scripts/validate_data_catalogue.py` is that separate coverage check. Autonomous publication runs it
+twice, on the same catalogue bytes and the same glob rules, so the two cannot disagree about the paths a
+publication proposes. (The second run judges the WHOLE index, so it can additionally fail on unrelated
+uncatalogued data that publication did not propose.)
+
+1. **Before sealing (`--paths`).** The cockpit supervisor freezes a publication's exact path list into
+   an immutable, digest-signed ready receipt. A sealed list the catalogue rejects can never publish,
+   and a retained receipt is retried at every startup. On 2026-09-16/17 one such receipt crash-looped
+   the engine overnight. So the supervisor asks first: an uncovered path fails the live run, where
+   Activity shows it, and no receipt is written.
+2. **After staging (`--index`, then `--tree`).** `scripts/commit-run.sh` repeats the check on the exact
+   Git index and on the commit it is about to push.
+
+`/research:full` and `/research:rerun` publish the whole run root, so every untracked, non-ignored file
+in a run root is swept into the path list. **A new file written into a run root therefore needs one of
+three deliberate homes, decided when it is introduced:**
+
+- **Research data or an audit artifact** — add its path to a store in `catalogue.json`. Check what it
+  contains first: the repository is public, so a trace that records who acted (an operator's login or
+  email, free text they typed) needs redacting before it is catalogued.
+- **Supervisor control state** (a marker the engine reads and clears, never evidence) — add its name to
+  `SUPERVISOR_CONTROL_MARKERS` in `ui/server/src/launcher.ts`, which keeps it out of every snapshot, in
+  every data root. A test fails if the catalogue ever lists one of those names in a research run root,
+  because dropping a catalogued file would silently withhold data.
+- **Local-only scratch** (a lock file, a temp file) — add it to `.gitignore`, which keeps it out of the
+  sweep. A retained lock beside a ledger counts: `/screener:signal` and `/screener:handoff` publish all of
+  `screener/ledger/`.
+
+In a store that lists exact file names — a research run root, `analyses/<RUN>/` — a file with none of
+the three is refused before sealing, by name. That is the intended failure: it surfaces the missing
+decision instead of hiding the file or publishing it by accident.
+
+**That protection stops at a blanket glob.** `commodity/runs/**`, `screener/runs/**`,
+`analyses/provider-parity/**` and `analyses/*/_pool_extracts/**` accept ANY file name, so under those
+roots the coverage check has nothing to refuse: whatever is swept is published. There the
+control-marker list and `.gitignore` are the only guards, and a new file needs the same three-way
+decision made by hand. `scripts/test_commit_run.py` pins this gap so it stays a known property.
+
 Run the baseline and its integrity checks from the repository root:
 
 ```bash
