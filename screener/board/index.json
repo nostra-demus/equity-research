@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T03:04:22Z",
+  "generated_at": "2026-09-19T03:05:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -1637,6 +1637,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-079",
+      "headline": "TRANSTHERA-B (02617): VOLUNTARY ANNOUNCEMENT FIRST PATIENT DOSED IN PHASE II CLINICAL TRIAL OF TINENGOTINIB IN COMBINATION WITH NOVEL HORMONAL THERAPY FOR PRETREATED AND PROGRESSED METASTATIC CASTRATION-RESISTANT PROSTATE CANCER IN CHINA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801256.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-18T10:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Company announced the first patient dosed in a Phase II clinical trial for a cancer treatment, representing a milestone in drug development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Company announced the first patient dosed in a Phase II clinical trial for a cancer treatment, representing a milestone in drug development.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TransThera Biosciences",
+          "ticker": "02617",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-004",
       "headline": "Two hospital systems settle US probe over transgender care billing for $9.5 million",
       "headline_en": null,
@@ -1834,49 +1883,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-054",
-      "headline": "US weighs delaying Taiwan arms sales until after Apec and G20 summits",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/china/diplomacy/article/3368060/us-weighs-delaying-taiwan-arms-sales-until-after-apec-and-g20-summits?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:00:13Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Potential delay in arms sales to Taiwan suggests a shift in geopolitical strategy ahead of major summits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Potential delay in arms sales to Taiwan suggests a shift in geopolitical strategy ahead of major summits.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -167076,9 +167082,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1659269,
-    "news_picked_today": 86,
-    "news_dropped_today": 1402
+    "news_seen_today": 1695759,
+    "news_picked_today": 88,
+    "news_dropped_today": 1424
   },
   "book_momentum": {
     "live_count": 8,
