@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:53:24Z",
+  "generated_at": "2026-09-19T00:55:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -605,6 +605,114 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-022",
+      "headline": "FortuneX Acquisition Corporation and WT Realty Group Inc. Announce Business Combination Agreement",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/19/3364987/0/en/fortunex-acquisition-corporation-and-wt-realty-group-inc-announce-business-combination-agreement.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-19T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FortuneX Acquisition Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "WT Realty Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-023",
+      "headline": "FortuneX Acquisition Corporation and WT Realty Group Inc. Announce Business Combination Agreement | FXACU Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FXACU/fortune-x-acquisition-corporation-and-wt-realty-group-inc-announce-ehw872o1xxno.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-19T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FortuneX Acquisition Corporation",
+          "ticker": "FXACU",
+          "listing_country": "US"
+        },
+        {
+          "name": "WT Realty Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166113,7 +166221,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2588,
+    "inbox_unconsumed": 2590,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -166122,9 +166230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 481306,
-    "news_picked_today": 21,
-    "news_dropped_today": 291
+    "news_seen_today": 519626,
+    "news_picked_today": 24,
+    "news_dropped_today": 312
   },
   "book_momentum": {
     "live_count": 8,
