@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:58:20Z",
+  "generated_at": "2026-09-19T03:04:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -869,6 +869,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-076",
+      "headline": "Hatteras Investment Partners, LP and David B. Perkins",
+      "headline_en": null,
+      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106418.pdf",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T19:54:21Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "SEC initiated administrative proceedings against Hatteras Investment Partners and David B. Perkins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "SEC initiated administrative proceedings against Hatteras Investment Partners and David B. Perkins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hatteras Investment Partners, LP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-075",
       "headline": "Tata Sons sets ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
       "headline_en": null,
@@ -1251,6 +1300,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-077",
+      "headline": "S-1 - NSCALE Ltd (0002110365) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/0001193125-26-395475-index.htm",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T19:44:17Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "NSCALE Ltd filed an S-1 registration statement for an IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "NSCALE Ltd filed an S-1 registration statement for an IPO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NSCALE Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1791,103 +1889,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-042",
-      "headline": "Trump extends H-1B visa restrictions, including $100,000 payment requirement, for another year",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/trump-extends-h-1b-visa-restrictions-including-100000-payment-requirement-for-another-year/articleshow/134345979.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:18:39Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The extension of H-1B visa restrictions and the $100,000 salary threshold requirement increases operational costs and hiring friction for US-based firms relying on foreign talent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The extension of H-1B visa restrictions and the $100,000 salary threshold requirement increases operational costs and hiring friction for US-based firms relying on foreign talent.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-039",
-      "headline": "Baidu-backed DeepWay aims to license its e-truck tech in Europe",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/baidu-backed-deepway-aims-to-license-its-e-truck-tech-in-europe",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:58:47Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Baidu-backed DeepWay aims to license its e-truck technology in Europe, expanding its market reach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Baidu-backed DeepWay aims to license its e-truck technology in Europe, expanding its market reach.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DeepWay",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Baidu",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -167075,9 +167076,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1604402,
-    "news_picked_today": 84,
-    "news_dropped_today": 1356
+    "news_seen_today": 1659269,
+    "news_picked_today": 86,
+    "news_dropped_today": 1402
   },
   "book_momentum": {
     "live_count": 8,
