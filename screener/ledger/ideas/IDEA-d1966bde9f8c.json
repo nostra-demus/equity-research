@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-083c9caae543",
-  "idea_version": "IDEAV-5b0c0e4ef0d0c09d",
+  "idea_id": "IDEA-d1966bde9f8c",
+  "idea_version": "IDEAV-47bc164323824838",
   "idea_version_started_at": "2026-09-19T15:58:42Z",
-  "ticker": "VOW3",
-  "company": "Volkswagen AG",
-  "exchange": "XETRA",
+  "ticker": "08156",
+  "company": "Sinopharm Tech Holdings Limited",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company announced a massive 10 billion euro hit to profits, reflecting severe structural and operational headwinds.",
-  "why_now": "The warning was issued on September 18, 2026.",
-  "conviction": 80,
+  "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+  "why_now": "The warning was filed on September 18, 2026.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 21,
+    "evidence": 25,
+    "impact": 20,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-08e814ec8f92"
+    "EVT-f9e144c03dbd"
   ],
-  "primary_source_event_id": "EVT-08e814ec8f92",
+  "primary_source_event_id": "EVT-f9e144c03dbd",
   "source_headlines": [
-    "Crisis-wracked Volkswagen warns of €10bn hit to profits"
+    "SINOPHARM TECH (08156): PROFIT WARNING"
   ],
-  "source_headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
-  "source_url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
-  "source_name": "Gulf Times — Business",
+  "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-18T21:00:00Z",
+  "newest_source_at": "2026-09-18T14:02:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-18T22:10:41Z",
+  "surfaced_at": "2026-09-19T15:58:42Z",
   "updated_at": "2026-09-19T15:58:42Z",
-  "decay_at": "2026-09-20T09:00:00Z",
+  "decay_at": "2026-09-20T02:02:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
