@@ -84,6 +84,7 @@ export type AbsentReason =
   | 'stale_feed'         // the newest price on offer is too old to call current
   | 'implausible_price'  // out of scale with the entry price — wrong units or wrong listing
   | 'feed_unavailable'   // the quote service could not be reached
+  | 'not_quoted'         // the batch came back without this listing in it — asked for, never answered
 
 export interface LiveQuote {
   ticker: string
