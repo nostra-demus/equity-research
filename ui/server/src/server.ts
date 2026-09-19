@@ -51,10 +51,11 @@ import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
 import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import {
-  assignHoldingIdea, assignTradeIdea, clearSupersededManual, declareCashEquivalent, declareIdea,
-  deleteStatement, logManualTrade, readPortfolio, removeDeclaredIdea, removeManualTrade,
+  assignHoldingIdea, assignTradeIdea, BENCHMARK_SYMBOL, clearSupersededManual, declareCashEquivalent,
+  declareIdea, deleteStatement, logManualTrade, readPortfolio, removeDeclaredIdea, removeManualTrade,
   renameDeclaredIdea, saveStatement, STATEMENT_MAX_BYTES,
 } from './portfolio-store'
+import { marketFeedHealth } from './market-feed-health'
 import { liveMark } from './portfolio-live'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
@@ -375,6 +376,9 @@ app.get('/api/health', async (_req, reply) => {
     repoRoot: REPO_ROOT,
     deploymentPending: providerDeployPending(STATE_DIR),
     deployment: await readDeploymentStatus(STATE_DIR),
+    // The benchmark feed judged by the files THIS engine can read. It is here because every way its
+    // refresher fails is quiet, and health is the one thing an operator checks without being told to.
+    marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
   }
 })
 

@@ -38,7 +38,7 @@ const {
   shouldRetrySwarmDiscovery,
   useStore,
 } = await import('./store')
-const { deploymentLagBanner } = await import('../components/EngineStatus')
+const { deploymentLagBanner, marketFeedBanner } = await import('../components/EngineStatus')
 
 const research: SwarmMeta = { id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }
 const screener: SwarmMeta = { id: 'screener', label: 'Screener', color: '#20d7e5', unit: 'signal', order: 2, layout: 'flow' }
@@ -266,6 +266,36 @@ try {
   await useStore.getState()._tickHealth()
   assert.equal(useStore.getState().deploymentLag, null, 'the engine\'s own research publications never read as a production delay')
   assert.equal(useStore.getState().health, 'online', 'a data-only tip keeps the cockpit plainly live')
+
+  // The benchmark feed's own health: a stale/missing feed is a real, distinct problem from an engine
+  // outage or a pending deploy, and before this it never reached the cockpit at all — only a caption on
+  // one chart said anything, and nobody watches a chart caption.
+  assert.equal(marketFeedBanner(null), null, 'no reading yet shows nothing, not a false alarm')
+  assert.equal(marketFeedBanner({ state: 'healthy', detail: 'Every series is current: SP500 to 2026-09-15.' }), null,
+    'a healthy feed needs no banner')
+  const staleBanner = marketFeedBanner({ state: 'stale', detail: 'SP500 stops at 2026-09-09, 5 trading days back.' })
+  assert.match(staleBanner?.title ?? '', /stale/i)
+  assert.equal(staleBanner?.body, 'SP500 stops at 2026-09-09, 5 trading days back.', 'the engine\'s own plain-English reason is shown verbatim')
+  assert.equal(staleBanner?.pill, 'Live · feed stale')
+  const missingBanner = marketFeedBanner({ state: 'missing', detail: 'No price history at all for SP500.' })
+  assert.match(missingBanner?.title ?? '', /missing/i)
+  assert.equal(missingBanner?.pill, 'Live · feed missing')
+
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    ok: true, marketFeed: { state: 'stale', detail: 'SP500 stops at 2026-09-09, 5 trading days back.' },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().health, 'online', 'a stale benchmark feed is not an engine outage')
+  assert.deepEqual(useStore.getState().marketFeed, { state: 'stale', detail: 'SP500 stops at 2026-09-09, 5 trading days back.' },
+    'the heartbeat must read the feed health the server already computed, not discard it')
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    ok: true, marketFeed: { state: 'not-a-real-state', detail: 'whatever' },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().marketFeed, null, 'an unrecognised shape off the wire must never be trusted straight through')
+  globalThis.fetch = async () => new Response(JSON.stringify({ ok: true }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().marketFeed, null, 'an older server with no marketFeed field renders no feed banner (fail closed)')
 
   api.swarms = async () => { throw Object.assign(new Error('gateway before Access check'), { status: 503 }) }
   useStore.setState({ activeSwarm: 'screener', swarms: [], health: 'online' })
