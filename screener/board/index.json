@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:52:47Z",
+  "generated_at": "2026-09-19T02:58:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -869,6 +869,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-075",
+      "headline": "Tata Sons sets ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-set-ball-rolling-for-listing-after-rbi-diktat-noel-tata-n-chandrasekaran/articleshow/134346169.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:18:19Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Tata Sons is initiating the process for a public listing by February 2027 to comply with RBI regulations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Tata Sons is initiating the process for a public listing by February 2027 to comply with RBI regulations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-034",
       "headline": "BOJ hikes rates to 1.25% as chief Ueda cites shift in policy phase",
       "headline_en": null,
@@ -1101,55 +1150,6 @@
           "name": "Warner Bros. Discovery",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-052",
-      "headline": "Tata Sons set ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-set-ball-rolling-for-listing-after-rbi-diktat-noel-tata-n-chandrasekaran/articleshow/134346169.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:18:19Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Tata Sons is initiating the process for a public listing to comply with RBI regulatory requirements, targeting February 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tata Sons is initiating the process for a public listing to comply with RBI regulatory requirements, targeting February 2027.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -167075,9 +167075,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1567751,
-    "news_picked_today": 80,
-    "news_dropped_today": 1336
+    "news_seen_today": 1604402,
+    "news_picked_today": 84,
+    "news_dropped_today": 1356
   },
   "book_momentum": {
     "live_count": 8,
