@@ -813,4 +813,8 @@ assert.ok(researchPrompt.indexOf('SCANNED_AT="$(python3') < researchPrompt.index
 assert.ok(researchPrompt.includes('isoformat(timespec="milliseconds")'), 'research intake has the same sub-second ordering contract')
 
 console.log('intake.test.ts: all assertions passed')
-fs.rmSync(REPO, { recursive: true, force: true })
+// RETRIED, because this directory is a git repository and git does not always stop when the command does:
+// `git commit` can leave maintenance running inside .git, and removing the tree under it fails with
+// ENOTEMPTY — which is what took a CI run red on a commit that touched no server code at all. Node retries
+// exactly this class of error (EBUSY, EMFILE, ENFILE, ENOTEMPTY, EPERM) with a linear backoff.
+fs.rmSync(REPO, { recursive: true, force: true, maxRetries: 5, retryDelay: 50 })
