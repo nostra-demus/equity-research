@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T01:15:56Z",
+  "generated_at": "2026-09-19T01:22:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -760,6 +760,55 @@
       "companies": [
         {
           "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-049",
+      "headline": "Google says its Gemini AI model hacked three other companies",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/2026/sep/18/google-gemini-ai-hack",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:53:20Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Google's Gemini AI model was reportedly used to hack three other companies, posing significant reputational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Google's Gemini AI model was reportedly used to hack three other companies, posing significant reputational and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet Inc",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1871,55 +1920,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-019",
-      "headline": "Oscar Health Announces Thrive Capital’s Completion of Oscar Health Common Stock Distribution to its Limited Partners | OSCR Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/OSCR/oscar-health-announces-thrive-capital-s-completion-of-oscar-health-b774zxafk7lk.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-19T00:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Thrive Capital completed the distribution of its Oscar Health common stock to limited partners.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Thrive Capital completed the distribution of its Oscar Health common stock to limited partners.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oscar Health",
-          "ticker": "OSCR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -127756,77 +127756,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0ee45ba091ad",
-      "idea_version": "IDEAV-2ae0858b4b17817f",
-      "idea_version_started_at": "2026-09-17T23:19:18Z",
-      "ticker": "GPTINFRA",
-      "company": "GPT Infraprojects Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured new infrastructure contracts worth Rs. 483.72 Crore, which significantly bolsters its order book and revenue visibility.",
-      "why_now": "The exchange filing confirming the order win was released on 2026-09-17.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8ff7ed3bf21c"
-      ],
-      "primary_source_event_id": "EVT-8ff7ed3bf21c",
-      "source_headlines": [
-        "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore"
-      ],
-      "source_headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_17092026184749_Press_Release_intimation_Contract_win_480_Cr_170926_SGD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T13:18:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T19:22:08Z",
-      "updated_at": "2026-09-17T23:19:18Z",
-      "decay_at": "2026-09-19T01:18:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aba8253ef457",
       "idea_version": "IDEAV-6e57e61b7da2bc39",
       "idea_version_started_at": "2026-09-17T23:19:18Z",
@@ -128882,6 +128811,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0ee45ba091ad",
+      "idea_version": "IDEAV-2ae0858b4b17817f",
+      "idea_version_started_at": "2026-09-17T23:19:18Z",
+      "ticker": "GPTINFRA",
+      "company": "GPT Infraprojects Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new infrastructure contracts worth Rs. 483.72 Crore, which significantly bolsters its order book and revenue visibility.",
+      "why_now": "The exchange filing confirming the order win was released on 2026-09-17.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8ff7ed3bf21c"
+      ],
+      "primary_source_event_id": "EVT-8ff7ed3bf21c",
+      "source_headlines": [
+        "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore"
+      ],
+      "source_headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore",
+      "source_url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_17092026184749_Press_Release_intimation_Contract_win_480_Cr_170926_SGD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T13:18:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T19:22:08Z",
+      "updated_at": "2026-09-17T23:19:18Z",
+      "decay_at": "2026-09-19T01:18:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-23d292b4cefa",
       "idea_version": "IDEAV-487eb1749b503763",
       "idea_version_started_at": "2026-09-17T23:19:18Z",
@@ -129828,14 +129828,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 25,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 260,
@@ -129859,6 +129859,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0ee45ba091ad",
+        "idea_version": "IDEAV-2ae0858b4b17817f",
+        "idea_version_started_at": "2026-09-17T23:19:18Z",
+        "ticker": "GPTINFRA",
+        "company": "GPT Infraprojects Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured new infrastructure contracts worth Rs. 483.72 Crore, which significantly bolsters its order book and revenue visibility.",
+        "why_now": "The exchange filing confirming the order win was released on 2026-09-17.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8ff7ed3bf21c"
+        ],
+        "primary_source_event_id": "EVT-8ff7ed3bf21c",
+        "source_headlines": [
+          "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore"
+        ],
+        "source_headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts worth Rs.483.72 Crore",
+        "source_url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_17092026184749_Press_Release_intimation_Contract_win_480_Cr_170926_SGD.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T13:18:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T19:22:08Z",
+        "updated_at": "2026-09-17T23:19:18Z",
+        "decay_at": "2026-09-19T01:18:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T01:18:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d7139893a187",
         "idea_version": "IDEAV-71045569c67f5a6f",
@@ -158686,81 +158760,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-77bccc5c9aab",
-        "idea_version": "IDEAV-3f5801aa7b843e1f",
-        "idea_version_started_at": "2026-09-06T05:50:29Z",
-        "ticker": "DPW",
-        "company": "DP World",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "DP World is investing AED4 billion across its Middle East, Europe, and Africa operations, which should enhance its port infrastructure and logistics capabilities, supporting revenue growth.",
-        "why_now": "The company has announced a significant capital expenditure of AED4 billion, indicating active expansion and potential for future revenue increases.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ed33faf8015b"
-        ],
-        "primary_source_event_id": "EVT-ed33faf8015b",
-        "source_headlines": [
-          "DP World invests AED4 billion across Middle East, Europe and Africa as regional revenue rises"
-        ],
-        "source_headline": "DP World invests AED4 billion across Middle East, Europe and Africa as regional revenue rises",
-        "source_url": "https://www.emirates247.com/business/dp-world-invests-aed4-billion-across-middle-east-europe-and-africa-as-regional-revenue-rises/5279",
-        "source_name": "Emirates 24|7 — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-06T05:10:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T05:50:29Z",
-        "updated_at": "2026-09-06T05:50:29Z",
-        "decay_at": "2026-09-07T17:10:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T05:11:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-aaed0a1c84fe",
         "idea_version": "IDEAV-9e5a19a904e69bf3",
         "idea_version_started_at": "2026-09-06T05:34:45Z",
@@ -167021,7 +167020,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 891,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -167040,9 +167039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 653068,
-    "news_picked_today": 47,
-    "news_dropped_today": 505
+    "news_seen_today": 709950,
+    "news_picked_today": 50,
+    "news_dropped_today": 550
   },
   "book_momentum": {
     "live_count": 8,
