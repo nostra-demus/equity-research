@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-083c9caae543",
-  "idea_version": "IDEAV-98b94504ca535abb",
-  "idea_version_started_at": "2026-09-18T22:10:41Z",
+  "idea_version": "IDEAV-5b0c0e4ef0d0c09d",
+  "idea_version_started_at": "2026-09-19T15:58:42Z",
   "ticker": "VOW3",
-  "company": "Volkswagen",
+  "company": "Volkswagen AG",
   "exchange": "XETRA",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Volkswagen is facing a significant earnings hit of up to €10 billion due to restructuring costs and a writedown related to Porsche, signaling severe operational and margin pressure.",
-  "why_now": "The guidance cut and massive writedown warning were issued on September 18, 2026.",
-  "conviction": 85,
+  "reason": "The company announced a massive 10 billion euro hit to profits, reflecting severe structural and operational headwinds.",
+  "why_now": "The warning was issued on September 18, 2026.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
-  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 6,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,19 +49,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-416514b51562",
-    "EVT-4df7176073f5"
+    "EVT-08e814ec8f92"
   ],
-  "primary_source_event_id": "EVT-416514b51562",
+  "primary_source_event_id": "EVT-08e814ec8f92",
   "source_headlines": [
-    "Volkswagen Slashes Guidance as Woes Pile Up",
-    "VW warns of hit of up to €10bn from Porsche writedown and restructuring costs"
+    "Crisis-wracked Volkswagen warns of €10bn hit to profits"
   ],
-  "source_headline": "Volkswagen Slashes Guidance as Woes Pile Up",
-  "source_url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
-  "source_name": "The Wall Street Journal",
+  "source_headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
+  "source_url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
+  "source_name": "Gulf Times — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-18T17:11:00Z",
+  "newest_source_at": "2026-09-18T21:00:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -68,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-18T22:10:41Z",
-  "updated_at": "2026-09-18T22:10:41Z",
-  "decay_at": "2026-09-20T05:11:00Z",
+  "updated_at": "2026-09-19T15:58:42Z",
+  "decay_at": "2026-09-20T09:00:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

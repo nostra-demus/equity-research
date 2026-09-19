@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-30T20:42:16Z",
+  "archived_at": "2026-09-19T08:59:21Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-3eb5e87acb4c",
-    "idea_version": "IDEAV-87d5fb76880fb435",
-    "idea_version_started_at": "2026-08-27T21:21:14Z",
-    "ticker": "GPS",
-    "company": "Gap Inc.",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-6a71fdaeebf7",
+    "idea_version": "IDEAV-aedd46021f4467c6",
+    "idea_version_started_at": "2026-09-16T13:28:55Z",
+    "ticker": "01975.HK",
+    "company": "Sun Hing Printing",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company lowered its sales outlook due to persistent weakness at its Old Navy brand, signaling potential margin compression and inventory issues.",
-    "why_now": "The guidance cut was announced on August 27, 2026, and the market will likely reprice the stock as it digests the negative impact on revenue growth.",
-    "conviction": 75,
+    "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings performance.",
+    "why_now": "The filing was released today, September 16, 2026.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-1d98d80a048c"
+      "EVT-f56a845c24b6"
     ],
-    "primary_source_event_id": "EVT-1d98d80a048c",
+    "primary_source_event_id": "EVT-f56a845c24b6",
     "source_headlines": [
-      "Gap Cuts Sales Outlook on Old Navy Weakness"
+      "SUN HING PRINT (01975): POSITIVE PROFIT ALERT"
     ],
-    "source_headline": "Gap Cuts Sales Outlook on Old Navy Weakness",
-    "source_url": "https://www.wsj.com/business/retail/gap-cuts-sales-outlook-on-old-navy-weakness-cdc5f239?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
+    "source_headline": "SUN HING PRINT (01975): POSITIVE PROFIT ALERT",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600444.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-27T20:27:00Z",
+    "newest_source_at": "2026-09-16T08:48:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-27T21:21:14Z",
-    "updated_at": "2026-08-27T21:21:14Z",
-    "decay_at": "2026-08-29T08:27:00Z",
+    "surfaced_at": "2026-09-16T13:28:55Z",
+    "updated_at": "2026-09-16T13:28:55Z",
+    "decay_at": "2026-09-17T20:48:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

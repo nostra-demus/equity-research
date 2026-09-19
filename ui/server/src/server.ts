@@ -28,7 +28,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, sigIdFor,
   isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -376,6 +376,9 @@ app.get('/api/health', async (_req, reply) => {
     repoRoot: REPO_ROOT,
     deploymentPending: providerDeployPending(STATE_DIR),
     deployment: await readDeploymentStatus(STATE_DIR),
+    // Sealed publications the startup recovery pass could not publish (count only: no run identity).
+    // They no longer stop the engine, so this is where a monitor sees them.
+    stuckPublications: listReadyPublicationFailures().length,
     // The benchmark feed judged by the files THIS engine can read. It is here because every way its
     // refresher fails is quiet, and health is the one thing an operator checks without being told to.
     marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
@@ -4958,6 +4961,13 @@ app.get('/api/watchlist/messages', { config: { rateLimit: { max: 600, timeWindow
 const WatchMessageRead = z.object({ read: z.boolean().default(true) }).strip()
 const WatchMessageFeedback = z.object({ verdict: z.enum(['yes', 'no']), note: z.string().max(1000).default('') }).strip()
 const WatchEmailPause = z.object({ ticker: z.string().trim().min(1).max(15), currency: z.string().trim().max(8).nullable(), paused: z.boolean() }).strip()
+/** Saying you have seen a standing condition — a passed date, ageing research, a date of your own. */
+const WatchConditionSeen = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  currency: z.string().trim().max(8).nullable(),
+  condition_id: z.string().trim().min(1).max(200),
+  seen: z.boolean(),
+}).strip()
 
 function watchMessageId(req: FastifyRequest): string | null {
   const id = String((req.params as any)?.id ?? '')
@@ -5006,6 +5016,24 @@ app.post('/api/watchlist/email-pause', { config: { rateLimit: { max: 120, timeWi
   const body = WatchEmailPause.safeParse(req.body ?? {})
   if (!body.success) return reply.code(400).send({ error: 'invalid body' })
   watchMonitor.setEmailPaused(listingKey(body.data.ticker, body.data.currency), body.data.paused)
+  return { ok: true }
+})
+
+/**
+ * "Seen it" on a condition that cannot clear itself: the fact stays, and stops deciding the name's status
+ * (watch/evaluate.ts ACKNOWLEDGEABLE). Sending `seen: false` takes it back.
+ */
+app.post('/api/watchlist/condition-seen', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = WatchConditionSeen.safeParse(req.body ?? {})
+  if (!body.success) return reply.code(400).send({ error: 'invalid body' })
+  // A refusal is said out loud. Silently answering `ok` to a write that was dropped is how a client comes to
+  // believe a thing was acknowledged when nothing was stored.
+  const r = watchMonitor.setSeen(listingKey(body.data.ticker, body.data.currency), body.data.condition_id, body.data.seen)
+  // A condition that clears itself is the CALLER's mistake; a state directory that will not take the write is
+  // this engine's. Answering {ok:true} to either would leave a client believing a mark it does not have.
+  if (r === 'not_acknowledgeable') return reply.code(422).send({ error: 'this kind of condition cannot be acknowledged' })
+  if (r === 'not_saved') return reply.code(500).send({ error: 'the acknowledgement could not be saved' })
   return { ok: true }
 })
 
@@ -8268,6 +8296,8 @@ async function start() {
     if (promotions.errors.length > 0) console.error(`[swarm-cockpit] Idea promotion recovery needs attention: ${promotions.errors.join('; ')}`) // eslint-disable-line no-console
     const recovered = await recoverReadyPublications()
     if (recovered) console.log(`[swarm-cockpit] recovered ${recovered} post-extinction publication(s) before admission`) // eslint-disable-line no-console
+    const stuck = listReadyPublicationFailures()
+    if (stuck.length) console.error(`[swarm-cockpit] ${stuck.length} sealed publication(s) need attention and stay retained for the next recovery pass: ${stuck.map((item) => item.entry).join(', ')}`) // eslint-disable-line no-console
     // Readiness means the first workspace request is warm. Graph discovery/parsing is synchronous, so if
     // it ran after listen() it could block the event loop while the browser waited on its startup graph.
     const graphs = warmSwarmGraphs()
