@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T01:33:22Z",
+  "generated_at": "2026-09-19T01:36:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -858,6 +858,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-052",
+      "headline": "Tata Sons set ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-set-ball-rolling-for-listing-after-rbi-diktat-noel-tata-n-chandrasekaran/articleshow/134346169.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:18:19Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Tata Sons is initiating the process for a public listing to comply with RBI regulatory requirements, targeting February 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tata Sons is initiating the process for a public listing to comply with RBI regulatory requirements, targeting February 2027.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1853,55 +1902,6 @@
           "name": "Mark Walter",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-013",
-      "headline": "S-1/A - MapLight Therapeutics, Inc. (0001770069) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1770069/000119312526395559/0001193125-26-395559-index.htm",
-      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-18T20:15:45Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Filing of an amended S-1 registration statement for a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Filing of an amended S-1 registration statement for a potential IPO.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MapLight Therapeutics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -167024,9 +167024,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 766793,
-    "news_picked_today": 52,
-    "news_dropped_today": 620
+    "news_seen_today": 804587,
+    "news_picked_today": 53,
+    "news_dropped_today": 643
   },
   "book_momentum": {
     "live_count": 8,
