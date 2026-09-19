@@ -156,7 +156,7 @@ const THEME_NOISE_TOKENS = new Set(
     // corporate-event vocabulary — the event dimension is already structured (event_types +
     // event_type_affinity); as free-text tokens these chain every unrelated deal/exit/exit-notice
     // worldwide into one blob. All surface forms listed: themeTokens filters topicTokens' OUTPUT,
-    // which keeps original (unstemmed) words. Deliberately KEPT as anchors: "ipo", "stake", "poll"
+    // which keeps original (unstemmed) words. Deliberately KEPT as anchors: "ipo", "poll"
     // (election polls are genuine macro anchors — AGM polls are handled by the routine-filing gate),
     // sector nouns, and company names (immune below).
     'acquisition acquisitions acquire acquires acquired acquiring ' +
@@ -165,6 +165,10 @@ const THEME_NOISE_TOKENS = new Set(
     'takeover takeovers substantial tender proposed transaction transactions ' +
     'divest divests divested divesting divestment divestments divestiture divestitures ' +
     'offer offers offered offering offerings ' +
+    'sale sales sell sells selling sold ' +
+    'buy buys buying bought purchase purchases purchased purchasing ' +
+    'partnership partnerships partner partners partnered partnering ' +
+    'joint venture ventures minority majority equity block offload offloads offloading ' +
     'connected discloseable ' + // HKEX connected-transaction boilerplate
     'resign resignation resignations resigns resigned resigning'
   ).split(/\s+/),
