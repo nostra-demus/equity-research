@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T01:27:56Z",
+  "generated_at": "2026-09-19T01:33:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -342,6 +342,55 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-051",
+      "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/olin-just-won-788-million-army-contract-olin-stock-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Olin Corporation secured a $788 million contract from the U.S. Army.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Olin Corporation secured a $788 million contract from the U.S. Army.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Olin Corporation",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1853,60 +1902,6 @@
           "name": "MapLight Therapeutics, Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-017",
-      "headline": "Hawley invites Flock, Axon, other surveillance tech CEOs to testify",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/senate/6099368-hawley-invites-flock-ai-surveillance-ceos/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:28:36Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Congressional testimony requests for surveillance tech CEOs indicate potential future regulatory scrutiny for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Congressional testimony requests for surveillance tech CEOs indicate potential future regulatory scrutiny for the sector.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Flock Safety",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Axon Enterprise",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -167029,9 +167024,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 747845,
-    "news_picked_today": 51,
-    "news_dropped_today": 573
+    "news_seen_today": 766793,
+    "news_picked_today": 52,
+    "news_dropped_today": 620
   },
   "book_momentum": {
     "live_count": 8,
