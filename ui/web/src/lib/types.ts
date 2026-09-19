@@ -2257,7 +2257,9 @@ export interface PortfolioExecution {
   /** Signed position in the contract immediately before and after this fill. */
   positionBefore: number
   positionAfter: number
-  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** `convert` is a currency conversion: it buys money, not a position, so it moves no position and
+   *  realises nothing here. An engine that predates it never sends one. */
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched' | 'convert'
   /** How much this fill opened, and how much of that is still open as of the last statement. */
   openedQuantity: number
   stillOpen: number
