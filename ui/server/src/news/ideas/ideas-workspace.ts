@@ -151,11 +151,15 @@ export async function readFilingActions(root: string): Promise<FilingAction[]> {
   })
 }
 
-
-async function appendAction(root: string, action: FilingAction): Promise<void> {
+async function appendActions(root: string, actions: FilingAction | FilingAction[]): Promise<void> {
+  const arr = Array.isArray(actions) ? actions : [actions]
+  if (!arr.length) return
   const fp = ledgerPath(root)
   const fd = await fs.promises.open(fp, 'a', 0o600)
-  try { await fd.writeFile(`${JSON.stringify(action)}\n`); await fd.sync() } finally { await fd.close() }
+  try {
+    for (const action of arr) await fd.writeFile(`${JSON.stringify(action)}\n`)
+    await fd.sync()
+  } finally { await fd.close() }
   if (process.platform !== 'win32') {
     const dir = await fs.promises.open(path.dirname(fp), 'r')
     try { await dir.sync() } finally { await dir.close() }
@@ -191,7 +195,7 @@ export async function fileDiscoveryCard(root: string, cards: DiscoveryCard[], re
     const card = { ...current, action_revision: request.operation_id,
       archived_at: request.action === 'archive' ? at : current.expired ? iso(current.payload.decay_at) || at : null,
       archive_reason: request.action === 'archive' ? 'manual' as const : current.expired ? 'expired' as const : null }
-    await appendAction(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, request_key: request.key, action: request.action, at, card })
+    await appendActions(root, { schema_version: 'idea-filing/v1', operation_id: request.operation_id, request_key: request.key, action: request.action, at, card })
     return card
   })
 }
@@ -204,14 +208,14 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
     const actions = await readFilingActions(root)
     const before = [...new Map(actions.map((action) => [action.card.key, action.card])).values()]
     const after = projectDiscovery(typeof source === 'function' ? source() : source, actions)
-    let written = 0
+    const newActions: FilingAction[] = []
     for (const next of after) {
       const prior = before.find((c) => c.key === next.key)
       if (!prior || JSON.stringify(next) === JSON.stringify(prior)) continue
-      await appendAction(root, { schema_version: 'idea-filing/v1', operation_id: `update-${hash(JSON.stringify(next))}`, action: 'update', at: new Date().toISOString(), card: next })
-      written++
+      newActions.push({ schema_version: 'idea-filing/v1', operation_id: `update-${hash(JSON.stringify(next))}`, action: 'update', at: new Date().toISOString(), card: next })
     }
-    return written
+    await appendActions(root, newActions)
+    return newActions.length
   })
 }
 
