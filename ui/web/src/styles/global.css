@@ -2407,6 +2407,18 @@ a { color: inherit; }
   background: var(--surface-1); border-right: 1px solid var(--hairline);
   container: evrail / inline-size;
 }
+
+.scstage--railfull .evrail {
+  width: 100% !important;
+  max-width: none !important;
+  border-right: none;
+}
+.scstage--railfull .scstage__main {
+  display: none !important;
+}
+.scstage--railfull .wiresurface__railtab {
+  display: none !important;
+}
 .evrail__head { padding: 14px 16px 10px; border-bottom: 1px solid var(--hairline); }
 .evrail__titlerow { display: flex; align-items: center; gap: 8px; }
 .evrail__title { font-size: 12px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text); }
