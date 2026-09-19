@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T01:05:12Z",
+  "generated_at": "2026-09-19T01:06:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -442,6 +442,50 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-040",
+      "headline": "Trump signs Russia-Iran sanctions law, opens door to 100% tariffs on India",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/trump-signs-russia-iran-sanctions-law-opens-door-to-100-tariffs-on-india/articleshow/134346075.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:44:38Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The imposition of potential 100% tariffs on India represents a major trade policy shift with significant economic implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The imposition of potential 100% tariffs on India represents a major trade policy shift with significant economic implications.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -166984,7 +167028,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2606,
+    "inbox_unconsumed": 2607,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -166993,9 +167037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 577023,
-    "news_picked_today": 40,
-    "news_dropped_today": 416
+    "news_seen_today": 596049,
+    "news_picked_today": 41,
+    "news_dropped_today": 439
   },
   "book_momentum": {
     "live_count": 8,
