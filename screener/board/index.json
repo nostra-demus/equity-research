@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T20:23:20Z",
+  "generated_at": "2026-09-19T20:23:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -126495,16 +126495,16 @@
     },
     {
       "idea_id": "IDEA-a8adcaeff4e3",
-      "idea_version": "IDEAV-de72de860b507bb2",
-      "idea_version_started_at": "2026-09-19T13:14:45Z",
+      "idea_version": "IDEAV-e1d53334e5937eb5",
+      "idea_version_started_at": "2026-09-19T20:23:37Z",
       "ticker": "COR",
       "company": "Cencora",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company raised its forward guidance and executed a $1 billion share buyback, signaling strong cash flow generation and management confidence in capital allocation.",
-      "why_now": "The guidance hike and buyback announcement were released today, September 19, 2026.",
-      "conviction": 75,
+      "reason": "The company raised its financial guidance and announced a $1 billion share buyback program, signaling strong cash flow and management confidence.",
+      "why_now": "The news was released on 2026-09-19 and reflects immediate capital allocation updates.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 66,
       "trade_score_basis": "event_driven_v3",
@@ -126556,7 +126556,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-19T13:14:45Z",
-      "updated_at": "2026-09-19T13:14:45Z",
+      "updated_at": "2026-09-19T20:23:37Z",
       "decay_at": "2026-09-21T00:38:37Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -126770,6 +126770,78 @@
       "surfaced_at": "2026-09-19T00:43:05Z",
       "updated_at": "2026-09-19T00:43:05Z",
       "decay_at": "2026-09-20T11:44:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-8c79806f38a1e08b",
+      "idea_version_started_at": "2026-09-19T20:23:37Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Potential settlement of antitrust lawsuits by California and 11 other states removes a major regulatory hurdle for the pending $110 billion merger.",
+      "why_now": "The report of a potential settlement surfaced on 2026-09-19, providing a catalyst for deal completion.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0e3a61d2546a"
+      ],
+      "primary_source_event_id": "EVT-0e3a61d2546a",
+      "source_headlines": [
+        "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report"
+      ],
+      "source_headline": "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report",
+      "source_url": "https://www.livemint.com/companies/news/paramountwarner-merger-california-and-11-states-could-settle-lawsuit-blocking-110-billion-acquisition-report-11789828816137.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T15:06:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T20:23:37Z",
+      "updated_at": "2026-09-19T20:23:37Z",
+      "decay_at": "2026-09-21T03:06:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -166949,8 +167021,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 903,
-    "live_count": 18,
+    "surfaced_total": 904,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
