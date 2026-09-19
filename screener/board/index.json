@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:43:17Z",
+  "generated_at": "2026-09-19T00:47:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -426,6 +426,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-016",
+      "headline": "Iran war live: Trump extends sanctions on Iran, Houthi supporters in Sanaa",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/19/iran-war-live-trump-extends-sanctions-on-iran-houthi-supporters-in-sanaa?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-19T00:00:26Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The extension of sanctions on Iran and its supporters represents a geopolitical escalation affecting regional stability and energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The extension of sanctions on Iran and its supporters represents a geopolitical escalation affecting regional stability and energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-018",
+      "headline": "US woman falsely charged with bank theft sues for $10m over AI facial recognition",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/sep/18/tennessee-woman-falsely-charged-bank-theft-lawsuit",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:34:48Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "A $10 million lawsuit involving AI facial recognition technology highlights operational and legal risks for the company involved.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A $10 million lawsuit involving AI facial recognition technology highlights operational and legal risks for the company involved.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-014",
       "headline": "425 - American Water Works Company, Inc. (0001410636) (Filed by)",
       "headline_en": null,
@@ -712,6 +798,60 @@
           "name": "MapLight Therapeutics, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-017",
+      "headline": "Hawley invites Flock, Axon, other surveillance tech CEOs to testify",
+      "headline_en": null,
+      "url": "https://thehill.com/homenews/senate/6099368-hawley-invites-flock-ai-surveillance-ceos/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:28:36Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Congressional testimony requests for surveillance tech CEOs indicate potential future regulatory scrutiny for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Congressional testimony requests for surveillance tech CEOs indicate potential future regulatory scrutiny for the sector.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Flock Safety",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Axon Enterprise",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -165826,7 +165966,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2582,
+    "inbox_unconsumed": 2585,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165835,9 +165975,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 404522,
-    "news_picked_today": 15,
-    "news_dropped_today": 225
+    "news_seen_today": 442912,
+    "news_picked_today": 18,
+    "news_dropped_today": 246
   },
   "book_momentum": {
     "live_count": 8,
