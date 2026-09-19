@@ -1172,7 +1172,7 @@ check('a closing fill supplies its known multiplier when the opening fill omitte
   assert.equal(omitted.executions[1]!.value, 5500, 'a known opening multiplier still covers a blank close')
 })
 
-check('the holdings carry the day they were observed, not the book\u2019s own as-of', () => {
+check('the holdings carry the day they were observed, not the book’s own as-of', () => {
   // A Trades-only export moves the book forward while the positions stay at the last statement that carried
   // a snapshot — buildBook says so in a warning. A screen labelling those marks with the newer date says
   // they were seen on a day nobody looked.
@@ -1183,10 +1183,168 @@ check('the holdings carry the day they were observed, not the book\u2019s own as
     corporateActions: [], equitySummary: [later],
   }
   const b = buildBook([doc, tradesOnly as typeof doc])
-  assert.equal(b.positionsAsOf, doc.toDate, 'the snapshot\u2019s own statement date')
+  assert.equal(b.positionsAsOf, doc.toDate, 'the snapshot’s own statement date')
   assert.equal(b.asOf, '2026-02-28', 'while the book itself has moved on')
   assert.notEqual(b.positionsAsOf, b.asOf)
   assert.equal(book.positionsAsOf, doc.toDate, 'and with one statement they are the same day')
+})
+
+// ---------- a currency conversion, which buys money rather than a position ----------
+// The real book bought AUD to pay for Australian shares. IBKR books that as a trade in a CASH contract
+// (AUD.USD) while holding the AUD as cash, so its position snapshot never carries it. Through the lot engine
+// it became an eleventh open position of 70,054 the broker did not hold, broke the positions check by exactly
+// that, and — the contract then reading as history the snapshot cannot confirm — stamped "unproven" on every
+// realised figure in the book through one 0.015-unit line realising $0.000016.
+const fxBuy = {
+  ...buyXsp, tradeID: 'FX1', transactionID: 'FXX1', symbol: 'AUD.USD', conid: '14433401', assetCategory: 'CASH',
+  quantity: 50000, tradePrice: 0.718, proceeds: -35900, openCloseIndicator: '', ibCommission: 0, taxes: 0,
+  tradeDate: '2026-01-06', dateTime: '2026-01-06T10:00:00', fifoPnlRealized: null,
+}
+// The sale back: the line that, as a closure, marked a year of equity round trips unproven. `fifoPnlRealized`
+// is set, so the realised check would break by it if either side counted conversions.
+const fxSell = {
+  ...fxBuy, tradeID: 'FX2', transactionID: 'FXX2', quantity: -0.015, tradePrice: 0.719, proceeds: 0.0108,
+  tradeDate: '2026-01-07', dateTime: '2026-01-07T10:00:00', fifoPnlRealized: 5,
+}
+
+check('a currency conversion opens no lot, closes nothing, and realises nothing', () => {
+  const r = runFifo([fxBuy, fxSell])
+  assert.deepEqual(r.lots, [], 'money bought is a cash balance, not an open position')
+  assert.deepEqual(r.closures, [])
+  assert.deepEqual(r.executions.map((e) => [e.symbol, e.side, e.quantity, e.effect, e.positionAfter, e.realizedLocal, e.openedQuantity]), [
+    ['AUD.USD', 'buy', 50000, 'convert', 0, null, 0],
+    ['AUD.USD', 'sell', 0.015, 'convert', 0, null, 0],
+  ])
+  assert.equal(r.warnings.some((w) => /close exceeds open quantity/.test(w)), false,
+    'and a sale of money closes no lot, so it is never reported as a close with nothing behind it')
+})
+
+check('a conversion is still listed, with the money that changed hands', () => {
+  const buy = runFifo([fxBuy]).executions[0]!
+  assert.equal(buy.value, 35900, "the broker's own proceeds")
+  assert.equal(buy.commission, 0)
+  assert.equal(buy.partialHistory, false)
+  assert.equal(buy.inferred, false, 'a blank open/close flag infers nothing where there is no position')
+})
+
+check('conversions leave the positions check, the round trips and their qualifiers exactly as they were', () => {
+  const withFx = buildBook([{ ...doc, trades: [...doc.trades, fxBuy, fxSell] }])
+  const named = (b: ReturnType<typeof buildBook>, name: string) => {
+    const c = b.reconciliation.checks.find((x) => x.name === name)!
+    return [c.ours, c.broker, c.break, c.ok]
+  }
+  assert.deepEqual(named(withFx, 'Open positions'), named(book, 'Open positions'), 'money is not an open position')
+  assert.deepEqual(named(withFx, 'Realised P&L'), named(book, 'Realised P&L'), 'and is counted on neither side of realised')
+  assert.equal(withFx.openLots.some((l) => l.symbol === 'AUD.USD'), false)
+  assert.equal(withFx.closures.length, book.closures.length)
+  assert.deepEqual(withFx.closures.map((c) => c.partialHistory), book.closures.map((c) => c.partialHistory),
+    'and no equity round trip becomes unproven because a conversion sits beside it')
+  assert.deepEqual(withFx.executions.filter((e) => e.effect === 'convert').map((e) => [e.id, e.partialHistory]),
+    [['FX1', false], ['FX2', false]], 'the fills are listed, and nothing about them is reconstructed')
+})
+
+check('a conversion the broker realised money on is named, not silently dropped', () => {
+  // It reaches no realised figure here, and the NAV bridge remainder it falls into is a residual nobody can
+  // rebuild (§15) — so the broker's own number must not leave the book without a word.
+  const r = runFifo([fxBuy, { ...fxSell, fifoPnlRealized: 12.34 }])
+  assert.equal(r.closures.length, 0)
+  assert.equal(r.warnings.length, 1)
+  assert.match(r.warnings[0]!, /AUD\.USD realised 12\.34 USD per the broker/)
+  assert.match(r.warnings[0]!, /in neither realised on closed trades nor the costs beside it/)
+  assert.deepEqual(runFifo([fxBuy, { ...fxSell, fifoPnlRealized: null }]).warnings, [],
+    'and a conversion the broker realised nothing on, at no cost, says nothing')
+  // The commission is money too, and it reaches no cost total here either — so it is named on its own.
+  const costed = runFifo([{ ...fxBuy, ibCommission: -2.5 }])
+  assert.equal(costed.warnings.length, 1)
+  assert.match(costed.warnings[0]!, /cost 2\.5 USD per the broker/)
+})
+
+check('a broker that DOES report a currency balance as a position is not a break', () => {
+  // Our side stopped calling a conversion a position; a statement whose OpenPositions section carries the
+  // currency would otherwise fail the same check in the opposite direction, on a book where nothing is wrong.
+  const cash = { ...doc.openPositions[0]!, symbol: 'AUD.USD', conid: '14433401', assetCategory: 'CASH',
+    position: 50000, positionValue: 35900, costBasisMoney: 35900 }
+  const b = buildBook([{ ...doc, openPositions: [...doc.openPositions, cash], trades: [...doc.trades, fxBuy] }])
+  const check5 = b.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  const base = book.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  assert.deepEqual([check5.ours, check5.broker, check5.ok], [base.ours, base.broker, base.ok])
+  // And it is not published as a holding: read as an open equity position it would count as invested, and
+  // cash — the statement's value less what is invested — would be short by the whole balance.
+  assert.equal(b.positions.some((p) => p.symbol === 'AUD.USD'), false)
+  assert.equal(b.positions.length, book.positions.length)
+})
+
+check('an FX-only period is not reported as missing trade data', () => {
+  // A period where the ONLY realised activity is a conversion correctly leaves brokerRows and closures
+  // empty — a conversion books no closure, and is excluded from brokerRows on purpose (see above). That
+  // used to fall straight into the "no trade rows were imported" branch even though the conversion WAS
+  // imported and fully accounts for the statement's own realised total.
+  // The conversion must fall INSIDE the statement window ([2026-01-01, 2026-01-04]) — latestNav.realized
+  // only covers that window, so the conversion it is compared against is scoped to it (see the multi-period
+  // case below). fxRateToBase pins the base-currency amount so it does not depend on the fx grid.
+  const convBuy = { ...fxBuy, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', fxRateToBase: 1 }
+  const convSell = { ...fxSell, tradeDate: '2026-01-03', dateTime: '2026-01-03T10:00:00', fxRateToBase: 1,
+    fifoPnlRealized: 20786.5 }
+  const fxOnlyDoc = {
+    ...doc,
+    trades: [convBuy, convSell],
+    changeInNav: { ...doc.changeInNav!, realized: 20786.5 },
+  }
+  const fxOnly = buildBook([fxOnlyDoc])
+  const realised = fxOnly.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realised, undefined,
+    'nothing is left to compare once the conversion explains the whole realised total — not a false break')
+
+  // The same FX activity must read the same way whether or not something unrelated also traded that
+  // period — the inconsistency codex flagged: an unrelated non-CASH row used to bypass the false-alarm
+  // branch entirely, so an otherwise-identical period reconciled differently depending on it.
+  const withOther = buildBook([{ ...fxOnlyDoc, trades: [...fxOnlyDoc.trades, buyXsp] }])
+  const realisedWithOther = withOther.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realisedWithOther?.ok ?? true, true, 'an unrelated open trade must not surface the same break')
+
+  // MULTI-PERIOD: conversions from an earlier statement must not be folded into the latest window's
+  // total. `conversionRows` is drawn from the whole merged import, but latestNav.realized covers only the
+  // newest window — so an unscoped sum adds the prior-period conversion (5000) to the latest one (20786.5)
+  // and no longer matches the newest realised, raising a false "no trade rows" break on a period that is
+  // in fact fully explained by its own conversion. Scoping conversions to [fromDate, toDate] fixes it.
+  const priorConv = { ...fxBuy, tradeID: 'FX0', transactionID: 'FXX0', tradeDate: '2025-12-15',
+    dateTime: '2025-12-15T10:00:00', fxRateToBase: 1, fifoPnlRealized: 5000 }
+  const priorDoc = { ...doc, fromDate: '2025-12-01', toDate: '2025-12-31',
+    whenGenerated: '2025-12-31T00:00:00', trades: [priorConv], openPositions: [], equitySummary: [],
+    cashTransactions: [], changeInNav: null }
+  const multi = buildBook([priorDoc, fxOnlyDoc])
+  const realisedMulti = multi.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realisedMulti, undefined,
+    'a prior-period conversion must not fold into the latest window and manufacture a false break')
+
+  // A period that is genuinely missing its trade detail — no conversion, no other row — must still be
+  // caught: this fix narrows the false alarm, it does not remove the check.
+  const noTrades = buildBook([{ ...doc, trades: [], openPositions: [] }])
+  const stillCaught = noTrades.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.equal(stillCaught.ok, false, 'a real gap — no trades at all, conversion or otherwise — still fails')
+})
+
+check('an overnight conversion booked across the statement boundary still counts by its trade date', () => {
+  // The broker can execute a conversion late on the last day of one period and book (tradeDate) it into
+  // the next — an overnight session, same as the OpenPositions snapshot logic above already documents.
+  // Keying window membership off dateTime first put such a fill in the WRONG window: executed
+  // 2025-12-31 23:30 but booked 2026-01-01, it fell outside a January-only statement even though the
+  // broker's own period counts it as January's.
+  const convBuy = { ...fxBuy, tradeDate: '2026-01-02', dateTime: '2026-01-02T10:00:00', fxRateToBase: 1 }
+  const convSell = {
+    ...fxSell, dateTime: '2025-12-31T23:30:00', tradeDate: '2026-01-01', fxRateToBase: 1,
+    fifoPnlRealized: 20786.5,
+  }
+  const straddleDoc = {
+    ...doc,
+    trades: [convBuy, convSell],
+    changeInNav: { ...doc.changeInNav!, realized: 20786.5 },
+  }
+  const straddle = buildBook([straddleDoc])
+  const realised = straddle.reconciliation.checks.find((c) => c.name === 'Realised P&L')
+  assert.equal(realised, undefined,
+    'the conversion is booked (tradeDate) into the January window and fully accounts for the realised ' +
+    'total, so no "no trade rows were imported" break should fire even though it executed the prior evening')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

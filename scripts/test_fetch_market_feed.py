@@ -7,6 +7,8 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
+import plistlib
+import re
 import shutil
 import socket
 import subprocess
@@ -174,6 +176,225 @@ def test_the_host_is_pinned() -> None:
     assert M.SOURCE_URL.startswith("https://fred.stlouisfed.org/")
 
 
+def test_a_failed_fetch_reports_itself() -> None:
+    # The fetch failing is a different fact from the run being skipped, and the status has to tell them
+    # apart: one needs the provider looked at, the other needs the machine looked at.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\nprint('fetch_market_feed: SP500 FAILED — FRED said no', file=sys.stderr)\nsys.exit(1)\n")
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 1, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "failed", reported
+        assert "FRED said no" in reported["detail"], reported
+
+
+def test_pool_path_is_redacted_from_refresh_status() -> None:
+    # fetch_market_feed.py's own success line ends "-> <data_root>/_market/fred/sp500_<date>.csv", and
+    # data_root IS $POOL_ROOT — a Drive-mounted path that can carry the owner's account identity
+    # (scripts/ops/MAC_PRO_RUNBOOK.md). /api/health serves refresh.detail straight back out to every
+    # caller, so that path must never reach the status file the wrapper writes.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        # Mirror the real script's own success-line SHAPE exactly, with the real (temp) pool path standing
+        # in for a real Drive projection path.
+        fake_path = pool / "_market" / "fred" / "sp500_2026-09-15.csv"
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\n"
+            f"print('fetch_market_feed: 5 closes through 2026-09-15 -> {fake_path}')\n"
+        )
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 0, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "ok", reported
+        assert str(pool) not in reported["detail"], reported
+        assert str(fake_path) not in reported["detail"], reported
+        assert "5 closes through 2026-09-15" in reported["detail"], reported
+
+
+def test_repo_path_is_not_leaked_into_refresh_status() -> None:
+    # The two fatal-checkout breadcrumbs (cd fail / not-a-git-worktree) fire BEFORE redact_pool_path exists,
+    # and $REPO is a filesystem path carrying the owner's account identity (e.g. /Users/<owner>/nostra-prod).
+    # /api/health serves refresh.detail back to every caller, so that path must never reach the status file —
+    # it stays in the local $LOG only (CLAUDE.md §2). Point ENGINE_REPO_ROOT at a username-bearing path that
+    # does not exist so `cd "$REPO"` fails and the failed-checkout breadcrumb is what writes the status.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home = root / "home"
+        ops = home / ".nostra-ops"
+        ops.mkdir(parents=True)
+        ops.chmod(0o700)
+        missing_repo = root / "Users" / "some-owner-name" / "nostra-prod"  # deliberately never created
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(missing_repo),
+                   HOUSEKEEPING_LOG=str(root / "job.log"), MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 2, result.stderr
+        reported = json.loads(status.read_text())
+        assert reported["outcome"] == "failed", reported
+        # The served detail must carry neither the path nor the owner account name inside it.
+        assert str(missing_repo) not in reported["detail"], reported
+        assert "some-owner-name" not in reported["detail"], reported
+        # It is still kept in the local housekeeping log, which never leaves the machine.
+        assert "some-owner-name" in (root / "job.log").read_text(), "the path must still reach the local log"
+
+
+def test_long_refresh_detail_is_bounded() -> None:
+    # fetch_market_feed.py can echo a provider CSV row (up to its 8 MiB response cap) into its final error
+    # line. /api/health serves refresh.detail back to every caller on every ~20s heartbeat, so an
+    # unbounded, provider-controlled line must not become a multi-KiB status file amplified across polls.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home, repo, pool = root / "home", root / "repo", root / "pool"
+        ops = home / ".nostra-ops"
+        for directory in (ops, repo / "scripts" / "ops", pool):
+            directory.mkdir(parents=True)
+        ops.chmod(0o700)
+        for name, value in {"connector-writer-host": socket.gethostname(), "pool-root": str(pool), "role": "doer"}.items():
+            (ops / name).write_text(value + "\n")
+            (ops / name).chmod(0o600)
+        (repo / "data").symlink_to(pool)
+        shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+        # A 4000-char final line with no "-> path" suffix, so redaction leaves it and only the length bound
+        # can contain it.
+        long_line = "A" * 4000
+        (repo / "scripts" / "fetch_market_feed.py").write_text(
+            "import sys\n"
+            f"print('{long_line}')\n"
+        )
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        status = root / "market-feed.json"
+        env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+        env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                   MARKET_FEED_STATUS=str(status))
+        result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                env=env, capture_output=True, text=True, timeout=15)
+        assert result.returncode == 0, result.stderr
+        reported = json.loads(status.read_text())
+        # 300 kept chars + a 3-char ellipsis; the full 4000-char line must not survive.
+        assert len(reported["detail"]) <= 320, len(reported["detail"])
+        assert reported["detail"].endswith("..."), reported["detail"][-16:]
+        assert long_line not in reported["detail"], "the unbounded provider line must not reach the status file"
+
+
+def _extract_note_function(wrapper_path: Path) -> str:
+    """The verbatim `note()` function body from the real wrapper, so a test of it tracks the actual
+    shipped code rather than a description of it."""
+    text = wrapper_path.read_text(encoding="utf-8")
+    m = re.search(r"\nnote\(\) \{.*?\n\}\n", text, re.DOTALL)
+    assert m, "note() function not found verbatim in market-feed-local.sh"
+    return m.group(0)
+
+
+def test_each_refresh_status_write_uses_a_unique_temp_file() -> None:
+    # A manual/catch-up invocation can overlap the scheduled one, and both call note(). Before the fix,
+    # both wrote through the SAME fixed name ("$STATUS.tmp") before the atomic rename — so one process's
+    # truncate/write could land on, or be clobbered by, the other's in-flight write, corrupting the JSON
+    # or publishing the wrong outcome (e.g. `skipped` after the concurrent refresh actually just
+    # succeeded) (PR #706 review). Prove the fix without needing to win an actual OS-scheduling race:
+    # capture the SOURCE path note() hands to `mv` — via a stub `mv` placed ahead of the real one on
+    # PATH — across two separate invocations. Reused fixed name = a guaranteed collision every single
+    # time (deterministically red on the pre-fix code); a fresh mktemp name each call = never colliding
+    # (deterministically green after the fix).
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        home = root / "home"
+        (home / ".nostra-ops").mkdir(parents=True)
+        status = root / "market-feed.json"
+        mv_log = root / "mv.log"
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        (fake_bin / "mv").write_text(
+            "#!/usr/bin/env bash\n"
+            f"printf '%s\\n' \"$2\" >> \"{mv_log}\"\n"
+            "exec /bin/mv \"$@\"\n"
+        )
+        (fake_bin / "mv").chmod(0o755)
+        note_fn = _extract_note_function(ops_source / "market-feed-local.sh")
+        driver = root / "driver.sh"
+        driver.write_text(
+            "#!/usr/bin/env bash\nset -uo pipefail\n"
+            f'STATUS="{status}"\n' + note_fn + '\nnote "$1" "$2"\n'
+        )
+        driver.chmod(0o755)
+        env = dict(os.environ)
+        env["PATH"] = f"{fake_bin}:{env.get('PATH', '')}"
+        env["HOME"] = str(home)
+        for i in range(2):
+            result = subprocess.run(["/bin/bash", str(driver), "ok", f"detail-{i}"],
+                                    env=env, capture_output=True, text=True, timeout=15)
+            assert result.returncode == 0, result.stderr
+        lines = [ln for ln in mv_log.read_text().splitlines() if ln]
+        assert len(lines) == 2, lines
+        assert lines[0] != lines[1], f"both invocations were renamed from the SAME shared temp file: {lines}"
+        # And the shared, well-known name must never be the thing renamed — that name is exactly what a
+        # concurrent second writer could also be targeting.
+        assert str(status) + ".tmp" not in lines, lines
+
+
+def test_schedule_documentation_matches_the_installed_plist() -> None:
+    # The installed timer moved from one daily window to three (07:10/13:10/19:10). Every place that
+    # describes the schedule must describe the one actually installed, or an operator reads a different
+    # operational contract than what runs (reviewer finding, PR #706).
+    ops_source = Path(__file__).resolve().parent / "ops"
+    with open(ops_source / "com.nostradamus.hk-market-feed.plist", "rb") as fh:
+        parsed = plistlib.load(fh)
+    intervals = parsed["StartCalendarInterval"]
+    assert isinstance(intervals, list) and len(intervals) == 3, intervals
+    windows = sorted((entry["Hour"], entry["Minute"]) for entry in intervals)
+    assert windows == [(7, 10), (13, 10), (19, 10)], windows
+
+    doc = (Path(__file__).resolve().parent.parent / "frameworks" / "MARKET_FEED.md").read_text(encoding="utf-8")
+    assert "07:10, 13:10, 19:10" in doc, "MARKET_FEED.md must name all three installed refresh windows"
+    assert not re.search(r"launchd timer \(daily,? 07:10", doc), \
+        "MARKET_FEED.md must not still describe the retired single daily window"
+
+    installer = (ops_source / "install-services.sh").read_text(encoding="utf-8")
+    assert "07:10/13:10/19:10" in installer, "the installer's own service list must name all three windows"
+    assert not re.search(r"hk-market-feed.*\bdaily\b", installer), \
+        "the installer's comment must not still claim a single daily refresh"
+
+
 def test_scheduled_writer_requires_canonical_pool() -> None:
     # Drive only the real scheduled wrapper and supervisor. Replace the network fetch with a marker:
     # a rejected topology must never reach it or manufacture a local data tree.
@@ -225,10 +446,19 @@ def test_scheduled_writer_requires_canonical_pool() -> None:
                 (root / "bin" / "stat").write_text("#!/bin/sh\nexit 1\n")
                 (root / "bin" / "stat").chmod(0o755)
                 env["PATH"] = str(root / "bin") + os.pathsep + env["PATH"]
+            status = root / "market-feed.json"
+            env["MARKET_FEED_STATUS"] = str(status)
             result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
                                     env=env, capture_output=True, text=True, timeout=15)
             assert result.returncode == 0, (case, result.stderr, (root / "job.log").read_text())
             assert (repo / "fetch-ran").exists() == (case == "ready"), case
+            # EVERY path says what it did, where the engine reads it. A skip that only wrote to a log is how
+            # a feed went weeks without refreshing while looking exactly like one that had not failed.
+            assert status.exists(), f"{case}: the run left no status behind"
+            reported = json.loads(status.read_text())
+            assert reported["outcome"] == ("ok" if case == "ready" else "skipped"), (case, reported)
+            assert reported["detail"], (case, "a status with no reason explains nothing")
+            assert reported["at"].endswith("Z"), reported["at"]
             if case == "ready":
                 assert json.loads((repo / "fetch-ran").read_text()) == ["--data-root", str(pool)]
             if case == "missing":
@@ -353,6 +583,12 @@ def main() -> int:
     check("both series are fetched, and one failing does not cost the other",
           test_both_series_are_fetched_and_one_failure_does_not_cost_the_other)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
+    check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
+    check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)
+    check("the repo path (owner identity) never reaches the refresh status detail", test_repo_path_is_not_leaked_into_refresh_status)
+    check("a long provider line is bounded before it reaches the status file", test_long_refresh_detail_is_bounded)
+    check("each refresh-status write uses its own unique temp file", test_each_refresh_status_write_uses_a_unique_temp_file)
+    check("the schedule docs match the installed plist", test_schedule_documentation_matches_the_installed_plist)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
     check("deterministic wrappers fail closed on unknown lock ages", test_deterministic_wrappers_reject_unknown_lock_ages)

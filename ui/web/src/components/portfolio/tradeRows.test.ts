@@ -3,7 +3,7 @@
 // presentation — every total must survive it untouched.
 // Run: npx tsx src/components/portfolio/tradeRows.test.ts
 import assert from 'node:assert/strict'
-import { contractTerms, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills, fillsOutsideBase, foldRoundTrips, groupByIdea } from './tradeRows'
+import { contractTerms, conversionWords, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills, fillsOutsideBase, foldRoundTrips, groupByIdea } from './tradeRows'
 import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 let passed = 0
@@ -419,7 +419,7 @@ check('the summary counts exactly the rows shown', () => {
     fill({ id: 'a2', executedAt: '2026-06-02T10:00:00', effect: 'add', positionBefore: 20, positionAfter: 30 }),
     fill({ id: 't', executedAt: '2026-06-03T10:00:00', side: 'sell', effect: 'reduce', positionBefore: 30, positionAfter: 25, openedQuantity: 0, stillOpen: 0 }),
   ])
-  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1, inferred: 0, costsUnknown: 0, partial: 0 })
+  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1, inferred: 0, costsUnknown: 0, partial: 0, conversions: 0 })
 })
 
 check('the name list marks which names are still held', () => {
@@ -571,6 +571,27 @@ check('an explicitly unknown holding stays visible even when the reconstructed p
     partialHistory: true, effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 })])
   assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['unknown'])
   assert.equal(fillNames(rows)[0]!.held, null, 'the filter must not call an unknown holding held')
+})
+
+check('a currency conversion is listed as a fill and counted as nothing else', () => {
+  // It buys money, not a position: it is never an open position, never a buy of something, and the words
+  // read off the pair the broker names it by (IBKR writes AUD.USD for buying AUD with USD).
+  const conv = (o: Partial<PortfolioExecution> & { id: string; executedAt: string }) =>
+    fill({ key: 'conid:14433401', symbol: 'AUD.USD', effect: 'convert', positionBefore: 0, positionAfter: 0,
+      openedQuantity: 0, stillOpen: 0, openNow: false, ...o })
+  const rows = fillRows([
+    fill({ id: 'stock', executedAt: '2026-08-20T10:00:00' }),
+    conv({ id: 'fx-in', executedAt: '2026-08-26T10:00:00', quantity: 50000, price: 0.718, value: 35900 }),
+    conv({ id: 'fx-out', executedAt: '2026-08-27T10:00:00', side: 'sell', quantity: 0.015, price: 0.719, value: 0.01 }),
+  ])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['stock'], 'money held is not a position held')
+  assert.deepEqual(fillNames(rows).map((n) => [n.label, n.fills, n.held]), [['AUD.USD', 2, false], ['GLDM', 1, true]])
+  assert.deepEqual([fillAction(rows[0]!), fillStatus(rows[0]!)], ['converted currency', null], 'and nothing is left of it')
+  assert.deepEqual([conversionWords(rows[1]!), conversionWords(rows[0]!)], ['USD → AUD', 'AUD → USD'],
+    'a buy reads left to right, a sale the other way')
+  assert.equal(conversionWords({ symbol: 'AUDUSD', side: 'buy' }), null, 'and a symbol not shaped like a pair guesses nothing')
+  const s = fillSummary(rows)
+  assert.deepEqual([s.fills, s.buys, s.sells, s.conversions], [3, 1, 0, 2], 'counted apart from what was bought')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

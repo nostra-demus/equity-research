@@ -49,7 +49,7 @@ const piece = (html: string, marker: string, name: string) => {
   assert.ok(found !== undefined, `nothing marked ${marker} mentions ${name}`)
   return found
 }
-const tags = (fragment: string) => ({ unproven: />unproven</.test(fragment), costUnknown: />cost unknown</.test(fragment) })
+const tags = (fragment: string) => ({ unproven: />(?:\d+ of \d+ )?unproven</.test(fragment), costUnknown: />cost unknown</.test(fragment) })
 const card = (html: string, label: string) => tags(piece(html, 'fundbook__card"', `fundbook__cardlabel">${label}<`))
 const row = (html: string, sym: string) => piece(html, 'fundbook__row"', `<span>${sym}</span>`)
 
@@ -65,11 +65,14 @@ check('a book whose trades are all established carries no qualifier anywhere', (
 
 check('every card built from the round trips carries the qualifiers of the trades behind it', () => {
   const html = tradesHtml(book([clean, partial, blankCost]))
-  for (const label of ['Realised', 'Closed trades', 'Hit rate', 'Win / loss size', 'Largest loss']) {
+  for (const label of ['Realised', 'Closed trades', 'Hit rate', 'Win / loss size']) {
     assert.deepEqual(card(html, label), { unproven: true, costUnknown: true }, label)
   }
   // A blank commission moves money, not dates: the hold rests on the matched lot, so only partial history reaches it.
   assert.deepEqual(card(html, 'Avg hold'), { unproven: true, costUnknown: false })
+  // The largest loss is drawn from the LOSERS. Here the unproven trade is one and the blank-commission trade
+  // is a winner, so only the first qualifier belongs to that figure.
+  assert.deepEqual(card(html, 'Largest loss'), { unproven: true, costUnknown: false })
 })
 
 check('each bar and each currency row carries the qualifiers of its own trades, and only those', () => {
@@ -292,6 +295,57 @@ check('the "Return by period" heading names the SINCE-INCEPTION rate, not every 
   assert.match(html, /Since-inception cash hurdle 3\.00%/, 'the heading must name the rate as the since-inception one, not an unscoped "the" rate')
   assert.match(html, /window average — 5% now/)
   assert.match(html, /the rows below are each charged their own window/, 'must not let a reader attribute a short period’s hurdle to this heading’s figure')
+})
+
+check('a card is qualified by the trades ITS figure is built from, not by the whole book', () => {
+  // An unproven WINNER says nothing about the largest loss, which is drawn from the losers. Tagged there, the
+  // qualifier names trades that figure never counted.
+  const unprovenWinner = closure({ symbol: 'WIN', closeTradeID: 'C8', partialHistory: true, realizedLocal: 80, realizedBase: 80, grossLocal: 80 })
+  const cleanLoss = closure({ symbol: 'LOSS', closeTradeID: 'C9', realizedLocal: -40, realizedBase: -40, grossLocal: -40 })
+  const html = tradesHtml(book([clean, unprovenWinner, cleanLoss]))
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Hit rate<'), />1 of 3 unproven</)
+  assert.deepEqual(card(html, 'Largest loss'), { unproven: false, costUnknown: false }, 'the loss is established')
+  // And it is the WORST trade, not the losers as a class: a smaller reconstructed loss beside a larger
+  // established one says nothing about the figure shown.
+  const smallUnprovenLoss = closure({ symbol: 'SMALL', closeTradeID: 'CA', partialHistory: true, realizedLocal: -5, realizedBase: -5, grossLocal: -5 })
+  const bigCleanLoss = closure({ symbol: 'BIG', closeTradeID: 'CB', realizedLocal: -90, realizedBase: -90, grossLocal: -90 })
+  assert.deepEqual(card(tradesHtml(book([clean, smallUnprovenLoss, bigCleanLoss])), 'Largest loss'),
+    { unproven: false, costUnknown: false }, 'the −90 is established; the unproven −5 is not the largest')
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Win / loss size<'), />1 of 3 unproven</)
+})
+
+check('a figure built from several trades says how many of them are unproven', () => {
+  // A bare stamp reads the same whether one immaterial line is reconstructed or the whole book is. The real
+  // book put "unproven" on a year of realised trading because of a $0.000016 currency line.
+  const html = tradesHtml(book([clean, partial, blankCost]))
+  assert.match(piece(html, 'fundbook__card"', 'fundbook__cardlabel">Hit rate<'), />1 of 3 unproven</)
+  // One trade's own row still says only that it is unproven: there is no set behind it to count.
+  assert.match(piece(html, 'fundbook__row fundbook__row--trades"', 'BBB'), />unproven</)
+})
+
+check('a currency conversion is shown as one, with no position and nothing left of it', () => {
+  const html = tradesHtml({ ...book([]), executions: [execution({
+    id: 'FX1', key: 'conid:14433401', symbol: 'AUD.USD', assetCategory: 'CASH', isDerivative: false, expiry: null,
+    effect: 'convert', quantity: 50000, price: 0.718, value: 35900, multiplier: 1, commission: 0,
+    positionBefore: 0, positionAfter: 0, openedQuantity: 0, stillOpen: 0, openNow: false,
+  })] })
+  const row = fillRow(html, 'AUD.USD')
+  assert.match(row, />Convert</)
+  assert.match(row, />USD → AUD</)
+  assert.doesNotMatch(row, />Held</, 'money bought is not a holding')
+  assert.equal((row.match(/>—</g) ?? []).length, 3, 'no position after it, nothing realised, and nothing left of it')
+  assert.match(html, /bought money rather than a position/)
+})
+
+check('the bridge qualifier counts trades, not the FIFO lots behind them', () => {
+  // One sale consuming two opening lots is two closures and ONE round trip. Counting closures made the bridge
+  // say "2 of 3 unproven" of the book whose cards say "1 of 2".
+  const twoLots = [
+    closure({ symbol: 'DDD', closeTradeID: 'C7', partialHistory: true, quantity: 10 }),
+    closure({ symbol: 'DDD', closeTradeID: 'C7', partialHistory: true, quantity: 5, entryPrice: 12 }),
+  ]
+  const html = holdingsHtml(book([clean, ...twoLots]))
+  assert.match(piece(html, 'fundbook__bridge', 'Realised on closed trades'), />1 of 2 unproven</)
 })
 
 console.log(`PortfolioStage: ${passed} passed`)

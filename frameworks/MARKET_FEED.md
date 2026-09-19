@@ -133,12 +133,19 @@ maximum drawdown alone, with no cash rate in it, and the UI does not render a Ca
 is not one of these — and it is a **rate, not a price**: `0.00` is a real observation and is kept, where an
 index level of zero would be a bad row. The engine reads it with `readRates()` for that reason, and charges
 each window the average rate across it rather than the newest observation. `scripts/ops/install-services.sh`
-installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (07:10, 13:10 and 19:10 — the
-first ahead of `hk-calibrate-daily` at 07:25, the rest so a missed window or a provider hiccup does not cost
-the day) via the `scripts/ops/market-feed-local.sh` wrapper — deterministic,
-no model/provider identity, so it needs no cockpit admission. Because `data/` is a gitignored symlink
-into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
+installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer via the `scripts/ops/market-feed-local.sh`
+wrapper — deterministic, no model/provider identity, so it needs no cockpit admission. **Three windows a day**
+(07:10, 13:10, 19:10), not one: a single 07:10 window meant a laptop asleep at 07:10 got launchd's one catch-up
+on wake and nothing else, and a single FRED hiccup cost the whole day. The fetch is cheap and idempotent — the
+file is named by the data's own as-of date and replaced atomically — so a run that finds the feed already current
+rewrites the same bytes. 07:10 still leads `hk-calibrate-daily` at 07:25. Because `data/` is a gitignored
+symlink into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
 runs the timer, same as every other file under `data/_market/`.
+
+A schedule change like this one only takes effect once an operator reruns `bash scripts/ops/install-services.sh`
+on the doer machine. A normal automatic deploy refreshes the installed COPY of `market-feed-local.sh`
+itself (`scripts/ops/deploy.sh`'s self-update list carries it), but it does not re-render or reload the
+installed launchd plist — that is a separate, manual step.
 
 Serving/tunnel failover does not transfer this writer: installs with `NOSTRA_INSTALL_CONNECTORS=0`
 exclude and unload the market-feed timer alongside connectors. Every scheduled run also checks the

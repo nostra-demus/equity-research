@@ -140,8 +140,9 @@ export interface BookExecution {
   positionBefore: number
   positionAfter: number
   /** What the fill did to the position. `unmatched` means none of it could be applied: a close with no
-   *  open lot behind it, because the statements begin after the position was opened. */
-  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+   *  open lot behind it, because the statements begin after the position was opened. `convert` is a currency
+   *  conversion, which buys money rather than a position: it moves no position and realises nothing here. */
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched' | 'convert'
   /** How much of this fill OPENED a lot (zero for a pure close), and how much of that is still open at the
    *  end of the statements — so a buy reads as held, partly sold, or sold. */
   openedQuantity: number
@@ -364,6 +365,12 @@ const EPS = 1e-9
  *  cannot disagree about which categories are percent-of-par. */
 const PAR_PRICED = PAR_PRICED_CATEGORIES
 
+/** A currency conversion: IBKR books one as a trade in a CASH contract (AUD.USD), but what it buys is a
+ *  currency, which lands in a cash balance — never in the position snapshot. See the note in runFifo. */
+function isCurrencyConversion(assetCategory: string | null): boolean {
+  return (assetCategory ?? '').toUpperCase() === 'CASH'
+}
+
 /** The signed quantity a contract's open lots add up to — the position as the lot engine holds it. */
 function netQuantity(lots: BookLot[]): number {
   return lots.reduce((a, l) => a + l.quantity, 0)
@@ -410,6 +417,63 @@ export function runFifo(
     if (qty === null || qty === 0 || price === null) continue
 
     const key = positionKey(t)
+
+    // A CURRENCY CONVERSION IS NOT A POSITION. Buying AUD to pay for Australian shares is a trade row like
+    // any other, but what it buys is money: it lands in a cash balance, and the broker's position snapshot
+    // never carries it. Run through the lot engine it becomes a contract the snapshot cannot confirm — an
+    // extra open position the size of the whole conversion, a reconciliation break of exactly that amount,
+    // and, because the engine then reads that contract's history as incomplete, an "unproven" stamp on
+    // every realised figure in the book (a 0.015-unit AUD.USD line realising $0.000016 marked a year of
+    // equity round trips unproven). It is listed as the fill it is and nothing else: no lot, no closure,
+    // no realised P&L, no position.
+    if (isCurrencyConversion(t.assetCategory)) {
+      executions.push({
+        id: t.tradeID ?? t.transactionID,
+        key,
+        symbol: t.symbol,
+        assetCategory: t.assetCategory,
+        currency: t.currency,
+        executedAt: t.dateTime ?? t.tradeDate,
+        tradeDate: t.tradeDate ?? (t.dateTime ? t.dateTime.slice(0, 10) : null),
+        expiry: t.expiry,
+        strike: t.strike,
+        putCall: t.putCall,
+        side: qty > 0 ? 'buy' : 'sell',
+        quantity: Math.abs(qty),
+        price,
+        multiplier: t.multiplier ?? 1,
+        commission: t.ibCommission === null ? null : t.ibCommission + (t.taxes ?? 0),
+        positionBefore: 0,
+        positionAfter: 0,
+        effect: 'convert',
+        openedQuantity: 0,
+        stillOpen: 0,
+        unmatchedQuantity: 0,
+        realizedLocal: null,
+        costsUnknown: false,
+        inferred: false,
+        isDerivative: false,
+        // The broker's own proceeds: the money that changed hands, in the currency it was paid in.
+        value: t.proceeds !== null ? Math.abs(t.proceeds) : Math.abs(qty) * price * (t.multiplier ?? 1),
+        partialHistory: false,
+        openNow: false,
+      })
+      // A conversion realises money when the currency is sold back at another rate, and it costs commission
+      // to make; the broker states both. Neither is a round trip here, so neither reaches a realised figure —
+      // and the NAV bridge's remainder, where they land, is a residual nobody can rebuild (§15). Say so rather
+      // than let the broker's own numbers go without a word.
+      const converted = [
+        t.fifoPnlRealized ? `realised ${t.fifoPnlRealized}` : null,
+        t.ibCommission || t.taxes ? `cost ${Math.abs((t.ibCommission ?? 0) + (t.taxes ?? 0))}` : null,
+      ].filter(Boolean).join(' and ')
+      if (converted) {
+        warnings.push(`currency conversion ${t.symbol ?? key} ${converted} ${t.currency ?? ''}`.replace(/\s+/g, ' ').trim()
+          + ' per the broker — a conversion buys money, not a position, so it is in neither realised on closed'
+          + " trades nor the costs beside it; both fall into the NAV bridge's remainder")
+      }
+      continue
+    }
+
     const indicator = (t.openCloseIndicator ?? '').toUpperCase()
     // IBKR leaves the indicator EMPTY for several asset classes. Treating that as "open" turns a sell
     // against a long into a phantom short lot, with no closure and no warning. A blank indicator is
@@ -923,8 +987,12 @@ export function buildBook(documents: FlexDocument[]): Book {
   if (positionSource !== newest && newest.sectionsPresent.length > 0) {
     warnings.push(`the newest export carries no OpenPositions section — holdings are shown as of ${positionSource.toDate ?? 'the last statement that had them'}`)
   }
+  // A currency balance some exports carry here is money, not a position (see runFifo). Published as one it
+  // would be read as an open equity holding: it would count as invested, and cash — the statement's value
+  // less what is invested — would be short by the same amount. It stays in the cash it is.
   const positions: BookPosition[] = positionSource.openPositions
     .filter((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')
+    .filter((p) => !isCurrencyConversion(p.assetCategory))
     .map((p) => ({
       symbol: p.symbol,
       conid: p.conid,
@@ -977,9 +1045,13 @@ export function buildBook(documents: FlexDocument[]): Book {
   // fill was applied a second time on top of a snapshot that already held it, so a contract the broker holds
   // read as closed. The trade date, not the execution time: an overnight-session fill executed on the
   // snapshot's day is booked to the next one, so the snapshot does not hold it.
+  //
+  // CONVERSIONS ARE HELD OUT OF ALL OF IT. A currency conversion opens no lot and appears in no snapshot, so
+  // anchoring it to one can only ever fail: its whole amount reads as a position the broker does not hold.
   const snapshotHeld = docs.some((d) => d.sectionsPresent.includes('OpenPositions')) || positions.length > 0
+  const instrumentFills = executions.filter((e) => !isCurrencyConversion(e.assetCategory))
   const partialKeys = new Set<string>()
-  for (const e of executions) {
+  for (const e of instrumentFills) {
     if (e.unmatchedQuantity > EPS) partialKeys.add(e.key)
     if (!snapshotHeld && e.inferred) partialKeys.add(e.key)
   }
@@ -1013,7 +1085,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     for (const [original, replacement] of Object.entries(replacedBy)) replaces.set(replacement, [...(replaces.get(replacement) ?? []), original])
     const base = new Map(held)
     const rebases = new Map<string, { ratio: number; valid: boolean }>()
-    for (const e of executions) {
+    for (const e of instrumentFills) {
       if (e.id === null || listedBySnapshot.has(e.id)) continue
       // Back through the restatement chain to the version the snapshot's statement listed, if it listed one.
       let was: FlexTrade | undefined
@@ -1053,7 +1125,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     // which move the real position whatever the engine could match. Open positions reads this rather than the
     // rebuilt position, so a contract held since before the statements is never reported closed.
     const now = new Map(base)
-    for (const e of executions) {
+    for (const e of instrumentFills) {
       let covered: boolean | null = null
       if (e.id !== null && coveredIds.has(e.id)) covered = true
       else if (snapshotDay !== null && e.tradeDate !== null) {
@@ -1076,12 +1148,12 @@ export function buildBook(documents: FlexDocument[]): Book {
     for (const key of new Set([...base.keys(), ...rebuilt.keys()])) {
       if (base.get(key) === null || Math.abs((rebuilt.get(key) ?? 0) - (base.get(key) ?? 0)) > EPS) partialKeys.add(key)
     }
-    for (const e of executions) {
+    for (const e of instrumentFills) {
       e.openNow = now.get(e.key) === null ? null : Math.abs(now.get(e.key) ?? 0) > EPS
       if (e.openNow === null) partialKeys.add(e.key)
     }
   }
-  for (const e of executions) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
+  for (const e of instrumentFills) e.partialHistory = gaps.length > 0 || partialKeys.has(e.key)
   // The round trips carry the same qualifier: FIFO may have matched a sale against the wrong opening lot.
   for (const c of closures) c.partialHistory = gaps.length > 0 || partialKeys.has(c.key)
 
@@ -1243,7 +1315,9 @@ export function reconcile(ctx: {
 
   // 4. Realised P&L, IN BASE CURRENCY on both sides.
   const executions = trades.filter((t) => !t.levelOfDetail || t.levelOfDetail.toUpperCase() === 'EXECUTION')
-  const brokerRows = executions.filter((t) => t.fifoPnlRealized !== null)
+  // Both sides count the same rows: the lot engine books no closure for a currency conversion (see runFifo),
+  // so a conversion the broker reports a realised amount on cannot be summed against our side either.
+  const brokerRows = executions.filter((t) => t.fifoPnlRealized !== null && !isCurrencyConversion(t.assetCategory))
   // An OPENING execution still carries fifoPnlRealized="0" — it is a real attribute with a real value,
   // so it belongs in the sum, but it is NOT evidence that anything was closed. Only a row that says it
   // closed, or that realised money, can prove a missing opening lot.
@@ -1267,7 +1341,39 @@ export function reconcile(ctx: {
   const caRows = corporateActions.filter((c) => c.fifoPnlRealized !== null && c.fifoPnlRealized !== 0)
   const caRate = (c: FlexCorporateAction) =>
     c.fxRateToBase ?? fx(c.currency, (c.dateTime ?? c.reportDate)?.slice(0, 10) ?? null)
-  if (brokerRows.length === 0 && closures.length === 0 && latestNav?.realized != null && latestNav.realized !== 0) {
+  // A period whose ONLY realised activity is a currency conversion correctly leaves both brokerRows and
+  // closures empty — a conversion books no closure (see runFifo) and is excluded from brokerRows just
+  // above, on purpose. That is not evidence trade data went unimported; it is the fix working. Without
+  // this, the same FX activity reconciled differently depending on whether an unrelated instrument also
+  // traded that period: one non-CASH opening row bypassed the "no trade rows" branch below entirely,
+  // while an FX-only period fell straight into it. Check the RAW executions (before the CASH filter) for
+  // conversion rows whose own realised amount already accounts for the statement's realised total.
+  //
+  // Scope those conversions to the LATEST statement's own window, because latestNav.realized only covers
+  // that window. `conversionRows` is drawn from the whole merged, multi-period import, so an unscoped sum
+  // folds prior-period FX gains into the comparison — which would make a valid FX-only latest period miss
+  // its own total (false "no trade rows" break) or let a coincidental cross-period total suppress a real
+  // break when the latest period's trade detail is genuinely missing. Same window basis the deposits/
+  // withdrawals check uses (§15 matched basis) — but NOT the same date resolution the rate lookup above
+  // uses. Period MEMBERSHIP is a different question from which day's FX rate applies to a fill: this
+  // field's own doc comment says a statement's period counts fills by tradeDate, falling back to the
+  // execution day only when tradeDate is absent (see FlexTrade.tradeDate above). A conversion executed
+  // late on the last day of one period but booked (tradeDate) into the next is the broker's own next-
+  // period fill; keying this off dateTime first put it in the wrong window and made a genuinely FX-only
+  // period fail this guard.
+  const inLatestWindow = (t: FlexTrade) => {
+    if (!latestNav?.fromDate || !latestNav.toDate) return true
+    const d = (t.tradeDate ?? t.dateTime)?.slice(0, 10)
+    return !!d && d >= latestNav.fromDate && d <= latestNav.toDate
+  }
+  const conversionRows = executions.filter(
+    (t) => isCurrencyConversion(t.assetCategory) && t.fifoPnlRealized !== null && inLatestWindow(t))
+  const conversionRealised = conversionRows.reduce((a, t) => a + realisedBase(t), 0)
+  const fxOnlyRealised = conversionRows.length > 0 && latestNav?.realized != null &&
+    Number.isFinite(conversionRealised) &&
+    Math.abs(conversionRealised - latestNav.realized) <= Math.max(1, Math.abs(latestNav.realized) * 0.001)
+  if (brokerRows.length === 0 && closures.length === 0 && latestNav?.realized != null && latestNav.realized !== 0
+    && !fxOnlyRealised) {
     // The statement says money was realised and no trade detail was imported to reconstruct it. Skipping
     // the check here certified a book whose entire closed-trade history could be missing.
     add({ name: 'Realised P&L', ours: null, broker: latestNav.realized, break: null, tolerance: 0, ok: false,
@@ -1307,6 +1413,8 @@ export function reconcile(ctx: {
   // caught it.
   const positionsSection = docs.some((d) => d.sectionsPresent.includes('OpenPositions'))
   if (positionsSection || positions.length > 0) {
+    // `positions` no longer carries a currency balance either (buildBook drops it), so both sides of this
+    // check hold the same idea of what a position is.
     const held = new Map<string, number>()
     for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
     const derived = new Map<string, number>()
