@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T11:52:06Z",
+  "generated_at": "2026-09-19T12:01:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-159",
+      "headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:29:57Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "NTPC terminated a Rs 413 crore contract due to a contractor default, indicating operational disruption and potential financial loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NTPC terminated a Rs 413 crore contract due to a contractor default, indicating operational disruption and potential financial loss.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTPC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1841,55 +1891,6 @@
       "companies": [
         {
           "name": "Vishal Mega Mart Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-143",
-      "headline": "Aavas Financiers Limited: Aavas Financiers Limited has informed the Exchange about Resignation of Director/KMP/SMP",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AAVAS_ROID_98628_KMP_Doc.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-19T07:04:17Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aavas Financiers Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -166859,9 +166860,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5944878,
-    "news_picked_today": 313,
-    "news_dropped_today": 5999
+    "news_seen_today": 6056236,
+    "news_picked_today": 315,
+    "news_dropped_today": 6069
   },
   "book_momentum": {
     "live_count": 8,
