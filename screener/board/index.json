@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T15:59:01Z",
+  "generated_at": "2026-09-19T16:02:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-167",
+      "headline": "Amazon cargo delivery company files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/amazon-cargo-delivery-company-files-153300197.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T15:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "An Amazon cargo delivery partner has filed for Chapter 11 bankruptcy, indicating operational risk for the logistics network.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An Amazon cargo delivery partner has filed for Chapter 11 bankruptcy, indicating operational risk for the logistics network.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,50 +1888,6 @@
       "triage_score": 96,
       "triage_reason": "The imposition of sweeping sanctions on Russia represents a significant geopolitical escalation affecting global trade and financial markets.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-040",
-      "headline": "Trump signs Russia-Iran sanctions law, opens door to 100% tariffs on India",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/trump-signs-russia-iran-sanctions-law-opens-door-to-100-tariffs-on-india/articleshow/134346075.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T00:44:38Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The imposition of potential 100% tariffs on India represents a major trade policy shift with significant economic implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The imposition of potential 100% tariffs on India represents a major trade policy shift with significant economic implications.",
-      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -166940,9 +166945,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7724940,
-    "news_picked_today": 421,
-    "news_dropped_today": 8123
+    "news_seen_today": 7747292,
+    "news_picked_today": 424,
+    "news_dropped_today": 8144
   },
   "book_momentum": {
     "live_count": 8,
