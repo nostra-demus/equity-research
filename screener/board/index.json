@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T00:36:10Z",
+  "generated_at": "2026-09-19T00:42:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -426,6 +426,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-014",
+      "headline": "425 - American Water Works Company, Inc. (0001410636) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1410636/000119312526395563/0001193125-26-395563-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T20:15:58Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Filing of additional proxy materials related to a business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Filing of additional proxy materials related to a business combination.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Water Works Company, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-015",
+      "headline": "425 - Essential Utilities, Inc. (0000078128) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/78128/000119312526395563/0001193125-26-395563-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T20:15:58Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Filing of additional proxy materials related to a business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Filing of additional proxy materials related to a business combination.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essential Utilities, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-007",
       "headline": "S-1 - TRex Bio, Inc. (0002139097) (Filer)",
       "headline_en": null,
@@ -568,6 +666,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-013",
+      "headline": "S-1/A - MapLight Therapeutics, Inc. (0001770069) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1770069/000119312526395559/0001193125-26-395559-index.htm",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-18T20:15:45Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Filing of an amended S-1 registration statement for a potential IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Filing of an amended S-1 registration statement for a potential IPO.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MapLight Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125546,77 +125693,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d7139893a187",
-      "idea_version": "IDEAV-71045569c67f5a6f",
-      "idea_version_started_at": "2026-09-17T16:21:54Z",
-      "ticker": "ACVA",
-      "company": "ACV Auctions Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Copart Inc. has filed a tender offer for ACV Auctions, which typically results in the target stock trading up toward the offer price.",
-      "why_now": "The SEC filing for the tender offer was made on 2026-09-17.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-11899fb46dab",
-        "EVT-3c933bb0b0ee"
-      ],
-      "primary_source_event_id": "EVT-11899fb46dab",
-      "source_headlines": [
-        "SC TO-T - COPART INC (0000900075) (Filed by)",
-        "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)"
-      ],
-      "source_headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T12:36:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T16:21:54Z",
-      "updated_at": "2026-09-17T16:21:54Z",
-      "decay_at": "2026-09-19T00:36:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-622d9386e914",
       "idea_version": "IDEAV-239c742a1d76a857",
       "idea_version_started_at": "2026-09-18T00:48:37Z",
@@ -126687,6 +126763,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-d7139893a187",
+      "idea_version": "IDEAV-71045569c67f5a6f",
+      "idea_version_started_at": "2026-09-17T16:21:54Z",
+      "ticker": "ACVA",
+      "company": "ACV Auctions Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Copart Inc. has filed a tender offer for ACV Auctions, which typically results in the target stock trading up toward the offer price.",
+      "why_now": "The SEC filing for the tender offer was made on 2026-09-17.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11899fb46dab",
+        "EVT-3c933bb0b0ee"
+      ],
+      "primary_source_event_id": "EVT-11899fb46dab",
+      "source_headlines": [
+        "SC TO-T - COPART INC (0000900075) (Filed by)",
+        "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)"
+      ],
+      "source_headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T12:36:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T16:21:54Z",
+      "updated_at": "2026-09-17T16:21:54Z",
+      "decay_at": "2026-09-19T00:36:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-163e0fa1bed7",
@@ -128405,14 +128552,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 260,
@@ -128436,6 +128583,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d7139893a187",
+        "idea_version": "IDEAV-71045569c67f5a6f",
+        "idea_version_started_at": "2026-09-17T16:21:54Z",
+        "ticker": "ACVA",
+        "company": "ACV Auctions Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Copart Inc. has filed a tender offer for ACV Auctions, which typically results in the target stock trading up toward the offer price.",
+        "why_now": "The SEC filing for the tender offer was made on 2026-09-17.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-11899fb46dab",
+          "EVT-3c933bb0b0ee"
+        ],
+        "primary_source_event_id": "EVT-11899fb46dab",
+        "source_headlines": [
+          "SC TO-T - COPART INC (0000900075) (Filed by)",
+          "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)"
+        ],
+        "source_headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
+        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T12:36:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T16:21:54Z",
+        "updated_at": "2026-09-17T16:21:54Z",
+        "decay_at": "2026-09-19T00:36:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T00:36:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-01a3bdc0a127",
         "idea_version": "IDEAV-f26a5945be582be6",
@@ -157488,79 +157709,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d20df5cd7aab",
-        "idea_version": "IDEAV-ab91e936f845b300",
-        "idea_version_started_at": "2026-09-06T04:20:13Z",
-        "ticker": "VWAGY",
-        "company": "Volkswagen",
-        "exchange": "OTC Markets",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has reached a restructuring agreement to slash jobs, which is expected to improve operating margins and reduce structural costs.",
-        "why_now": "The board-approved restructuring plan was announced on 2026-09-06.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1259bce9810e"
-        ],
-        "primary_source_event_id": "EVT-1259bce9810e",
-        "source_headlines": [
-          "VW’s surprise job-slashing deal is a big win for its bosses"
-        ],
-        "source_headline": "VW’s surprise job-slashing deal is a big win for its bosses",
-        "source_url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
-        "source_name": "Hindustan Times (Business)",
-        "materiality_max": 87,
-        "newest_source_at": "2026-09-06T03:30:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T04:20:13Z",
-        "updated_at": "2026-09-06T04:20:13Z",
-        "decay_at": "2026-09-07T15:30:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T03:36:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-205ed939316f",
         "idea_version": "IDEAV-23b289b6cd7b7c5b",
         "idea_version_started_at": "2026-09-06T03:18:09Z",
@@ -165597,7 +165745,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 890,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -165607,7 +165755,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2579,
+    "inbox_unconsumed": 2582,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -165616,9 +165764,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 346926,
-    "news_picked_today": 12,
-    "news_dropped_today": 180
+    "news_seen_today": 404522,
+    "news_picked_today": 15,
+    "news_dropped_today": 225
   },
   "book_momentum": {
     "live_count": 8,
