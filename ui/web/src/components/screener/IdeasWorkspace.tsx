@@ -8,7 +8,7 @@ import { ChainCard } from './ChainLane'
 import { usePersonalScope } from '../../lib/personalScope'
 
 const TABS: { id: IdeaLane; label: string }[] = [
-  { id: 'long', label: 'Long' }, { id: 'events', label: 'Events' }, { id: 'short', label: 'Short' },
+  { id: 'events', label: 'Events' }, { id: 'long', label: 'Long' }, { id: 'short', label: 'Short' },
   { id: 'chain', label: 'Chain' }, { id: 'archives', label: 'Idea archives' },
 ]
 const FILTER_KEY = 'ideas.listing-exclusions.v1'

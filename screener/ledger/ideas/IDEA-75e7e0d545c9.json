@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-75e7e0d545c9",
-  "idea_version": "IDEAV-b4a076a0fe2c362e",
-  "idea_version_started_at": "2026-09-18T17:05:00Z",
+  "idea_version": "IDEAV-52d5934feefbec53",
+  "idea_version_started_at": "2026-09-19T14:23:44Z",
   "ticker": "08366",
   "company": "ZJ United Inv",
   "exchange": "HKEX",
@@ -11,17 +11,17 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company is initiating a dilutive rights issue on a non-fully underwritten basis, which typically signals significant capital pressure and creates downward price pressure on existing shares.",
-  "why_now": "The announcement was made on September 18, 2026, and the market has not yet fully digested the impact of the non-underwritten rights issue.",
-  "conviction": 60,
+  "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
+  "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
-  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
     "impact": 19,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -44,7 +44,7 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "balance_sheet_survival",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
@@ -66,7 +66,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-18T17:05:00Z",
-  "updated_at": "2026-09-18T17:05:00Z",
+  "updated_at": "2026-09-19T14:23:44Z",
   "decay_at": "2026-09-20T00:39:00Z",
   "status": "live",
   "promoted_signal_id": null

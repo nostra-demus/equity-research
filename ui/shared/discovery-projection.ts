@@ -94,8 +94,7 @@ export function discoveryPage(cards: DiscoveryCard[], lane: IdeaLane, hiddenMark
       : c.sides.map((side) => c.listings[side])
     return markets.some((market) => !market || !hiddenMarkets.includes(market))
   }).sort((a, b) => lane === 'archives' ? String(b.archived_at).localeCompare(String(a.archived_at)) || a.key.localeCompare(b.key)
-    : lane === 'events' ? b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key)
-      : b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
+    : b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
   return { schema_version: 'ideas-workspace/v1', rows: rows.slice(cursor, cursor + 30), total: rows.length, hidden: laneRows.length - rows.length,
     next_cursor: cursor + 30 < rows.length ? String(cursor + 30) : null, notices, projected_at: new Date().toISOString() }
 }

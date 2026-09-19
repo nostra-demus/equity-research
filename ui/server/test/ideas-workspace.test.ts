@@ -102,6 +102,39 @@ try {
   assert.deepEqual(corrected[0].event?.implications, [])
   assert.equal(buildDiscoveryEvents([], [report('EVT-legacy', { found_at: undefined })], now)[0].event?.reports[0].time_basis, 'observed')
 
+  // Related themes about the same real-world event produce cards that merge via shared aliases.
+  const c = report('EVT-c', { headline: 'BoJ raises rate to 1.25%', dedup_group: 'EVT-c' })
+  const d = report('EVT-d', { headline: 'Ueda delivers rate hike', dedup_group: 'EVT-d', found_at: at(500) })
+  const theme2 = {
+    theme_id: 'THM-aaaaaaaa', name: 'BoJ rate hike — export boost', status: 'live',
+    members: [{ event_id: c.event_id, headline: c.headline, found_at: c.found_at, url: c.url, source_name: c.source_name, score: 85, country: 'JP' }],
+    narrative: { evidence: [{ event_id: c.event_id, stance: 'supports' }], mechanism_steps: ['Weaker yen lifts export earnings.'], anchor_terms: ['boj', 'rate'] },
+    related_themes: [{ theme_id: 'THM-bbbbbbbb', name: 'BoJ rate hike — importer pressure', shared_company_keys: 1, token_overlap: 0.6, kind: 'related' as const }],
+  } as Theme
+  const theme3 = {
+    theme_id: 'THM-bbbbbbbb', name: 'BoJ rate hike — importer pressure', status: 'live',
+    members: [{ event_id: d.event_id, headline: d.headline, found_at: d.found_at, url: d.url, source_name: d.source_name, score: 80, country: 'JP' }],
+    narrative: { evidence: [{ event_id: d.event_id, stance: 'supports' }], mechanism_steps: ['Higher rates raise import costs.'], anchor_terms: ['boj', 'rate'] },
+    related_themes: [{ theme_id: 'THM-aaaaaaaa', name: 'BoJ rate hike — export boost', shared_company_keys: 1, token_overlap: 0.6, kind: 'related' as const }],
+  } as Theme
+  const relatedCards = buildDiscoveryEvents([theme2, theme3], [c, d], now)
+  assert.equal(relatedCards.length, 2, 'buildDiscoveryEvents still produces two cards before projection')
+  const sharedAlias = relatedCards[0].aliases.find((a) => a.startsWith('related:'))
+  assert.ok(sharedAlias, 'related themes inject a shared alias')
+  assert.ok(relatedCards[1].aliases.includes(sharedAlias!), 'both cards carry the same shared alias')
+  const merged = projectDiscovery(relatedCards, [])
+  assert.equal(merged.length, 1, 'related-theme event cards merge into one')
+  assert.equal(merged[0].event?.reports.length, 2, 'merged card carries both reports')
+  assert.equal(merged[0].event?.independent_stories, 2, 'independent story families remain distinct')
+
+  // Opposite-linked themes stay separate (different directional thesis).
+  const theme4 = { ...theme2, related_themes: [{ ...theme2.related_themes![0], kind: 'opposite' as const }] } as Theme
+  const theme5 = { ...theme3, related_themes: [{ ...theme3.related_themes![0], kind: 'opposite' as const }] } as Theme
+  const oppositeCards = buildDiscoveryEvents([theme4, theme5], [c, d], now)
+  assert.ok(!oppositeCards[0].aliases.some((a) => a.startsWith('related:')), 'opposite themes do not share aliases')
+  assert.equal(projectDiscovery(oppositeCards, []).length, 2, 'opposite-linked event cards stay separate')
+
+
   // Two separately filed reports can later become one story; the last explicit user decision wins.
   const e1 = single[0]
   const e2 = buildDiscoveryEvents([], [report('EVT-separate')], now)[0]

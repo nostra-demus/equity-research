@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-30T15:25:21Z",
+  "archived_at": "2026-09-19T12:40:09Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7ec8a1db7a66",
-    "idea_version": "IDEAV-88323be63b305034",
-    "idea_version_started_at": "2026-08-27T16:07:35Z",
-    "ticker": "00871",
-    "company": "China Dredging Environment Protection Holdings Limited",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-1cca59b30c7a",
+    "idea_version": "IDEAV-e6e492d5833b6b1a",
+    "idea_version_started_at": "2026-09-17T10:57:20Z",
+    "ticker": "BDEV",
+    "company": "Barratt Developments",
+    "exchange": "LSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company issued a profit warning indicating an expected increase in losses, signaling deteriorating operational performance.",
-    "why_now": "The filing was released on August 27, 2026, and the market has not yet fully priced in the extent of the widening losses.",
-    "conviction": 70,
+    "reason": "The company is slowing land acquisition and cutting its sales outlook, signaling a significant deterioration in housing market demand and margin pressure.",
+    "why_now": "The guidance change was announced today, September 16, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-9466f96a141a"
+      "EVT-8cb36e2164e2"
     ],
-    "primary_source_event_id": "EVT-9466f96a141a",
+    "primary_source_event_id": "EVT-8cb36e2164e2",
     "source_headlines": [
-      "CH DREDG ENV (00871): PROFIT WARNING - EXPECTED INCREASE IN LOSS"
+      "Britain’s biggest housebuilder slows land buying and cuts home sales outlook"
     ],
-    "source_headline": "CH DREDG ENV (00871): PROFIT WARNING - EXPECTED INCREASE IN LOSS",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082702355.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Britain’s biggest housebuilder slows land buying and cuts home sales outlook",
+    "source_url": "https://www.independent.co.uk/news/business/iran-britain-government-b3051176.html",
+    "source_name": "The Independent — Business",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-27T14:46:00Z",
+    "newest_source_at": "2026-09-16T11:27:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-27T16:07:35Z",
-    "updated_at": "2026-08-27T16:07:35Z",
-    "decay_at": "2026-08-29T02:46:00Z",
+    "surfaced_at": "2026-09-17T10:57:20Z",
+    "updated_at": "2026-09-17T10:57:20Z",
+    "decay_at": "2026-09-17T23:27:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

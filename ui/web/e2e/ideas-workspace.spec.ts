@@ -146,7 +146,7 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     await page.getByRole('button', { name: 'Retry', exact: true }).click()
     await expect(page.getByRole('alert')).toHaveCount(0)
     await page.getByRole('tab', { name: 'Long', exact: true }).focus()
-    await page.keyboard.press('ArrowRight')
+    await page.keyboard.press('ArrowLeft')
     await expect(page.getByRole('tab', { name: 'Events', exact: true })).toBeFocused()
     await expect(page.getByText('Pipeline closes after damage').first()).toBeVisible()
 
