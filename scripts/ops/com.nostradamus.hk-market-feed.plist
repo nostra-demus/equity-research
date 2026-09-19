@@ -17,7 +17,15 @@
     <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
   </dict>
   <key>MaterializeDatalessFiles</key><true/>
-  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>10</integer></dict>
+  <!-- THREE CHANCES A DAY, not one. A single 07:10 window means a laptop asleep at 07:10 gets launchd's one
+       catch-up on wake and nothing else, and a FRED hiccup costs the whole day. The fetch is cheap and
+       idempotent — the file is named by the data's own as-of date and replaced atomically — so a run that
+       finds the feed already current rewrites the same bytes. 07:10 still leads hk-calibrate-daily (07:25). -->
+  <key>StartCalendarInterval</key><array>
+    <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>10</integer></dict>
+    <dict><key>Hour</key><integer>13</integer><key>Minute</key><integer>10</integer></dict>
+    <dict><key>Hour</key><integer>19</integer><key>Minute</key><integer>10</integer></dict>
+  </array>
   <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
   <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
 </dict></plist>

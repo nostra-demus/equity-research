@@ -1771,18 +1771,46 @@ reconcile_build() {
     fi
   fi
 
-  # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
-  # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
-  # portable across machines / usernames — no per-host path rewriting is needed.
-  for opsscript in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh connector-supervisor.py; do
-    case "$changed" in
-      *scripts/ops/$opsscript*)
-        staged_ops="$(mktemp "$OPS/.$opsscript.staged.XXXXXX")" \
-          && cp "$PROD/scripts/ops/$opsscript" "$staged_ops" 2>/dev/null \
-          && chmod 700 "$staged_ops" && mv "$staged_ops" "$OPS/$opsscript" \
-          && log "  refreshed ops/$opsscript (self-update)" \
-          || { rm -f "${staged_ops:-}" 2>/dev/null || true; failed=1; log "  WARN could not refresh ops/$opsscript"; } ;;
-    esac
+  # self-update the installed ops shell scripts whenever the installed copy DIFFERS from the checked-out
+  # source (content-compared, not git-diff-gated — see below for why). These scripts read their paths
+  # from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is portable across machines /
+  # usernames — no per-host path rewriting is needed.
+  #
+  # This list must carry every wrapper install-services.sh's own OWN_OPS_SCRIPTS staging list carries
+  # (test-deploy-priority.sh only checks the three names both happen to share, not the full sets), or a
+  # wrapper edited on main keeps running its OLD installed copy under launchd until someone reruns
+  # install-services.sh by hand. calibrate-local.sh and market-feed-local.sh were missing here — this is
+  # exactly that gap for market-feed-local.sh specifically (PR #706 review).
+  #
+  # Content-compared rather than gated on `$changed` (a git diff since the last deployed marker), because
+  # a NAME freshly added to this very list — like market-feed-local.sh being added here in this same
+  # PR #706 commit — is invisible to the CURRENTLY RUNNING process no matter what `$changed` contains: that
+  # process is still executing the OLD deploy.sh (loaded from its old inode before this commit landed), so
+  # its `for opsscript in ...` loop simply never iterates a name the old file doesn't know about, and once
+  # it advances $MARK to this target the diff-based gate would never see that file as "changed" again. A
+  # direct content comparison sidesteps that self-referential bootstrap gap: the very NEXT invocation —
+  # running the just-copied NEW deploy.sh, whose loop already carries the new name — finds the installed
+  # copy differs from $PROD's and heals it on its own within one cycle (~120s), rather than requiring that
+  # one file to change again in some unrelated future commit or an operator to rerun the installer by hand
+  # (PR #706 review). The `-f` guard treats a script removed from $PROD as nothing to sync (not a failure),
+  # so a wrapper retired from this list can never wedge the deploy marker on a permanently-missing source.
+  #
+  # NOT covered by this loop, and deliberately left alone here: a SCHEDULE change (a launchd
+  # StartCalendarInterval edit, e.g. this same PR's plist going from one daily window to three) lives in
+  # the installed ~/Library/LaunchAgents/*.plist, not in $OPS, and re-rendering + reloading a live launchd
+  # job automatically from this deploy path is a materially different, higher-risk change (it would also
+  # have to honour the doer/non-doer failover fencing install-services.sh already applies to
+  # com.nostradamus.hk-market-feed) that needs its own reviewed design, not a line added to a copy loop.
+  # Until that exists, a plist schedule edit still requires an operator to rerun, on the doer machine:
+  #   bash scripts/ops/install-services.sh
+  for opsscript in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh market-feed-local.sh connector-supervisor.py; do
+    if [ -f "$PROD/scripts/ops/$opsscript" ] && ! cmp -s "$PROD/scripts/ops/$opsscript" "$OPS/$opsscript" 2>/dev/null; then
+      staged_ops="$(mktemp "$OPS/.$opsscript.staged.XXXXXX")" \
+        && cp "$PROD/scripts/ops/$opsscript" "$staged_ops" 2>/dev/null \
+        && chmod 700 "$staged_ops" && mv "$staged_ops" "$OPS/$opsscript" \
+        && log "  refreshed ops/$opsscript (self-update)" \
+        || { rm -f "${staged_ops:-}" 2>/dev/null || true; failed=1; log "  WARN could not refresh ops/$opsscript"; }
+    fi
   done
 
   [ "$web" = 0 ] && [ "$server" = 0 ] && log "  (data/docs only — no rebuild)"
