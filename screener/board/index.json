@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T09:57:52Z",
+  "generated_at": "2026-09-19T10:00:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -1704,6 +1704,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-155",
+      "headline": "Vishal Mega Mart Limited: Vishal Mega Mart Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VMMP2024_19092026151130_Disclosure_Change_in_Management__Sept_19_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T09:46:13Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Vishal Mega Mart Limited announced a change in management, which is a material corporate governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Vishal Mega Mart Limited announced a change in management, which is a material corporate governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vishal Mega Mart Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-143",
       "headline": "Aavas Financiers Limited: Aavas Financiers Limited has informed the Exchange about Resignation of Director/KMP/SMP",
       "headline_en": null,
@@ -1844,55 +1893,6 @@
           "name": "SC HOLDINGS",
           "ticker": "00413",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-076",
-      "headline": "Hatteras Investment Partners, LP and David B. Perkins",
-      "headline_en": null,
-      "url": "https://www.sec.gov/files/litigation/admin/2026/34-106418.pdf",
-      "source_name": "U.S. SEC (Administrative Proceedings)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-18T19:54:21Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "SEC initiated administrative proceedings against Hatteras Investment Partners and David B. Perkins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "SEC initiated administrative proceedings against Hatteras Investment Partners and David B. Perkins.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hatteras Investment Partners, LP",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -166935,9 +166935,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4848709,
-    "news_picked_today": 291,
-    "news_dropped_today": 4917
+    "news_seen_today": 4877446,
+    "news_picked_today": 293,
+    "news_dropped_today": 4939
   },
   "book_momentum": {
     "live_count": 8,
