@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T04:32:43Z",
+  "generated_at": "2026-09-19T04:37:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-117",
+      "headline": "SP Group seeks 3-6 months to repay Rs 3,500 crore bond",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/sp-group-seeks-3-6-months-to-repay-rs-3500-crore-bond/articleshow/134347411.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T03:59:48Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Shapoorji Pallonji Group is seeking a 3-6 month extension to repay Rs 3,500 crore in debt, indicating liquidity stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shapoorji Pallonji Group is seeking a 3-6 month extension to repay Rs 3,500 crore in debt, indicating liquidity stress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shapoorji Pallonji Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1611,6 +1660,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-120",
+      "headline": "Turkey revokes Iran’s Bank Mellat license after more than four decades",
+      "headline_en": null,
+      "url": "https://www.arabtimesonline.com/news/turkey-revokes-irans-bank-mellat-license-after-more-than-four-decades/",
+      "source_name": "Arab Times Kuwait — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T04:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Turkey has revoked Iran's Bank Mellat license after more than four decades.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Turkey has revoked Iran's Bank Mellat license after more than four decades.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank Mellat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-100",
       "headline": "WEBX HOLDING (00339): CLARIFICATION ANNOUNCEMENT REGARDING MEDIA REPORTS",
       "headline_en": null,
@@ -1801,110 +1899,6 @@
           "name": "PrimeWater",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-067",
-      "headline": "Paramount in talks to settle antitrust lawsuit blocking WBD deal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e0e384b8-aa4c-4948-b4ee-7bdff414641b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:37:52Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Paramount is attempting to settle an antitrust lawsuit that is currently blocking a potential deal with Warner Bros. Discovery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Paramount is attempting to settle an antitrust lawsuit that is currently blocking a potential deal with Warner Bros. Discovery.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-116",
-      "headline": "Tata Group stocks reel from aftershocks as Trusts opposes third term for N Chandra",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-group-stocks-reel-from-aftershocks-as-trusts-opposes-third-term-for-n-chandra/articleshow/134347371.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T03:55:49Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Internal conflict within Tata Trusts regarding the leadership of N. Chandrasekaran creates governance uncertainty for Tata Group companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal conflict within Tata Trusts regarding the leadership of N. Chandrasekaran creates governance uncertainty for Tata Group companies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -126817,77 +126811,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d10a45580c7f",
-      "idea_version": "IDEAV-8d5ad6a0e2dfb984",
-      "idea_version_started_at": "2026-09-17T20:23:46Z",
-      "ticker": "ON",
-      "company": "ON Semiconductor",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a significant $30 billion revenue shortfall, suggesting structural demand issues or loss of market share in key segments.",
-      "why_now": "The stock plummeted 9% on 2026-09-17 following management's attempt to address the shortfall, indicating market skepticism.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e7e74a4f42f0"
-      ],
-      "primary_source_event_id": "EVT-e7e74a4f42f0",
-      "source_headlines": [
-        "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%"
-      ],
-      "source_headline": "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%",
-      "source_url": "https://247wallst.com/investing/2026/09/17/ceo-claims-investors-got-it-wrong-on-30-billion-shortfall-as-on-stock-plummets-9/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T16:35:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T20:23:46Z",
-      "updated_at": "2026-09-17T20:23:46Z",
-      "decay_at": "2026-09-19T04:35:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ab211b817901",
       "idea_version": "IDEAV-64df97f16c267173",
       "idea_version_started_at": "2026-09-19T00:43:05Z",
@@ -128729,6 +128652,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d10a45580c7f",
+      "idea_version": "IDEAV-8d5ad6a0e2dfb984",
+      "idea_version_started_at": "2026-09-17T20:23:46Z",
+      "ticker": "ON",
+      "company": "ON Semiconductor",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a significant $30 billion revenue shortfall, suggesting structural demand issues or loss of market share in key segments.",
+      "why_now": "The stock plummeted 9% on 2026-09-17 following management's attempt to address the shortfall, indicating market skepticism.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e7e74a4f42f0"
+      ],
+      "primary_source_event_id": "EVT-e7e74a4f42f0",
+      "source_headlines": [
+        "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%"
+      ],
+      "source_headline": "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%",
+      "source_url": "https://247wallst.com/investing/2026/09/17/ceo-claims-investors-got-it-wrong-on-30-billion-shortfall-as-on-stock-plummets-9/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-17T16:35:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-17T20:23:46Z",
+      "updated_at": "2026-09-17T20:23:46Z",
+      "decay_at": "2026-09-19T04:35:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0ee45ba091ad",
       "idea_version": "IDEAV-2ae0858b4b17817f",
       "idea_version_started_at": "2026-09-17T23:19:18Z",
@@ -129817,9 +129811,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -129827,9 +129821,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -129848,6 +129842,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d10a45580c7f",
+        "idea_version": "IDEAV-8d5ad6a0e2dfb984",
+        "idea_version_started_at": "2026-09-17T20:23:46Z",
+        "ticker": "ON",
+        "company": "ON Semiconductor",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a significant $30 billion revenue shortfall, suggesting structural demand issues or loss of market share in key segments.",
+        "why_now": "The stock plummeted 9% on 2026-09-17 following management's attempt to address the shortfall, indicating market skepticism.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e7e74a4f42f0"
+        ],
+        "primary_source_event_id": "EVT-e7e74a4f42f0",
+        "source_headlines": [
+          "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%"
+        ],
+        "source_headline": "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%",
+        "source_url": "https://247wallst.com/investing/2026/09/17/ceo-claims-investors-got-it-wrong-on-30-billion-shortfall-as-on-stock-plummets-9/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T16:35:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T20:23:46Z",
+        "updated_at": "2026-09-17T20:23:46Z",
+        "decay_at": "2026-09-19T04:35:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T04:35:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-91c73c597aa6",
         "idea_version": "IDEAV-b6e2bcbe6e2c4d20",
@@ -166922,87 +166990,12 @@
         "archived_at": "2026-08-31T11:51:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-22925965e711",
-        "idea_version": "IDEAV-f94af2ad0859d0d1",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "00509",
-        "company": "SUNSHINE",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "SUNSHINE's multiple delays in publishing annual and interim results, coupled with a change of auditor and continued trading suspension, signal severe financial distress and potential accounting issues.",
-        "why_now": "The company announced further delays and continued suspension on August 28, 2026, highlighting an immediate and critical financial situation.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-266d9a7b1fc8"
-        ],
-        "primary_source_event_id": "EVT-266d9a7b1fc8",
-        "source_headlines": [
-          "SUNSHINE (00509): (1) FURTHER DELAY IN PUBLICATION OF 2024 ANNUAL RESULTS, 2024 ANNUAL REPORT, 2025 INTERIM RESULTS, 2025 INTERIM REPORT, 2025 ANNUAL RESULTS AND 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; (3) CONTINUED SUSPENSION OF TRADING; AND (4) CHANGE OF NAME OF AUDITOR"
-        ],
-        "source_headline": "SUNSHINE (00509): (1) FURTHER DELAY IN PUBLICATION OF 2024 ANNUAL RESULTS, 2024 ANNUAL REPORT, 2025 INTERIM RESULTS, 2025 INTERIM REPORT, 2025 ANNUAL RESULTS AND 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; (3) CONTINUED SUSPENSION OF TRADING; AND (4) CHANGE OF NAME OF AUDITOR",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801707.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T10:46:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T17:43:44Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-29T22:46:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T11:51:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 892,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -167021,9 +167014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2483090,
-    "news_picked_today": 161,
-    "news_dropped_today": 2143
+    "news_seen_today": 2518306,
+    "news_picked_today": 169,
+    "news_dropped_today": 2255
   },
   "book_momentum": {
     "live_count": 8,
