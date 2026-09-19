@@ -28,12 +28,14 @@ export interface FeedFilterState {
   gicsSubSector: string // '' = all — a sub-sector within gicsSector (only meaningful when a sector is picked)
   company: CompanyPick | null // null = all — a specific company picked by ticker (see CompanyFilter); matches by ticker OR name
   text: string
+  hideHKListings: boolean
+  hideINListings: boolean
 }
 
-export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', country: '', geoRegion: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', company: null, text: '' })
+export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', country: '', geoRegion: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', company: null, text: '', hideHKListings: false, hideINListings: false })
 
 export const filtersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim()
+  f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim() || f.hideHKListings || f.hideINListings
 
 // The rail keeps geography + company visible as primary controls. Clearing the disclosed panel must only
 // reset the secondary refinements; otherwise its nearby "clear" button silently undoes a choice outside
@@ -52,7 +54,7 @@ export function clearSecondaryFilters(value: FeedFilterState): FeedFilterState {
 // stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts
 // (hasAnyFilter) — including `band`, so a kept/dropped-only filter also searches the whole archive.
 export const archiveFiltersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim()
+  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.company || !!f.text.trim() || f.hideHKListings || f.hideINListings
 
 // A tailored empty-wire line when a GICS filter is active and nothing shows. GICS tags are matched from
 // the headline, so a thinly-covered sector reads empty even on a busy wire — say so, instead of the
@@ -121,6 +123,8 @@ export function companyMatches(it: Filterable, company: CompanyPick): boolean {
 // `textAs` param, so this predicate and the server's agree on the same widened text clause. Absent (an older
 // caller, or the facet not loaded yet) simply means the pre-existing literal-substring behaviour.
 export function matchesFilters(it: Filterable, f: FeedFilterState, textAs: CompanyPick[] = []): boolean {
+  if (f.hideHKListings && (it.companies || []).some((c) => c.listing_country === 'HK')) return false
+  if (f.hideINListings && (it.companies || []).some((c) => c.listing_country === 'IN')) return false
   if (f.themes.size > 0 && !(it.event_types || []).some((t) => f.themes.has(t))) return false
   if (f.region && (it.region || '') !== f.region) return false
   if (f.source && (it.source_name || '') !== f.source) return false
@@ -299,6 +303,14 @@ export function FeedFilters({
             ))}
           </select>
         )}
+        <label className="ffilters__check">
+          <input type="checkbox" checked={value.hideHKListings} onChange={(e) => set({ hideHKListings: e.target.checked })} />
+          Hide Hong Kong listings
+        </label>
+        <label className="ffilters__check">
+          <input type="checkbox" checked={value.hideINListings} onChange={(e) => set({ hideINListings: e.target.checked })} />
+          Hide India listings
+        </label>
         {clearVisible && (
           <button className="btn btn--ghost ffilters__clear" onClick={onClear || (() => onChange(emptyFilters()))}>
             clear

@@ -123,11 +123,20 @@ via FRED as an internal benchmark reference but **not** redistributable; the sid
 `redistribution: prohibited`) through the connectors' own SSRF-bounded
 `fetch_bytes`, and writes `data/_market/fred/sp500_<as_of>.csv` plus its `.source.json` provenance
 sidecar — nothing else, and it never guesses a symbol it wasn't asked to fetch. `scripts/ops/install-services.sh`
-installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (daily, 07:10, ahead of
-`hk-calibrate-daily` at 07:25) via the `scripts/ops/market-feed-local.sh` wrapper — deterministic,
-no model/provider identity, so it needs no cockpit admission. Because `data/` is a gitignored symlink
-into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
-runs the timer, same as every other file under `data/_market/`.
+installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer via the
+`scripts/ops/market-feed-local.sh` wrapper — deterministic, no model/provider identity, so it needs no
+cockpit admission. **Three windows a day** (07:10, 13:10, 19:10), not one: a single 07:10 window meant a
+laptop asleep at 07:10 got launchd's one catch-up on wake and nothing else, and a single FRED hiccup cost
+the whole day. The fetch is cheap and idempotent — the file is named by the data's own as-of date and
+replaced atomically — so a run that finds the feed already current rewrites the same bytes. 07:10 still
+leads `hk-calibrate-daily` at 07:25. Because `data/` is a gitignored symlink into Google Drive, this file
+drop never goes through `commit-run.sh`; it is local to whichever machine runs the timer, same as every
+other file under `data/_market/`.
+
+A schedule change like this one only takes effect once an operator reruns `bash scripts/ops/install-services.sh`
+on the doer machine. A normal automatic deploy refreshes the installed COPY of `market-feed-local.sh`
+itself (`scripts/ops/deploy.sh`'s self-update list carries it), but it does not re-render or reload the
+installed launchd plist — that is a separate, manual step.
 
 Serving/tunnel failover does not transfer this writer: installs with `NOSTRA_INSTALL_CONNECTORS=0`
 exclude and unload the market-feed timer alongside connectors. Every scheduled run also checks the
