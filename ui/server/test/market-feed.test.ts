@@ -75,6 +75,40 @@ check('a malformed row or file is skipped, never guessed at', () => {
   assert.deepEqual(feed.readCloses('SPY'), [{ date: '2026-01-02', close: 490 }])
 })
 
+check('readNewestClose reads only the most-recently-written file per provider, not every accumulated snapshot', () => {
+  // scripts/fetch_market_feed.py writes a brand-new whole-history CSV every trading day and never prunes
+  // old ones, so a provider directory accumulates one file per day forever. The health check
+  // (market-feed-health.ts) must not pay for every accumulated file on every /api/health poll — this is
+  // the bounded reader PR #706's review asked for ("Keep full feed scans out of the deployment health
+  // gate"). Prove it by planting a value ONLY the older snapshot carries: if readNewestClose ever reads
+  // that file too, the poisoned value would leak into the answer.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  const older = path.join(dir, 'sp500_2026-01-05.csv')
+  fs.writeFileSync(older, 'date,symbol,close\n2026-01-02,SP500,100\n2026-01-05,SP500,999\n')
+  const past = new Date(Date.now() - 3_600_000)
+  fs.utimesSync(older, past, past) // force an unambiguous mtime gap vs. the file written just below
+  const newer = path.join(dir, 'sp500_2026-01-06.csv')
+  fs.writeFileSync(newer, 'date,symbol,close\n2026-01-02,SP500,100\n2026-01-06,SP500,104\n')
+  const rows = feed.readNewestClose('SP500')
+  assert.deepEqual(rows, [{ date: '2026-01-02', close: 100 }, { date: '2026-01-06', close: 104 }])
+  assert.ok(!rows.some((r) => r.close === 999), 'the older, superseded snapshot must never be read at all')
+})
+
+check('readNewestClose picks the widest-span provider exactly like readCloses, from one file each', () => {
+  reset()
+  provider('adjusted', '2026-01-02,SPY,100\n2026-01-03,SPY,101\n2026-01-06,SPY,103')
+  provider('raw', '2026-01-03,SPY,400\n2026-01-04,SPY,402')
+  const rows = feed.readNewestClose('SPY')
+  assert.deepEqual(rows.map((c) => c.close), [100, 101, 103], 'only the wider provider is used, same as readCloses')
+})
+
+check('readNewestClose answers [] with no feed, exactly like readCloses', () => {
+  reset()
+  assert.deepEqual(feed.readNewestClose('SPY'), [])
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
