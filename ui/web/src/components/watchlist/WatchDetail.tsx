@@ -101,6 +101,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const loadWatchlist = useStore((s) => s.loadWatchlist)
   const setToast = useStore((s) => s.setToast)
   const setEmailPaused = useStore((s) => s.setWatchEmailPaused)
+  const setConditionSeen = useStore((s) => s.setWatchConditionSeen)
   const emailSetUp = useStore((s) => s.watchMessages?.email.enabled === true)
 
   const target = row ? nearestTarget(row) : null
@@ -120,7 +121,6 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const status = rowStatus(row)
   const sig = rowSignal(row)
   const verdict = row.engine?.decision ?? null
-  const reason = row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : '')
   const isArchived = !!row.archive && !row.resurfaced
   const absent = absenceReason(row)
   // `attachments` and `evals` are declared non-optional but arrive over the wire — and in static mode from
@@ -160,6 +160,27 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   }
   const next = w?.next_line ?? null
   const nextDate = dateWords(w?.next_date)
+  // What the chip already carries is not said twice. `sig.label` is the chip; a headline that merely restates
+  // it (or the generic "nothing has happened yet") is dropped.
+  const rawHeadline = w?.headline ?? null
+  const headline = rawHeadline && rawHeadline.toLowerCase() !== sig.label.toLowerCase() ? rawHeadline : null
+  // Conditions split: what still speaks for this name, and what you have said you have seen.
+  const conds = w?.conditions ?? []
+  const liveConds = conds.filter((c) => !c.seen_at)
+  const seenConds = conds.filter((c) => c.seen_at)
+  const ackCond = (id: string, seen: boolean) => void setConditionSeen(row.ticker, row.currency, id, seen)
+  // A row with nothing set up at all — no plan, no trigger, no reason, no date — gets one line rather than a
+  // scaffold of empty sections, each announcing that it has nothing.
+  const hasReason = !!(row.why && row.why.trim())
+  // A date of your own is content, so it keeps its section — it just does not stop the name being otherwise
+  // empty, which is the live case: NU carries a review date and nothing else at all.
+  //
+  // `w` must be PRESENT first. It is absent whenever the watcher is off and always in the static snapshot
+  // (DESIGN.md §5: an absent field means the feature is off, never that the name is empty) — without this a
+  // fully-researched name read "Nothing else set up yet." A researched name is never empty either, and a
+  // name the engine has changed its mind about has something to say, so both disqualify.
+  const bare = !!w && !w.plan && !conds.length && !row.evals?.length && !hasReason && !nextDate && !next
+    && !row.engine && !row.run_root && !row.resurfaced
 
   return (
     <aside className="wdet" aria-label={`Details for ${row.ticker}`}>
@@ -182,14 +203,16 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       </div>
       <div className="wdet__co">
         {row.company_name ? `${row.company_name} · ` : ''}{row.exchange ? `${row.exchange} · ` : ''}{row.currency ?? '—'}
-        {` · ${row.origin === 'engine' ? 'from research' : row.origin === 'both' ? 'research + you' : 'you added this'}`}
+        {row.origin === 'both' ? ' · research + you' : ''}
         {row.conviction ? ` · conviction ${row.conviction}` : ''}
       </div>
 
       {/* The signal, and one line on what is behind it. */}
       <div className="wdet__status">
         <span className={`wst wst--${sig.tone}`} title={sig.meaning}>{sig.label}</span>
-        <span className="wdet__headline">{w?.headline ?? sig.meaning}</span>
+        {/* The headline only when it says something the chip does not: "Watching" beside "Nothing has happened
+            yet" is one fact printed twice, and it was printed on every name with nothing to report. */}
+        {headline && <span className="wdet__headline">{headline}</span>}
       </div>
 
       {/* What you can do about it — at the top, reached without scrolling. */}
@@ -251,13 +274,23 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       </div>
       {w?.email_paused && <p className="wdet__runnote">Email is paused for {row.ticker}; its messages still arrive in the cockpit.</p>}
 
-      {w && w.conditions.length > 0 && (
-        <section className="wdet__sec">
-          <h4 className="wdet__seclabel">{w.conditions.length === 1 ? 'What this means' : `What this means · ${w.conditions.length}`}</h4>
+      {w && <WatchPlanSection key={row.listing_key} row={row} />}
+
+      {/* Keyed by LISTING. Condition ids are content-derived, so two names researched the same day share
+          `research_old:<date>` — React then reuses the same <li>, and an uncontrolled <details> the reader
+          opened on one name renders already-open on the next. */}
+      {w && liveConds.length > 0 && (
+        <section className="wdet__sec" key={`live-${row.listing_key}`}>
+          <h4 className="wdet__seclabel">{liveConds.length === 1 ? 'What this means' : `What this means · ${liveConds.length}`}</h4>
           <ul className="wdet__conds">
-            {w.conditions.map((c) => (
-              <li key={c.id} className="wdet__cond">
+            {liveConds.map((c) => (
+              <li key={c.id} className={`wdet__cond${c.can_ack && !staticMode && !isArchived ? ' wdet__cond--ack' : ''}`}>
                 <b>{c.title}</b>
+                {/* A date that has passed cannot pass again, and research does not get younger on its own. Saying
+                    you have seen one leaves it on the name, in its own words, and stops it deciding the status. */}
+                {c.can_ack && !staticMode && !isArchived && (
+                  <button className="btn btn--mini wdet__seen" onClick={() => ackCond(c.id, true)} title="Keep it on the name, but stop it asking for attention">Seen it</button>
+                )}
                 <div className="wdet__condtext">{c.detail}</div>
                 {/* A passed date's tests fold away: the same deal-breakers stand under every passed date, and the
                     plan below lists them once. Open, they are the checklist to work through by hand. */}
@@ -267,11 +300,17 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                     <ul>{c.checklist.map((x, n) => <li key={n}>{x}</li>)}</ul>
                   </details>
                 )}
+                {/* The research's own words, folded. Three conditions each carrying a quote and a four-item
+                    checklist made this section 1,038px on ORCL and 1,194px on HAIER — more than a third of the
+                    whole panel, above the part that says what the name is waiting for. */}
                 {c.quote && (
-                  <blockquote className="wmsg__quote">
-                    “{c.quote}”
-                    {c.source && <cite>{c.source}</cite>}
-                  </blockquote>
+                  <details className="wdet__tests">
+                    <summary>the research's own words</summary>
+                    <blockquote className="wmsg__quote">
+                      “{c.quote}”
+                      {c.source && <cite>{c.source}</cite>}
+                    </blockquote>
+                  </details>
                 )}
               </li>
             ))}
@@ -279,8 +318,66 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         </section>
       )}
 
+      {seenConds.length > 0 && (
+        <details className="wdet__sec wdet__seensec" key={`seen-${row.listing_key}`}>
+          <summary>Seen · {seenConds.length}</summary>
+          <ul className="wdet__conds">
+            {seenConds.map((c) => (
+              <li key={c.id} className={`wdet__cond wdet__cond--seen${!staticMode && !isArchived ? ' wdet__cond--ack' : ''}`}>
+                <b>{c.title}</b>
+                {!staticMode && !isArchived && (
+                  <button className="btn btn--mini wdet__seen" onClick={() => ackCond(c.id, false)} title="Let this ask for attention again">Undo</button>
+                )}
+                <div className="wdet__condtext">{c.detail} Seen {shortDay(c.seen_at!)}.</div>
+                {/* Acknowledging a condition silences it, not its evidence — the tests and the research's own
+                    words that stood beside it while live still belong to the name once it moves to Seen. */}
+                {c.checklist && c.checklist.length > 0 && (
+                  <details className="wdet__tests">
+                    <summary>The research's tests to check by hand · {c.checklist.length}</summary>
+                    <ul>{c.checklist.map((x, n) => <li key={n}>{x}</li>)}</ul>
+                  </details>
+                )}
+                {c.quote && (
+                  <details className="wdet__tests">
+                    <summary>the research's own words</summary>
+                    <blockquote className="wmsg__quote">
+                      “{c.quote}”
+                      {c.source && <cite>{c.source}</cite>}
+                    </blockquote>
+                  </details>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+
       {/* The three numbers, each LABELLED: where it is, where it is waiting to get to, and how far that is.
           For a research name those come from its watch plan; for your own row, from your triggers. */}
+      {!next && !target ? (
+        // NOTHING TO WAIT FOR, so nothing to measure: one line rather than three columns, two of them a dash
+        // under an apology. Six of ten names on the live list showed it that way.
+        <section className="wdet__sec wdet__sec--tight">
+          <div className="wdet__priceline">
+            {row.quote ? (
+              <>
+                <span className="wdet__priceval">{row.quote.price.toFixed(2)}</span>
+                <span className="wdet__factnote">
+                  {quoteNote(row.quote, w?.day_move_pct)}
+                  {typeof w?.day_move_pct === 'number' && w.market && !row.quote.stale ? ` · ${w.market.label} ${signed(w.market.move_pct)}` : ''}
+                </span>
+              </>
+            ) : (
+              // The reason there is no PRICE. `absent` is about triggers ("No trigger set — reminder only.")
+              // and printing it here said nothing about the price, repeated a sentence the triggers section
+              // prints anyway, and left the real reason reachable only by hovering.
+              <span className="wdet__factnote" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : undefined}>
+                {row.quote_reason ? String(row.quote_reason).replace(/_/g, ' ') : 'no price'}
+              </span>
+            )}
+          </div>
+        </section>
+      ) : (
       <section className="wdet__sec">
         <h4 className="wdet__seclabel">Where the price stands</h4>
         <div className="wdet__facts">
@@ -345,17 +442,35 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           })()}
         </div>
       </section>
+      )}
 
-      {w && <WatchPlanSection key={row.listing_key} row={row} />}
-
-      <section className="wdet__sec">
-        <h4 className="wdet__seclabel">Why you're watching</h4>
-        <div className={`wdet__why${row.why ? '' : ' wl__why--engine'}`}>{reason || 'No reason recorded yet.'}</div>
-      </section>
+      {hasReason && (
+        <section className="wdet__sec">
+          <h4 className="wdet__seclabel">Why you're watching</h4>
+          <div className="wdet__why">{row.why}</div>
+        </section>
+      )}
 
       {/* Your own triggers — listed only when there is more than one (with one, the facts row above is that
           trigger), plus the absence and resurfaced notes, which the facts row cannot make. */}
-      {(multi || absent || row.resurfaced || !row.evals?.length) && (
+      {bare && (
+        // ONE LINE, NOT A SCAFFOLD. A name you have added and not yet set up rendered seven labelled blocks,
+        // four of them announcing they had nothing — a price row with two dashes, an empty reason, an empty
+        // trigger note, a date that was not set, and a rerun panel for research that was never run.
+        <section className="wdet__sec wdet__sec--tight">
+          <div className="wdet__empty">
+            <span>Nothing else set up yet.</span>
+            {!isArchived && !staticMode && <>
+              <button className="btn btn--mini" onClick={edit}>Add a trigger</button>
+              <button className="btn btn--mini" onClick={edit}>Add a reason</button>
+            </>}
+          </div>
+        </section>
+      )}
+
+      {/* `row.resurfaced` is deliberately outside `bare`'s reach: the engine changing its mind about a name you
+          archived is the one thing this section says that nothing else on the panel does. */}
+      {(row.resurfaced || (!bare && (multi || absent || !row.evals?.length))) && (
         <section className="wdet__sec">
           {multi && <h4 className="wdet__seclabel">Your triggers · {row.evals.length}</h4>}
           <div className="wdet__trigs">
@@ -393,13 +508,15 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         </section>
       )}
 
-      <section className="wdet__sec">
-        <h4 className="wdet__seclabel">Next date</h4>
-        <div className="wdet__next">
-          <span className="wdet__nextdate">{nextDate ?? (row.review_date ? shortDay(row.review_date) : 'no date set')}</span>
-          {!nextDate && row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
-        </div>
-      </section>
+      {(nextDate || row.review_date) && (
+        <section className="wdet__sec">
+          <h4 className="wdet__seclabel">Next date</h4>
+          <div className="wdet__next">
+            <span className="wdet__nextdate">{nextDate ?? shortDay(row.review_date!)}</span>
+            {!nextDate && row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
+          </div>
+        </section>
+      )}
 
       {/* Offered only where a decision record exists and no watch plan already watches its prices. Adopting
           is still a human act: the click records that YOU chose this number on this date. */}
@@ -427,7 +544,9 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       {/* The rerun affordance, WITH the two durable staleness facts beside it — when the engine last ran and
           how many documents are in the pool — and the scoped new-data check as the primary action, because a
           rerun over unchanged documents reads the same evidence and reaches the same thesis. */}
-      {!isArchived && !staticMode && (
+      {/* A name YOU added with documents in its pool is exactly the case that needs this: it is the only path
+          from "I dropped the filings in" to a run. Gating on research alone took it away. */}
+      {!isArchived && !staticMode && (row.engine || row.run_root || pool) && (
         <section className="wdet__sec">
           <h4 className="wdet__seclabel">Engine run</h4>
           {pool ? (

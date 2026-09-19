@@ -498,8 +498,12 @@ export function validateReaderOutput(out: ReaderOutput, ctx: ValidateContext): {
     const source = sourceFor(what, d?.file, d?.quote)
     if (!source) continue
     if (!wordsInQuote(label, source)) {
-      left.push({ what, why: 'its label is not in the cited quote, so a neutral label is shown' })
-      label = 'Research event'
+      // NAMED BY WHAT IS KNOWN, not by a placeholder. Keeping the model's label would assert a name the quote
+      // does not carry (§5), but "Research event" told the reader nothing about a date they are asked to act
+      // on — and it reached the screen twice on the live list. The date itself is the one thing that IS
+      // supported, and the quote is shown beside it.
+      left.push({ what, why: 'its label is not in the cited quote, so the date is shown without one' })
+      label = 'A date the research gave'
     }
     let date: string | null = typeof d?.date === 'string' && ISO_DAY.test(d.date.trim()) ? d.date.trim() : null
     let window = str(d?.window, 80)

@@ -53,9 +53,21 @@ export function WatchlistStage() {
   // The panel follows the picked name while it is on screen; otherwise it shows the most urgent one, so the
   // first thing on the screen is also the first thing explained.
   const selected = useMemo(() => rows.find((r) => r.listing_key === picked) ?? rows[0] ?? null, [rows, picked])
+  // PIN WHAT IS ON SCREEN. Until something is clicked the panel falls back to rows[0], which re-sorting moves
+  // — so acknowledging a condition on the default-selected name dropped it out of "Needs you" and swapped the
+  // panel (and the Undo that reverses it) for another company's. Naming it makes the fallback stick.
+  //
+  // WHENEVER it disagrees, not only when it is null: a picked name that leaves the list (the archived toggle,
+  // a search) leaves a stale key behind, the panel silently falls back, and the same swap returns.
+  useEffect(() => {
+    if (selected && picked !== selected.listing_key) setPicked(selected.listing_key)
+  }, [picked, selected])
   const needYou = rows.filter((r) => NEEDS_YOU.has(rowStatus(r))).length
-  const engineCount = read?.rows.filter((r) => r.origin !== 'manual').length ?? 0
-  const mineCount = read?.rows.filter((r) => r.origin !== 'engine').length ?? 0
+  // EACH NAME COUNTED ONCE. A name that is both researched and yours used to be counted in both halves, so
+  // "7 from research · 6 yours" stood over ten names and neither number could be checked against the list.
+  const engineOnly = read?.rows.filter((r) => r.origin === 'engine').length ?? 0
+  const mineOnly = read?.rows.filter((r) => r.origin === 'manual').length ?? 0
+  const bothCount = read?.rows.filter((r) => r.origin === 'both').length ?? 0
 
   return (
     <div className="wl">
@@ -66,7 +78,7 @@ export function WatchlistStage() {
           <div className="wl__count">
             {source.length} {source.length === 1 ? 'name' : 'names'}
             {!showArchived && needYou > 0 && <> · <b>{needYou} {needYou === 1 ? 'needs' : 'need'} you</b></>}
-            {!showArchived && <> · {engineCount} from research · {mineCount} yours</>}
+            {!showArchived && <> · {engineOnly} from research · {mineOnly} yours{bothCount > 0 ? <> · {bothCount} both</> : null}</>}
             {read && !read.quotes_enabled && (staticMode ? <> · read-only snapshot, no live prices</> : <> · prices are off in this engine</>)}
             {read?.unreadable.length ? <> · {read.unreadable.length} entr{read.unreadable.length === 1 ? 'y' : 'ies'} could not be read</> : null}
           </div>
@@ -117,9 +129,9 @@ export function WatchlistStage() {
               <div className="wlist__cols" aria-hidden="true">
                 <span>Status</span>
                 <span>Name</span>
-                <span className="wlist__num">Price</span>
                 <span>Waiting for</span>
                 <span className="wlist__col--date">Next date</span>
+                <span className="wlist__num">Live price</span>
                 <span />
               </div>
               {groups.map((g) => (
@@ -167,6 +179,8 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
           </span>
           <span className="wrow__co">{row.company_name ?? ''}</span>
         </span>
+        <Cell parts={wait} lead />
+        <Cell parts={date} className="wrow__cell--date" />
         <span className="wrow__px">
           {row.quote ? (
             <>
@@ -177,8 +191,6 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
             <span className="wrow__none" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : 'No live price for this listing.'}>no price</span>
           )}
         </span>
-        <Cell parts={wait} />
-        <Cell parts={date} className="wrow__cell--date" />
         {unread > 0
           ? <span className="wrow__dot" title={`${unread} unread ${unread === 1 ? 'message' : 'messages'}`} aria-label={`${unread} unread messages`} />
           : <span aria-hidden />}
@@ -187,10 +199,12 @@ function WatchListRow({ row, selected, onSelect }: { row: WatchRow; selected: bo
   )
 }
 
-/** A value with its quiet label above it — or a dash, so an empty cell reads as empty rather than as a gap. */
-function Cell({ parts, className = '' }: { parts: { label: string; value: string } | null; className?: string }) {
+/** A value with its quiet label above it — or a dash, so an empty cell reads as empty rather than as a gap.
+ *  `lead` marks the column the list exists for: what this name is waiting for carries the weight that today's
+ *  price used to, so the eye lands on the thing that has not happened yet. */
+function Cell({ parts, className = '', lead = false }: { parts: { label: string; value: string } | null; className?: string; lead?: boolean }) {
   return (
-    <span className={`wrow__cell ${className}`.trim()}>
+    <span className={`wrow__cell ${lead ? 'wrow__cell--lead ' : ''}${className}`.trim()}>
       {parts ? (
         <>
           <span className="wrow__label">{parts.label}</span>

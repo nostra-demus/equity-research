@@ -11,8 +11,17 @@ import crypto from 'node:crypto'
 import { mergeWatchlist, onTheWatchlist, type EngineWatchRow, type MergedWatchRow, type WatchEntry } from '../watchlist'
 import type { AbsentReason, QuoteOutcome } from '../news/equity-quote'
 import {
-  DEFAULT_THRESHOLDS, STATUS_RANK, evaluateName, priceText,
-  type Condition, type NameEvaluation, type PriceFacts, type StatusWord, type Thresholds,
+  ACKNOWLEDGEABLE,
+  DEFAULT_THRESHOLDS,
+  STATUS_RANK,
+  evaluateName,
+  priceText,
+  type Condition,
+  type ConditionType,
+  type NameEvaluation,
+  type PriceFacts,
+  type StatusWord,
+  type Thresholds,
 } from './evaluate'
 import { REARM_PCT, stepAlerts, type NameAlertState } from './alerts'
 import { WatchInbox, type WatchMessageItem } from './inbox'
@@ -62,6 +71,9 @@ interface MonitorState {
   last_tick_at: string | null
   names: Record<string, NameAlertState>
   email_paused: string[]
+  /** Conditions you have said you have seen: listing key -> condition id -> when you said it. A fact you have
+   *  looked at stops deciding the name's status without pretending it went away (evaluate.ts ACKNOWLEDGEABLE). */
+  seen: Record<string, Record<string, string>>
   reads: Record<string, ReadRecord>
   /** What was already true for each name when it was first seen, held for the one first-day summary. */
   pending_summary: Record<string, { ticker: string; items: WatchMessageItem[] }>
@@ -70,13 +82,20 @@ interface MonitorState {
 
 const emptyState = (): MonitorState => ({
   schema_version: MONITOR_STATE_SCHEMA, switched_on_at: null, summary_sent_at: null, last_tick_at: null,
-  names: {}, email_paused: [], reads: {}, pending_summary: {}, email_test: null,
+  names: {}, email_paused: [], seen: {}, reads: {}, pending_summary: {}, email_test: null,
 })
 
 /** What the screen shows about a name's watch plan. */
+/** Why an acknowledgement did not take, so the route can say which it was rather than one vague refusal. */
+export type SetSeenResult = 'ok' | 'not_acknowledgeable' | 'not_saved'
+
 export interface PlanView {
   state: 'ready' | 'reading' | 'waiting' | 'failed' | 'budget' | 'limit'
   detail: string
+  /** When this state was established — the read record's own time, or the reading's. A panel that cannot say
+   *  WHEN it last tried leaves the reader unable to tell today's answer from one two days old, which is how
+   *  a spent allowance and a provider limit from another day came to be shown as one story. */
+  at: string | null
   run_root: string
   decision: string | null
   decision_date: string | null
@@ -133,6 +152,7 @@ const ABSENT_TEXT: Record<AbsentReason, string> = {
   stale_feed: 'The newest price on offer is too old to call current.',
   implausible_price: "The price is far out of line with the research's — likely the wrong units or listing.",
   feed_unavailable: 'The price feed could not be reached just now.',
+  not_quoted: 'The price feed came back without this listing in it.',
 }
 
 // A message stands alone — in the cockpit and in an email — so a passed date's tests are spelled out in it.
@@ -186,14 +206,18 @@ export function createWatchMonitor(deps: MonitorDeps) {
     return emptyState()
   }
 
-  function saveState(): void {
+  /** True when the bytes actually landed. Callers that must not claim success on a dropped write read it;
+   *  the periodic ones ignore it and rely on the log, as before. */
+  function saveState(): boolean {
     try {
       fs.mkdirSync(dir, { recursive: true, mode: 0o700 })
       const tmp = `${stateFile}.tmp-${process.pid}-${crypto.randomBytes(4).toString('hex')}`
       fs.writeFileSync(tmp, JSON.stringify(state) + '\n', { mode: 0o600 })
       fs.renameSync(tmp, stateFile)
+      return true
     } catch (e: any) {
       deps.log?.(`[watchlist] could not save its state: ${e?.message ?? e}`)
+      return false
     }
   }
 
@@ -215,12 +239,17 @@ export function createWatchMonitor(deps: MonitorDeps) {
     const cached = cachedPlan(seg)
     const plan = cached && cached.run_root === eng.run_root ? cached : null
     const rec = state.reads[seg]
-    const view = (st: PlanView['state'], detail: string): PlanView => ({
-      state: st, detail, run_root: eng.run_root, decision: eng.decision, decision_date: eng.decision_date,
-      items: plan?.items ?? [], left_out: plan?.left_out ?? [], reader: plan?.reader ?? null,
+    const view = (st: PlanView['state'], detail: string, at: string | null = null): PlanView => ({
+      state: st, detail, at, run_root: eng.run_root, decision: eng.decision, decision_date: eng.decision_date,
+      items: plan?.items ?? [], left_out: plan?.left_out ?? [],
+      // The reading's own record belongs to the plan on screen. A plan carried through a later failure keeps
+      // the reading that produced it; the failure's own words and time are the view's, above.
+      reader: plan?.reader ?? null,
     })
-    if (plan && plan.reader.status === 'ok') return { plan, ready: true, view: view('ready', plan.reader.detail), basis: `${eng.run_root}|read` }
-    if (rec?.status === 'no_sources') return { plan: null, ready: true, view: view('failed', rec.detail), basis: `${eng.run_root}|none` }
+    if (plan && plan.reader.status === 'ok') {
+      return { plan, ready: true, view: view('ready', plan.reader.detail, plan.reader.at ?? rec?.last_at ?? null), basis: `${eng.run_root}|read` }
+    }
+    if (rec?.status === 'no_sources') return { plan: null, ready: true, view: view('failed', rec.detail, rec.last_at), basis: `${eng.run_root}|none` }
     // A read that could not happen — the model's sign-in expired, or today's reading limit is spent — must not
     // leave the name silent for hours. Until the text is read, it is watched on what the decision record
     // itself stores as data (its bad case, its kill criteria, big drops); when the read succeeds, the basis
@@ -233,12 +262,12 @@ export function createWatchMonitor(deps: MonitorDeps) {
       const detail = kind === 'failed' ? `Could not read the research: ${rec.detail}` : rec.detail
       return {
         plan, ready: true,
-        view: view(kind, `${detail}${retry}`),
+        view: view(kind, `${detail}${retry}`, rec.last_at),
         basis: `${eng.run_root}|partial`,
       }
     }
     if (reading.has(seg)) return { plan, ready: false, view: view('reading', 'Reading the research now.'), basis: `${eng.run_root}|reading` }
-    return { plan, ready: false, view: view('waiting', 'Waiting to read the research.'), basis: `${eng.run_root}|waiting` }
+    return { plan, ready: false, view: view('waiting', 'Waiting to read the research.', rec?.last_at ?? null), basis: `${eng.run_root}|waiting` }
   }
 
   function factsFor(row: MergedWatchRow, at: Date, record: boolean): PriceFacts {
@@ -531,16 +560,33 @@ export function createWatchMonitor(deps: MonitorDeps) {
       present.add(key)
       const info = planInfo(row)
       const facts = factsFor(row, at, true)
-      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t })
+      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t, seen: state.seen[row.listing_key] })
       if (!info.ready) { notReady++; continue }
+      // WHAT YOU SAW IS FORGOTTEN ONCE THE THING IS GONE. Condition ids are built from their own content — a
+      // decision date, a date item's hash — so every re-run mints new ones, and without this the old run's
+      // acknowledgements stayed in the state file for the life of the install. Only a name whose plan is
+      // READY prunes: a name mid-read has no conditions yet, and must not lose what you told it.
+      const ack = state.seen[key]
+      if (ack) {
+        const live = new Set(ev.conditions.map((c) => c.id))
+        for (const id of Object.keys(ack)) if (!live.has(id)) delete ack[id]
+        if (!Object.keys(ack).length) delete state.seen[key]
+      }
+      // A CONDITION YOU HAVE ALREADY SEEN IS NOT NEWS TO THIS TICK. `/api/watchlist` evaluates and can
+      // acknowledge a condition (decorate(), setSeen) between ticks, so a fact that turned true and was
+      // acknowledged before this tick ever ran would otherwise reach stepAlerts with no id in its fired
+      // history — "new" by that measure — and mint an unread message for something "Seen it" just silenced.
+      // Filtering here, not in `ev.conditions`, keeps the panel showing the seen condition in its own words
+      // (evaluate.ts) while the messages this tick sends respect the same seen_at the screen already does.
+      const notAcked = ev.conditions.filter((c) => !c.seen_at)
       const prev = state.names[key]
-      const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: ev.conditions, price: facts.price, now: at }, t.rearmPct)
+      const step = stepAlerts(prev, { listing_key: key, run_root: info.basis, conditions: notAcked, price: facts.price, now: at }, t.rearmPct)
       state.names[key] = step.state
       const name = { listing_key: key, ticker: row.ticker, company_name: row.company_name }
       const email = { enabled: emailCfg.enabled, paused: state.email_paused.includes(key) }
       if (step.baseline) {
         const buyCall = BUY_NOW_DECISIONS.has(info.plan?.decision ?? '')
-        const already = ev.conditions.filter((c) => c.type !== 'cant_check').map((c) => toItem(c, atIso))
+        const already = notAcked.filter((c) => c.type !== 'cant_check').map((c) => toItem(c, atIso))
         if (!state.summary_sent_at) {
           // On the first day a buy call is listed as already there, like everything else in the summary.
           state.pending_summary[key] = { ticker: row.ticker, items: buyCall ? [buyNowItem(row, info.plan, info.basis, atIso, false), ...already] : already }
@@ -576,6 +622,9 @@ export function createWatchMonitor(deps: MonitorDeps) {
     // more likely a failed read of the calls than every call changing at once, so nothing is removed on it.
     const engineReadLooksEmpty = engineAll.length === 0 && Object.values(state.names).some((n) => n.run_root && n.run_root !== 'yours')
     if (!engineReadLooksEmpty) {
+      // What you said you had seen goes with the name. Kept, it would silence a condition on the day the name
+      // came back — under the same id, because the id is built from the date, not from when it was last read.
+      for (const key of Object.keys(state.seen)) if (!present.has(key)) delete state.seen[key]
       for (const key of Object.keys(state.names)) {
         if (present.has(key)) continue
         delete state.names[key]
@@ -697,7 +746,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     const out = rows.map((row) => {
       const info = planInfo(row)
       const facts = factsFor(row, at, false)
-      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t })
+      const ev = evaluateName({ plan: info.plan, triggers: row.triggers, evals: row.evals, facts, today, thresholds: t, seen: state.seen[row.listing_key] })
       const watch: RowWatch = {
         status: ev.status, status_label: ev.status_label, headline: ev.headline,
         conditions: ev.conditions.map(({ line: _line, ...c }) => c),
@@ -724,6 +773,43 @@ export function createWatchMonitor(deps: MonitorDeps) {
     if (paused) inbox.pauseEmail(listingKey, now())
   }
 
+  /**
+   * Say you have seen a condition, or take it back.
+   *
+   * Only a condition that cannot clear itself can be acknowledged (evaluate.ts ACKNOWLEDGEABLE), and saying so
+   * changes nothing about the fact: it is still evaluated, still shown, still in its own words. It stops
+   * deciding the status, so the name leaves "Needs you" until something NEW happens — a further date passing,
+   * or a fresh reading, each of which is a different id.
+   */
+  function setSeen(listingKey: string, conditionId: string, seen: boolean): SetSeenResult {
+    // ONLY A CONDITION THAT COULD BE ACKNOWLEDGED. An id names its own type before the colon, and a write
+    // for any other type would be stored, re-serialised on every tick and read by nobody — so it is refused
+    // at the door rather than left for the sweep to find.
+    if (seen && !ACKNOWLEDGEABLE.has(conditionId.split(':')[0] as ConditionType)) return 'not_acknowledgeable'
+    // Snapshotted BEFORE the mutation, so a dropped write can be rolled back to exactly what it was —
+    // undefined (this name had no acknowledgements yet), or the object as it stood a line above.
+    const before = state.seen[listingKey]
+    const forName = { ...(before ?? {}) }
+    if (seen) forName[conditionId] = now().toISOString()
+    else delete forName[conditionId]
+    if (Object.keys(forName).length) state.seen[listingKey] = forName
+    else delete state.seen[listingKey]
+    // AN UNWRITABLE STATE DIRECTORY IS NOT AN ACKNOWLEDGEMENT. Without this the mark lived in memory only,
+    // the route answered {ok:true}, and it was gone at the next restart with nobody told.
+    if (!saveState()) {
+      // ROLL BACK THE IN-MEMORY MUTATION. The route now answers 500, but decorate() reads state.seen
+      // directly, and a reload before any restart would otherwise see the write as if it had landed —
+      // an acknowledged condition silently leaving "Needs you" on a save the disk never took.
+      if (before) state.seen[listingKey] = before
+      else delete state.seen[listingKey]
+      return 'not_saved'
+    }
+    // No tick. Nothing the tick computes depends on this — the screen re-reads through decorate(), which
+    // reads state.seen directly — and scheduleTick REPLACES the pending timer, so a click here would cancel
+    // the run a just-finished plan read had queued, and re-quote every listing for nothing.
+    return 'ok'
+  }
+
   function status() {
     return {
       last_tick_at: state.last_tick_at,
@@ -737,7 +823,7 @@ export function createWatchMonitor(deps: MonitorDeps) {
     }
   }
 
-  return { start, stop, tick, idle, nudge: () => scheduleTick(5_000), decorate, setEmailPaused, status, inbox }
+  return { start, stop, tick, idle, nudge: () => scheduleTick(5_000), decorate, setEmailPaused, setSeen, status, inbox }
 }
 
 export type WatchMonitor = ReturnType<typeof createWatchMonitor>

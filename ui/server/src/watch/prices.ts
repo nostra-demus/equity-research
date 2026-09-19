@@ -159,7 +159,14 @@ export async function quoteListings(
     const outcomes = await getQuotesFn(batch.map((b) => ({
       ticker: b.ticker, currency: b.currency, exchange: b.exchange, companyName: b.companyName, entryPrice: b.entryPrice,
     })))
-    for (const b of batch) out.set(b.key, outcomes.get(b.ticker) ?? { quote: null, reason: null })
+    // ASKED FOR, NEVER ANSWERED. A listing the batch came back without has no price and, until this, no
+    // reason either — the row read a bare "no price" with nothing behind it. A null reason here is the one
+    // thing the screen cannot explain, so it is named. When the batch answered for NOBODY the feed itself is
+    // the story (off, or unreachable), and that is not this listing's fault — those keep the null.
+    const answered = outcomes.size > 0
+    for (const b of batch) {
+      out.set(b.key, outcomes.get(b.ticker) ?? { quote: null, reason: answered ? 'not_quoted' : null })
+    }
   }
   return out
 }
