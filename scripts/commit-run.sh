@@ -219,10 +219,33 @@ EOF
   # allowed in retry mode; the expected SHA proves exactly which ambiguous local commit is being retried.
   SHA="$CURRENT_SHA"
 else
-# the engine never pre-stages; anything already staged means something is wrong, so refuse.
+# The engine never pre-stages, and every engine writer serializes on the mutation lock held above. So a
+# DATA-lane path already staged here is the dead leftover of an earlier publication that was SIGKILLed
+# between staging and its own unstage_own_paths (a launchd restart kills the whole job; no trap survives
+# SIGKILL). Left alone, that one entry refuses every later autonomous commit until a human edits the
+# production index (2026-09-17 outage). Unstage exactly those leftovers — every worktree byte is kept —
+# and refuse exactly as before when anything outside the data lane is staged: that still means something
+# is wrong. Read the whole staged set before touching the index: a refusal then never mutates it, and the
+# single reset below never races the listing that is still streaming these paths.
 if ! git diff --cached --quiet; then
-  echo "commit-run: refusing — unrelated changes are already staged" >&2
-  exit 3
+  STAGED_LEFTOVERS=()
+  while IFS= read -r -d '' STAGED_PATH; do
+    if ! is_data_pathspec "$STAGED_PATH"; then
+      echo "commit-run: refusing — unrelated changes are already staged" >&2
+      exit 3
+    fi
+    STAGED_LEFTOVERS+=("$STAGED_PATH")
+  done < <(git diff --cached --name-only --no-renames -z)
+  if [ "${#STAGED_LEFTOVERS[@]}" -gt 0 ]; then
+    git reset -q HEAD -- "${STAGED_LEFTOVERS[@]}" 2>/dev/null || true
+    for STAGED_PATH in "${STAGED_LEFTOVERS[@]}"; do
+      echo "commit-run: unstaged a data-lane leftover from an interrupted publication: $STAGED_PATH" >&2
+    done
+  fi
+  if ! git diff --cached --quiet; then
+    echo "commit-run: refusing — unrelated changes are already staged" >&2
+    exit 3
+  fi
 fi
 
 # A valid data pathspec is not enough when HEAD itself sits atop an unreviewed code commit: pushing the

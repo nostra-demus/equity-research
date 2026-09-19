@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   contractTerms, conversionWords, derivativeValueWord, fillAction, fillNames, fillRows, fillStatus, fillSummary, filterFills,
   fillsOutsideBase, foldRoundTrips, type FillRow, type FillScope, type TradeRowData,
 } from './tradeRows'
+import { livePriceIndex, markPosition, type MarkedPosition } from './positionMarks'
+import { shortDay } from '../../lib/format'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
@@ -390,6 +392,53 @@ function withLive(
 
 // ---------- holdings ----------
 
+/** The table's marks: each position priced at the market where the feed reached it, else as the statement
+ *  stated it — with how many of each, so the panel can say which basis the reader is looking at. */
+function positionMarks(book: PortfolioBook, live: PortfolioLiveMark | null) {
+  // The day the HOLDINGS were observed, which the book's own as-of outruns whenever the newest export
+  // carried no position snapshot. An engine that predates the field sends nothing, and `asOf` stands in.
+  const statementDay = book.positionsAsOf ?? book.asOf
+  // A live snapshot is used ONLY when it can be tied to THIS book:
+  //  · bookAsOf must match — after a statement import or delete, React renders the new book while the
+  //    OLD live quotes are still in state until the next /portfolio/live response lands. An unmatched
+  //    bookAsOf is exactly that stale snapshot, still on screen from before the book changed under it.
+  //  · asOf must be strictly newer than the positions it would reprice — the same rule the growth chart
+  //    already applies below (withLive: `live.asOf <= last.date` is refused). A cached or prior-close
+  //    quote no newer than the statement must not silently overwrite a mark that is already current.
+  const live_ = live && !live.unavailable && live.bookAsOf === book.asOf
+    && live.asOf !== null && statementDay !== null && live.asOf > statementDay
+    ? live : null
+  // `statementDay` again here, not only in the aggregate gate above: `live_.asOf` is the LATEST date
+  // across every row, so a cross-market response can pass the aggregate check on one fresh row while
+  // another cached or prior-close row is not actually newer than the statement. livePriceIndex rejects
+  // each row on its own date before either can be looked up.
+  const index = livePriceIndex(live_, book.positions, statementDay)
+  const marks = new Map<PortfolioPosition, MarkedPosition>()
+  for (const p of book.positions) marks.set(p, markPosition(p, index, live_?.nav ?? null))
+  const liveMarks = [...marks.values()].filter((m) => m.live)
+  const asOfDates = new Set(liveMarks.map((m) => m.asOf))
+  const closeFlags = new Set(liveMarks.map((m) => m.asOfIsClose))
+  // A holding priced outside the base currency still converts at the STATEMENT's own exchange rate
+  // (positionMarks.ts markPosition — there is no live FX leg here), so a panel calling the row "priced at
+  // the market" must also say that ONE input, the currency conversion, is still the statement's.
+  const foreignLive = book.positions.some((p) => {
+    const m = marks.get(p)
+    return !!m?.live && !!p.currency && !!book.baseCurrency && p.currency !== book.baseCurrency
+  })
+  return {
+    of: (p: PortfolioPosition): MarkedPosition => marks.get(p) ?? markPosition(p, new Map(), null),
+    live: live_,
+    livePriced: liveMarks.length,
+    // A single date and close-status only where every live row actually agrees — a cross-market book can
+    // hold rows quoted on different trading days, or mixing a live tick with a settled close, at once.
+    singleAsOf: asOfDates.size === 1 ? [...asOfDates][0] : null,
+    singleIsClose: closeFlags.size === 1 ? [...closeFlags][0] : null,
+    mixedTiming: liveMarks.length > 0 && (asOfDates.size > 1 || closeFlags.size > 1),
+    foreignLive,
+    statementDay,
+  }
+}
+
 export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
   cashEquivalents: string[]; live: PortfolioLiveMark | null
@@ -398,6 +447,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
+  const marks = useMemo(() => positionMarks(book, live), [book, live])
   const isCashEq = (sym: string | null) => !!sym && cashEquivalents.includes(sym.toUpperCase())
   const onCash = async (symbol: string, isCash: boolean) => {
     try { onChanged(await api.setCashEquivalent(symbol, isCash)) } catch { /* the row simply does not move */ }
@@ -411,12 +461,24 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   // BIGGEST FIRST. The statement's own order is the order the account happened to acquire things, which
   // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
   // list. Sorted by what it is worth, the top of the table is always the part worth reading.
+  // The HOLDINGS SNAPSHOT must be current before a live price can move the EXPOSURE totals — see the note
+  // by `holdingsCurrent` below. Computed here, ahead of `valueNow`, because a stale snapshot means a
+  // position the feed still quotes might already be gone from the book; the row can still show that
+  // quote (informational — this ticker, if still held, is worth this now), but Invested/Cash/the sort
+  // order must not move on a holding the current snapshot cannot vouch for.
+  const holdingsCurrent = book.positionsAsOf == null || book.positionsAsOf === book.asOf
+  // WHAT A POSITION IS WORTH NOW, live where the feed reached it (see positionMarks) AND the snapshot is
+  // current — otherwise the statement's own value, same as the row falls back to when it is not live.
+  // Exposure asks where the risk is TODAY, so a holding that has fallen a tenth since the statement must
+  // weigh a tenth less here — the same figure the table shows, so the two can never disagree about the
+  // same holding, and never claim a "priced at the market" total while quoting a stale snapshot's shares.
+  const valueNow = (p: PortfolioPosition) => baseValue(holdingsCurrent ? marks.of(p).value : p.positionValue, p)
   const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
-    Math.abs(baseValue(b.positionValue, b) ?? 0) - Math.abs(baseValue(a.positionValue, a) ?? 0)
+    Math.abs(valueNow(b) ?? 0) - Math.abs(valueNow(a) ?? 0)
   const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
   const risked = equities.filter((p) => !isCashEq(p.symbol)).sort(byValue)
-  const parkedValue = sumBase(parked, (p) => baseValue(p.positionValue, p)).total
-  const investedSum = sumBase(risked, (p) => baseValue(p.positionValue, p))
+  const parkedValue = sumBase(parked, valueNow).total
+  const investedSum = sumBase(risked, valueNow)
   const invested = investedSum.total
   const unrealisedSum = sumBase(equities, (p) => baseValue(p.unrealizedLocal, p))
   const unrealised = unrealisedSum.total
@@ -454,7 +516,20 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
   const bridgeGapTitle = gapIsAccruals && book.accruals
     ? `Dividends ${fmtMoney(book.accruals.dividend, ccy)} + interest ${fmtMoney(book.accruals.interest, ccy)}`
     : undefined
-  const brokerCash = nav === null ? null : nav - invested - parkedValue
+  // The whole those shares divide by, on the SAME basis as the parts: the live estimate when the positions
+  // are live, the statement's own NAV when they are not. Cash stays the residual either way, which is what
+  // keeps NAV = invested + parked + cash true on whichever basis is on screen — and the residual works out
+  // to the statement's own broker cash, since the estimate cannot see cash move (portfolio-live.ts).
+  //
+  // `holdingsCurrent` (computed above, ahead of `valueNow`) already keeps `invested`/`parkedValue` off the
+  // live basis on a stale snapshot; this reuses the same flag so the NAV denominator and the aggregate
+  // label agree with the numbers that built them.
+  const liveForBasis = marks.livePriced > 0 && holdingsCurrent ? marks.live : null
+  const navNow = liveForBasis ? liveForBasis.nav : nav
+  const pricedWords = liveForBasis
+    ? `priced ${marks.mixedTiming ? 'at the market — each row shows its own quote date' : `${marks.singleIsClose ? 'at the last close' : 'at the market'} ${marks.singleAsOf}`}${liveForBasis.delayed ? ' (delayed)' : ''}`
+    : `as the statement of ${marks.statementDay ?? 'its date'} states them`
+  const brokerCash = navNow === null ? null : navNow - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
   return (
     <>
@@ -466,7 +541,7 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
         <Card
           label="Invested"
           value={fmtMoney(invested, ccy)}
-          sub={nav ? `${((invested / nav) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'}` : `${risked.length} positions`}
+          sub={navNow ? `${((invested / navNow) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'} · ${pricedWords}` : `${risked.length} positions`}
         />
         <Card
           label="Cash"
@@ -539,15 +614,15 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
           Positions answers "what exactly do I hold" in a list that grows with every name. Printed the
           other way round, the summary sat a screen and a half below the thing it summarises. */}
       <Exposure
-        book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
+        book={book} risked={risked} parkedValue={parkedValue} nav={navNow} ccy={ccy} valueOf={valueNow} basis={pricedWords}
         invested={invested} cash={cash} parked={parked} ideas={ideas} bars={
           <>
             {/* nav > 0, not merely present: an account that has been emptied divides by zero, and both
                 bars printed the literal string "NaN%". */}
-            {nav !== null && nav > 0 && cash !== null && (
+            {navNow !== null && navNow > 0 && cash !== null && (
               <div className="fundbook__bars">
-                <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
-                <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
+                <Bar label="Invested" pct={(invested / navNow) * 100} value={fmtMoney(invested, ccy)} />
+                <Bar label="Cash" pct={(cash / navNow) * 100} value={fmtMoney(cash, ccy)} deep />
               </div>
             )}
             {/* The declaration belongs where the split it changes is explained, not repeated as a button on
@@ -585,7 +660,19 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Positions</strong><small>{book.positions.length} open · weights as the statement states them</small></div>
+          <div>
+            <strong>Positions</strong>
+            <small>
+              {book.positions.length} open ·{' '}
+              {marks.livePriced > 0 && marks.live
+                // Timed per row, not by one aggregate date: a cross-market book can hold a row quoted
+                // today beside one still at last Friday's close, and the two are never the same figure.
+                ? `${marks.livePriced} of them priced ${marks.mixedTiming
+                  ? 'at the market — each row shows its own quote date'
+                  : `${marks.singleIsClose ? 'at the last close' : 'at the market'} ${marks.singleAsOf}`}${marks.live.delayed ? ' (delayed)' : ''}${marks.live.stale ? ', from cache' : ''} — quantity and cost from the statement of ${marks.statementDay ?? 'its date'}${marks.foreignLive ? ', non-base-currency weights at the statement’s own exchange rate' : ''}`
+                : `marks and weights as the statement of ${marks.statementDay ?? 'its date'} states them`}
+            </small>
+          </div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--head">
@@ -593,17 +680,19 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
             <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span>
             <span className="num">Unrealised</span><span className="num">%</span>
           </div>
-          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} ideas={ideas} onChanged={onChanged} />)}
+          {risked.map((p, i) => (
+            <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} ideas={ideas} onChanged={onChanged} />
+          ))}
           {parked.length > 0 && (
             <>
               <div className="fundbook__subhead">Cash equivalents — counted as cash above, not as positions</div>
-              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash />)}
+              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} isCash />)}
             </>
           )}
           {derivatives.length > 0 && (
             <>
               <div className="fundbook__subhead">Derivatives — held against <b>margin</b>, so these carry no weight</div>
-              {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} derivative />)}
+              {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} mark={marks.of(p)} statementDay={marks.statementDay} derivative />)}
             </>
           )}
           {book.positions.length === 0 && <div className="fundbook__none">No open positions in this statement.</div>}
@@ -648,9 +737,13 @@ export function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onM
  *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
  *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
  *  so the panel says the data is not there rather than drawing a made-up split. */
-function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
+function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars, valueOf, basis }: {
   book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
   nav: number | null; ccy: string | null
+  /** What each position is worth now, in the base currency — live where the feed reached it. */
+  valueOf: (p: PortfolioPosition) => number | null
+  /** Which basis that is, said on the panel so the reader is never guessing. */
+  basis: string
   invested: number; cash: number | null; parked: PortfolioPosition[]
   ideas?: PortfolioIdeaBook
   /** The invested-against-cash bars and the cash declaration, folded in from what used to be a panel of
@@ -663,7 +756,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
     // `known` is kept alongside the coerced figure because UNKNOWN IS NOT SMALL: a position the
     // statement could not value reads as 0 here, and treating that 0 as residual dust would drop a
     // real holding out of the idea weighting and then describe it on screen as loose change.
-    .map((p) => { const b = baseValue(p.positionValue, p); return { p, base: b ?? 0, known: b !== null } })
+    .map((p) => { const b = valueOf(p); return { p, base: b ?? 0, known: b !== null } })
     .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
   if (valued.length === 0) return null
 
@@ -725,7 +818,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
       <div className="fundbook__panelhead">
         <div>
           <strong>Exposure</strong>
-          <small>What is at risk against what is parked, and how that risk is spread</small>
+          <small>What is at risk against what is parked, and how that risk is spread — {basis}</small>
         </div>
       </div>
 
@@ -902,12 +995,15 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
-  p: PortfolioPosition; derivative?: boolean; isCash?: boolean
+function PositionRow({ p, mark, derivative, isCash, statementDay, ideas, onChanged }: {
+  p: PortfolioPosition; mark: MarkedPosition; derivative?: boolean; isCash?: boolean
+  /** The statement's own day, said on a row the feed could not price while its neighbours are live. */
+  statementDay?: string | null
   ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
 }) {
   // Two contracts sharing a symbol (two futures expiries) are told apart only by their terms.
   const terms = contractTerms(p)
+  const move = mark.live && mark.movePct !== null && Math.abs(mark.movePct) >= 0.05 ? mark.movePct : null
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
       {/* Symbol and idea on ONE line. Stacked, the picker added 22px to every assignable row (57px
@@ -923,14 +1019,23 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
       <span className="dim">{p.currency ?? '—'}</span>
       <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
-      <span className="num">{fmtNum(p.markPrice)}</span>
-      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
-      <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
+      <span className="num" title={mark.live
+        // THIS row's own quote date, not the panel's aggregate — a cross-market book can have one row
+        // priced today and another at last Friday's close in the same page load, and the aggregate
+        // heading above cannot say that for both.
+        ? `Priced ${mark.asOfIsClose ? 'at the last close' : 'at the market'}${mark.asOf ? ` ${mark.asOf}` : ''}. The statement's own mark was ${fmtNum(p.markPrice)} on ${statementDay ?? 'its date'}.`
+        : statementDay ? `The feed had no price for this holding, so it is the statement's mark of ${statementDay}.` : undefined}>
+        {fmtNum(mark.price)}
+        {move !== null && <small className={`fundbook__lots${move < 0 ? ' is-down' : ''}`}>{move > 0 ? '+' : '−'}{Math.abs(move).toFixed(1)}%</small>}
+        {!mark.live && statementDay && <small className="fundbook__lots">{shortDay(statementDay)}</small>}
+      </span>
+      <span className="num">{fmtSmallMoney(mark.value)}{derivative && <small className="fundbook__notional">{derivativeValueWord(p.assetCategory)}</small>}</span>
+      <span className="num dim">{derivative ? '—' : mark.weightPct === null || !Number.isFinite(mark.weightPct) ? '—' : `${mark.weightPct.toFixed(1)}%`}</span>
+      <span className="num" style={{ color: toneOf(mark.unrealised) }}>{fmtSmallMoney(mark.unrealised)}</span>
       {/* Against COST, not against market value: the question is what this position has returned on the
           money put into it. Cost is the statement's own basis, so the percentage ties to the figure
           beside it rather than to a denominator computed here. */}
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtPct(unrealisedPct(p), 1)}</span>
+      <span className="num" style={{ color: toneOf(mark.unrealised) }}>{fmtPct(unrealisedPct(p, mark.unrealised), 1)}</span>
     </div>
   )
 }
@@ -1062,21 +1167,28 @@ const NEW_IDEA = '\u0000new'
 
 /** Unrealised return on cost. Null when the statement gives no usable basis — a position transferred in
  *  without one would otherwise divide by zero and report an infinite gain. */
-function unrealisedPct(p: PortfolioPosition): number | null {
+function unrealisedPct(p: PortfolioPosition, unrealised: number | null): number | null {
   const cost = p.costBasisMoney
   if (cost === null || !Number.isFinite(cost) || Math.abs(cost) < 1e-9) return null
-  if (p.unrealizedLocal === null || !Number.isFinite(p.unrealizedLocal)) return null
-  return (p.unrealizedLocal / Math.abs(cost)) * 100
+  if (unrealised === null || !Number.isFinite(unrealised)) return null
+  return (unrealised / Math.abs(cost)) * 100
 }
 
 // ---------- performance ----------
 
-function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
+export function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
   const { risk, benchmark: bm } = perf
   const ratio = (v: number | null) => (risk.sufficient && v !== null ? v.toFixed(2) : '—')
   const inception = perf.periods.find((p) => p.label === 'Since inception') ?? null
   // Past about a third in cash, the ratios say more about the parking than the picking.
   const cashHeavy = cashShare !== null && cashShare >= 33
+  // The since-inception hurdle and the ratios below (Sharpe, Sortino) are charged the rate AVERAGED over
+  // this whole window (riskFreeSinceInceptionPct) — not `riskFreeAnnualPct`, which is only the latest
+  // observation. A book that spans a rate cycle can have the two differ materially, and describing
+  // either measurement against the latest rate names a number that was never actually applied to it.
+  const sinceInceptionPct = perf.riskFreeSinceInceptionPct
+  const rateHasMoved = sinceInceptionPct !== null && Math.abs(sinceInceptionPct - perf.riskFreeAnnualPct) >= 0.05
+  const cashRatePct = sinceInceptionPct ?? perf.riskFreeAnnualPct
   return (
     <>
       {/* ORDER IS THE ARGUMENT, and now the GRID CARRIES IT: three to a row, one theme per row — what
@@ -1101,7 +1213,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
           value={inception?.overHurdle === undefined || inception?.overHurdle === null
             ? '—'
             : `${inception.overHurdle >= 0 ? '+' : '−'}${Math.abs(inception.overHurdle).toFixed(2)}pp`}
-          sub={`Over a ${perf.riskFreeAnnualPct}% cash rate, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
+          sub={`Over a ${cashRatePct.toFixed(2)}% cash rate${rateHasMoved ? ` (this window's own average — the rate is ${perf.riskFreeAnnualPct}% now)` : ''}, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
           tone={toneOf(inception?.overHurdle)}
         />
         <Card
@@ -1142,7 +1254,12 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
         <div className="fundbook__panelhead">
           <div>
             <strong>Return by period</strong>
-            <small>Cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} funded days</small>
+            {/* This heading names the SINCE-INCEPTION rate only — the same one the ratios above and the
+                Since inception row below are charged. Each shorter row (MTD, QTD, YTD) is charged the
+                average over its OWN window (returnsByPeriod, per-row `rateOver`), which a book that spans
+                a rate cycle can differ from materially; its own "Cash" column cell is that row's real
+                figure, never this heading's. */}
+            <small>Since-inception cash hurdle {cashRatePct.toFixed(2)}%{rateHasMoved ? ` (window average — ${perf.riskFreeAnnualPct}% now)` : ''} — the rows below are each charged their own window's rate · ratios from {risk.sampleDays} funded days</small>
           </div>
         </div>
         <div className="fundbook__scroll">

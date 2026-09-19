@@ -1172,6 +1172,23 @@ check('a closing fill supplies its known multiplier when the opening fill omitte
   assert.equal(omitted.executions[1]!.value, 5500, 'a known opening multiplier still covers a blank close')
 })
 
+check('the holdings carry the day they were observed, not the book’s own as-of', () => {
+  // A Trades-only export moves the book forward while the positions stay at the last statement that carried
+  // a snapshot — buildBook says so in a warning. A screen labelling those marks with the newer date says
+  // they were seen on a day nobody looked.
+  const later = { ...doc.equitySummary[doc.equitySummary.length - 1]!, reportDate: '2026-02-28' }
+  const tradesOnly = {
+    ...doc, fromDate: '2026-02-01', toDate: '2026-02-28', whenGenerated: '20260301;120000',
+    sectionsPresent: ['Trades', 'EquitySummaryInBase'], openPositions: [], cashTransactions: [],
+    corporateActions: [], equitySummary: [later],
+  }
+  const b = buildBook([doc, tradesOnly as typeof doc])
+  assert.equal(b.positionsAsOf, doc.toDate, 'the snapshot’s own statement date')
+  assert.equal(b.asOf, '2026-02-28', 'while the book itself has moved on')
+  assert.notEqual(b.positionsAsOf, b.asOf)
+  assert.equal(book.positionsAsOf, doc.toDate, 'and with one statement they are the same day')
+})
+
 // ---------- a currency conversion, which buys money rather than a position ----------
 // The real book bought AUD to pay for Australian shares. IBKR books that as a trade in a CASH contract
 // (AUD.USD) while holding the AUD as cash, so its position snapshot never carries it. Through the lot engine

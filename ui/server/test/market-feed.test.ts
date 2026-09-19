@@ -75,6 +75,49 @@ check('a malformed row or file is skipped, never guessed at', () => {
   assert.deepEqual(feed.readCloses('SPY'), [{ date: '2026-01-02', close: 490 }])
 })
 
+check('a RATE series keeps a zero the price reader drops', () => {
+  // Three-month bills printed 0.00% for months in 2020-21. Read as a price those days vanish and the last
+  // rate before them stands as today's — the cash hurdle inside every Sharpe on the screen, months wrong.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2021-01-04,DTB3,0.09\n2021-01-06,DTB3,0.00\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2021-01-04', close: 0.09 }, { date: '2021-01-06', close: 0 }])
+  assert.deepEqual(feed.readCloses('DTB3'), [{ date: '2021-01-04', close: 0.09 }], 'the price reader still drops it')
+})
+
+check('a rate series still refuses a malformed row and a bad date', () => {
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2026-13-40,DTB3,4.1\n2026-09-15,DTB3,x\n2026-09-16,DTB3,4.2\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2026-09-16', close: 4.2 }])
+})
+
+check('a blank close is not a zero rate — it is a row with no value', () => {
+  // `Number('')` is a perfectly finite zero. For a price it was refused anyway; for a rate it would be taken
+  // as a real 0.00%, so a half-written or hand-edited row would become the hurdle every ratio is measured
+  // against.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'dtb3.csv'), 'date,symbol,close\n2026-09-15,DTB3,4.11\n2026-09-16,DTB3,\n')
+  assert.deepEqual(feed.readRates('DTB3'), [{ date: '2026-09-15', close: 4.11 }])
+})
+
+check('the reader says which provider answered, so a figure is not published under the wrong name', () => {
+  reset()
+  for (const [name, rows] of [['fred', '2026-09-15,DTB3,4.11'], ['operator', '2020-01-02,DTB3,1.5\n2026-09-16,DTB3,4.2']] as const) {
+    const dir = path.join(feed.MARKET_FEED_DIR, name)
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, 'dtb3.csv'), `date,symbol,close\n${rows}\n`)
+  }
+  const series = feed.readRateSeries('DTB3')
+  assert.equal(series.provider, 'operator', 'the widest span still wins')
+  assert.equal(series.rows.length, 2)
+  assert.equal(feed.readRateSeries('NOTHING').provider, null)
+})
+
 check('readNewestClose reads only the most-recently-written file per provider, not every accumulated snapshot', () => {
   // scripts/fetch_market_feed.py writes a brand-new whole-history CSV every trading day and never prunes
   // old ones, so a provider directory accumulates one file per day forever. The health check

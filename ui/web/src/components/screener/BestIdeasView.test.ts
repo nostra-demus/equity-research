@@ -683,6 +683,11 @@ assert.equal(leadResearchPriorityValue({ trade_score: 99, conviction: 99, trade_
 assert.equal(leadResearchPriorityValue({ trade_score: 44, conviction: 80, trade_score_basis: 'evidence_gate_v1' }), 44, 'a stored legacy evidence score stays visibly distinct')
 assert.equal(leadResearchPriorityValue({ trade_score: 62, conviction: 80, trade_score_basis: 'evidence_gate_v1' }), 44, 'an offline snapshot applies the same V1 demotion as the live server projection')
 assert.equal(leadResearchPriorityValue({ trade_score: 88, conviction: 90, trade_score_basis: 'pre_edge_proxy_legacy' }), 88, 'the unversioned legacy proxy is labelled rather than silently reinterpreted')
+assert.deepEqual(ideaScorePresentation({ trade_score_basis: 'event_driven_v3' }), {
+  label: 'lead research priority',
+  title: 'Institutional event-driven research priority (0–100) calibrated across catalyst magnitude, timing, primary source authority, pricing room, and tradability. Ranks what to research first.',
+})
+assert.equal(leadResearchPriorityValue({ trade_score: 94, conviction: 94, trade_score_basis: 'event_driven_v3' }), 94, 'event-driven v3 policy renders nuanced unconstrained priority up to 100')
 
 const newsLead = idea('lead-jazz', 'long', {
   idea_version: 'IDEAV-1111111111111111',
@@ -698,10 +703,15 @@ const newsLead = idea('lead-jazz', 'long', {
   surfaced_at: '2026-08-12T08:00:00Z', updated_at: '2026-08-12T08:00:00Z',
 })
 const newsLeadHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: newsLead, side: 'long' }))
-assert.match(newsLeadHtml, /unverified news-only lead/)
-assert.match(newsLeadHtml, /lead research priority/)
-assert.match(newsLeadHtml, />62<span class="bidea__readden">\/100/)
+assert.match(newsLeadHtml, /bidea--lead/)
+assert.match(newsLeadHtml, /News-only research priority/)
+assert.match(newsLeadHtml, />62<span class="bidea__metricden">\/100/)
 assert.doesNotMatch(newsLeadHtml, /trade readiness/i)
+
+const v3Lead = { ...newsLead, trade_score: 95, trade_score_basis: 'event_driven_v3' as const }
+const v3LeadHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: v3Lead, side: 'long' }))
+assert.match(v3LeadHtml, />95<span class="bidea__metricden">\/100/)
+assert.match(v3LeadHtml, /Institutional event-driven research priority/)
 
 const recoveredCurrentLead = {
   ...newsLead,
@@ -817,9 +827,9 @@ assert.deepEqual(archivedIdeasForSide([staleCurrentLead], null, 'long', nowMs).i
 assert.equal(archivedIdeasForSide([staleCurrentLead], undefined, 'long', nowMs).health, null, 'an absent legacy wrapper is not falsely called corrupt')
 
 const archivedCardHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: archiveLong, side: 'long', auditOnly: true }))
-assert.match(archivedCardHtml, /expired lead · audit only/)
-assert.match(archivedCardHtml, /past shelf life since/)
-assert.match(archivedCardHtml, /historical lead research priority/)
+assert.match(archivedCardHtml, /bidea--expired/)
+assert.match(archivedCardHtml, /expired · /)
+assert.match(archivedCardHtml, /historical urgency/)
 assert.doesNotMatch(archivedCardHtml, /Rate this idea|Run the full machine|bidea__actions/, 'audit cards have no feedback or promotion action')
 assert.deepEqual(
   archivedIdeasForSide([], {
@@ -887,6 +897,11 @@ assert.ok(longTimeline.rows.some((row) => row.idea.idea_id === 'promoted-stale' 
 assert.ok(longTimeline.rows.some((row) => row.idea.idea_id === 'archive-long' && row.status === 'expired'), 'expired history is in the same timeline')
 assert.equal(new Set(longTimeline.rows.map((row) => row.key)).size, longTimeline.rows.length, 'the unified timeline never repeats an exact occurrence')
 assert.ok(longTimeline.rows.findIndex((row) => row.status === 'promoted') < longTimeline.rows.findIndex((row) => row.status === 'expired'), 'sent-to-research rows stay above expired history')
+
+const lowerPriorityNewer = { ...newsLead, idea_id: 'timeline-low', trade_score: 45, trade_score_basis: 'event_driven_v3' as const, updated_at: '2026-08-12T11:30:00Z', surfaced_at: '2026-08-12T11:30:00Z', newest_source_at: '2026-08-12T11:30:00Z' }
+const higherPriorityOlder = { ...newsLead, idea_id: 'timeline-high', trade_score: 92, trade_score_basis: 'event_driven_v3' as const, updated_at: '2026-08-12T10:00:00Z', surfaced_at: '2026-08-12T10:00:00Z', newest_source_at: '2026-08-12T10:00:00Z' }
+const sortedPriorityTimeline = ideasTimelineForSide([lowerPriorityNewer, higherPriorityOlder], null, 'long', nowMs)
+assert.equal(sortedPriorityTimeline.rows[0].idea.idea_id, 'timeline-high', 'highest event-driven research priority surfaces to top of timeline')
 
 const pagedTimelineRows = Array.from({ length: 25 }, (_, index) => ({
   ...newsLead,

@@ -117,21 +117,30 @@ does not prove liquidity, and the adapter never guesses an FX rate.
 
 ## What writes it
 
-The **S&P 500 slice is auto-populated only on the canonical pool-writer doer machine.** `scripts/fetch_market_feed.py` pulls the
-daily index close from FRED (`SP500` — proprietary to S&P Dow Jones Indices LLC, free to access and use
-via FRED as an internal benchmark reference but **not** redistributable; the sidecar records
-`redistribution: prohibited`) through the connectors' own SSRF-bounded
-`fetch_bytes`, and writes `data/_market/fred/sp500_<as_of>.csv` plus its `.source.json` provenance
-sidecar — nothing else, and it never guesses a symbol it wasn't asked to fetch. `scripts/ops/install-services.sh`
-installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer via the
-`scripts/ops/market-feed-local.sh` wrapper — deterministic, no model/provider identity, so it needs no
-cockpit admission. **Three windows a day** (07:10, 13:10, 19:10), not one: a single 07:10 window meant a
-laptop asleep at 07:10 got launchd's one catch-up on wake and nothing else, and a single FRED hiccup cost
-the whole day. The fetch is cheap and idempotent — the file is named by the data's own as-of date and
-replaced atomically — so a run that finds the feed already current rewrites the same bytes. 07:10 still
-leads `hk-calibrate-daily` at 07:25. Because `data/` is a gitignored symlink into Google Drive, this file
-drop never goes through `commit-run.sh`; it is local to whichever machine runs the timer, same as every
-other file under `data/_market/`.
+The **FRED slice is auto-populated only on the canonical pool-writer doer machine.** `scripts/fetch_market_feed.py`
+pulls two series through the connectors' own SSRF-bounded `fetch_bytes`, each written as
+`data/_market/fred/<slug>_<as_of>.csv` plus its `.source.json` provenance sidecar — and nothing else; it
+never guesses a symbol it wasn't asked to fetch. Each series is fetched and written on its own, so a failure
+on one does not cost the day's refresh of the other, and the exit code still reports that it happened.
+
+| Series | File | Rights recorded in the sidecar |
+| --- | --- | --- |
+| `SP500` — daily index close | `sp500_<as_of>.csv` | proprietary to S&P Dow Jones Indices LLC: free to access and use via FRED as an internal benchmark reference, **not** redistributable (`license: proprietary`, `redistribution: prohibited`) |
+| `DTB3` — 3-month US Treasury bill, secondary-market rate | `dtb3_<as_of>.csv` | US Treasury data published by the Federal Reserve: `license: public_domain`, `redistribution: allowed` |
+
+`DTB3` is the cash hurdle behind every Sharpe and Sortino in the fund book — Calmar is period return over
+maximum drawdown alone, with no cash rate in it, and the UI does not render a Calmar figure at all, so it
+is not one of these — and it is a **rate, not a price**: `0.00` is a real observation and is kept, where an
+index level of zero would be a bad row. The engine reads it with `readRates()` for that reason, and charges
+each window the average rate across it rather than the newest observation. `scripts/ops/install-services.sh`
+installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer via the `scripts/ops/market-feed-local.sh`
+wrapper — deterministic, no model/provider identity, so it needs no cockpit admission. **Three windows a day**
+(07:10, 13:10, 19:10), not one: a single 07:10 window meant a laptop asleep at 07:10 got launchd's one catch-up
+on wake and nothing else, and a single FRED hiccup cost the whole day. The fetch is cheap and idempotent — the
+file is named by the data's own as-of date and replaced atomically — so a run that finds the feed already current
+rewrites the same bytes. 07:10 still leads `hk-calibrate-daily` at 07:25. Because `data/` is a gitignored
+symlink into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
+runs the timer, same as every other file under `data/_market/`.
 
 A schedule change like this one only takes effect once an operator reruns `bash scripts/ops/install-services.sh`
 on the doer machine. A normal automatic deploy refreshes the installed COPY of `market-feed-local.sh`
@@ -142,7 +151,10 @@ Serving/tunnel failover does not transfer this writer: installs with `NOSTRA_INS
 exclude and unload the market-feed timer alongside connectors. Every scheduled run also checks the
 connector supervisor's permanent writer identity, installed doer role, and existing canonical pool
 projection. Missing, mismatched, or unsafe identities and an unavailable Drive projection cause a skip;
-the timer never adopts a different pool or creates a replacement local `data/` directory.
+the timer never adopts a different pool or creates a replacement local `data/` directory. **Every run says
+what it did** in `~/.nostra-ops/market-feed.json` (`{at, outcome, detail}`, outcome `ok | failed | skipped`),
+beside the connector supervisor's own status file — a skip that only reached a log is how this feed once went
+weeks without refreshing while looking no different from a healthy one.
 
 Every OTHER symbol this feed contract supports (a sector benchmark, a non-US index such as NIFTY 50 or
 NIFTY Healthcare, a stock's own history) still has **no automated fetcher** — drop it yourself, or add
