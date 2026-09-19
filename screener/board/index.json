@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T20:52:43Z",
+  "generated_at": "2026-09-19T20:59:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-178",
+      "headline": "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/nashville-traffic-nightmare-now-9-202041295.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T20:20:41Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Ferrovial is leading a major $9.2 billion infrastructure project, representing a significant capital commitment and revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ferrovial is leading a major $9.2 billion infrastructure project, representing a significant capital commitment and revenue opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferrovial",
+          "ticker": "FER",
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,50 +1929,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-099",
-      "headline": "Trump signs Russia-Iran sanctions law; Saudi Arabia on alert amid Houthi threat",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/trump-signs-russia-iran-sanctions-law-saudi-arabia-on-alert-amid-houthi-threat-1.500680223",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T02:56:15Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Sanctions against Russia and Iran combined with heightened regional security threats in Saudi Arabia represent a major geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Sanctions against Russia and Iran combined with heightened regional security threats in Saudi Arabia represent a major geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -167182,9 +167187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9710302,
-    "news_picked_today": 514,
-    "news_dropped_today": 10646
+    "news_seen_today": 9742978,
+    "news_picked_today": 516,
+    "news_dropped_today": 10692
   },
   "book_momentum": {
     "live_count": 8,
