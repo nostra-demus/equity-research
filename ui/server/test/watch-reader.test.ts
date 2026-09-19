@@ -167,6 +167,36 @@ async function main() {
     assert.deepEqual(saved.items.filter((i) => i.kind === 'price').map((i: any) => i.role), ['bad_case'])
   })
 
+  await check("the plan's own usage limit is not a failed read — the report is not what went wrong", async () => {
+    // Counted as a failure it spent the three attempts in one burst and stood the report down for a day, and
+    // the cockpit said "Could not read the research" of a report nothing had been read from.
+    const stateL = path.join(root, 'state-limit')
+    const out = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'Claude usage limit reached — try again after the plan resets.' }),
+      budget: fakeBudget(20), stateDir: stateL, analysesDir: analyses, model: 'opus', now: clock,
+    })
+    assert.equal(out.status, 'limit')
+    assert.match(out.detail, /usage limit/)
+    const saved = loadPlan(RUN, stateL)!
+    assert.notEqual(saved.reader.status, 'failed', 'nothing about the research failed')
+    assert.deepEqual(saved.items.filter((i) => i.kind === 'price').map((i: any) => i.role), ['bad_case'],
+      "and the record's own bad case is watched meanwhile")
+  })
+
+  await check("Claude's own reported cost on a limited turn is still charged, not zeroed out", async () => {
+    // classifyChatLine keeps Claude's real total_cost_usd even on a 429 — only a rejected CODEX turn, charged
+    // at a synthetic estimate that was never actually spent, is waived. Zeroing a real Claude cost here would
+    // let repeated limited probes vanish from the day's tracked spend and let later reads run past the cap.
+    const budget = fakeBudget(20)
+    const out = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0.07, error: 'Claude usage limit reached — try again after the plan resets.' }),
+      budget, stateDir: path.join(root, 'state-limit-cost'), analysesDir: analyses, model: 'opus', now: clock,
+    })
+    assert.equal(out.status, 'limit')
+    assert.equal(out.cost_usd, 0.07, "the plan's own limit does not erase what Claude says it actually spent")
+    assert.equal(budget.spent(), 0.07)
+  })
+
   await check('an answer that is not the list is a failure, never a guess', async () => {
     const out = await readResearchPlan(row, { runTurn: answering('Sorry, I cannot help with that.'), budget: fakeBudget(20), stateDir: path.join(root, 'state-junk'), analysesDir: analyses, model: 'opus', now: clock, force: true })
     assert.equal(out.status, 'failed')
@@ -180,6 +210,48 @@ async function main() {
     assert.equal(out.status, 'ok')
     assert.equal(calls[before].budgetUsd, undefined)
     assert.equal(budget.spent(), 0.5)
+  })
+
+  await check('a read the limit rejected costs nothing, even where a read is counted at an estimate', async () => {
+    // Codex shows no cost per read, so a read is counted at the estimate. A rejected turn carried no answer:
+    // charged anyway, 40 probes would spend the day's whole allowance and then refuse to read once the
+    // provider's plan came back.
+    const budget = fakeBudget(20)
+    const out = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'Codex usage limit reached — try again after the plan resets or choose a Claude model.' }),
+      budget, stateDir: path.join(root, 'state-codex-limit'), analysesDir: analyses, model: 'codex:gpt-5.6-luna', now: clock,
+    })
+    assert.equal(out.status, 'limit')
+    assert.equal(out.cost_usd, 0)
+    assert.equal(budget.spent(), 0, 'nothing was read, so nothing is charged')
+  })
+
+  await check('a limit does not keep a partial plan from before the record was corrected', async () => {
+    // The plan kept through an outage must be one that was actually READ. An earlier partial one carries the
+    // record as it was, so a correction — a new bad case — would sit out the whole outage unwatched.
+    const stateC = path.join(root, 'state-corrected')
+    const record = path.join(analyses, RUN, 'decision_record.json')
+    const before = fs.readFileSync(record, 'utf8')
+    const first = await readResearchPlan(row, {
+      runTurn: async () => ({ costUsd: 0, error: 'The model was busy.' }),
+      budget: fakeBudget(20), stateDir: stateC, analysesDir: analyses, model: 'opus', now: clock,
+    })
+    assert.equal(first.status, 'failed')
+    assert.equal((first.plan!.items.find((i: any) => i.kind === 'price') as any).low, 146)
+    try {
+      const corrected = before.replace('"price_target":146', '"price_target":100')
+      assert.notEqual(corrected, before, 'the fixture must actually change, or this proves nothing')
+      fs.writeFileSync(record, corrected)
+      const out = await readResearchPlan(row, {
+        runTurn: async () => ({ costUsd: 0, error: 'Claude usage limit reached — try again after the plan resets.' }),
+        budget: fakeBudget(20), stateDir: stateC, analysesDir: analyses, model: 'opus', now: clock,
+      })
+      assert.equal(out.status, 'limit')
+      assert.equal((out.plan!.items.find((i: any) => i.kind === 'price') as any).low, 100, 'the corrected bad case is watched')
+      assert.equal((loadPlan(RUN, stateC)!.items.find((i: any) => i.kind === 'price') as any).low, 100, 'and saved')
+    } finally {
+      fs.writeFileSync(record, before)
+    }
   })
 
   console.log(`\n${passed} passed${process.exitCode ? ' — FAILURES above' : ''}`)

@@ -264,8 +264,10 @@ def test_uncatalogued_data_is_rejected_before_commit():
         after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
         cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
         absent = run(["git", "cat-file", "-e", f"HEAD:{relative}"], cwd=agent, env=env, check_rc=False)
-        check("uncatalogued staged data exits 5 before commit",
-              result.returncode == 5 and before == after and absent.returncode != 0,
+        # 7 is reserved for this one verdict: the cockpit supervisor reads the code (never the message) to
+        # record `publication_refused`, which the resume supervisor must not auto-retry.
+        check("uncatalogued staged data exits with the reserved refusal code 7 before commit",
+              result.returncode == 7 and before == after and absent.returncode != 0,
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
         check("catalogue rejection names the missing artifact and leaves the index clean",
               relative in result.stderr and "DATA-CATALOGUE: FAIL" in result.stderr
@@ -409,6 +411,49 @@ def test_catalogue_globs_do_not_cross_path_segments():
     patterns = ["watchlist/entries/*.json", "analyses/*/*/*.md"]
     missing = uncovered_paths(paths, patterns)
     check("catalogue '*' cannot hide a deeper undeclared artifact", missing == paths, str(missing))
+
+
+def test_catalogue_validator_that_cannot_run_is_not_a_refusal():
+    """Exit 7 is reserved for the validator's FAIL status (1). A validator that ended with any OTHER status
+    never delivered a verdict (python3 or the script missing, killed by a signal), so it stays the generic,
+    retryable 5: the cockpit supervisor never auto-resumes a `publication_refused` run, and a helper that
+    never ran must not strand a run behind that manual-only hold.
+
+    An uncaught exception INSIDE the validator exits 1 like a FAIL verdict and is deliberately held for a
+    person too (second half of this test): re-running the provider cannot repair a broken validator, and
+    "unknown" is never permission to spend."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-catalogue-crash-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        write_text(agent, "scripts/validate_data_catalogue.py", "import sys\nsys.exit(3)\n")
+        run(["git", "add", "scripts/validate_data_catalogue.py"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: validator that cannot run"], cwd=agent, env=env)
+        relative = "analyses/FRESH_2099-01-01/new.txt"
+        write_text(agent, relative, "fresh\n")
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+
+        result = run(
+            ["bash", COMMIT_RUN, "test: validator crash", "--", relative],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("a catalogue validator that cannot run exits the generic 5, never the refusal code 7",
+              result.returncode == 5 and before == after and "could not run (status 3)" in result.stderr,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("a validator crash leaves the index clean for the next autonomous run", cached.returncode == 0)
+
+        write_text(agent, "scripts/validate_data_catalogue.py", "raise RuntimeError('validator bug')\n")
+        run(["git", "add", "scripts/validate_data_catalogue.py"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: validator with an uncaught exception"], cwd=agent, env=env)
+        raised = run(
+            ["bash", COMMIT_RUN, "test: validator exception", "--", relative],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("an uncaught validator exception (status 1) is held for a person, not retried into",
+              raised.returncode == 7 and cached.returncode == 0,
+              f"rc={raised.returncode} stderr={raised.stderr!r}")
 
 
 def test_git_add_failure_is_not_a_noop():
@@ -1176,7 +1221,7 @@ EXIT_5_SITES = {
     # pre-seal for the paths this publication proposes (--paths). It also judges the WHOLE index, so
     # unrelated uncatalogued data already in HEAD fails every publication until the repository is repaired:
     # that is a repository fault, not a property of the sealed bytes.
-    "data catalogue rejected the staged publication": (1, "pre-seal"),
+    "data catalogue validator could not run": (1, "environmental"),
     "cannot create data-needs validation workspace": (1, "environmental"),
     "cannot enumerate staged publications": (1, "environmental"),
     # The gate script is missing or cannot run. The supervisor's own call to it refuses for the same cause.
@@ -1206,7 +1251,7 @@ def test_every_exit_5_has_a_decision_about_sealed_receipts():
     # status is refused outright unless listed here, so a refusal cannot slip past by being spelled
     # `exit "$RC"`, `exit  5`, `return 5 … || exit $?` or `sys.exit(5)`.
     computed_exits_allowed = {"exit $?": 1}  # the cockpit request client, propagating its SystemExit(5)
-    literal_exits = {"exit 0", "exit 2", "exit 3", "exit 4", "exit 5"}  # exactly one space: `exit  5` is not one
+    literal_exits = {"exit 0", "exit 2", "exit 3", "exit 4", "exit 5", "exit 6", "exit 7"}  # exactly one space: `exit  5` is not one
     unexplained = []
     for number, code in enumerate(lines, start=1):
         if code.lstrip().startswith("#"):
@@ -1519,6 +1564,7 @@ if __name__ == "__main__":
     test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots()
     test_retained_engine_locks_in_swept_ledger_are_gitignored()
     test_catalogue_globs_do_not_cross_path_segments()
+    test_catalogue_validator_that_cannot_run_is_not_a_refusal()
     test_git_add_failure_is_not_a_noop()
     test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge()
     test_staged_non_data_change_still_refuses_without_touching_the_index()
