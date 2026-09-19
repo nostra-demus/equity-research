@@ -28,7 +28,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, sigIdFor,
   isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -376,6 +376,9 @@ app.get('/api/health', async (_req, reply) => {
     repoRoot: REPO_ROOT,
     deploymentPending: providerDeployPending(STATE_DIR),
     deployment: await readDeploymentStatus(STATE_DIR),
+    // Sealed publications the startup recovery pass could not publish (count only: no run identity).
+    // They no longer stop the engine, so this is where a monitor sees them.
+    stuckPublications: listReadyPublicationFailures().length,
     // The benchmark feed judged by the files THIS engine can read. It is here because every way its
     // refresher fails is quiet, and health is the one thing an operator checks without being told to.
     marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
@@ -8293,6 +8296,8 @@ async function start() {
     if (promotions.errors.length > 0) console.error(`[swarm-cockpit] Idea promotion recovery needs attention: ${promotions.errors.join('; ')}`) // eslint-disable-line no-console
     const recovered = await recoverReadyPublications()
     if (recovered) console.log(`[swarm-cockpit] recovered ${recovered} post-extinction publication(s) before admission`) // eslint-disable-line no-console
+    const stuck = listReadyPublicationFailures()
+    if (stuck.length) console.error(`[swarm-cockpit] ${stuck.length} sealed publication(s) need attention and stay retained for the next recovery pass: ${stuck.map((item) => item.entry).join(', ')}`) // eslint-disable-line no-console
     // Readiness means the first workspace request is warm. Graph discovery/parsing is synchronous, so if
     // it ran after listen() it could block the event loop while the browser waited on its startup graph.
     const graphs = warmSwarmGraphs()
