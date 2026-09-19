@@ -15,7 +15,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
-import { feedPresent, readCloses } from './market-feed'
+import { feedPresent, readCloses, readRateSeries, type Close } from './market-feed'
 import { alignFlowsToNavDates, buildBook, supersessionMap, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
 import {
@@ -27,7 +27,7 @@ import {
   readIdeas, renameIdea, type Idea, type IdeaBook,
 } from './portfolio-ideas'
 import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
-import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
+import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, rateOver, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
 export const STATEMENTS_DIR = path.join(PORTFOLIO_DIR, 'statements')
@@ -206,6 +206,85 @@ export const RISK_FREE = {
   source: '3-month US Treasury bill (secondary market), FRED DTB3',
 } as const
 export const RISK_FREE_ANNUAL_PCT = RISK_FREE.pct
+/** The rate's own series in the market feed — the same lane the benchmark comes down, written by
+ *  `scripts/fetch_market_feed.py`. */
+export const RISK_FREE_SERIES = 'DTB3'
+
+/** The cash hurdle as of TODAY where the feed carries it, and the dated constant where it does not.
+ *
+ *  A constant cannot help going stale: the one above was written in January and was still what every Sharpe
+ *  and Sortino on the screen was measured against in September (Calmar carries no cash rate — it is period
+ *  return over maximum drawdown alone). The feed already fetches this series daily beside the benchmark, so
+ *  the rate is read from it and carries the feed's own date — and when there is no feed the fallback says so
+ *  out loud rather than presenting January as current. */
+export function riskFreeNow(
+  series: { rows: Close[]; provider: string | null } = readRateSeries(RISK_FREE_SERIES),
+  /** The day the book is measured to, so an observation can be called old against something real. */
+  asOfBook: string | null = null,
+  /** Real wall-clock today (injectable for tests), never the book's own date — a feed date genuinely
+   *  AHEAD of a stale statement is the whole reason this function exists (the feed refreshes daily; the
+   *  book only advances on import) and must stay usable. A row dated after TODAY cannot be a real
+   *  observation at all — an operator-dropped CSV with a mistyped year is the failure this guards, and
+   *  bounding by the book's own (possibly stale) date would have refused the legitimate ahead-of-book case
+   *  along with it. */
+  today: string = new Date().toISOString().slice(0, 10),
+): { pct: number; asOf: string; source: string; fromFeed: boolean } {
+  // Rows the CSV reader already proved are real ISO dates (market-feed.ts) — a string compare on that
+  // fixed YYYY-MM-DD shape sorts identically to a date compare, with no parsing needed here.
+  const rows = series.rows.filter((r) => r.date <= today)
+  const last = rows.length ? rows[rows.length - 1]! : null
+  if (!last || !Number.isFinite(last.close)) {
+    // Named separately from "no feed at all": a feed WITH rows, every one of them dated after today, is a
+    // malformed/mistyped observation, not an absent series — the reader should not be told nothing loaded.
+    const reason = series.rows.length > 0
+      ? 'every observation the feed carries is dated after today, so none of them can be used'
+      : 'no feed loaded, so this rate is the one last written into the engine'
+    return { ...RISK_FREE, fromFeed: false, source: `${RISK_FREE.source} — ${reason}` }
+  }
+  // WHICHEVER PROVIDER ANSWERED, named. The reader picks the widest series it can find, which need not be
+  // the one usually expected, and publishing an operator-dropped number under FRED's name would be a
+  // citation for a source it did not come from (§5).
+  const from = series.provider === 'fred' ? 'FRED DTB3' : `the ${series.provider ?? 'market'} feed`
+  // A rate that stopped arriving is still the best number available — far better than a constant written
+  // in January — but it is no longer today's, and the source line says so rather than letting the age hide
+  // behind a figure that looks current.
+  const behind = asOfBook ? daysBetween(last.date, asOfBook) : null
+  const stale = behind !== null && behind > RISK_FREE_STALE_DAYS
+    ? ` — not refreshed since, ${behind} days before the book's own date`
+    : ''
+  return {
+    pct: last.close, asOf: last.date, fromFeed: true,
+    source: `3-month US Treasury bill (secondary market), ${from}${stale}`,
+  }
+}
+
+/** How far behind the book's own date the newest rate may fall before the source line says so. */
+export const RISK_FREE_STALE_DAYS = 10
+
+/** Calendar days between two ISO dates, or null when either is unusable. */
+function daysBetween(from: string, to: string): number | null {
+  const a = Date.parse(`${from}T00:00:00Z`), b = Date.parse(`${to}T00:00:00Z`)
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return null
+  return Math.round((b - a) / 86_400_000)
+}
+
+/**
+ * The cash rate to charge a window, from the dated series.
+ *
+ * The AVERAGE of the observations inside the window — that is the cash the book could actually have earned
+ * across it — falling back to the last rate before the window when the feed carries none inside it (a rate
+ * stands until the next print), and to the dated constant when the feed carries nothing at all. Without
+ * this, every historical figure was charged at the newest observation, so tomorrow's row rewrote what last
+ * year earned.
+ */
+export function riskFreeOver(rows: Close[], fallback: number = RISK_FREE.pct): (from: string, to: string) => number {
+  return (from, to) => {
+    const inside = rows.filter((r) => r.date >= from && r.date <= to && Number.isFinite(r.close))
+    if (inside.length) return inside.reduce((a, r) => a + r.close, 0) / inside.length
+    const before = rows.filter((r) => r.date <= to && Number.isFinite(r.close))
+    return before.length ? before[before.length - 1]!.close : fallback
+  }
+}
 /** How far past its last close the benchmark curve may still be carried — a long weekend and a public
  *  holiday, no more. The same tolerance benchmarkCompare uses to decide whether the feed covers a
  *  window, so the chart and the comparison can never disagree about what is covered. */
@@ -260,6 +339,12 @@ export interface PortfolioPerformance {
    *  later, and the rate goes stale silently. */
   riskFreeAsOf: string
   riskFreeSource: string
+  /** The rate ACTUALLY charged across the since-inception window — averaged over every day the feed
+   *  covers it (riskFreeOver) — as opposed to `riskFreeAnnualPct`, which is the latest observation only.
+   *  A book that spans a rate cycle can have these differ materially: the since-inception "vs cash" card
+   *  and the Sharpe/Sortino ratios (measured over the same span) are charged THIS rate, not the latest
+   *  one, so a label naming "the cash rate" for either must name this figure, not `riskFreeAnnualPct`. */
+  riskFreeSinceInceptionPct: number | null
   /** What the benchmark series actually measures. The index is a PRICE index while the book's return
    *  keeps its dividends, so the comparison flatters the fund by roughly the index's yield — said out
    *  loud rather than credited in silence. */
@@ -296,6 +381,11 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // already drifted, landing an unvaluable flow's raw local amount in the chain the original excludes.
   const flowsByDate = alignFlowsToNavDates(book.flows, book.navSeries)
   const closes = readCloses(BENCHMARK_SYMBOL)
+  const rates = readRateSeries(RISK_FREE_SERIES)
+  const bookAsOf = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.date : null
+  const riskFree = riskFreeNow(rates, bookAsOf)
+  // Each metric is charged the cash of the window it measures, not the rate of the day this page was opened.
+  const riskFreeRate = rates.rows.length ? riskFreeOver(rates.rows, riskFree.pct) : riskFree.pct
   const returns = dailyReturns(book.navSeries, flowsByDate)
   // EVERY period is measured over the window the book actually held capital, never over every calendar
   // row the export happens to carry. A Flex export routinely starts months before the first deposit,
@@ -303,6 +393,14 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // return — which does not merely overstate the hurdle, it FLIPS the sign of "over cash". It also
   // dated a four-month-old book "since 2025-08-22" on screen.
   const window = measuredWindow(book.navSeries, flowsByDate)
+  // THE SAME RATE `returnsByPeriod`'s "Since inception" row and `riskMetrics`'s ratios actually charge —
+  // the average over the window's own span, not the latest observation. `riskFreeAnnualPct` is that
+  // latest observation, so a screen that describes "the since-inception hurdle" or "the ratios" against
+  // `riskFreeAnnualPct` is naming a different, merely current, rate whenever the feed has moved across
+  // the book's history. This is the figure such a label must use instead.
+  const riskFreeSinceInceptionPct = window.length
+    ? rateOver(riskFreeRate, window[0]!.date, window[window.length - 1]!.date)
+    : null
 
   // Both curves REBASED to 100 on the first day the book actually held capital. Plotting raw NAV
   // against an index would draw every deposit as a leap in performance; the book curve is the same
@@ -342,17 +440,18 @@ export function performanceOf(book: Book): PortfolioPerformance {
   }
 
   return {
-    periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT, closes),
+    periods: returnsByPeriod(window, flowsByDate, riskFreeRate, closes),
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
-    betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
+    betaAlpha: betaAlpha(returns, closes, riskFreeRate),
     growth,
     benchmarkForward,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
-    risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
+    risk: riskMetrics(book.navSeries, flowsByDate, riskFreeRate),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
-    riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
-    riskFreeAsOf: RISK_FREE.asOf,
-    riskFreeSource: RISK_FREE.source,
+    riskFreeAnnualPct: riskFree.pct,
+    riskFreeAsOf: riskFree.asOf,
+    riskFreeSource: riskFree.source,
+    riskFreeSinceInceptionPct,
     benchmarkBasis: BENCHMARK_BASIS,
     feedPresent: feedPresent(),
   }
