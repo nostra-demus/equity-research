@@ -11,7 +11,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { ANALYSES_DIR, CHAT, STATE_DIR, WATCH } from '../config'
-import { runChatTurn, type ChatTurnOptions } from '../chat-llm'
+import { isUsageLimitError, runChatTurn, type ChatTurnOptions } from '../chat-llm'
 import { resolveAllowedChatModel } from '../chat-models'
 import { UsdBudget } from '../news/triage/budget'
 import type { WatchListing } from '../watchlist'
@@ -131,7 +131,7 @@ export function readerMessage(plan: WatchPlan, src: ResearchSources): string {
 
 // ---------- the read ----------
 
-export type ReadStatus = 'ok' | 'cached' | 'failed' | 'budget' | 'no_sources'
+export type ReadStatus = 'ok' | 'cached' | 'failed' | 'budget' | 'limit' | 'no_sources'
 export interface ReadOutcome { status: ReadStatus; plan: WatchPlan | null; detail: string; cost_usd: number }
 
 /** The part of UsdBudget the reader uses — a test hands in a fake. */
@@ -210,6 +210,33 @@ function basePlan(row: ReaderRow, src: ResearchSources, now: Date): WatchPlan {
   }
 }
 
+/**
+ * The record-only base plan for a report `readResearchPlan` has never once been called for, built while the
+ * provider's usage limit already holds elsewhere on the machine. Without this, a report that only shows up
+ * AFTER the limit is already known stays unwatched for the whole outage: the machine's one probe a tick keeps
+ * going to a report that already has a plan, so one that has never been read never gets a turn to make one.
+ *
+ * It touches no model and spends no budget — the same record-only fields `readResearchPlan` itself falls back
+ * to on a real limit (the bad case, the kill criteria), read straight off the files already on disk. The
+ * result is recorded and treated exactly like any other `limit` outcome, so the very next probe that reaches
+ * this report tries a real read in its place.
+ */
+export function fallbackLimitPlan(row: ReaderRow, deps: Pick<ReaderDeps, 'now' | 'stateDir' | 'analysesDir'> = {}): ReadOutcome {
+  const clock = deps.now ?? (() => new Date())
+  const stateDir = deps.stateDir ?? STATE_DIR
+  const src = loadResearchSources(row.run_root, deps.analysesDir ?? ANALYSES_DIR)
+  if (!src) return { status: 'no_sources', plan: null, detail: 'The research files could not be read.', cost_usd: 0 }
+  const detail = "The plan's usage limit holds elsewhere on the machine, so this report has not been read yet."
+  // A plan already read successfully (found on disk though this row's own state carried nothing) is kept as
+  // it is, exactly as a real limited read would keep it (the same rule `readResearchPlan`'s `existing` follows).
+  const existing = loadPlan(src.runSeg, stateDir)
+  if (existing?.reader.status === 'ok') return { status: 'limit', plan: existing, detail, cost_usd: 0 }
+  const base = basePlan(row, src, clock())
+  const plan: WatchPlan = { ...base, reader: { ...base.reader, detail } }
+  savePlan(plan, stateDir)
+  return { status: 'limit', plan, detail, cost_usd: 0 }
+}
+
 export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): Promise<ReadOutcome> {
   const clock = deps.now ?? (() => new Date())
   const stateDir = deps.stateDir ?? STATE_DIR
@@ -251,7 +278,7 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   // Out of allowance: keep what the record itself stores as data watched (saved, so the watcher can use it)
   // and say why the text is not read yet. A plan read earlier stays as it is.
   const overLimit = (): ReadOutcome => {
-    if (existing) return { status: 'budget', plan: existing, detail: limitText, cost_usd: 0 }
+    if (existing?.reader.status === 'ok') return { status: 'budget', plan: existing, detail: limitText, cost_usd: 0 }
     const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: limitText } }
     savePlan(plan, stateDir)
     return { status: 'budget', plan, detail: limitText, cost_usd: 0 }
@@ -277,9 +304,30 @@ export async function readResearchPlan(row: ReaderRow, deps: ReaderDeps = {}): P
   } catch (e: any) {
     outcome = { costUsd: 0, error: String(e?.message ?? e) }
   }
-  const cost = model.provider === 'codex' ? hold : Math.max(0, Number(outcome.costUsd) || 0)
+  const limited = !!outcome.error && isUsageLimitError(outcome.error)
+  // Codex is charged at a fixed ESTIMATE rather than a measured cost (`hold`), and a turn its own limit
+  // rejected carried no answer at all — nothing was actually spent that the estimate could stand in for, so a
+  // limited Codex probe waives it. Charging the estimate anyway would spend the day's whole reading allowance
+  // on probes and then refuse to read once the provider's plan came back. Claude reports its own real cost on
+  // every result, including a limited one with a nonzero `total_cost_usd` (classifyChatLine keeps it) — that
+  // is what was actually spent, so it is reconciled exactly as any other Claude turn's cost is, limited or not.
+  const cost = model.provider === 'codex' ? (limited ? 0 : hold) : Math.max(0, Number(outcome.costUsd) || 0)
   budget.reconcile(reservation, cost)
 
+  // THE PLAN'S OWN USAGE LIMIT IS NOT A FAILED READ. It says nothing about this report — every read on the
+  // machine fails the same way until the plan resets, in about five hours. Counted as a failure it spent the
+  // three attempts at once and then stood the report down for a day: on the live cockpit all ten reports
+  // failed inside 23 seconds and none was read again that day. It is recorded like the daily reading limit —
+  // a reason the text is not read YET, with the record's own bad case and deal-breakers watched meanwhile.
+  if (limited && outcome.error) {
+    // Only a plan that was actually READ is kept: an older partial one would hold a corrected record's bad
+    // case and deal-breakers out of the watch for the whole outage, though `base` is already rebuilt from the
+    // current files (the same rule `failed` follows).
+    if (existing?.reader.status === 'ok') return { status: 'limit', plan: existing, detail: outcome.error, cost_usd: cost }
+    const plan: WatchPlan = { ...base, reader: { ...base.reader, detail: outcome.error } }
+    savePlan(plan, stateDir)
+    return { status: 'limit', plan, detail: outcome.error, cost_usd: cost }
+  }
   if (outcome.error) return failed(outcome.error, cost, model.id)
   const parsed = parseReaderJson(text)
   if (!parsed) return failed('The answer was not the list that was asked for.', cost, model.id)
