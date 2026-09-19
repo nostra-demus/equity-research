@@ -69,6 +69,7 @@ import {
   replaceAllDurableQueueItems,
   replaceDurableQueueLane,
   replaceDurableQueueWindow,
+  isTerminalEvent,
   retireDurableQueueItems,
   type LegacyQueueRow,
 } from './durable-queue'
@@ -2688,7 +2689,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Final cleanup is deliberately AFTER all derived sinks. Shrink the exact recovery journal only when the
   // firehose is durable and those idempotent recovery stages have been attempted.
   const retryState: NonNullable<NewsItem['feed_pending']> = feedAppend.status === 'cap' ? 'cap' : 'io_failure'
-  const retryRows = [
+  const rawRetryRows = [
     // Keep a durable exact acknowledgement receipt until the dedup cache is also durable. Otherwise a
     // source redelivery after rollover could pay for and append the same event again.
     ...(!seenPersisted
@@ -2698,6 +2699,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...feedUnwrittenRows.map((t) => ({ ...t, feed_pending: retryState })),
     ...deferred,
   ]
+  const seenRetryIds = new Set<string>()
+  const retryRows: NewsItem[] = []
+  for (const row of rawRetryRows) {
+    if (seenRetryIds.has(row.event_id)) continue
+    seenRetryIds.add(row.event_id)
+    retryRows.push(row)
+  }
   const stampedRetryRows = stampDeferred(retryRows, ts)
   deferredPersisted = persistDeferred(stateDir, stampedRetryRows, log)
   // A false writer result can still leave its atomic pending journal complete. Inspect both authorities and

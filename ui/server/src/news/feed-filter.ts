@@ -72,6 +72,8 @@ export interface FeedFilterQuery {
   // substring, never replacing it, so this can only ever widen a keyword search, never lose a hit. Ignored
   // unless `text` itself is set (it is a reading OF the text, not a filter of its own).
   textAs?: { ticker?: string; name?: string; aliases?: string[]; listingCountry?: string | null }[]
+  hideHKListings?: boolean
+  hideINListings?: boolean
 }
 
 /** Is the pick-a-company clause actually ON? Ticker OR name OR a non-empty alias list (name OR ticker
@@ -99,7 +101,8 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
     (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope ||
-    companyClauseSet(q.company) || !!(q.text && q.text.trim())
+    companyClauseSet(q.company) || !!(q.text && q.text.trim()) ||
+    !!q.hideHKListings || !!q.hideINListings
   )
 }
 
@@ -123,6 +126,8 @@ const bandOf = (it: FeedItem): string =>
 
 /** Does this item satisfy every set clause of the filter? Mirrors the web matchesFilters exactly. */
 export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
+  if (q.hideHKListings && (it.companies || []).some((c) => c.listing_country === 'HK')) return false
+  if (q.hideINListings && (it.companies || []).some((c) => c.listing_country === 'IN')) return false
   if (q.themes && q.themes.length > 0 && !(it.event_types || []).some((t) => q.themes!.includes(t))) return false
   if (q.country && (it.country || '') !== q.country) return false
   if (q.geoRegion && regionOfCountry(it.country) !== q.geoRegion) return false
@@ -179,6 +184,8 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     // scheduled-event kinds are lowercase ids (news/schedule.ts ScheduledEventKind)
     scheduledEvents: scheduledRaw ? scheduledRaw.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) : undefined,
     wireScope: str(raw.wireScope),
+    hideHKListings: raw.hideHKListings === 'true',
+    hideINListings: raw.hideINListings === 'true',
     // pick-a-company: ticker + tickerAliases upcased (tags carry upper-case symbols); name/aliases stay
     // verbatim for the substring
     company: (() => {
