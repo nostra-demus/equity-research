@@ -14,7 +14,7 @@ import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
   __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, finalizeRunOnClose, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
 
@@ -317,9 +317,15 @@ try {
   deferred.publicationToken = randomUUID()
   beginExecutionAttempt(deferred)
   fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":2}\n')
+  // The Idea-publication gate is still on disk while the supervisor commits (it is cleared only afterwards),
+  // and /research:full publishes the whole run root. The gate is control state the data catalogue rejects:
+  // sealed into the snapshot it made a publication no retry could publish (2026-09-17 outage).
+  fs.writeFileSync(path.join(deferredAbsolute, '.requires_idea_publication'), '')
   let deferredCommits = 0
-  const deferredCommitter = __setSupervisorCommitter(async () => {
+  const deferredPublishedPaths: string[][] = []
+  const deferredCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
     deferredCommits++
+    deferredPublishedPaths.push([...pathspecs])
     return 'COMMIT_SHA=2222222222222222222222222222222222222222'
   })
   const deferredVerifier = __setSupervisorCommitVerifier(async () => {})
@@ -332,6 +338,9 @@ try {
     assert.equal(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance, undefined)
     await drainPublicationIntents(deferred)
     assert.equal(deferredCommits, 2, 'the close-owned drain publishes the primary bytes then the deterministic SHA backfill')
+    assert.ok(deferredPublishedPaths[0].includes(`${deferredRoot}/decision_record.json`))
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.requires_idea_publication')), [],
+      'a run-root pathspec never sweeps the supervisor publication gate into the immutable snapshot')
     assert.equal(deferred.publicationCompleted, true)
     assert.ok(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance)
     assert.doesNotMatch(fs.readFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'utf8'), /to be filled/)
@@ -447,6 +456,23 @@ try {
       if (fs.existsSync(heldReadyPath)) fs.renameSync(heldReadyPath, readyPath)
     }
 
+    // 2026-09-17 outage: this pass runs before listen(), so a rejection that escaped it stopped the whole
+    // cockpit and launchd restarted it straight back into the same rejection until an operator intervened. A sealed
+    // publication Git/the catalogue refuses must be reported and retained, never thrown.
+    const rejectingCommitter = __setSupervisorCommitter(async () => {
+      throw Object.assign(new Error('Command failed with exit code 5'), {
+        stderr: 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data',
+      })
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 0,
+        'a sealed publication that cannot publish is reported, not thrown into the startup path')
+      assert.equal(fs.existsSync(readyPath), true, 'the rejected receipt is retained for the next recovery pass')
+      assert.deepEqual(listReadyPublicationFailures().map((item) => [item.entry, item.error]), [
+        [`${postCommitRun.runId}.json`, 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data'],
+      ])
+    } finally { __setSupervisorCommitter(rejectingCommitter) }
+
     __setPublicationAuthoritySealer(postCommitSealer)
     let recoveryCommits = 0
     const recoveryCommitter = __setSupervisorCommitter(async () => {
@@ -460,6 +486,7 @@ try {
       assert.equal(providerCalls, 0, 'provider recovery is never involved in the publication crash window')
       assert.equal(readLastProviderSelection(postCommitRoot, 'published')?.profileKey, profile.key)
       assert.equal(await recoverReadyPublications(), 0, 'the receipt clears only after authority is durable')
+      assert.deepEqual(listReadyPublicationFailures(), [], 'a later successful pass clears the reported failure')
     } finally { __setSupervisorCommitter(recoveryCommitter) }
   } finally {
     __setPublicationAuthoritySealer(postCommitSealer)
