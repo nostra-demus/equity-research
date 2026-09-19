@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:20:07Z",
+  "generated_at": "2026-09-19T02:22:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -961,6 +961,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-067",
+      "headline": "Paramount in talks to settle antitrust lawsuit blocking WBD deal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e0e384b8-aa4c-4948-b4ee-7bdff414641b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:37:52Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Paramount is attempting to settle an antitrust lawsuit that is currently blocking a potential deal with Warner Bros. Discovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Paramount is attempting to settle an antitrust lawsuit that is currently blocking a potential deal with Warner Bros. Discovery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-052",
       "headline": "Tata Sons set ball rolling for listing after RBI diktat; February 2027 emerges as approximate internal target",
       "headline_en": null,
@@ -1236,6 +1291,55 @@
           "name": "VerifyMe, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-066",
+      "headline": "Noel Tata raises ‘strong objection’ to Tata Sons conduct, calls Chandra vote ‘null and void’",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/noel-tata-calls-tata-sons-chandra-vote-null-and-void-alleges-breach-of-trust/articleshow/134346278.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T01:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Noel Tata has formally challenged the validity of a board vote, indicating significant internal governance conflict at Tata Sons.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Noel Tata has formally challenged the validity of a board vote, indicating significant internal governance conflict at Tata Sons.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1802,109 +1906,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-064",
-      "headline": "ZOR: MAP TEST [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZOR?key=2924-03137296-6A1344556",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-19T01:42:34Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "ZOR announced a price-sensitive map test event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "ZOR announced a price-sensitive map test event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZOR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-022",
-      "headline": "FortuneX Acquisition Corporation and WT Realty Group Inc. Announce Business Combination Agreement",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/19/3364987/0/en/fortunex-acquisition-corporation-and-wt-realty-group-inc-announce-business-combination-agreement.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-19T00:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "FortuneX Acquisition Corporation and WT Realty Group Inc. have entered into a definitive business combination agreement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FortuneX Acquisition Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "WT Realty Group Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167020,9 +167021,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1235830,
-    "news_picked_today": 67,
-    "news_dropped_today": 1061
+    "news_seen_today": 1272904,
+    "news_picked_today": 70,
+    "news_dropped_today": 1082
   },
   "book_momentum": {
     "live_count": 8,
