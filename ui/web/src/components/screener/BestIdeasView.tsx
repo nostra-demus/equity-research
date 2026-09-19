@@ -47,7 +47,7 @@ const CLOCK_SKEW_MS = 5 * 60_000
 const RUN_DAY_SKEW_MS = 14 * 60 * 60_000
 const OUTCOME_HEALTH_MIN_TTL_MS = 30 * 60_000
 const OUTCOME_HEALTH_MAX_TTL_MS = 24 * 60 * 60_000
-const LEAD_RESEARCH_PRIORITY_CAP = 62
+const LEAD_RESEARCH_PRIORITY_CAP = 100
 const LEGACY_LEAD_RESEARCH_PRIORITY_CAP = 44
 const ACTIONABLE_LONG_DECISIONS = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
 const CALIBRATION_NOTES = Object.freeze({
@@ -726,7 +726,7 @@ function archivedBoardIdea(value: unknown): value is ArchivedBoardIdea {
     && typeof value.reason === 'string'
     && typeof value.why_now === 'string'
     && finiteNumber(value.trade_score)
-    && ['evidence_gate_v1', 'evidence_gate_v2', 'pre_edge_proxy_legacy'].includes(String(value.trade_score_basis))
+    && ['evidence_gate_v1', 'evidence_gate_v2', 'event_driven_v3', 'pre_edge_proxy_legacy'].includes(String(value.trade_score_basis))
     && Array.isArray(value.missing_checks) && value.missing_checks.every((item) => typeof item === 'string')
     && nonBlank(value.thesis_type)
     && Array.isArray(value.source_headlines) && value.source_headlines.every((item) => typeof item === 'string')
@@ -1259,6 +1259,10 @@ export function qualifiedIdeaSourceRows(candidate: QualifiedIdeaEvaluation['cand
 }
 
 export function ideaScorePresentation(idea: Pick<BoardIdea, 'trade_score_basis'>): { label: string; title: string } {
+  if (idea.trade_score_basis === 'event_driven_v3') return {
+    label: 'lead research priority',
+    title: 'Institutional event-driven research priority (0–100) calibrated across catalyst magnitude, timing, primary source authority, pricing room, and tradability. Ranks what to research first.',
+  }
   if (idea.trade_score_basis === 'evidence_gate_v2') return {
     label: 'lead research priority',
     title: 'News-only research priority, capped at 62/100 pending verified live price, liquidity, consensus, and full research. It is not investment conviction or a recommendation.',
@@ -1279,11 +1283,13 @@ export function leadResearchPriorityValue(
   const raw = finiteNumber(idea.trade_score)
     ? idea.trade_score
     : finiteNumber(idea.conviction) ? idea.conviction : 0
-  const cap = idea.trade_score_basis === 'evidence_gate_v2'
+  const cap = idea.trade_score_basis === 'event_driven_v3'
     ? LEAD_RESEARCH_PRIORITY_CAP
-    : idea.trade_score_basis === 'evidence_gate_v1'
-      ? LEGACY_LEAD_RESEARCH_PRIORITY_CAP
-      : 100
+    : idea.trade_score_basis === 'evidence_gate_v2'
+      ? 62
+      : idea.trade_score_basis === 'evidence_gate_v1'
+        ? LEGACY_LEAD_RESEARCH_PRIORITY_CAP
+        : 100
   return Math.max(0, Math.min(cap, raw))
 }
 
@@ -1417,30 +1423,54 @@ export function NewsLeadCard(props: NewsLeadCardProps) {
   const researchPriority = leadResearchPriorityValue(idea)
   const expiredAt = auditOnly ? qualifiedShortDate(idea.decay_at) : null
   const timelineStatus = props.timelineStatus
-  const statusLabel = timelineStatus === 'current'
-    ? 'Current'
-    : timelineStatus === 'promoted'
-      ? 'Sent to full research'
-      : timelineStatus === 'expired'
-        ? 'Expired'
-        : auditOnly ? 'expired lead · audit only' : 'unverified news-only lead'
+
+  // Event linking: resolve the source event so clicking opens it in EventDetail
+  const scSelectEvent = useStore((s) => s.scSelectEvent)
+  const newsItems = useStore((s) => s.newsItems)
+  const sourceEventId = idea.source_event_ids?.[0]
+  const linkedEvent = sourceEventId ? newsItems.find((it) => it.event_id === sourceEventId) : null
+
+  // Priced-in presentation
+  const pricedInLabel = idea.priced_in === 'room'
+    ? 'Room to run'
+    : idea.priced_in === 'priced'
+      ? 'Likely priced in'
+      : 'Unknown'
+  const pricedInTone = idea.priced_in === 'room' ? 'room' : idea.priced_in === 'priced' ? 'priced' : 'unknown'
+
+  // Urgency breakdown: build a short human-readable basis from what we know
+  const urgencyBasis: string[] = []
+  if (idea.missing_checks?.length) {
+    const hasTimingGap = idea.missing_checks.some((c) => c.includes('catalyst') || c.includes('dated'))
+    if (!hasTimingGap) urgencyBasis.push('dated catalyst')
+  } else {
+    urgencyBasis.push('dated catalyst')
+  }
+  if (idea.priced_in === 'room') urgencyBasis.push('not yet priced')
+  if (!rated) urgencyBasis.push('fresh')
+  if (macro) urgencyBasis.push('macro bet')
+
   return (
     <article className={`bidea bidea--lead${auditOnly ? ' bidea--expired' : ''}`}>
+      {/* ROW 1: Header — ticker, company, recency */}
       <div className="bidea__head">
         <span className="bidea__ticker">{ticker}</span>
         {company && <span className="bidea__co">{company}</span>}
         {idea.newest_source_at && <span className="bidea__ago">{agoLabel(idea.newest_source_at)}</span>}
       </div>
 
+      {/* ROW 2: The Idea — what is this about, in plain English */}
       <p className="bidea__reason">{idea.reason || 'No plain-English reason produced for this idea.'}</p>
 
+      {/* ROW 3: Why Now — the time-sensitive catalyst */}
       {idea.why_now && (
         <p className="bidea__why"><span className="bidea__whylabel">why now —</span> {idea.why_now}</p>
       )}
 
+      {/* ROW 4: Proof — clickable source link, clean */}
       {(idea.source_headlines?.[0] || idea.source_name) && (
-        <p className="bidea__source">
-          <span>{auditOnly ? 'expired unverified lead · ' : 'unverified lead · '}</span>
+        <p className="bidea__proof">
+          <span className="bidea__prooflabel">proof</span>
           {idea.source_url
             ? <a href={idea.source_url} target="_blank" rel="noreferrer">{idea.source_headlines?.[0] || idea.source_name}</a>
             : <span>{idea.source_headlines?.[0] || idea.source_name}</span>}
@@ -1449,12 +1479,44 @@ export function NewsLeadCard(props: NewsLeadCardProps) {
         </p>
       )}
 
-      <div className="bidea__tags">
-        <span className={`bidea__tag ${auditOnly ? 'bidea__tag--expired' : 'bidea__tag--lead'}`}>
-          {statusLabel}
-        </span>
-        {timelineStatus === 'expired' && <span className="bidea__tag">Saved record · view only</span>}
-        {auditOnly && expiredAt && <span className="bidea__tag">past shelf life since {expiredAt}</span>}
+      {/* ROW 5: Metrics — Urgency + Priced In, side by side */}
+      <div className="bidea__metrics">
+        <div className="bidea__urgency" title={scorePresentation.title}>
+          <span className="bidea__metriclabel">{auditOnly ? 'historical urgency' : 'urgency'}</span>
+          <span className="bidea__metricnum">{researchPriority}<span className="bidea__metricden">/100</span></span>
+          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${researchPriority}%` }} /></span>
+          {urgencyBasis.length > 0 && <span className="bidea__metricbasis">{urgencyBasis.join(' + ')}</span>}
+        </div>
+        <div className={`bidea__pricedin bidea__pricedin--${pricedInTone}`}>
+          <span className="bidea__metriclabel">priced in?</span>
+          <span className={`bidea__pricedpill bidea__pricedpill--${pricedInTone}`}>{pricedInLabel}</span>
+          <span className="bidea__pricednote">
+            {idea.priced_in === 'room' ? 'LLM estimate — market may not have reacted yet'
+              : idea.priced_in === 'priced' ? 'LLM estimate — consensus may already reflect this'
+                : 'Insufficient data to judge'}
+          </span>
+        </div>
+      </div>
+
+      {/* ROW 6: Linked event — click to open the event in the Events tab */}
+      {linkedEvent && (
+        <button
+          type="button"
+          className="bidea__eventlink"
+          onClick={() => scSelectEvent(linkedEvent)}
+          title="Open this event in the Events panel to study both together"
+        >
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+            <path d="M6.5 3.5h-3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <path d="M9 2.5h4.5V7M13.5 2.5 8 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Linked event: {idea.source_headlines?.[0] || 'View source event'} →</span>
+        </button>
+      )}
+
+      {/* Compact tags — only the essential status & warning flags */}
+      <div className="bidea__tags bidea__tags--compact">
+        {auditOnly && expiredAt && <span className="bidea__tag bidea__tag--expired">expired · {expiredAt}</span>}
         {themeAttribution && (
           <span className="bidea__tag bidea__tag--theme" title={themeAttribution.title}>
             {themeAttribution.label}
@@ -1462,29 +1524,33 @@ export function NewsLeadCard(props: NewsLeadCardProps) {
         )}
         {pair && <span className="bidea__tag">pair · {side === 'long' ? `short ${idea.pair_with}` : `long ${idea.ticker}`}</span>}
         {macro && <span className="bidea__tag bidea__tag--warn">{prettyType(idea.thesis_type)} bet — not a pure stock pick</span>}
-        {idea.priced_in === 'room' && <span className="bidea__tag">may not be priced in yet</span>}
-        {idea.priced_in === 'priced' && <span className="bidea__tag">may already be priced in</span>}
         {!!idea.missing_checks?.length && <span className="bidea__tag bidea__tag--warn">needs {idea.missing_checks.slice(0, 2).join(' + ')}</span>}
         <span className={`bidea__tag bidea__tag--cov${rated ? ' bidea__tag--rated' : ''}`}>
           {rated
             ? `already rated${pc?.latest_decision ? ` · ${pc.latest_decision}` : ''}`
-            : pc?.data_pool_present ? 'data on file — never rated' : 'fresh — never rated'}
+            : pc?.data_pool_present ? 'data on file' : 'fresh — never rated'}
         </span>
       </div>
 
-      <div className="bidea__foot">
-        <div className="bidea__read" title={scorePresentation.title}>
-          <span className="bidea__readlabel">{auditOnly ? `historical ${scorePresentation.label}` : scorePresentation.label}</span>
-          <span className="bidea__readnum">{researchPriority}<span className="bidea__readden">/100</span></span>
-          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${researchPriority}%` }} /></span>
-        </div>
-        {!props.auditOnly && !filed && props.idea.status !== 'promoted' && (
+      {/* Footer: feedback + CTA */}
+      {!props.auditOnly && !filed && props.idea.status !== 'promoted' && (
+        <div className="bidea__foot">
           <div className="bidea__actions">
             {props.idea.promotion_available !== false && <IdeaFeedback idea={props.idea} onAction={props.onAction} />}
             <PromoteButton idea={props.idea} onAction={props.onAction} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {props.idea.status === 'promoted' && (
+        <div className="bidea__foot">
+          <span className="bidea__promotedlabel">Sent to full research</span>
+        </div>
+      )}
+      {props.auditOnly && (
+        <div className="bidea__foot">
+          <span className="bidea__auditlabel">Saved record · view only</span>
+        </div>
+      )}
     </article>
   )
 }
@@ -1531,7 +1597,14 @@ export function ideasTimelineForSide(
     rows.push({ key, idea, status: 'expired', auditOnly: true, timestamp: archivedIdeaTime(idea) })
   }
   const group = { current: 0, promoted: 1, expired: 2 }
-  rows.sort((a, b) => group[a.status] - group[b.status] || b.timestamp - a.timestamp || a.key.localeCompare(b.key))
+  rows.sort((a, b) => {
+    if (group[a.status] !== group[b.status]) return group[a.status] - group[b.status]
+    if (a.status === 'current') {
+      const priorityDiff = leadResearchPriorityValue(b.idea) - leadResearchPriorityValue(a.idea)
+      if (priorityDiff !== 0) return priorityDiff
+    }
+    return b.timestamp - a.timestamp || a.key.localeCompare(b.key)
+  })
   return { rows, archive }
 }
 

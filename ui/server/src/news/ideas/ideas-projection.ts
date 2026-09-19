@@ -216,10 +216,8 @@ function projectIdeaRow(rec: SurfacedIdea, feedback: Map<string, 'up' | 'down' |
     why_now: typeof rec.why_now === 'string' ? rec.why_now : '',
     conviction,
     conviction_basis: 'pre_edge_proxy',
-    // V1 could call directory presence "liquidity" and emit check_now. During a rolling deploy its
-    // cached score is not comparable with V2's always-needs-live-data ceiling, so demote it explicitly.
     trade_score: legacyEvidenceGate ? Math.min(safeInt(rec.trade_score, conviction), 44) : safeInt(rec.trade_score, conviction),
-    trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' || rec.trade_score_basis === 'evidence_gate_v2'
+    trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' || rec.trade_score_basis === 'evidence_gate_v2' || rec.trade_score_basis === 'event_driven_v3'
       ? rec.trade_score_basis : 'pre_edge_proxy_legacy',
     trade_score_breakdown: rec.trade_score_breakdown && typeof rec.trade_score_breakdown === 'object' ? rec.trade_score_breakdown : null,
     trade_readiness: legacyEvidenceGate
@@ -278,7 +276,7 @@ function projectImportedArchiveRow(rec: Record<string, unknown>, archivedAt: str
     conviction,
     conviction_basis: 'pre_edge_proxy',
     trade_score: legacyEvidenceGate ? Math.min(safeInt(rec.trade_score, conviction), 44) : safeInt(rec.trade_score, conviction),
-    trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' || rec.trade_score_basis === 'evidence_gate_v2'
+    trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' || rec.trade_score_basis === 'evidence_gate_v2' || rec.trade_score_basis === 'event_driven_v3'
       ? rec.trade_score_basis : 'pre_edge_proxy_legacy',
     trade_score_breakdown: rec.trade_score_breakdown && typeof rec.trade_score_breakdown === 'object' ? rec.trade_score_breakdown : null,
     trade_readiness: legacyEvidenceGate ? 'watch_only'

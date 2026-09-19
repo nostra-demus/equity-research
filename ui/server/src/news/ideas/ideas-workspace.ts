@@ -58,8 +58,12 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
     const narrative = theme.narrative
     if (!narrative || theme.needs_validation || theme.needs_rename || theme.narrative_update_overflow) continue
     const usableSummary = updates.length === 0 && !theme.needs_narrative_update && narrative.evidence.every((e) => reports.some((r) => r.event_id === e.event_id))
+    const peakMemberScore = Math.max(0, ...theme.members.map((m) => m.score))
+    const corroborationBonus = Math.min(10, (new Set(reports.map((r) => r.family)).size - 1) * 3)
+    const actionableBonus = usableSummary ? 5 : 0
+    const eventPriority = Math.min(100, peakMemberScore + corroborationBonus + actionableBonus)
     const aliases = [`theme:${theme.theme_id}`, ...reports.map((r) => `family:${r.family}`)]
-    const card = shell('event', aliases, {}, reports[0].at, Math.max(...theme.members.map((m) => m.score)))
+    const card = shell('event', aliases, {}, reports[0].at, eventPriority)
     card.event = { title: usableSummary ? theme.name : reports[0].headline, latest_change: reports[0].headline,
       implications: usableSummary ? narrative.mechanism_steps : [], summary_status: usableSummary ? 'available' : 'reports_only',
       regions: [...new Set(theme.members.flatMap((m) => m.country ? [m.country] : []))],
