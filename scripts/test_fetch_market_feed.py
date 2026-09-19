@@ -81,6 +81,94 @@ def test_it_writes_the_shape_the_readers_expect() -> None:
         assert sidecar["received"].endswith("Z") and received.tzinfo is not None
 
 
+def test_a_rate_keeps_its_zeroes_while_an_index_drops_them() -> None:
+    # A rate of 0.00% is an observation — three-month bills printed it for months in 2020-21 — while an
+    # index level of zero is a bad row. The two series share a parser and must not share that rule.
+    raw = b"observation_date,DTB3\n2021-01-04,0.09\n2021-01-05,.\n2021-01-06,0.00\n"
+    assert M.parse(raw, M.DTB3) == [("2021-01-04", 0.09), ("2021-01-06", 0.0)]
+    assert M.parse(b"observation_date,SP500\n2026-08-21,0.00\n2026-08-24,7652.86\n") == [("2026-08-24", 7652.86)]
+
+
+def test_non_finite_rates_are_dropped_not_accepted_as_zero() -> None:
+    # positive_only=False means DTB3's own ValueError-based skip (the '.' / malformed-line case) is not
+    # what stops a non-finite value — float() parses "nan" and the infinities without raising. A
+    # non-finite rate is not a real observation: if it were kept and happened to carry the newest date,
+    # it would be written and reported as a successful fresh feed, then silently discarded downstream by
+    # the TypeScript reader's own Number.isFinite guard — a refresh that looks healthy and never happened.
+    raw = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,nan\n2026-09-16,inf\n"
+    assert M.parse(raw, M.DTB3) == [("2026-09-14", 4.10)], M.parse(raw, M.DTB3)
+    raw2 = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,-inf\n"
+    assert M.parse(raw2, M.DTB3) == [("2026-09-14", 4.10)], M.parse(raw2, M.DTB3)
+
+
+def test_a_misrouted_response_is_refused_not_written_under_the_wrong_series() -> None:
+    # `parse` is shared by both series. A cached, misrouted, or stale response carrying the OTHER series'
+    # column — e.g. an `observation_date,SP500` body served back for a DTB3 request — must be refused
+    # outright, not accepted and written under the wrong filename and provenance: index LEVELS (~7,000)
+    # treated as a PERCENT rate would corrupt every Sharpe/Sortino/hurdle computed from it.
+    sp500_body = b"observation_date,SP500\n2026-09-14,7674.37\n2026-09-15,7652.86\n"
+    try:
+        M.parse(sp500_body, M.DTB3)
+    except RuntimeError as exc:
+        assert "DTB3" in str(exc), exc
+    else:
+        raise AssertionError("an SP500 body answering a DTB3 request must be refused, not accepted")
+    # And the reverse: a DTB3 body must not be accepted as SP500.
+    dtb3_body = b"observation_date,DTB3\n2026-09-14,4.10\n2026-09-15,4.11\n"
+    try:
+        M.parse(dtb3_body, M.SP500)
+    except RuntimeError as exc:
+        assert "SP500" in str(exc), exc
+    else:
+        raise AssertionError("a DTB3 body answering an SP500 request must be refused, not accepted")
+    # The matching column for the series actually asked for still parses normally.
+    assert M.parse(sp500_body, M.SP500) == [("2026-09-14", 7674.37), ("2026-09-15", 7652.86)]
+    assert M.parse(dtb3_body, M.DTB3) == [("2026-09-14", 4.10), ("2026-09-15", 4.11)]
+
+
+def test_the_rate_series_writes_its_own_file_and_its_own_rights() -> None:
+    # Same lane, same shape, different rights: Treasury data is public domain where the index is not, and a
+    # sidecar that claimed the index's terms for it — or the reverse — would be wrong about both.
+    with tempfile.TemporaryDirectory() as tmp:
+        path = M.write_feed(tmp, [("2026-09-15", 4.11), ("2026-09-16", 4.09)], M.DTB3)
+        assert path.endswith(os.path.join("_market", "fred", "dtb3_2026-09-16.csv")), path
+        with open(path, encoding="utf-8") as fh:
+            rows = list(csv.reader(fh))
+        assert rows[0] == ["date", "symbol", "close"], rows[0]
+        assert rows[1] == ["2026-09-15", "DTB3", "4.11"], rows[1]
+        with open(path + ".source.json", encoding="utf-8") as fh:
+            sidecar = json.load(fh)
+        assert sidecar["series_id"] == "DTB3"
+        assert sidecar["license"] == "public_domain", sidecar["license"]
+        assert sidecar["licensing"]["redistribution"] == "allowed", sidecar["licensing"]
+        assert "percent per year" in sidecar["units"], sidecar["units"]
+        assert sidecar["source_url"].endswith("id=DTB3"), sidecar["source_url"]
+
+
+def test_both_series_are_fetched_and_one_failure_does_not_cost_the_other() -> None:
+    # A hiccup on one series must not skip the day's refresh of the other, and the exit code still reports it.
+    assert [s.symbol for s in M.FEEDS] == ["SP500", "DTB3"], M.FEEDS
+    with tempfile.TemporaryDirectory() as tmp:
+        calls: list[str] = []
+
+        def fake_fetch(url, source, **kwargs):  # noqa: ANN001 — a stand-in for the SSRF-bounded fetch
+            calls.append(url)
+            if "DTB3" in url:
+                raise RuntimeError("FRED said no")
+            return b"observation_date,SP500\n2026-08-24,7652.86\n"
+
+        real_fetch, real_argv = M.fetch_bytes, sys.argv
+        M.fetch_bytes = fake_fetch
+        sys.argv = ["fetch_market_feed.py", "--data-root", tmp]
+        try:
+            code = M.main()
+        finally:
+            M.fetch_bytes, sys.argv = real_fetch, real_argv
+        assert code == 1, "a failed series is reported in the exit code"
+        assert len(calls) == 2, calls
+        assert os.path.exists(os.path.join(tmp, "_market", "fred", "sp500_2026-08-24.csv")), "the one that worked is written"
+
+
 def test_the_host_is_pinned() -> None:
     # It reaches the network through the connectors' own SSRF boundary, so it cannot be redirected at
     # an arbitrary host any more than a connector could.
@@ -488,6 +576,12 @@ def main() -> int:
     check("junk rows are skipped and the series is sorted", test_junk_is_skipped_and_order_forced)
     check("a wrong-shaped response is refused, not half-read", test_wrong_shape_is_refused_not_half_read)
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
+    check("a rate keeps its zeroes while an index drops them", test_a_rate_keeps_its_zeroes_while_an_index_drops_them)
+    check("non-finite rates (nan/inf) are dropped, not accepted as a real observation", test_non_finite_rates_are_dropped_not_accepted_as_zero)
+    check("a misrouted response answering the wrong series is refused, not written under the wrong name", test_a_misrouted_response_is_refused_not_written_under_the_wrong_series)
+    check("the rate series writes its own file and its own rights", test_the_rate_series_writes_its_own_file_and_its_own_rights)
+    check("both series are fetched, and one failing does not cost the other",
+          test_both_series_are_fetched_and_one_failure_does_not_cost_the_other)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("a failed fetch is reported as failed, not as a skip", test_a_failed_fetch_reports_itself)
     check("the pool path is redacted from the published refresh status", test_pool_path_is_redacted_from_refresh_status)

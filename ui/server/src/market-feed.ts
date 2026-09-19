@@ -31,8 +31,8 @@ function isIsoDate(s: string): boolean {
 
 /** Parse one feed CSV's text and return the requested symbol's date→close rows it carries. Shared by
  *  `readCloses` (every file) and `readNewestClose` (the single newest file), so the row-validity rules —
- *  the documented header shape, a real calendar date, a positive close — live in exactly one place. */
-function parseFeedCsv(text: string, want: string): Map<string, number> {
+ *  the documented header shape, a real calendar date, a valid close — live in exactly one place. */
+function parseFeedCsv(text: string, want: string, keep: (value: number) => boolean = (n) => n > 0): Map<string, number> {
   const byDate = new Map<string, number>()
   const lines = text.split(/\r?\n/)
   if (lines.length < 2) return byDate
@@ -46,37 +46,18 @@ function parseFeedCsv(text: string, want: string): Map<string, number> {
     if (row.length <= Math.max(iDate, iSymbol, iClose)) continue
     if ((row[iSymbol] ?? '').trim().toUpperCase() !== want) continue
     const date = (row[iDate] ?? '').trim()
-    const close = Number((row[iClose] ?? '').trim())
-    // A zero or negative close is not a price. Left in, it makes the ratio returns downstream read
-    // as a -100% move rather than as missing data.
-    if (!isIsoDate(date) || !Number.isFinite(close) || close <= 0) continue
+    const cell = (row[iClose] ?? '').trim()
+    // A BLANK CELL IS NOT A NUMBER, though `Number('')` is a perfectly finite zero. For a price the
+    // zero was refused anyway; for a rate it would be accepted as a real 0.00% — so a half-written or
+    // hand-edited row would become the cash hurdle every risk ratio is measured against.
+    if (cell === '') continue
+    const close = Number(cell)
+    // For a price, zero or negative is not an observation: left in, it makes the ratio returns
+    // downstream read as a -100% move rather than as missing data. A rate series keeps them.
+    if (!isIsoDate(date) || !Number.isFinite(close) || !keep(close)) continue
     byDate.set(date, close)
   }
   return byDate
-}
-
-/** Widest date span wins, and the provider name breaks a tie so the answer is stable across runs rather
- *  than depending on directory order. Shared by `readCloses` and `readNewestClose`: ONE PROVIDER ANSWERS,
- *  NEVER A BLEND. Two providers can both carry SPY on different bases — one adjusted for dividends and
- *  splits, one not — and merging them into a single date→close map produces a series that steps between
- *  the two whenever their dates interleave. Every return computed from it is then partly a switch of
- *  source, and which source wins on any given day is decided by the order the filesystem happened to
- *  list the folders. So the provider with the widest date span is used ALONE; the others are ignored
- *  rather than averaged or interleaved. */
-function pickWidestSpan(perProvider: Map<string, Map<string, number>>): Map<string, number> | null {
-  let chosen: Map<string, number> | null = null
-  let bestSpan = -1
-  for (const [, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
-    const dates = [...byDate.keys()].sort()
-    const span = Date.parse(`${dates[dates.length - 1]!}T00:00:00Z`) - Date.parse(`${dates[0]!}T00:00:00Z`)
-    if (Number.isFinite(span) && span > bestSpan) { bestSpan = span; chosen = byDate }
-  }
-  return chosen
-}
-
-function toSortedCloses(byDate: Map<string, number> | null): Close[] {
-  if (!byDate) return []
-  return [...byDate.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
 }
 
 function feedProviders(): string[] {
@@ -87,17 +68,36 @@ function feedProviders(): string[] {
   } catch { return [] } // no feed at all — the normal state before one is dropped in
 }
 
-/** Every daily close the feed holds for one symbol, oldest first, de-duplicated by date.
- *  Symbol matching is case-insensitive: a feed may write SPY, spy or ^GSPC casing. Reads and merges
- *  EVERY file under every provider — the right answer for an actual benchmark-return computation, which
- *  needs the full window. A caller that only needs to know whether the feed is CURRENT (not its whole
- *  history) wants `readNewestClose` instead: this function's cost grows with every file ever written to
- *  the feed, which is unbounded (see `readNewestClose`'s doc). */
-export function readCloses(symbol: string): Close[] {
+/** Widest date span wins, and the provider name breaks a tie so the answer is stable across runs rather
+ *  than depending on directory order. Shared by `readCloses` and `readNewestClose`: ONE PROVIDER ANSWERS,
+ *  NEVER A BLEND. Two providers can both carry SPY on different bases — one adjusted for dividends and
+ *  splits, one not — and merging them into a single date→close map produces a series that steps between
+ *  the two whenever their dates interleave. Every return computed from it is then partly a switch of
+ *  source, and which source wins on any given day is decided by the order the filesystem happened to
+ *  list the folders. So the provider with the widest date span is used ALONE; the others are ignored
+ *  rather than averaged or interleaved. */
+function pickWidestSpan(perProvider: Map<string, Map<string, number>>): { byDate: Map<string, number> | null; provider: string | null } {
+  let chosen: Map<string, number> | null = null
+  let chosenProvider: string | null = null
+  let bestSpan = -1
+  for (const [provider, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    const dates = [...byDate.keys()].sort()
+    const span = Date.parse(`${dates[dates.length - 1]!}T00:00:00Z`) - Date.parse(`${dates[0]!}T00:00:00Z`)
+    if (Number.isFinite(span) && span > bestSpan) { bestSpan = span; chosen = byDate; chosenProvider = provider }
+  }
+  return { byDate: chosen, provider: chosenProvider }
+}
+
+function toSortedCloses(byDate: Map<string, number> | null): Close[] {
+  if (!byDate) return []
+  return [...byDate.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
+}
+
+function readSeries(symbol: string, keep: (value: number) => boolean): { rows: Close[]; provider: string | null } {
   const want = symbol.trim().toUpperCase()
-  if (!want) return []
+  if (!want) return { rows: [], provider: null }
   const providers = feedProviders()
-  if (providers.length === 0) return []
+  if (providers.length === 0) return { rows: [], provider: null }
 
   const perProvider = new Map<string, Map<string, number>>()
   for (const provider of providers.slice().sort()) {
@@ -108,11 +108,35 @@ export function readCloses(symbol: string): Close[] {
     for (const file of files) {
       let text = ''
       try { text = fs.readFileSync(path.join(dir, file), 'utf8') } catch { continue }
-      for (const [date, close] of parseFeedCsv(text, want)) byDate.set(date, close)
+      for (const [date, close] of parseFeedCsv(text, want, keep)) byDate.set(date, close)
     }
     if (byDate.size > 0) perProvider.set(provider, byDate)
   }
-  return toSortedCloses(pickWidestSpan(perProvider))
+  const picked = pickWidestSpan(perProvider)
+  return { rows: toSortedCloses(picked.byDate), provider: picked.provider }
+}
+
+/** Every daily close the feed holds for one symbol, oldest first, de-duplicated by date.
+ *  Symbol matching is case-insensitive: a feed may write SPY, spy or ^GSPC casing. Reads and merges
+ *  EVERY file under every provider — the right answer for an actual benchmark-return computation, which
+ *  needs the full window. A caller that only needs to know whether the feed is CURRENT (not its whole
+ *  history) wants `readNewestClose` instead: this function's cost grows with every file ever written to
+ *  the feed, which is unbounded (see `readNewestClose`'s doc). */
+export function readCloses(symbol: string): Close[] {
+  return readSeries(symbol, (n) => n > 0).rows
+}
+
+/** The same feed read as a RATE series — a yield or a policy rate. Zero is a real observation there, not
+ *  the missing price `readCloses` drops it as: three-month bills printed 0.00% for months in 2020-21, and
+ *  dropping those days would leave the last rate before them standing as today's. */
+export function readRates(symbol: string): Close[] {
+  return readRateSeries(symbol).rows
+}
+
+/** The same rate series, with the name of the provider folder that answered — so a figure published from it
+ *  can be attributed to the source it actually came from rather than to the one usually expected. */
+export function readRateSeries(symbol: string): { rows: Close[]; provider: string | null } {
+  return readSeries(symbol, (n) => Number.isFinite(n))
 }
 
 /** The same answer as `readCloses` — provider selection and row rules are identical — but bounded to
@@ -152,10 +176,10 @@ export function readNewestClose(symbol: string): Close[] {
     if (!newest) continue
     let text = ''
     try { text = fs.readFileSync(path.join(dir, newest), 'utf8') } catch { continue }
-    const byDate = parseFeedCsv(text, want)
+    const byDate = parseFeedCsv(text, want, (n) => n > 0)
     if (byDate.size > 0) perProvider.set(provider, byDate)
   }
-  return toSortedCloses(pickWidestSpan(perProvider))
+  return toSortedCloses(pickWidestSpan(perProvider).byDate)
 }
 
 /** Whether any feed folder exists at all — lets the UI distinguish "no feed configured" from
