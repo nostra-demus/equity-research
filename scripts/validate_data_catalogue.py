@@ -5,6 +5,14 @@ The permanent-memory catalogue is part of the program. Autonomous data writes ma
 not edit it, but every tree they publish must still be fully covered by it. Reading
 the Git index/tree instead of the mutable worktree keeps this check race-safe for
 ``commit-run.sh``.
+
+``--paths`` answers the same question one step earlier, for a path list that is not
+staged yet: the cockpit supervisor asks it before it seals an immutable publication
+receipt, because a sealed list the catalogue rejects can never publish and is retried
+at every startup. It reads the same index catalogue and applies the same
+``uncovered_paths`` as ``--index``, so the two cannot disagree about the proposed paths.
+``--index`` and ``--tree`` still judge the WHOLE index or tree, so they can additionally
+fail on unrelated uncatalogued data this publication did not propose.
 """
 
 from __future__ import annotations
@@ -21,6 +29,7 @@ from typing import Any
 CATALOGUE_PATH = "frameworks/memory/phase0/catalogue.json"
 DATA_ROOTS = ("analyses/", "commodity/", "screener/", "watchlist/")
 IGNORED_NAMES = frozenset({".gitkeep"})
+MAX_PROPOSED_BYTES = 4 * 1024 * 1024
 
 
 class CatalogueError(RuntimeError):
@@ -87,6 +96,35 @@ def listed_paths(repo: pathlib.Path, source: str, index: bool) -> list[str]:
     return result
 
 
+def proposed_paths(raw: bytes) -> list[str]:
+    """Decode a NUL-separated path list. NUL is the one byte a path cannot contain."""
+    if len(raw) > MAX_PROPOSED_BYTES:
+        raise CatalogueError("proposed path list exceeds the 4 MiB safety limit")
+    result: list[str] = []
+    for encoded in raw.split(b"\0"):
+        if not encoded:
+            continue
+        try:
+            relative = encoded.decode("utf-8", "strict")
+        except UnicodeError as error:
+            raise CatalogueError("proposed path list contains a non-UTF-8 path") from error
+        # uncovered_paths() skips anything outside the data roots. That is right for --index, whose
+        # index also holds code, but here it would let a path pass without ever being judged:
+        # `./analyses/X/.interrupted` does not start with a data root, so it would slip the filter.
+        # A proposed publication path must be exactly the normalised repository-relative form Git
+        # reports; anything else is a caller bug and is refused rather than waved through.
+        parts = relative.split("/")
+        if (not relative.startswith(DATA_ROOTS) or "\\" in relative
+                or any(part in ("", ".", "..") for part in parts)):
+            raise CatalogueError(f"proposed path is not a normalised data path: {relative!r}")
+        result.append(relative)
+    if not result:
+        # An empty list would pass vacuously. A caller with nothing to publish has a bug upstream;
+        # never turn that into a PASS it can seal.
+        raise CatalogueError("no proposed paths were supplied")
+    return result
+
+
 def uncovered_paths(paths: list[str], patterns: list[str]) -> list[str]:
     compiled = [segment_glob(pattern) for pattern in patterns]
     uncovered: list[str] = []
@@ -124,16 +162,27 @@ def parse_args() -> argparse.Namespace:
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--index", action="store_true")
     source.add_argument("--tree")
+    source.add_argument(
+        "--paths", action="store_true",
+        help="validate NUL-separated repository paths from stdin against the index catalogue",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     repo = pathlib.Path(args.repo).resolve()
-    source = "" if args.index else args.tree
+    # --paths deliberately shares --index's catalogue source: it predicts the verdict commit-run.sh
+    # reaches moments later, so it must consult the very same catalogue bytes.
+    source = args.tree if args.tree else ""
+    subject = "proposed publication" if args.paths else "proposed tree"
     try:
         patterns = catalogue_patterns(load_catalogue(repo, source))
-        missing = uncovered_paths(listed_paths(repo, source, args.index), patterns)
+        candidates = (
+            proposed_paths(sys.stdin.buffer.read(MAX_PROPOSED_BYTES + 1))
+            if args.paths else listed_paths(repo, source, args.index)
+        )
+        missing = uncovered_paths(candidates, patterns)
     except CatalogueError as error:
         print(f"DATA-CATALOGUE: FAIL — {error}", file=sys.stderr)
         return 1
@@ -141,7 +190,7 @@ def main() -> int:
         shown = ", ".join(missing[:20])
         suffix = f" (+{len(missing) - 20} more)" if len(missing) > 20 else ""
         print(
-            f"DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data: {shown}{suffix}",
+            f"DATA-CATALOGUE: FAIL — {subject} has uncatalogued data: {shown}{suffix}",
             file=sys.stderr,
         )
         return 1
