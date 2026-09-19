@@ -816,7 +816,10 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
     entry: WatchEntry | null,
     engine: EngineWatchRow | null,
   ): MergedWatchRow => {
-    const q = input.quotes?.get(listing.listing_key) ?? { quote: null, reason: null }
+    // A LISTING THE BATCH NEVER ANSWERED FOR still has to say why it has no price. Without this it arrived as
+    // a null reason, and the row showed "no price" with nothing behind it — on the live list, one name in ten.
+    const q = input.quotes?.get(listing.listing_key)
+      ?? { quote: null, reason: (listing.currency ? 'not_quoted' : 'no_currency') as AbsentReason }
     const triggers = entry?.triggers ?? []
     const evals = triggers.map((t) => evaluateTrigger(t, { quote: q.quote, quoteReason: q.reason, today: input.today }))
     const arch = entry?.archive ?? null
