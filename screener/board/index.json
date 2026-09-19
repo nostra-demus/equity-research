@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T02:52:22Z",
+  "generated_at": "2026-09-19T02:52:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -126306,6 +126306,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-b8b60620b725",
+      "idea_version": "IDEAV-0ec5aeeb81870780",
+      "idea_version_started_at": "2026-09-19T02:52:36Z",
+      "ticker": "YTRA",
+      "company": "Yatra Online, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of a SC TO-T/A indicates an active third-party tender offer, which typically forces the stock price toward the offer premium.",
+      "why_now": "The SEC filing was processed on 2026-09-18, confirming the live status of the tender offer.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61e28efa41d1",
+        "EVT-6f4d9a0af7b1"
+      ],
+      "primary_source_event_id": "EVT-61e28efa41d1",
+      "source_headlines": [
+        "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
+        "SC TO-T/A - Yatra Online, Inc. (0001516899) (Subject)"
+      ],
+      "source_headline": "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2125850/000153949726002545/0001539497-26-002545-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T20:29:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T02:52:36Z",
+      "updated_at": "2026-09-19T02:52:36Z",
+      "decay_at": "2026-09-20T08:29:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-49a2653dd307",
       "idea_version": "IDEAV-9b738a6d2a61d4ce",
       "idea_version_started_at": "2026-09-18T22:30:22Z",
@@ -166984,8 +167055,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 891,
-    "live_count": 20,
+    "surfaced_total": 892,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
