@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T11:06:12Z",
+  "generated_at": "2026-09-19T11:08:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-157",
@@ -129651,77 +129651,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-4fe90fc86d10",
-      "idea_version": "IDEAV-b03fcadc0ad33fe3",
-      "idea_version_started_at": "2026-09-17T09:06:55Z",
-      "ticker": "08140",
-      "company": "BOSATECH",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a deterioration in earnings performance.",
-      "why_now": "The profit warning was filed today, September 16, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e18491ebfa0d"
-      ],
-      "primary_source_event_id": "EVT-e18491ebfa0d",
-      "source_headlines": [
-        "BOSATECH (08140): PROFIT WARNING"
-      ],
-      "source_headline": "BOSATECH (08140): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0916/2026091601061.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-16T10:54:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T09:06:55Z",
-      "updated_at": "2026-09-17T09:06:55Z",
-      "decay_at": "2026-09-17T22:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -129734,9 +129663,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
         "total_count": 266,
@@ -129744,23 +129673,23 @@
         "hidden_count": 16
       },
       "short": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 349,
-      "oldest_retained_at": "2026-08-29T11:16:05Z",
+      "evicted_count": 350,
+      "oldest_retained_at": "2026-08-29T15:19:41Z",
       "side_counts": {
         "long": {
           "evicted_count": 239,
           "oldest_retained_at": "2026-09-07T00:27:44Z"
         },
         "short": {
-          "evicted_count": 110,
-          "oldest_retained_at": "2026-08-29T11:16:05Z"
+          "evicted_count": 111,
+          "oldest_retained_at": "2026-08-29T15:19:41Z"
         }
       }
     },
@@ -131537,8 +131466,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-17T22:54:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-19T11:08:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -166934,7 +166863,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5516254,
+    "news_seen_today": 5530748,
     "news_picked_today": 305,
     "news_dropped_today": 5551
   },
