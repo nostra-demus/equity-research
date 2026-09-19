@@ -119,7 +119,7 @@ import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
 import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
 import { routeReason } from './news/triage/reason-router'
-import { protectedResearchRecoveryOwnsSubject, startResumeSupervisor } from './resume-supervisor'
+import { protectedResearchRecoveryOwnsSubject, resumeHeldChainManually, startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import {
   capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped,
@@ -3108,7 +3108,46 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
           code: 'plan_changed',
         })
       }
-      if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+      if (plan.complete) {
+        // A master that wrote its thesis and then had its publication REFUSED reads as complete here, and the
+        // resume supervisor deliberately no longer continues it on its own. This Continue is the explicit
+        // human resume: hand it to the protected chain lane (same journal, frozen profile and recovery code
+        // as every automatic publication recovery). Anything that is not such a held chain keeps the 409.
+        if (trustedSourceRunRoot && !legacyMigration) {
+          if (providerDeployPending(STATE_DIR)) {
+            return reply.code(503).send({ error: 'The engine is updating. Resume this run again once the update finishes; nothing was started.', code: 'deployment_in_progress' })
+          }
+          const held = await resumeHeldChainManually({
+            subject: ticker, runRoot: trustedSourceRunRoot, selection, user, lockHeld: true,
+          })
+          if (held.kind === 'launched') {
+            return {
+              ...held.launch, requestId, planFingerprint: plan.continuationReceipt.fingerprint,
+              carried: [], reused: plan.reuse, willRun: [], heldChainResumed: true,
+            }
+          }
+          if (held.kind === 'profile_mismatch') {
+            return reply.code(409).send({
+              error: `This run stopped after its final thesis was written, so it can only be resumed with the profile it started with (${held.frozen.provider}, ${held.frozen.profileKey}). Choose that profile and resume again; nothing was started.`,
+              code: 'held_chain_profile_mismatch',
+            })
+          }
+          if (held.kind === 'completed') {
+            return reply.code(409).send({ error: 'This run is already published. Nothing was started.', code: 'already_complete', path: plan.finalReportPath })
+          }
+          if (held.kind !== 'not_held') {
+            return reply.code(held.kind === 'busy' ? 409 : 503).send({
+              error: held.kind === 'waiting'
+                ? 'The engine could not resume this run right now (its provider is unavailable or out of plan usage). Nothing was started; try again shortly.'
+                : held.kind === 'busy'
+                  ? `Another request for ${ticker} is preparing a run. Wait for it to finish before retrying.`
+                  : 'This saved run changed since it stopped, so it was not resumed. Refresh and review it; nothing was started.',
+              code: held.kind === 'busy' ? 'subject_busy' : `held_chain_${held.kind}`,
+            })
+          }
+        }
+        return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+      }
 
       const freshFull = !trustedSourceRunRoot && plan.reuse.length === 0
       // An already-reviewed fresh Full owns a durable exact transaction before provider availability is
@@ -7940,7 +7979,16 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
       })?.analyzed_at ?? null
       // doc-intake dispatches the OWNING swarm's `:intake` command. The launcher's intakeOwner proof
       // revalidates sole ownership before admission and immediately before the paid process starts.
+      const intakeLaunchedAt = Date.now()
       const terminalRetry = (status: RunStatus) => {
+        // Same failure class as the resume supervisor: re-running the paid intake cannot change a publication
+        // the supervisor refused deterministically. Leave it for a person instead of spending four more tries.
+        if (status !== 'done' && listRuns().some((r) => r.kind === 'doc-intake' && r.subjectId === ticker
+            && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm && r.startedAt >= intakeLaunchedAt
+            && r.publicationRefused === true)) {
+          console.error(`[doc-intake] Needs attention: ${ticker}'s intake publication was refused for a reason a retry cannot change; not retrying.`) // eslint-disable-line no-console
+          return
+        }
         // `done` is necessary but not sufficient. Prove the SAME owner/call is still current and that the
         // command wrote a NEW exact plan after reading this settled pool watermark. Do not use
         // `pool_current`: it deliberately includes the older run-date floor, so it is false in the normal

@@ -849,6 +849,34 @@ try {
   ])
   assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], 'automatic resume holds on board-vs-disk provider/profile conflict')
 
+  // A publication the supervisor refused for a reason a retry cannot change is held for a human under
+  // BOTH providers: the server's `autoResumeDue: false` is honoured for any reason, not only a quota pause.
+  // Either projection saying `false` is enough; a transient publication failure still resumes on its own.
+  for (const [provider, executionProfile] of [['claude', claudeExecutionProfile], ['codex', codexExecutionProfile]] as const) {
+    for (const [boardDue, diskDue] of [[false, false], [false, true], [true, false]] as const) {
+      const sigId = `SIG-REFUSED-${provider}-${boardDue}-${diskDue}`.toUpperCase()
+      useStore.setState({
+        resumableRuns: [{ swarm: 'screener', subject: sigId, runRoot: `screener/runs/${sigId}`, kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider, executionProfile, reason: 'publication_refused', autoResumeDue: diskDue }],
+      })
+      await useStore.getState()._maybeAutoResume([
+        { sigId, headline: 'refused publication', doneCount: 1, totalCount: 2, provider, executionProfile, reason: 'publication_refused', autoResumeDue: boardDue },
+      ])
+      assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], `${provider}: a refused publication is never auto-resumed by the browser (board ${boardDue}, disk ${diskDue})`)
+    }
+  }
+  for (const [provider, executionProfile] of [['claude', claudeExecutionProfile], ['codex', codexExecutionProfile]] as const) {
+    const sigId = `SIG-TRANSIENT-${provider}`.toUpperCase()
+    useStore.setState({
+      resumableRuns: [{ swarm: 'screener', subject: sigId, runRoot: `screener/runs/${sigId}`, kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider, executionProfile, reason: 'publication_failed', autoResumeDue: true }],
+    })
+    await useStore.getState()._maybeAutoResume([
+      { sigId, headline: 'transient publication failure', doneCount: 1, totalCount: 2, provider, executionProfile, reason: 'publication_failed', autoResumeDue: true },
+    ])
+  }
+  assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST', 'SIG-TRANSIENT-CLAUDE', 'SIG-TRANSIENT-CODEX'],
+    'a transient publication failure keeps auto-resuming under both providers')
+  resumedSubjects.splice(1)
+
   let foreignRecoveryInitCalls = 0
   useStore.setState({
     activeSwarm: 'future-flow',
