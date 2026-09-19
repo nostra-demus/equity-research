@@ -1,11 +1,14 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { spawnSync } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
+import { isDeepStrictEqual } from 'node:util'
 import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
-  artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
+  EXECUTION_PROVENANCE_RECEIPT as EXECUTION_RECEIPT_NAME, artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
   projectionLineageRows, readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
   recordAdmittedProviderSelection, releaseExecutionEpochAfterPublication,
   sealProviderPreSpawnFailureAuthority,
@@ -13,8 +16,9 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
-  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, finalizeRunOnClose, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupersededPublicationProbe,
+  __setSupervisorCommitter, __setSupervisorCommitVerifier,
+  SUPERVISOR_CONTROL_MARKERS, supersededPublicationPaths, drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, listSupersededReadyPublications, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
 
@@ -46,6 +50,22 @@ assert.equal(requiresSupervisorPublication('module', 'module'), false,
   'a frozen intermediate child must not enter the terminal publication protocol')
 assert.equal(requiresSupervisorPublication('full', 'final'), true,
   'the frozen terminal adjudicator must stamp and verify its decision before success')
+
+// The snapshot sweep drops supervisor control markers, and the pre-seal check refuses anything else the
+// data catalogue does not cover. In a RESEARCH run root (analyses/<RUN>/) the catalogue lists exact file
+// names, and the two must agree there: a name may be dropped only while the catalogue rejects it. If the
+// catalogue ever lists one by name, dropping it would silently withhold catalogued data, so fail here and
+// force the decision instead. This says nothing about blanket-glob stores (commodity/runs/**,
+// screener/runs/**), which accept any file name; scripts/test_commit_run.py pins that gap on purpose.
+assert.ok(SUPERVISOR_CONTROL_MARKERS.size > 0, 'the control-marker guard must never scan an empty set')
+for (const marker of SUPERVISOR_CONTROL_MARKERS) {
+  const verdict = spawnSync('python3', [
+    path.join(REPO_ROOT, 'scripts', 'validate_data_catalogue.py'), '--repo', REPO_ROOT, '--paths',
+  ], { cwd: REPO_ROOT, input: `analyses/ZZGUARD_2099-01-01/${marker}`, encoding: 'utf8' })
+  assert.equal(verdict.status, 1, `validator must reach a verdict for ${marker}: ${verdict.stderr}`)
+  assert.match(verdict.stderr, /has uncatalogued data/,
+    `${marker} is excluded from publication as control state, so a research run root must not catalogue it`)
+}
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
@@ -317,9 +337,18 @@ try {
   deferred.publicationToken = randomUUID()
   beginExecutionAttempt(deferred)
   fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":2}\n')
+  // The Idea-publication gate is still on disk while the supervisor commits (it is cleared only afterwards),
+  // and /research:full publishes the whole run root. The gate is control state the data catalogue rejects:
+  // sealed into the snapshot it made a publication no retry could publish (2026-09-17 outage).
+  fs.writeFileSync(path.join(deferredAbsolute, '.requires_idea_publication'), '')
+  // The resume marker is the same class of control state: a technical-readiness retry preserves it and the
+  // `done` path clears it only after publication, so it is on disk while a run-root pathspec is swept.
+  writeRunMarker(deferredRoot, '.interrupted', { reason: 'fixture: marker still on disk at publication' })
   let deferredCommits = 0
-  const deferredCommitter = __setSupervisorCommitter(async () => {
+  const deferredPublishedPaths: string[][] = []
+  const deferredCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
     deferredCommits++
+    deferredPublishedPaths.push([...pathspecs])
     return 'COMMIT_SHA=2222222222222222222222222222222222222222'
   })
   const deferredVerifier = __setSupervisorCommitVerifier(async () => {})
@@ -332,6 +361,13 @@ try {
     assert.equal(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance, undefined)
     await drainPublicationIntents(deferred)
     assert.equal(deferredCommits, 2, 'the close-owned drain publishes the primary bytes then the deterministic SHA backfill')
+    assert.ok(deferredPublishedPaths[0].includes(`${deferredRoot}/decision_record.json`))
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.requires_idea_publication')), [],
+      'a run-root pathspec never sweeps the supervisor publication gate into the immutable snapshot')
+    assert.deepEqual(deferredPublishedPaths.flat().filter((item) => item.endsWith('.interrupted')), [],
+      'a run-root pathspec never sweeps the supervisor resume marker into the immutable snapshot')
+    assert.equal(fs.existsSync(path.join(deferredAbsolute, '.interrupted')), true,
+      'excluding control state from the snapshot never removes it from disk')
     assert.equal(deferred.publicationCompleted, true)
     assert.ok(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance)
     assert.doesNotMatch(fs.readFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'utf8'), /to be filled/)
@@ -339,6 +375,159 @@ try {
     __setSupervisorCommitter(deferredCommitter)
     __setSupervisorCommitVerifier(deferredVerifier)
     finishRun(deferred, 'done')
+  }
+
+  // A path list the data catalogue rejects must be refused BEFORE it is sealed. Sealed, it becomes an
+  // immutable digest-signed receipt that can never publish and is retried at every startup. The real-world
+  // instance is an audit artifact such as the human readiness-override trace: it is not control state, so it
+  // is not silently excluded, and the catalogue has no entry for it. This fixture uses a neutral name so the
+  // test keeps holding whichever way that file's catalogue decision goes. The refusal must land on the live
+  // run (still in Activity) and leave nothing behind for recovery to retry.
+  const presealRoot = `${root}_preseal-refusal`
+  const presealAbsolute = path.join(REPO_ROOT, presealRoot)
+  extraCleanup.push(presealAbsolute)
+  fs.mkdirSync(presealAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), '{"ticker":"ZZPRESEAL","version":1}\n')
+  fs.writeFileSync(path.join(presealAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const preseal = createRun({
+    kind: 'full', ticker: 'ZZPRESEAL', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: presealRoot, willCommitToMain: true,
+    writeTargetsAbs: [presealAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  preseal.publicationToken = randomUUID()
+  beginExecutionAttempt(preseal)
+  fs.writeFileSync(path.join(presealAbsolute, 'decision_record.json'), '{"ticker":"ZZPRESEAL","version":2}\n')
+  fs.writeFileSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json'), '{"fixture":true}\n')
+  const presealReceipt = path.join(STATE_DIR, 'publication-ready', `${preseal.runId}.json`)
+  const snapshotDirectories = () => fs.readdirSync(STATE_DIR).filter((name) => name.startsWith('publication-snapshot-')).sort()
+  const snapshotsBefore = snapshotDirectories()
+  let presealCommits = 0
+  const presealCommitter = __setSupervisorCommitter(async () => {
+    presealCommits++
+    return 'COMMIT_SHA=6666666666666666666666666666666666666666'
+  })
+  const presealVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(preseal.runId, preseal.publicationToken, {
+      phase: 'commit', message: 'pre-seal refusal fixture', pathspecs: [presealRoot],
+    })
+    await assert.rejects(
+      drainPublicationIntents(preseal),
+      (error: any) => /refused before its path list was frozen/.test(String(error?.message))
+        && /DATA-CATALOGUE: FAIL/.test(String(error?.message))
+        && String(error?.message).includes(`${presealRoot}/zz_uncatalogued_audit_trace.json`),
+      'an uncatalogued path fails the live publication and names the file that needs a catalogue decision',
+    )
+    assert.equal(presealCommits, 0, 'a refused path list never reaches Git')
+    assert.equal(fs.existsSync(presealReceipt), false, 'a refused path list is never sealed into a ready receipt')
+    assert.deepEqual(snapshotDirectories(), snapshotsBefore, 'a refused path list leaves no protected snapshot behind')
+    assert.notEqual(preseal.publicationCompleted, true)
+    // Assert on this run's own receipt only: the state directory is shared with every other block here.
+    await recoverReadyPublications()
+    assert.deepEqual(listReadyPublicationFailures().filter((item) => item.entry === `${preseal.runId}.json`), [],
+      'with no receipt there is nothing for startup to retry forever')
+    assert.equal(fs.existsSync(path.join(presealAbsolute, 'zz_uncatalogued_audit_trace.json')), true,
+      'the audit trace is refused, never deleted or silently dropped')
+  } finally {
+    __setSupervisorCommitter(presealCommitter)
+    __setSupervisorCommitVerifier(presealVerifier)
+    finishRun(preseal, 'error')
+    // A regression that seals before refusing must not strand a receipt whose run root the cleanup below
+    // deletes: the next run's recovery pass would then fail on it on this machine until cleared by hand.
+    fs.rmSync(presealReceipt, { force: true })
+    for (const name of snapshotDirectories()) {
+      if (!snapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
+  }
+
+  // "Anything short of a clean PASS refuses": a validator that cannot reach a verdict must never be read as
+  // permission to seal. Shadow python3 with one that exits non-zero and says nothing.
+  const blindRelative = `${root}/reviews/2099-01-06_blind_validator_review.json`
+  const blindAbsolute = path.join(REPO_ROOT, blindRelative)
+  fs.mkdirSync(path.dirname(blindAbsolute), { recursive: true })
+  const blindRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(blindAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  blindRun.publicationToken = randomUUID()
+  beginExecutionAttempt(blindRun)
+  fs.writeFileSync(blindAbsolute, '{"verdict":"a catalogued path the validator never gets to judge"}\n')
+  const blindReceipt = path.join(STATE_DIR, 'publication-ready', `${blindRun.runId}.json`)
+  const shimDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'blind-validator-'))
+  fs.writeFileSync(path.join(shimDirectory, 'python3'), '#!/bin/sh\nexit 3\n', { mode: 0o755 })
+  const originalPath = process.env.PATH
+  let blindCommits = 0
+  const blindCommitter = __setSupervisorCommitter(async () => {
+    blindCommits++
+    return 'COMMIT_SHA=9999999999999999999999999999999999999999'
+  })
+  const blindVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(blindRun.runId, blindRun.publicationToken, {
+      phase: 'commit', message: 'blind validator fixture', pathspecs: [blindRelative],
+    })
+    process.env.PATH = `${shimDirectory}${path.delimiter}${originalPath ?? ''}`
+    await assert.rejects(drainPublicationIntents(blindRun), /refused before its path list was frozen/,
+      'a validator that cannot reach a verdict refuses the publication instead of waving it through')
+    assert.equal(blindCommits, 0)
+    assert.equal(fs.existsSync(blindReceipt), false, 'an unchecked path list is never sealed')
+  } finally {
+    process.env.PATH = originalPath
+    __setSupervisorCommitter(blindCommitter)
+    __setSupervisorCommitVerifier(blindVerifier)
+    finishRun(blindRun, 'error')
+    fs.rmSync(blindReceipt, { force: true })
+    fs.rmSync(shimDirectory, { recursive: true, force: true })
+  }
+
+  // commit-run.sh refuses a supervisor snapshot manifest above 512 entries, and no retry changes a sealed
+  // list's length. Every file here is catalogued (analyses/*/*.md), so only the count can refuse it.
+  const crowdedRoot = `${root}_crowded`
+  const crowdedAbsolute = path.join(REPO_ROOT, crowdedRoot)
+  extraCleanup.push(crowdedAbsolute)
+  fs.mkdirSync(crowdedAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(crowdedAbsolute, 'decision_record.json'), '{"ticker":"ZZCROWD","version":1}\n')
+  fs.writeFileSync(path.join(crowdedAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const crowded = createRun({
+    kind: 'full', ticker: 'ZZCROWD', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: crowdedRoot, willCommitToMain: true,
+    writeTargetsAbs: [crowdedAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  crowded.publicationToken = randomUUID()
+  beginExecutionAttempt(crowded)
+  fs.writeFileSync(path.join(crowdedAbsolute, 'decision_record.json'), '{"ticker":"ZZCROWD","version":2}\n')
+  for (let index = 0; index < 512; index++) fs.writeFileSync(path.join(crowdedAbsolute, `note-${index}.md`), 'x\n')
+  const crowdedReceipt = path.join(STATE_DIR, 'publication-ready', `${crowded.runId}.json`)
+  const crowdedSnapshotsBefore = snapshotDirectories()
+  let crowdedCommits = 0
+  const crowdedCommitter = __setSupervisorCommitter(async () => {
+    crowdedCommits++
+    return 'COMMIT_SHA=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+  })
+  const crowdedVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(crowded.runId, crowded.publicationToken, {
+      phase: 'commit', message: 'crowded fixture', pathspecs: [crowdedRoot],
+    })
+    await assert.rejects(drainPublicationIntents(crowded), /exceed the 512-entry limit/,
+      'a path list commit-run.sh is certain to refuse is never sealed')
+    assert.equal(crowdedCommits, 0)
+    assert.equal(fs.existsSync(crowdedReceipt), false)
+  } finally {
+    __setSupervisorCommitter(crowdedCommitter)
+    __setSupervisorCommitVerifier(crowdedVerifier)
+    finishRun(crowded, 'error')
+    fs.rmSync(crowdedReceipt, { force: true })
+    for (const name of snapshotDirectories()) {
+      if (!crowdedSnapshotsBefore.includes(name)) fs.rmSync(path.join(STATE_DIR, name), { recursive: true, force: true })
+    }
   }
 
   // Once the provider group is extinct, a Git/push failure retains a protected immutable ready receipt.
@@ -377,6 +566,476 @@ try {
     __setSupervisorCommitter(failedRecoveryCommitter)
     __setSupervisorCommitVerifier(recoveryVerifier)
     finishRun(recoveryRun, 'error')
+  }
+
+  // A retained receipt commits the OLD bytes frozen when it was sealed. The live path keeps admitting runs
+  // while a receipt is retained, and /research:rerun writes into the latest existing run root, so a newer run
+  // can publish some of the same paths before the old receipt is retried. Committing those would revert
+  // published research to stale bytes; refusing the whole receipt instead left the run's own files
+  // unpublished forever (a superseded receipt never becomes un-superseded), and a screener signal carries a
+  // board index rewritten by most commits on main. Recovery commits exactly the paths nothing newer replaced.
+  const readyDirectory = path.join(STATE_DIR, 'publication-ready')
+  const supersededArchiveRoot = path.join(STATE_DIR, 'publication-superseded')
+  const archivesFor = (runId: string) => (fs.existsSync(supersededArchiveRoot) ? fs.readdirSync(supersededArchiveRoot) : [])
+    .filter((name) => name.startsWith(`${runId}-`)).map((name) => path.join(supersededArchiveRoot, name))
+  /** Seal a receipt through the real drain, then fail its commit so it is retained for a later pass. */
+  async function retainedReceipt(options: {
+    kind: 'review' | 'module' | 'full'; runRoot: string; files: Record<string, string>; module?: string
+    /** Let the live primary commit succeed, so the RUN_METADATA backfill commit is the one that fails. */
+    failBackfillOnly?: boolean
+  }) {
+    const writeTargets = [...new Set(Object.keys(options.files).map((relative) => path.dirname(path.join(REPO_ROOT, relative))))]
+    for (const [relative, body] of Object.entries(options.files)) {
+      fs.mkdirSync(path.dirname(path.join(REPO_ROOT, relative)), { recursive: true })
+    }
+    const created = createRun({
+      kind: options.kind, ticker: 'ZZPROVSUP', module: options.module, provider: 'claude', executionProfile: profile,
+      profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+      userVia: 'local', runRoot: options.runRoot, willCommitToMain: true,
+      writeTargetsAbs: writeTargets, coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+    })
+    created.publicationToken = randomUUID()
+    beginExecutionAttempt(created)
+    // A full run's decision record must be authored AFTER the attempt began, exactly as a real run's is.
+    for (const [relative, body] of Object.entries(options.files)) fs.writeFileSync(path.join(REPO_ROOT, relative), body)
+    await new Promise((resolve) => setTimeout(resolve, 25)) // created_at has millisecond resolution: keep seals ordered
+    let liveCommits = 0
+    const failed = __setSupervisorCommitter(async () => {
+      if (options.failBackfillOnly && liveCommits++ === 0) return `COMMIT_SHA=${'6'.repeat(40)}`
+      throw new Error('fixture push failed')
+    })
+    const verifier = __setSupervisorCommitVerifier(async () => {})
+    try {
+      await queuePublicationIntent(created.runId, created.publicationToken, {
+        phase: 'commit', message: `retained ${options.runRoot} ${created.runId}`, pathspecs: Object.keys(options.files),
+      })
+      await assert.rejects(drainPublicationIntents(created), /fixture push failed/)
+    } finally {
+      __setSupervisorCommitter(failed)
+      __setSupervisorCommitVerifier(verifier)
+      finishRun(created, 'error')
+    }
+    const receipt = path.join(readyDirectory, `${created.runId}.json`)
+    assert.equal(fs.existsSync(receipt), true, 'the failed live commit retained its sealed receipt')
+    const value = JSON.parse(fs.readFileSync(receipt, 'utf8'))
+    return {
+      run: created, receipt, bytes: fs.readFileSync(receipt), paths: value.paths as string[],
+      sealedAt: value.created_at as string, snapshotDirectory: path.dirname(value.snapshot_manifest as string),
+      hashes: value.artifact_hashes as Record<string, string>,
+    }
+  }
+  /** Stand in for newer commits on main: this suite runs in the real checkout and must never commit. */
+  const supersede = (sealedAt: string, paths: string[]) => paths.map((relative) => ({
+    path: relative, commit: '8'.repeat(40), committedAt: Math.floor(Date.parse(sealedAt) / 1000) + 600,
+  }))
+  /** Capture exactly what reaches commit-run.sh: the path list and the protected manifest behind it. */
+  const commitCapture = (fail?: (message: string, pathspecs: string[]) => boolean) => {
+    const calls: Array<{ message: string; pathspecs: string[]; manifestPaths: string[]; manifestBytesMatch: boolean }> = []
+    const previous = __setSupervisorCommitter(async (message, pathspecs, env) => {
+      const manifest = JSON.parse(fs.readFileSync(env.NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST!, 'utf8'))
+      calls.push({
+        message, pathspecs: [...pathspecs],
+        manifestPaths: manifest.entries.map((item: any) => item.path),
+        manifestBytesMatch: manifest.requested_pathspecs.length === pathspecs.length
+          && manifest.entries.every((item: any) => `sha256:${createHash('sha256').update(fs.readFileSync(item.snapshot)).digest('hex')}` === item.sha256),
+      })
+      if (fail?.(message, pathspecs)) throw new Error('fixture push failed again')
+      return `COMMIT_SHA=${'5'.repeat(40)}`
+    })
+    return { calls, restore: () => __setSupervisorCommitter(previous) }
+  }
+
+  // 1. The superseded path lies OUTSIDE the run's root (the shape of a signal's shared board index or ledger).
+  //    The run's own publication is whole: its remainder publishes and it is credited with the root.
+  const sharedRoot = `${root}_remainder`
+  extraCleanup.push(path.join(REPO_ROOT, sharedRoot), path.join(REPO_ROOT, `${sharedRoot}_shared`))
+  const sharedRelative = `${sharedRoot}_shared/reviews/2099-01-08_shared_projection_review.json`
+  const ownRelative = `${sharedRoot}/valuation/2099-01-08_own_note.md`
+  const outside = await retainedReceipt({
+    kind: 'module', module: 'valuation', runRoot: sharedRoot, files: {
+      [ownRelative]: 'this run\'s own output\n',
+      [sharedRelative]: '{"projection":"sealed before a newer rebuild was published"}\n',
+    },
+  })
+  assert.ok(outside.paths.includes(sharedRelative) && outside.paths.includes(ownRelative) && outside.paths.length >= 3,
+    'the fixture receipt binds its own files, its execution receipt, and the shared projection')
+  const outsideCommits = outside.paths.filter((relative) => relative !== sharedRelative)
+  const snapshotsBeforeRemainder = snapshotDirectories()
+  const probed: Array<Parameters<typeof supersededPublicationPaths>[0]> = []
+  const realProbe = __setSupersededPublicationProbe((input) => {
+    probed.push(input)
+    return input.sealedAt === outside.sealedAt ? supersede(input.sealedAt, [sharedRelative]) : []
+  })
+  assert.equal(realProbe, supersededPublicationPaths,
+    'production recovery is wired to the real git probe, not to a stub that always answers "not superseded"')
+  const remainderVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    // A push that fails again part-way must leave the original receipt exactly as it was, for the next pass.
+    let failNext = true
+    const flaky = commitCapture(() => { const fail = failNext; failNext = false; return fail })
+    try {
+      assert.equal(await recoverReadyPublications(), 0)
+      assert.deepEqual(flaky.calls.map((call) => call.pathspecs), [outsideCommits],
+        'only the paths nothing newer replaced reach Git')
+      assert.equal(fs.readFileSync(outside.receipt).equals(outside.bytes), true, 'the signed receipt is never edited')
+      assert.equal(fs.existsSync(outside.snapshotDirectory), true, 'its sealed snapshot is retained with it')
+      assert.deepEqual(snapshotDirectories(), snapshotsBeforeRemainder, 'the remainder commit input is always removed')
+      assert.equal(listReadyPublicationFailures().filter((item) => item.entry === `${outside.run.runId}.json`).length, 1,
+        'a failed remainder commit is reported like any other failed publication')
+      assert.deepEqual(archivesFor(outside.run.runId), [], 'nothing is archived until the remainder is published')
+
+      assert.equal(await recoverReadyPublications(), 1, 'the remainder publication counts as recovered')
+      const call = flaky.calls.at(-1)!
+      assert.deepEqual(call.pathspecs, outsideCommits)
+      assert.deepEqual(call.manifestPaths, outsideCommits,
+        'commit-run.sh receives a manifest whose entries are exactly the remainder, so it cannot stage a superseded path')
+      assert.equal(call.manifestBytesMatch, true, 'the remainder is committed from the sealed bytes, never the worktree')
+    } finally { flaky.restore() }
+    assert.deepEqual(probed.filter((input) => input.sealedAt === outside.sealedAt).map((input) => [input.entries.map((item) => item.path), input.boundHashes]).at(-1),
+      [outside.paths, outside.hashes], "the check is driven by the signed receipt's own paths and bound hashes")
+    assert.equal(fs.existsSync(outside.receipt), false, 'a settled receipt leaves the retry directory')
+    assert.deepEqual(listReadyPublicationFailures().filter((item) => item.entry === `${outside.run.runId}.json`), [],
+      'a settled receipt is not reported as stuck')
+    const settled = listSupersededReadyPublications().filter((item) => item.entry === `${outside.run.runId}.json`)
+    assert.equal(settled.length, 1)
+    assert.equal(settled[0].outcome, 'published-remainder')
+    assert.equal(settled[0].runRootRepublished, false, `${sharedRoot}_shared is a sibling of the run root, not inside it`)
+    assert.equal(settled[0].publishedPaths, outsideCommits.length)
+    assert.deepEqual(settled[0].examples.map((item) => item.path), [sharedRelative])
+    const [archive] = archivesFor(outside.run.runId)
+    assert.ok(archive, 'the settled receipt is archived')
+    assert.equal(fs.readFileSync(path.join(archive, 'receipt.json')).equals(outside.bytes), true, 'the original signed receipt is archived byte for byte')
+    assert.equal(fs.existsSync(outside.snapshotDirectory), false)
+    const archivedManifest = JSON.parse(fs.readFileSync(path.join(archive, 'snapshot', 'manifest.json'), 'utf8'))
+    assert.deepEqual(archivedManifest.entries.map((item: any) => item.path), outside.paths,
+      'every sealed byte is kept, including the superseded bytes that never reached main')
+    const archivedDetail = JSON.parse(fs.readFileSync(path.join(archive, 'superseded.json'), 'utf8'))
+    assert.deepEqual([archivedDetail.outcome, archivedDetail.published_paths, archivedDetail.superseded.map((item: any) => item.path)],
+      ['published-remainder', outsideCommits, [sharedRelative]])
+    assert.notEqual(readLastProviderSelection(sharedRoot, 'published'), null,
+      'the run published its whole own scope, so it is credited with its root')
+    const quiet = commitCapture()
+    try {
+      assert.equal(await recoverReadyPublications(), 0, 'a settled receipt cannot replay')
+      assert.equal(quiet.calls.length, 0)
+    } finally { quiet.restore() }
+  } finally {
+    __setSupersededPublicationProbe(realProbe)
+    __setSupervisorCommitVerifier(remainderVerifier)
+    fs.rmSync(outside.receipt, { force: true })
+    for (const archive of archivesFor(outside.run.runId)) fs.rmSync(archive, { recursive: true, force: true })
+  }
+
+  /** Record every verification: which paths were required, and which hashes they were checked against. */
+  const verifyCapture = () => {
+    const calls: Array<{ required: string[]; bound: string[] }> = []
+    const previous = __setSupervisorCommitVerifier(async (_output, requiredPaths, fixedHashes) => {
+      calls.push({ required: [...requiredPaths].sort(), bound: Object.keys(fixedHashes ?? {}).sort() })
+    })
+    return { calls, restore: () => __setSupervisorCommitVerifier(previous) }
+  }
+  const without = (paths: string[], ...suffixes: string[]) => paths.filter((relative) => !suffixes.some((suffix) => relative.endsWith(suffix))).sort()
+
+  // 2. A publication that carries none of its root's terminal records (a review here; equally a module, agent
+  //    or handoff run) cannot tell a newer run of the root from an unrelated rewrite. When anything inside its
+  //    root was superseded, it publishes the rest but is not credited with the root: the live path never
+  //    credits such a run at all, and an older one must never overwrite a newer run's authority.
+  const republishedRoot = `${root}_republished`
+  extraCleanup.push(path.join(REPO_ROOT, republishedRoot))
+  const keptRelative = `${republishedRoot}/reviews/2099-01-09_kept_review.json`
+  const rerunRelative = `${republishedRoot}/reviews/2099-01-09_rerun_review.json`
+  const inside = await retainedReceipt({
+    kind: 'review', runRoot: republishedRoot, files: {
+      [keptRelative]: '{"verdict":"nothing newer replaced this"}\n',
+      [rerunRelative]: '{"verdict":"a newer publication replaced this"}\n',
+    },
+  })
+  // 3. Every path was replaced by newer published bytes: nothing is left to publish, so nothing is committed.
+  const retiredRoot = `${root}_retired`
+  extraCleanup.push(path.join(REPO_ROOT, retiredRoot))
+  const retired = await retainedReceipt({
+    kind: 'review', runRoot: retiredRoot, files: {
+      [`${retiredRoot}/reviews/2099-01-10_replaced_review.json`]: '{"verdict":"replaced"}\n',
+    },
+  })
+  // 4. Full research runs, which carry their root's terminal records.
+  //    (a) Only an ordinary module file was superseded: the root is still this run's. The remainder publishes,
+  //        RUN_METADATA is filled with its commit, and the run is credited.
+  //    (b) Its decision record was superseded: a newer run owns the root. RUN_METADATA still names the commit
+  //        that published THIS run, so it is filled; the run is not credited. Its backfill push fails first,
+  //        and the retained backfill receipt must carry that decision: its retry cannot credit the run either.
+  //    (c) Its live primary commit landed and only the backfill push failed; a newer rerun then re-published
+  //        a primary file it binds by hash alone. The backfill publishes, verified against the rest.
+  // A decision record that commit-run.sh's creation-time data-needs gate accepts, so the fixture stays a real
+  // publishable run wherever that gate is applied (the same minimum fields scripts/test_commit_run.py uses).
+  const fullDecision = (label: string, version: number) => `${JSON.stringify({
+    ticker: `ZZ${label}`, version, decision_date: '2099-01-01', data_needs_schema_version: '2.0', data_needs: [],
+  })}\n`
+  const fullFiles = (fullRoot: string, label: string) => ({
+    [`${fullRoot}/decision_record.json`]: fullDecision(label, 2),
+    [`${fullRoot}/RUN_METADATA.md`]: 'Commit SHA: (to be filled after commit)\n',
+    [`${fullRoot}/valuation/2099-01-11_superseded_note.md`]: 'sealed module output\n',
+    [`${fullRoot}/valuation/2099-01-11_kept_note.md`]: 'module output nothing newer replaced\n',
+  })
+  const fullRun = async (suffix: string, failBackfillOnly = false) => {
+    const fullRoot = `${root}_${suffix}`
+    extraCleanup.push(path.join(REPO_ROOT, fullRoot))
+    fs.mkdirSync(path.join(REPO_ROOT, fullRoot, 'valuation'), { recursive: true })
+    fs.writeFileSync(path.join(REPO_ROOT, fullRoot, 'decision_record.json'), fullDecision(suffix.toUpperCase(), 1))
+    return { fullRoot, retained: await retainedReceipt({ kind: 'full', runRoot: fullRoot, files: fullFiles(fullRoot, suffix.toUpperCase()), failBackfillOnly }) }
+  }
+  const ordinary = await fullRun('fullremainder')
+  const handover = await fullRun('fullhandover')
+  const bound = await fullRun('fullbound', true)
+  const boundValue = JSON.parse(fs.readFileSync(bound.retained.receipt, 'utf8'))
+  assert.deepEqual([boundValue.stage, bound.retained.paths], ['backfill-ready', [`${bound.fullRoot}/RUN_METADATA.md`]],
+    'the fixture retained a backfill receipt that binds its primary files by hash alone')
+  const bySeal = new Map([
+    [inside.sealedAt, [rerunRelative]],
+    [retired.sealedAt, retired.paths],
+    [ordinary.retained.sealedAt, [`${ordinary.fullRoot}/valuation/2099-01-11_superseded_note.md`]],
+    [handover.retained.sealedAt, [`${handover.fullRoot}/decision_record.json`, `${handover.fullRoot}/valuation/2099-01-11_superseded_note.md`]],
+    [bound.retained.sealedAt, [`${bound.fullRoot}/valuation/2099-01-11_superseded_note.md`]],
+  ])
+  const insideProbe = __setSupersededPublicationProbe((input) => supersede(input.sealedAt, bySeal.get(input.sealedAt) ?? []))
+  const verified = verifyCapture()
+  let failedHandoverBackfill = false
+  const capture = commitCapture((message, pathspecs) => {
+    if (failedHandoverBackfill || !message.startsWith('Backfill commit SHA')
+        || !isDeepStrictEqual(pathspecs, [`${handover.fullRoot}/RUN_METADATA.md`])) return false
+    failedHandoverBackfill = true
+    return true
+  })
+  const neverVerifiedAgainst = (superseded: string[]) => !verified.calls.some((call) =>
+    superseded.some((relative) => call.required.includes(relative) || call.bound.includes(relative)))
+  try {
+    await recoverReadyPublications()
+    const commitsFor = (item: { run: { runId: string } }) => capture.calls.filter((call) => call.message.includes(item.run.runId))
+    const inRoot = (fullRoot: string) => capture.calls.filter((call) => call.pathspecs.every((relative) => relative.startsWith(`${fullRoot}/`)))
+    for (const call of capture.calls) assert.equal(call.manifestBytesMatch, true, 'every commit is built from sealed bytes')
+
+    // 2 and 3
+    assert.deepEqual(commitsFor(inside).map((call) => call.pathspecs), [[keptRelative]], 'the replaced path never reaches Git')
+    assert.deepEqual(commitsFor(retired), [], 'a fully replaced receipt makes no commit at all')
+    const settled = new Map(listSupersededReadyPublications().map((item) => [item.entry, item]))
+    assert.equal(settled.get(`${inside.run.runId}.json`)?.outcome, 'published-remainder')
+    assert.equal(settled.get(`${inside.run.runId}.json`)?.runRootRepublished, true)
+    assert.equal(readLastProviderSelection(republishedRoot, 'published'), null,
+      'a publication without its root\'s terminal records is never credited over a root something newer wrote into')
+    assert.ok(verified.calls.some((call) => isDeepStrictEqual(call.bound, [keptRelative])), 'it is verified against its kept hashes')
+    assert.ok(neverVerifiedAgainst([rerunRelative]), 'and never against the superseded one, which would fail at every startup')
+    assert.equal(settled.get(`${retired.run.runId}.json`)?.outcome, 'retired')
+    assert.equal(settled.get(`${retired.run.runId}.json`)?.publishedPaths, 0)
+
+    // 4a
+    const ordinaryPrimary = without(ordinary.retained.paths, '2099-01-11_superseded_note.md')
+    assert.deepEqual(inRoot(ordinary.fullRoot).map((call) => call.pathspecs.sort()), [ordinaryPrimary, [`${ordinary.fullRoot}/RUN_METADATA.md`]],
+      'the remainder publishes, then RUN_METADATA through its own backfill receipt')
+    assert.equal(fs.readFileSync(path.join(REPO_ROOT, ordinary.fullRoot, 'RUN_METADATA.md'), 'utf8'), `Commit SHA: ${'5'.repeat(40)}\n`)
+    assert.ok(verified.calls.some((call) => isDeepStrictEqual(call.bound, ordinaryPrimary)),
+      'the remainder is verified against exactly its kept hashes')
+    assert.ok(neverVerifiedAgainst([`${ordinary.fullRoot}/valuation/2099-01-11_superseded_note.md`]),
+      'neither the remainder nor its backfill vouches for the superseded file')
+    assert.equal(settled.get(`${ordinary.retained.run.runId}.json`)?.runRootRepublished, false,
+      'an ordinary module file replaced in the root does not hand the root over')
+    assert.notEqual(readLastProviderSelection(ordinary.fullRoot, 'published'), null)
+
+    // 4b, first pass: the remainder published, RUN_METADATA was filled, and the backfill push failed.
+    assert.equal(failedHandoverBackfill, true, 'the fixture failed the handover backfill push')
+    const handoverPrimary = without(handover.retained.paths, 'decision_record.json', '2099-01-11_superseded_note.md')
+    assert.deepEqual(inRoot(handover.fullRoot).map((call) => call.pathspecs.sort()), [handoverPrimary, [`${handover.fullRoot}/RUN_METADATA.md`]],
+      'a root a newer run took over still gets this run\'s RUN_METADATA filled, never its decision re-published')
+    assert.equal(fs.readFileSync(path.join(REPO_ROOT, handover.fullRoot, 'RUN_METADATA.md'), 'utf8'), `Commit SHA: ${'5'.repeat(40)}\n`)
+    const handoverBackfill = JSON.parse(fs.readFileSync(handover.retained.receipt, 'utf8'))
+    assert.deepEqual([handoverBackfill.stage, handoverBackfill.authority_withheld], ['backfill-ready', true],
+      'the retained backfill receipt carries the hand-over decision')
+    assert.ok(!Object.keys(handoverBackfill.artifact_hashes).some((relative: string) => relative.endsWith('decision_record.json')))
+    assert.equal(readLastProviderSelection(handover.fullRoot, 'published'), null)
+    assert.ok(neverVerifiedAgainst([`${handover.fullRoot}/decision_record.json`, `${handover.fullRoot}/valuation/2099-01-11_superseded_note.md`]))
+    assert.equal(archivesFor(handover.retained.run.runId).length, 1, 'the original was archived when its backfill receipt replaced it')
+
+    // 4c
+    const boundAll = Object.keys(bound.retained.hashes).sort()
+    assert.deepEqual(inRoot(bound.fullRoot).map((call) => call.pathspecs), [[`${bound.fullRoot}/RUN_METADATA.md`]])
+    assert.ok(verified.calls.some((call) => isDeepStrictEqual(call.bound, without(boundAll, '2099-01-11_superseded_note.md'))),
+      'a backfill receipt is verified against its bound primaries minus the one a newer rerun re-published')
+    assert.ok(neverVerifiedAgainst([`${bound.fullRoot}/valuation/2099-01-11_superseded_note.md`]),
+      'never against the superseded primary: that would fail at every startup')
+    assert.equal(settled.get(`${bound.retained.run.runId}.json`)?.runRootRepublished, false)
+    assert.notEqual(readLastProviderSelection(bound.fullRoot, 'published'), null)
+
+    // 4b, next pass: the retained backfill receipt publishes, and still credits nobody.
+    const beforeRetry = capture.calls.length
+    assert.equal(await recoverReadyPublications(), 1)
+    assert.deepEqual(capture.calls.slice(beforeRetry).map((call) => call.pathspecs), [[`${handover.fullRoot}/RUN_METADATA.md`]])
+    assert.equal(readLastProviderSelection(handover.fullRoot, 'published'), null,
+      'the retry of a hand-over backfill receipt does not credit the run over the newer one')
+
+    for (const item of [inside, retired, ordinary.retained, handover.retained, bound.retained]) {
+      assert.equal(fs.existsSync(item.receipt), false, 'no settled receipt stays behind to be re-reported at every startup')
+      const archives = archivesFor(item.run.runId)
+      assert.equal(archives.length, 1, 'each is archived once, with its sealed bytes')
+      assert.equal(fs.readFileSync(path.join(archives[0], 'receipt.json')).equals(item.bytes), true)
+      assert.equal(fs.existsSync(path.join(archives[0], 'superseded.json')), true, 'a complete archive carries its record')
+    }
+    assert.deepEqual(fs.readdirSync(readyDirectory).filter((name) => name.endsWith('.json')), [])
+  } finally {
+    capture.restore()
+    verified.restore()
+    __setSupersededPublicationProbe(insideProbe)
+    for (const item of [inside, retired, ordinary.retained, handover.retained, bound.retained]) {
+      fs.rmSync(item.receipt, { force: true })
+      for (const archive of archivesFor(item.run.runId)) fs.rmSync(archive, { recursive: true, force: true })
+    }
+  }
+
+  // 5. A newer retained receipt that FAILS this pass still wins its paths, whether its push fails or its own
+  //    supersession check cannot run. The older must not commit a path the newer carries with different
+  //    bytes, or at the next pass the newer would read those older bytes as a newer publication and drop its
+  //    own. Paths both carry with identical bytes are the older's to publish.
+  for (const failure of ['push', 'probe'] as const) {
+    const claimsRoot = `${root}_claims_${failure}`
+    extraCleanup.push(path.join(REPO_ROOT, claimsRoot))
+    const claimFiles = (label: string) => ({
+      [`${claimsRoot}/valuation/2099-01-12_${label}_only.md`]: `${label} alone\n`,
+      [`${claimsRoot}/valuation/2099-01-12_shared.md`]: `${label} version of a shared file\n`,
+      [`${claimsRoot}/valuation/2099-01-12_identical.md`]: 'the same bytes in both\n',
+    })
+    const older = await retainedReceipt({ kind: 'module', module: 'valuation', runRoot: claimsRoot, files: claimFiles('older') })
+    const newer = await retainedReceipt({ kind: 'module', module: 'valuation', runRoot: claimsRoot, files: claimFiles('newer') })
+    assert.ok(Date.parse(older.sealedAt) < Date.parse(newer.sealedAt))
+    const claimsProbe = __setSupersededPublicationProbe((input) => {
+      if (failure === 'probe' && input.sealedAt === newer.sealedAt) throw new Error('fixture git failure')
+      return []
+    })
+    const claimsVerifier = __setSupervisorCommitVerifier(async () => {})
+    try {
+      const firstPass = commitCapture((message) => failure === 'push' && message.includes(newer.run.runId))
+      try {
+        assert.equal(await recoverReadyPublications(), 1)
+        const olderCall = firstPass.calls.find((call) => call.message.includes(older.run.runId))
+        assert.ok(olderCall, `the older receipt still publishes (${failure})`)
+        assert.ok(!olderCall.pathspecs.includes(`${claimsRoot}/valuation/2099-01-12_shared.md`),
+          `the older receipt never commits a path a newer retained receipt carries with different bytes (${failure})`)
+        assert.ok(!olderCall.pathspecs.includes(`${claimsRoot}/valuation/${EXECUTION_RECEIPT_NAME}`),
+          'its execution receipt differs from the newer one too')
+        assert.ok(olderCall.pathspecs.includes(`${claimsRoot}/valuation/2099-01-12_identical.md`)
+          && olderCall.pathspecs.includes(`${claimsRoot}/valuation/2099-01-12_older_only.md`),
+        'identical and unshared paths are the older receipt\'s to publish')
+        assert.equal(listReadyPublicationFailures().filter((item) => item.entry === `${newer.run.runId}.json`).length, 1)
+        assert.equal(fs.existsSync(newer.receipt), true, 'the failed newer receipt is retained intact')
+        assert.equal(listSupersededReadyPublications().find((item) => item.entry === `${older.run.runId}.json`)?.examples[0]?.receipt,
+          `${newer.run.runId}.json`, 'the report names the newer receipt holding the path')
+      } finally { firstPass.restore() }
+      __setSupersededPublicationProbe(() => [])
+      const secondPass = commitCapture()
+      try {
+        assert.equal(await recoverReadyPublications(), 1)
+        assert.deepEqual(secondPass.calls.map((call) => call.pathspecs), [newer.paths],
+          'the newer receipt publishes every one of its paths at the next pass')
+      } finally { secondPass.restore() }
+    } finally {
+      __setSupersededPublicationProbe(claimsProbe)
+      __setSupervisorCommitVerifier(claimsVerifier)
+      for (const item of [older, newer]) {
+        fs.rmSync(item.receipt, { force: true })
+        for (const archive of archivesFor(item.run.runId)) fs.rmSync(archive, { recursive: true, force: true })
+      }
+    }
+  }
+
+  // 6. A newer retained receipt that cannot even be VERIFIED this pass (here its sealed snapshot is unreadable)
+  //    lists paths an older receipt shares. The older waits instead of racing it, and publishes once the
+  //    newer one does.
+  {
+    const waitRoot = `${root}_unverified`
+    extraCleanup.push(path.join(REPO_ROOT, waitRoot))
+    const waitFiles = (label: string) => ({ [`${waitRoot}/valuation/2099-01-13_shared.md`]: `${label} version\n` })
+    const older = await retainedReceipt({ kind: 'module', module: 'valuation', runRoot: waitRoot, files: waitFiles('older') })
+    const newer = await retainedReceipt({ kind: 'module', module: 'valuation', runRoot: waitRoot, files: waitFiles('newer') })
+    const newerManifest = JSON.parse(fs.readFileSync(path.join(newer.snapshotDirectory, 'manifest.json'), 'utf8'))
+    const hiddenSnapshot = newerManifest.entries[0].snapshot as string
+    fs.chmodSync(hiddenSnapshot, 0o644) // an unsafe mode: readReadyPublication refuses to verify the receipt
+    const waitProbe = __setSupersededPublicationProbe(() => [])
+    const waitVerifier = __setSupervisorCommitVerifier(async () => {})
+    try {
+      const firstPass = commitCapture()
+      try {
+        assert.equal(await recoverReadyPublications(), 0)
+        assert.deepEqual(firstPass.calls, [], 'the older receipt does not race a newer one it cannot compare against')
+        const failures = new Map(listReadyPublicationFailures().map((item) => [item.entry, item.error]))
+        assert.ok(failures.has(`${newer.run.runId}.json`))
+        assert.match(failures.get(`${older.run.runId}.json`) ?? '', /could not be verified this pass/)
+        assert.equal(fs.existsSync(older.receipt), true, 'the waiting receipt is retained intact')
+      } finally { firstPass.restore() }
+      fs.chmodSync(hiddenSnapshot, 0o600)
+      const secondPass = commitCapture()
+      try {
+        assert.equal(await recoverReadyPublications(), 1, 'the newer publishes; the older drops the shared path and has nothing else')
+        assert.deepEqual(secondPass.calls.map((call) => call.message.includes(newer.run.runId)), [true])
+        assert.equal(listSupersededReadyPublications().find((item) => item.entry === `${older.run.runId}.json`)?.outcome, 'retired')
+      } finally { secondPass.restore() }
+    } finally {
+      __setSupersededPublicationProbe(waitProbe)
+      __setSupervisorCommitVerifier(waitVerifier)
+      for (const item of [older, newer]) {
+        fs.rmSync(item.receipt, { force: true })
+        for (const archive of archivesFor(item.run.runId)) fs.rmSync(archive, { recursive: true, force: true })
+      }
+    }
+  }
+
+  // Retained receipts are retried NEWEST FIRST. A recovery commit is stamped "now", not the time its bytes
+  // were sealed, so an older receipt retried first makes a newer one that shares a path look superseded by
+  // it, and the older bytes win. The real case: a push fails, the run is auto-resumed into the same run root
+  // under a new run id, the network is still down, and both receipts are retained. Receipt files are named
+  // by random run id, so name order is arbitrary. To make the old name-order deterministic here, the run
+  // whose id sorts FIRST is sealed first: name order would retry the OLDER receipt first.
+  const orderedRuns = [0, 1].map((index) => {
+    const relative = `${root}/reviews/2099-01-07_ordering_${index}_review.json`
+    const created = createRun({
+      kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+      profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+      userVia: 'local', runRoot: root, willCommitToMain: true,
+      writeTargetsAbs: [path.dirname(path.join(REPO_ROOT, relative))], coveredModules: [], readDepsAbs: [],
+      closeWatcher: undefined, expected: new Map(),
+    })
+    created.publicationToken = randomUUID()
+    return { run: created, relative }
+  }).sort((a, b) => `${a.run.runId}.json`.localeCompare(`${b.run.runId}.json`))
+  const [olderSealed, newerSealed] = orderedRuns
+  const orderingReceipts = orderedRuns.map(({ run: item }) => path.join(STATE_DIR, 'publication-ready', `${item.runId}.json`))
+  const orderingFailedCommitter = __setSupervisorCommitter(async () => { throw new Error('fixture push failed') })
+  const orderingVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    for (const [index, { run: item, relative }] of orderedRuns.entries()) {
+      beginExecutionAttempt(item)
+      fs.writeFileSync(path.join(REPO_ROOT, relative), `{"verdict":"ordering fixture, sealed ${index === 0 ? 'first' : 'second'}"}\n`)
+      await queuePublicationIntent(item.runId, item.publicationToken!, {
+        phase: 'commit', message: `ordering fixture sealed ${index === 0 ? 'first' : 'second'}`, pathspecs: [relative],
+      })
+      await assert.rejects(drainPublicationIntents(item), /fixture push failed/)
+      await new Promise((resolve) => setTimeout(resolve, 25)) // created_at has millisecond resolution
+    }
+    const [olderAt, newerAt] = orderingReceipts.map((file) => Date.parse(JSON.parse(fs.readFileSync(file, 'utf8')).created_at))
+    assert.ok(olderAt < newerAt, 'the fixture sealed the name-first receipt strictly earlier')
+    const retried: string[] = []
+    const orderingCommitter = __setSupervisorCommitter(async (message) => {
+      retried.push(message)
+      return 'COMMIT_SHA=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+    })
+    try {
+      await recoverReadyPublications()
+      assert.deepEqual(retried.filter((message) => message.startsWith('ordering fixture')),
+        ['ordering fixture sealed second', 'ordering fixture sealed first'],
+        'the newest receipt is retried first, so its bytes publish and an older overlapping receipt\'s copy is the one dropped')
+      assert.ok(olderSealed.run.runId < newerSealed.run.runId, 'name order alone would have retried the older receipt first')
+    } finally { __setSupervisorCommitter(orderingCommitter) }
+  } finally {
+    __setSupervisorCommitter(orderingFailedCommitter)
+    __setSupervisorCommitVerifier(orderingVerifier)
+    for (const { run: item } of orderedRuns) finishRun(item, 'error')
+    for (const file of orderingReceipts) fs.rmSync(file, { force: true })
   }
 
   // Commit verification can succeed and the process can die before the provider/profile publication seal.
@@ -447,6 +1106,23 @@ try {
       if (fs.existsSync(heldReadyPath)) fs.renameSync(heldReadyPath, readyPath)
     }
 
+    // 2026-09-17 outage: this pass runs before listen(), so a rejection that escaped it stopped the whole
+    // cockpit and launchd restarted it straight back into the same rejection until an operator intervened. A sealed
+    // publication Git/the catalogue refuses must be reported and retained, never thrown.
+    const rejectingCommitter = __setSupervisorCommitter(async () => {
+      throw Object.assign(new Error('Command failed with exit code 5'), {
+        stderr: 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data',
+      })
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 0,
+        'a sealed publication that cannot publish is reported, not thrown into the startup path')
+      assert.equal(fs.existsSync(readyPath), true, 'the rejected receipt is retained for the next recovery pass')
+      assert.deepEqual(listReadyPublicationFailures().map((item) => [item.entry, item.error]), [
+        [`${postCommitRun.runId}.json`, 'DATA-CATALOGUE: FAIL — proposed tree has uncatalogued data'],
+      ])
+    } finally { __setSupervisorCommitter(rejectingCommitter) }
+
     __setPublicationAuthoritySealer(postCommitSealer)
     let recoveryCommits = 0
     const recoveryCommitter = __setSupervisorCommitter(async () => {
@@ -460,6 +1136,7 @@ try {
       assert.equal(providerCalls, 0, 'provider recovery is never involved in the publication crash window')
       assert.equal(readLastProviderSelection(postCommitRoot, 'published')?.profileKey, profile.key)
       assert.equal(await recoverReadyPublications(), 0, 'the receipt clears only after authority is durable')
+      assert.deepEqual(listReadyPublicationFailures(), [], 'a later successful pass clears the reported failure')
     } finally { __setSupervisorCommitter(recoveryCommitter) }
   } finally {
     __setPublicationAuthoritySealer(postCommitSealer)
