@@ -2290,6 +2290,9 @@ export interface PortfolioExecution {
 }
 
 export interface PortfolioBook {
+  /** The day the HOLDINGS were observed. Absent on an engine that predates the field, where `asOf` stands
+   *  in — the two differ only when the newest export carried no position snapshot (DESIGN.md §5). */
+  positionsAsOf?: string | null
   accountId: string | null
   baseCurrency: string | null
   asOf: string | null
@@ -2421,6 +2424,11 @@ export interface PortfolioLiveRow {
   price: number
   value: number
   movePct: number | null
+  /** THIS ROW's own quote date and close/live status — not the mark's aggregate `asOf`/`asOfIsClose`,
+   *  which is the latest date and worst case across every priced row. A cross-market book can hold rows
+   *  from different trading days and mix live ticks with settled closes on the same page load. */
+  asOf: string | null
+  asOfIsClose: boolean
 }
 /** The gap between the last statement and today, priced at the market. NEVER part of the book: it is
  *  today's prices against yesterday's share counts, and it ties to nothing. */
@@ -2461,6 +2469,12 @@ export interface PortfolioPerformance {
    *  rather than being read as current forever. */
   riskFreeAsOf: string
   riskFreeSource: string
+  /** The rate ACTUALLY charged across the since-inception window (averaged over its span), as opposed to
+   *  `riskFreeAnnualPct`, which is the latest observation only. A book that spans a rate cycle can have
+   *  these differ — the since-inception "vs cash" card and the Sharpe/Sortino ratios below are charged
+   *  THIS rate, so a label naming "the cash rate" for either belongs here, not on `riskFreeAnnualPct`.
+   *  Null only when the book has no measurable window at all. */
+  riskFreeSinceInceptionPct: number | null
   /** What the index series measures — it is a price index, so it excludes the index's own dividends. */
   benchmarkBasis: string
   feedPresent: boolean
