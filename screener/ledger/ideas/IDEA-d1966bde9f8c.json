@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-6a71fdaeebf7",
-  "idea_version": "IDEAV-aedd46021f4467c6",
-  "idea_version_started_at": "2026-09-16T13:28:55Z",
-  "ticker": "01975.HK",
-  "company": "Sun Hing Printing",
+  "idea_id": "IDEA-d1966bde9f8c",
+  "idea_version": "IDEAV-47bc164323824838",
+  "idea_version_started_at": "2026-09-19T15:58:42Z",
+  "ticker": "08156",
+  "company": "Sinopharm Tech Holdings Limited",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings performance.",
-  "why_now": "The filing was released today, September 16, 2026.",
-  "conviction": 70,
+  "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+  "why_now": "The warning was filed on September 18, 2026.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
-  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 19,
+    "impact": 20,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -48,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f56a845c24b6"
+    "EVT-f9e144c03dbd"
   ],
-  "primary_source_event_id": "EVT-f56a845c24b6",
+  "primary_source_event_id": "EVT-f9e144c03dbd",
   "source_headlines": [
-    "SUN HING PRINT (01975): POSITIVE PROFIT ALERT"
+    "SINOPHARM TECH (08156): PROFIT WARNING"
   ],
-  "source_headline": "SUN HING PRINT (01975): POSITIVE PROFIT ALERT",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600444.pdf",
+  "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
   "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-16T08:48:00Z",
+  "newest_source_at": "2026-09-18T14:02:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-16T13:28:55Z",
-  "updated_at": "2026-09-16T13:28:55Z",
-  "decay_at": "2026-09-17T20:48:00Z",
+  "surfaced_at": "2026-09-19T15:58:42Z",
+  "updated_at": "2026-09-19T15:58:42Z",
+  "decay_at": "2026-09-20T02:02:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

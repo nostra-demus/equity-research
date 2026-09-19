@@ -1585,7 +1585,7 @@ export interface BoardIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy'
   trade_score: number
-  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'pre_edge_proxy_legacy'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'event_driven_v3' | 'pre_edge_proxy_legacy'
   trade_score_breakdown: { evidence: number; impact: number; specificity: number; timing: number; expression: number; corroboration: number; learning_adjustment: number } | null
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]

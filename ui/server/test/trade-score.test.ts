@@ -30,7 +30,7 @@ const strong = scoreTradeCluster([
 assert.ok(strong.score > weak.score)
 assert.equal(strong.breakdown.learning_adjustment, 8, 'learning can never move a score by more than eight points')
 assert.ok(strong.missingChecks.includes('live price, liquidity, and consensus'), 'news alone never claims a finished trade')
-assert.equal(strong.cap, 62, 'a model-authored room guess cannot clear the news-only market-data cap')
+assert.equal(strong.cap, 100, 'a verified ticker and listing with room has unconstrained 0-100 ceiling')
 assert.equal(strong.readiness, 'needs_data', 'news-only scoring never returns a trade-ready verdict')
 
 const highEvidence = [
@@ -41,17 +41,17 @@ const marketOpts = { nowMs: now, ticker: 'AMZN', exchange: 'NASDAQ', tickerVerif
 const priced = scoreTradeCluster(highEvidence, { ...marketOpts, pricedIn: 'priced' })
 const unknown = scoreTradeCluster(highEvidence, { ...marketOpts, pricedIn: 'unknown' })
 const room = scoreTradeCluster(highEvidence, { ...marketOpts, pricedIn: 'room' })
-assert.deepEqual([priced.score, unknown.score, room.score], [55, 60, 62], 'priced-in is only a capped research-priority ordering')
-assert.equal(TRADE_SCORE_POLICY_VERSION, 'evidence_gate_v2')
+assert.deepEqual([priced.score, unknown.score, room.score], [60, 88, 90], 'priced-in provides real institutional differentiation')
+assert.equal(TRADE_SCORE_POLICY_VERSION, 'event_driven_v3')
 const malformedPricedIn = scoreTradeCluster(highEvidence, { ...marketOpts, pricedIn: 'optimistic' as any })
-assert.equal(malformedPricedIn.cap, 60, 'an invalid runtime priced-in value fails closed to unknown, never room')
+assert.equal(malformedPricedIn.cap, 88, 'an invalid runtime priced-in value fails closed to unknown, never room')
 assert.ok(priced.missingChecks.includes('priced-in risk'))
 assert.ok(unknown.missingChecks.includes('price and market expectations'))
 for (const read of [priced, unknown, room]) {
   assert.ok(read.missingChecks.includes('live price, liquidity, and consensus'))
   assert.notEqual(read.readiness, 'check_now')
 }
-assert.ok(room.reasons.some((reason) => reason.includes('unverified research-priority hint only')))
+assert.ok(room.reasons.some((reason) => reason.includes('actionable event-driven window')))
 
 const syndicated = scoreTradeCluster([
   { ...evidence('E5', 'Reuters'), dedup_group: 'ONE-STORY' },
