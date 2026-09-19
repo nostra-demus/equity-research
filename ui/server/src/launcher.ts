@@ -14,6 +14,7 @@ import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
 import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
+import { PUBLICATION_REFUSED_REASON, requiresManualResume } from './resume-policy'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
 import { normalizeDataSubject } from './data-subject'
@@ -658,9 +659,90 @@ export function resetAdmittedFullRelaunch(runRoot: string): void {
 const failureNote = (reason: string, stderr: string): string =>
   reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
+/**
+ * scripts/commit-run.sh reserves this exit code for exactly one outcome: the data catalogue validator
+ * returned its FAIL verdict for the proposed tree. The validator judges the WHOLE proposed index against
+ * the checked-in catalogue, so the verdict does not depend on anything a provider re-run can change: the
+ * same run reaches it again, and so does every other run while the offending path or catalogue gap
+ * stands. Every other helper failure (usage, a foreign staged change, a lost push race, a failed
+ * `git add`/commit, a timeout, a validator that never ran) keeps its own code and stays a transient
+ * `publication_failed`. The pairing is pinned by test/publication-refusal-resume.test.ts.
+ */
+export const COMMIT_RUN_REFUSED_EXIT_CODE = 7
+
+/**
+ * A supervisor publication gate refused this exact publication for a reason no retry can change. It is the
+ * ONLY signal that turns a publication failure into the never-auto-resumed `publication_refused` reason:
+ * a gate opts in by throwing this type, and nothing downstream reads an error message to decide the class.
+ * Throw it only for a deterministic verdict — a gate that could not run (timeout, spawn failure) is a
+ * plain, transient error.
+ */
+export class PublicationRefusedError extends Error {
+  constructor(message: string, options?: { cause?: unknown }) {
+    super(message, options)
+    this.name = 'PublicationRefusedError'
+  }
+}
+
+/** Classify a failed commit-run.sh invocation by its exit code alone — never by its text. For a refusal the
+ * message is the helper's stderr (the validator's own explanation of which paths it rejected): that is what
+ * the person who must fix the cause needs, and the process-runner's own message leads with a command line
+ * that can run to thousands of characters of pathspecs. The original error stays attached as `cause`. */
+export function publicationCommitError(error: any): unknown {
+  if (error?.exitCode !== COMMIT_RUN_REFUSED_EXIT_CODE) return error
+  const explanation = String(error?.stderr ?? '').trim() || String(error?.message || error).trim()
+  return new PublicationRefusedError(explanation || 'the data catalogue refused this publication', { cause: error })
+}
+
+/** Record why the supervisor-owned half of publication failed. Shared by the close owner and the regression
+ * so the refusal class is decided in one place, from the error's type. Returns the recorded message. */
+export function recordPublicationFailure(run: RunState, error: unknown): string {
+  const message = String((error as any)?.message || error)
+  run.publicationError = message
+  run.publicationRefused = error instanceof PublicationRefusedError
+  // eslint-disable-next-line no-console
+  console.error(`[publication] ${run.subjectId}: ${run.publicationRefused
+    ? 'REFUSED — automatic resume is off until a person fixes the cause and resumes it'
+    : 'failed — transient, the run stays eligible for automatic resume'}: ${redactSecrets(message).slice(0, 1000)}`)
+  return message
+}
+
+/** The close owner's publication step, as one callable unit so the regression drives the SAME code the
+ * close handler runs: drain the queued intents, and on failure record the class from the error's type.
+ * Returns the recorded failure message, or null when publication completed. */
+export async function drainPublicationForClose(run: RunState): Promise<string | null> {
+  try {
+    await drainPublicationIntents(run)
+    return null
+  } catch (error) {
+    const message = recordPublicationFailure(run, error)
+    run.publicationPhase = 'terminal-failed'
+    run.publicationToken = undefined
+    return message
+  }
+}
+
+const publicationFailureReason = (run: RunState): string =>
+  run.publicationRefused ? PUBLICATION_REFUSED_REASON : 'publication_failed'
+
+const PUBLICATION_REFUSED_NOTICE = 'Automatic resume is off for this run: the supervisor refused the publication '
+  + 'for a reason that running it again cannot change. Fix the cause shown above, then resume it manually.'
+// Every durable surface keeps only the TAIL of a long message: the activity note 300 characters, the SSE
+// event 400, the `.interrupted` marker and RUN_FAILURE.md 2,000. A provider's final message can be 4,000.
+// So for a refusal the order is: provider message FIRST (context, may be cut), then the cause bounded to this
+// length, then the notice — cause + notice always fit the 2,000-character surfaces a person reads to fix it.
+const PUBLICATION_REFUSED_CAUSE_MAX = 1500
+
 function publicationFailureMessage(run: RunState, reason: string): string {
-  if (!run.lastProviderMessage || reason.includes('Provider final message:')) return reason
-  return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
+  if (reason.includes(PUBLICATION_REFUSED_NOTICE)) return reason // already composed for a refusal
+  const providerMessage = run.lastProviderMessage && !reason.includes('Provider final message:')
+    ? `Provider final message:\n${redactSecrets(run.lastProviderMessage)}`
+    : ''
+  if (!run.publicationRefused) return providerMessage ? `${reason}\n\n${providerMessage}` : reason
+  const cause = reason.length > PUBLICATION_REFUSED_CAUSE_MAX
+    ? `${reason.slice(0, PUBLICATION_REFUSED_CAUSE_MAX)} …`
+    : reason
+  return `${providerMessage ? `${providerMessage}\n\n` : ''}${cause}\n\n${PUBLICATION_REFUSED_NOTICE}`
 }
 
 interface UnresolvedExpectedArtifact {
@@ -924,11 +1006,22 @@ export function writeInterruptionMarker(run: RunState, reason: string, message?:
   // the saved work instead of letting the resume supervisor continue it.
   if (run.runRoot) {
     const existing = readRunMarker(run.runRoot, '.interrupted')
+    // `.interrupted` is ONE last-writer-wins file per run root, and it is the durable record that holds a
+    // refused publication out of every automatic lane. No automatic writer may downgrade it: a same-wave
+    // sibling that breaks transiently after another sibling's publication was refused, or a scheduler
+    // interruption, would otherwise replace it with an auto-resumable reason and restart the paid loop. Only
+    // an explicit human resume (which clears the marker when it launches) or a completed run removes it.
+    const existingManualOnly = requiresManualResume(typeof existing?.reason === 'string' ? existing.reason : undefined)
+    if (existingManualOnly && !requiresManualResume(reason)) return
     const attemptId = run.providerAttemptId ?? run.runId
     const authority = existing?.runId === run.runId && existing?.attemptId === attemptId
       ? readProviderInterruptionAuthority(run.runRoot, run.runId)
       : null
-    if (authority?.runId === attemptId && authority.provider === run.provider
+    // The stable-bytes rule below must not block the reverse case either: this same attempt may already hold
+    // a sealed auto-resumable marker (a graceful `supervisor_shutdown` during publication) when its refusal
+    // is recorded. The refusal has to win, so it is allowed to replace that marker.
+    const upgradesToManualOnly = requiresManualResume(reason) && !existingManualOnly
+    if (!upgradesToManualOnly && authority?.runId === attemptId && authority.provider === run.provider
         && authority.model === run.model && authority.reasoningLevel === run.reasoningLevel
         && authority.profileKey === run.profileKey
         && isDeepStrictEqual(authority.executionProfile, run.executionProfile)) return
@@ -1108,15 +1201,23 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // finalizer releases them.
     finishClose('error')
   } else if (!terminalProof.ok) {
-    const terminalMessage = terminalProof.message || terminalProof.reason
-    run.note = `incomplete: ${terminalProof.reason}`
+    // This branch outranks the publication branch below. A refused publication whose close also failed its
+    // terminal proof (a process-group member outlived the leader) must still be recorded as refused, or the
+    // auto-resumable proof reason would put the run straight back into the paid loop this reason exists to stop.
+    const refused = run.publicationRefused === true && !run.publicationCompleted
+    const proofReason = refused ? PUBLICATION_REFUSED_REASON : terminalProof.reason
+    const proofMessage = terminalProof.message || terminalProof.reason
+    const terminalMessage = refused
+      ? publicationFailureMessage(run, `${run.publicationError || 'the supervisor refused the publication'} (close also reported: ${proofMessage})`)
+      : proofMessage
+    run.note = refused ? failureNote(proofReason, terminalMessage) : `incomplete: ${terminalProof.reason}`
     if (isResumableResearchRun(run) && run.runRoot) {
-      try { writeInterruptionMarker(run, terminalProof.reason, terminalMessage) } catch { /* event remains truthful */ }
-      try { recordRunFailure(run, terminalProof.reason, terminalMessage) } catch { /* best effort */ }
+      try { writeInterruptionMarker(run, proofReason, terminalMessage) } catch { /* event remains truthful */ }
+      try { recordRunFailure(run, proofReason, terminalMessage) } catch { /* best effort */ }
     }
     emit(run, {
-      type: 'run-error', runId: run.runId, status: 'incomplete', reason: terminalProof.reason,
-      message: terminalProof.message, ts: Date.now(),
+      type: 'run-error', runId: run.runId, status: 'incomplete', reason: proofReason,
+      message: refused ? terminalMessage.slice(-400) : terminalProof.message, ts: Date.now(),
     })
     finishClose('incomplete')
   } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)
@@ -1161,7 +1262,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
           && !run.publicationCompleted && run.publicationError
         ? publicationFailureMessage(run, run.publicationError)
         : null
-    const reason = publicationFailure ? 'publication_failed' : classified.reason
+    // THE one place a publication failure gets its class. `publication_refused` only when the failure carried
+    // the typed deterministic refusal; that reason is never auto-resumed (resume-policy.ts). Every other
+    // publication failure stays the transient, auto-resumable `publication_failed`.
+    const reason = publicationFailure ? publicationFailureReason(run) : classified.reason
     const errorMessage = publicationFailure || classified.message || stderr
     // Mark the broken full run for the resume supervisor. For an out_of_credits stop (the plan's usage
     // limit), stamp the rate-limit resetsAt so the paused run knows when it may continue WITHOUT spending
@@ -4110,6 +4214,10 @@ function recordFullChainSchedulerInterruption(input: FullChainSchedulerInterrupt
   })
   const runId = randomUUID()
   const reason = input.step === 'master' ? 'terminal_launch_rejected' : 'module_launch_rejected'
+  // Same rule as writeInterruptionMarker: an automatic writer never downgrades a manual-resume-only marker.
+  // A master whose publication was refused and whose terminal result then failed to seal lands here.
+  const existingReason = readRunMarker(input.runRoot, '.interrupted')?.reason
+  if (requiresManualResume(typeof existingReason === 'string' ? existingReason : undefined)) return
   writeRunMarker(input.runRoot, '.interrupted', {
     reason,
     message: redactSecrets(input.message).slice(-2000),
@@ -5436,9 +5544,16 @@ async function launchRegistered(params: LaunchParams): Promise<LaunchResult> {
       // a deliberate relaunch (manual Continue / Re-run) clears any prior user-abort marker, so the run
       // becomes live again rather than staying excluded from the resumable scan. Path rebuilt from the
       // SIG_ID_RE-validated subject id (same CWE-22 barrier as the .target / .aborted writes), not the raw path.
+      // `.interrupted` describes the PREVIOUS stop. No success path ever clears it for a signal, so without
+      // this a stale `publication_refused` marker would keep holding a later, unrelated break of a run a
+      // person has already resumed. (The supervisor never relaunches a refused signal, so reaching this line
+      // with that marker means a human asked for the resume.)
       try {
         const dir = screenerMarkerDir(swarmId, subjectId)
-        if (dir) fs.rmSync(path.join(dir, '.aborted'), { force: true })
+        if (dir) {
+          fs.rmSync(path.join(dir, '.aborted'), { force: true })
+          fs.rmSync(path.join(dir, '.interrupted'), { force: true })
+        }
       } catch {
         /* best-effort */
       }
@@ -6866,12 +6981,23 @@ let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
 }
 
 type SupervisorCommitter = (message: string, pathspecs: string[], env: NodeJS.ProcessEnv) => Promise<string>
-let supervisorCommitter: SupervisorCommitter = async (message, pathspecs, env) => {
-  const result = await execa('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...pathspecs], {
-    cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
-  })
-  return result.stdout
+/** The production committer. `script` is a parameter only so the regression can run this exact function —
+ * including the catch that types a refusal — against a harmless stand-in helper. */
+export function commitRunCommitter(
+  script: string = path.join(REPO_ROOT, 'scripts', 'commit-run.sh'),
+): SupervisorCommitter {
+  return async (message, pathspecs, env) => {
+    try {
+      const result = await execa('bash', [script, message, '--', ...pathspecs], {
+        cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
+      })
+      return result.stdout
+    } catch (error) {
+      throw publicationCommitError(error)
+    }
+  }
 }
+let supervisorCommitter: SupervisorCommitter = commitRunCommitter()
 type PublicationAuthoritySealer = (run: RunState) => void
 let publicationAuthoritySealer: PublicationAuthoritySealer = releaseExecutionEpochAfterPublication
 
@@ -6977,6 +7103,9 @@ function assertPublicationPathsCatalogued(paths: string[]): void {
     })
   } catch (error: any) {
     const detail = String(error?.stderr || error?.message || error).trim().slice(0, 1000)
+    if (error?.status === 1) {
+      throw new PublicationRefusedError(`cockpit publication refused before its path list was frozen: ${detail}`, { cause: error })
+    }
     throw new Error(`cockpit publication refused before its path list was frozen: ${detail}`)
   }
 }
@@ -9366,14 +9495,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       run.publicationToken = undefined
     }
     if (childCouldReportDone && (run.publicationRequested || run.willCommitToMain)) {
-      try {
-        await drainPublicationIntents(run)
-      } catch (error: any) {
-        publicationDrainError = String(error?.message || error)
-        run.publicationError = publicationDrainError
-        run.publicationPhase = 'terminal-failed'
-        run.publicationToken = undefined
-      }
+      publicationDrainError = await drainPublicationForClose(run)
     } else if (!childCouldReportDone) {
       publicationIntentsByRun.delete(run)
       run.publicationToken = undefined

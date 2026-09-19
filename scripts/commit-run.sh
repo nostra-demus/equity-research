@@ -13,7 +13,12 @@
 # Prints: COMMIT_SHA=<sha>   on a successful commit (and push)
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
-#         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed.
+#         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed;
+#         7 the data catalogue REFUSED the proposed tree. 7 is reserved for that one verdict. The validator
+#         judges the WHOLE proposed index against the checked-in catalogue, so nothing a provider re-run does
+#         can change it: the same run is refused again, and so is every other run while the uncatalogued path
+#         or catalogue gap stands. The cockpit supervisor reads this code (never the message) to record the
+#         run as `publication_refused`, which is not auto-resumed. Do not reuse 7 for any other failure.
 set -u
 
 RETRY_SHA=""
@@ -202,18 +207,23 @@ else
 # SIGKILL). Left alone, that one entry refuses every later autonomous commit until a human edits the
 # production index (2026-09-17 outage). Unstage exactly those leftovers — every worktree byte is kept —
 # and refuse exactly as before when anything outside the data lane is staged: that still means something
-# is wrong. Verify the whole staged set first so a refusal never mutates the index.
+# is wrong. Read the whole staged set before touching the index: a refusal then never mutates it, and the
+# single reset below never races the listing that is still streaming these paths.
 if ! git diff --cached --quiet; then
+  STAGED_LEFTOVERS=()
   while IFS= read -r -d '' STAGED_PATH; do
     if ! is_data_pathspec "$STAGED_PATH"; then
       echo "commit-run: refusing — unrelated changes are already staged" >&2
       exit 3
     fi
+    STAGED_LEFTOVERS+=("$STAGED_PATH")
   done < <(git diff --cached --name-only --no-renames -z)
-  while IFS= read -r -d '' STAGED_PATH; do
-    git reset -q HEAD -- "$STAGED_PATH" 2>/dev/null || true
-    echo "commit-run: unstaged a data-lane leftover from an interrupted publication: $STAGED_PATH" >&2
-  done < <(git diff --cached --name-only --no-renames -z)
+  if [ "${#STAGED_LEFTOVERS[@]}" -gt 0 ]; then
+    git reset -q HEAD -- "${STAGED_LEFTOVERS[@]}" 2>/dev/null || true
+    for STAGED_PATH in "${STAGED_LEFTOVERS[@]}"; do
+      echo "commit-run: unstaged a data-lane leftover from an interrupted publication: $STAGED_PATH" >&2
+    done
+  fi
   if ! git diff --cached --quiet; then
     echo "commit-run: refusing — unrelated changes are already staged" >&2
     exit 3
@@ -344,9 +354,20 @@ fi
 # declared permanent-memory store. This is the same coverage invariant CI checks, moved before commit/push
 # so autonomous data cannot turn main red and freeze every reviewed release behind it. The validator reads
 # Git objects/index bytes, never mutable worktree files, so concurrent writers cannot race this decision.
-if ! python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --index; then
+python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --index
+CATALOGUE_STATUS=$?
+if [ "$CATALOGUE_STATUS" -ne 0 ]; then
   unstage_own_paths "$@"
-  echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
+  # Status 1 is the validator's own FAIL verdict: deterministic, so it gets the reserved refusal code (see
+  # the exit contract at the top). An uncaught exception inside the validator also exits 1; holding that for
+  # a person is the safe side, because re-running the provider cannot repair a broken validator either. Any
+  # other status means the validator never ran (python3 or the script missing, killed by a signal): that
+  # proves nothing about these paths, stays the generic 5, and may be retried.
+  if [ "$CATALOGUE_STATUS" -eq 1 ]; then
+    echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
+    exit 7
+  fi
+  echo "commit-run: data catalogue validator could not run (status $CATALOGUE_STATUS) — nothing was committed or pushed" >&2
   exit 5
 fi
 

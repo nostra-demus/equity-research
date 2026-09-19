@@ -39,7 +39,7 @@ export function WatchPlanSection({ row }: { row: WatchRow }) {
   return (
     <section className="wdet__sec" aria-label="What it is waiting for">
       <h4 className="wdet__seclabel">What it's waiting for</h4>
-      <div className={`wplan__state${p.state === 'failed' || p.state === 'budget' ? ' wplan__state--bad' : ''}`}>{planStateWords(p)}</div>
+      <div className={`wplan__state${p.state === 'ready' || p.state === 'reading' || p.state === 'waiting' ? '' : ' wplan__state--bad'}`}>{planStateWords(p)}</div>
 
       {prices.length > 0 && (
         <ul className="wplan__list">
