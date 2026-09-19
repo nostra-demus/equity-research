@@ -3956,11 +3956,14 @@ await check('finite pool falls through when the selected route cannot persist it
     id, label: id, color: '--x', apiKey: 'k', baseUrl: `https://${id}.test/v1`, model: 'm',
     maxTokens: 900, rpm: 60_000, dailyReqCap: 10, budgetFile: `${id}-budget.json`, paceFloorFrac: 0,
   })
-  // Keep the regression bounded if the no-progress loop ever returns. Leave enough room for the audited
-  // route to fsync its decision and outcome on slower CI hosts; yielding limiter sleeps still let the guard
-  // fire instead of allowing repeated already-resolved awaits to monopolize the microtask queue.
+  // A BACKSTOP AGAINST A HANG, NOT A TIME BUDGET. If the no-progress loop ever returns, this bounds the
+  // regression instead of letting the suite spin for ever. It must not double as an assertion about how fast
+  // a host is: at two seconds it fired on a loaded CI runner during an ordinary healthy run, failing a
+  // portfolio pull request for the speed of the machine that built it. A healthy cycle here takes
+  // milliseconds — limiter sleeps are capped at 5ms below — so anything approaching this is the hang it
+  // exists to catch.
   const controller = new AbortController()
-  const abortTimer = setTimeout(() => controller.abort(), 2_000)
+  const abortTimer = setTimeout(() => controller.abort(), 30_000)
   let summary
   try {
     summary = await runIngestCycle({
