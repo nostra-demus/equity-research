@@ -19,7 +19,7 @@
 #   com.nostradamus.omniroute    — local model-router fallback on 127.0.0.1:20128            (RunAtLoad+KeepAlive)   [managed base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
-#   com.nostradamus.hk-market-feed — deterministic daily S&P 500 benchmark-feed refresh (StartCalendarInterval) [doer]
+#   com.nostradamus.hk-market-feed — deterministic S&P 500 benchmark-feed refresh, 3x/day 07:10/13:10/19:10 (StartCalendarInterval) [doer]
 #   com.nostradamus.hk-calibrate* — deterministic daily/monthly calibration fallbacks             [doer]
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy + housekeeping shell scripts from ~/.nostra-ops.
 #

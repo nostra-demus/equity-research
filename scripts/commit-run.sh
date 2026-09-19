@@ -13,8 +13,13 @@
 # Prints: COMMIT_SHA=<sha>   on a successful commit (and push)
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
-#         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed.
-#         6 refused: invoked from a test run (ENGINE_TEST_RUN=1) — nothing was committed or pushed.
+#         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed;
+#         6 refused: invoked from a test run (ENGINE_TEST_RUN=1) — nothing was committed or pushed;
+#         7 the data catalogue REFUSED the proposed tree. 7 is reserved for that one verdict. The validator
+#         judges the WHOLE proposed index against the checked-in catalogue, so nothing a provider re-run does
+#         can change it: the same run is refused again, and so is every other run while the uncatalogued path
+#         or catalogue gap stands. The cockpit supervisor reads this code (never the message) to record the
+#         run as `publication_refused`, which is not auto-resumed. Do not reuse 7 for any other failure.
 set -u
 
 RETRY_SHA=""
@@ -344,9 +349,20 @@ fi
 # declared permanent-memory store. This is the same coverage invariant CI checks, moved before commit/push
 # so autonomous data cannot turn main red and freeze every reviewed release behind it. The validator reads
 # Git objects/index bytes, never mutable worktree files, so concurrent writers cannot race this decision.
-if ! python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --index; then
+python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --index
+CATALOGUE_STATUS=$?
+if [ "$CATALOGUE_STATUS" -ne 0 ]; then
   unstage_own_paths "$@"
-  echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
+  # Status 1 is the validator's own FAIL verdict: deterministic, so it gets the reserved refusal code (see
+  # the exit contract at the top). An uncaught exception inside the validator also exits 1; holding that for
+  # a person is the safe side, because re-running the provider cannot repair a broken validator either. Any
+  # other status means the validator never ran (python3 or the script missing, killed by a signal): that
+  # proves nothing about these paths, stays the generic 5, and may be retried.
+  if [ "$CATALOGUE_STATUS" -eq 1 ]; then
+    echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
+    exit 7
+  fi
+  echo "commit-run: data catalogue validator could not run (status $CATALOGUE_STATUS) — nothing was committed or pushed" >&2
   exit 5
 fi
 
