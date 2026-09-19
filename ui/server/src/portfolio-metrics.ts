@@ -202,10 +202,24 @@ function benchmarkOverWindow(
 
 /** Month, quarter, year to date and since inception — each a genuine time-weighted return over its own
  *  window, not a slice of one cumulative figure. */
+/**
+ * The cash hurdle: one rate, or a rate ASKED FOR THE WINDOW being measured.
+ *
+ * A single number charges every window the same rate, so a book that spans a rate cycle has its
+ * since-inception excess re-computed at today's yield — and adding tomorrow's observation silently rewrites
+ * what last year earned. A resolver lets each window be charged the cash it could actually have earned.
+ */
+export type RiskFreeRate = number | ((from: string, to: string) => number)
+// Exported so a caller outside this module (portfolio-store.ts) can ask the SAME resolver for the SAME
+// window's rate it is about to charge a metric — the only way a label describing that metric can state
+// the rate actually used rather than a different, merely current, one.
+export const rateOver = (rate: RiskFreeRate, from: string, to: string): number =>
+  typeof rate === 'number' ? rate : rate(from, to)
+
 export function returnsByPeriod(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
-  riskFreeAnnualPct = 0,
+  riskFree: RiskFreeRate = 0,
   benchmarkCloses: { date: string; close: number }[] = [],
 ): PeriodReturn[] {
   if (navSeries.length === 0) return []
@@ -231,7 +245,8 @@ export function returnsByPeriod(
     const spanDays = slice.length >= 2
       ? Math.max(0, (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${slice[0]!.date}T00:00:00Z`)) / 86_400_000)
       : 0
-    const hurdle = spanDays > 0 ? ((1 + riskFreeAnnualPct / 100) ** (spanDays / 365) - 1) * 100 : null
+    const pct = slice.length ? rateOver(riskFree, slice[0]!.date, asOf) : 0
+    const hurdle = spanDays > 0 ? ((1 + pct / 100) ** (spanDays / 365) - 1) * 100 : null
     const benchmark = slice.length >= 2
       ? benchmarkOverWindow(benchmarkCloses, slice[0]!.date, asOf)
       : null
@@ -336,7 +351,7 @@ export interface BetaAlpha {
 export function betaAlpha(
   bookReturns: { date: string; r: number }[],
   benchmarkCloses: { date: string; close: number }[],
-  riskFreeAnnualPct: number,
+  riskFree: RiskFreeRate,
 ): BetaAlpha {
   const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
   const bmReturns = new Map<string, number>()
@@ -353,8 +368,14 @@ export function betaAlpha(
   }
   const pairs = bookReturns
     .filter((b) => bmReturns.has(b.date))
-    .map((b) => ({ rb: b.r, rm: bmReturns.get(b.date)! }))
+    .map((b) => ({ date: b.date, rb: b.r, rm: bmReturns.get(b.date)! }))
   if (pairs.length < MIN_RATIO_DAYS) return { beta: null, alpha: null, pairedDays: pairs.length }
+
+  // Asked for the window the REGRESSION actually covers — the paired dates — not the book's own full
+  // return series. A benchmark that starts later, or that has gaps `MAX_FEED_GAP_DAYS` filters out, can
+  // leave `pairs` materially narrower than `bookReturns`; charging alpha the cash of days the regression
+  // never used mixes a rate from one window into a result measured over a different, shorter one.
+  const riskFreeAnnualPct = rateOver(riskFree, pairs[0]!.date, pairs[pairs.length - 1]!.date)
 
   const mb = pairs.reduce((a, p) => a + p.rb, 0) / pairs.length
   const mm = pairs.reduce((a, p) => a + p.rm, 0) / pairs.length
@@ -487,9 +508,13 @@ export function drawdown(navSeries: NavPoint[], flowsByDate: Map<string, number>
 export function riskMetrics(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
-  riskFreeAnnualPct: number,
+  riskFree: RiskFreeRate,
 ): RiskRead {
   const series = dailyReturns(navSeries, flowsByDate)
+  // The cash of the window these returns cover, not of today (see RiskFreeRate).
+  const riskFreeAnnualPct = series.length
+    ? rateOver(riskFree, series[0]!.date, series[series.length - 1]!.date)
+    : rateOver(riskFree, '0000-01-01', '9999-12-31')
   const returns = series.map((x) => x.r)
   const dd = drawdown(navSeries, flowsByDate)
   const sufficient = returns.length >= MIN_RATIO_DAYS

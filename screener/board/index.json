@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T06:05:22Z",
+  "generated_at": "2026-09-19T06:26:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260919-009",
@@ -732,6 +732,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-126",
+      "headline": "Trump Signs Russia-Iran Sanctions Act, Authorises Up To 100% Tariffs On Russian Oil Buyers Including India",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/trump-signs-russia-iran-sanctions-act-authorises-up-to-100-tariffs-on-russian-oil-buyers-including-india",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T05:50:02Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "The imposition of up to 100% tariffs on Russian oil buyers, including India, represents a significant geopolitical and trade risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The imposition of up to 100% tariffs on Russian oil buyers, including India, represents a significant geopolitical and trade risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1471,6 +1515,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260919-123",
+      "headline": "Bolivia Eliminates Diesel Subsidy After IMF Loan Approval",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-19/bolivia-eliminates-diesel-subsidy-after-imf-loan-approval-mu7ydf34",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T05:34:35Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Bolivia is eliminating diesel subsidies following an IMF loan approval, which will likely increase fuel costs and impact inflation and consumer spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Bolivia is eliminating diesel subsidies following an IMF loan approval, which will likely increase fuel costs and impact inflation and consumer spending.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260919-090",
       "headline": "OpenAI sees burning through US$278 billion by 2030: FT",
       "headline_en": null,
@@ -1753,149 +1840,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260919-120",
-      "headline": "Turkey revokes Iran’s Bank Mellat license after more than four decades",
+      "inbox_id": "INB-20260919-124",
+      "headline": "Emami Limited: Emami Limited has informed the Exchange about public Announcement - Buyback of Shares",
       "headline_en": null,
-      "url": "https://www.arabtimesonline.com/news/turkey-revokes-irans-bank-mellat-license-after-more-than-four-decades/",
-      "source_name": "Arab Times Kuwait — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T04:17:00Z",
+      "url": "https://nsearchives.nseindia.com/corporate/EMAMILTD2_19092026114641_NSEDocuments.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-19T06:17:19Z",
       "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Turkey has revoked Iran's Bank Mellat license after more than four decades.",
+      "prelim_note": "Emami Limited announced a share buyback, which typically signals management confidence and provides support to the stock price.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 90,
-      "triage_reason": "Turkey has revoked Iran's Bank Mellat license after more than four decades.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank Mellat",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-100",
-      "headline": "WEBX HOLDING (00339): CLARIFICATION ANNOUNCEMENT REGARDING MEDIA REPORTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091800930.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-18T09:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The company is issuing a clarification regarding media reports, which may impact market perception or address potential misinformation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company is issuing a clarification regarding media reports, which may impact market perception or address potential misinformation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WEBX HOLDING",
-          "ticker": "00339",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-043",
-      "headline": "Toyota to deploy 400,000 robots to work alongside factory staff",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/toyota-to-deploy-400-000-robots-to-work-alongside-factory-staff",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T01:08:48Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Toyota plans to deploy 400,000 robots to work alongside factory staff, representing a significant capital investment in automation to improve manufacturing efficiency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Toyota plans to deploy 400,000 robots to work alongside factory staff, representing a significant capital investment in automation to improve manufacturing efficiency.",
-      "region": "JP",
+      "triage_reason": "Emami Limited announced a share buyback, which typically signals management confidence and provides support to the stock price.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 2,
+        "event": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
       },
       "event_types": [
-        "capex",
-        "operations"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Toyota",
+          "name": "Emami Limited",
           "ticker": null,
-          "listing_country": "JP"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167079,9 +167067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3070961,
-    "news_picked_today": 214,
-    "news_dropped_today": 2978
+    "news_seen_today": 3240093,
+    "news_picked_today": 220,
+    "news_dropped_today": 3164
   },
   "book_momentum": {
     "live_count": 8,

@@ -21,6 +21,7 @@
 
 import type { Book } from './portfolio'
 import { getQuotes, type QuoteDeps } from './news/equity-quote'
+import { isQuoteEligibleCategory, statementMinorUnitDivisor } from '../../shared/live-pricing'
 
 export interface LivePricedRow {
   symbol: string
@@ -31,6 +32,11 @@ export interface LivePricedRow {
   /** Base-currency value at the live price, using the statement's rate (see the note on fx below). */
   value: number
   movePct: number | null
+  /** THIS row's own quote date and close/live status — a cross-market book can mix trading days and
+   *  live-vs-close rows in one estimate, so a caller must not assume the mark's aggregate `asOf` and
+   *  `asOfIsClose` (latest date, worst case) describe every row alike. */
+  asOf: string | null
+  asOfIsClose: boolean
 }
 
 export interface LiveMark {
@@ -80,8 +86,13 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
   const bookAsOf = book.asOf
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
   // Derivatives are excluded: a future's notional is exposure against margin, not a share of NAV, and
-  // re-marking it here would add its face value to the estimate.
-  const holdings = book.positions.filter((p) => !p.isDerivative && p.symbol && p.quantity !== null)
+  // re-marking it here would add its face value to the estimate. A bought OPTION is deliberately not a
+  // derivative by that test (its premium is a real NAV asset) — but its broker symbol is commonly the
+  // UNDERLYING ticker, so a plain equity-style quote lookup would price the option at the STOCK's price.
+  // Excluded here for the same reason a future is: not because it carries no value, but because this
+  // symbol-only lane cannot price it. Its statement value is folded into cash below, same as a derivative's.
+  const holdings = book.positions.filter((p) =>
+    !p.isDerivative && isQuoteEligibleCategory(p.assetCategory) && p.symbol && p.quantity !== null)
   if (holdings.length === 0 || nav === null) {
     return { ...EMPTY, bookAsOf, unavailable: 'the book holds no priceable positions' }
   }
@@ -103,33 +114,87 @@ export async function liveMark(book: Book | null, deps: QuoteDeps = {}): Promise
   let delayed = false
   let stale = false
 
+  // A symbol held by more than one position (two currency lines, or two lots) cannot be priced from a
+  // ticker-keyed quote map — it cannot say which line a price belongs to. The blotter drops such a symbol
+  // (positionMarks.ts livePriceIndex, `seen !== 1`) and shows BOTH lines on the statement, so this estimate
+  // — the whole the blotter's weights and cash residual divide by — must carry those lines on the SAME
+  // statement basis. Pricing them here would push their move into the displayed cash residual, and for two
+  // currency lines would value one line at the OTHER currency's price (CLAUDE.md §15: a holding's move must
+  // not be absorbed into the cash residual; NAV = invested + cash must hold on one basis).
+  const heldCount = new Map<string, number>()
   for (const p of holdings) {
+    const k = p.symbol!.toUpperCase()
+    heldCount.set(k, (heldCount.get(k) ?? 0) + 1)
+  }
+
+  for (const p of holdings) {
+    if ((heldCount.get(p.symbol!.toUpperCase()) ?? 0) !== 1) {
+      // Carried at its STATEMENT value on both sides of the cash identity (added to holdingsValue AND
+      // statementValue, so `cash = nav - statementValue` is unchanged and NAV keeps its statement value),
+      // with its cost so `unrealised` stays the statement's own. Never entered into `priced`: it is
+      // deliberately not live-priced, exactly as the blotter shows it.
+      const dupRate = p.fxRateToBase
+      if (dupRate !== null && p.positionValue !== null && Number.isFinite(p.positionValue)) {
+        holdingsValue += p.positionValue * dupRate
+        statementValue += p.positionValue * dupRate
+        costBasis += (p.costBasisMoney ?? 0) * dupRate
+      } else {
+        unpriced.push(p.symbol!)
+      }
+      continue
+    }
     const q = outcomes.get(p.symbol!.toUpperCase()) ?? outcomes.get(p.symbol!)
     const price = q?.quote?.price ?? null
     // THE STATEMENT'S OWN RATE, because there is no live one. It is the same rate the reconciled
     // figures use, so the estimate moves with the PRICE only — which is what it claims to measure. A
     // holding with no rate is left out and named, never added at one-for-one.
     const rate = p.fxRateToBase
-    if (price === null || !Number.isFinite(price) || rate === null) {
+    // A holding with no STATEMENT value has no figure in `statementValue` to net out of cash below
+    // (`cash = nav - statementValue`): pricing it anyway would add a live `value` to `holdingsValue`
+    // while `statementValue` still adds zero for the same row, so its statement-era contribution to NAV
+    // stays uncounted in cash AND its live value is now also counted in holdings — double-counted, even
+    // though the price has not moved. Left unpriced (folded into cash below, same as a derivative's) is
+    // the answer that does not invent a value nothing here can vouch for.
+    if (price === null || !Number.isFinite(price) || rate === null
+      || p.positionValue === null || !Number.isFinite(p.positionValue)) {
       unpriced.push(p.symbol!)
       continue
     }
-    const value = price * p.quantity! * rate * (p.multiplier || 1)
+    // SCALED FROM THE STATEMENT'S OWN VALUE, not re-derived. A bond or bill is quoted as a
+    // percentage of par, so quantity × price overstates it about a hundredfold — the same reason the blotter
+    // refuses that formula for PAR_PRICED rows — and scaling preserves whatever basis the broker used while
+    // moving only what moved.
+    //
+    // ALIGNED TO ONE UNIT before it is used as the scale's denominator. A London Stock Exchange holding is
+    // imported with its per-share price in PENCE while its own position value is in POUNDS — both under one
+    // currency code of "GBP" — while the live price above is already normalised to pounds (resolveUnits in
+    // news/equity-quote.ts). Dividing the live price by the raw pence mark would scale the value by ~100x.
     const stmt = p.markPrice
+    const alignedStmt = stmt !== null
+      ? stmt / statementMinorUnitDivisor(p.assetCategory, p.positionValue, stmt, p.quantity, p.multiplier)
+      : null
+    // Without a mark to align against, there is nothing to scale FROM — the statement value is still
+    // known (checked above), so the ordinary per-share formula stands rather than leaving a priceable
+    // holding unpriced over a missing mark alone.
+    const value = alignedStmt !== null && alignedStmt > 0
+      ? p.positionValue * (price / alignedStmt) * rate
+      : price * p.quantity! * rate * (p.multiplier || 1)
+    const rowAsOfRaw = q?.quote?.as_of ?? null
     priced.push({
       symbol: p.symbol!,
       quantity: p.quantity!,
       statementPrice: stmt,
       price,
       value,
-      movePct: stmt !== null && stmt > 0 ? (price / stmt - 1) * 100 : null,
+      movePct: alignedStmt !== null && alignedStmt > 0 ? (price / alignedStmt - 1) * 100 : null,
+      asOf: rowAsOfRaw ? rowAsOfRaw.slice(0, 10) : null,
+      asOfIsClose: !!q?.quote?.as_of_is_close,
     })
     holdingsValue += value
     statementValue += (p.positionValue ?? 0) * rate
     costBasis += (p.costBasisMoney ?? 0) * rate
-    const at = q?.quote?.as_of ?? null
-    if (at) {
-      const d = at.slice(0, 10)
+    if (rowAsOfRaw) {
+      const d = rowAsOfRaw.slice(0, 10)
       if (asOf === null || d > asOf) asOf = d
     }
     // Worst case across the holdings: if ANY leg is a close, delayed or stale, the whole estimate is.
