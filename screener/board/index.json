@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:03:55Z",
+  "generated_at": "2026-09-20T02:07:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -179,6 +179,56 @@
       "event_types": [
         "capex",
         "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-154",
+      "headline": "Tata Steel Seeks Fresh UK Govt Funding For Delayed Port Talbot Green Steel Project",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-steel-seeks-fresh-uk-govt-funding-for-delayed-port-talbot-green-steel-project",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:59:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Tata Steel is seeking additional government funding for a delayed green steel project, indicating potential cost overruns or capital constraints.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Tata Steel is seeking additional government funding for a delayed green steel project, indicating potential cost overruns or capital constraints.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1855,60 +1905,6 @@
           "name": "Hydrovolta",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-080",
-      "headline": "Aastha Spintex advances 1.35 MW solar project at Falcon Yarns facility",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/aastha-spintex-advances-1-35-mw-solar-project-at-falcon-yarns-facility-556649-2026-09-19?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:59:22Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Aastha Spintex is advancing a 1.35 MW solar project at Falcon Yarns facility, which could impact operational costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Aastha Spintex is advancing a 1.35 MW solar project at Falcon Yarns facility, which could impact operational costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aastha Spintex",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Falcon Yarns",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -169545,9 +169541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 475617,
-    "news_picked_today": 185,
-    "news_dropped_today": 919
+    "news_seen_today": 493077,
+    "news_picked_today": 188,
+    "news_dropped_today": 940
   },
   "book_momentum": {
     "live_count": 8,
