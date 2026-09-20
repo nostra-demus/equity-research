@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:56:36Z",
+  "generated_at": "2026-09-20T02:59:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -243,6 +243,114 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-218",
+      "headline": "Porsche: Volkswagen nach Gewinnwarnung: Weitere 4000 Jobs bei Porsche entbehrlich?",
+      "headline_en": "Porsche: Volkswagen after profit warning: Another 4,000 jobs at Porsche dispensable?",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-nach-gewinnwarnung-weitere-4000-jobs-bei-porsche-entbehrlich/100254633.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:50:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-219",
+      "headline": "Porsche: VW hält bei Porsche weitere 4000 Stellen für entbehrlich",
+      "headline_en": "Porsche: VW considers another 4,000 positions at Porsche dispensable",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/porsche-vw-haelt-bei-porsche-weitere-4000-stellen-fuer-entbehrlich/100254633.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:50:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Confirmation that 4,000 positions are considered dispensable at Porsche signals a major restructuring effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Confirmation that 4,000 positions are considered dispensable at Porsche signals a major restructuring effort.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1836,98 +1944,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-143",
-      "headline": "After closing 16 locations, popular breakfast chain will disappear",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/after-closing-16-locations-cracker-barrel-maple-street-biscuit-chain-will-disappear",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "A breakfast chain is closing locations and exiting the market, indicating financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A breakfast chain is closing locations and exiting the market, indicating financial distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-150",
-      "headline": "Mitsui OSK to Sell Older Oil Tankers as Prices Surge",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/wire/mitsui_osk_to_sell_older_oil_tankers_as_prices_surge-19-sep-2026-184654-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Mitsui OSK is capitalizing on high tanker prices by selling older assets to optimize its fleet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Mitsui OSK is capitalizing on high tanker prices by selling older assets to optimize its fleet.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsui OSK",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169561,9 +169577,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 688388,
-    "news_picked_today": 282,
-    "news_dropped_today": 1350
+    "news_seen_today": 704703,
+    "news_picked_today": 288,
+    "news_dropped_today": 1368
   },
   "book_momentum": {
     "live_count": 8,
