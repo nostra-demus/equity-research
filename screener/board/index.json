@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T23:14:57Z",
+  "generated_at": "2026-09-20T23:21:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-809",
+      "headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:14:39Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "IGL announced a proposed acquisition of Motio to expand into Digital Out of Home advertising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IGL announced a proposed acquisition of Motio to expand into Digital Out of Home advertising.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IGL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-795",
       "headline": "NXM: A$5.4 Million Placement to Advance Wallbrook Gold Project [price-sensitive]",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-436",
-      "headline": "PizzaExpress cooks up sale at up to £500mn valuation",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/99b7000e-d977-457b-baf3-64f2931b044c?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T17:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "PizzaExpress is exploring a sale at a valuation of up to £500mn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PizzaExpress is exploring a sale at a valuation of up to £500mn.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PizzaExpress",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130684,76 +130684,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-d0c08bad9fd4fb9d",
-      "idea_version_started_at": "2026-09-18T00:48:37Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The U.S. State Department's approval of a $24 billion sale of 48 F-35A aircraft to Saudi Arabia provides a significant, long-term revenue tailwind for the primary manufacturer.",
-      "why_now": "The approval was officially announced on September 17, 2026, initiating the formal sales process.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-25b5d1e1f526"
-      ],
-      "primary_source_event_id": "EVT-25b5d1e1f526",
-      "source_headlines": [
-        "State Department Approves More Than $24 Billion Sale of 48 F-35As to Saudi Arabia"
-      ],
-      "source_headline": "State Department Approves More Than $24 Billion Sale of 48 F-35As to Saudi Arabia",
-      "source_url": "https://www.defensedaily.com/state-department-approves-more-than-24-billion-sale-of-48-f-35as-to-saudi-arabia/air-force/",
-      "source_name": "Defense Daily",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T23:21:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T00:48:37Z",
-      "updated_at": "2026-09-18T00:48:37Z",
-      "decay_at": "2026-09-19T11:21:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d69eca070d00",
       "idea_version": "IDEAV-fadb833ffa868405",
       "idea_version_started_at": "2026-09-19T04:47:56Z",
@@ -132334,14 +132264,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       },
       "short": {
         "total_count": 263,
@@ -132351,12 +132281,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 373,
+      "evicted_count": 374,
       "oldest_retained_at": "2026-08-29T23:28:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 255,
-          "oldest_retained_at": "2026-09-07T21:16:16Z"
+          "evicted_count": 256,
+          "oldest_retained_at": "2026-09-07T21:17:00Z"
         },
         "short": {
           "evicted_count": 118,
@@ -134583,8 +134513,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T11:21:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-20T23:21:45Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -169535,9 +169465,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1803343,
-    "news_picked_today": 2088,
-    "news_dropped_today": 7215
+    "news_seen_today": 1803367,
+    "news_picked_today": 2098,
+    "news_dropped_today": 7229
   },
   "book_momentum": {
     "live_count": 8,
