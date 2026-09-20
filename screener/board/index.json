@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T04:20:05Z",
+  "generated_at": "2026-09-20T04:24:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-294",
+      "headline": "Chinese owners launch €2.5bn sale of Luxembourg’s oldest bank",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/44433853-1d29-4b42-b13b-846abe9ffa3b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Chinese owners are launching a 2.5 billion euro sale of Luxembourg's oldest bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chinese owners are launching a 2.5 billion euro sale of Luxembourg's oldest bank.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Internationale a Luxembourg",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-214",
       "headline": "Ingenia board sits on revised $3b proposal from PE suitor",
@@ -1100,6 +1149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-295",
+      "headline": "Meta launches fresh legal challenge over UK’s Online Safety Act",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c1ba743f-7330-4419-bc8d-a8b5ce4420a0?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Meta is initiating a legal challenge against the UK's Online Safety Act, increasing regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Meta is initiating a legal challenge against the UK's Online Safety Act, increasing regulatory risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-239",
       "headline": "Toyota plans China-made extended-range EVs in 2027 to broaden lineup, report says",
       "headline_en": null,
@@ -1341,6 +1439,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-296",
+      "headline": "Indian Railways approves multiple infrastructure, safety projects to enhance operational efficiency",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/indian-railways-approves-multiple-infrastructure-safety-projects-to-enhance-operational-efficiency/article71486995.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T04:09:35Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Indian Railways approved multiple infrastructure and safety projects to improve operational efficiency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Indian Railways approved multiple infrastructure and safety projects to improve operational efficiency.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Railways",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1836,153 +1983,6 @@
       "companies": [
         {
           "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-266",
-      "headline": "Himachal Pradesh Govt To Pay ₹800 Crore To SJVN To Take Over Dhaulasidh Hydropower Project: CM Sukhu",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/news/himachal-pradesh-govt-to-pay-800-crore-to-sjvn-to-take-over-dhaulasidh-hydropower-project-cm-sukhu",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T05:13:13Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "SJVN is receiving a payment of 800 crore rupees for the transfer of a hydropower project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "SJVN is receiving a payment of 800 crore rupees for the transfer of a hydropower project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SJVN",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-284",
-      "headline": "Shapoorji Pallonji Group, with 18.4% Tata Sons stake, backs its public listing",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/shapoorji-pallonji-group-with-18-4-tata-sons-stake-backs-its-public-listing/articleshow/134345801.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T23:50:58Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Shapoorji Pallonji Group is backing a public listing for Tata Sons, a major corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Shapoorji Pallonji Group is backing a public listing for Tata Sons, a major corporate event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-268",
-      "headline": "OpenAI projects burning through $354 billion by 2030: Financial Times",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/openai-projects-burning-through-354-billion-by-2030-financial-times",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T03:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "OpenAI is projected to burn through $354 billion by 2030, highlighting extreme capital intensity and potential future funding requirements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "OpenAI is projected to burn through $354 billion by 2030, highlighting extreme capital intensity and potential future funding requirements.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
           "ticker": null,
           "listing_country": null
         }
@@ -169768,9 +169768,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 978754,
-    "news_picked_today": 440,
-    "news_dropped_today": 1816
+    "news_seen_today": 983677,
+    "news_picked_today": 448,
+    "news_dropped_today": 1832
   },
   "book_momentum": {
     "live_count": 8,
