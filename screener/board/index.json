@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T15:05:24Z",
+  "generated_at": "2026-09-20T15:09:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -340,6 +340,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-736",
+      "headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T14:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A major retailer has filed for Chapter 11 bankruptcy, indicating a total loss of equity value and significant operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major retailer has filed for Chapter 11 bankruptcy, indicating a total loss of equity value and significant operational disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1961,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-717",
-      "headline": "BrewDog creditors owed £190m will not be paid in full, say administrators",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/sep/18/brewdog-creditors-not-paid-in-full-administrators",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T14:24:58Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "BrewDog administrators confirmed that creditors owed £190m will not be paid in full, indicating a significant credit event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BrewDog administrators confirmed that creditors owed £190m will not be paid in full, indicating a significant credit event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BrewDog",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -168965,9 +168959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801634,
-    "news_picked_today": 1660,
-    "news_dropped_today": 5934
+    "news_seen_today": 1801661,
+    "news_picked_today": 1669,
+    "news_dropped_today": 5952
   },
   "book_momentum": {
     "live_count": 8,
