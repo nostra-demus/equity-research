@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T10:10:29Z",
+  "generated_at": "2026-09-20T10:14:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-692",
+      "headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T10:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The proposed privatization and delisting of Changhong Jiahua has lapsed due to non-fulfillment of pre-conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The proposed privatization and delisting of Changhong Jiahua has lapsed due to non-fulfillment of pre-conditions.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Changhong Jiahua",
+          "ticker": "03991",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-689",
       "headline": "Foundation stone laid for Adani Power’s ₹48,000 cr thermal power project in Assam",
@@ -1900,55 +1949,6 @@
       "launched_signal_id": null,
       "triage_score": 98,
       "triage_reason": "Volkswagen issued a profit warning as its financial crisis intensifies.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-576",
-      "headline": "Volkswagen rechnet dieses Jahr kaum noch mit Gewinn",
-      "headline_en": "Volkswagen expects almost no profit this year",
-      "url": "https://www.reuters.com/de/firma/volkswagen-rechnet-dieses-jahr-kaum-noch-mit-gewinn-2026-09-18/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:53:44Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Volkswagen warns it expects almost no profit for the year, a significant guidance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Volkswagen warns it expects almost no profit for the year, a significant guidance update.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -169761,9 +169761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1690600,
-    "news_picked_today": 1168,
-    "news_dropped_today": 4328
+    "news_seen_today": 1694701,
+    "news_picked_today": 1173,
+    "news_dropped_today": 4347
   },
   "book_momentum": {
     "live_count": 8,
