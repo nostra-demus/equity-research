@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T15:09:58Z",
+  "generated_at": "2026-09-20T15:10:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -128911,6 +128911,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0cca54205613",
+      "idea_version": "IDEAV-82e2fc2ca1899d2e",
+      "idea_version_started_at": "2026-09-20T15:10:12Z",
+      "ticker": "ADANIPOWER.NS",
+      "company": "Adani Power",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Adani Power is laying the foundation for a significant new power project in Assam, indicating substantial capital expenditure and future growth potential.",
+      "why_now": "The project foundation is being laid now, signifying immediate commencement of a large-scale capex initiative.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6712b5291c9e"
+      ],
+      "primary_source_event_id": "EVT-6712b5291c9e",
+      "source_headlines": [
+        "Adani Power lays foundation for ₹48,000 cr Assam power project"
+      ],
+      "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T11:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T15:10:12Z",
+      "updated_at": "2026-09-20T15:10:12Z",
+      "decay_at": "2026-09-21T23:14:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b3663a1d7f5b",
       "idea_version": "IDEAV-667be2091d91183e",
       "idea_version_started_at": "2026-09-20T01:29:10Z",
@@ -129045,6 +129115,79 @@
       "surfaced_at": "2026-09-20T01:29:10Z",
       "updated_at": "2026-09-20T01:29:10Z",
       "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b781349ed9cc",
+      "idea_version": "IDEAV-e9fe342c5bc0eb05",
+      "idea_version_started_at": "2026-09-20T15:10:12Z",
+      "ticker": "BIG.AX",
+      "company": "Big W",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
+      "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c28e7247d11"
+      ],
+      "primary_source_event_id": "EVT-4c28e7247d11",
+      "source_headlines": [
+        "Key Christmas retailer files for Chapter 11 bankrutpcy"
+      ],
+      "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
+      "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T14:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T15:10:12Z",
+      "updated_at": "2026-09-20T15:10:12Z",
+      "decay_at": "2026-09-22T02:07:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -130250,76 +130393,6 @@
       "surfaced_at": "2026-09-17T21:24:23Z",
       "updated_at": "2026-09-17T22:38:57Z",
       "decay_at": "2026-09-19T08:05:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-30c412e2e80e",
-      "idea_version": "IDEAV-46fa22e8b3f49195",
-      "idea_version_started_at": "2026-09-17T20:23:46Z",
-      "ticker": "ALE.WA",
-      "company": "Allegro",
-      "exchange": "WSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 outlook, signaling accelerated growth and improved margin trajectory.",
-      "why_now": "The guidance update was released on 2026-09-17, providing a fresh catalyst for earnings revisions.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6801f4ba5b0"
-      ],
-      "primary_source_event_id": "EVT-c6801f4ba5b0",
-      "source_headlines": [
-        "Allegro raises 2026 outlook as growth accelerates, shares hit five-year high"
-      ],
-      "source_headline": "Allegro raises 2026 outlook as growth accelerates, shares hit five-year high",
-      "source_url": "https://www.reuters.com/business/retail-consumer/polands-allegro-boosts-2026-outlook-growth-accelerates-2026-09-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T14:13:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T20:23:46Z",
-      "updated_at": "2026-09-17T20:23:46Z",
-      "decay_at": "2026-09-19T02:13:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -131760,14 +131833,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       },
       "short": {
         "total_count": 263,
@@ -131777,12 +131850,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 369,
+      "evicted_count": 370,
       "oldest_retained_at": "2026-08-29T22:46:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 252,
-          "oldest_retained_at": "2026-09-07T18:25:20Z"
+          "evicted_count": 253,
+          "oldest_retained_at": "2026-09-07T18:27:50Z"
         },
         "short": {
           "evicted_count": 117,
@@ -133928,8 +134001,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T02:13:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-20T15:10:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -168939,8 +169012,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 918,
-    "live_count": 19,
+    "surfaced_total": 920,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
