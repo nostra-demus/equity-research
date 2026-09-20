@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:15:29Z",
+  "generated_at": "2026-09-20T01:18:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -90,6 +90,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-113",
+      "headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:03:45Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Tata Steel seeks additional UK government funding due to project delays at Port Talbot.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Tata Steel seeks additional UK government funding due to project delays at Port Talbot.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,65 +1889,6 @@
       "headline": "Aptean übernimmt FleetGO von Main Capital Partners und erweitert sein Portfolio um eine führende End-to-End-Logistiklösung für den Straßentransport",
       "headline_en": "Aptean acquires FleetGO from Main Capital Partners and expands its portfolio with a leading end-to-end logistics solution for road transport",
       "url": "https://www.globenewswire.com/news-release/2026/09/18/3364487/29866/de/aptean-%C3%BCbernimmt-fleetgo-von-main-capital-partners-und-erweitert-sein-portfolio-um-eine-f%C3%BChrende-end-to-end-logistikl%C3%B6sung-f%C3%BCr-den-stra%C3%9Fentransport.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Aptean is acquiring FleetGO from Main Capital Partners to expand its logistics portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Aptean is acquiring FleetGO from Main Capital Partners to expand its logistics portfolio.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aptean",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "FleetGO",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Main Capital Partners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-049",
-      "headline": "Aptean voegt een toonaangevende end-to-end logistieke suite voor wegtransport toe en neemt het Europese FleetGo over van Main Capital Partners.",
-      "headline_en": "Aptean adds a leading end-to-end logistics suite for road transport and acquires European FleetGo from Main Capital Partners.",
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364487/29866/nl/aptean-voegt-een-toonaangevende-end-to-end-logistieke-suite-voor-wegtransport-toe-en-neemt-het-europese-fleetgo-over-van-main-capital-partners.html",
       "source_name": "GlobeNewswire — Mergers & Acquisitions",
       "input_nature": "company_press_release",
       "found_at": "2026-09-18T07:00:00Z",
@@ -169442,9 +169433,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 290331,
-    "news_picked_today": 115,
-    "news_dropped_today": 605
+    "news_seen_today": 302513,
+    "news_picked_today": 118,
+    "news_dropped_today": 626
   },
   "book_momentum": {
     "live_count": 8,
