@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:17:32Z",
+  "generated_at": "2026-09-20T06:21:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -695,6 +695,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-405",
+      "headline": "‎MIS inks agreement with HUMAIN worth over SAR 8.7B",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1937727",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "MIS signed a contract worth over SAR 8.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "MIS signed a contract worth over SAR 8.7 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-168",
-      "headline": "DLF to open ₹500 crore Goa mall by March 2027, eyes over ₹150 crore annual rental income",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/dlf-to-open-500-crore-goa-mall-by-march-2027-eyes-over-150-crore-annual-rental-income/articleshow/134353161.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T11:31:07Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "DLF announced plans to open a ₹500 crore mall by March 2027, expecting over ₹150 crore in annual rental income.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "DLF announced plans to open a ₹500 crore mall by March 2027, expecting over ₹150 crore in annual rental income.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DLF",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169728,9 +169728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1257800,
-    "news_picked_today": 740,
-    "news_dropped_today": 2572
+    "news_seen_today": 1268943,
+    "news_picked_today": 747,
+    "news_dropped_today": 2589
   },
   "book_momentum": {
     "live_count": 8,
