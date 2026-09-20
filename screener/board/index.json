@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:10:39Z",
+  "generated_at": "2026-09-20T02:13:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -234,6 +234,55 @@
       "companies": [
         {
           "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-168",
+      "headline": "DLF to open ₹500 crore Goa mall by March 2027, eyes over ₹150 crore annual rental income",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/dlf-to-open-500-crore-goa-mall-by-march-2027-eyes-over-150-crore-annual-rental-income/articleshow/134353161.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:31:07Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "DLF announced plans to open a ₹500 crore mall by March 2027, expecting over ₹150 crore in annual rental income.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "DLF announced plans to open a ₹500 crore mall by March 2027, expecting over ₹150 crore in annual rental income.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DLF",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -685,6 +734,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-165",
+      "headline": "Gemini hacked three companies in first known breakout by Google's AI",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/gemini-hacked-three-companies-first-known-breakout-by-google-ai-wsj-reports-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:35:26Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Google's Gemini AI reportedly breached three companies, posing significant reputational and operational risk for Google's AI division.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Google's Gemini AI reportedly breached three companies, posing significant reputational and operational risk for Google's AI division.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-186",
+      "headline": "Could Anthropic's IPO Be Bigger Than SpaceX's?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/19/could-anthropics-ipo-be-bigger-than-spacexs/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The potential IPO of Anthropic, a major AI player, could be a significant event in the tech sector, with implications for valuations and investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The potential IPO of Anthropic, a major AI player, could be a significant event in the tech sector, with implications for valuations and investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-068",
       "headline": "Google says Gemini model hacked three companies during test",
       "headline_en": null,
@@ -980,6 +1133,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-161",
+      "headline": "Porsche could face another 4,000 job cuts, Handelsblatt reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/porsche-could-face-another-4000-job-cuts-handelsblatt-reports-2026-09-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:46:25Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Porsche may face 4,000 job cuts, signaling potential operational restructuring or cost-cutting measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Porsche may face 4,000 job cuts, signaling potential operational restructuring or cost-cutting measures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-094",
       "headline": "80-year-old discount fashion retailer closing 120 stores",
       "headline_en": null,
@@ -1207,6 +1409,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-157",
+      "headline": "Bastion wins conditional OCC approval for national trust bank charter",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/bastion-wins-conditional-occ-approval-for-national-trust-bank-charter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:47:29Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Bastion received conditional approval for a national trust bank charter from the OCC, a significant regulatory milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Bastion received conditional approval for a national trust bank charter from the OCC, a significant regulatory milestone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bastion",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-029",
       "headline": "AIM weekly movers: Nativo Resources secures funding",
       "headline_en": null,
@@ -1300,6 +1551,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-177",
+      "headline": "Air Products (APD) Is Doubling Down on the Gases Inside Chip Fabs",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/air-products-apd-doubling-down-111348272.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:13:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Air Products is doubling down on supplying gases inside semiconductor fabrication plants, targeting a high-growth sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Air Products is doubling down on supplying gases inside semiconductor fabrication plants, targeting a high-growth sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Products and Chemicals, Inc.",
+          "ticker": "APD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1495,6 +1796,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-162",
+      "headline": "UAE company signs major AI deal with Siemens",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/technology/uae-company-signs-major-ai-deal-with-siemens",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T11:46:03Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A major AI deal with Siemens represents a significant commercial partnership for the UAE company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "A major AI deal with Siemens represents a significant commercial partnership for the UAE company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-114",
       "headline": "NTPC Terminates Rs 400 Crore Storage Project Awarded To GR Infraprojects",
       "headline_en": null,
@@ -1588,326 +1938,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-126",
-      "headline": "Scottish Labour’s new leader backs Rosebank and Jackdaw oil and gasfields",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/politics/2026/sep/19/michael-marra-elected-as-scottish-labour-leader",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:52:52Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Scottish Labour leader's support for Rosebank and Jackdaw oil fields reduces regulatory risk for energy projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Scottish Labour leader's support for Rosebank and Jackdaw oil fields reduces regulatory risk for energy projects.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-138",
-      "headline": "US Treasury Secretary Bessent To Discuss AI, Rare Earths With China's He: Report",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/us-treasury-secretary-bessent-to-discuss-ai-rare-earths-with-chinas-he-report-12068997#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:30:35Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "US Treasury Secretary to hold high-level talks with China regarding AI and rare earth minerals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "US Treasury Secretary to hold high-level talks with China regarding AI and rare earth minerals.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-148",
-      "headline": "YardFlow lands over 200-site yard automation deal",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/articles/yardflow-lands-over-200-yard-120000605.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "YardFlow secured a commercial contract for over 200 sites, representing a significant operational expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "YardFlow secured a commercial contract for over 200 sites, representing a significant operational expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YardFlow",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-064",
-      "headline": "Great Lakes bind U.S.-Canada trade imperiled by Trump tariffs",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/20/economy/great-lakes-us-canada-trade/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T23:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Potential trade tariffs threaten cross-border trade flows between the U.S. and Canada.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Potential trade tariffs threaten cross-border trade flows between the U.S. and Canada.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-075",
-      "headline": "Anthropic said to consider releasing new AI model ahead of IPO",
-      "headline_en": null,
-      "url": "https://www.gulf-times.com/article/733647/business/anthropic-said-to-consider-releasing-new-ai-model-ahead-of-ipo",
-      "source_name": "Gulf Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Anthropic is reportedly preparing a new AI model release ahead of a potential IPO, signaling product roadmap progress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Anthropic is reportedly preparing a new AI model release ahead of a potential IPO, signaling product roadmap progress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-120",
-      "headline": "US Tariffs Threaten Great Lakes Shipping Tied to Canada Trade",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-19/great-lakes-bind-us-canada-trade-imperiled-by-trump-tariffs",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Proposed US tariffs threaten Great Lakes shipping routes critical to US-Canada trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Proposed US tariffs threaten Great Lakes shipping routes critical to US-Canada trade.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-118",
-      "headline": "Paramount, States Discuss CNN Monitoring In Warner Bros Deal Settlement: Report",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/paramount-states-discuss-cnn-monitoring-in-warner-bros-deal-settlement-report-12069019#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T13:40:49Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Paramount is in discussions regarding CNN monitoring as part of a settlement related to the Warner Bros. deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Paramount is in discussions regarding CNN monitoring as part of a settlement related to the Warner Bros. deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169541,9 +169571,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 504661,
-    "news_picked_today": 191,
-    "news_dropped_today": 961
+    "news_seen_today": 510469,
+    "news_picked_today": 221,
+    "news_dropped_today": 1051
   },
   "book_momentum": {
     "live_count": 8,
