@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:25:41Z",
+  "generated_at": "2026-09-20T02:27:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -887,6 +887,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-198",
+      "headline": "L&T Targets Global Modularisation Growth After 64,00-Tonne Australia Urea Project",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/l-t-targets-global-modularisation-growth-after-64-00-tonne-australia-urea-project-12068480#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T10:16:56Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "L&T is targeting global modularization growth following the successful completion of a 64,000-tonne urea project in Australia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "L&T is targeting global modularization growth following the successful completion of a 64,000-tonne urea project in Australia.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-068",
       "headline": "Google says Gemini model hacked three companies during test",
       "headline_en": null,
@@ -1599,6 +1649,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-195",
+      "headline": "Turkey Revokes Iran's Mellat Bank Istanbul License Amid US Pressure On Tehran",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/turkey-revokes-irans-mellat-bank-istanbul-license-amid-us-pressure-on-tehran-12068523#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T10:29:10Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Bank Mellat has had its Istanbul license revoked by Turkish authorities due to international sanctions pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Bank Mellat has had its Istanbul license revoked by Turkish authorities due to international sanctions pressure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank Mellat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-029",
       "headline": "AIM weekly movers: Nativo Resources secures funding",
       "headline_en": null,
@@ -1834,104 +1933,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-135",
-      "headline": "Coherent (COHR) Squeezes Key Optical Network Gear Into a Plug-In Module",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/articles/coherent-cohr-squeezes-key-optical-123508124.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:35:08Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Coherent launched a new optical network plug-in module, expanding its product portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Coherent launched a new optical network plug-in module, expanding its product portfolio.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coherent",
-          "ticker": "COHR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-151",
-      "headline": "Robinhood Chain fees collapse 97% even as transactions stay near record highs",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/09/19/robinhood-chain-fees-collapse-97-even-as-transactions-stay-near-record-highs",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Robinhood Chain fees dropped 97%, which could negatively impact revenue from transaction-based services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Robinhood Chain fees dropped 97%, which could negatively impact revenue from transaction-based services.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Robinhood",
-          "ticker": "HOOD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169565,9 +169566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 561381,
-    "news_picked_today": 240,
-    "news_dropped_today": 1128
+    "news_seen_today": 567024,
+    "news_picked_today": 245,
+    "news_dropped_today": 1147
   },
   "book_momentum": {
     "live_count": 8,
