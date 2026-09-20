@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:54:45Z",
+  "generated_at": "2026-09-20T03:56:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -651,6 +651,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-280",
+      "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/18/olin-corporation-just-won-a-788-million-army-contr/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Olin Corporation secured a significant $788 million government contract, which is a material revenue event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Olin Corporation secured a significant $788 million government contract, which is a material revenue event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Olin Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,55 +1996,6 @@
       "companies": [
         {
           "name": "Larsen & Toubro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-211",
-      "headline": "Kalyan Jewellers Shares In Focus After Rs 350 Crore Investment In Candere",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/kalyan-jewellers-shares-in-focus-after-rs-350-crore-investment-in-candere-12068393#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T09:48:27Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Kalyan Jewellers is investing ₹350 crore into its subsidiary Candere.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Kalyan Jewellers is investing ₹350 crore into its subsidiary Candere.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalyan Jewellers",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -169781,9 +169781,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 908927,
-    "news_picked_today": 393,
-    "news_dropped_today": 1695
+    "news_seen_today": 913998,
+    "news_picked_today": 399,
+    "news_dropped_today": 1713
   },
   "book_momentum": {
     "live_count": 8,
