@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:36:26Z",
+  "generated_at": "2026-09-20T06:38:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -744,6 +744,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-412",
+      "headline": "UK's Harworth rejects top shareholder Peel's sweetened $802 million offer",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/uks-harworth-rejects-top-shareholder-peels-sweetened-802-million-offer-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:44:09Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Company rejects a takeover offer valued at $802 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company rejects a takeover offer valued at $802 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harworth",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1940,6 @@
           "name": "Tata Steel",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-342",
-      "headline": "Anthropic Sales Near $100 Billion Before November IPO, NYT Says",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-18/anthropic-s-annualized-revenue-to-top-100-billion-in-2026-nyt",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T20:33:40Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Anthropic is reportedly targeting a $100 billion valuation ahead of a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Anthropic is reportedly targeting a $100 billion valuation ahead of a potential IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -169723,9 +169723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1297939,
-    "news_picked_today": 783,
-    "news_dropped_today": 2673
+    "news_seen_today": 1301475,
+    "news_picked_today": 788,
+    "news_dropped_today": 2692
   },
   "book_momentum": {
     "live_count": 8,
