@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:06:21Z",
+  "generated_at": "2026-09-20T06:10:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1763,6 +1763,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-392",
+      "headline": "Nearmap’s PE owner ponders multibillion-dollar return to the ASX",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/nearmap-s-pe-owner-ponders-multibillion-dollar-return-to-the-asx-20260920-p60ykw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T06:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Nearmap's private equity owner is considering a multibillion-dollar IPO or exit, which would be a significant liquidity event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Nearmap's private equity owner is considering a multibillion-dollar IPO or exit, which would be a significant liquidity event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nearmap",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-389",
+      "headline": "Supertech insolvency: NCLAT raises concern over delay in appointing IRP, slippage on deadline",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/supertech-insolvency-nclat-raises-concern-over-delay-in-appointing-irp-slippage-on-deadline/articleshow/134364145.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T05:42:53Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The NCLAT has expressed concern over delays in the insolvency process for Supertech, indicating potential complications in the resolution timeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The NCLAT has expressed concern over delays in the insolvency process for Supertech, indicating potential complications in the resolution timeline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supertech",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-168",
       "headline": "DLF to open ₹500 crore Goa mall by March 2027, eyes over ₹150 crore annual rental income",
       "headline_en": null,
@@ -1856,104 +1954,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-339",
-      "headline": "Oracle’s $18bn data centre debt under strain amid local pushback",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/bd441859-6c94-4874-894f-9362c1703127?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T20:48:35Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Oracle faces potential financial strain on $18 billion of data center debt due to local opposition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Oracle faces potential financial strain on $18 billion of data center debt due to local opposition.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-295",
-      "headline": "Meta launches fresh legal challenge over UK’s Online Safety Act",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/c1ba743f-7330-4419-bc8d-a8b5ce4420a0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T04:00:11Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Meta is initiating a legal challenge against the UK's Online Safety Act, increasing regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Meta is initiating a legal challenge against the UK's Online Safety Act, increasing regulatory risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169734,9 +169734,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1235136,
-    "news_picked_today": 713,
-    "news_dropped_today": 2503
+    "news_seen_today": 1246505,
+    "news_picked_today": 717,
+    "news_dropped_today": 2523
   },
   "book_momentum": {
     "live_count": 8,
