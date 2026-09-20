@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:25:47Z",
+  "generated_at": "2026-09-20T03:27:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -649,6 +649,55 @@
           "name": "CNN",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-264",
+      "headline": "SpaceX to fly more NASA crews to space station under expanded $5.92 billion deal",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/science/spacex-to-fly-more-nasa-crews-to-space-station-under-expanded-592-billion-deal/article71483663.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T06:57:32Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "SpaceX secured a $5.92 billion contract expansion with NASA to transport crews to the space station.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "SpaceX secured a $5.92 billion contract expansion with NASA to transport crews to the space station.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1939,55 +1988,6 @@
           "name": "Mother Dairy",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-204",
-      "headline": "JSW Energy arm JSW Hydro Energy wins appeal against CERC order on interest claim",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/jsw-energy-share-price-arm-jsw-hydro-energy-wins-appeal-against-cerc-order-on-interest-claim-19994078.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T10:04:49Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "JSW Energy subsidiary won an appeal against a regulatory order, likely impacting financial claims.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "JSW Energy subsidiary won an appeal against a regulatory order, likely impacting financial claims.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JSW Energy",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -129650,79 +129650,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bf283da46ec",
-      "idea_version": "IDEAV-7e8acf14e8310864",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "TVVISION",
-      "company": "TV Vision Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
-      "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ac6e9cb1c13c",
-        "EVT-f187b2c0bee2"
-      ],
-      "primary_source_event_id": "EVT-ac6e9cb1c13c",
-      "source_headlines": [
-        "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
-      ],
-      "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T15:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T03:27:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-80566e7fce69",
       "idea_version": "IDEAV-f82663b3219a08e7",
       "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -131201,6 +131128,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2bf283da46ec",
+      "idea_version": "IDEAV-7e8acf14e8310864",
+      "idea_version_started_at": "2026-09-19T15:58:42Z",
+      "ticker": "TVVISION",
+      "company": "TV Vision Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
+      "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ac6e9cb1c13c",
+        "EVT-f187b2c0bee2"
+      ],
+      "primary_source_event_id": "EVT-ac6e9cb1c13c",
+      "source_headlines": [
+        "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
+      ],
+      "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T15:27:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T15:58:42Z",
+      "updated_at": "2026-09-19T15:58:42Z",
+      "decay_at": "2026-09-20T03:27:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-78eedf3845e5",
       "idea_version": "IDEAV-50f71bad3bacda39",
       "idea_version_started_at": "2026-09-19T15:58:42Z",
@@ -132573,9 +132573,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -132583,9 +132583,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -132604,6 +132604,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2bf283da46ec",
+        "idea_version": "IDEAV-7e8acf14e8310864",
+        "idea_version_started_at": "2026-09-19T15:58:42Z",
+        "ticker": "TVVISION",
+        "company": "TV Vision Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
+        "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ac6e9cb1c13c",
+          "EVT-f187b2c0bee2"
+        ],
+        "primary_source_event_id": "EVT-ac6e9cb1c13c",
+        "source_headlines": [
+          "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+          "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
+        ],
+        "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T15:27:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T15:58:42Z",
+        "updated_at": "2026-09-19T15:58:42Z",
+        "decay_at": "2026-09-20T03:27:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T03:27:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-78eedf3845e5",
         "idea_version": "IDEAV-50f71bad3bacda39",
@@ -169671,86 +169747,12 @@
         "archived_at": "2026-08-31T14:15:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3b0ee430113b",
-        "idea_version": "IDEAV-e5b2584375e51428",
-        "idea_version_started_at": "2026-08-29T10:43:25Z",
-        "ticker": "01561",
-        "company": "PAN ASIA DATA H",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
-        "why_now": "The company released its profit warning announcement on August 28, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8b2efa56f6ab"
-        ],
-        "primary_source_event_id": "EVT-8b2efa56f6ab",
-        "source_headlines": [
-          "PAN ASIA DATA H (01561): PROFIT WARNING"
-        ],
-        "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:44:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T10:43:25Z",
-        "decay_at": "2026-08-30T00:44:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 914,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169769,9 +169771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 790447,
-    "news_picked_today": 343,
-    "news_dropped_today": 1529
+    "news_seen_today": 795700,
+    "news_picked_today": 350,
+    "news_dropped_today": 1546
   },
   "book_momentum": {
     "live_count": 8,
