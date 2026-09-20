@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:44:32Z",
+  "generated_at": "2026-09-20T06:48:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1478,6 +1478,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-427",
+      "headline": "Ukrainian capital Kyiv under missile attack, mayor says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/ukrainian-capital-kyiv-under-missile-attack-mayor-says-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:37:02Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Escalation of military conflict in Kyiv is a major geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Escalation of military conflict in Kyiv is a major geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-414",
       "headline": "IAG and Credit Suisse settle monster Greensill Capital collapse suit",
       "headline_en": null,
@@ -1891,55 +1934,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-351",
-      "headline": "Warren Buffett’s son to succeed his father as Berkshire Hathaway chair",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e26d8335-426a-4405-ae4c-433bd2696994?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T20:20:28Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Howard Buffett is set to succeed Warren Buffett as non-executive chair, a significant long-term governance transition for Berkshire Hathaway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Howard Buffett is set to succeed Warren Buffett as non-executive chair, a significant long-term governance transition for Berkshire Hathaway.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169720,9 +169714,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1318966,
-    "news_picked_today": 804,
-    "news_dropped_today": 2724
+    "news_seen_today": 1325890,
+    "news_picked_today": 813,
+    "news_dropped_today": 2739
   },
   "book_momentum": {
     "live_count": 8,
