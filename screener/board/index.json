@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:27:27Z",
+  "generated_at": "2026-09-20T05:29:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1333,6 +1333,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-351",
+      "headline": "Warren Buffett’s son to succeed his father as Berkshire Hathaway chair",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e26d8335-426a-4405-ae4c-433bd2696994?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T20:20:28Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Howard Buffett is set to succeed Warren Buffett as non-executive chair, a significant long-term governance transition for Berkshire Hathaway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Howard Buffett is set to succeed Warren Buffett as non-executive chair, a significant long-term governance transition for Berkshire Hathaway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-113",
       "headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-349",
-      "headline": "Fabrinet's 2026 Outlook: Capital Expansion Powers Surging AI Hardware Demand",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fabrinets-2026-outlook-capital-expansion-powers-surging-ai-hardware-demand",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T20:23:01Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Fabrinet announced a capital expansion plan to meet surging AI hardware demand, directly impacting future production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Fabrinet announced a capital expansion plan to meet surging AI hardware demand, directly impacting future production capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fabrinet",
-          "ticker": "FN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169748,9 +169748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1134283,
-    "news_picked_today": 596,
-    "news_dropped_today": 2236
+    "news_seen_today": 1142745,
+    "news_picked_today": 601,
+    "news_dropped_today": 2255
   },
   "book_momentum": {
     "live_count": 8,
