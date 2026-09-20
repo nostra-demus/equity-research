@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:12:37Z",
+  "generated_at": "2026-09-20T01:15:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -139,6 +139,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-109",
+      "headline": "Ares Said to Eye Buying Stake in Danish Infrastructure Fund CIP",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-19/ares-said-to-eye-buying-stake-in-danish-infrastructure-fund-cip",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:19:58Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ares Management is reportedly looking to acquire a stake in Copenhagen Infrastructure Partners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Ares Management is reportedly looking to acquire a stake in Copenhagen Infrastructure Partners.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ares Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -710,6 +759,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-110",
+      "headline": "SpaceX’s Nasdaq 100 Weight Is Confirmed at 2.82% in Rebalance",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-19/spacex-s-nasdaq-100-weight-is-confirmed-at-2-82-in-rebalance",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:17:01Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "SpaceX's weight in the Nasdaq 100 is confirmed at 2.82%, triggering mechanical index-tracking fund flows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "SpaceX's weight in the Nasdaq 100 is confirmed at 2.82%, triggering mechanical index-tracking fund flows.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1688,6 +1786,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-108",
+      "headline": "Media Tycoon John Malone Buys 37,082 More Liberty Latin America Preference Shares. What Does This Tell Investors?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/media-tycoon-john-malone-buys-37082-more-liberty-latin-america-preference-shares-what-does",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:25:01Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "John Malone increased his stake in Liberty Latin America by 37,082 shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "John Malone increased his stake in Liberty Latin America by 37,082 shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liberty Latin America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-048",
       "headline": "Aptean übernimmt FleetGO von Main Capital Partners und erweitert sein Portfolio um eine führende End-to-End-Logistiklösung für den Straßentransport",
       "headline_en": "Aptean acquires FleetGO from Main Capital Partners and expands its portfolio with a leading end-to-end logistics solution for road transport",
@@ -1798,153 +1945,6 @@
           "name": "Main Capital Partners",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-052",
-      "headline": "TotalEnergies signe un accord avec GIP portant sur des actifs d’infrastructures énergétiques en Afrique",
-      "headline_en": "TotalEnergies signs an agreement with GIP regarding energy infrastructure assets in Africa",
-      "url": "http://www.businesswire.com/news/home/20260917641423/fr/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T06:13:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "TotalEnergies is entering an agreement with GIP regarding energy infrastructure assets in Africa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "TotalEnergies is entering an agreement with GIP regarding energy infrastructure assets in Africa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TotalEnergies",
-          "ticker": "TTE",
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-051",
-      "headline": "TotalEnergies Signs an Agreement with GIP on African Energy Infrastructure Assets",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260917390944/en/TotalEnergies-Signs-an-Agreement-with-GIP-on-African-Energy-Infrastructure-Assets/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T06:13:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "TotalEnergies signs agreement with GIP for African energy infrastructure assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "TotalEnergies signs agreement with GIP for African energy infrastructure assets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TotalEnergies",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-047",
-      "headline": "Tenet Healthcare Director Nadja West Sells 1,152 Shares",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/19/tenet-healthcare-director-nadja-west-sells-1-152-shares/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:05:01Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Small insider sale by a director at Tenet Healthcare.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Small insider sale by a director at Tenet Healthcare.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tenet Healthcare",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -169442,9 +169442,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 278077,
-    "news_picked_today": 112,
-    "news_dropped_today": 584
+    "news_seen_today": 290331,
+    "news_picked_today": 115,
+    "news_dropped_today": 605
   },
   "book_momentum": {
     "live_count": 8,
