@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T15:21:28Z",
+  "generated_at": "2026-09-20T15:31:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -340,6 +340,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-742",
+      "headline": "QatarEnergy says Hormuz crisis may delay some expansion projects",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/qatarenergy-says-hormuz-crisis-may-delay-some-expansion-projects-2026-09-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T15:22:39Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "QatarEnergy indicated that geopolitical tensions in the Strait of Hormuz may delay expansion projects, impacting future production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "QatarEnergy indicated that geopolitical tensions in the Strait of Hormuz may delay expansion projects, impacting future production capacity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QatarEnergy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1959,6 @@
           "name": "Applied Materials",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-718",
-      "headline": "Grab’s $1.9b Atome deal advances its ASEAN super-app ambitions – but is it paying too much?",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/grabs-atome-deal-advances-its-asean-super-app-ambitions-but-is-it-paying-too-much",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T14:25:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Grab is acquiring Atome for $1.9 billion, a significant M&A event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grab is acquiring Atome for $1.9 billion, a significant M&A event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grab Holdings",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -129695,78 +129696,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-73741e1a1a55",
-      "idea_version": "IDEAV-97c3f27c212f3dd6",
-      "idea_version_started_at": "2026-09-19T08:59:15Z",
-      "ticker": "3690",
-      "company": "Meituan",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of an investigation into unfair competition practices creates significant regulatory overhang and potential for material fines or forced changes to the company's core business model.",
-      "why_now": "The investigation was reported on September 19, 2026, creating immediate downside risk to sentiment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35be5e963276"
-      ],
-      "primary_source_event_id": "EVT-35be5e963276",
-      "source_headlines": [
-        "China investigates Meituan unit for suspected violations of unfair competition laws"
-      ],
-      "source_headline": "China investigates Meituan unit for suspected violations of unfair competition laws",
-      "source_url": "https://www.reuters.com/world/asia-pacific/china-investigates-meituan-unit-suspected-violations-unfair-competition-laws-2026-09-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-19T03:23:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T08:59:15Z",
-      "updated_at": "2026-09-19T08:59:15Z",
-      "decay_at": "2026-09-20T15:23:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9ee16cbb53b7",
       "idea_version": "IDEAV-b30c3942ee58499c",
       "idea_version_started_at": "2026-09-20T03:04:50Z",
@@ -131752,6 +131681,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-73741e1a1a55",
+      "idea_version": "IDEAV-97c3f27c212f3dd6",
+      "idea_version_started_at": "2026-09-19T08:59:15Z",
+      "ticker": "3690",
+      "company": "Meituan",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The initiation of an investigation into unfair competition practices creates significant regulatory overhang and potential for material fines or forced changes to the company's core business model.",
+      "why_now": "The investigation was reported on September 19, 2026, creating immediate downside risk to sentiment.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35be5e963276"
+      ],
+      "primary_source_event_id": "EVT-35be5e963276",
+      "source_headlines": [
+        "China investigates Meituan unit for suspected violations of unfair competition laws"
+      ],
+      "source_headline": "China investigates Meituan unit for suspected violations of unfair competition laws",
+      "source_url": "https://www.reuters.com/world/asia-pacific/china-investigates-meituan-unit-suspected-violations-unfair-competition-laws-2026-09-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-19T03:23:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T08:59:15Z",
+      "updated_at": "2026-09-19T08:59:15Z",
+      "decay_at": "2026-09-20T15:23:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7d56acfd906a",
       "idea_version": "IDEAV-64ec3170c0e3e22b",
       "idea_version_started_at": "2026-09-19T05:39:44Z",
@@ -131833,9 +131834,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -131843,9 +131844,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -131864,6 +131865,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-73741e1a1a55",
+        "idea_version": "IDEAV-97c3f27c212f3dd6",
+        "idea_version_started_at": "2026-09-19T08:59:15Z",
+        "ticker": "3690",
+        "company": "Meituan",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The initiation of an investigation into unfair competition practices creates significant regulatory overhang and potential for material fines or forced changes to the company's core business model.",
+        "why_now": "The investigation was reported on September 19, 2026, creating immediate downside risk to sentiment.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-35be5e963276"
+        ],
+        "primary_source_event_id": "EVT-35be5e963276",
+        "source_headlines": [
+          "China investigates Meituan unit for suspected violations of unfair competition laws"
+        ],
+        "source_headline": "China investigates Meituan unit for suspected violations of unfair competition laws",
+        "source_url": "https://www.reuters.com/world/asia-pacific/china-investigates-meituan-unit-suspected-violations-unfair-competition-laws-2026-09-19/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-19T03:23:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T08:59:15Z",
+        "updated_at": "2026-09-19T08:59:15Z",
+        "decay_at": "2026-09-20T15:23:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T15:23:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6c411243ff00",
         "idea_version": "IDEAV-bb737e4eae911147",
@@ -168934,86 +169010,12 @@
         "archived_at": "2026-08-31T15:18:23Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-801081566dec",
-        "idea_version": "IDEAV-ce699957a91aa372",
-        "idea_version_started_at": "2026-08-29T18:43:39Z",
-        "ticker": "01518",
-        "company": "NC HEALTHCARE",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "NC HEALTHCARE issued a profit warning, indicating that its financial performance is expected to be significantly worse than previously anticipated.",
-        "why_now": "The profit warning was issued on August 28, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f05bdbd62134"
-        ],
-        "primary_source_event_id": "EVT-f05bdbd62134",
-        "source_headlines": [
-          "NC HEALTHCARE (01518): PROFIT WARNING"
-        ],
-        "source_headline": "NC HEALTHCARE (01518): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804114.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T14:45:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T18:43:39Z",
-        "updated_at": "2026-08-29T18:43:39Z",
-        "decay_at": "2026-08-30T02:45:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:18:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 920,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169032,9 +169034,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801693,
-    "news_picked_today": 1675,
-    "news_dropped_today": 5978
+    "news_seen_today": 1801720,
+    "news_picked_today": 1681,
+    "news_dropped_today": 5999
   },
   "book_momentum": {
     "live_count": 8,
