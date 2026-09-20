@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T04:09:02Z",
+  "generated_at": "2026-09-20T04:13:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -350,6 +350,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-292",
+      "headline": "Iran war latest: Houthis claim attacks on Saudi capital and Aramco sites in Yanbu",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/20/live-saudi-aramco-iran-war/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:59:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-070",
-      "headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:28:55Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "CEO Luis von Ahn sold $4.3 million worth of Duolingo shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "CEO Luis von Ahn sold $4.3 million worth of Duolingo shares.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Duolingo",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -169768,9 +169768,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 954163,
-    "news_picked_today": 424,
-    "news_dropped_today": 1784
+    "news_seen_today": 964057,
+    "news_picked_today": 430,
+    "news_dropped_today": 1802
   },
   "book_momentum": {
     "live_count": 8,
