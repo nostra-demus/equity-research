@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:33:31Z",
+  "generated_at": "2026-09-20T01:36:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -527,6 +527,55 @@
       "companies": [
         {
           "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-123",
+      "headline": "ED flags Rs 230-cr worth adulterated ghee was supplied to Tirumala for Laddu over 5 years, arrests key conspirator",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/andhra-pradesh/ed-flags-rs-230-cr-worth-adulterated-ghee-was-supplied-to-tirumala-for-laddu-over-5-years-arrests-co-conspirator-4152092",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T13:07:36Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Enforcement action regarding Rs 230 crore worth of adulterated supply chain inputs for a major religious institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Enforcement action regarding Rs 230 crore worth of adulterated supply chain inputs for a major religious institution.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tirumala Tirupati Devasthanams",
           "ticker": null,
           "listing_country": null
         }
@@ -1890,55 +1939,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-081",
-      "headline": "Celsius Executives Have Been Buying the Stock. Should Investors Join Them?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/19/celsius-executives-have-been-buying-the-stock/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Celsius executives have been buying the stock, which could signal confidence in the company's future.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Celsius executives have been buying the stock, which could signal confidence in the company's future.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Celsius",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -169574,9 +169574,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 344950,
-    "news_picked_today": 135,
-    "news_dropped_today": 705
+    "news_seen_today": 356980,
+    "news_picked_today": 143,
+    "news_dropped_today": 721
   },
   "book_momentum": {
     "live_count": 8,
