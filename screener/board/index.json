@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:37:37Z",
+  "generated_at": "2026-09-20T05:41:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -902,6 +902,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-360",
+      "headline": "‎East Pipes signs SAR 771M contract with Saudi Aramco",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1937711",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "East Pipes signs a significant SAR 771M contract with Saudi Aramco.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "East Pipes signs a significant SAR 771M contract with Saudi Aramco.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "East Pipes",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-079",
-      "headline": "SaffronStays plans big South push with 200 homes in next 2 years",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/saffronstays-plans-big-south-push-with-200-homes-in-next-2-years/article71485387.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:59:08Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "SaffronStays plans to add 200 homes in South India over the next two years, indicating a significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SaffronStays plans to add 200 homes in South India over the next two years, indicating a significant capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SaffronStays",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169742,9 +169747,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1167751,
-    "news_picked_today": 623,
-    "news_dropped_today": 2305
+    "news_seen_today": 1175956,
+    "news_picked_today": 632,
+    "news_dropped_today": 2320
   },
   "book_momentum": {
     "live_count": 8,
