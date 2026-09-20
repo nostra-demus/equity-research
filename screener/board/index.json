@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-20T01:10:29Z",
+  "generated_at": "2026-09-20T01:12:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-100",
+      "headline": "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/saudi-aramco-stops-crude-supplies-to-indian-refiners-after-pipeline-attack-replacement-barrels-available-but-oil-is-at-over-100-and-freight-costs-are-set-to-rise/articleshow/134356048.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:49:37Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-096",
       "headline": "Chamas e fumaça são vistas perto de aeroporto de Riad após Arábia Saudita alertar sobre ameaça de ataque aéreo",
@@ -414,6 +464,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-107",
+      "headline": "Rocket Lab's $2.36 Billion Backlog Says More Than Its Stock Price Does",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/19/rocket-labs-236-billion-backlog-says-more-than-its/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Rocket Lab reports a $2.36 billion backlog, providing significant visibility into future revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Rocket Lab reports a $2.36 billion backlog, providing significant visibility into future revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rocket Lab",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1210,6 +1309,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-106",
+      "headline": "Warren Buffett Watched Alphabet's Stock Price Climb 9,000% Before He Decided to Invest. Here's Why He and Greg Abel Are Making It One of Berkshire Hathaway's Biggest Investments Now.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/19/warren-buffett-watched-alphabets-stock-price-climb/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Berkshire Hathaway increasing its position in Alphabet is a notable capital allocation move by a major institutional investor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Berkshire Hathaway increasing its position in Alphabet is a notable capital allocation move by a major institutional investor.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-002",
       "headline": "Eine solide bereinigte EBIT-Marge von 18,8 %, getragen von einem soliden organischen Umsatzwachstum von 7,4 %",
       "headline_en": "A solid adjusted EBIT margin of 18.8%, supported by solid organic revenue growth of 7.4%",
@@ -1795,147 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-072",
-      "headline": "E.A. Juffali & Brothers denies reports of relocating operations outside Saudi Arabia",
-      "headline_en": null,
-      "url": "https://saudigazette.com.sa/article/664691/business/ea-juffali-brothers-denies-reports-of-relocating-outside-saudi-arabia",
-      "source_name": "Saudi Gazette — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:25:31Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "E.A. Juffali & Brothers denies rumors of relocating operations out of Saudi Arabia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "E.A. Juffali & Brothers denies rumors of relocating operations out of Saudi Arabia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "E.A. Juffali & Brothers",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-036",
-      "headline": "Bilibili, 'China's YouTube', draws Indian creators despite no India launch, as India-China ties thaw and YouTube monetisation set to tighten",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/media/entertainment/bilibili-chinas-youtube-draws-indian-creators-despite-no-india-launch-as-india-china-ties-thaw-and-youtube-monetisation-set-to-tighten/articleshow/134359258.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Bilibili is expanding creator reach in India despite no official launch.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Bilibili is expanding creator reach in India despite no official launch.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Bilibili",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-071",
-      "headline": "USA CNN, MS NOW et Politico privés d'accès à la Maison blanche",
-      "headline_en": "USA CNN, MS NOW and Politico denied access to the White House",
-      "url": "https://www.reuters.com/fr/affaires/usa-cnn-ms-now-et-politico-privs-daccs-la-maison-blanche-2026-09-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:25:44Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "White House restricts access for several major media outlets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "White House restricts access for several major media outlets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169430,9 +169442,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 265799,
-    "news_picked_today": 104,
-    "news_dropped_today": 568
+    "news_seen_today": 278077,
+    "news_picked_today": 112,
+    "news_dropped_today": 584
   },
   "book_momentum": {
     "live_count": 8,
