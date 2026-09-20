@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:35:17Z",
+  "generated_at": "2026-09-20T05:37:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1141,6 +1141,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-355",
+      "headline": "IAEA Condemns Drone Strike On Russia’s Kursk Nuclear Plant Cooling Tower Amid Escalating Russia-Ukraine Attacks | Video",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/iaea-condemns-drone-strike-on-russias-kursk-nuclear-plant-cooling-tower-amid-escalating-russia-ukraine-attacks",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T19:53:19Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The IAEA condemned a drone strike on a nuclear plant cooling tower, representing a significant escalation in the Russia-Ukraine conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The IAEA condemned a drone strike on a nuclear plant cooling tower, representing a significant escalation in the Russia-Ukraine conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-280",
       "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
       "headline_en": null,
@@ -1916,55 +1959,6 @@
           "name": "SaffronStays",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-343",
-      "headline": "Lakers Buyers Lay Out Plans to Reach $30 Billion Valuation in Pitch to Investors",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/lakers-buyers-lay-out-plans-to-reach-30-billion-valuation-in-pitch-to-investors-66945709?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T20:29:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "The Lakers ownership group is targeting a $30 billion valuation, signaling a major potential capital event or valuation benchmark for the franchise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The Lakers ownership group is targeting a $30 billion valuation, signaling a major potential capital event or valuation benchmark for the franchise.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Los Angeles Lakers",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -169748,9 +169742,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1163614,
-    "news_picked_today": 616,
-    "news_dropped_today": 2288
+    "news_seen_today": 1167751,
+    "news_picked_today": 623,
+    "news_dropped_today": 2305
   },
   "book_momentum": {
     "live_count": 8,
