@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:46:18Z",
+  "generated_at": "2026-09-20T05:49:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1238,6 +1238,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-387",
+      "headline": "Two injured by Israeli shelling as troops advance in southern Lebanon",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/9/18/two-injured-by-israeli-shelling-as-troops-advance-in-southern-lebanon?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-18T19:14:41Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Israeli troops advance in southern Lebanon with active shelling, representing an escalation of geopolitical conflict in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Israeli troops advance in southern Lebanon with active shelling, representing an escalation of geopolitical conflict in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-280",
       "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
       "headline_en": null,
@@ -1915,55 +1958,6 @@
           "name": "Toyota",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-121",
-      "headline": "Starbucks Settles Florida DEI Lawsuit, Denies Wrongdoing And Pays $1 Million",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/pamdanziger/2026/09/19/starbucks-settles-florida-dei-lawsuit-denies-wrongdoing-and-pays-1-million/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:35:41Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Starbucks settled a DEI-related lawsuit for $1 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Starbucks settled a DEI-related lawsuit for $1 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Starbucks",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -169747,9 +169741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1188202,
-    "news_picked_today": 639,
-    "news_dropped_today": 2337
+    "news_seen_today": 1192276,
+    "news_picked_today": 671,
+    "news_dropped_today": 2401
   },
   "book_momentum": {
     "live_count": 8,
