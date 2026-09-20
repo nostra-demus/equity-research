@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:23:54Z",
+  "generated_at": "2026-09-20T05:27:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1875,37 +1875,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260920-109",
-      "headline": "Ares Said to Eye Buying Stake in Danish Infrastructure Fund CIP",
+      "inbox_id": "INB-20260920-343",
+      "headline": "Lakers Buyers Lay Out Plans to Reach $30 Billion Valuation in Pitch to Investors",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-19/ares-said-to-eye-buying-stake-in-danish-infrastructure-fund-cip",
-      "source_name": "Bloomberg",
+      "url": "https://www.wsj.com/business/media/lakers-buyers-lay-out-plans-to-reach-30-billion-valuation-in-pitch-to-investors-66945709?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:19:58Z",
+      "found_at": "2026-09-18T20:29:00Z",
       "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Ares Management is reportedly looking to acquire a stake in Copenhagen Infrastructure Partners.",
+      "prelim_note": "The Lakers ownership group is targeting a $30 billion valuation, signaling a major potential capital event or valuation benchmark for the franchise.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Ares Management is reportedly looking to acquire a stake in Copenhagen Infrastructure Partners.",
-      "region": "GLOBAL",
+      "triage_score": 89,
+      "triage_reason": "The Lakers ownership group is targeting a $30 billion valuation, signaling a major potential capital event or valuation benchmark for the franchise.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "mna"
@@ -1913,58 +1913,58 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Ares Management",
+          "name": "Los Angeles Lakers",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260920-132",
-      "headline": "Porsche layoffs: 4,100 more positions at risk on top of 9,000 already planned",
+      "inbox_id": "INB-20260920-349",
+      "headline": "Fabrinet's 2026 Outlook: Capital Expansion Powers Surging AI Hardware Demand",
       "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/porsche-layoffs-4-100-more-positions-at-risk-on-top-of-9-000-already-planned-11789820994526.html",
-      "source_name": "Mint",
+      "url": "https://www.nasdaq.com/articles/fabrinets-2026-outlook-capital-expansion-powers-surging-ai-hardware-demand",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:46:19Z",
+      "found_at": "2026-09-18T20:23:01Z",
       "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Porsche is planning to cut an additional 4,100 positions on top of 9,000 previously announced.",
+      "prelim_note": "Fabrinet announced a capital expansion plan to meet surging AI hardware demand, directly impacting future production capacity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Porsche is planning to cut an additional 4,100 positions on top of 9,000 previously announced.",
-      "region": "OTHER",
+      "triage_score": 89,
+      "triage_reason": "Fabrinet announced a capital expansion plan to meet surging AI hardware demand, directly impacting future production capacity.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 6,
         "size": 2,
-        "recency": 1,
+        "recency": 0,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
+        "event_id": "capex",
         "size_bucket": "large"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Porsche",
-          "ticker": null,
-          "listing_country": "DE"
+          "name": "Fabrinet",
+          "ticker": "FN",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -169748,9 +169748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1125754,
-    "news_picked_today": 587,
-    "news_dropped_today": 2221
+    "news_seen_today": 1134283,
+    "news_picked_today": 596,
+    "news_dropped_today": 2236
   },
   "book_momentum": {
     "live_count": 8,
