@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T12:00:16Z",
+  "generated_at": "2026-09-20T12:06:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-719",
+      "headline": "TRIGIANT (01300): DISCLOSEABLE TRANSACTION - ACQUISITION OF 100% EQUITY INTERESTS IN QINGHAI ZHONGLI OPTICAL FIBRE TECHNOLOGY CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T11:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Trigiant is acquiring 100% of Qinghai Zhongli Optical Fibre Technology Co., Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trigiant is acquiring 100% of Qinghai Zhongli Optical Fibre Technology Co., Ltd.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trigiant Group Ltd",
+          "ticker": "01300",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-708",
       "headline": "JUJIANG CONS (01459): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF 80% EQUITY INTEREST IN A NON-WHOLLY OWNED SUBSIDIARY",
@@ -1917,60 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-444",
-      "headline": "Autobauer: VW kappt Gewinnziel – Porsche belastet mit sechs Milliarden Euro",
-      "headline_en": "Automakers: VW cuts profit target – Porsche burdened with six billion euros",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-vw-kappt-gewinnziel-porsche-belastet-mit-sechs-milliarden-euro/100255727.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T17:21:48Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Volkswagen cut its profit target and Porsche reported a 6 billion euro charge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volkswagen cut its profit target and Porsche reported a 6 billion euro charge.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen AG",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Porsche AG",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169110,9 +169105,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1782055,
-    "news_picked_today": 1393,
-    "news_dropped_today": 5135
+    "news_seen_today": 1784681,
+    "news_picked_today": 1401,
+    "news_dropped_today": 5175
   },
   "book_momentum": {
     "live_count": 8,
