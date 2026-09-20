@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:07:29Z",
+  "generated_at": "2026-09-20T01:10:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-096",
@@ -746,6 +746,55 @@
         },
         {
           "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-099",
+      "headline": "Polymarket’s Rush to Grow Left a Door Wide Open For Fraudsters",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/polymarkets-fraud-regulators-coplan-5f418ab0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Polymarket faces potential regulatory and operational risk due to reports of widespread fraud on its platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Polymarket faces potential regulatory and operational risk due to reports of widespread fraud on its platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Polymarket",
           "ticker": null,
           "listing_country": null
         }
@@ -1856,49 +1905,6 @@
       "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
       "found_at": "2026-09-19T16:25:44Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "White House restricts access for several major media outlets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "White House restricts access for several major media outlets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-073",
-      "headline": "White House turns away CNN, MS NOW, Politico reporters after Trump announces ban",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/white-house-turns-away-cnn-ms-now-politico-reporters-after-trump-announces-ban-2026-09-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:23:51Z",
       "sweep_file": "screener/inbox/2026-09-20_sweep.json",
       "prelim_note": "White House restricts access for several major media outlets.",
       "dedup_status": "new",
@@ -169424,9 +169430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 259624,
-    "news_picked_today": 102,
-    "news_dropped_today": 546
+    "news_seen_today": 265799,
+    "news_picked_today": 104,
+    "news_dropped_today": 568
   },
   "book_momentum": {
     "live_count": 8,
