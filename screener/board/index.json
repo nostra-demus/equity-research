@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T11:39:58Z",
+  "generated_at": "2026-09-20T11:45:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-708",
+      "headline": "JUJIANG CONS (01459): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF 80% EQUITY INTEREST IN A NON-WHOLLY OWNED SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T11:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The company announced a major disposal of an 80% equity interest in a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a major disposal of an 80% equity interest in a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jujiang Construction",
+          "ticker": "01459",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-692",
       "headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
@@ -247,6 +296,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-709",
+      "headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T11:14:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The company is laying the foundation for a major power project worth 48,000 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is laying the foundation for a major power project worth 48,000 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-697",
       "headline": "Ashiana Housing to invest Rs 1,000 cr in FY27 to acquire land for expansion: MD Vishal Gupta",
       "headline_en": null,
@@ -291,55 +389,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-689",
-      "headline": "Foundation stone laid for Adani Power’s ₹48,000 cr thermal power project in Assam",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/foundation-stone-laid-for-adani-powers-48000-cr-thermal-power-project-in-assam/article71487450.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T09:34:16Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Adani Power is investing 48,000 crore rupees in a new thermal power project in Assam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Power is investing 48,000 crore rupees in a new thermal power project in Assam.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Power",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-651",
-      "headline": "L& T eyes $30 billlion from modularization in 5 years",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/engineering/l-t-eyes-30-billlion-from-modularization-in-5-years/articleshow/134338478.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:12:02Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "L&T targets $30 billion in revenue from a new modularization strategy over 5 years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "L&T targets $30 billion in revenue from a new modularization strategy over 5 years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larsen & Toubro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -129206,77 +129206,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ab211b817901",
-      "idea_version": "IDEAV-64df97f16c267173",
-      "idea_version_started_at": "2026-09-19T00:43:05Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has a massive $27 billion share buyback authorization remaining, which provides a significant floor for the stock price and EPS accretion.",
-      "why_now": "The news of the remaining buyback capacity was reported on 2026-09-18.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dfc8913f77a8"
-      ],
-      "primary_source_event_id": "EVT-dfc8913f77a8",
-      "source_headlines": [
-        "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company"
-      ],
-      "source_headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
-      "source_url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-18T23:44:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T00:43:05Z",
-      "updated_at": "2026-09-19T00:43:05Z",
-      "decay_at": "2026-09-20T11:44:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3ad41fe6a7f3",
       "idea_version": "IDEAV-e82eca4ec65e35ca",
       "idea_version_started_at": "2026-09-19T23:48:22Z",
@@ -130690,6 +130619,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ab211b817901",
+      "idea_version": "IDEAV-64df97f16c267173",
+      "idea_version_started_at": "2026-09-19T00:43:05Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has a massive $27 billion share buyback authorization remaining, which provides a significant floor for the stock price and EPS accretion.",
+      "why_now": "The news of the remaining buyback capacity was reported on 2026-09-18.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dfc8913f77a8"
+      ],
+      "primary_source_event_id": "EVT-dfc8913f77a8",
+      "source_headlines": [
+        "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company"
+      ],
+      "source_headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
+      "source_url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-18T23:44:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T00:43:05Z",
+      "updated_at": "2026-09-19T00:43:05Z",
+      "decay_at": "2026-09-20T11:44:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1f05bd3420a7",
       "idea_version": "IDEAV-b31b6c0def5cd963",
       "idea_version_started_at": "2026-09-19T17:33:45Z",
@@ -131916,14 +131916,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
         "total_count": 264,
@@ -131947,6 +131947,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ab211b817901",
+        "idea_version": "IDEAV-64df97f16c267173",
+        "idea_version_started_at": "2026-09-19T00:43:05Z",
+        "ticker": "NFLX",
+        "company": "Netflix",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has a massive $27 billion share buyback authorization remaining, which provides a significant floor for the stock price and EPS accretion.",
+        "why_now": "The news of the remaining buyback capacity was reported on 2026-09-18.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dfc8913f77a8"
+        ],
+        "primary_source_event_id": "EVT-dfc8913f77a8",
+        "source_headlines": [
+          "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company"
+        ],
+        "source_headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
+        "source_url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 89,
+        "newest_source_at": "2026-09-18T23:44:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T00:43:05Z",
+        "updated_at": "2026-09-19T00:43:05Z",
+        "decay_at": "2026-09-20T11:44:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T11:44:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-352ad72e6a27",
         "idea_version": "IDEAV-01c191d10237dce2",
@@ -161125,80 +161199,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-40daa458c3f6",
-        "idea_version": "IDEAV-f50b43f7ea84c8ba",
-        "idea_version_started_at": "2026-09-06T20:29:47Z",
-        "ticker": "OKTA",
-        "company": "Okta",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Okta is capturing increased enterprise spending on identity security as AI-driven cyber threats necessitate more robust authentication frameworks.",
-        "why_now": "The company just reported a beat-and-raise quarter on 2026-09-06, indicating strong momentum in current demand.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3ad847cc0696"
-        ],
-        "primary_source_event_id": "EVT-3ad847cc0696",
-        "source_headlines": [
-          "Okta Jumps 20% as AI-Driven Security Fears Fuel a Beat-and-Raise Quarter"
-        ],
-        "source_headline": "Okta Jumps 20% as AI-Driven Security Fears Fuel a Beat-and-Raise Quarter",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/okta-jumps-20-ai-driven-193519966.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-06T19:35:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T20:29:47Z",
-        "updated_at": "2026-09-06T20:29:47Z",
-        "decay_at": "2026-09-08T07:35:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T20:06:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-26a4a64ef76e",
         "idea_version": "IDEAV-124b5d2aa2b3b853",
         "idea_version_started_at": "2026-09-06T19:44:58Z",
@@ -169097,7 +169097,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 916,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169116,9 +169116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1772830,
-    "news_picked_today": 1315,
-    "news_dropped_today": 4973
+    "news_seen_today": 1775212,
+    "news_picked_today": 1330,
+    "news_dropped_today": 5006
   },
   "book_momentum": {
     "live_count": 8,
