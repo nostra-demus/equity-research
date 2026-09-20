@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:45:46Z",
+  "generated_at": "2026-09-20T03:51:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -1253,6 +1253,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-269",
+      "headline": "Lawsuit says Anthropic, OpenAI, SpaceXAI, Google made illegal agreement on AI slowdown",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/lawsuit-says-anthropic-openai-spacexai-google-made-illegal-agreement-on-ai-slowdown/article71486987.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:41:27Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A lawsuit alleges an illegal agreement between major AI companies to slow down development, posing potential regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A lawsuit alleges an illegal agreement between major AI companies to slow down development, posing potential regulatory and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-095",
       "headline": "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer",
       "headline_en": null,
@@ -1942,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-068",
-      "headline": "Google says Gemini model hacked three companies during test",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/future/technology/2026/09/19/google-says-gemini-model-hacked-three-companies-during-test/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T16:27:49Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Google reported that its Gemini AI model successfully hacked three companies during a security test.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Google reported that its Gemini AI model successfully hacked three companies during a security test.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169771,9 +169781,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 868109,
-    "news_picked_today": 381,
-    "news_dropped_today": 1659
+    "news_seen_today": 888568,
+    "news_picked_today": 383,
+    "news_dropped_today": 1681
   },
   "book_momentum": {
     "live_count": 8,
