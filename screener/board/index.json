@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:38:19Z",
+  "generated_at": "2026-09-20T01:41:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -911,6 +911,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-125",
+      "headline": "India faces fresh US tariff threat over Russian oil: What happens next? GTRI explains",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/economy/story/india-faces-fresh-us-tariff-threat-over-russian-oil-what-happens-next-gtri-explains-556634-2026-09-19?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:54:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Potential US tariff threat on India regarding Russian oil imports poses a risk to trade relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Potential US tariff threat on India regarding Russian oil imports poses a risk to trade relations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,49 +1941,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-002",
-      "headline": "Eine solide bereinigte EBIT-Marge von 18,8 %, getragen von einem soliden organischen Umsatzwachstum von 7,4 %",
-      "headline_en": "A solid adjusted EBIT margin of 18.8%, supported by solid organic revenue growth of 7.4%",
-      "url": "https://www.prnewswire.com/news-releases/eine-solide-bereinigte-ebit-marge-von-18-8--getragen-von-einem-soliden-organischen-umsatzwachstum-von-7-4--302883213.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T11:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Company reported an adjusted EBIT margin of 18.8% and organic revenue growth of 7.4%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Company reported an adjusted EBIT margin of 18.8% and organic revenue growth of 7.4%.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169574,9 +169575,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 362995,
-    "news_picked_today": 148,
-    "news_dropped_today": 740
+    "news_seen_today": 374969,
+    "news_picked_today": 150,
+    "news_dropped_today": 762
   },
   "book_momentum": {
     "live_count": 8,
