@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T04:39:06Z",
+  "generated_at": "2026-09-20T04:41:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1043,6 +1043,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-327",
+      "headline": "Trump's EPA unlawfully terminated $7 billion solar grant program, judge rules",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/trumps-epa-unlawfully-terminated-7-billion-solar-grant-program-judge-rules-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T21:45:27Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A judge ruled that the EPA unlawfully terminated a $7 billion solar grant program, creating significant regulatory and financial uncertainty for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A judge ruled that the EPA unlawfully terminated a $7 billion solar grant program, creating significant regulatory and financial uncertainty for the sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-261",
       "headline": "CNN calls Trump ban ‘illegal assault’ on press freedom as 3 outlets barred from White House",
       "headline_en": null,
@@ -1933,55 +1977,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-095",
-      "headline": "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/genpact-case-karnataka-hc-upholds-ed-seizure-order-over-alleged-rs-7-635-9-crore-transfer-12069567#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:09:50Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Karnataka High Court upholding an ED seizure order over a large alleged transfer of Rs 7,635.9 Crore has significant financial and legal implications for Genpact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Karnataka High Court upholding an ED seizure order over a large alleged transfer of Rs 7,635.9 Crore has significant financial and legal implications for Genpact.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genpact",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169762,9 +169757,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1017378,
-    "news_picked_today": 496,
-    "news_dropped_today": 1976
+    "news_seen_today": 1026696,
+    "news_picked_today": 503,
+    "news_dropped_today": 1993
   },
   "book_momentum": {
     "live_count": 8,
