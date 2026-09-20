@@ -1,6 +1,2000 @@
 {
-  "generated_at": "2026-09-19T20:28:00Z",
+  "generated_at": "2026-09-20T07:05:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-294",
+      "headline": "Chinese owners launch €2.5bn sale of Luxembourg’s oldest bank",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/44433853-1d29-4b42-b13b-846abe9ffa3b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Chinese owners are launching a 2.5 billion euro sale of Luxembourg's oldest bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chinese owners are launching a 2.5 billion euro sale of Luxembourg's oldest bank.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Internationale a Luxembourg",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-331",
+      "headline": "OpenAI projects burning through $354.6 billion by 2030, FT reports",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/openai-projects-burning-through-354-billion-by-2030-financial-times",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "OpenAI projects cumulative losses of $354.6 billion by 2030, highlighting extreme capital intensity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI projects cumulative losses of $354.6 billion by 2030, highlighting extreme capital intensity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-214",
+      "headline": "Ingenia board sits on revised $3b proposal from PE suitor",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/ingenia-board-sits-on-revised-3b-proposal-from-pe-suitor-20260920-p60y3y?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T02:42:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ingenia is considering a revised $3 billion acquisition proposal from a private equity suitor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia is considering a revised $3 billion acquisition proposal from a private equity suitor.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-145",
+      "headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:02:03Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Equinix announced a major capital expenditure plan of $5B-$7B annually for data center expansion to meet AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Equinix announced a major capital expenditure plan of $5B-$7B annually for data center expansion to meet AI demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equinix",
+          "ticker": "EQIX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-207",
+      "headline": "Mazagon Dock Shipbuilders to invest ₹15,000 crore in Greenfield shipyard at Dugarajapatnam",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/mazagon-dock-shipbuilders-to-invest-15000-crore-in-greenfield-shipyard-at-dugarajapatnam/article71480163.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T09:54:31Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Mazagon Dock Shipbuilders announced a ₹15,000 crore investment in a new shipyard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mazagon Dock Shipbuilders announced a ₹15,000 crore investment in a new shipyard.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mazagon Dock Shipbuilders",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-234",
+      "headline": "Anthropic, Accenture to invest $2 billion in AI model evaluation as safety concerns rise",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/anthropic-accenture-to-invest-2-billion-in-ai-model-evaluation-as-safety-concerns-rise/article71483693.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:41:45Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Accenture and Anthropic are investing $2 billion in AI model evaluation, representing a major capital commitment to AI safety infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture and Anthropic are investing $2 billion in AI model evaluation, representing a major capital commitment to AI safety infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-287",
+      "headline": "OpenAI forecasts cash burn near $280 billion by 2030, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/openai-expects-burn-through-almost-280-billion-by-2030-ft-reports-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:27:52Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Reported massive cash burn forecast of $280 billion by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported massive cash burn forecast of $280 billion by 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-302",
+      "headline": "Oracle's $18 billion data center debt under pressure, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/oracles-18-billion-data-center-debt-under-pressure-ft-reports-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T22:32:11Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Oracle faces pressure on $18 billion of data center debt according to a report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle faces pressure on $18 billion of data center debt according to a report.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-409",
+      "headline": "DCC Energy Shareholders Approve £5.7 Billion Bid by KKR, ECP",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/dcc-energy-shareholders-approve-5-7-billion-bid-by-kkr-ecp",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:58:13Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCC Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-436",
+      "headline": "PizzaExpress cooks up sale at up to £500mn valuation",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/99b7000e-d977-457b-baf3-64f2931b044c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:24:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "PizzaExpress is exploring a sale at a valuation of up to £500mn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PizzaExpress is exploring a sale at a valuation of up to £500mn.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PizzaExpress",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-438",
+      "headline": "Volkswagen Shares Sink 7.5% As Carmaker Slashes 2026 Margin Target",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/volkswagen-shares-sink-7-5-as-carmaker-slashes-2026-margin-target-12066304#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:23:03Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen shares fell 7.5% following a cut to its 2026 margin target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen shares fell 7.5% following a cut to its 2026 margin target.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-467",
+      "headline": "DoorDash’s $300 Million Grubhub Deal Opens a New Venue-Commerce Opportunity",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/doordash-300-million-grubhub-deal-170248558.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:02:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "DoorDash announced a $300 million acquisition of Grubhub.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash announced a $300 million acquisition of Grubhub.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Grubhub",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-500",
+      "headline": "Volkswagen abaisse ses perspectives annuelles, plombées par €10 mds de charges",
+      "headline_en": "Volkswagen lowers its annual outlook, weighed down by €10 billion in charges",
+      "url": "https://www.reuters.com/fr/affaires/volkswagen-abaisse-ses-perspectives-annuelles-plombes-par-10-mds-de-charges-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:45:36Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen cut its annual guidance due to 10 billion euros in charges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen cut its annual guidance due to 10 billion euros in charges.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-522",
+      "headline": "Bunge Lifts 2026 EPS Outlook as Oilseed Momentum Offsets Grain Risks",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bunge-lifts-2026-eps-outlook-oilseed-momentum-offsets-grain-risks",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Bunge raised its 2026 EPS outlook, indicating improved profitability expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bunge raised its 2026 EPS outlook, indicating improved profitability expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bunge",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-523",
+      "headline": "TotalEnergies and BlackRock Sign $1.8B Deal for African Oil and Gas Assets",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/TotalEnergies-and-BlackRock-Sign-18B-Deal-for-African-Oil-and-Gas-Assets.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "TotalEnergies is acquiring African oil and gas assets for $1.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies is acquiring African oil and gas assets for $1.8 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-542",
+      "headline": "Volkswagen recorta sus previsiones por gasto extraordinario de 11.500 millones de dólares",
+      "headline_en": "Volkswagen cuts its forecasts due to an extraordinary expense of $11.5 billion",
+      "url": "https://www.reuters.com/es/negocio/K6TMVZKNF5IZPE5JG3BHR6Y2FQ-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:15:44Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen cut its guidance due to an extraordinary expense of $11.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen cut its guidance due to an extraordinary expense of $11.5 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-557",
+      "headline": "Autobauer: Volkswagen kappt Prognose – Aktie fällt deutlich",
+      "headline_en": "Automaker: Volkswagen cuts forecast – stock falls significantly",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-volkswagen-kappt-prognose-aktie-faellt-deutlich/100255727.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:08:07Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen has cut its financial guidance, a material event impacting investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen has cut its financial guidance, a material event impacting investor expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-574",
+      "headline": "Volkswagen Lowers Full-Year Forecast as Market Challenges Persist",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/volkswagen-lowers-full-year-forecast-as-market-challenges-persist-e1edbbfd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen lowered its full-year forecast due to persistent market challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen lowered its full-year forecast due to persistent market challenges.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-595",
+      "headline": "Volkswagen kappt Prognose - Aktie fällt",
+      "headline_en": "Volkswagen cuts forecast - stock falls",
+      "url": "https://www.reuters.com/de/firma/volkswagen-kappt-prognose-aktie-fllt-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:41:44Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen cut its profit guidance, which is a material event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen cut its profit guidance, which is a material event for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-616",
+      "headline": "Corpay To Pay $100 Mln In FTC Proposed Settlement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/corpay-pay-100-mln-ftc-proposed-settlement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:32:09Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Corpay faces a $100 million settlement with the FTC regarding alleged deceptive practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Corpay faces a $100 million settlement with the FTC regarding alleged deceptive practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corpay",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-627",
+      "headline": "VW Slashes Outlook After China Sales Slump, Costs Weigh",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/vw-cuts-outlook-after-writedown-on-porsche-decline-in-china",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:25:38Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen has officially cut its financial outlook due to declining sales in China and rising costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen has officially cut its financial outlook due to declining sales in China and rising costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-641",
+      "headline": "Paramount threatens key market exit over $110 billion mega deal",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/psky-paramount-skydance-threatens-leave-california-warner-bros-discovery-merger-battle",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Paramount is threatening to exit a key market due to a $110 billion mega deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount is threatening to exit a key market due to a $110 billion mega deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-659",
+      "headline": "Amsted Said to Weigh $6 Billion Sale of Cooling System Unit BAC",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/amsted-said-to-weigh-6-billion-sale-of-cooling-system-unit-bac",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:06:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Amsted is exploring a $6 billion sale of its cooling system unit, representing a major divestiture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amsted is exploring a $6 billion sale of its cooling system unit, representing a major divestiture.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amsted Industries",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-683",
+      "headline": "Applied Materials to invest $5bn to bolster chip ambitions in India over coming decade",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/applied-materials-to-invest-5bn-to-bolster-chip-ambitions-in-india-over-coming-decade/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T14:56:42Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Applied Materials plans to invest $5 billion in India over the next decade to boost its chip ambitions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Applied Materials plans to invest $5 billion in India over the next decade to boost its chip ambitions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Materials",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-233",
+      "headline": "KI-Unternehmen: Accenture und Anthropic investieren Milliarden in KI-Sicherheit wegen Sicherheitsbedenken",
+      "headline_en": "AI companies: Accenture and Anthropic invest billions in AI safety due to security concerns",
+      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/ki-unternehmen-accenture-und-anthropic-investieren-milliarden-in-ki-sicherheit-wegen-sicherheitsbedenken/100255810.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:42:27Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-283",
+      "headline": "ECP-backed ProEnergy to seek up to $50 billion valuation in US IPO, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/ecp-backed-proenergy-seek-up-50-billion-valuation-us-ipo-bloomberg-news-reports-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T23:52:42Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "ProEnergy is targeting a significant $50 billion valuation for a potential US IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "ProEnergy is targeting a significant $50 billion valuation for a potential US IPO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ProEnergy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-332",
+      "headline": "Abu Dhabi launches $1.6bn Yas Island project with 3,950 homes and new hotel",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/abu-dhabi-launches-1-6bn-yas-island-project-with-3950-homes-and-new-hotel",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T21:04:47Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Aldar Properties is launching a $1.6 billion real estate development project in Abu Dhabi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Aldar Properties is launching a $1.6 billion real estate development project in Abu Dhabi.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aldar Properties",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-444",
+      "headline": "Autobauer: VW kappt Gewinnziel – Porsche belastet mit sechs Milliarden Euro",
+      "headline_en": "Automakers: VW cuts profit target – Porsche burdened with six billion euros",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-vw-kappt-gewinnziel-porsche-belastet-mit-sechs-milliarden-euro/100255727.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:21:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen cut its profit target and Porsche reported a 6 billion euro charge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Volkswagen cut its profit target and Porsche reported a 6 billion euro charge.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen AG",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Porsche AG",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-485",
+      "headline": "Vista Energy's 2026 Outlook: Shale Expansion Drives 70% Adjusted EBITDA Margins",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vista-energys-2026-outlook-shale-expansion-drives-70-adjusted-ebitda-margins",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:56:01Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Vista Energy provided a 2026 outlook targeting 70% adjusted EBITDA margins driven by shale expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Vista Energy provided a 2026 outlook targeting 70% adjusted EBITDA margins driven by shale expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vista Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-623",
+      "headline": "Volkswagen and Porsche Holding cut outlook",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/volkswagen-porsche-holding-cut-outlook-2026-09-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:29:24Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen and Porsche Holding have cut their financial outlook, signaling a material deterioration in performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Volkswagen and Porsche Holding have cut their financial outlook, signaling a material deterioration in performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Porsche Holding",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-651",
+      "headline": "L& T eyes $30 billlion from modularization in 5 years",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/engineering/l-t-eyes-30-billlion-from-modularization-in-5-years/articleshow/134338478.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:12:02Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "L&T targets $30 billion in revenue from a new modularization strategy over 5 years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "L&T targets $30 billion in revenue from a new modularization strategy over 5 years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-292",
+      "headline": "Iran war latest: Houthis claim attacks on Saudi capital and Aramco sites in Yanbu",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/20/live-saudi-aramco-iran-war/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:59:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-193",
+      "headline": "Cosmo launches $1.63bn THE WADI on Yas Island site",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/cosmo-launches-the-wadi-yas-island",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T10:37:34Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Cosmo launched a $1.63 billion real estate project in Abu Dhabi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Cosmo launched a $1.63 billion real estate project in Abu Dhabi.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cosmo",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-263",
+      "headline": "Nestle India issues clarification: Why FMCG stock plunged? What's FSSAI baby formula row; why it matters to consumers?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/nestle-india-issues-clarification-why-fmcg-stock-plunged-whats-fssai-baby-formula-row-why-it-matters-to-consumers-11789794974681.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:00:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-412",
+      "headline": "UK's Harworth rejects top shareholder Peel's sweetened $802 million offer",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/uks-harworth-rejects-top-shareholder-peels-sweetened-802-million-offer-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:44:09Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Company rejects a takeover offer valued at $802 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company rejects a takeover offer valued at $802 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harworth",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-506",
+      "headline": "Crise da Volkswagen se agrava com alerta sobre resultados",
+      "headline_en": "Volkswagen crisis worsens with earnings warning",
+      "url": "https://www.reuters.com/pt/negocio/BMABKHO7NZIOTHYJMYIRPKJYOE-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T16:40:40Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen issued a profit warning as its financial crisis intensifies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Volkswagen issued a profit warning as its financial crisis intensifies.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-576",
+      "headline": "Volkswagen rechnet dieses Jahr kaum noch mit Gewinn",
+      "headline_en": "Volkswagen expects almost no profit this year",
+      "url": "https://www.reuters.com/de/firma/volkswagen-rechnet-dieses-jahr-kaum-noch-mit-gewinn-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T15:53:44Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Volkswagen warns it expects almost no profit for the year, a significant guidance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Volkswagen warns it expects almost no profit for the year, a significant guidance update.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-405",
+      "headline": "‎MIS inks agreement with HUMAIN worth over SAR 8.7B",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1937727",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "MIS signed a contract worth over SAR 8.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "MIS signed a contract worth over SAR 8.7 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-100",
+      "headline": "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/saudi-aramco-stops-crude-supplies-to-indian-refiners-after-pipeline-attack-replacement-barrels-available-but-oil-is-at-over-100-and-freight-costs-are-set-to-rise/articleshow/134356048.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:49:37Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-218",
+      "headline": "Porsche: Volkswagen nach Gewinnwarnung: Weitere 4000 Jobs bei Porsche entbehrlich?",
+      "headline_en": "Porsche: Volkswagen after profit warning: Another 4,000 jobs at Porsche dispensable?",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-nach-gewinnwarnung-weitere-4000-jobs-bei-porsche-entbehrlich/100254633.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:50:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260919-157",
       "headline": "Consolidated Finvest & Holdings Limited: board meeting 23-Sep-2026 — Voluntary Delisting",
@@ -193,6 +2187,253 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-198",
+      "headline": "Popular travel app enters involuntary bankruptcy, to liquidate",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/weyeboo-business-travel-app-enters-involuntary-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T21:28:05Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "A travel app has entered involuntary bankruptcy and will liquidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A travel app has entered involuntary bankruptcy and will liquidate.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-199",
+      "headline": "Buffett steps down as Berkshire chief, son Howard steps in",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/254732/business/buffett-steps-down-as-berkshire-chief-son-howard-steps-in",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T21:27:00Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Warren Buffett stepping down as CEO of Berkshire Hathaway is a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Warren Buffett stepping down as CEO of Berkshire Hathaway is a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-178",
+      "headline": "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/nashville-traffic-nightmare-now-9-202041295.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T20:20:41Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Ferrovial is leading a major $9.2 billion infrastructure project, representing a significant capital commitment and revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ferrovial is leading a major $9.2 billion infrastructure project, representing a significant capital commitment and revenue opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferrovial",
+          "ticker": "FER",
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-197",
+      "headline": "Japan's Nippon Life plans $13 billion for data center financing in US, Nikkei Asia reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/japans-nippon-life-plans-13-billion-data-center-financing-us-nikkei-asia-reports-2026-09-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T18:43:44Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Japan's Nippon Life plans to invest $13 billion for data center financing in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Japan's Nippon Life plans to invest $13 billion for data center financing in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nippon Life",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260919-193",
+      "headline": "Houthis Claim Missile, Drone Attacks On Riyadh, Saudi Aramco Facilities",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/houthis-claim-missile-drone-attacks-on-riyadh-saudi-aramco-facilities-12070181#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T18:34:22Z",
+      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
+      "prelim_note": "Direct military attack on Saudi Aramco facilities, a major global energy infrastructure target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Direct military attack on Saudi Aramco facilities, a major global energy infrastructure target.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1694,225 +3935,6 @@
       "launched_signal_id": null,
       "triage_score": 96,
       "triage_reason": "The imposition of up to 100% tariffs on Russian oil buyers, including India, represents a significant geopolitical and trade risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-111",
-      "headline": "CMS restores $12B in frozen supplemental Medicaid funds",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/providers/cms-restores-12b-frozen-supplemental-medicaid-funds",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T04:09:14Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "CMS release of $12B in frozen Medicaid funds significantly impacts healthcare provider liquidity and revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "CMS release of $12B in frozen Medicaid funds significantly impacts healthcare provider liquidity and revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-102",
-      "headline": "Trump signs Russia sanctions bill with up to 100% tariff threat for India, China",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/us-trump-signs-russia-sanctions-bill-with-up-to-100-tariff-threat-for-india-china-oil-imports-19993950.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T03:40:05Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The threat of 100% tariffs on India and China represents a major trade policy shift with significant economic implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The threat of 100% tariffs on India and China represents a major trade policy shift with significant economic implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-104",
-      "headline": "US President Donald Trump signs Russia sanctions Act; India, China could face 100% tariffs",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/us-president-donald-trump-signs-russia-sanctions-act-india-china-could-face-100-tariffs-4151598",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T03:09:37Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "The threat of 100% tariffs on India and China represents a major trade policy shift with significant economic implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The threat of 100% tariffs on India and China represents a major trade policy shift with significant economic implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-098",
-      "headline": "Donald Trump signs Russia sanctions bill targeting oil buyers and shadow fleet",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/donald-trump-signs-russia-sanctions-bill-targeting-oil-buyers-and-shadow-fleet-1.500680138",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T02:56:37Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "New sanctions targeting oil buyers and the shadow fleet represent a significant escalation in geopolitical and energy market risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "New sanctions targeting oil buyers and the shadow fleet represent a significant escalation in geopolitical and energy market risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260919-099",
-      "headline": "Trump signs Russia-Iran sanctions law; Saudi Arabia on alert amid Houthi threat",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/trump-signs-russia-iran-sanctions-law-saudi-arabia-on-alert-amid-houthi-threat-1.500680223",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T02:56:15Z",
-      "sweep_file": "screener/inbox/2026-09-19_sweep.json",
-      "prelim_note": "Sanctions against Russia and Iran combined with heightened regional security threats in Saudi Arabia represent a major geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Sanctions against Russia and Iran combined with heightened regional security threats in Saudi Arabia represent a major geopolitical escalation.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -126355,6 +128377,150 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-c1dfbf0d252a",
+      "idea_version": "IDEAV-8288674347a3cf00",
+      "idea_version_started_at": "2026-09-20T03:22:22Z",
+      "ticker": "ARES",
+      "company": "Ares Management",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ares Management benefits from increased demand for alternative financing as traditional energy supply chains face geopolitical disruption and capital-intensive infrastructure projects require private credit solutions.",
+      "why_now": "The combination of Saudi Aramco supply disruptions and the ongoing need for massive data center infrastructure financing creates a structural tailwind for private capital providers.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 22,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1a7b76aa0d89",
+        "EVT-1abbeea93663",
+        "EVT-6906e1c92e10"
+      ],
+      "primary_source_event_id": "EVT-1a7b76aa0d89",
+      "source_headlines": [
+        "Houthis Claim Missile, Drone Attacks On Riyadh, Saudi Aramco Facilities",
+        "Flames and smoke are seen near Riyadh airport after Saudi Arabia warned of an air strike threat",
+        "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100"
+      ],
+      "source_headline": "Houthis Claim Missile, Drone Attacks On Riyadh, Saudi Aramco Facilities",
+      "source_url": "https://www.ndtvprofit.com/world/houthis-claim-missile-drone-attacks-on-riyadh-saudi-aramco-facilities-12070181#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T18:34:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T03:22:22Z",
+      "updated_at": "2026-09-20T03:22:22Z",
+      "decay_at": "2026-09-21T06:34:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-352ad72e6a27",
+      "idea_version": "IDEAV-01c191d10237dce2",
+      "idea_version_started_at": "2026-09-19T20:48:40Z",
+      "ticker": "WEN",
+      "company": "Wendy's Company",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Meritage Hospitality, a major Wendy's franchisee operating hundreds of locations across 15 states, filed for Chapter 11 bankruptcy, disrupting royalty revenue streams and signaling operator distress in the Wendy's system.",
+      "why_now": "Chapter 11 filing reported on 2026-09-18; franchisee bankruptcy creates immediate uncertainty over store closures and franchise fee/royalty collection.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-965dc1b03644",
+        "EVT-bcbcc1baeb73"
+      ],
+      "primary_source_event_id": "EVT-965dc1b03644",
+      "source_headlines": [
+        "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+        "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy"
+      ],
+      "source_headline": "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+      "source_url": "https://thehill.com/homenews/6098417-wendys-franchisee-with-hundreds-of-locations-across-15-states-files-for-bankruptcy/",
+      "source_name": "The Hill — Homenews",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T21:20:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T20:48:40Z",
+      "updated_at": "2026-09-19T20:48:40Z",
+      "decay_at": "2026-09-20T09:20:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6c411243ff00",
       "idea_version": "IDEAV-bb737e4eae911147",
       "idea_version_started_at": "2026-09-19T09:53:04Z",
@@ -126494,6 +128660,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-da4212a0c4c0",
+      "idea_version": "IDEAV-993fa711c2afa8fd",
+      "idea_version_started_at": "2026-09-19T21:17:26Z",
+      "ticker": "AME",
+      "company": "AMETEK",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $5 billion acquisition signals aggressive capital deployment to capture growth in high-margin industrial segments.",
+      "why_now": "The deal was announced on 2026-09-19, initiating the market's re-rating of the company's growth profile.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-590de1dc0f8f"
+      ],
+      "primary_source_event_id": "EVT-590de1dc0f8f",
+      "source_headlines": [
+        "AMETEK’s (AME) $5B Deal Bets Big On A Hot Streak"
+      ],
+      "source_headline": "AMETEK’s (AME) $5B Deal Bets Big On A Hot Streak",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/ametek-ame-5b-deal-bets-183135450.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T18:31:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T21:17:26Z",
+      "updated_at": "2026-09-19T21:17:26Z",
+      "decay_at": "2026-09-21T06:31:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a8adcaeff4e3",
       "idea_version": "IDEAV-e1d53334e5937eb5",
       "idea_version_started_at": "2026-09-19T20:23:37Z",
@@ -126558,6 +128794,216 @@
       "surfaced_at": "2026-09-19T13:14:45Z",
       "updated_at": "2026-09-19T20:23:37Z",
       "decay_at": "2026-09-21T00:38:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ecf3fe51594a",
+      "idea_version": "IDEAV-5875d09240fe2931",
+      "idea_version_started_at": "2026-09-19T21:17:26Z",
+      "ticker": "FER",
+      "company": "Ferrovial",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing a $9.2 billion infrastructure project provides long-term revenue visibility and strengthens the company's order book in the US market.",
+      "why_now": "The project award was confirmed on 2026-09-19, providing a clear catalyst for future cash flow expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80a16f851d22"
+      ],
+      "primary_source_event_id": "EVT-80a16f851d22",
+      "source_headlines": [
+        "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project"
+      ],
+      "source_headline": "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project",
+      "source_url": "https://finance.yahoo.com/real-estate/articles/nashville-traffic-nightmare-now-9-202041295.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T20:20:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T21:17:26Z",
+      "updated_at": "2026-09-19T21:17:26Z",
+      "decay_at": "2026-09-21T08:20:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4e4abdc55d24",
+      "idea_version": "IDEAV-eae7361242ea124f",
+      "idea_version_started_at": "2026-09-19T20:48:40Z",
+      "ticker": "CVS",
+      "company": "CVS Health Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $949 million fraud verdict is forcing a CVS business into Chapter 11, creating a direct cash outflow and operational disruption.",
+      "why_now": "Fraud verdict and Chapter 11 filing reported on 2026-09-19; the financial hit and bankruptcy process are immediate catalysts.",
+      "conviction": 57,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cd7a181b79d7"
+      ],
+      "primary_source_event_id": "EVT-cd7a181b79d7",
+      "source_headlines": [
+        "$949 million fraud verdict costs CVS a business in Chapter 11"
+      ],
+      "source_headline": "$949 million fraud verdict costs CVS a business in Chapter 11",
+      "source_url": "https://www.thestreet.com/retail/cvs-omnicare-completes-chapter-11-bankruptcy-liquidation",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T15:28:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T20:48:40Z",
+      "updated_at": "2026-09-19T20:48:40Z",
+      "decay_at": "2026-09-21T03:28:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-69441c9f6035",
+      "idea_version": "IDEAV-abe1db5a9fbe229e",
+      "idea_version_started_at": "2026-09-19T22:04:27Z",
+      "ticker": "BABA",
+      "company": "Alibaba Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Increased regulatory scrutiny and the precedent of large antitrust penalties in the Chinese tech sector threaten to compress margins and limit growth for dominant platforms.",
+      "why_now": "The news of a new antitrust probe following a $776 million penalty on a peer indicates a live, ongoing crackdown as of 2026-09-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-22b4949d65c6"
+      ],
+      "primary_source_event_id": "EVT-22b4949d65c6",
+      "source_headlines": [
+        "Alibaba, Meituan units in trouble? China antitrust probe follows Trip.com’s $776 million penalty"
+      ],
+      "source_headline": "Alibaba, Meituan units in trouble? China antitrust probe follows Trip.com’s $776 million penalty",
+      "source_url": "https://www.livemint.com/companies/news/alibaba-meituan-units-in-trouble-china-antitrust-probe-follows-trip-com-s-776-million-penalty-11789834813094.html",
+      "source_name": "Mint",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-19T16:30:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T22:04:27Z",
+      "updated_at": "2026-09-19T22:04:27Z",
+      "decay_at": "2026-09-21T04:30:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126705,6 +129151,146 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b3663a1d7f5b",
+      "idea_version": "IDEAV-667be2091d91183e",
+      "idea_version_started_at": "2026-09-20T01:29:10Z",
+      "ticker": "G",
+      "company": "Genpact",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Karnataka High Court upheld an Enforcement Directorate seizure order regarding a Rs 7,635.9 crore transfer, creating significant legal and liquidity risk for the firm.",
+      "why_now": "The court ruling was issued on 2026-09-19, creating immediate regulatory and financial uncertainty.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de1c9526ece3"
+      ],
+      "primary_source_event_id": "EVT-de1c9526ece3",
+      "source_headlines": [
+        "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer"
+      ],
+      "source_headline": "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer",
+      "source_url": "https://www.ndtvprofit.com/business/genpact-case-karnataka-hc-upholds-ed-seizure-order-over-alleged-rs-7-635-9-crore-transfer-12069567#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 86,
+      "newest_source_at": "2026-09-19T15:09:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T01:29:10Z",
+      "updated_at": "2026-09-20T01:29:10Z",
+      "decay_at": "2026-09-21T03:09:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2ed3c81de18b",
+      "idea_version": "IDEAV-5be247720c4d6e97",
+      "idea_version_started_at": "2026-09-20T01:29:10Z",
+      "ticker": "DUOL",
+      "company": "Duolingo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
+      "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2db4cc5eda49"
+      ],
+      "primary_source_event_id": "EVT-2db4cc5eda49",
+      "source_headlines": [
+        "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
+      ],
+      "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
+      "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-20T00:28:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T01:29:10Z",
+      "updated_at": "2026-09-20T01:29:10Z",
+      "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab211b817901",
       "idea_version": "IDEAV-64df97f16c267173",
       "idea_version_started_at": "2026-09-19T00:43:05Z",
@@ -126770,6 +129356,78 @@
       "surfaced_at": "2026-09-19T00:43:05Z",
       "updated_at": "2026-09-19T00:43:05Z",
       "decay_at": "2026-09-20T11:44:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3ad41fe6a7f3",
+      "idea_version": "IDEAV-e82eca4ec65e35ca",
+      "idea_version_started_at": "2026-09-19T23:48:22Z",
+      "ticker": "BRK.A",
+      "company": "Berkshire Hathaway",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Warren Buffett's stepping down as Berkshire Hathaway chief, with his son Howard stepping in, introduces leadership uncertainty and a potential shift in investment strategy.",
+      "why_now": "The news of Warren Buffett's exit and Howard Buffett's succession is a fresh, significant management change reported on September 19, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6206ab685d63"
+      ],
+      "primary_source_event_id": "EVT-6206ab685d63",
+      "source_headlines": [
+        "Buffett steps down as Berkshire chief, son Howard steps in"
+      ],
+      "source_headline": "Buffett steps down as Berkshire chief, son Howard steps in",
+      "source_url": "https://www.qatar-tribune.com/article/254732/business/buffett-steps-down-as-berkshire-chief-son-howard-steps-in",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T21:27:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T23:48:22Z",
+      "updated_at": "2026-09-19T23:48:22Z",
+      "decay_at": "2026-09-21T09:27:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126848,78 +129506,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1f05bd3420a7",
-      "idea_version": "IDEAV-b31b6c0def5cd963",
-      "idea_version_started_at": "2026-09-19T17:33:45Z",
-      "ticker": "BRK.B",
-      "company": "Berkshire Hathaway",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of Warren Buffett as Chairman marks the end of an era and introduces significant uncertainty regarding the company's long-term capital allocation and leadership stability.",
-      "why_now": "The announcement occurred on September 18, 2026, and represents a fundamental shift in the company's governance structure.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-149a13f16a72"
-      ],
-      "primary_source_event_id": "EVT-149a13f16a72",
-      "source_headlines": [
-        "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward."
-      ],
-      "source_headline": "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward.",
-      "source_url": "https://www.nasdaq.com/articles/warren-buffett-steps-down-berkshire-hathaway-chairman-after-56-years-heres-what-investors",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T18:50:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T00:23:17Z",
-      "updated_at": "2026-09-19T17:33:45Z",
-      "decay_at": "2026-09-20T06:50:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-083c9caae543",
       "idea_version": "IDEAV-5b0c0e4ef0d0c09d",
       "idea_version_started_at": "2026-09-19T15:58:42Z",
@@ -126992,292 +129578,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bf283da46ec",
-      "idea_version": "IDEAV-7e8acf14e8310864",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "TVVISION",
-      "company": "TV Vision Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
-      "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ac6e9cb1c13c",
-        "EVT-f187b2c0bee2"
-      ],
-      "primary_source_event_id": "EVT-ac6e9cb1c13c",
-      "source_headlines": [
-        "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
-      ],
-      "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T15:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T03:27:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-78eedf3845e5",
-      "idea_version": "IDEAV-50f71bad3bacda39",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "01371",
-      "company": "China Ecotourism Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit alert indicating deteriorating financial performance, which typically precedes further margin compression or liquidity concerns.",
-      "why_now": "The profit alert was filed on September 18, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b34cb61c0e36"
-      ],
-      "primary_source_event_id": "EVT-b34cb61c0e36",
-      "source_headlines": [
-        "CHINA ECOTOUR (01371): Profit Alert"
-      ],
-      "source_headline": "CHINA ECOTOUR (01371): Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T14:23:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T02:23:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d1966bde9f8c",
-      "idea_version": "IDEAV-47bc164323824838",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "08156",
-      "company": "Sinopharm Tech Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
-      "why_now": "The warning was filed on September 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9e144c03dbd"
-      ],
-      "primary_source_event_id": "EVT-f9e144c03dbd",
-      "source_headlines": [
-        "SINOPHARM TECH (08156): PROFIT WARNING"
-      ],
-      "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T14:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T02:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-75e7e0d545c9",
-      "idea_version": "IDEAV-52d5934feefbec53",
-      "idea_version_started_at": "2026-09-19T14:23:44Z",
-      "ticker": "08366",
-      "company": "ZJ United Inv",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
-      "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-717692d8d979"
-      ],
-      "primary_source_event_id": "EVT-717692d8d979",
-      "source_headlines": [
-        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
-      ],
-      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T12:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T17:05:00Z",
-      "updated_at": "2026-09-19T14:23:44Z",
-      "decay_at": "2026-09-20T00:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-80566e7fce69",
       "idea_version": "IDEAV-f82663b3219a08e7",
       "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -127344,77 +129644,6 @@
       "surfaced_at": "2026-09-19T12:40:06Z",
       "updated_at": "2026-09-19T12:40:06Z",
       "decay_at": "2026-09-20T23:29:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0c5dd20f0abc",
-      "idea_version": "IDEAV-23de9d5eed9283c4",
-      "idea_version_started_at": "2026-09-18T22:10:41Z",
-      "ticker": "543929",
-      "company": "HMA Agro Industries Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of the statutory auditor is a high-conviction red flag for potential accounting irregularities or governance failures.",
-      "why_now": "The cessation of the auditor was filed on September 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a92173c6c45"
-      ],
-      "primary_source_event_id": "EVT-0a92173c6c45",
-      "source_headlines": [
-        "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026."
-      ],
-      "source_headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T18:23:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T22:10:41Z",
-      "updated_at": "2026-09-18T22:10:41Z",
-      "decay_at": "2026-09-20T06:23:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -127635,22 +129864,22 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7d56acfd906a",
-      "idea_version": "IDEAV-64ec3170c0e3e22b",
-      "idea_version_started_at": "2026-09-19T05:39:44Z",
-      "ticker": "07630",
-      "company": "Impact Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
+      "idea_id": "IDEA-9ee16cbb53b7",
+      "idea_version": "IDEAV-b30c3942ee58499c",
+      "idea_version_started_at": "2026-09-20T03:04:50Z",
+      "ticker": "TATASTEEL",
+      "company": "Tata Steel",
+      "exchange": "NSE",
+      "direction": "short",
       "pair_with": null,
-      "reason": "The positive CHMP opinion for Senaparib significantly increases the probability of European market entry for the company's lead oncology asset, expanding its addressable revenue base.",
-      "why_now": "The regulatory opinion was announced on 2026-09-18, providing a clear catalyst for commercialization prospects.",
-      "conviction": 75,
+      "reason": "The company is facing project delays at Port Talbot and is forced to seek additional government funding, indicating operational distress and potential dilution or balance sheet strain.",
+      "why_now": "The request for fresh funding was reported on 2026-09-19.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
-        "evidence": 25,
+        "evidence": 14,
         "impact": 19,
         "specificity": 7,
         "timing": 10,
@@ -127664,6 +129893,7 @@
         "verified listing",
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -127676,30 +129906,30 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "company_specific",
+      "thesis_type": "balance_sheet_survival",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-8b6ac1607a2a"
+        "EVT-544c8b795a62"
       ],
-      "primary_source_event_id": "EVT-8b6ac1607a2a",
+      "primary_source_event_id": "EVT-544c8b795a62",
       "source_headlines": [
-        "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER"
+        "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays"
       ],
-      "source_headline": "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801234.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "source_headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
+      "source_url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
+      "source_name": "Business Today",
       "materiality_max": 91,
-      "newest_source_at": "2026-09-18T10:47:00Z",
+      "newest_source_at": "2026-09-19T14:03:45Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-19T05:39:44Z",
-      "updated_at": "2026-09-19T05:39:44Z",
-      "decay_at": "2026-09-19T22:47:00Z",
+      "surfaced_at": "2026-09-20T03:04:50Z",
+      "updated_at": "2026-09-20T03:04:50Z",
+      "decay_at": "2026-09-21T02:03:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -128749,6 +130979,435 @@
       "surfaced_at": "2026-09-17T20:23:46Z",
       "updated_at": "2026-09-17T20:23:46Z",
       "decay_at": "2026-09-19T04:35:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1f05bd3420a7",
+      "idea_version": "IDEAV-b31b6c0def5cd963",
+      "idea_version_started_at": "2026-09-19T17:33:45Z",
+      "ticker": "BRK.B",
+      "company": "Berkshire Hathaway",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of Warren Buffett as Chairman marks the end of an era and introduces significant uncertainty regarding the company's long-term capital allocation and leadership stability.",
+      "why_now": "The announcement occurred on September 18, 2026, and represents a fundamental shift in the company's governance structure.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-149a13f16a72"
+      ],
+      "primary_source_event_id": "EVT-149a13f16a72",
+      "source_headlines": [
+        "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward."
+      ],
+      "source_headline": "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward.",
+      "source_url": "https://www.nasdaq.com/articles/warren-buffett-steps-down-berkshire-hathaway-chairman-after-56-years-heres-what-investors",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T18:50:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T00:23:17Z",
+      "updated_at": "2026-09-19T17:33:45Z",
+      "decay_at": "2026-09-20T06:50:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2bf283da46ec",
+      "idea_version": "IDEAV-7e8acf14e8310864",
+      "idea_version_started_at": "2026-09-19T15:58:42Z",
+      "ticker": "TVVISION",
+      "company": "TV Vision Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
+      "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ac6e9cb1c13c",
+        "EVT-f187b2c0bee2"
+      ],
+      "primary_source_event_id": "EVT-ac6e9cb1c13c",
+      "source_headlines": [
+        "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
+      ],
+      "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T15:27:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T15:58:42Z",
+      "updated_at": "2026-09-19T15:58:42Z",
+      "decay_at": "2026-09-20T03:27:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-78eedf3845e5",
+      "idea_version": "IDEAV-50f71bad3bacda39",
+      "idea_version_started_at": "2026-09-19T15:58:42Z",
+      "ticker": "01371",
+      "company": "China Ecotourism Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit alert indicating deteriorating financial performance, which typically precedes further margin compression or liquidity concerns.",
+      "why_now": "The profit alert was filed on September 18, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b34cb61c0e36"
+      ],
+      "primary_source_event_id": "EVT-b34cb61c0e36",
+      "source_headlines": [
+        "CHINA ECOTOUR (01371): Profit Alert"
+      ],
+      "source_headline": "CHINA ECOTOUR (01371): Profit Alert",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T14:23:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T15:58:42Z",
+      "updated_at": "2026-09-19T15:58:42Z",
+      "decay_at": "2026-09-20T02:23:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d1966bde9f8c",
+      "idea_version": "IDEAV-47bc164323824838",
+      "idea_version_started_at": "2026-09-19T15:58:42Z",
+      "ticker": "08156",
+      "company": "Sinopharm Tech Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+      "why_now": "The warning was filed on September 18, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9e144c03dbd"
+      ],
+      "primary_source_event_id": "EVT-f9e144c03dbd",
+      "source_headlines": [
+        "SINOPHARM TECH (08156): PROFIT WARNING"
+      ],
+      "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T14:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T15:58:42Z",
+      "updated_at": "2026-09-19T15:58:42Z",
+      "decay_at": "2026-09-20T02:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-75e7e0d545c9",
+      "idea_version": "IDEAV-52d5934feefbec53",
+      "idea_version_started_at": "2026-09-19T14:23:44Z",
+      "ticker": "08366",
+      "company": "ZJ United Inv",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
+      "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-717692d8d979"
+      ],
+      "primary_source_event_id": "EVT-717692d8d979",
+      "source_headlines": [
+        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
+      ],
+      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T12:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T17:05:00Z",
+      "updated_at": "2026-09-19T14:23:44Z",
+      "decay_at": "2026-09-20T00:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0c5dd20f0abc",
+      "idea_version": "IDEAV-23de9d5eed9283c4",
+      "idea_version_started_at": "2026-09-18T22:10:41Z",
+      "ticker": "543929",
+      "company": "HMA Agro Industries Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of the statutory auditor is a high-conviction red flag for potential accounting irregularities or governance failures.",
+      "why_now": "The cessation of the auditor was filed on September 18, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a92173c6c45"
+      ],
+      "primary_source_event_id": "EVT-0a92173c6c45",
+      "source_headlines": [
+        "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026."
+      ],
+      "source_headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T18:23:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T22:10:41Z",
+      "updated_at": "2026-09-18T22:10:41Z",
+      "decay_at": "2026-09-20T06:23:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -129831,6 +132490,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-7d56acfd906a",
+      "idea_version": "IDEAV-64ec3170c0e3e22b",
+      "idea_version_started_at": "2026-09-19T05:39:44Z",
+      "ticker": "07630",
+      "company": "Impact Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The positive CHMP opinion for Senaparib significantly increases the probability of European market entry for the company's lead oncology asset, expanding its addressable revenue base.",
+      "why_now": "The regulatory opinion was announced on 2026-09-18, providing a clear catalyst for commercialization prospects.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b6ac1607a2a"
+      ],
+      "primary_source_event_id": "EVT-8b6ac1607a2a",
+      "source_headlines": [
+        "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER"
+      ],
+      "source_headline": "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801234.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-18T10:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T05:39:44Z",
+      "updated_at": "2026-09-19T05:39:44Z",
+      "decay_at": "2026-09-19T22:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -129843,19 +132573,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 258,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -129874,6 +132604,527 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1f05bd3420a7",
+        "idea_version": "IDEAV-b31b6c0def5cd963",
+        "idea_version_started_at": "2026-09-19T17:33:45Z",
+        "ticker": "BRK.B",
+        "company": "Berkshire Hathaway",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The departure of Warren Buffett as Chairman marks the end of an era and introduces significant uncertainty regarding the company's long-term capital allocation and leadership stability.",
+        "why_now": "The announcement occurred on September 18, 2026, and represents a fundamental shift in the company's governance structure.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-149a13f16a72"
+        ],
+        "primary_source_event_id": "EVT-149a13f16a72",
+        "source_headlines": [
+          "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward."
+        ],
+        "source_headline": "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward.",
+        "source_url": "https://www.nasdaq.com/articles/warren-buffett-steps-down-berkshire-hathaway-chairman-after-56-years-heres-what-investors",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T18:50:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T00:23:17Z",
+        "updated_at": "2026-09-19T17:33:45Z",
+        "decay_at": "2026-09-20T06:50:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T06:50:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0c5dd20f0abc",
+        "idea_version": "IDEAV-23de9d5eed9283c4",
+        "idea_version_started_at": "2026-09-18T22:10:41Z",
+        "ticker": "543929",
+        "company": "HMA Agro Industries Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The sudden resignation of the statutory auditor is a high-conviction red flag for potential accounting irregularities or governance failures.",
+        "why_now": "The cessation of the auditor was filed on September 18, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0a92173c6c45"
+        ],
+        "primary_source_event_id": "EVT-0a92173c6c45",
+        "source_headlines": [
+          "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026."
+        ],
+        "source_headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T18:23:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-18T22:10:41Z",
+        "updated_at": "2026-09-18T22:10:41Z",
+        "decay_at": "2026-09-20T06:23:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T06:23:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2bf283da46ec",
+        "idea_version": "IDEAV-7e8acf14e8310864",
+        "idea_version_started_at": "2026-09-19T15:58:42Z",
+        "ticker": "TVVISION",
+        "company": "TV Vision Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
+        "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ac6e9cb1c13c",
+          "EVT-f187b2c0bee2"
+        ],
+        "primary_source_event_id": "EVT-ac6e9cb1c13c",
+        "source_headlines": [
+          "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+          "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
+        ],
+        "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T15:27:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T15:58:42Z",
+        "updated_at": "2026-09-19T15:58:42Z",
+        "decay_at": "2026-09-20T03:27:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T03:27:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-78eedf3845e5",
+        "idea_version": "IDEAV-50f71bad3bacda39",
+        "idea_version_started_at": "2026-09-19T15:58:42Z",
+        "ticker": "01371",
+        "company": "China Ecotourism Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit alert indicating deteriorating financial performance, which typically precedes further margin compression or liquidity concerns.",
+        "why_now": "The profit alert was filed on September 18, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b34cb61c0e36"
+        ],
+        "primary_source_event_id": "EVT-b34cb61c0e36",
+        "source_headlines": [
+          "CHINA ECOTOUR (01371): Profit Alert"
+        ],
+        "source_headline": "CHINA ECOTOUR (01371): Profit Alert",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T14:23:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T15:58:42Z",
+        "updated_at": "2026-09-19T15:58:42Z",
+        "decay_at": "2026-09-20T02:23:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T02:23:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d1966bde9f8c",
+        "idea_version": "IDEAV-47bc164323824838",
+        "idea_version_started_at": "2026-09-19T15:58:42Z",
+        "ticker": "08156",
+        "company": "Sinopharm Tech Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+        "why_now": "The warning was filed on September 18, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f9e144c03dbd"
+        ],
+        "primary_source_event_id": "EVT-f9e144c03dbd",
+        "source_headlines": [
+          "SINOPHARM TECH (08156): PROFIT WARNING"
+        ],
+        "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T14:02:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T15:58:42Z",
+        "updated_at": "2026-09-19T15:58:42Z",
+        "decay_at": "2026-09-20T02:02:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T02:02:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-75e7e0d545c9",
+        "idea_version": "IDEAV-52d5934feefbec53",
+        "idea_version_started_at": "2026-09-19T14:23:44Z",
+        "ticker": "08366",
+        "company": "ZJ United Inv",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
+        "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-717692d8d979"
+        ],
+        "primary_source_event_id": "EVT-717692d8d979",
+        "source_headlines": [
+          "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
+        ],
+        "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T12:39:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-18T17:05:00Z",
+        "updated_at": "2026-09-19T14:23:44Z",
+        "decay_at": "2026-09-20T00:39:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T00:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-7d56acfd906a",
+        "idea_version": "IDEAV-64ec3170c0e3e22b",
+        "idea_version_started_at": "2026-09-19T05:39:44Z",
+        "ticker": "07630",
+        "company": "Impact Therapeutics",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The positive CHMP opinion for Senaparib significantly increases the probability of European market entry for the company's lead oncology asset, expanding its addressable revenue base.",
+        "why_now": "The regulatory opinion was announced on 2026-09-18, providing a clear catalyst for commercialization prospects.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b6ac1607a2a"
+        ],
+        "primary_source_event_id": "EVT-8b6ac1607a2a",
+        "source_headlines": [
+          "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER"
+        ],
+        "source_headline": "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801234.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 91,
+        "newest_source_at": "2026-09-18T10:47:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T05:39:44Z",
+        "updated_at": "2026-09-19T05:39:44Z",
+        "decay_at": "2026-09-19T22:47:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-19T22:47:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8447af34e57e",
         "idea_version": "IDEAV-94dbbdd025a9f4e8",
@@ -158533,81 +161784,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f4e90eacafe1",
-        "idea_version": "IDEAV-d1d9374b13cd68bd",
-        "idea_version_started_at": "2026-09-06T19:44:58Z",
-        "ticker": "HEG",
-        "company": "HEG Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The demerger of HEG Advanced Materials is projected to unlock and add approximately ₹4,000 crore in market capitalization for shareholders.",
-        "why_now": "The details of the value-unlocking demerger were publicized on September 6, 2026, presenting a fresh corporate catalyst.",
-        "conviction": 68,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1b137a9c275b"
-        ],
-        "primary_source_event_id": "EVT-1b137a9c275b",
-        "source_headlines": [
-          "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation"
-        ],
-        "source_headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
-        "source_url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-06T14:01:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T14:26:13Z",
-        "updated_at": "2026-09-06T19:44:58Z",
-        "decay_at": "2026-09-08T02:01:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T14:53:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-82f2f46d0183",
         "idea_version": "IDEAV-a7832e8c3aa071c0",
         "idea_version_started_at": "2026-09-06T19:44:58Z",
@@ -166572,457 +169748,12 @@
         "archived_at": "2026-08-31T14:15:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a4e5cec1ef8b",
-        "idea_version": "IDEAV-230262be31743fba",
-        "idea_version_started_at": "2026-08-29T21:53:05Z",
-        "ticker": "00852",
-        "company": "Strong Petrochemical Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Strong Petrochemical Holdings Limited announced a further delay in the payment of its 2024 interim dividend and continued trading suspension, signaling severe financial difficulties.",
-        "why_now": "The announcement regarding the dividend delay and trading suspension was made on August 28, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-74e06baa7bc7"
-        ],
-        "primary_source_event_id": "EVT-74e06baa7bc7",
-        "source_headlines": [
-          "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
-        ],
-        "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:58:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T21:53:05Z",
-        "decay_at": "2026-08-30T00:58:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-314816d42d62",
-        "idea_version": "IDEAV-d9c564e47f22d9c5",
-        "idea_version_started_at": "2026-08-29T21:53:05Z",
-        "ticker": "PANASIA",
-        "company": "Pan Asia Data Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Pan Asia Data Holdings Limited issued a profit warning, indicating a likely significant negative impact on its earnings.",
-        "why_now": "The profit warning was announced on August 28, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8b2efa56f6ab"
-        ],
-        "primary_source_event_id": "EVT-8b2efa56f6ab",
-        "source_headlines": [
-          "PAN ASIA DATA H (01561): PROFIT WARNING"
-        ],
-        "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:44:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T21:53:05Z",
-        "updated_at": "2026-08-29T21:53:05Z",
-        "decay_at": "2026-08-30T00:44:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3b0ee430113b",
-        "idea_version": "IDEAV-e5b2584375e51428",
-        "idea_version_started_at": "2026-08-29T10:43:25Z",
-        "ticker": "01561",
-        "company": "PAN ASIA DATA H",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
-        "why_now": "The company released its profit warning announcement on August 28, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8b2efa56f6ab"
-        ],
-        "primary_source_event_id": "EVT-8b2efa56f6ab",
-        "source_headlines": [
-          "PAN ASIA DATA H (01561): PROFIT WARNING"
-        ],
-        "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:44:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T10:43:25Z",
-        "decay_at": "2026-08-30T00:44:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8b68f20f17c3",
-        "idea_version": "IDEAV-cf3677a0ed88dfc6",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "01255",
-        "company": "TATA HEALTH",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "TATA HEALTH issued a profit warning, indicating that its upcoming earnings will be lower than previously expected, which will negatively impact its profitability.",
-        "why_now": "The company released an inside information clarification announcement regarding the profit warning on August 28, 2026, making this a live catalyst for its near-term financial outlook.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-430beb9e0fe4"
-        ],
-        "primary_source_event_id": "EVT-430beb9e0fe4",
-        "source_headlines": [
-          "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING"
-        ],
-        "source_headline": "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802456.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:24:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-30T00:24:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1089cf77cf0a",
-        "idea_version": "IDEAV-20ea7d2ea26e7534",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "01101",
-        "company": "HUARONG ENERGY",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
-        "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-255663ecc15c"
-        ],
-        "primary_source_event_id": "EVT-255663ecc15c",
-        "source_headlines": [
-          "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
-        ],
-        "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T17:43:44Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-30T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8c0df7c727b4",
-        "idea_version": "IDEAV-f1311c301d8cfdf9",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "02722",
-        "company": "CHONGQING M&E",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will likely result in significant financial losses and impairments for the parent company.",
-        "why_now": "The company announced this inside information on August 28, 2026, indicating an immediate and severe financial event.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5d15167b7180"
-        ],
-        "primary_source_event_id": "EVT-5d15167b7180",
-        "source_headlines": [
-          "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
-        ],
-        "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T11:49:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-29T23:49:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T11:51:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 904,
-    "live_count": 19,
+    "surfaced_total": 914,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -167032,7 +169763,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2607,
+    "inbox_unconsumed": 2647,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -167041,9 +169772,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9594362,
-    "news_picked_today": 507,
-    "news_dropped_today": 10437
+    "news_seen_today": 1359385,
+    "news_picked_today": 1124,
+    "news_dropped_today": 3388
   },
   "book_momentum": {
     "live_count": 8,

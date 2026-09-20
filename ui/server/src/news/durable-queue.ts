@@ -558,16 +558,27 @@ export function durableQueueEstablishedPath(stateDir: string): string {
   return establishedPath(stateDir)
 }
 
-export function isTerminalEvent(stateDir: string, eventId: string): boolean {
+/** Admission uses the same terminal authority as the writer. The bounded SeenCache is only an
+ * optimization: an evicted ID must not be scored again or mistaken for a lost retry row. Read one
+ * consistent snapshot per batch, including terminal payloads whose compact receipt is not purged yet.
+ * An unavailable authority is not evidence that the batch is new. */
+export function filterNonterminalQueueItems(stateDir: string, items: readonly NewsItem[]): NewsItem[] | null {
+  if (!items.length) return []
   let db: DatabaseSync | undefined
   try {
     db = openQueue(stateDir)
-    if (!db) return false
-    const row = db.prepare('SELECT 1 FROM news_queue_terminal_ids WHERE event_id = ?').get(eventId)
-    return !!row
+    db.exec('BEGIN')
+    if (meta(db, 'bootstrap_complete') !== '1') return null
+    const terminal = db.prepare(`
+      SELECT 1 FROM news_queue_terminal_ids WHERE event_id = ?
+      UNION ALL
+      SELECT 1 FROM news_queue WHERE event_id = ? AND state IN ('completed', 'retired')
+      LIMIT 1
+    `)
+    return items.filter((item) => !terminal.get(item.event_id, item.event_id))
   } catch {
-    return false
+    return null
   } finally {
-    try { db?.close() } catch {}
+    try { db?.close() } catch { /* closes the read transaction */ }
   }
 }

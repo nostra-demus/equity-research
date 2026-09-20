@@ -41,7 +41,7 @@ note() { # note <ok|failed|skipped> <detail>
   # write out from under it and publish the wrong outcome (e.g. `skipped` after the concurrent refresh
   # actually succeeded). mktemp gives each invocation its own file; only the final atomic `mv -f` ever
   # touches the shared $STATUS path (PR #706 review).
-  tmp="$(mktemp "$STATUS.XXXXXX.tmp" 2>/dev/null)" || return 0
+  tmp="$(mktemp "$STATUS.XXXXXX" 2>/dev/null)" || return 0
   printf '{"at":"%s","outcome":"%s","detail":"%s"}\n' "$at" "$1" "$detail" > "$tmp" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; return 0; }
   mv -f "$tmp" "$STATUS" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; return 0; }
 }
