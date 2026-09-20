@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T23:39:58Z",
+  "generated_at": "2026-09-20T23:40:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-820",
@@ -129407,6 +129407,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-79ba62fd1bed",
+      "idea_version": "IDEAV-e088ad6dea8d6c46",
+      "idea_version_started_at": "2026-09-20T23:40:12Z",
+      "ticker": "IGL",
+      "company": "IGL",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is expanding into the Digital Out of Home market through the acquisition of Motio, which is expected to diversify revenue streams.",
+      "why_now": "The Scheme Implementation Deed was filed on 2026-09-20.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f56204160e92",
+        "EVT-34213d811f67"
+      ],
+      "primary_source_event_id": "EVT-f56204160e92",
+      "source_headlines": [
+        "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+        "IGL: Scheme Implementation Deed [price-sensitive]"
+      ],
+      "source_headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:33:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T23:40:12Z",
+      "updated_at": "2026-09-20T23:40:12Z",
+      "decay_at": "2026-09-22T11:33:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7aec883d8fe6",
       "idea_version": "IDEAV-e75ccb72c5133cb8",
       "idea_version_started_at": "2026-09-20T22:40:13Z",
@@ -131760,77 +131833,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f2025e70eec6",
-      "idea_version": "IDEAV-2953a112f8323a21",
-      "idea_version_started_at": "2026-09-18T00:48:37Z",
-      "ticker": "ABG",
-      "company": "Abacus Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The divestment of its interest in the Storage King Group allows the company to unlock capital and streamline its portfolio, which is typically viewed as value-accretive.",
-      "why_now": "The exchange filing confirming the sale was released on September 17, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2aa7f9532543"
-      ],
-      "primary_source_event_id": "EVT-2aa7f9532543",
-      "source_headlines": [
-        "ABG: Sale of Interest in Storage King Group [price-sensitive]"
-      ],
-      "source_headline": "ABG: Sale of Interest in Storage King Group [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ABG?key=2924-03136881-2A1697822",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T23:30:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T00:48:37Z",
-      "updated_at": "2026-09-18T00:48:37Z",
-      "decay_at": "2026-09-19T11:30:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5efadd64af04",
       "idea_version": "IDEAV-0d4f3ec9fae0cf3e",
       "idea_version_started_at": "2026-09-18T10:19:04Z",
@@ -132269,14 +132271,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       },
       "short": {
         "total_count": 264,
@@ -132286,12 +132288,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 374,
+      "evicted_count": 375,
       "oldest_retained_at": "2026-08-29T23:28:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 256,
-          "oldest_retained_at": "2026-09-07T21:17:00Z"
+          "evicted_count": 257,
+          "oldest_retained_at": "2026-09-07T21:17:05Z"
         },
         "short": {
           "evicted_count": 118,
@@ -134520,8 +134522,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T11:30:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-20T23:40:16Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -169451,8 +169453,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 930,
-    "live_count": 25,
+    "surfaced_total": 931,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
