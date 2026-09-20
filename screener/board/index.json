@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T20:16:47Z",
+  "generated_at": "2026-09-20T20:17:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -129121,6 +129121,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0d97851e31b4",
+      "idea_version": "IDEAV-b340b143bd2d166f",
+      "idea_version_started_at": "2026-09-20T20:17:19Z",
+      "ticker": "CHALET",
+      "company": "Chalet Hotels",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is in advanced negotiations to acquire the Six Senses Vana for 600 crore, which would expand its luxury portfolio and asset base.",
+      "why_now": "The talks are in the 'advanced' stage as of September 20, 2024, suggesting a deal announcement is likely near.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c4f8bf466e44"
+      ],
+      "primary_source_event_id": "EVT-c4f8bf466e44",
+      "source_headlines": [
+        "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore"
+      ],
+      "source_headline": "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore",
+      "source_url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/chalet-hotels-in-advanced-talks-to-buy-six-senses-vana-for-600-crore/articleshow/134374818.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T19:26:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T20:17:19Z",
+      "updated_at": "2026-09-20T20:17:19Z",
+      "decay_at": "2026-09-22T07:26:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-cb2a9eef2c489e65",
       "idea_version_started_at": "2026-09-20T19:47:02Z",
@@ -130396,75 +130468,6 @@
       "surfaced_at": "2026-09-18T00:48:37Z",
       "updated_at": "2026-09-18T00:48:37Z",
       "decay_at": "2026-09-19T11:21:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-abd218ca6c78",
-      "idea_version": "IDEAV-a76c716dcc418656",
-      "idea_version_started_at": "2026-09-17T22:38:57Z",
-      "ticker": "RGR",
-      "company": "Sturm Ruger & Co Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
-      "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-112ff420bf0e"
-      ],
-      "primary_source_event_id": "EVT-112ff420bf0e",
-      "source_headlines": [
-        "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
-      ],
-      "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-17T20:05:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-17T21:24:23Z",
-      "updated_at": "2026-09-17T22:38:57Z",
-      "decay_at": "2026-09-19T08:05:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -131979,14 +131982,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       },
       "short": {
         "total_count": 263,
@@ -131996,12 +131999,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 372,
+      "evicted_count": 373,
       "oldest_retained_at": "2026-08-29T23:28:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 254,
-          "oldest_retained_at": "2026-09-07T19:49:19Z"
+          "evicted_count": 255,
+          "oldest_retained_at": "2026-09-07T21:16:16Z"
         },
         "short": {
           "evicted_count": 118,
@@ -134225,8 +134228,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T08:05:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-20T20:17:22Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -169160,8 +169163,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 924,
-    "live_count": 21,
+    "surfaced_total": 925,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
