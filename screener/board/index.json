@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T13:27:45Z",
+  "generated_at": "2026-09-20T13:29:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-726",
+      "headline": "Ashiana Housing To Invest Rs 1,000 Crore On Land Acquisition This Fiscal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/ashiana-housing-to-invest-rs-1-000-crore-on-land-acquisition-this-fiscal-12072529#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T12:46:52Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ashiana Housing announced a Rs 1,000 crore investment for land acquisition this fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashiana Housing announced a Rs 1,000 crore investment for land acquisition this fiscal year.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashiana Housing",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,60 +1961,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-233",
-      "headline": "KI-Unternehmen: Accenture und Anthropic investieren Milliarden in KI-Sicherheit wegen Sicherheitsbedenken",
-      "headline_en": "AI companies: Accenture and Anthropic invest billions in AI safety due to security concerns",
-      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/ki-unternehmen-accenture-und-anthropic-investieren-milliarden-in-ki-sicherheit-wegen-sicherheitsbedenken/100255810.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T07:42:27Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169105,9 +169100,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801280,
-    "news_picked_today": 1587,
-    "news_dropped_today": 5685
+    "news_seen_today": 1801320,
+    "news_picked_today": 1591,
+    "news_dropped_today": 5705
   },
   "book_momentum": {
     "live_count": 8,
