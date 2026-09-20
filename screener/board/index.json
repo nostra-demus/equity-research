@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:36:34Z",
+  "generated_at": "2026-09-20T02:39:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -1183,6 +1183,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-206",
+      "headline": "Venezuela, TotalEnergies Pave Way for Oil Company’s Return",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-20/venezuela-totalenergies-pave-way-for-oil-company-s-return",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T02:01:49Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "TotalEnergies is negotiating a return to Venezuela, potentially unlocking significant oil production assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "TotalEnergies is negotiating a return to Venezuela, potentially unlocking significant oil production assets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-123",
       "headline": "ED flags Rs 230-cr worth adulterated ghee was supplied to Tirumala for Laddu over 5 years, arrests key conspirator",
       "headline_en": null,
@@ -1416,6 +1465,49 @@
         "restructuring_layoffs"
       ],
       "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-205",
+      "headline": "EPF wage ceiling hiked from ₹15,000 to ₹25,000 : Will your take-home salary fall? Experts explain",
+      "headline_en": null,
+      "url": "https://www.livemint.com/money/personal-finance/epf-wage-ceiling-hiked-from-15-000-to-25-000-will-your-take-home-salary-fall-experts-explain-11789739582938.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T02:33:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "The increase in the EPF wage ceiling from ₹15,000 to ₹25,000 will impact take-home pay and employer contribution costs across India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The increase in the EPF wage ceiling from ₹15,000 to ₹25,000 will impact take-home pay and employer contribution costs across India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1841,105 +1933,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-146",
-      "headline": "Carl Icahn Added Nearly 69 Million Shares of His Own Company Last Quarter",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/19/carl-icahn-added-nearly-69-million-shares-of-his-own-company-last-quarter/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:00:57Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Carl Icahn increased his stake in Icahn Enterprises by 69 million shares, signaling confidence in the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Carl Icahn increased his stake in Icahn Enterprises by 69 million shares, signaling confidence in the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Icahn Enterprises",
-          "ticker": "IEP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-177",
-      "headline": "Air Products (APD) Is Doubling Down on the Gases Inside Chip Fabs",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/articles/air-products-apd-doubling-down-111348272.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T11:13:48Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Air Products is doubling down on supplying gases inside semiconductor fabrication plants, targeting a high-growth sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Air Products is doubling down on supplying gases inside semiconductor fabrication plants, targeting a high-growth sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Products and Chemicals, Inc.",
-          "ticker": "APD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169573,9 +169566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 600540,
-    "news_picked_today": 256,
-    "news_dropped_today": 1208
+    "news_seen_today": 617200,
+    "news_picked_today": 261,
+    "news_dropped_today": 1227
   },
   "book_momentum": {
     "live_count": 8,
