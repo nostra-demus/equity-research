@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:42:22Z",
+  "generated_at": "2026-09-20T03:45:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -1646,6 +1646,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-268",
+      "headline": "OpenAI projects burning through $354 billion by 2030: Financial Times",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/openai-projects-burning-through-354-billion-by-2030-financial-times",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "OpenAI is projected to burn through $354 billion by 2030, highlighting extreme capital intensity and potential future funding requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "OpenAI is projected to burn through $354 billion by 2030, highlighting extreme capital intensity and potential future funding requirements.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-070",
       "headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
       "headline_en": null,
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-115",
-      "headline": "US judge signals rejection of part of TikTok privacy settlement",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/us-judge-signals-rejection-part-tiktok-privacy-settlement-2026-09-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T13:59:44Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "A US judge signaled the rejection of a privacy settlement involving TikTok, increasing legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "A US judge signaled the rejection of a privacy settlement involving TikTok, increasing legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TikTok",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169771,9 +169771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 852770,
-    "news_picked_today": 377,
-    "news_dropped_today": 1639
+    "news_seen_today": 868109,
+    "news_picked_today": 381,
+    "news_dropped_today": 1659
   },
   "book_momentum": {
     "live_count": 8,
