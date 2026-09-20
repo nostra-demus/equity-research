@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:51:38Z",
+  "generated_at": "2026-09-20T03:54:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -349,6 +349,55 @@
           "name": "Nestle India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-279",
+      "headline": "OpenAI projects $278 billion cash burn through 2030, FT reports",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/technology/openai-projects-278-billion-cash-burn-through-2030-ft-reports-4151644",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T00:43:47Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "OpenAI is projected to have a $278 billion cash burn through 2030, a significant financial figure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "OpenAI is projected to have a $278 billion cash burn through 2030, a significant financial figure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1501,55 +1550,6 @@
           "name": "Maruti Suzuki",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-225",
-      "headline": "OpenAI forecasts cash burn near $280 billion by 2030",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/openai-forecasts-cash-burn-near-280-billion-by-2030/article71483712.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:17:12Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "OpenAI forecasts a massive cash burn of $280 billion by 2030, highlighting significant capital intensity and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "OpenAI forecasts a massive cash burn of $280 billion by 2030, highlighting significant capital intensity and financial risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -169781,9 +169781,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 888568,
-    "news_picked_today": 383,
-    "news_dropped_today": 1681
+    "news_seen_today": 908927,
+    "news_picked_today": 393,
+    "news_dropped_today": 1695
   },
   "book_momentum": {
     "live_count": 8,
