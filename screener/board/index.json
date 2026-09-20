@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T04:54:06Z",
+  "generated_at": "2026-09-20T05:01:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -41,6 +41,55 @@
       "companies": [
         {
           "name": "Banque Internationale a Luxembourg",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-331",
+      "headline": "OpenAI projects burning through $354.6 billion by 2030, FT reports",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/openai-projects-burning-through-354-billion-by-2030-financial-times",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T03:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "OpenAI projects cumulative losses of $354.6 billion by 2030, highlighting extreme capital intensity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI projects cumulative losses of $354.6 billion by 2030, highlighting extreme capital intensity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
           "ticker": null,
           "listing_country": null
         }
@@ -1918,65 +1967,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-269",
-      "headline": "Lawsuit says Anthropic, OpenAI, SpaceXAI, Google made illegal agreement on AI slowdown",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/lawsuit-says-anthropic-openai-spacexai-google-made-illegal-agreement-on-ai-slowdown/article71486987.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T03:41:27Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "A lawsuit alleges an illegal agreement between major AI companies to slow down development, posing potential regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "A lawsuit alleges an illegal agreement between major AI companies to slow down development, posing potential regulatory and legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169757,9 +169747,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1058863,
-    "news_picked_today": 528,
-    "news_dropped_today": 2040
+    "news_seen_today": 1077111,
+    "news_picked_today": 537,
+    "news_dropped_today": 2079
   },
   "book_momentum": {
     "live_count": 8,
