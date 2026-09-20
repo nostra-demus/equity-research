@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T10:49:47Z",
+  "generated_at": "2026-09-20T10:53:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-692",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-697",
+      "headline": "Ashiana Housing to invest Rs 1,000 cr in FY27 to acquire land for expansion: MD Vishal Gupta",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/ashiana-housing-to-invest-rs-1000-cr-in-fy27-to-acquire-land-for-expansion-md-vishal-gupta/articleshow/134366631.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T10:26:34Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ashiana Housing announced a Rs 1,000 crore investment for land acquisition in FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashiana Housing announced a Rs 1,000 crore investment for land acquisition in FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashiana Housing",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-292",
-      "headline": "Iran war latest: Houthis claim attacks on Saudi capital and Aramco sites in Yanbu",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/09/20/live-saudi-aramco-iran-war/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T03:59:46Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Houthi attacks on Saudi Aramco infrastructure represent a significant geopolitical and supply-side risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169759,9 +169759,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1737175,
-    "news_picked_today": 1218,
-    "news_dropped_today": 4662
+    "news_seen_today": 1738989,
+    "news_picked_today": 1221,
+    "news_dropped_today": 4683
   },
   "book_momentum": {
     "live_count": 8,
