@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:19:41Z",
+  "generated_at": "2026-09-20T02:22:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -1501,6 +1501,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-188",
+      "headline": "Tata Sons crisis: Why the 1-1 split among Tata Trust nominees matters",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/tata-sons-crisis-why-the-1-1-split-among-tata-trust-nominees-matters-556628-2026-09-19?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T10:54:53Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Internal governance disputes within Tata Sons can impact the strategic direction and stability of the conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Internal governance disputes within Tata Sons can impact the strategic direction and stability of the conglomerate.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-029",
       "headline": "AIM weekly movers: Nativo Resources secures funding",
       "headline_en": null,
@@ -1883,60 +1932,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-114",
-      "headline": "NTPC Terminates Rs 400 Crore Storage Project Awarded To GR Infraprojects",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/ntpc-terminates-rs-400-crore-storage-project-awarded-to-gr-infraprojects-12069324#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:00:41Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "NTPC terminated a Rs 400 crore storage project contract with GR Infraprojects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "NTPC terminated a Rs 400 crore storage project contract with GR Infraprojects.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NTPC",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "GR Infraprojects",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169570,9 +169565,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 538853,
-    "news_picked_today": 228,
-    "news_dropped_today": 1092
+    "news_seen_today": 550141,
+    "news_picked_today": 233,
+    "news_dropped_today": 1111
   },
   "book_momentum": {
     "live_count": 8,
