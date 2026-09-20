@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:24:05Z",
+  "generated_at": "2026-09-20T00:27:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-029",
@@ -511,6 +511,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-036",
+      "headline": "Bilibili, 'China's YouTube', draws Indian creators despite no India launch, as India-China ties thaw and YouTube monetisation set to tighten",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/media/entertainment/bilibili-chinas-youtube-draws-indian-creators-despite-no-india-launch-as-india-china-ties-thaw-and-youtube-monetisation-set-to-tighten/articleshow/134359258.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Bilibili is expanding creator reach in India despite no official launch.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Bilibili is expanding creator reach in India despite no official launch.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Bilibili",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-006",
       "headline": "JANA Partners Sends Letter to Cooper Board of Directors | COO Stock News",
       "headline_en": null,
@@ -614,6 +663,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-038",
+      "headline": "DataMeds AI Litigation Settlement Extinguishes ~$19 million In Liabilities and Retires 364,099 Common Sharessked | MEDS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MEDS/data-meds-ai-litigation-settlement-extinguishes-19-million-in-c97v24b8ufff.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "DataMeds settled litigation, extinguishing approximately $19 million in liabilities and retiring shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "DataMeds settled litigation, extinguishing approximately $19 million in liabilities and retiring shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DataMeds",
+          "ticker": "MEDS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-011",
       "headline": "JANA Partners Sends Letter to Cooper Board of Directors",
       "headline_en": null,
@@ -707,6 +806,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-037",
+      "headline": "US says it killed four people in strike on vessel in Caribbean",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/us-says-it-killed-four-people-strike-vessel-caribbean-2026-09-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:19:54Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "US military strike in the Caribbean represents a geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "US military strike in the Caribbean represents a geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169188,7 +169330,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2641,
+    "inbox_unconsumed": 2644,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -169197,9 +169339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 99220,
-    "news_picked_today": 35,
-    "news_dropped_today": 157
+    "news_seen_today": 118831,
+    "news_picked_today": 38,
+    "news_dropped_today": 178
   },
   "book_momentum": {
     "live_count": 8,
