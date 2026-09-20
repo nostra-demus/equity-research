@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T10:04:51Z",
+  "generated_at": "2026-09-20T10:08:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1188,6 +1188,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-686",
+      "headline": "UK minister warns of impact of Trump’s Iran war on next month’s budget",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/politics/2026/sep/20/uk-budget-made-harder-donald-trump-war-iran-bridget-phillipson-andy-burnham",
+      "source_name": "The Guardian — Economics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T09:15:24Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A UK government minister warned of potential economic impacts from a hypothetical escalation in the Iran conflict, affecting fiscal planning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A UK government minister warned of potential economic impacts from a hypothetical escalation in the Iran conflict, affecting fiscal planning.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-233",
       "headline": "KI-Unternehmen: Accenture und Anthropic investieren Milliarden in KI-Sicherheit wegen Sicherheitsbedenken",
       "headline_en": "AI companies: Accenture and Anthropic invest billions in AI safety due to security concerns",
@@ -1547,6 +1590,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-687",
+      "headline": "YUNFENG FIN (00376): CONNECTED TRANSACTION REORGANIZATION OF CORPORATE STRUCTURE OF LICENSED ENTITIES INVOLVING DISPOSAL OF YUNFENG FINANCIAL MARKETS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026091801604.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T10:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Yunfeng Financial announced a corporate reorganization involving the disposal of a licensed entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Yunfeng Financial announced a corporate reorganization involving the disposal of a licensed entity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yunfeng Financial Group",
+          "ticker": "00376",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-292",
       "headline": "Iran war latest: Houthis claim attacks on Saudi capital and Aramco sites in Yanbu",
       "headline_en": null,
@@ -1887,110 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-100",
-      "headline": "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/saudi-aramco-stops-crude-supplies-to-indian-refiners-after-pipeline-attack-replacement-barrels-available-but-oil-is-at-over-100-and-freight-costs-are-set-to-rise/articleshow/134356048.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:49:37Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Saudi Aramco has halted crude supplies to India, forcing the country to source more expensive replacement barrels as oil prices exceed $100.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-218",
-      "headline": "Porsche: Volkswagen nach Gewinnwarnung: Weitere 4000 Jobs bei Porsche entbehrlich?",
-      "headline_en": "Porsche: Volkswagen after profit warning: Another 4,000 jobs at Porsche dispensable?",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-nach-gewinnwarnung-weitere-4000-jobs-bei-porsche-entbehrlich/100254633.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:50:57Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Potential layoff of 4,000 staff at Porsche indicates significant operational restructuring or cost-cutting measures.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Porsche",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169773,9 +169761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1684277,
-    "news_picked_today": 1158,
-    "news_dropped_today": 4266
+    "news_seen_today": 1688495,
+    "news_picked_today": 1162,
+    "news_dropped_today": 4286
   },
   "book_momentum": {
     "live_count": 8,
