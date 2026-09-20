@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T21:29:57Z",
+  "generated_at": "2026-09-20T21:35:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-761",
+      "headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T21:08:36Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Bally's has received a going concern warning, indicating significant doubt about its ability to continue as a business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bally's has received a going concern warning, indicating significant doubt about its ability to continue as a business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bally's Corporation",
+          "ticker": "BALY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1883,55 +1932,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Volkswagen lowered its full-year forecast due to persistent market challenges.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-595",
-      "headline": "Volkswagen kappt Prognose - Aktie fällt",
-      "headline_en": "Volkswagen cuts forecast - stock falls",
-      "url": "https://www.reuters.com/de/firma/volkswagen-kappt-prognose-aktie-fllt-2026-09-18/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:41:44Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Volkswagen cut its profit guidance, which is a material event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen cut its profit guidance, which is a material event for the company.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -169323,9 +169323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1802885,
-    "news_picked_today": 1929,
-    "news_dropped_today": 6916
+    "news_seen_today": 1802905,
+    "news_picked_today": 1935,
+    "news_dropped_today": 6930
   },
   "book_momentum": {
     "live_count": 8,
