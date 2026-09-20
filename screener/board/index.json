@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:53:36Z",
+  "generated_at": "2026-09-20T02:56:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -1619,6 +1619,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-215",
+      "headline": "Turkey with US on 'creative ideas' to solve S-400 missile issue, says Hakan Fidan",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/turkey-with-us-on-creative-ideas-to-solve-s-400-missile-issue-says-hakan-fidan-4152566",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T02:44:39Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Diplomatic progress on the S-400 missile issue between Turkey and the US reduces geopolitical and sanctions risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Diplomatic progress on the S-400 missile issue between Turkey and the US reduces geopolitical and sanctions risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-205",
       "headline": "EPF wage ceiling hiked from ₹15,000 to ₹25,000 : Will your take-home salary fall? Experts explain",
       "headline_en": null,
@@ -1884,55 +1928,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-157",
-      "headline": "Bastion wins conditional OCC approval for national trust bank charter",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/bastion-wins-conditional-occ-approval-for-national-trust-bank-charter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T11:47:29Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Bastion received conditional approval for a national trust bank charter from the OCC, a significant regulatory milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Bastion received conditional approval for a national trust bank charter from the OCC, a significant regulatory milestone.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bastion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169566,9 +169561,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 677486,
-    "news_picked_today": 277,
-    "news_dropped_today": 1331
+    "news_seen_today": 688388,
+    "news_picked_today": 282,
+    "news_dropped_today": 1350
   },
   "book_momentum": {
     "live_count": 8,
