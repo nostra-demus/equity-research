@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:10:27Z",
+  "generated_at": "2026-09-20T06:12:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1374,6 +1374,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-399",
+      "headline": "Drone colidiu com torre de resfriamento em usina nuclear russa de Kursk, diz agência",
+      "headline_en": "Drone collided with cooling tower at Russian Kursk nuclear power plant, agency says",
+      "url": "https://www.reuters.com/pt/mundo/U273KIYCEBJXRHVWNPE3N3I7MY-2026-09-18/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T18:33:56Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A drone strike on a nuclear power plant cooling tower represents a major operational and safety risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A drone strike on a nuclear power plant cooling tower represents a major operational and safety risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-388",
       "headline": "+++ Ukraine-Krieg +++: Ukrainische Drohnen attackieren Moskau am Wahltag",
       "headline_en": "+++ Ukraine War +++: Ukrainian drones attack Moscow on election day",
@@ -1902,55 +1945,6 @@
           "name": "DLF",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-222",
-      "headline": "Salesforce stock falls over 8% in 4 sessions despite $63 bn revenue target, but UBS raised outlook price - Here’s why",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/salesforce-stock-falls-over-8-in-4-sessions-despite-63-bn-revenue-target-but-ubs-raised-outlook-price-here-s-why-11789799817285.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:24:11Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Salesforce stock declined 8% despite a $63 billion revenue target, though analysts raised price targets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Salesforce stock declined 8% despite a $63 billion revenue target, though analysts raised price targets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -169734,9 +169728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1246505,
-    "news_picked_today": 717,
-    "news_dropped_today": 2523
+    "news_seen_today": 1250288,
+    "news_picked_today": 725,
+    "news_dropped_today": 2539
   },
   "book_momentum": {
     "live_count": 8,
