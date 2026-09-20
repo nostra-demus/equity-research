@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:38:51Z",
+  "generated_at": "2026-09-20T06:41:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1478,6 +1478,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-414",
+      "headline": "IAG and Credit Suisse settle monster Greensill Capital collapse suit",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/huge-3b-greensill-lawsuit-averted-as-iag-and-credit-suisse-agree-to-settle-20260918-p60yiy?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T06:22:53Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "IAG and Credit Suisse have settled a major lawsuit related to the collapse of Greensill Capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "IAG and Credit Suisse have settled a major lawsuit related to the collapse of Greensill Capital.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IAG",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Credit Suisse",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-280",
       "headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
       "headline_en": null,
@@ -1883,56 +1937,6 @@
       "event_types": [
         "capex",
         "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-154",
-      "headline": "Tata Steel Seeks Fresh UK Govt Funding For Delayed Port Talbot Green Steel Project",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-steel-seeks-fresh-uk-govt-funding-for-delayed-port-talbot-green-steel-project",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T11:59:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Tata Steel is seeking additional government funding for a delayed green steel project, indicating potential cost overruns or capital constraints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Tata Steel is seeking additional government funding for a delayed green steel project, indicating potential cost overruns or capital constraints.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -169723,9 +169727,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1301475,
-    "news_picked_today": 788,
-    "news_dropped_today": 2692
+    "news_seen_today": 1308493,
+    "news_picked_today": 792,
+    "news_dropped_today": 2712
   },
   "book_momentum": {
     "live_count": 8,
