@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T00:18:28Z",
+  "generated_at": "2026-09-20T00:21:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-029",
+      "headline": "AIM weekly movers: Nativo Resources secures funding",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/aim-weekly-movers-nativo-resources-secures-funding/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T23:54:06Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Nativo Resources secured funding, which is a material liquidity event for a small-cap firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Nativo Resources secured funding, which is a material liquidity event for a small-cap firm.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nativo Resources",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-005",
       "headline": "CoreWeave Prices Upsized $3.7 Billion Convertible Senior Notes Offering | CRWV Stock News",
@@ -1345,6 +1394,153 @@
       "companies": [
         {
           "name": "Cato Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-030",
+      "headline": "Novo’s once-weekly Sogroya® (somapacitan) receives positive CHMP opinion in Europe for children with idiopathic short stature (unexplained shortness) | NVO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/NVO/novo-s-once-weekly-sogroya-somapacitan-receives-positive-chmp-t7iotyc7xc3o.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-031",
+      "headline": "Novo’s once-weekly Sogroya® (somapacitan) receives positive CHMP opinion in Europe for children with idiopathic short stature (unexplained shortness)",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364591/0/en/novo-s-once-weekly-sogroya-somapacitan-receives-positive-chmp-opinion-in-europe-for-children-with-idiopathic-short-stature-unexplained-shortness.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-032",
+      "headline": "Americas Gold and Silver Continues Track Record of Significant Discoveries at the Galena Complex with a New Galena Mine Vein Discovery Grading 1,062 g/t Ag, 0.7% Cu over 1.3 Meters While Crescent Drilling Returns 1,891 g/t Ag, 0.3% Cu over 1.3 Meters and 1,560 g/t Ag, 0.3% Cu over 1.1 Meters | USAS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/USAS/americas-gold-and-silver-continues-track-record-of-significant-5c2y7g34m8f5.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Americas Gold and Silver reported high-grade drill results at the Galena Complex, indicating potential resource expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Americas Gold and Silver reported high-grade drill results at the Galena Complex, indicating potential resource expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Americas Gold and Silver",
           "ticker": null,
           "listing_country": "US"
         }
@@ -168835,7 +169031,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2634,
+    "inbox_unconsumed": 2638,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -168844,9 +169040,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 79498,
-    "news_picked_today": 28,
-    "news_dropped_today": 116
+    "news_seen_today": 92648,
+    "news_picked_today": 32,
+    "news_dropped_today": 136
   },
   "book_momentum": {
     "live_count": 8,
