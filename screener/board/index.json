@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T00:04:25Z",
+  "generated_at": "2026-09-20T00:07:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-005",
+      "headline": "CoreWeave Prices Upsized $3.7 Billion Convertible Senior Notes Offering | CRWV Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CRWV/core-weave-prices-upsized-3-7-billion-convertible-senior-notes-mehpzqf6tg8n.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "CoreWeave priced a large $3.7 billion convertible note offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "CoreWeave priced a large $3.7 billion convertible note offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": "CRWV",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-002",
       "headline": "Eine solide bereinigte EBIT-Marge von 18,8 %, getragen von einem soliden organischen Umsatzwachstum von 7,4 %",
@@ -40,6 +89,60 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-006",
+      "headline": "JANA Partners Sends Letter to Cooper Board of Directors | COO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/COO/jana-partners-sends-letter-to-cooper-board-of-3mhvja3m6vzk.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "JANA Partners sent a letter to the Cooper board, indicating potential activist pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "JANA Partners sent a letter to the Cooper board, indicating potential activist pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cooper",
+          "ticker": "COO",
+          "listing_country": "US"
+        },
+        {
+          "name": "JANA Partners",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184,6 +287,104 @@
         {
           "name": "Foresight Automotive",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-007",
+      "headline": "CATO ANNOUNCES ADDITIONAL THIRD AND FOURTH QUARTER STORE CLOSINGS | CATO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CATO/cato-announces-additional-third-and-fourth-quarter-store-gt9qficm7jgj.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "CATO announced additional store closings for Q3 and Q4.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "CATO announced additional store closings for Q3 and Q4.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CATO",
+          "ticker": "CATO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-008",
+      "headline": "ProCap Financial to Join Russell 2000® and Russell 3000® Indexes | BRR Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BRR/pro-cap-financial-to-join-russell-2000-and-russell-3000-oej2b70bjx3q.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "ProCap Financial is being added to the Russell 2000 and 3000 indexes, triggering passive inflows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "ProCap Financial is being added to the Russell 2000 and 3000 indexes, triggering passive inflows.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "index_rebalance",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ProCap Financial",
+          "ticker": "BRR",
           "listing_country": "US"
         }
       ],
@@ -167673,7 +167874,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2611,
+    "inbox_unconsumed": 2615,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -167682,9 +167883,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 26648,
-    "news_picked_today": 4,
-    "news_dropped_today": 44
+    "news_seen_today": 39900,
+    "news_picked_today": 8,
+    "news_dropped_today": 64
   },
   "book_momentum": {
     "live_count": 8,
