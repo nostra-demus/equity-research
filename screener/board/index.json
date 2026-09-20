@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:07:26Z",
+  "generated_at": "2026-09-20T00:09:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-005",
@@ -42,6 +42,55 @@
         {
           "name": "CoreWeave",
           "ticker": "CRWV",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-012",
+      "headline": "CoreWeave Prices Upsized $3.7 Billion Convertible Senior Notes Offering",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260917137088/en/CoreWeave-Prices-Upsized-3.7-Billion-Convertible-Senior-Notes-Offering/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "CoreWeave priced an upsized $3.7 billion convertible note offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "CoreWeave priced an upsized $3.7 billion convertible note offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -148,6 +197,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-011",
+      "headline": "JANA Partners Sends Letter to Cooper Board of Directors",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/jana-partners-sends-letter-to-cooper-board-of-directors-302882807.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "JANA Partners is engaging with the board of Cooper, signaling potential activist pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "JANA Partners is engaging with the board of Cooper, signaling potential activist pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cooper",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-009",
+      "headline": "CombinedX har slutfört avyttringen av Netgain",
+      "headline_en": "CombinedX has completed the divestment of Netgain",
+      "url": "https://news.cision.com/se/combinedx/r/combinedx-har-slutfort-avyttringen-av-netgain,c4397220",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "CombinedX has completed the divestment of its subsidiary Netgain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "CombinedX has completed the divestment of its subsidiary Netgain.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CombinedX",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-003",
       "headline": "Ready Capital Corporation Prices $225 Million of Senior Secured Notes Due 2031 and Announces Redemption of $350 Million of Notes Due 2026 | RC Stock News",
       "headline_en": null,
@@ -197,6 +344,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-010",
+      "headline": "Gabrielle Hagman slutar som Sverigechef på Nordnet – Michel Yousif utses till interim chef",
+      "headline_en": "Gabrielle Hagman steps down as Sweden manager at Nordnet – Michel Yousif appointed as interim manager",
+      "url": "https://news.cision.com/se/nordnet/r/gabrielle-hagman-slutar-som-sverigechef-pa-nordnet---michel-yousif-utses-till-interim-chef,c4397806",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Nordnet's Sweden country manager is stepping down, with an interim replacement appointed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Nordnet's Sweden country manager is stepping down, with an interim replacement appointed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nordnet",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-004",
       "headline": "Ready Capital Corporation Prices $225 Million of Senior Secured Notes Due 2031 and Announces Redemption of $350 Million of Notes Due 2026",
       "headline_en": null,
@@ -238,6 +434,55 @@
           "name": "Ready Capital Corporation",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-013",
+      "headline": "Koryx Copper Announces Maiden Drill Program on Zambia Projects and Agreement to Increase Ownership to 80%",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364628/0/en/koryx-copper-announces-maiden-drill-program-on-zambia-projects-and-agreement-to-increase-ownership-to-80.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Koryx Copper announced a maiden drill program and an agreement to increase ownership in its Zambia projects to 80%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Koryx Copper announced a maiden drill program and an agreement to increase ownership in its Zambia projects to 80%.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Koryx Copper",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "small",
@@ -385,6 +630,55 @@
         {
           "name": "ProCap Financial",
           "ticker": "BRR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-014",
+      "headline": "CATO ANNOUNCES ADDITIONAL THIRD AND FOURTH QUARTER STORE CLOSINGS",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/cato-announces-additional-third-and-fourth-quarter-store-closings-302882635.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Cato Corporation announced additional store closings for the third and fourth quarters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Cato Corporation announced additional store closings for the third and fourth quarters.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cato Corporation",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -167874,7 +168168,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2615,
+    "inbox_unconsumed": 2621,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -167883,9 +168177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 39900,
-    "news_picked_today": 8,
-    "news_dropped_today": 64
+    "news_seen_today": 53104,
+    "news_picked_today": 14,
+    "news_dropped_today": 82
   },
   "book_momentum": {
     "live_count": 8,
