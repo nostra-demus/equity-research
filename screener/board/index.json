@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:41:26Z",
+  "generated_at": "2026-09-20T06:44:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1668,6 +1668,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-420",
+      "headline": "Russian election enters final day after Ukraine targets Moscow in massive drone attack",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/russian-election-cast-test-support-ukraine-war-enters-final-day-2026-09-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T06:34:24Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a massive drone attack on Moscow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Geopolitical escalation involving a massive drone attack on Moscow.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-406",
       "headline": "Hundreds of drones target Moscow on last day of voting in Russia’s parliamentary election",
       "headline_en": null,
@@ -1897,56 +1940,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-113",
-      "headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:03:45Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Tata Steel seeks additional UK government funding due to project delays at Port Talbot.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Tata Steel seeks additional UK government funding due to project delays at Port Talbot.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169727,9 +169720,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1308493,
-    "news_picked_today": 792,
-    "news_dropped_today": 2712
+    "news_seen_today": 1318966,
+    "news_picked_today": 804,
+    "news_dropped_today": 2724
   },
   "book_momentum": {
     "live_count": 8,
