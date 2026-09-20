@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:44:22Z",
+  "generated_at": "2026-09-20T00:49:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-029",
@@ -370,6 +370,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-055",
+      "headline": "Financial outlook update",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364473/0/en/financial-outlook-update.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T06:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Company is updating its financial outlook, which is a material event for market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Company is updating its financial outlook, which is a material event for market expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-002",
       "headline": "Eine solide bereinigte EBIT-Marge von 18,8 %, getragen von einem soliden organischen Umsatzwachstum von 7,4 %",
       "headline_en": "A solid adjusted EBIT margin of 18.8%, supported by solid organic revenue growth of 7.4%",
@@ -618,6 +661,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-052",
+      "headline": "TotalEnergies signe un accord avec GIP portant sur des actifs d’infrastructures énergétiques en Afrique",
+      "headline_en": "TotalEnergies signs an agreement with GIP regarding energy infrastructure assets in Africa",
+      "url": "http://www.businesswire.com/news/home/20260917641423/fr/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T06:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "TotalEnergies is entering an agreement with GIP regarding energy infrastructure assets in Africa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "TotalEnergies is entering an agreement with GIP regarding energy infrastructure assets in Africa.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": "TTE",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-051",
+      "headline": "TotalEnergies Signs an Agreement with GIP on African Energy Infrastructure Assets",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260917390944/en/TotalEnergies-Signs-an-Agreement-with-GIP-on-African-Energy-Infrastructure-Assets/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T06:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "TotalEnergies signs agreement with GIP for African energy infrastructure assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "TotalEnergies signs agreement with GIP for African energy infrastructure assets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1346,6 +1487,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-054",
+      "headline": "Efzimfotase alfa granted Priority Review in the US as treatment for patients with hypophosphatasia aged 2 years and older",
+      "headline_en": null,
+      "url": "https://news.cision.com/se/astrazeneca/r/efzimfotase-alfa-granted-priority-review-in-the-us-as-treatment-for-patients-with-hypophosphatasia-a,c4397627",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T06:04:22Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Efzimfotase alfa granted Priority Review in the US for hypophosphatasia treatment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Efzimfotase alfa granted Priority Review in the US for hypophosphatasia treatment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alexion Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-056",
+      "headline": "Oriola on oikaissut aiemmin raportoituja taloudellisia tietoja",
+      "headline_en": "Oriola has restated previously reported financial data",
+      "url": "https://news.cision.com/fi/oriola-oyj/r/oriola-on-oikaissut-aiemmin-raportoituja-taloudellisia-tietoja,c4397445",
+      "source_name": "Cision — Finland Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T06:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Oriola has restated previously reported financial data, which is a significant accounting red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Oriola has restated previously reported financial data, which is a significant accounting red flag.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oriola",
+          "ticker": null,
+          "listing_country": "FI"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-013",
       "headline": "Koryx Copper Announces Maiden Drill Program on Zambia Projects and Agreement to Increase Ownership to 80%",
       "headline_en": null,
@@ -1739,256 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-043",
-      "headline": "Sungrow and be.storaged strengthen partnership for gigawatt-hour-scale battery storage projects",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/sungrow-and-bestoraged-strengthen-partnership-for-gigawatt-hour-scale-battery-storage-projects-302883068.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T07:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Sungrow and be.storaged are expanding their partnership for gigawatt-hour-scale battery storage projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Sungrow and be.storaged are expanding their partnership for gigawatt-hour-scale battery storage projects.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sungrow",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-032",
-      "headline": "Americas Gold and Silver Continues Track Record of Significant Discoveries at the Galena Complex with a New Galena Mine Vein Discovery Grading 1,062 g/t Ag, 0.7% Cu over 1.3 Meters While Crescent Drilling Returns 1,891 g/t Ag, 0.3% Cu over 1.3 Meters and 1,560 g/t Ag, 0.3% Cu over 1.1 Meters | USAS Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/USAS/americas-gold-and-silver-continues-track-record-of-significant-5c2y7g34m8f5.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Americas Gold and Silver reported high-grade drill results at the Galena Complex, indicating potential resource expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Americas Gold and Silver reported high-grade drill results at the Galena Complex, indicating potential resource expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Americas Gold and Silver",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-033",
-      "headline": "mAbxience and Sandoz Sign a Collaboration Agreement to Advance Biosimilar Access Worldwide | FSNUY Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FSNUY/m-abxience-and-sandoz-sign-a-collaboration-agreement-to-advance-a762ytb7zhi0.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:16:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Strategic collaboration agreement to advance biosimilar access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Strategic collaboration agreement to advance biosimilar access.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "mAbxience",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Sandoz",
-          "ticker": "FSNUY",
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-039",
-      "headline": "Goliath Drills Up To 9.12 g/t AuEq Over 11.27 Meters With Visible Gold And Expands Bonanza Zone At The High-Grade Gold Surebet Discovery That Remains Open For Expansion, Golden Triangle, B.C. | GOTRF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GOTRF/goliath-drills-up-to-9-12-g-t-au-eq-over-11-27-meters-with-visible-jtbwvf8wodik.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T09:18:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Goliath Resources reported positive drill results of 9.12 g/t AuEq over 11.27 meters at its Surebet discovery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Goliath Resources reported positive drill results of 9.12 g/t AuEq over 11.27 meters at its Surebet discovery.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goliath Resources",
-          "ticker": "GOTRF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-050",
-      "headline": "RESUBMISSION: Allied Critical Metals Strengthens Borralha Project with Broad Tungsten Intercepts at Santa Helena Breccia, Including 15.8 Metres at 0.36% WO3 and 25.6 Metres at 0.25% WO3 | ACMIF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ACMIF/resubmission-allied-critical-metals-strengthens-borralha-project-2i3nlvgo84v6.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Allied Critical Metals reported positive tungsten drill results, including 15.8 metres at 0.36% WO3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Allied Critical Metals reported positive tungsten drill results, including 15.8 metres at 0.36% WO3.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allied Critical Metals",
-          "ticker": "ACMIF",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169483,9 +169472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 189995,
-    "news_picked_today": 50,
-    "news_dropped_today": 310
+    "news_seen_today": 202804,
+    "news_picked_today": 56,
+    "news_dropped_today": 352
   },
   "book_momentum": {
     "live_count": 8,
