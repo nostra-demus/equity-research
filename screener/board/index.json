@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T11:52:36Z",
+  "generated_at": "2026-09-20T11:54:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-708",
@@ -1629,6 +1629,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-718",
+      "headline": "Grab’s $1.9b Atome deal advances its ASEAN super-app ambitions – but is it paying too much?",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/grabs-atome-deal-advances-its-asean-super-app-ambitions-but-is-it-paying-too-much",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T14:25:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Grab is acquiring Atome for $1.9 billion, a significant M&A event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grab is acquiring Atome for $1.9 billion, a significant M&A event for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grab Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-717",
       "headline": "BrewDog creditors owed £190m will not be paid in full, say administrators",
       "headline_en": null,
@@ -1922,56 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-485",
-      "headline": "Vista Energy's 2026 Outlook: Shale Expansion Drives 70% Adjusted EBITDA Margins",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vista-energys-2026-outlook-shale-expansion-drives-70-adjusted-ebitda-margins",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:56:01Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Vista Energy provided a 2026 outlook targeting 70% adjusted EBITDA margins driven by shale expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Vista Energy provided a 2026 outlook targeting 70% adjusted EBITDA margins driven by shale expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vista Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169111,9 +169110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1779311,
-    "news_picked_today": 1370,
-    "news_dropped_today": 5086
+    "news_seen_today": 1780237,
+    "news_picked_today": 1379,
+    "news_dropped_today": 5101
   },
   "book_momentum": {
     "live_count": 8,
