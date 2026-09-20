@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:10:14Z",
+  "generated_at": "2026-09-20T05:12:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -853,6 +853,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-338",
+      "headline": "Russia seizes assets of Nestle, French firms over West's Ukraine support",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/russia-seizes-assets-of-nestle-french-firms",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T20:53:40Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Russia has seized assets of Nestle and French firms, representing a direct material loss and operational risk for these companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Russia has seized assets of Nestle and French firms, representing a direct material loss and operational risk for these companies.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-137",
-      "headline": "Gallagher’s (AJG) Colorado Deal Is Another Brick in a Very Big Wall",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/gallagher-ajg-colorado-deal-another-123050148.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:30:50Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Arthur J. Gallagher continues its acquisition strategy with a new deal in Colorado.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Arthur J. Gallagher continues its acquisition strategy with a new deal in Colorado.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arthur J. Gallagher",
-          "ticker": "AJG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169748,9 +169748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1103985,
-    "news_picked_today": 551,
-    "news_dropped_today": 2137
+    "news_seen_today": 1108404,
+    "news_picked_today": 556,
+    "news_dropped_today": 2156
   },
   "book_momentum": {
     "live_count": 8,
