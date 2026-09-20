@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T12:30:40Z",
+  "generated_at": "2026-09-20T12:33:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -337,6 +337,55 @@
           "name": "Clorox",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-721",
+      "headline": "Tata Trust Restates Chandra’s Reappointment to Tata Sons Is Void",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-20/tata-trust-restates-chandra-s-reappointment-to-tata-sons-is-void",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T12:09:49Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Tata Trust has declared the reappointment of N. Chandrasekaran as Chairman of Tata Sons void, creating significant governance and leadership uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Trust has declared the reappointment of N. Chandrasekaran as Chairman of Tata Sons void, creating significant governance and leadership uncertainty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-332",
-      "headline": "Abu Dhabi launches $1.6bn Yas Island project with 3,950 homes and new hotel",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/abu-dhabi-launches-1-6bn-yas-island-project-with-3950-homes-and-new-hotel",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T21:04:47Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Aldar Properties is launching a $1.6 billion real estate development project in Abu Dhabi.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Aldar Properties is launching a $1.6 billion real estate development project in Abu Dhabi.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aldar Properties",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169105,9 +169105,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1792650,
-    "news_picked_today": 1451,
-    "news_dropped_today": 5293
+    "news_seen_today": 1793270,
+    "news_picked_today": 1457,
+    "news_dropped_today": 5311
   },
   "book_momentum": {
     "live_count": 8,
