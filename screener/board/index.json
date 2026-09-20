@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:45:38Z",
+  "generated_at": "2026-09-20T01:47:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -284,6 +284,55 @@
           "name": "Ares Management",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-132",
+      "headline": "Porsche layoffs: 4,100 more positions at risk on top of 9,000 already planned",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/porsche-layoffs-4-100-more-positions-at-risk-on-top-of-9-000-already-planned-11789820994526.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:46:19Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Porsche is planning to cut an additional 4,100 positions on top of 9,000 previously announced.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Porsche is planning to cut an additional 4,100 positions on top of 9,000 previously announced.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -630,6 +679,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-131",
+      "headline": "Buffett Son Takes Chair as Berkshire Transition Ends",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-19/buffett-son-takes-chair-as-berkshire-transition-ends-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:46:51Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Howard Buffett named as chair marks a significant step in the long-term leadership transition at Berkshire Hathaway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Howard Buffett named as chair marks a significant step in the long-term leadership transition at Berkshire Hathaway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1433,6 +1531,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-134",
+      "headline": "Buffett takes next step in plan to keep Berkshire from straying",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/19/warren-buffett-takes-next-step-in-plan-to-keep-berkshire-from-straying.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:43:56Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Buffett continues to formalize the succession and governance structure for Berkshire Hathaway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Buffett continues to formalize the succession and governance structure for Berkshire Hathaway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-063",
       "headline": "EPFO Says Higher ₹25,000 Wage Ceiling Will Expand Social Security Coverage",
       "headline_en": null,
@@ -1729,168 +1876,6 @@
       "headline": "Fundusz Prosperus Retail Property Fund podpisał umowę przejęcia centrum handlowego Ozas od NEPI Rockcastle za 200 mln euro",
       "headline_en": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
       "url": "https://www.globenewswire.com/news-release/2026/09/18/3364624/0/pl/fundusz-prosperus-retail-property-fund-podpisa%C5%82-umow%C4%99-przej%C4%99cia-centrum-handlowego-ozas-od-nepi-rockcastle-za-200-mln-euro.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEPI Rockcastle",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Prosperus Retail Property Fund",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-020",
-      "headline": "Prosperus Retail Property Fund se dohodl na koupi obchodního centra Ozas od NEPI Rockcastle za 200 milionů eur",
-      "headline_en": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364624/0/cs/prosperus-retail-property-fund-se-dohodl-na-koupi-obchodn%C3%ADho-centra-ozas-od-nepi-rockcastle-za-200-milion%C5%AF-eur.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEPI Rockcastle",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Prosperus Retail Property Fund",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-024",
-      "headline": "Sklad Prosperus Retail Property Fund se je dogovoril za 200 milijonov evrov vreden prevzem nakupovalnega središča Ozas od družbe NEPI Rockcastle",
-      "headline_en": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364624/0/sl/sklad-prosperus-retail-property-fund-se-je-dogovoril-za-200-milijonov-evrov-vreden-prevzem-nakupovalnega-sredi%C5%A1%C4%8Da-ozas-od-dru%C5%BEbe-nepi-rockcastle.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEPI Rockcastle",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Prosperus Retail Property Fund",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-021",
-      "headline": "A Prosperus Retail Property Fund 200 millió eurós megállapodást kötött a NEPI Rockcastle-lel az Ozas bevásárlóközpont felvásárlásáról",
-      "headline_en": "Prosperus Retail Property Fund agreed to acquire the Ozas shopping center from NEPI Rockcastle for 200 million euros.",
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364624/0/hu/a-prosperus-retail-property-fund-200-milli%C3%B3-eur%C3%B3s-meg%C3%A1llapod%C3%A1st-k%C3%B6t%C3%B6tt-a-nepi-rockcastle-lel-az-ozas-bev%C3%A1s%C3%A1rl%C3%B3k%C3%B6zpont-felv%C3%A1s%C3%A1rl%C3%A1s%C3%A1r%C3%B3l.html",
       "source_name": "GlobeNewswire — Mergers & Acquisitions",
       "input_nature": "company_press_release",
       "found_at": "2026-09-18T10:52:00Z",
@@ -169570,9 +169555,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 398853,
-    "news_picked_today": 154,
-    "news_dropped_today": 782
+    "news_seen_today": 410733,
+    "news_picked_today": 162,
+    "news_dropped_today": 798
   },
   "book_momentum": {
     "live_count": 8,
