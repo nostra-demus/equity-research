@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:16:08Z",
+  "generated_at": "2026-09-20T05:19:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1580,6 +1580,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-339",
+      "headline": "Oracle’s $18bn data centre debt under strain amid local pushback",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/bd441859-6c94-4874-894f-9362c1703127?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T20:48:35Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Oracle faces potential financial strain on $18 billion of data center debt due to local opposition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Oracle faces potential financial strain on $18 billion of data center debt due to local opposition.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-295",
       "headline": "Meta launches fresh legal challenge over UK’s Online Safety Act",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-307",
-      "headline": "TotalEnergies faces fresh scrutiny over response to Mozambique attack",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0f8276e5-92d3-4e37-bb7f-e8bc889346b2?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T04:00:03Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Increased scrutiny regarding operational safety and human rights in Mozambique poses reputational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Increased scrutiny regarding operational safety and human rights in Mozambique poses reputational and legal risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TotalEnergies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169748,9 +169748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1112773,
-    "news_picked_today": 565,
-    "news_dropped_today": 2171
+    "news_seen_today": 1117134,
+    "news_picked_today": 577,
+    "news_dropped_today": 2183
   },
   "book_momentum": {
     "live_count": 8,
