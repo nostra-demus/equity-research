@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:23:57Z",
+  "generated_at": "2026-09-20T01:28:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -140,6 +140,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-121",
+      "headline": "Starbucks Settles Florida DEI Lawsuit, Denies Wrongdoing And Pays $1 Million",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/pamdanziger/2026/09/19/starbucks-settles-florida-dei-lawsuit-denies-wrongdoing-and-pays-1-million/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:35:41Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Starbucks settled a DEI-related lawsuit for $1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Starbucks settled a DEI-related lawsuit for $1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1940,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-084",
-      "headline": "The old new thing: Cisco, retro tech are back and forming AI buildout’s backbone",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=02bcda79-4cb9-4da8-8f6b-4414d7bc2df4&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:46:40Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Cisco and retro tech are forming the backbone of AI buildout, suggesting increased demand for their products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Cisco and retro tech are forming the backbone of AI buildout, suggesting increased demand for their products.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169434,9 +169434,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 320752,
-    "news_picked_today": 127,
-    "news_dropped_today": 665
+    "news_seen_today": 332872,
+    "news_picked_today": 130,
+    "news_dropped_today": 686
   },
   "book_momentum": {
     "live_count": 8,
