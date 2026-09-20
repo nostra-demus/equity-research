@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T23:00:06Z",
+  "generated_at": "2026-09-20T23:00:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-795",
@@ -128423,6 +128423,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-790783c9f10a",
+      "idea_version": "IDEAV-f5cc229d31919881",
+      "idea_version_started_at": "2026-09-20T23:00:20Z",
+      "ticker": "TLX",
+      "company": "Telix Pharmaceuticals",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The strategic partnership with ITM strengthens Telix's position in the radiopharmaceutical market by securing supply and expanding commercial reach.",
+      "why_now": "The partnership was announced on 2026-09-20, providing a clear catalyst for growth.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 75,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7cf62551a109"
+      ],
+      "primary_source_event_id": "EVT-7cf62551a109",
+      "source_headlines": [
+        "TLX: Telix and ITM Join Forces to Create Radiopharma Powerhouse [price-sensitive]"
+      ],
+      "source_headline": "TLX: Telix and ITM Join Forces to Create Radiopharma Powerhouse [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TLX?key=2924-03137421-3A702109",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T22:38:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T23:00:20Z",
+      "updated_at": "2026-09-20T23:00:20Z",
+      "decay_at": "2026-09-22T10:38:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-523a4ee7d93a",
       "idea_version": "IDEAV-e75aa25e57a9566e",
       "idea_version_started_at": "2026-09-20T21:45:11Z",
@@ -169446,8 +169515,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 929,
-    "live_count": 25,
+    "surfaced_total": 930,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
