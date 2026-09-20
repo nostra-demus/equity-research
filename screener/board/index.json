@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T04:24:07Z",
+  "generated_at": "2026-09-20T04:26:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -706,6 +706,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-297",
+      "headline": "Venezuela signs TotalEnergies deal in push for foreign investment into energy sector",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/09/20/venezuela-signs-totalenergies-deal-in-push-for-foreign-investment-into-energy-sector/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T04:12:50Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Venezuela signed a deal with TotalEnergies to attract foreign investment into its energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Venezuela signed a deal with TotalEnergies to attract foreign investment into its energy sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1986,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-258",
-      "headline": "Tata Steel seeks new government funding as industry crisis deepens",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/tata-steel-seeks-new-government-funding-as-industry-crisis-deepens-13589548",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T07:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Tata Steel is seeking new government funding as the industry crisis deepens, indicating potential financial distress or need for capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Tata Steel is seeking new government funding as the industry crisis deepens, indicating potential financial distress or need for capital.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -169768,9 +169769,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 983677,
-    "news_picked_today": 448,
-    "news_dropped_today": 1832
+    "news_seen_today": 988534,
+    "news_picked_today": 452,
+    "news_dropped_today": 1852
   },
   "book_momentum": {
     "live_count": 8,
