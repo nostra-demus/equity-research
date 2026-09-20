@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:23:57Z",
+  "generated_at": "2026-09-20T01:29:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -140,6 +140,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-121",
+      "headline": "Starbucks Settles Florida DEI Lawsuit, Denies Wrongdoing And Pays $1 Million",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/pamdanziger/2026/09/19/starbucks-settles-florida-dei-lawsuit-denies-wrongdoing-and-pays-1-million/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:35:41Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Starbucks settled a DEI-related lawsuit for $1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Starbucks settled a DEI-related lawsuit for $1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1940,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-084",
-      "headline": "The old new thing: Cisco, retro tech are back and forming AI buildout’s backbone",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=02bcda79-4cb9-4da8-8f6b-4414d7bc2df4&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:46:40Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Cisco and retro tech are forming the backbone of AI buildout, suggesting increased demand for their products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Cisco and retro tech are forming the backbone of AI buildout, suggesting increased demand for their products.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -129027,6 +129027,146 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b3663a1d7f5b",
+      "idea_version": "IDEAV-667be2091d91183e",
+      "idea_version_started_at": "2026-09-20T01:29:10Z",
+      "ticker": "G",
+      "company": "Genpact",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Karnataka High Court upheld an Enforcement Directorate seizure order regarding a Rs 7,635.9 crore transfer, creating significant legal and liquidity risk for the firm.",
+      "why_now": "The court ruling was issued on 2026-09-19, creating immediate regulatory and financial uncertainty.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de1c9526ece3"
+      ],
+      "primary_source_event_id": "EVT-de1c9526ece3",
+      "source_headlines": [
+        "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer"
+      ],
+      "source_headline": "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer",
+      "source_url": "https://www.ndtvprofit.com/business/genpact-case-karnataka-hc-upholds-ed-seizure-order-over-alleged-rs-7-635-9-crore-transfer-12069567#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 86,
+      "newest_source_at": "2026-09-19T15:09:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T01:29:10Z",
+      "updated_at": "2026-09-20T01:29:10Z",
+      "decay_at": "2026-09-21T03:09:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2ed3c81de18b",
+      "idea_version": "IDEAV-5be247720c4d6e97",
+      "idea_version_started_at": "2026-09-20T01:29:10Z",
+      "ticker": "DUOL",
+      "company": "Duolingo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
+      "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2db4cc5eda49"
+      ],
+      "primary_source_event_id": "EVT-2db4cc5eda49",
+      "source_headlines": [
+        "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
+      ],
+      "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
+      "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-20T00:28:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T01:29:10Z",
+      "updated_at": "2026-09-20T01:29:10Z",
+      "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab211b817901",
       "idea_version": "IDEAV-64df97f16c267173",
       "idea_version_started_at": "2026-09-19T00:43:05Z",
@@ -169414,8 +169554,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 910,
-    "live_count": 23,
+    "surfaced_total": 912,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169434,9 +169574,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 320752,
-    "news_picked_today": 127,
-    "news_dropped_today": 665
+    "news_seen_today": 332872,
+    "news_picked_today": 130,
+    "news_dropped_today": 686
   },
   "book_momentum": {
     "live_count": 8,
