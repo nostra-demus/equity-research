@@ -25,6 +25,7 @@ import { projectLiveIdeas } from './ideas-projection'
 import { repositoryMutationLockPath } from './ideas-store'
 import { buildSupplyChainBoard } from '../../supply-chain'
 import { acquireRetainedFlock, releaseRetainedFlock } from '../../singleton-lock'
+import { getRankWeights } from '../rank-weights'
 
 const hash = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 24)
 const iso = (s: unknown) => typeof s === 'string' && Number.isFinite(Date.parse(s)) ? new Date(s).toISOString() : ''
@@ -118,12 +119,12 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
   return cards.sort((a, b) => b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
 }
 
-export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: DiscoveryCard[]; notices: string[] } {
+export function readDiscoveryCatalog(root: string, archiveDir = '', rankWeights = getRankWeights()): { cards: DiscoveryCard[]; notices: string[] } {
   let index: any = {}
   try { index = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8')) } catch { /* canonical stores below remain authoritative */ }
   const projection = projectLiveIdeas(root, index)
   const themes = loadThemesLedger(root)
-  const feed = readFeed(root, 7, { archiveDir, maxItems: 6000, preservePersistedDedupGroups: true })
+  const feed = readFeed(root, 7, { archiveDir, rankWeights, maxItems: 6000, preservePersistedDedupGroups: true })
   const families = new Map(feed.items.map((i) => [i.event_id, themeStoryFamilyKey(i)]))
   for (const t of themes.themes) for (const m of t.members) families.set(m.event_id, themeStoryFamilyKey(m))
   const cards = [...projection.ideas, ...projection.ideas_archive.rows].map((r) => discoveryIdea(r, families))
@@ -226,11 +227,11 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
 
 /** Catalog and filing decisions form one snapshot. Acquire the shared repository lease before either
  * read, on the worker's event loop so a synchronous writer cannot strand the reader's retained lease. */
-export async function readDiscoverySnapshotSafely(root: string, archiveDir = ''): Promise<{
+export async function readDiscoverySnapshotSafely(root: string, archiveDir = '', rankWeights = getRankWeights()): Promise<{
   catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string
 }> {
-  if (isMainThread) return runDiscoveryInWorker('readDiscoverySnapshotSafely', [root, archiveDir])
-  return locked(root, async () => ({ catalog: readDiscoveryCatalog(root, archiveDir),
+  if (isMainThread) return runDiscoveryInWorker('readDiscoverySnapshotSafely', [root, archiveDir, rankWeights])
+  return locked(root, async () => ({ catalog: readDiscoveryCatalog(root, archiveDir, rankWeights),
     actions: await readFilingActions(root), at: new Date().toISOString() }), 'shared')
 }
 
@@ -264,6 +265,7 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
       snapshot = parsed.data.refresh === '0' && verified && Date.parse(verified.at) + 30_000 > Date.now()
         ? verified : await snapshotRead()
       verified = snapshot
+      cached = { until: Date.parse(snapshot.at) + 30_000, value: snapshot.catalog }
     } catch (error: any) {
       // Publication/deploy leases are temporary unavailability, not corruption. Only a previously
       // verified catalog AND filing ledger may be served; never invent an empty archive on a cold read.

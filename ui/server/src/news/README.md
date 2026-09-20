@@ -91,6 +91,8 @@ or archive lock contention, with a dated notice and automatic refresh. Both read
 shared repository lease in the archive worker; a read that waited for publication cannot combine a
 mid-publication catalog with post-publication filing decisions. The complete verified snapshot is cached
 for 30 seconds per workspace; explicit refresh bypasses it, and concurrent reads share one pending read.
+Accepted snapshots also refresh the filing catalog. Worker reads carry the main process's active rank
+weights explicitly so live scoring edits and resets do not require a worker restart.
 A cold busy read returns 503 with
 a retry explanation. Corrupt history never uses this fallback, and archive writes still require both
 leases and the current action revision. A filing attempt invalidates the saved view even if persistence
