@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:31:38Z",
+  "generated_at": "2026-09-20T03:34:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -1597,6 +1597,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-266",
+      "headline": "Himachal Pradesh Govt To Pay ₹800 Crore To SJVN To Take Over Dhaulasidh Hydropower Project: CM Sukhu",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/news/himachal-pradesh-govt-to-pay-800-crore-to-sjvn-to-take-over-dhaulasidh-hydropower-project-cm-sukhu",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T05:13:13Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "SJVN is receiving a payment of 800 crore rupees for the transfer of a hydropower project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "SJVN is receiving a payment of 800 crore rupees for the transfer of a hydropower project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SJVN",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-070",
       "headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
       "headline_en": null,
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-140",
-      "headline": "Mother Dairy sets up its first butter chiplet line in Gujarat, plans pan-India supply",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/mother-dairy-sets-up-its-first-butter-chiplet-line-in-gujarat-plans-pan-india-supply/article71484585.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:20:09Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Mother Dairy is expanding production capacity with a new butter chiplet line in Gujarat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Mother Dairy is expanding production capacity with a new butter chiplet line in Gujarat.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mother Dairy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169771,9 +169771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 811375,
-    "news_picked_today": 352,
-    "news_dropped_today": 1568
+    "news_seen_today": 826972,
+    "news_picked_today": 357,
+    "news_dropped_today": 1587
   },
   "book_momentum": {
     "live_count": 8,
