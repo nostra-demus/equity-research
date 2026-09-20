@@ -113,8 +113,7 @@ export function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankW
  *  Display-only: this never touches the persisted firehose, so the audit trail keeps each item's score as
  *  it was at ingest. Uses the breakdown captured at ingest (so it's a pure function of the weights, not the
  *  clock); at default weights every score is unchanged. Skips any pre-breakdown line. Mutates in place. */
-function withActiveWeights(items: FeedItem[]): void {
-  const w = getRankWeights()
+function withActiveWeights(items: FeedItem[], w = getRankWeights()): void {
   // one TTL-cached read of the body verdicts for the whole window, not one per item
   const bodies = bodyVerdicts(STATE_DIR)
   for (const it of items) applyActiveWeightsTo(it, w, bodies)
@@ -729,6 +728,8 @@ export interface ReadFeedOptions {
   maxItems?: number
   archiveDir?: string
   applyActiveWeights?: boolean
+  /** Worker callers carry the authoritative process's current weights across the thread boundary. */
+  rankWeights?: ReturnType<typeof getRankWeights>
   predicate?: (it: FeedItem) => boolean
   dedupMaxScan?: number
   /** Sparse identity lookups must keep the ingest-time canonical group. Re-clustering only the filtered
@@ -747,7 +748,7 @@ export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {})
   // when a predicate filters, it must see CURRENT-weight scores/bands (same rule as searchFeed) — a
   // stale persisted band would disagree with what the wire displays after a Scoring-panel edit.
   // Idempotent, so the display re-apply on the capped page below is a no-op.
-  const weightsForPredicate = opts.predicate && opts.applyActiveWeights !== false ? getRankWeights() : null
+  const weightsForPredicate = opts.predicate && opts.applyActiveWeights !== false ? opts.rankWeights || getRankWeights() : null
   // Must include the BODY floor too (news/impact-floor.ts), or a band filter (e.g. band=pick) tests an
   // item against its stale headline-only score and can drop exactly the item this feature exists to
   // rescue — before the later withActiveWeights() pass on the capped page ever gets a chance to correct
@@ -789,7 +790,7 @@ export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {})
   // path. Theme discovery (readRecentThemeItems) opts OUT so a weight edit can't retroactively change which
   // items qualify for clustering: it uses the persisted ingest-time scores (which already reflect the
   // weights in force when each item was ingested). Default on, so every display consumer is unaffected.
-  if (opts.applyActiveWeights !== false) withActiveWeights(capped)
+  if (opts.applyActiveWeights !== false) withActiveWeights(capped, opts.rankWeights)
   if (!opts.preservePersistedDedupGroups) {
     withDedup(capped, opts.dedupMaxScan) // story-cluster the served window so the wire shows one row per story
   }

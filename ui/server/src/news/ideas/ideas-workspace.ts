@@ -25,6 +25,7 @@ import { projectLiveIdeas } from './ideas-projection'
 import { repositoryMutationLockPath } from './ideas-store'
 import { buildSupplyChainBoard } from '../../supply-chain'
 import { acquireRetainedFlock, releaseRetainedFlock } from '../../singleton-lock'
+import { getRankWeights } from '../rank-weights'
 
 const hash = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 24)
 const iso = (s: unknown) => typeof s === 'string' && Number.isFinite(Date.parse(s)) ? new Date(s).toISOString() : ''
@@ -118,12 +119,12 @@ export function buildDiscoveryEvents(themes: Theme[], feed: FeedItem[], nowMs = 
   return cards.sort((a, b) => b.priority - a.priority || b.updated_at.localeCompare(a.updated_at) || a.key.localeCompare(b.key))
 }
 
-export function readDiscoveryCatalog(root: string, archiveDir = ''): { cards: DiscoveryCard[]; notices: string[] } {
+export function readDiscoveryCatalog(root: string, archiveDir = '', rankWeights = getRankWeights()): { cards: DiscoveryCard[]; notices: string[] } {
   let index: any = {}
   try { index = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8')) } catch { /* canonical stores below remain authoritative */ }
   const projection = projectLiveIdeas(root, index)
   const themes = loadThemesLedger(root)
-  const feed = readFeed(root, 7, { archiveDir, maxItems: 6000, preservePersistedDedupGroups: true })
+  const feed = readFeed(root, 7, { archiveDir, rankWeights, maxItems: 6000, preservePersistedDedupGroups: true })
   const families = new Map(feed.items.map((i) => [i.event_id, themeStoryFamilyKey(i)]))
   for (const t of themes.themes) for (const m of t.members) families.set(m.event_id, themeStoryFamilyKey(m))
   const cards = [...projection.ideas, ...projection.ideas_archive.rows].map((r) => discoveryIdea(r, families))
@@ -224,14 +225,36 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
 }
 
 
-export async function readFilingActionsSafely(root: string): Promise<FilingAction[]> {
-  if (isMainThread) return runDiscoveryInWorker('readFilingActionsSafely', [root])
-  return locked(root, () => readFilingActions(root), 'shared')
+/** Catalog and filing decisions form one snapshot. Acquire the shared repository lease before either
+ * read, on the worker's event loop so a synchronous writer cannot strand the reader's retained lease. */
+export async function readDiscoverySnapshotSafely(root: string, archiveDir = '', rankWeights = getRankWeights()): Promise<{
+  catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string
+}> {
+  if (isMainThread) return runDiscoveryInWorker('readDiscoverySnapshotSafely', [root, archiveDir, rankWeights])
+  return locked(root, async () => ({ catalog: readDiscoveryCatalog(root, archiveDir, rankWeights),
+    actions: await readFilingActions(root), at: new Date().toISOString() }), 'shared')
 }
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
   let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null
   let verified: { catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string } | null = null
+  let snapshotPending: ReturnType<typeof readDiscoverySnapshotSafely> | null = null
+  let snapshotVersion = 0
+  const invalidate = (keepVerified = false) => {
+    snapshotVersion++
+    snapshotPending = null
+    cached = null
+    if (!keepVerified) verified = null
+  }
+  const snapshotRead = () => {
+    if (!snapshotPending) {
+      const pending = readDiscoverySnapshotSafely(root, archiveDir).finally(() => {
+        if (snapshotPending === pending) snapshotPending = null
+      })
+      snapshotPending = pending
+    }
+    return snapshotPending
+  }
   const catalog = () => {
     if (!cached || cached.until <= Date.now()) cached = { until: Date.now() + 30_000, value: readDiscoveryCatalog(root, archiveDir) }
     return cached.value
@@ -244,19 +267,26 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
   app.get('/api/screener/idea-workspace', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     const parsed = query.safeParse(req.query)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid Ideas filters.' })
-    if (parsed.data.refresh === '1') cached = null
+    if (parsed.data.refresh === '1') invalidate(true)
+    const version = snapshotVersion
     const { lane, hide, kind, cursor } = parsed.data
     let snapshot: NonNullable<typeof verified>
     let busy = false
     try {
-      const current = catalog()
-      const actions = await readFilingActionsSafely(root)
-      snapshot = { catalog: current, actions, at: new Date().toISOString() }
-      verified = snapshot
+      // Cache the complete leased snapshot, never an old catalog paired with a new filing ledger.
+      // Keep the cache scoped to this route/root and coalesce concurrent refreshes into one worker read.
+      snapshot = parsed.data.refresh === '0' && verified && Date.parse(verified.at) + 30_000 > Date.now()
+        ? verified : await snapshotRead()
+      // An older read may finish after an explicit refresh; it must not replace the newer cache.
+      if (version === snapshotVersion) {
+        verified = snapshot
+        cached = { until: Date.parse(snapshot.at) + 30_000, value: snapshot.catalog }
+      }
     } catch (error: any) {
       // Publication/deploy leases are temporary unavailability, not corruption. Only a previously
       // verified catalog AND filing ledger may be served; never invent an empty archive on a cold read.
-      if (error?.code !== 'EBUSY') { verified = null; throw error }
+      // Even a superseded reader detecting corruption disqualifies the old fallback.
+      if (error?.code !== 'EBUSY') { invalidate(); throw error }
       if (!verified) return reply.code(503).header('Retry-After', '2').send({ code: 'EBUSY',
         message: 'A saved-data update is in progress. Please retry shortly.' })
       snapshot = verified
@@ -274,14 +304,14 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     onMutation()
     try {
       const card = await fileDiscoveryCard(root, cards, parsed.data)
-      // A later busy read must not resurrect the pre-mutation filing state.
-      verified = null
       return { card }
     } catch (error: any) {
-      verified = null // a failed fsync may follow an append; discard all pre-attempt filing state
       if (error?.code !== 'EBUSY') throw error
       return reply.code(503).header('Retry-After', '2').send({ code: 'EBUSY',
         message: 'A saved-data update is in progress. Your archive change was not saved; please retry shortly.' })
+    } finally {
+      // Even a failed fsync may follow an append; discard all pre-attempt filing state.
+      invalidate()
     }
   })
 }
