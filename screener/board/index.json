@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T02:01:32Z",
+  "generated_at": "2026-09-20T02:03:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-145",
+      "headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:02:03Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Equinix announced a major capital expenditure plan of $5B-$7B annually for data center expansion to meet AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Equinix announced a major capital expenditure plan of $5B-$7B annually for data center expansion to meet AI demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equinix",
+          "ticker": "EQIX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-100",
       "headline": "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100",
@@ -1009,6 +1058,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-150",
+      "headline": "Mitsui OSK to Sell Older Oil Tankers as Prices Surge",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/wire/mitsui_osk_to_sell_older_oil_tankers_as_prices_surge-19-sep-2026-184654-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Mitsui OSK is capitalizing on high tanker prices by selling older assets to optimize its fleet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Mitsui OSK is capitalizing on high tanker prices by selling older assets to optimize its fleet.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsui OSK",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-029",
       "headline": "AIM weekly movers: Nativo Resources secures funding",
       "headline_en": null,
@@ -1053,6 +1151,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-146",
+      "headline": "Carl Icahn Added Nearly 69 Million Shares of His Own Company Last Quarter",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/19/carl-icahn-added-nearly-69-million-shares-of-his-own-company-last-quarter/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:00:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Carl Icahn increased his stake in Icahn Enterprises by 69 million shares, signaling confidence in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Carl Icahn increased his stake in Icahn Enterprises by 69 million shares, signaling confidence in the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Icahn Enterprises",
+          "ticker": "IEP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1190,6 +1337,55 @@
         {
           "name": "Coherent",
           "ticker": "COHR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-151",
+      "headline": "Robinhood Chain fees collapse 97% even as transactions stay near record highs",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/business/2026/09/19/robinhood-chain-fees-collapse-97-even-as-transactions-stay-near-record-highs",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Robinhood Chain fees dropped 97%, which could negatively impact revenue from transaction-based services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Robinhood Chain fees dropped 97%, which could negatively impact revenue from transaction-based services.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Robinhood",
+          "ticker": "HOOD",
           "listing_country": "US"
         }
       ],
@@ -1377,6 +1573,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-148",
+      "headline": "YardFlow lands over 200-site yard automation deal",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/yardflow-lands-over-200-yard-120000605.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "YardFlow secured a commercial contract for over 200 sites, representing a significant operational expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "YardFlow secured a commercial contract for over 200 sites, representing a significant operational expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YardFlow",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1664,244 +1909,6 @@
           "name": "Falcon Yarns",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-110",
-      "headline": "SpaceX’s Nasdaq 100 Weight Is Confirmed at 2.82% in Rebalance",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-19/spacex-s-nasdaq-100-weight-is-confirmed-at-2-82-in-rebalance",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:17:01Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "SpaceX's weight in the Nasdaq 100 is confirmed at 2.82%, triggering mechanical index-tracking fund flows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "SpaceX's weight in the Nasdaq 100 is confirmed at 2.82%, triggering mechanical index-tracking fund flows.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-083",
-      "headline": "Trump's New H-1B Order: How Will Indians Be Impacted By Tighter Scrutiny?",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/trumps-new-h-1b-order-how-will-indians-be-impacted-by-tighter-scrutiny-12069706#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:53:05Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Trump's new H-1B order with tighter scrutiny could impact Indian IT companies and the flow of skilled labor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Trump's new H-1B order with tighter scrutiny could impact Indian IT companies and the flow of skilled labor.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-134",
-      "headline": "Buffett takes next step in plan to keep Berkshire from straying",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/19/warren-buffett-takes-next-step-in-plan-to-keep-berkshire-from-straying.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:43:56Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Buffett continues to formalize the succession and governance structure for Berkshire Hathaway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Buffett continues to formalize the succession and governance structure for Berkshire Hathaway.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-063",
-      "headline": "EPFO Says Higher ₹25,000 Wage Ceiling Will Expand Social Security Coverage",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/indore/epfo-says-higher-25000-wage-ceiling-will-expand-social-security-coverage",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "An increase in the wage ceiling for EPFO contributions will raise labor costs for employers in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "An increase in the wage ceiling for EPFO contributions will raise labor costs for employers in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-097",
-      "headline": "Anthropic IPO: 1 Key Lesson Investors Can Learn From SpaceX",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/19/anthropic-ipo-lesson-investors-learn-spacex/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Discussion of Anthropic's IPO and lessons from SpaceX's IPO provides insights into the potential valuation and investment landscape for AI companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Discussion of Anthropic's IPO and lessons from SpaceX's IPO provides insights into the potential valuation and investment landscape for AI companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -129635,77 +129642,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d1966bde9f8c",
-      "idea_version": "IDEAV-47bc164323824838",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "08156",
-      "company": "Sinopharm Tech Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
-      "why_now": "The warning was filed on September 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9e144c03dbd"
-      ],
-      "primary_source_event_id": "EVT-f9e144c03dbd",
-      "source_headlines": [
-        "SINOPHARM TECH (08156): PROFIT WARNING"
-      ],
-      "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T14:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T02:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-80566e7fce69",
       "idea_version": "IDEAV-f82663b3219a08e7",
       "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -131112,6 +131048,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d1966bde9f8c",
+      "idea_version": "IDEAV-47bc164323824838",
+      "idea_version_started_at": "2026-09-19T15:58:42Z",
+      "ticker": "08156",
+      "company": "Sinopharm Tech Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+      "why_now": "The warning was filed on September 18, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9e144c03dbd"
+      ],
+      "primary_source_event_id": "EVT-f9e144c03dbd",
+      "source_headlines": [
+        "SINOPHARM TECH (08156): PROFIT WARNING"
+      ],
+      "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T14:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T15:58:42Z",
+      "updated_at": "2026-09-19T15:58:42Z",
+      "decay_at": "2026-09-20T02:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-75e7e0d545c9",
       "idea_version": "IDEAV-52d5934feefbec53",
       "idea_version_started_at": "2026-09-19T14:23:44Z",
@@ -132342,9 +132349,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -132352,9 +132359,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -132373,6 +132380,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d1966bde9f8c",
+        "idea_version": "IDEAV-47bc164323824838",
+        "idea_version_started_at": "2026-09-19T15:58:42Z",
+        "ticker": "08156",
+        "company": "Sinopharm Tech Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+        "why_now": "The warning was filed on September 18, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f9e144c03dbd"
+        ],
+        "primary_source_event_id": "EVT-f9e144c03dbd",
+        "source_headlines": [
+          "SINOPHARM TECH (08156): PROFIT WARNING"
+        ],
+        "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T14:02:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T15:58:42Z",
+        "updated_at": "2026-09-19T15:58:42Z",
+        "decay_at": "2026-09-20T02:02:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T02:02:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-75e7e0d545c9",
         "idea_version": "IDEAV-52d5934feefbec53",
@@ -169440,87 +169521,12 @@
         "archived_at": "2026-08-31T14:15:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1089cf77cf0a",
-        "idea_version": "IDEAV-20ea7d2ea26e7534",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "01101",
-        "company": "HUARONG ENERGY",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
-        "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-255663ecc15c"
-        ],
-        "primary_source_event_id": "EVT-255663ecc15c",
-        "source_headlines": [
-          "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
-        ],
-        "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T17:43:44Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-30T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T14:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 912,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169539,9 +169545,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 469761,
-    "news_picked_today": 177,
-    "news_dropped_today": 903
+    "news_seen_today": 475617,
+    "news_picked_today": 185,
+    "news_dropped_today": 919
   },
   "book_momentum": {
     "live_count": 8,
