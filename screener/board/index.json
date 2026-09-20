@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:33:31Z",
+  "generated_at": "2026-09-20T06:36:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -394,6 +394,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-409",
+      "headline": "DCC Energy Shareholders Approve £5.7 Billion Bid by KKR, ECP",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/dcc-energy-shareholders-approve-5-7-billion-bid-by-kkr-ecp",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T17:58:13Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCC Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,55 +1943,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-333",
-      "headline": "Welspun Enterprises Limited: Welspun Enterprises Limited has informed the Exchange about receiving of Letter of Award by Welspun Michigan Engineers Limited, Material Subsidiary of the Company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/WELENT_20092026103109_FinalUpload.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-20T05:03:22Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Welspun Enterprises' subsidiary received a new contract award, which is a material commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Welspun Enterprises' subsidiary received a new contract award, which is a material commercial development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Enterprises Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169723,9 +169723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1294420,
-    "news_picked_today": 772,
-    "news_dropped_today": 2660
+    "news_seen_today": 1297939,
+    "news_picked_today": 783,
+    "news_dropped_today": 2673
   },
   "book_momentum": {
     "live_count": 8,
