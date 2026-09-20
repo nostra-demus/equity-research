@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:29:30Z",
+  "generated_at": "2026-09-20T06:33:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1201,6 +1201,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-407",
+      "headline": "Saudi Aramco reportedly halts oil supplies to European customers after pipeline attack",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/energy/saudi-aramco-oil-supplies-to-european-customers",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T18:01:52Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Saudi Aramco reportedly halted oil supplies to European customers following a pipeline attack, indicating a significant supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Saudi Aramco reportedly halted oil supplies to European customers following a pipeline attack, indicating a significant supply chain disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-303",
       "headline": "Ukraine-Kyiv visée par une attaque de missiles, dit le maire",
       "headline_en": "Ukraine-Kyiv targeted by missile attack, says mayor",
@@ -1890,55 +1940,6 @@
           "name": "Welspun Enterprises Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-392",
-      "headline": "Nearmap’s PE owner ponders multibillion-dollar return to the ASX",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/nearmap-s-pe-owner-ponders-multibillion-dollar-return-to-the-asx-20260920-p60ykw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Nearmap's private equity owner is considering a multibillion-dollar IPO or exit, which would be a significant liquidity event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nearmap's private equity owner is considering a multibillion-dollar IPO or exit, which would be a significant liquidity event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nearmap",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -169722,9 +169723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1279956,
-    "news_picked_today": 769,
-    "news_dropped_today": 2639
+    "news_seen_today": 1294420,
+    "news_picked_today": 772,
+    "news_dropped_today": 2660
   },
   "book_momentum": {
     "live_count": 8,
