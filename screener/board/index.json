@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:18:37Z",
+  "generated_at": "2026-09-20T01:21:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-100",
@@ -390,6 +390,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-115",
+      "headline": "US judge signals rejection of part of TikTok privacy settlement",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/us-judge-signals-rejection-part-tiktok-privacy-settlement-2026-09-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T13:59:44Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A US judge signaled the rejection of a privacy settlement involving TikTok, increasing legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "A US judge signaled the rejection of a privacy settlement involving TikTok, increasing legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-094",
       "headline": "80-year-old discount fashion retailer closing 120 stores",
       "headline_en": null,
@@ -609,6 +658,60 @@
           "name": "Rocket Lab",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-114",
+      "headline": "NTPC Terminates Rs 400 Crore Storage Project Awarded To GR Infraprojects",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/ntpc-terminates-rs-400-crore-storage-project-awarded-to-gr-infraprojects-12069324#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T14:00:41Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "NTPC terminated a Rs 400 crore storage project contract with GR Infraprojects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "NTPC terminated a Rs 400 crore storage project contract with GR Infraprojects.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTPC",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "GR Infraprojects",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1831,114 +1934,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-108",
-      "headline": "Media Tycoon John Malone Buys 37,082 More Liberty Latin America Preference Shares. What Does This Tell Investors?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/media-tycoon-john-malone-buys-37082-more-liberty-latin-america-preference-shares-what-does",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T14:25:01Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "John Malone increased his stake in Liberty Latin America by 37,082 shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "John Malone increased his stake in Liberty Latin America by 37,082 shares.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Liberty Latin America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-048",
-      "headline": "Aptean übernimmt FleetGO von Main Capital Partners und erweitert sein Portfolio um eine führende End-to-End-Logistiklösung für den Straßentransport",
-      "headline_en": "Aptean acquires FleetGO from Main Capital Partners and expands its portfolio with a leading end-to-end logistics solution for road transport",
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364487/29866/de/aptean-%C3%BCbernimmt-fleetgo-von-main-capital-partners-und-erweitert-sein-portfolio-um-eine-f%C3%BChrende-end-to-end-logistikl%C3%B6sung-f%C3%BCr-den-stra%C3%9Fentransport.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Aptean is acquiring FleetGO from Main Capital Partners to expand its logistics portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Aptean is acquiring FleetGO from Main Capital Partners to expand its logistics portfolio.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aptean",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "FleetGO",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Main Capital Partners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169433,9 +169428,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 302513,
-    "news_picked_today": 118,
-    "news_dropped_today": 626
+    "news_seen_today": 314671,
+    "news_picked_today": 122,
+    "news_dropped_today": 646
   },
   "book_momentum": {
     "live_count": 8,
