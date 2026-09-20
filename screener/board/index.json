@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T21:39:54Z",
+  "generated_at": "2026-09-20T21:45:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -128421,6 +128421,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-523a4ee7d93a",
+      "idea_version": "IDEAV-e75aa25e57a9566e",
+      "idea_version_started_at": "2026-09-20T21:45:11Z",
+      "ticker": "BALY",
+      "company": "Bally's Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Bally's is facing a 'going concern' warning due to its aggressive casino construction spending, indicating significant financial distress.",
+      "why_now": "The 'going concern' warning is a direct and immediate signal of financial instability.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b7e1dedd764c"
+      ],
+      "primary_source_event_id": "EVT-b7e1dedd764c",
+      "source_headlines": [
+        "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning"
+      ],
+      "source_headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T21:08:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T21:45:11Z",
+      "updated_at": "2026-09-20T21:45:11Z",
+      "decay_at": "2026-09-22T09:08:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4e4abdc55d24",
       "idea_version": "IDEAV-0b0048d3e77b2ca8",
       "idea_version_started_at": "2026-09-20T17:25:16Z",
@@ -169303,8 +169373,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 927,
-    "live_count": 24,
+    "surfaced_total": 928,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169323,9 +169393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1802922,
-    "news_picked_today": 1941,
-    "news_dropped_today": 6941
+    "news_seen_today": 1802937,
+    "news_picked_today": 1945,
+    "news_dropped_today": 6952
   },
   "book_momentum": {
     "live_count": 8,
