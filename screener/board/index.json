@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T18:41:32Z",
+  "generated_at": "2026-09-20T18:51:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -336,6 +336,55 @@
         {
           "name": "Clorox",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-752",
+      "headline": "Trip.com (TCOM) Books RMB5.2 Billion Penalty. Can Overseas Growth Offset Domestic Pressure?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/trip-com-tcom-books-rmb5-183136873.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T18:31:36Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Trip.com faces a quantified penalty of RMB 5.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trip.com faces a quantified penalty of RMB 5.2 billion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trip.com",
+          "ticker": "TCOM",
           "listing_country": "US"
         }
       ],
@@ -1908,55 +1957,6 @@
       "companies": [
         {
           "name": "Amsted Industries",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-683",
-      "headline": "Applied Materials to invest $5bn to bolster chip ambitions in India over coming decade",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/applied-materials-to-invest-5bn-to-bolster-chip-ambitions-in-india-over-coming-decade/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T14:56:42Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Applied Materials plans to invest $5 billion in India over the next decade to boost its chip ambitions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Applied Materials plans to invest $5 billion in India over the next decade to boost its chip ambitions.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Applied Materials",
           "ticker": null,
           "listing_country": null
         }
@@ -169180,9 +169180,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1802372,
-    "news_picked_today": 1819,
-    "news_dropped_today": 6513
+    "news_seen_today": 1802399,
+    "news_picked_today": 1828,
+    "news_dropped_today": 6531
   },
   "book_momentum": {
     "live_count": 8,
