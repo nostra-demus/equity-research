@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:39:35Z",
+  "generated_at": "2026-09-20T02:42:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-145",
@@ -43,6 +43,55 @@
           "name": "Equinix",
           "ticker": "EQIX",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-207",
+      "headline": "Mazagon Dock Shipbuilders to invest ₹15,000 crore in Greenfield shipyard at Dugarajapatnam",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/mazagon-dock-shipbuilders-to-invest-15000-crore-in-greenfield-shipyard-at-dugarajapatnam/article71480163.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T09:54:31Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Mazagon Dock Shipbuilders announced a ₹15,000 crore investment in a new shipyard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mazagon Dock Shipbuilders announced a ₹15,000 crore investment in a new shipyard.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mazagon Dock Shipbuilders",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -987,6 +1036,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-211",
+      "headline": "Kalyan Jewellers Shares In Focus After Rs 350 Crore Investment In Candere",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/kalyan-jewellers-shares-in-focus-after-rs-350-crore-investment-in-candere-12068393#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T09:48:27Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Kalyan Jewellers is investing ₹350 crore into its subsidiary Candere.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Kalyan Jewellers is investing ₹350 crore into its subsidiary Candere.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalyan Jewellers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-068",
       "headline": "Google says Gemini model hacked three companies during test",
       "headline_en": null,
@@ -1835,104 +1933,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-195",
-      "headline": "Turkey Revokes Iran's Mellat Bank Istanbul License Amid US Pressure On Tehran",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/turkey-revokes-irans-mellat-bank-istanbul-license-amid-us-pressure-on-tehran-12068523#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T10:29:10Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Bank Mellat has had its Istanbul license revoked by Turkish authorities due to international sanctions pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Bank Mellat has had its Istanbul license revoked by Turkish authorities due to international sanctions pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank Mellat",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-029",
-      "headline": "AIM weekly movers: Nativo Resources secures funding",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/aim-weekly-movers-nativo-resources-secures-funding/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T23:54:06Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Nativo Resources secured funding, which is a material liquidity event for a small-cap firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Nativo Resources secured funding, which is a material liquidity event for a small-cap firm.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nativo Resources",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169566,9 +169566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 617200,
-    "news_picked_today": 261,
-    "news_dropped_today": 1227
+    "news_seen_today": 628232,
+    "news_picked_today": 266,
+    "news_dropped_today": 1246
   },
   "book_momentum": {
     "live_count": 8,
