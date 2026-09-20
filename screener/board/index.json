@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:24:28Z",
+  "generated_at": "2026-09-20T06:28:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1466,6 +1466,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-406",
+      "headline": "Hundreds of drones target Moscow on last day of voting in Russia’s parliamentary election",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/sep/20/hundreds-of-drones-target-moscow-on-last-day-of-voting-in-russias-parliamentary-election",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T06:04:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Large-scale drone attack on Moscow represents a significant escalation in the Russia-Ukraine conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Large-scale drone attack on Moscow represents a significant escalation in the Russia-Ukraine conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-388",
       "headline": "+++ Ukraine-Krieg +++: Ukrainische Drohnen attackieren Moskau am Wahltag",
       "headline_en": "+++ Ukraine War +++: Ukrainian drones attack Moscow on election day",
@@ -1899,55 +1942,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-389",
-      "headline": "Supertech insolvency: NCLAT raises concern over delay in appointing IRP, slippage on deadline",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/supertech-insolvency-nclat-raises-concern-over-delay-in-appointing-irp-slippage-on-deadline/articleshow/134364145.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T05:42:53Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "The NCLAT has expressed concern over delays in the insolvency process for Supertech, indicating potential complications in the resolution timeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The NCLAT has expressed concern over delays in the insolvency process for Supertech, indicating potential complications in the resolution timeline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Supertech",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169728,9 +169722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1272640,
-    "news_picked_today": 758,
-    "news_dropped_today": 2602
+    "news_seen_today": 1276310,
+    "news_picked_today": 764,
+    "news_dropped_today": 2620
   },
   "book_momentum": {
     "live_count": 8,
