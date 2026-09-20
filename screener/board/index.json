@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:38:59Z",
+  "generated_at": "2026-09-20T00:43:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-029",
@@ -511,6 +511,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-044",
+      "headline": "Australia news live: Taylor pledges ‘one of the biggest immigration cuts in history’; PM says focus is on free trade not EU membership",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/live/2026/sep/20/australia-news-live-labor-coalition-fuel-petrol-prices-anthony-albanese-pauline-hanson-one-nation-immigration-angus-taylor-police-ntwnfb",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:27:57Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Australia's pledge to implement significant immigration cuts could impact labor supply and economic growth projections.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Australia's pledge to implement significant immigration cuts could impact labor supply and economic growth projections.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-047",
+      "headline": "Tenet Healthcare Director Nadja West Sells 1,152 Shares",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/09/19/tenet-healthcare-director-nadja-west-sells-1-152-shares/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:05:01Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Small insider sale by a director at Tenet Healthcare.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Small insider sale by a director at Tenet Healthcare.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tenet Healthcare",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-036",
       "headline": "Bilibili, 'China's YouTube', draws Indian creators despite no India launch, as India-China ties thaw and YouTube monetisation set to tighten",
       "headline_en": null,
@@ -609,6 +701,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-045",
+      "headline": "Iran war live: Tehran sets terms for peace; Saudi forces foil Riyadh attack",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/20/iran-war-live-tehran-calls-for-end-to-war-lifting-of-us-naval-blockade?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-20T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and Saudi Arabia poses a significant risk to regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Geopolitical escalation involving Iran and Saudi Arabia poses a significant risk to regional stability and global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -855,6 +990,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-046",
+      "headline": "Thick smoke seen near Riyadh airport as Houthis claim attack on Saudi capital",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/sep/19/saudi-arabia-riyadh-airport",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T00:21:04Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Reported attack on Riyadh airport infrastructure indicates a major escalation in regional conflict with potential energy market impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Reported attack on Riyadh airport infrastructure indicates a major escalation in regional conflict with potential energy market impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1192,104 +1370,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-017",
-      "headline": "Merck Receives Positive EU CHMP Opinion for KEYTRUDA® (pembrolizumab) Plus Padcev® (enfortumab vedotin-ejfv) as Perioperative Treatment for Adults With Resectable Muscle-Invasive Bladder Cancer (MIBC)",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260917438970/en/Merck-Receives-Positive-EU-CHMP-Opinion-for-KEYTRUDA%C2%AE-pembrolizumab-Plus-Padcev%C2%AE-enfortumab-vedotin-ejfv-as-Perioperative-Treatment-for-Adults-With-Resectable-Muscle-Invasive-Bladder-Cancer-MIBC/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:55:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Merck received a positive CHMP opinion for Keytruda in combination with Padcev for bladder cancer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Merck received a positive CHMP opinion for Keytruda in combination with Padcev for bladder cancer.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Merck",
-          "ticker": "MRK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-026",
-      "headline": "CHMP recommends EU approval of Roche’s Ocrevus for children and adolescents with relapsing multiple sclerosis",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364612/0/en/chmp-recommends-eu-approval-of-roche-s-ocrevus-for-children-and-adolescents-with-relapsing-multiple-sclerosis.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "CHMP recommended EU approval for Roche's Ocrevus for a new pediatric indication.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "CHMP recommended EU approval for Roche's Ocrevus for a new pediatric indication.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roche",
-          "ticker": "RHHBY",
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1644,55 +1724,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260920-014",
-      "headline": "CATO ANNOUNCES ADDITIONAL THIRD AND FOURTH QUARTER STORE CLOSINGS",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/cato-announces-additional-third-and-fourth-quarter-store-closings-302882635.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Cato Corporation announced additional store closings for the third and fourth quarters.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Cato Corporation announced additional store closings for the third and fourth quarters.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cato Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260920-030",
       "headline": "Novo’s once-weekly Sogroya® (somapacitan) receives positive CHMP opinion in Europe for children with idiopathic short stature (unexplained shortness) | NVO Stock News",
       "headline_en": null,
@@ -1786,55 +1817,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-031",
-      "headline": "Novo’s once-weekly Sogroya® (somapacitan) receives positive CHMP opinion in Europe for children with idiopathic short stature (unexplained shortness)",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364591/0/en/novo-s-once-weekly-sogroya-somapacitan-receives-positive-chmp-opinion-in-europe-for-children-with-idiopathic-short-stature-unexplained-shortness.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-18T10:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Novo Nordisk received a positive CHMP opinion for Sogroya, a key regulatory step toward European approval.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -129648,77 +129630,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-75e7e0d545c9",
-      "idea_version": "IDEAV-52d5934feefbec53",
-      "idea_version_started_at": "2026-09-19T14:23:44Z",
-      "ticker": "08366",
-      "company": "ZJ United Inv",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
-      "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-717692d8d979"
-      ],
-      "primary_source_event_id": "EVT-717692d8d979",
-      "source_headlines": [
-        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
-      ],
-      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T12:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T17:05:00Z",
-      "updated_at": "2026-09-19T14:23:44Z",
-      "decay_at": "2026-09-20T00:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-80566e7fce69",
       "idea_version": "IDEAV-f82663b3219a08e7",
       "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -131125,6 +131036,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-75e7e0d545c9",
+      "idea_version": "IDEAV-52d5934feefbec53",
+      "idea_version_started_at": "2026-09-19T14:23:44Z",
+      "ticker": "08366",
+      "company": "ZJ United Inv",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
+      "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-717692d8d979"
+      ],
+      "primary_source_event_id": "EVT-717692d8d979",
+      "source_headlines": [
+        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
+      ],
+      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-18T12:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-18T17:05:00Z",
+      "updated_at": "2026-09-19T14:23:44Z",
+      "decay_at": "2026-09-20T00:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-50561c4c019b",
       "idea_version": "IDEAV-9645f40d68ed9f35",
       "idea_version_started_at": "2026-09-18T12:42:52Z",
@@ -132284,9 +132266,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -132294,9 +132276,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -132315,6 +132297,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-75e7e0d545c9",
+        "idea_version": "IDEAV-52d5934feefbec53",
+        "idea_version_started_at": "2026-09-19T14:23:44Z",
+        "ticker": "08366",
+        "company": "ZJ United Inv",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
+        "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-717692d8d979"
+        ],
+        "primary_source_event_id": "EVT-717692d8d979",
+        "source_headlines": [
+          "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
+        ],
+        "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T12:39:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-18T17:05:00Z",
+        "updated_at": "2026-09-19T14:23:44Z",
+        "decay_at": "2026-09-20T00:39:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T00:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7d56acfd906a",
         "idea_version": "IDEAV-64ec3170c0e3e22b",
@@ -169383,86 +169439,12 @@
         "archived_at": "2026-08-31T14:15:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8c0df7c727b4",
-        "idea_version": "IDEAV-f1311c301d8cfdf9",
-        "idea_version_started_at": "2026-08-29T21:13:33Z",
-        "ticker": "02722",
-        "company": "CHONGQING M&E",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will likely result in significant financial losses and impairments for the parent company.",
-        "why_now": "The company announced this inside information on August 28, 2026, indicating an immediate and severe financial event.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5d15167b7180"
-        ],
-        "primary_source_event_id": "EVT-5d15167b7180",
-        "source_headlines": [
-          "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
-        ],
-        "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T11:49:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T10:43:25Z",
-        "updated_at": "2026-08-29T21:13:33Z",
-        "decay_at": "2026-08-29T23:49:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T11:51:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 910,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169481,9 +169463,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 170681,
-    "news_picked_today": 43,
-    "news_dropped_today": 269
+    "news_seen_today": 183573,
+    "news_picked_today": 47,
+    "news_dropped_today": 289
   },
   "book_momentum": {
     "live_count": 8,
