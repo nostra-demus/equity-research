@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T11:50:32Z",
+  "generated_at": "2026-09-20T11:52:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-708",
@@ -1629,6 +1629,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-717",
+      "headline": "BrewDog creditors owed £190m will not be paid in full, say administrators",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/18/brewdog-creditors-not-paid-in-full-administrators",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-18T14:24:58Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "BrewDog administrators confirmed that creditors owed £190m will not be paid in full, indicating a significant credit event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BrewDog administrators confirmed that creditors owed £190m will not be paid in full, indicating a significant credit event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BrewDog",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-686",
       "headline": "UK minister warns of impact of Trump’s Iran war on next month’s budget",
       "headline_en": null,
@@ -1923,60 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-623",
-      "headline": "Volkswagen and Porsche Holding cut outlook",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/china/volkswagen-porsche-holding-cut-outlook-2026-09-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T15:29:24Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Volkswagen and Porsche Holding have cut their financial outlook, signaling a material deterioration in performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volkswagen and Porsche Holding have cut their financial outlook, signaling a material deterioration in performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Porsche Holding",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169116,9 +169111,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1777421,
-    "news_picked_today": 1362,
-    "news_dropped_today": 5070
+    "news_seen_today": 1779311,
+    "news_picked_today": 1370,
+    "news_dropped_today": 5086
   },
   "book_momentum": {
     "live_count": 8,
