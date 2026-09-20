@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:10:45Z",
+  "generated_at": "2026-09-20T03:13:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -141,6 +141,114 @@
           "name": "Mazagon Dock Shipbuilders",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-234",
+      "headline": "Anthropic, Accenture to invest $2 billion in AI model evaluation as safety concerns rise",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/anthropic-accenture-to-invest-2-billion-in-ai-model-evaluation-as-safety-concerns-rise/article71483693.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:41:45Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Accenture and Anthropic are investing $2 billion in AI model evaluation, representing a major capital commitment to AI safety infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture and Anthropic are investing $2 billion in AI model evaluation, representing a major capital commitment to AI safety infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-233",
+      "headline": "KI-Unternehmen: Accenture und Anthropic investieren Milliarden in KI-Sicherheit wegen Sicherheitsbedenken",
+      "headline_en": "AI companies: Accenture and Anthropic invest billions in AI safety due to security concerns",
+      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/ki-unternehmen-accenture-und-anthropic-investieren-milliarden-in-ki-sicherheit-wegen-sicherheitsbedenken/100255810.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:42:27Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Accenture and Anthropic are investing $2 billion into AI model evaluation and safety, representing a major capital commitment to AI infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1877,104 +1985,6 @@
           "name": "Porsche",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-223",
-      "headline": "Gemini hacked three companies in first known breakout by Google's AI",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai/article71483729.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:20:56Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Google's AI tool Gemini was reportedly used to hack three companies, posing a significant reputational and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Google's AI tool Gemini was reportedly used to hack three companies, posing a significant reputational and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-227",
-      "headline": "Inside the 24 hours that laid bare Tata’s brutal power struggle",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-ipo-listing-chairman-natarajan-chandrasekaran-tata-trusts-noel-tata-11789804829713.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:14:40Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Internal power struggles at Tata Group represent a significant management and governance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Internal power struggles at Tata Group represent a significant management and governance risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
