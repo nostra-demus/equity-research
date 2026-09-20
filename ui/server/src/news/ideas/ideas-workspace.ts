@@ -224,9 +224,14 @@ export async function refreshFiledDiscovery(root: string, source: DiscoveryCard[
 }
 
 
-export async function readFilingActionsSafely(root: string): Promise<FilingAction[]> {
-  if (isMainThread) return runDiscoveryInWorker('readFilingActionsSafely', [root])
-  return locked(root, () => readFilingActions(root), 'shared')
+/** Catalog and filing decisions form one snapshot. Acquire the shared repository lease before either
+ * read, on the worker's event loop so a synchronous writer cannot strand the reader's retained lease. */
+export async function readDiscoverySnapshotSafely(root: string, archiveDir = ''): Promise<{
+  catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string
+}> {
+  if (isMainThread) return runDiscoveryInWorker('readDiscoverySnapshotSafely', [root, archiveDir])
+  return locked(root, async () => ({ catalog: readDiscoveryCatalog(root, archiveDir),
+    actions: await readFilingActions(root), at: new Date().toISOString() }), 'shared')
 }
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
@@ -249,9 +254,7 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     let snapshot: NonNullable<typeof verified>
     let busy = false
     try {
-      const current = catalog()
-      const actions = await readFilingActionsSafely(root)
-      snapshot = { catalog: current, actions, at: new Date().toISOString() }
+      snapshot = await readDiscoverySnapshotSafely(root, archiveDir)
       verified = snapshot
     } catch (error: any) {
       // Publication/deploy leases are temporary unavailability, not corruption. Only a previously

@@ -195,6 +195,31 @@ try {
   await coldApp.close()
   await app.close()
 
+  // A publisher may replace the catalog while a reader is waiting for its repository lease.
+  // The first successful response must pair the new catalog with the post-publication filing state.
+  const publicationRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-publication-read-'))
+  const publicationApp = Fastify()
+  execFileSync('git', ['init', '-q'], { cwd: publicationRoot })
+  const feedPath = path.join(publicationRoot, 'screener/inbox', `${at().slice(0, 10)}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(feedPath), { recursive: true })
+  fs.writeFileSync(feedPath, `${JSON.stringify(a)}\n`)
+  registerIdeasWorkspace(publicationApp, publicationRoot)
+  let publishing: number | null = await acquireRetainedFlock(repositoryMutationLockPath(publicationRoot)!, { waitMs: 0, busyMessage: 'fixture' })
+  try {
+    const response = publicationApp.inject('/api/screener/idea-workspace?lane=events')
+    await new Promise((resolve) => setTimeout(resolve, 250))
+    fs.writeFileSync(feedPath, `${JSON.stringify({ ...a, headline: 'Pipeline reopened after repairs' })}\n`)
+    releaseRetainedFlock(publishing)
+    publishing = null
+    const received = await response
+    assert.equal(received.statusCode, 200)
+    assert.equal(received.json().rows[0]?.event?.title, 'Pipeline reopened after repairs', 'catalog is read after acquiring the shared publication lease')
+  } finally {
+    if (publishing !== null) releaseRetainedFlock(publishing)
+    await publicationApp.close()
+    fs.rmSync(publicationRoot, { recursive: true, force: true })
+  }
+
   // A legacy synchronous snapshot writer must not strand an asynchronous archive transaction on the
   // same event loop. Hold its journal externally long enough to observe the archive's repository lease.
   const journalLease = spawn('python3', ['-c', 'import fcntl,sys,time; f=open(sys.argv[1],"a"); fcntl.flock(f,fcntl.LOCK_EX); print("locked",flush=True); time.sleep(0.6)', path.join(root, 'screener/ledger/idea-workspace-actions.ndjson.lock')])
