@@ -231,6 +231,7 @@ export async function readFilingActionsSafely(root: string): Promise<FilingActio
 
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
   let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null
+  let verified: { catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string } | null = null
   const catalog = () => {
     if (!cached || cached.until <= Date.now()) cached = { until: Date.now() + 30_000, value: readDiscoveryCatalog(root, archiveDir) }
     return cached.value
@@ -244,17 +245,43 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     const parsed = query.safeParse(req.query)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid Ideas filters.' })
     if (parsed.data.refresh === '1') cached = null
-    const { cards, notices } = catalog()
     const { lane, hide, kind, cursor } = parsed.data
-    const actions = await readFilingActionsSafely(root)
-    return discoveryPage(projectDiscovery(cards, actions), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor, notices)
+    let snapshot: NonNullable<typeof verified>
+    let busy = false
+    try {
+      const current = catalog()
+      const actions = await readFilingActionsSafely(root)
+      snapshot = { catalog: current, actions, at: new Date().toISOString() }
+      verified = snapshot
+    } catch (error: any) {
+      // Publication/deploy leases are temporary unavailability, not corruption. Only a previously
+      // verified catalog AND filing ledger may be served; never invent an empty archive on a cold read.
+      if (error?.code !== 'EBUSY') { verified = null; throw error }
+      if (!verified) return reply.code(503).header('Retry-After', '2').send({ code: 'EBUSY',
+        message: 'A saved-data update is in progress. Please retry shortly.' })
+      snapshot = verified
+      busy = true
+    }
+    const { cards, notices } = snapshot.catalog
+    reply.header('Cache-Control', 'no-store')
+    return discoveryPage(projectDiscovery(cards, snapshot.actions), lane, hide.split(',').filter((m) => m === 'HK' || m === 'IN'), kind, cursor,
+      busy ? [...notices, `A saved-data update is in progress. Showing the last verified cards from ${snapshot.at}; this view refreshes automatically.`] : notices)
   })
   app.post('/api/screener/idea-workspace/actions', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     const parsed = mutation.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid filing action.' })
     const { cards } = catalog()
     onMutation()
-    const card = await fileDiscoveryCard(root, cards, parsed.data)
-    return { card }
+    try {
+      const card = await fileDiscoveryCard(root, cards, parsed.data)
+      // A later busy read must not resurrect the pre-mutation filing state.
+      verified = null
+      return { card }
+    } catch (error: any) {
+      verified = null // a failed fsync may follow an append; discard all pre-attempt filing state
+      if (error?.code !== 'EBUSY') throw error
+      return reply.code(503).header('Retry-After', '2').send({ code: 'EBUSY',
+        message: 'A saved-data update is in progress. Your archive change was not saved; please retry shortly.' })
+    }
   })
 }

@@ -173,6 +173,26 @@ try {
   assert.equal((await app.inject('/api/screener/idea-workspace?lane=events')).statusCode, 200)
   assert.equal((await app.inject('/api/screener/idea-workspace?cursor=-1')).statusCode, 400)
   assert.equal((await app.inject({ method: 'POST', url: '/api/screener/idea-workspace/actions', payload: { key: '../../outside', action: 'archive' } })).statusCode, 400)
+  const beforeBusy = (await app.inject('/api/screener/idea-workspace?lane=archives')).json()
+  const coldApp = Fastify()
+  registerIdeasWorkspace(coldApp, root)
+  const repositoryLease = await acquireRetainedFlock(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'fixture' })
+  try {
+    const cold = await coldApp.inject('/api/screener/idea-workspace?lane=events')
+    assert.equal(cold.statusCode, 503, 'cold reads report a retryable update, not an internal server failure')
+    assert.equal(cold.headers['retry-after'], '2')
+    assert.match(cold.json().message, /update.*retry/i)
+    const warm = await app.inject('/api/screener/idea-workspace?lane=archives&refresh=1')
+    assert.equal(warm.statusCode, 200, 'a known-good board remains readable during publication')
+    assert.deepEqual(warm.json().rows, beforeBusy.rows, 'archived decisions are preserved in the saved view')
+    assert.ok(warm.json().notices.some((notice: string) => /last verified/i.test(notice)))
+    const mutation = await app.inject({ method: 'POST', url: '/api/screener/idea-workspace/actions',
+      payload: { key: e1.key, action: 'archive', operation_id: randomUUID(), expected_revision: null } })
+    assert.equal(mutation.statusCode, 503, 'a saved view never bypasses the write lock')
+  } finally { releaseRetainedFlock(repositoryLease) }
+  assert.equal((await coldApp.inject('/api/screener/idea-workspace?lane=events')).statusCode, 200)
+  assert.ok(!(await app.inject('/api/screener/idea-workspace?lane=archives')).json().notices.some((notice: string) => /last verified/i.test(notice)), 'recovery clears the temporary notice')
+  await coldApp.close()
   await app.close()
 
   // A legacy synchronous snapshot writer must not strand an asynchronous archive transaction on the
@@ -193,8 +213,16 @@ try {
 
   // A corrupt ledger must not look empty or accept further writes.
   const ledger = path.join(root, 'screener/ledger/idea-workspace-actions.ndjson')
+  const corruptApp = Fastify()
+  registerIdeasWorkspace(corruptApp, root)
+  assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 200)
   fs.appendFileSync(ledger, '{broken}\n')
   const bytes = fs.readFileSync(ledger, 'utf8')
+  assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 500, 'corruption never falls back to a saved board')
+  const corruptionLease = await acquireRetainedFlock(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'fixture' })
+  try {
+    assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 503, 'a later busy read cannot hide the detected corruption with a stale snapshot')
+  } finally { releaseRetainedFlock(corruptionLease); await corruptApp.close() }
   await assert.rejects(async () => await fileDiscoveryCard(root, [card], { key: card.key, action: 'archive', operation_id: randomUUID(), expected_revision: null }))
   assert.equal(fs.readFileSync(ledger, 'utf8'), bytes)
   console.log('ideas workspace: listing, archive lifecycle, story correction, identity merge and API tests passed')
