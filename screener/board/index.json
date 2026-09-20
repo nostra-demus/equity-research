@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T23:21:55Z",
+  "generated_at": "2026-09-20T23:30:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-810",
+      "headline": "IGL: Investor Presentation - Proposed Motio Acquisition [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137515-2A1698112",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:22:49Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "IGL announced a proposed acquisition, which is a material corporate development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IGL announced a proposed acquisition, which is a material corporate development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IGL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-809",
       "headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-409",
-      "headline": "DCC Energy Shareholders Approve £5.7 Billion Bid by KKR, ECP",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-18/dcc-energy-shareholders-approve-5-7-billion-bid-by-kkr-ecp",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T17:58:13Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shareholders approved a £5.7 billion acquisition of DCC Energy by KKR and ECP.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DCC Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130048,78 +130048,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-80566e7fce69",
-      "idea_version": "IDEAV-f82663b3219a08e7",
-      "idea_version_started_at": "2026-09-19T12:40:06Z",
-      "ticker": "NTPC",
-      "company": "NTPC Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The termination of a Rs 413 crore battery energy storage system contract due to contractor default signals operational delays and potential cost overruns in the company's green energy infrastructure rollout.",
-      "why_now": "The contract termination was officially announced on 2026-09-19, creating immediate uncertainty regarding project timelines.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ee9f07b20713"
-      ],
-      "primary_source_event_id": "EVT-ee9f07b20713",
-      "source_headlines": [
-        "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default"
-      ],
-      "source_headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
-      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T11:29:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T12:40:06Z",
-      "updated_at": "2026-09-19T12:40:06Z",
-      "decay_at": "2026-09-20T23:29:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9ee16cbb53b7",
       "idea_version": "IDEAV-b30c3942ee58499c",
       "idea_version_started_at": "2026-09-20T03:04:50Z",
@@ -131396,6 +131324,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-80566e7fce69",
+      "idea_version": "IDEAV-f82663b3219a08e7",
+      "idea_version_started_at": "2026-09-19T12:40:06Z",
+      "ticker": "NTPC",
+      "company": "NTPC Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of a Rs 413 crore battery energy storage system contract due to contractor default signals operational delays and potential cost overruns in the company's green energy infrastructure rollout.",
+      "why_now": "The contract termination was officially announced on 2026-09-19, creating immediate uncertainty regarding project timelines.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee9f07b20713"
+      ],
+      "primary_source_event_id": "EVT-ee9f07b20713",
+      "source_headlines": [
+        "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default"
+      ],
+      "source_headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
+      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T11:29:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T12:40:06Z",
+      "updated_at": "2026-09-19T12:40:06Z",
+      "decay_at": "2026-09-20T23:29:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0c5dd20f0abc",
       "idea_version": "IDEAV-23de9d5eed9283c4",
       "idea_version_started_at": "2026-09-18T22:10:41Z",
@@ -132264,9 +132264,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 266,
@@ -132274,9 +132274,9 @@
         "hidden_count": 16
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -132295,6 +132295,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-80566e7fce69",
+        "idea_version": "IDEAV-f82663b3219a08e7",
+        "idea_version_started_at": "2026-09-19T12:40:06Z",
+        "ticker": "NTPC",
+        "company": "NTPC Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The termination of a Rs 413 crore battery energy storage system contract due to contractor default signals operational delays and potential cost overruns in the company's green energy infrastructure rollout.",
+        "why_now": "The contract termination was officially announced on 2026-09-19, creating immediate uncertainty regarding project timelines.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ee9f07b20713"
+        ],
+        "primary_source_event_id": "EVT-ee9f07b20713",
+        "source_headlines": [
+          "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default"
+        ],
+        "source_headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
+        "source_url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-19T11:29:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T12:40:06Z",
+        "updated_at": "2026-09-19T12:40:06Z",
+        "decay_at": "2026-09-20T23:29:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T23:29:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2feb509f0ea7",
         "idea_version": "IDEAV-94e79f4aa3e19c2e",
@@ -169367,86 +169442,12 @@
         "archived_at": "2026-08-31T15:41:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7632014ea423",
-        "idea_version": "IDEAV-e134012ebde76b09",
-        "idea_version_started_at": "2026-08-29T12:26:38Z",
-        "ticker": "01518.HK",
-        "company": "NC Healthcare",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Profit warning filed, signaling a significant miss versus previous guidance.",
-        "why_now": "HKEX filing 2026-08-28; fresh catalyst for downward estimate revisions.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f05bdbd62134"
-        ],
-        "primary_source_event_id": "EVT-f05bdbd62134",
-        "source_headlines": [
-          "NC HEALTHCARE (01518): PROFIT WARNING"
-        ],
-        "source_headline": "NC HEALTHCARE (01518): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804114.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T14:45:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T12:26:38Z",
-        "updated_at": "2026-08-29T12:26:38Z",
-        "decay_at": "2026-08-30T02:45:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:18:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 930,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169465,9 +169466,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1803367,
-    "news_picked_today": 2098,
-    "news_dropped_today": 7229
+    "news_seen_today": 1803411,
+    "news_picked_today": 2112,
+    "news_dropped_today": 7259
   },
   "book_momentum": {
     "live_count": 8,
