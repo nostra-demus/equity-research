@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:21:20Z",
+  "generated_at": "2026-09-20T00:24:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-029",
@@ -557,6 +557,55 @@
           "name": "JANA Partners",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-035",
+      "headline": "Zealand Pharma receives positive CHMP opinion for Zeydovio™ (glepaglutide) for the treatment of short bowel syndrome",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364558/0/en/zealand-pharma-receives-positive-chmp-opinion-for-zeydovio-glepaglutide-for-the-treatment-of-short-bowel-syndrome.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Positive regulatory opinion for a new drug candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Positive regulatory opinion for a new drug candidate.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zealand Pharma",
+          "ticker": null,
+          "listing_country": "DK"
         }
       ],
       "size_bucket": "large",
@@ -1546,6 +1595,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-033",
+      "headline": "mAbxience and Sandoz Sign a Collaboration Agreement to Advance Biosimilar Access Worldwide | FSNUY Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FSNUY/m-abxience-and-sandoz-sign-a-collaboration-agreement-to-advance-a762ytb7zhi0.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Strategic collaboration agreement to advance biosimilar access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Strategic collaboration agreement to advance biosimilar access.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "mAbxience",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sandoz",
+          "ticker": "FSNUY",
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-034",
+      "headline": "mAbxience and Sandoz Sign a Collaboration Agreement to Advance Biosimilar Access Worldwide",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/mabxience-and-sandoz-sign-a-collaboration-agreement-to-advance-biosimilar-access-worldwide-302883156.html",
+      "source_name": "PR Newswire — General Business",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Strategic collaboration agreement to advance biosimilar access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Strategic collaboration agreement to advance biosimilar access.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "mAbxience",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sandoz",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169031,7 +169188,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2638,
+    "inbox_unconsumed": 2641,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -169040,9 +169197,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 92648,
-    "news_picked_today": 32,
-    "news_dropped_today": 136
+    "news_seen_today": 99220,
+    "news_picked_today": 35,
+    "news_dropped_today": 157
   },
   "book_momentum": {
     "live_count": 8,
