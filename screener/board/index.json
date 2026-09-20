@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T01:03:29Z",
+  "generated_at": "2026-09-20T01:07:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-096",
@@ -1437,6 +1437,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-098",
+      "headline": "Star Bulk Carriers Director Pappas Buys 74,400 Shares for $2.1 Million. Is This a Sign the Shipping Bull Market Will Continue?",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/09/19/star-bulk-carriers-director-pappas-buys-74-400-shares-for-usd2-1-million-is-this-a-sign-the-shipping-bull-market-will-continue/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T15:03:01Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Director purchased 74,400 shares for $2.1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Director purchased 74,400 shares for $2.1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Bulk Carriers",
+          "ticker": "SBLK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-048",
       "headline": "Aptean übernimmt FleetGO von Main Capital Partners und erweitert sein Portfolio um eine führende End-to-End-Logistiklösung für den Straßentransport",
       "headline_en": "Aptean acquires FleetGO from Main Capital Partners and expands its portfolio with a leading end-to-end logistics solution for road transport",
@@ -1879,49 +1928,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-087",
-      "headline": "Mumbai: BMC To Demolish 39,111 Unauthorised Slum Structures From October 1 Across City; 3-Month Window Given",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/mumbai-bmc-to-demolish-39111-unauthorised-slum-structures-from-october-1-across-city-3-month-window-given",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T15:37:14Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "The BMC plans to demolish 39,111 unauthorized slum structures in Mumbai starting October 1, which could impact local real estate and construction sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "The BMC plans to demolish 39,111 unauthorized slum structures in Mumbai starting October 1, which could impact local real estate and construction sectors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -169418,9 +169424,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 247233,
-    "news_picked_today": 100,
-    "news_dropped_today": 524
+    "news_seen_today": 259624,
+    "news_picked_today": 102,
+    "news_dropped_today": 546
   },
   "book_momentum": {
     "live_count": 8,
