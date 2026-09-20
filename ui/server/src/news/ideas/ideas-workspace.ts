@@ -285,7 +285,8 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     } catch (error: any) {
       // Publication/deploy leases are temporary unavailability, not corruption. Only a previously
       // verified catalog AND filing ledger may be served; never invent an empty archive on a cold read.
-      if (error?.code !== 'EBUSY') { if (version === snapshotVersion) invalidate(); throw error }
+      // Even a superseded reader detecting corruption disqualifies the old fallback.
+      if (error?.code !== 'EBUSY') { invalidate(); throw error }
       if (!verified) return reply.code(503).header('Retry-After', '2').send({ code: 'EBUSY',
         message: 'A saved-data update is in progress. Please retry shortly.' })
       snapshot = verified
