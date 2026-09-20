@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T03:24:42Z",
+  "generated_at": "2026-09-20T03:25:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -306,6 +306,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-263",
+      "headline": "Nestle India issues clarification: Why FMCG stock plunged? What's FSSAI baby formula row; why it matters to consumers?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/nestle-india-issues-clarification-why-fmcg-stock-plunged-whats-fssai-baby-formula-row-why-it-matters-to-consumers-11789794974681.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:00:48Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-100",
       "headline": "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100",
       "headline_en": null,
@@ -551,6 +602,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-261",
+      "headline": "CNN calls Trump ban ‘illegal assault’ on press freedom as 3 outlets barred from White House",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/world/americas/cnn-trump-white-house-ban-illegal-assault-freedom",
+      "source_name": "Khaleej Times — Top / General",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:05:29Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "A ban on news outlets from the White House represents a significant operational and regulatory challenge for the affected media companies and could impact their ability to gather and disseminate information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "A ban on news outlets from the White House represents a significant operational and regulatory challenge for the affected media companies and could impact their ability to gather and disseminate information.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "CNN",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1398,6 +1499,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-258",
+      "headline": "Tata Steel seeks new government funding as industry crisis deepens",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/tata-steel-seeks-new-government-funding-as-industry-crisis-deepens-13589548",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T07:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Tata Steel is seeking new government funding as the industry crisis deepens, indicating potential financial distress or need for capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tata Steel is seeking new government funding as the industry crisis deepens, indicating potential financial distress or need for capital.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-070",
       "headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
       "headline_en": null,
@@ -1841,153 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-206",
-      "headline": "Venezuela, TotalEnergies Pave Way for Oil Company’s Return",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-20/venezuela-totalenergies-pave-way-for-oil-company-s-return",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T02:01:49Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "TotalEnergies is negotiating a return to Venezuela, potentially unlocking significant oil production assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "TotalEnergies is negotiating a return to Venezuela, potentially unlocking significant oil production assets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TotalEnergies",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-123",
-      "headline": "ED flags Rs 230-cr worth adulterated ghee was supplied to Tirumala for Laddu over 5 years, arrests key conspirator",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/andhra-pradesh/ed-flags-rs-230-cr-worth-adulterated-ghee-was-supplied-to-tirumala-for-laddu-over-5-years-arrests-co-conspirator-4152092",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T13:07:36Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Enforcement action regarding Rs 230 crore worth of adulterated supply chain inputs for a major religious institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Enforcement action regarding Rs 230 crore worth of adulterated supply chain inputs for a major religious institution.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tirumala Tirupati Devasthanams",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-131",
-      "headline": "Buffett Son Takes Chair as Berkshire Transition Ends",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-19/buffett-son-takes-chair-as-berkshire-transition-ends-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T12:46:51Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Howard Buffett named as chair marks a significant step in the long-term leadership transition at Berkshire Hathaway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Howard Buffett named as chair marks a significant step in the long-term leadership transition at Berkshire Hathaway.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169766,9 +169769,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 779875,
-    "news_picked_today": 317,
-    "news_dropped_today": 1459
+    "news_seen_today": 790447,
+    "news_picked_today": 343,
+    "news_dropped_today": 1529
   },
   "book_momentum": {
     "live_count": 8,
