@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T10:17:29Z",
+  "generated_at": "2026-09-20T10:31:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-692",
@@ -46,6 +46,202 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-693",
+      "headline": "Johnson Health Tech Trading Agrees to Pay $16.875 Million Civil Penalty for Failure to Immediately Report Fall Hazard with Horizon T101-05 Treadmills",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Johnson-Health-Tech-Trading-Agrees-to-Pay-16875-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Fall-Hazard-with-Horizon-T101-05-Treadmills",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-12T13:21:43Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Johnson Health Tech agreed to pay a $16.875 million civil penalty for failing to report a product hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Johnson Health Tech agreed to pay a $16.875 million civil penalty for failing to report a product hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson Health Tech",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-694",
+      "headline": "Daikin Agrees to Pay $8.5 Million Civil Penalty for Failure to Immediately Report PTACs that Posed a Fire Hazard",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Daikin-Agrees-to-Pay-8-5-Million-Civil-Penalty-for-Failure-to-Immediately-Report-PTACs-that-Posed-a-Fire-Hazard",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-18T09:54:54Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Daikin agreed to pay an $8.5 million civil penalty for failing to report a fire hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Daikin agreed to pay an $8.5 million civil penalty for failing to report a fire hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daikin",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-695",
+      "headline": "Shimano Agrees to Pay $11.5 Million Civil Penalty for Failure to Immediately Report Bicycle Cranksets that Posed a Crash Hazard",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Shimano-Agrees-to-Pay-11-5-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Bicycle-Cranksets-that-Posed-a-Crash-Hazard",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-18T09:54:54Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Shimano agreed to pay an $11.5 million civil penalty for failing to report a product hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shimano agreed to pay an $11.5 million civil penalty for failing to report a product hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimano",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-696",
+      "headline": "Clorox Agrees to Pay $14.15 Million Civil Penalty for Failure to Immediately Report Bacterial Hazard with Pine-Sol Scented Multi-Surface Cleaning Products",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Clorox-Agrees-to-Pay-14-15-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Bacterial-Hazard-with-Pine-Sol-Scented-Multi-Surface-Cleaning-Products",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-18T09:53:59Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Clorox agreed to pay a $14.15 million civil penalty for failing to report a product hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Clorox agreed to pay a $14.15 million civil penalty for failing to report a product hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clorox",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1781,204 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-193",
-      "headline": "Cosmo launches $1.63bn THE WADI on Yas Island site",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/cosmo-launches-the-wadi-yas-island",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T10:37:34Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Cosmo launched a $1.63 billion real estate project in Abu Dhabi.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Cosmo launched a $1.63 billion real estate project in Abu Dhabi.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cosmo",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-263",
-      "headline": "Nestle India issues clarification: Why FMCG stock plunged? What's FSSAI baby formula row; why it matters to consumers?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/nestle-india-issues-clarification-why-fmcg-stock-plunged-whats-fssai-baby-formula-row-why-it-matters-to-consumers-11789794974681.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T07:00:48Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A clarification from Nestle India regarding an FSSAI baby formula row, which caused its stock to plunge, indicates potential regulatory issues and impacts consumer trust and sales.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-412",
-      "headline": "UK's Harworth rejects top shareholder Peel's sweetened $802 million offer",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/uks-harworth-rejects-top-shareholder-peels-sweetened-802-million-offer-2026-09-18/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T17:44:09Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Company rejects a takeover offer valued at $802 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company rejects a takeover offer valued at $802 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harworth",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-506",
-      "headline": "Crise da Volkswagen se agrava com alerta sobre resultados",
-      "headline_en": "Volkswagen crisis worsens with earnings warning",
-      "url": "https://www.reuters.com/pt/negocio/BMABKHO7NZIOTHYJMYIRPKJYOE-2026-09-18/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-18T16:40:40Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Volkswagen issued a profit warning as its financial crisis intensifies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Volkswagen issued a profit warning as its financial crisis intensifies.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169761,9 +169759,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1698741,
-    "news_picked_today": 1175,
-    "news_dropped_today": 4369
+    "news_seen_today": 1716437,
+    "news_picked_today": 1184,
+    "news_dropped_today": 4480
   },
   "book_momentum": {
     "live_count": 8,
