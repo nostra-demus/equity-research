@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T02:59:36Z",
+  "generated_at": "2026-09-20T03:04:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-214",
@@ -548,6 +548,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-222",
+      "headline": "Salesforce stock falls over 8% in 4 sessions despite $63 bn revenue target, but UBS raised outlook price - Here’s why",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/salesforce-stock-falls-over-8-in-4-sessions-despite-63-bn-revenue-target-but-ubs-raised-outlook-price-here-s-why-11789799817285.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:24:11Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Salesforce stock declined 8% despite a $63 billion revenue target, though analysts raised price targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Salesforce stock declined 8% despite a $63 billion revenue target, though analysts raised price targets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-121",
       "headline": "Starbucks Settles Florida DEI Lawsuit, Denies Wrongdoing And Pays $1 Million",
       "headline_en": null,
@@ -784,6 +833,60 @@
         {
           "name": "Arthur J. Gallagher",
           "ticker": "AJG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-221",
+      "headline": "Blackstone bet on ZO Skin Health, a brand you won’t find at Sephora. Now it could be worth $2 billion",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/19/blackstone-zo-skin-health-brand-you-wont-find-at-sephora-2-billion/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-19T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Blackstone's investment in ZO Skin Health is valued at approximately $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Blackstone's investment in ZO Skin Health is valued at approximately $2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ZO Skin Health",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1852,98 +1955,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-062",
-      "headline": "NCISM Denies Permission To Nine Private Ayurvedic Colleges In Madhya Pradesh",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/ncism-denies-permission-to-nine-private-ayurvedic-colleges-in-madhya-pradesh",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Regulatory denial of permission to nine private Ayurvedic colleges impacts the education sector in Madhya Pradesh.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Regulatory denial of permission to nine private Ayurvedic colleges impacts the education sector in Madhya Pradesh.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-117",
-      "headline": "RBI Orders Removal Of Maharashtra Minister, Seven Others From Latur DCC Bank",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/rbi-orders-removal-of-maharashtra-minister-seven-others-from-latur-dcc-bank-12069250#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T13:41:49Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "The RBI ordered the removal of eight board members from Latur DCC Bank, indicating significant governance or regulatory failures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The RBI ordered the removal of eight board members from Latur DCC Bank, indicating significant governance or regulatory failures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Latur DCC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169577,9 +169588,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 704703,
-    "news_picked_today": 288,
-    "news_dropped_today": 1368
+    "news_seen_today": 715537,
+    "news_picked_today": 291,
+    "news_dropped_today": 1389
   },
   "book_momentum": {
     "live_count": 8,
