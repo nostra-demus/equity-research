@@ -214,6 +214,11 @@ try {
     const received = await response
     assert.equal(received.statusCode, 200)
     assert.equal(received.json().rows[0]?.event?.title, 'Pipeline reopened after repairs', 'catalog is read after acquiring the shared publication lease')
+    fs.writeFileSync(feedPath, `${JSON.stringify({ ...a, headline: 'Pipeline operator confirms normal service' })}\n`)
+    const cachedResponse = await publicationApp.inject('/api/screener/idea-workspace?lane=events')
+    assert.equal(cachedResponse.json().rows[0]?.event?.title, 'Pipeline reopened after repairs', 'ordinary reads reuse the complete short-lived snapshot')
+    const refreshed = await publicationApp.inject('/api/screener/idea-workspace?lane=events&refresh=1')
+    assert.equal(refreshed.json().rows[0]?.event?.title, 'Pipeline operator confirms normal service', 'explicit refresh bypasses the snapshot cache')
   } finally {
     if (publishing !== null) releaseRetainedFlock(publishing)
     await publicationApp.close()
@@ -243,7 +248,7 @@ try {
   assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 200)
   fs.appendFileSync(ledger, '{broken}\n')
   const bytes = fs.readFileSync(ledger, 'utf8')
-  assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 500, 'corruption never falls back to a saved board')
+  assert.equal((await corruptApp.inject('/api/screener/idea-workspace?refresh=1')).statusCode, 500, 'corruption never falls back to a saved board')
   const corruptionLease = await acquireRetainedFlock(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'fixture' })
   try {
     assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 503, 'a later busy read cannot hide the detected corruption with a stale snapshot')

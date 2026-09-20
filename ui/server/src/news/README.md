@@ -89,7 +89,9 @@ replaces the previous cycle note, including clearing a resolved storage warning.
 The Events workspace retains its last verified catalog and filing decisions during temporary repository
 or archive lock contention, with a dated notice and automatic refresh. Both reads occur under the same
 shared repository lease in the archive worker; a read that waited for publication cannot combine a
-mid-publication catalog with post-publication filing decisions. A cold busy read returns 503 with
+mid-publication catalog with post-publication filing decisions. The complete verified snapshot is cached
+for 30 seconds per workspace; explicit refresh bypasses it, and concurrent reads share one pending read.
+A cold busy read returns 503 with
 a retry explanation. Corrupt history never uses this fallback, and archive writes still require both
 leases and the current action revision. A filing attempt invalidates the saved view even if persistence
 fails after appending. Browser GET errors retain the server's explanation rather than showing an API URL.

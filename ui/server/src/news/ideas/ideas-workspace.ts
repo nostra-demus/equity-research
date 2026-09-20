@@ -237,6 +237,11 @@ export async function readDiscoverySnapshotSafely(root: string, archiveDir = '')
 export function registerIdeasWorkspace(app: FastifyInstance, root: string, archiveDir = '', onMutation: () => void = () => {}): void {
   let cached: { until: number; value: ReturnType<typeof readDiscoveryCatalog> } | null = null
   let verified: { catalog: ReturnType<typeof readDiscoveryCatalog>; actions: FilingAction[]; at: string } | null = null
+  let snapshotPending: ReturnType<typeof readDiscoverySnapshotSafely> | null = null
+  const snapshotRead = () => {
+    if (!snapshotPending) snapshotPending = readDiscoverySnapshotSafely(root, archiveDir).finally(() => { snapshotPending = null })
+    return snapshotPending
+  }
   const catalog = () => {
     if (!cached || cached.until <= Date.now()) cached = { until: Date.now() + 30_000, value: readDiscoveryCatalog(root, archiveDir) }
     return cached.value
@@ -254,7 +259,10 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     let snapshot: NonNullable<typeof verified>
     let busy = false
     try {
-      snapshot = await readDiscoverySnapshotSafely(root, archiveDir)
+      // Cache the complete leased snapshot, never an old catalog paired with a new filing ledger.
+      // Keep the cache scoped to this route/root and coalesce concurrent refreshes into one worker read.
+      snapshot = parsed.data.refresh === '0' && verified && Date.parse(verified.at) + 30_000 > Date.now()
+        ? verified : await snapshotRead()
       verified = snapshot
     } catch (error: any) {
       // Publication/deploy leases are temporary unavailability, not corruption. Only a previously
