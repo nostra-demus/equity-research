@@ -218,7 +218,11 @@ async function get<T>(url: string, timeoutMs = 15_000, signal?: AbortSignal): Pr
   const r = await performanceFetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout })
   // Carry the status on the error (as post() already does) so a caller can tell "this doesn't exist yet"
   // (404) from "the engine is broken/unreachable" (500, timeout) instead of guessing from the message.
-  if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
+  if (!r.ok) {
+    const body = await r.json().catch(() => null)
+    const message = typeof body?.message === 'string' ? body.message : typeof body?.error === 'string' ? body.error : `Request failed (${r.status}). Please retry.`
+    throw Object.assign(new Error(message), { status: r.status, body })
+  }
   return r.json() as Promise<T>
 }
 async function staticOutput(path: string): Promise<{ path: string; markdown: string }> {

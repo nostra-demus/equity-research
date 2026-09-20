@@ -80,6 +80,18 @@ stays below GitHub's 100 MB single-file boundary. The logical day and Drive arch
 retention cap. If an append itself fails, the scanner reports zero progress and keeps the row in durable
 retry storage; a retry uses event identity across every shard, so rollover cannot duplicate it.
 
+Queue admission checks SQLite's completed and retired identities before scheduling or acknowledging
+redelivered source work. The bounded seen cache is an optimization, not completion authority. Terminal
+IDs stay terminal after payload cleanup; a changed headline creates a new event identity. If completion
+history cannot be read, admission stops before scoring or source acknowledgement. A successful drain
+replaces the previous cycle note, including clearing a resolved storage warning.
+
+The Events workspace retains its last verified catalog and filing decisions during temporary repository
+or archive lock contention, with a dated notice and automatic refresh. A cold busy read returns 503 with
+a retry explanation. Corrupt history never uses this fallback, and archive writes still require both
+leases and the current action revision. A filing attempt invalidates the saved view even if persistence
+fails after appending. Browser GET errors retain the server's explanation rather than showing an API URL.
+
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
 `GROQ_API_KEY` · `GROQ_MODEL` · `NEWS_INGEST_ENABLED` · `NEWS_POLL_INTERVAL_MIN` ·
