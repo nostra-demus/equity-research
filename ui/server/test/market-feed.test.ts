@@ -139,6 +139,23 @@ check('readNewestClose reads only the most-recently-written file per provider, n
   assert.ok(!rows.some((r) => r.close === 999), 'the older, superseded snapshot must never be read at all')
 })
 
+check('readNewestClose does not let a sibling series written later shadow the requested symbol', () => {
+  // scripts/fetch_market_feed.py writes SP500 then DTB3 into data/_market/fred/ within milliseconds of
+  // each other, so dtb3_<as_of>.csv has a newer mtime than sp500_<as_of>.csv. readNewestClose must not
+  // pick dtb3 when asking for SP500 and falsely report the benchmark as missing.
+  reset()
+  const dir = path.join(feed.MARKET_FEED_DIR, 'fred')
+  fs.mkdirSync(dir, { recursive: true })
+  const sp500 = path.join(dir, 'sp500_2026-01-06.csv')
+  fs.writeFileSync(sp500, 'date,symbol,close\n2026-01-02,SP500,100\n2026-01-06,SP500,104\n')
+  const dtb3 = path.join(dir, 'dtb3_2026-01-06.csv')
+  fs.writeFileSync(dtb3, 'date,symbol,close\n2026-01-02,DTB3,4.5\n2026-01-06,DTB3,4.6\n')
+  const future = new Date(Date.now() + 10_000)
+  fs.utimesSync(dtb3, future, future) // force dtb3's mtime to be strictly newer than sp500
+  const rows = feed.readNewestClose('SP500')
+  assert.deepEqual(rows, [{ date: '2026-01-02', close: 100 }, { date: '2026-01-06', close: 104 }])
+})
+
 check('readNewestClose picks the widest-span provider exactly like readCloses, from one file each', () => {
   reset()
   provider('adjusted', '2026-01-02,SPY,100\n2026-01-03,SPY,101\n2026-01-06,SPY,103')

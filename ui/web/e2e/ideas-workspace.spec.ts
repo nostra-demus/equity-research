@@ -126,6 +126,8 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
     failRead = true
     await page.clock.fastForward(30_100)
     await expect(page.getByRole('alert')).toBeVisible()
+    await expect(page.getByRole('alert')).toContainText('Fixture temporarily unavailable')
+    await expect(page.getByRole('alert')).not.toContainText('/api/')
     await expect(page.getByRole('tab', { name: 'Long', exact: true })).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByText('USCO contract announcement')).toBeVisible()
     failRead = false

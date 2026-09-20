@@ -9,6 +9,7 @@ import { DatabaseSync } from 'node:sqlite'
 import {
   durableQueueDatabasePath,
   durableQueueEstablishedPath,
+  filterNonterminalQueueItems,
   inspectDurableQueue,
   inspectDurableQueueCounts,
   loadDurableQueueHistory,
@@ -53,6 +54,21 @@ function item(i: number): NewsItem {
     via: 'gdelt',
   }
 }
+
+check('admission excludes both unpurged and compact terminal receipts, and fails closed on unreadable history', () => {
+  const state = tmp()
+  try {
+    const rows = [item(901), item(902), item(903)]
+    assert.equal(saveDeferred(state, rows), true)
+    assert.equal(replaceDurableQueueLane(state, 'hot', rows.slice(1), 'fixture-completed'), true)
+    assert.deepEqual(filterNonterminalQueueItems(state, rows), rows.slice(1), 'completion before receipt compaction is terminal too')
+    assert.equal(purgeCompletedDurableQueueItems(state), true)
+    assert.equal(retireDurableQueueItems(state, [rows[1]], 'fixture-retired', new Date()), true)
+    assert.deepEqual(filterNonterminalQueueItems(state, rows), [rows[2]])
+    fs.renameSync(durableQueueDatabasePath(state), `${durableQueueDatabasePath(state)}.held`)
+    assert.equal(filterNonterminalQueueItems(state, rows), null, 'missing established authority never admits all rows')
+  } finally { fs.rmSync(state, { recursive: true, force: true }) }
+})
 
 check('legacy JSON migrates once and SQLite remains authoritative when that projection disappears or corrupts', () => {
   const state = tmp()

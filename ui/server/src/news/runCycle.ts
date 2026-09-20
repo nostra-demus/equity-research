@@ -69,7 +69,7 @@ import {
   replaceAllDurableQueueItems,
   replaceDurableQueueLane,
   replaceDurableQueueWindow,
-  isTerminalEvent,
+  filterNonterminalQueueItems,
   retireDurableQueueItems,
   type LegacyQueueRow,
 } from './durable-queue'
@@ -1170,7 +1170,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // A feed-pending backlog copy is the scored authority. A source redelivery only has raw fields and must
   // never overwrite it, strip its exact pending FeedItem payload, or spend another LLM call on the same id.
   const feedPendingIds = new Set(backlogRows.filter((it) => !!it.feed_pending).map((it) => it.event_id))
-  const fresh = preserveResidence(normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now }), backlogRows)
+  const admittedFresh = filterNonterminalQueueItems(stateDir, normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now }))
+  if (admittedFresh === null) {
+    const failure: CycleSummary = { ...blank, fetched: raws.length, sources,
+      completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      deferred_read_failed: true, backlog: backlogSnapshot.items.length, backlog_cap: DEFERRED_CAP,
+      defer_reason: 'storage-emergency', defer_reasons: ['storage-emergency'],
+      note: 'news completion history could not be read — scoring and source acknowledgements paused; saved work was preserved' }
+    publishCycleSummary(failure)
+    return failure
+  }
+  const fresh = preserveResidence(admittedFresh, backlogRows)
     .filter((it) => !feedPendingIds.has(it.event_id))
   const freshIds = new Set(fresh.map((i) => i.event_id))
   const nowDate = now()

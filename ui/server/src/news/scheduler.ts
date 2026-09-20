@@ -1925,7 +1925,7 @@ export function startNewsIngester(): void {
           onYield: () => log('deployment pending — yielding the current news drain'),
         },
       ))
-      lastNote = summary.note || lastNote
+      lastNote = summary.note || null
     } catch (e: any) {
       if (providerDeployPending(STATE_DIR)) {
         lastNote = 'Deployment pending; the background news drain yielded safely.'
