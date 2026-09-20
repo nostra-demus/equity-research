@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T00:02:24Z",
+  "generated_at": "2026-09-20T00:04:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-002",
@@ -40,6 +40,104 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-003",
+      "headline": "Ready Capital Corporation Prices $225 Million of Senior Secured Notes Due 2031 and Announces Redemption of $350 Million of Notes Due 2026 | RC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/RC/ready-capital-corporation-prices-225-million-of-senior-secured-notes-jlh7adkzl0hm.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ready Capital is refinancing $225 million in debt by issuing new notes and redeeming $350 million in existing notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Ready Capital is refinancing $225 million in debt by issuing new notes and redeeming $350 million in existing notes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ready Capital Corporation",
+          "ticker": "RC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-004",
+      "headline": "Ready Capital Corporation Prices $225 Million of Senior Secured Notes Due 2031 and Announces Redemption of $350 Million of Notes Due 2026",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/18/3364650/0/en/ready-capital-corporation-prices-225-million-of-senior-secured-notes-due-2031-and-announces-redemption-of-350-million-of-notes-due-2026.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-18T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Ready Capital is refinancing $225 million in debt by issuing new notes and redeeming $350 million in existing notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Ready Capital is refinancing $225 million in debt by issuing new notes and redeeming $350 million in existing notes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ready Capital Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167575,7 +167673,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2609,
+    "inbox_unconsumed": 2611,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -167584,9 +167682,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6686,
-    "news_picked_today": 2,
-    "news_dropped_today": 22
+    "news_seen_today": 26648,
+    "news_picked_today": 4,
+    "news_dropped_today": 44
   },
   "book_momentum": {
     "live_count": 8,
