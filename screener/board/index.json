@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T05:06:07Z",
+  "generated_at": "2026-09-20T05:10:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-294",
@@ -1384,6 +1384,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260920-333",
+      "headline": "Welspun Enterprises Limited: Welspun Enterprises Limited has informed the Exchange about receiving of Letter of Award by Welspun Michigan Engineers Limited, Material Subsidiary of the Company",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WELENT_20092026103109_FinalUpload.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T05:03:22Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Welspun Enterprises' subsidiary received a new contract award, which is a material commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Welspun Enterprises' subsidiary received a new contract award, which is a material commercial development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Enterprises Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260920-168",
       "headline": "DLF to open ₹500 crore Goa mall by March 2027, eyes over ₹150 crore annual rental income",
       "headline_en": null,
@@ -1915,60 +1964,6 @@
         {
           "name": "Arthur J. Gallagher",
           "ticker": "AJG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-221",
-      "headline": "Blackstone bet on ZO Skin Health, a brand you won’t find at Sephora. Now it could be worth $2 billion",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/09/19/blackstone-zo-skin-health-brand-you-wont-find-at-sephora-2-billion/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-19T08:41:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "Blackstone's investment in ZO Skin Health is valued at approximately $2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Blackstone's investment in ZO Skin Health is valued at approximately $2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ZO Skin Health",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -169753,9 +169748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1090647,
-    "news_picked_today": 547,
-    "news_dropped_today": 2117
+    "news_seen_today": 1103985,
+    "news_picked_today": 551,
+    "news_dropped_today": 2137
   },
   "book_momentum": {
     "live_count": 8,
