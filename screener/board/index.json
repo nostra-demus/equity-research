@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T13:39:50Z",
+  "generated_at": "2026-09-20T13:44:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260920-719",
@@ -337,6 +337,55 @@
           "name": "Clorox",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260920-727",
+      "headline": "CM Himanta Biswa Sarma Lays Foundation Stone For Adani Power’s 3,200 MW Assam Project",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/cm-himanta-biswa-sarma-lays-foundation-stone-for-adani-powers-3200-mw-assam-project",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T13:31:46Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Adani Power is initiating a major 3,200 MW capacity expansion project in Assam.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Power is initiating a major 3,200 MW capacity expansion project in Assam.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Power",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1918,49 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-686",
-      "headline": "UK minister warns of impact of Trump’s Iran war on next month’s budget",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/politics/2026/sep/20/uk-budget-made-harder-donald-trump-war-iran-bridget-phillipson-andy-burnham",
-      "source_name": "The Guardian — Economics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T09:15:24Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "A UK government minister warned of potential economic impacts from a hypothetical escalation in the Iran conflict, affecting fiscal planning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A UK government minister warned of potential economic impacts from a hypothetical escalation in the Iran conflict, affecting fiscal planning.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169100,9 +169106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801382,
-    "news_picked_today": 1604,
-    "news_dropped_today": 5738
+    "news_seen_today": 1801397,
+    "news_picked_today": 1606,
+    "news_dropped_today": 5751
   },
   "book_momentum": {
     "live_count": 8,
