@@ -96,9 +96,11 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
     toggleRail()
   }
 
+  const scRailFullScreen = useStore((s) => s.scRailFullScreen)
+
   return (
     <WireProvider value={config}>
-      <div ref={stageRef} className={`scstage${railOpen ? '' : ' scstage--railshut'}`} style={{ ['--evrail-w' as string]: `${railW}px` }}>
+      <div ref={stageRef} className={`scstage${railOpen ? '' : ' scstage--railshut'}${scRailFullScreen ? ' scstage--railfull' : ''}`} style={scRailFullScreen ? undefined : { ['--evrail-w' as string]: `${railW}px` }}>
         {railOpen && <EventRail />}
         <button
           type="button"
