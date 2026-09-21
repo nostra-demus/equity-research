@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T05:15:38Z",
+  "generated_at": "2026-09-21T05:16:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -131338,6 +131338,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-697598c2bbee",
+      "idea_version": "IDEAV-c9eb1d0cfeea08ee",
+      "idea_version_started_at": "2026-09-21T05:16:02Z",
+      "ticker": "GLE",
+      "company": "Société Générale",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Société Générale has raised its profitability targets in a newly unveiled strategic plan, which should drive upward revisions to return-on-equity expectations.",
+      "why_now": "The strategic plan and hiked targets were announced on September 21, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6290922bb85a"
+      ],
+      "primary_source_event_id": "EVT-6290922bb85a",
+      "source_headlines": [
+        "SocGen hikes profitability target in new strategic plan ​"
+      ],
+      "source_headline": "SocGen hikes profitability target in new strategic plan ​",
+      "source_url": "https://www.reuters.com/legal/transactional/socgen-hikes-profitability-target-new-strategic-plan-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T04:38:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T05:16:02Z",
+      "updated_at": "2026-09-21T05:16:02Z",
+      "decay_at": "2026-09-22T16:38:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bbe6cce25e6c",
+      "idea_version": "IDEAV-ad0d76477c61048d",
+      "idea_version_started_at": "2026-09-21T05:16:02Z",
+      "ticker": "005380",
+      "company": "Hyundai Motor Company",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
+      "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d61ef8ce8d01"
+      ],
+      "primary_source_event_id": "EVT-d61ef8ce8d01",
+      "source_headlines": [
+        "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
+      ],
+      "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
+      "source_name": "Business Korea — All English Articles",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T05:06:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T05:16:02Z",
+      "updated_at": "2026-09-21T05:16:02Z",
+      "decay_at": "2026-09-22T17:06:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9048ab0ec675",
       "idea_version": "IDEAV-98c5d9a0646b944d",
       "idea_version_started_at": "2026-09-21T04:44:10Z",
@@ -133985,76 +134130,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a883ce45268c",
-      "idea_version": "IDEAV-51ac111eb96e5da5",
-      "idea_version_started_at": "2026-09-18T12:42:52Z",
-      "ticker": "STLD",
-      "company": "Steel Dynamics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company provided positive guidance for Q3, projecting both year-over-year and sequential earnings growth, signaling strong operational performance in the current steel market environment.",
-      "why_now": "The guidance update was released on September 18, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-13e408d1c95d"
-      ],
-      "primary_source_event_id": "EVT-13e408d1c95d",
-      "source_headlines": [
-        "Steel Dynamics Expects YoY, Sequential Earnings Growth In Q3"
-      ],
-      "source_headline": "Steel Dynamics Expects YoY, Sequential Earnings Growth In Q3",
-      "source_url": "https://www.nasdaq.com/articles/steel-dynamics-expects-yoy-sequential-earnings-growth-q3",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T05:13:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T12:42:52Z",
-      "updated_at": "2026-09-18T12:42:52Z",
-      "decay_at": "2026-09-19T17:13:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d69eca070d00",
       "idea_version": "IDEAV-fadb833ffa868405",
       "idea_version_started_at": "2026-09-19T04:47:56Z",
@@ -135420,14 +135495,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 11
       },
       "short": {
         "total_count": 266,
@@ -135437,12 +135512,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 382,
+      "evicted_count": 383,
       "oldest_retained_at": "2026-08-29T23:49:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 262,
-          "oldest_retained_at": "2026-09-08T01:37:15Z"
+          "evicted_count": 263,
+          "oldest_retained_at": "2026-09-08T02:01:09Z"
         },
         "short": {
           "evicted_count": 120,
@@ -137518,8 +137593,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T17:13:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-21T05:16:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -172602,8 +172677,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 954,
-    "live_count": 43,
+    "surfaced_total": 956,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
