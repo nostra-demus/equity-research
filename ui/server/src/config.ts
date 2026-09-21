@@ -1,4 +1,5 @@
 import './load-env' // FIRST: load provider keys from the out-of-repo secret dir before any process.env read below
+import './commit-run' // arms the test-publication guard for child processes before anything here can spawn one
 import fs from 'node:fs'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'

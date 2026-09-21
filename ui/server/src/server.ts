@@ -155,6 +155,7 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
+import { commitRunScriptFor } from './commit-run'
 import {
   readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
   sealProviderPreSpawnFailureAuthority,
@@ -3580,8 +3581,8 @@ async function publishModuleResumeCheckpoint(
   }
   if (!pathspecs.length) return { ok: true, paths: [] }
 
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found' }
+  const script = commitRunScriptFor(REPO_ROOT)
+  if (!fs.existsSync(script)) return { ok: false, error: 'data commit helper not found' }
   let helperAttempt: CommitRunAttempt | null = null
   try {
     helperAttempt = await execa('bash', [
@@ -4861,8 +4862,8 @@ const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
 const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
 const TASK_ENGINE_WATCH_TIMEOUT_MS = 20_000
 async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
+  const script = commitRunScriptFor(REPO_ROOT)
+  if (!fs.existsSync(script)) return { ok: false, error: 'data commit helper not found (not a full checkout)' }
   try {
     await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: timeoutMs })
     return { ok: true }

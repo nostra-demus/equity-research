@@ -8,6 +8,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { randomUUID } from 'node:crypto'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
+import { commitRunScriptFor } from '../../commit-run'
 
 const execFileAsync = promisify(execFile)
 const PENDING_FILE = 'ideas-publish-pending.json'
@@ -199,7 +200,7 @@ async function retryAndProvePendingCommit(
   targetSha: string,
   expectedGeneration: string,
 ): Promise<boolean> {
-  const script = path.join(repoRoot, 'scripts', 'commit-run.sh')
+  const script = commitRunScriptFor(repoRoot)
   if (!fs.existsSync(script)) return false
   const retried = await commandOk(command, 'bash', [script, '--retry-push', targetSha], repoRoot)
   const output = `${retried.stdout}\n${retried.stderr}`
@@ -299,7 +300,7 @@ export async function publishPendingIdeas(
     }
     return { status: 'published', pending: false }
   }
-  const script = path.join(repoRoot, 'scripts', 'commit-run.sh')
+  const script = commitRunScriptFor(repoRoot)
   if (!fs.existsSync(script)) return { status: 'failed', pending: true, reason: 'commit_failed' }
   const committed = await commandOk(command, 'bash', [
     script, 'Publish news idea lifecycle', '--', ...paths,
