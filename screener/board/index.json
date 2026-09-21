@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T00:55:44Z",
+  "generated_at": "2026-09-21T00:56:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -130671,6 +130671,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-11cf44e29c8f",
+      "idea_version": "IDEAV-2db37d7b91aa8356",
+      "idea_version_started_at": "2026-09-21T00:55:55Z",
+      "ticker": "HBAN",
+      "company": "Huntington Bancshares",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its outlook following a Fed rate hike, signaling margin compression risks for regional banks in a higher-for-longer interest rate environment.",
+      "why_now": "The guidance change was reported on September 20, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fda2c4100f4f"
+      ],
+      "primary_source_event_id": "EVT-fda2c4100f4f",
+      "source_headlines": [
+        "Huntington Cut Its Outlook Right as the Fed Hiked. First Crack in Regional-Bank Margins?"
+      ],
+      "source_headline": "Huntington Cut Its Outlook Right as the Fed Hiked. First Crack in Regional-Bank Margins?",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/huntington-cut-outlook-fed-hiked-234006771.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:40:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T00:55:55Z",
+      "updated_at": "2026-09-21T00:55:55Z",
+      "decay_at": "2026-09-22T11:40:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4b7517872828",
       "idea_version": "IDEAV-a5af3b4868d76aff",
       "idea_version_started_at": "2026-09-20T21:27:13Z",
@@ -130875,6 +130945,76 @@
       "surfaced_at": "2026-09-19T22:04:27Z",
       "updated_at": "2026-09-19T22:04:27Z",
       "decay_at": "2026-09-21T04:30:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fe635cd74889",
+      "idea_version": "IDEAV-2bc521c746d978f1",
+      "idea_version_started_at": "2026-09-21T00:55:55Z",
+      "ticker": "CASY",
+      "company": "Casey's General Stores",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a beat on profit but missed on sales, indicating potential weakness in consumer discretionary spending at their convenience stores.",
+      "why_now": "The stock is reacting to the earnings release dated September 20, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1dcdbf283c69"
+      ],
+      "primary_source_event_id": "EVT-1dcdbf283c69",
+      "source_headlines": [
+        "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling"
+      ],
+      "source_headline": "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/casey-casy-beats-profit-soft-233311591.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:33:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T00:55:55Z",
+      "updated_at": "2026-09-21T00:55:55Z",
+      "decay_at": "2026-09-22T11:33:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -131225,6 +131365,77 @@
       "surfaced_at": "2026-09-20T01:29:10Z",
       "updated_at": "2026-09-20T01:29:10Z",
       "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b02a5d2137a2",
+      "idea_version": "IDEAV-c169a0cdc5bbe1b8",
+      "idea_version_started_at": "2026-09-21T00:55:55Z",
+      "ticker": "SVL",
+      "company": "Silver Mines Limited",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is launching a $70 million share placement, which will significantly dilute existing shareholders.",
+      "why_now": "The filing was released on September 20, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-32a2bb1d1d32"
+      ],
+      "primary_source_event_id": "EVT-32a2bb1d1d32",
+      "source_headlines": [
+        "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]"
+      ],
+      "source_headline": "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SVL?key=2924-03137571-2A1698132",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:56:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T00:55:55Z",
+      "updated_at": "2026-09-21T00:55:55Z",
+      "decay_at": "2026-09-22T11:56:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171275,8 +171486,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 931,
-    "live_count": 24,
+    "surfaced_total": 934,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
