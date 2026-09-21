@@ -28,7 +28,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, listSupersededReadyPublications, sigIdFor,
   isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -155,6 +155,7 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
+import { commitRunScriptFor } from './commit-run'
 import {
   readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
   sealProviderPreSpawnFailureAuthority,
@@ -379,6 +380,9 @@ app.get('/api/health', async (_req, reply) => {
     // Sealed publications the startup recovery pass could not publish (count only: no run identity).
     // They no longer stop the engine, so this is where a monitor sees them.
     stuckPublications: listReadyPublicationFailures().length,
+    // Sealed publications the last pass settled around newer published data: their unreplaced paths were
+    // published and the newer bytes kept. Resolved, not stuck; the detail is in the startup log and archive.
+    supersededPublications: listSupersededReadyPublications().length,
     // The benchmark feed judged by the files THIS engine can read. It is here because every way its
     // refresher fails is quiet, and health is the one thing an operator checks without being told to.
     marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
@@ -3580,8 +3584,8 @@ async function publishModuleResumeCheckpoint(
   }
   if (!pathspecs.length) return { ok: true, paths: [] }
 
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found' }
+  const script = commitRunScriptFor(REPO_ROOT)
+  if (!fs.existsSync(script)) return { ok: false, error: 'data commit helper not found' }
   let helperAttempt: CommitRunAttempt | null = null
   try {
     helperAttempt = await execa('bash', [
@@ -4861,8 +4865,8 @@ const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
 const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
 const TASK_ENGINE_WATCH_TIMEOUT_MS = 20_000
 async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
-  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
+  const script = commitRunScriptFor(REPO_ROOT)
+  if (!fs.existsSync(script)) return { ok: false, error: 'data commit helper not found (not a full checkout)' }
   try {
     await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: timeoutMs })
     return { ok: true }

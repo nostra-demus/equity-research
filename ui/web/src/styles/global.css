@@ -2024,6 +2024,7 @@ a { color: inherit; }
 .tl__dot--part, .tl__dot--new, .tl__dot--killsoon { background: transparent; border-color: var(--conv-warn); color: var(--conv-warn); }
 .tl__dot--soon { background: transparent; border-style: dashed; }
 .tl__dot--checking { background: transparent; border-color: var(--accent); color: var(--accent); animation: convcheck 1.4s var(--ease) infinite; }
+.tl__dot--overdue { background: transparent; border-color: var(--bad); color: var(--bad); }
 @keyframes convcheck { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 @media (prefers-reduced-motion: reduce) { .tl__dot--checking { animation: none; } }
 .tl__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }

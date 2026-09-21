@@ -53,6 +53,15 @@ const cleanResult = JSON.stringify({ type: 'result', subtype: 'success', is_erro
 const errorResult = JSON.stringify({ type: 'result', subtype: 'error_max_turns', is_error: true, total_cost_usd: 0.5 })
 
 const cleanupDirs: string[] = []
+// File-wide committer seam. Most checks below finalize a BROKEN run, and every one of those reaches
+// recordRunFailure -> commitRunFile. Only the checks that assert on the commit used to install the seam;
+// the rest ran the real scripts/commit-run.sh, which committed "Run failure note: ZZFINA (stopped at
+// business-model)" on the author's branch and tried to push it to main. The checks that care still swap
+// in their own recorder and restore this one afterwards.
+const failureNoteCommits: Array<{ runRoot: string; file: string; msg: string }> = []
+const realFailureNoteCommitter = __setFailureNoteCommitter((runRoot, file, msg) => {
+  failureNoteCommits.push({ runRoot, file, msg })
+})
 try {
   check('a resumed run may clear only its exact stale failure note at terminal publication', () => {
     const root = `analyses/ZZSTALE_${DATE}`
@@ -88,6 +97,11 @@ try {
     assert.equal(evt?.reason, 'incomplete_deliverables')
     assert.equal(readRunMarker(`analyses/ZZFINA_${DATE}`, '.interrupted')?.reason, 'incomplete_deliverables',
       'a clean incomplete Claude Full is queued for exact-root autonomous continuation')
+    assert.deepEqual(
+      failureNoteCommits.filter((c) => c.runRoot === `analyses/ZZFINA_${DATE}`).map((c) => [c.file, c.msg.replace(/\(stopped at .*\)$/, '(stopped at …)')]),
+      [['RUN_FAILURE.md', 'Run failure note: ZZFINA (stopped at …)']],
+      'the failure note is handed to the committer seam exactly once — never to the real git helper',
+    )
   })
 
   // 2. with the deliverables on disk, the same path ends done (and carries the final paths)
@@ -684,6 +698,7 @@ try {
     }
   })
 } finally {
+  __setFailureNoteCommitter(realFailureNoteCommitter)
   for (const d of cleanupDirs) fs.rmSync(d, { recursive: true, force: true })
 }
 

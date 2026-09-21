@@ -132,8 +132,8 @@ export function NextCheck({ conv }: { conv: BoardConviction }) {
         </span>
       )}
       {conv.stale && (
-        <span className="conv__flag conv__flag--stale" title="A check's due date passed with no result on record — rating frozen.">
-          stale
+        <span className="conv__flag conv__flag--stale" title="A check's due date passed with no result on record — action required.">
+          overdue
         </span>
       )}
       {conv.insufficient && (
@@ -246,15 +246,15 @@ export function CheckpointTimeline({ detail }: { detail: ConvictionDetail }) {
     const d = daysUntil(c.due_at)
     const overdue = d != null && d < 0
     const isKill = c.kind === 'kill_metric'
-    const tone = overdue ? 'checking' : isKill ? 'killsoon' : 'soon'
+    const tone = overdue ? 'overdue' : isKill ? 'killsoon' : 'soon'
     return (
       <div key={c.checkpoint_id} className={`tl__node tl__node--${tone}${last ? ' tl__node--end' : ''}${isNew(c) ? ' tl__node--new' : ''}`}>
-        <span className={`tl__dot tl__dot--${tone}`}>{isKill ? '⚠' : isNew(c) ? '+' : ''}</span>
+        <span className={`tl__dot tl__dot--${tone}`}>{isKill ? '⚠' : isNew(c) ? '+' : overdue ? '!' : ''}</span>
         <div className="tl__body">
           <div className="tl__head">
             <span className="tl__kind">{KIND_LABEL[c.kind] || c.kind}{c.can_kill ? ' ⚠' : ''}</span>
             {isNew(c) && <span className="tl__pill tl__pill--new">new · added {shortDate(c.created_at)}</span>}
-            <span className="tl__date">{c.due_at ? `due ${shortDate(c.due_at)}` : 'no set date'}{d != null ? ` · ${overdue ? 'checking…' : `in ${d}d`}` : ''}</span>
+            <span className="tl__date">{c.due_at ? `due ${shortDate(c.due_at)}` : 'no set date'}{d != null ? ` · ${overdue ? 'overdue — action required' : `in ${d}d`}` : ''}</span>
           </div>
           <div className="tl__metric">
             {c.metric_name}

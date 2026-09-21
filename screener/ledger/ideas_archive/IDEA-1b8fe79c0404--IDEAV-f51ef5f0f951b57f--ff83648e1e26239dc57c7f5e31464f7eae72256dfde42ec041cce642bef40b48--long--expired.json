@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-20T11:25:10Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-1b8fe79c0404",
+    "idea_version": "IDEAV-f51ef5f0f951b57f",
+    "idea_version_started_at": "2026-09-17T11:22:21Z",
+    "ticker": "2371.T",
+    "company": "Kakaku.com",
+    "exchange": "Tokyo Stock Exchange",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "A bidding war between a Bain-backed group and EQT is driving up the acquisition premium for the company.",
+    "why_now": "The increased offer was reported on 2026-09-17, signaling active M&A interest.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 18,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-928b045b99b4"
+    ],
+    "primary_source_event_id": "EVT-928b045b99b4",
+    "source_headlines": [
+      "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
+    ],
+    "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
+    "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
+    "source_name": "Nikkei Asia",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-17T08:21:14Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-17T11:22:21Z",
+    "updated_at": "2026-09-17T11:22:21Z",
+    "decay_at": "2026-09-18T20:21:14Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
