@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T03:59:55Z",
+  "generated_at": "2026-09-21T04:05:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -193,6 +193,109 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-179",
+      "headline": "Inox Clean Energy set to buy Actis-owned Athena Renewables for Rs 2,500 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/inox-clean-energy-set-to-buy-actis-owned-athena-renewables-share-price/articleshow/134379119.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T03:35:39Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Inox Clean Energy is acquiring Athena Renewables for a significant sum of Rs 2,500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Inox Clean Energy is acquiring Athena Renewables for a significant sum of Rs 2,500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inox Clean Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Athena Renewables",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-183",
+      "headline": "Kaynes Tech May Triple Its Semiconductor Investment Under ISM 2.0, Says JPMorgan As India's Chip Capacity Gets Booked",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/kaynes-techs-semiconductor-push-gets-bigger-1-billion-assembly-and-testing-investment-in-the-works-12074295#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T03:31:17Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Kaynes Tech may triple semiconductor investment under ISM 2.0.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kaynes Tech may triple semiconductor investment under ISM 2.0.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,104 +1989,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-093",
-      "headline": "NaBFID plans to raise $1.5 billion via overseas bonds",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/nabfid-to-raise-500-million-in-debut-overseas-bond-market-plans-1-billion-miga-backed-bond/articleshow/134377375.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:50:12Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "NaBFID plans to raise $1.5 billion via overseas bonds to fund infrastructure projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "NaBFID plans to raise $1.5 billion via overseas bonds to fund infrastructure projects.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NaBFID",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-082",
-      "headline": "NaBFID to raise $500 million in debut overseas bond market, plans $1 billion MIGA-backed bond",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/nabfid-to-raise-500-million-in-debut-overseas-bond-market-plans-1-billion-miga-backed-bond/articleshow/134377375.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:50:12Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "NaBFID plans to raise $500 million in debut overseas bonds and $1 billion in MIGA-backed bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "NaBFID plans to raise $500 million in debut overseas bonds and $1 billion in MIGA-backed bonds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NaBFID",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132330,6 +132335,150 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3fba593662de",
+      "idea_version": "IDEAV-2b679ca740cc2f5c",
+      "idea_version_started_at": "2026-09-21T04:05:35Z",
+      "ticker": "WELSPUNCORP",
+      "company": "Welspun Corp",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant ₹2,000 crore order from Saudi Aramco, which provides substantial revenue visibility and validates its expansion into the Middle East energy infrastructure market.",
+      "why_now": "The order was announced and confirmed as of September 21, 2026, triggering a momentum play following the stock's year-to-date performance.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec038bf8cd46"
+      ],
+      "primary_source_event_id": "EVT-ec038bf8cd46",
+      "source_headlines": [
+        "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco"
+      ],
+      "source_headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
+      "source_url": "https://www.cnbctv18.com/market/welspun-corp-share-price-saudi-aramco-order-win-2000-crore-order-book-timeline-fy27-guidance-2026-returns-19994417.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-21T03:45:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T04:05:35Z",
+      "updated_at": "2026-09-21T04:05:35Z",
+      "decay_at": "2026-09-22T15:45:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-21c21ede9213",
+      "idea_version": "IDEAV-f3b2988e8c93d157",
+      "idea_version_started_at": "2026-09-21T04:05:35Z",
+      "ticker": "PPT",
+      "company": "Perpetual Limited",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of takeover talks with EQT AB removes the acquisition premium that had been supporting the share price, likely leading to a re-rating toward fundamental valuation.",
+      "why_now": "The rejection of the improved offer and cessation of talks was announced on September 21, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b36d18b04081"
+      ],
+      "primary_source_event_id": "EVT-b36d18b04081",
+      "source_headlines": [
+        "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks"
+      ],
+      "source_headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
+      "source_url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-21T03:53:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T04:05:35Z",
+      "updated_at": "2026-09-21T04:05:35Z",
+      "decay_at": "2026-09-22T15:53:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3a81f9017113",
       "idea_version": "IDEAV-d2e52a39e9a86eb5",
       "idea_version_started_at": "2026-09-21T03:30:16Z",
@@ -171868,8 +172017,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 943,
-    "live_count": 34,
+    "surfaced_total": 945,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -171888,9 +172037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1301,
-    "news_picked_today": 240,
-    "news_dropped_today": 929
+    "news_seen_today": 1377,
+    "news_picked_today": 259,
+    "news_dropped_today": 986
   },
   "book_momentum": {
     "live_count": 8,
