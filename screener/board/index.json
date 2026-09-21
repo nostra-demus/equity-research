@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:35:31Z",
+  "generated_at": "2026-09-21T01:39:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -1092,6 +1092,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-100",
+      "headline": "Samsung Electronics breaks ground on HVAC production line in Gwangju",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260921003500320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T01:35:25Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Samsung Electronics is expanding its manufacturing capacity with a new HVAC production line in Gwangju.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Samsung Electronics is expanding its manufacturing capacity with a new HVAC production line in Gwangju.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-063",
       "headline": "Chinese AI chipmaker Hygon plots expansion from data centres to robotics",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-091",
-      "headline": "LG디스플레이, 세계 최초 720Hz 게이밍 OLED 패널 출시",
-      "headline_en": "LG Display launches world's first 720Hz gaming OLED panel",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277371",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "LG Display launched a world-first 720Hz gaming OLED panel, enhancing its competitive position in the high-end display market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "LG Display launched a world-first 720Hz gaming OLED panel, enhancing its competitive position in the high-end display market.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Display",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
