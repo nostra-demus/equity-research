@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T02:00:01Z",
+  "generated_at": "2026-09-21T02:06:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -150,6 +150,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-115",
+      "headline": "Telix Pharma To Acquire ITM In Deal Worth Up To $2.35 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/telix-pharma-acquire-itm-deal-worth-235-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T01:38:04Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Telix Pharma announced an acquisition of ITM for up to $2.35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Telix Pharma announced an acquisition of ITM for up to $2.35 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telix Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "ITM",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-066",
-      "headline": "Suntec Reit to increase Singapore focus, sell three Australia properties",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/suntec-reit-increase-singapore-focus-sell-three-australia-properties",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:31:06Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Suntec Reit plans to sell three Australian properties to focus on Singapore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Suntec Reit plans to sell three Australian properties to focus on Singapore.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suntec Reit",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132249,78 +132254,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9ee16cbb53b7",
-      "idea_version": "IDEAV-b30c3942ee58499c",
-      "idea_version_started_at": "2026-09-20T03:04:50Z",
-      "ticker": "TATASTEEL",
-      "company": "Tata Steel",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing project delays at Port Talbot and is forced to seek additional government funding, indicating operational distress and potential dilution or balance sheet strain.",
-      "why_now": "The request for fresh funding was reported on 2026-09-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-544c8b795a62"
-      ],
-      "primary_source_event_id": "EVT-544c8b795a62",
-      "source_headlines": [
-        "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays"
-      ],
-      "source_headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
-      "source_url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-19T14:03:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T03:04:50Z",
-      "updated_at": "2026-09-20T03:04:50Z",
-      "decay_at": "2026-09-21T02:03:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-481a4b3ef631",
       "idea_version": "IDEAV-ad638c506fa3eaae",
       "idea_version_started_at": "2026-09-21T01:15:15Z",
@@ -134312,6 +134245,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9ee16cbb53b7",
+      "idea_version": "IDEAV-b30c3942ee58499c",
+      "idea_version_started_at": "2026-09-20T03:04:50Z",
+      "ticker": "TATASTEEL",
+      "company": "Tata Steel",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing project delays at Port Talbot and is forced to seek additional government funding, indicating operational distress and potential dilution or balance sheet strain.",
+      "why_now": "The request for fresh funding was reported on 2026-09-19.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-544c8b795a62"
+      ],
+      "primary_source_event_id": "EVT-544c8b795a62",
+      "source_headlines": [
+        "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays"
+      ],
+      "source_headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
+      "source_url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-19T14:03:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T03:04:50Z",
+      "updated_at": "2026-09-20T03:04:50Z",
+      "decay_at": "2026-09-21T02:03:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7d56acfd906a",
       "idea_version": "IDEAV-64ec3170c0e3e22b",
       "idea_version_started_at": "2026-09-19T05:39:44Z",
@@ -134393,9 +134398,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
         "total_count": 264,
@@ -134403,9 +134408,9 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -134424,6 +134429,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9ee16cbb53b7",
+        "idea_version": "IDEAV-b30c3942ee58499c",
+        "idea_version_started_at": "2026-09-20T03:04:50Z",
+        "ticker": "TATASTEEL",
+        "company": "Tata Steel",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing project delays at Port Talbot and is forced to seek additional government funding, indicating operational distress and potential dilution or balance sheet strain.",
+        "why_now": "The request for fresh funding was reported on 2026-09-19.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-544c8b795a62"
+        ],
+        "primary_source_event_id": "EVT-544c8b795a62",
+        "source_headlines": [
+          "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays"
+        ],
+        "source_headline": "Tata Steel seeks fresh UK government funding as Port Talbot project faces delays",
+        "source_url": "https://www.businesstoday.in/latest/corporate/story/tata-steel-seeks-fresh-uk-government-funding-as-port-talbot-project-faces-delays-556642-2026-09-19?utm_source=rssfeed",
+        "source_name": "Business Today",
+        "materiality_max": 91,
+        "newest_source_at": "2026-09-19T14:03:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T03:04:50Z",
+        "updated_at": "2026-09-20T03:04:50Z",
+        "decay_at": "2026-09-21T02:03:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T02:03:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a8adcaeff4e3",
         "idea_version": "IDEAV-dc000cf2baf5eb1c",
@@ -171496,85 +171576,12 @@
         "archived_at": "2026-08-31T15:41:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-865901eb21c3",
-        "idea_version": "IDEAV-1a2f2037ab34fb0c",
-        "idea_version_started_at": "2026-08-29T23:48:06Z",
-        "ticker": "PYPL",
-        "company": "PayPal Holdings, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "PayPal shares crashed 13% after reports that the Advent-Stripe consortium walked away from a potential bid, removing a significant M&A premium.",
-        "why_now": "The news of the consortium walking away from a bid on August 28, 2026, directly impacted the stock price, indicating a live catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b268ee617228"
-        ],
-        "primary_source_event_id": "EVT-b268ee617228",
-        "source_headlines": [
-          "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
-        ],
-        "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
-        "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T15:19:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T13:40:33Z",
-        "updated_at": "2026-08-29T23:48:06Z",
-        "decay_at": "2026-08-30T03:19:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T15:41:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 937,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -171593,9 +171600,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 750,
-    "news_picked_today": 129,
-    "news_dropped_today": 489
+    "news_seen_today": 781,
+    "news_picked_today": 135,
+    "news_dropped_today": 514
   },
   "book_momentum": {
     "live_count": 8,
