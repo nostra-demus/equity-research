@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T03:10:08Z",
+  "generated_at": "2026-09-21T03:10:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -131336,6 +131336,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-336388855f4086e8",
+      "idea_version_started_at": "2026-09-21T03:10:22Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Negotiating concessions with the California AG to secure a $1.5 billion investment suggests a path to resolving regulatory hurdles for the company's strategic transactions.",
+      "why_now": "The report regarding the concessions was published on 2026-09-21.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b8ced378429"
+      ],
+      "primary_source_event_id": "EVT-9b8ced378429",
+      "source_headlines": [
+        "Paramount, California AG discuss concessions including $1.5 billion investment, WSJ reports"
+      ],
+      "source_headline": "Paramount, California AG discuss concessions including $1.5 billion investment, WSJ reports",
+      "source_url": "https://www.reuters.com/business/media-telecom/paramount-california-ag-discuss-concessions-including-15-billion-investment-wsj-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T02:27:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T20:23:37Z",
+      "updated_at": "2026-09-21T03:10:22Z",
+      "decay_at": "2026-09-22T14:27:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-1a317bf4b527b309",
       "idea_version_started_at": "2026-09-21T01:55:19Z",
@@ -133113,78 +133185,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-70b8068a4e51",
-      "idea_version": "IDEAV-8c79806f38a1e08b",
-      "idea_version_started_at": "2026-09-19T20:23:37Z",
-      "ticker": "PARA",
-      "company": "Paramount Global",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Potential settlement of antitrust lawsuits by California and 11 other states removes a major regulatory hurdle for the pending $110 billion merger.",
-      "why_now": "The report of a potential settlement surfaced on 2026-09-19, providing a catalyst for deal completion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0e3a61d2546a"
-      ],
-      "primary_source_event_id": "EVT-0e3a61d2546a",
-      "source_headlines": [
-        "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report"
-      ],
-      "source_headline": "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report",
-      "source_url": "https://www.livemint.com/companies/news/paramountwarner-merger-california-and-11-states-could-settle-lawsuit-blocking-110-billion-acquisition-report-11789828816137.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T15:06:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T20:23:37Z",
-      "updated_at": "2026-09-19T20:23:37Z",
-      "decay_at": "2026-09-21T03:06:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1f05bd3420a7",
       "idea_version": "IDEAV-b31b6c0def5cd963",
       "idea_version_started_at": "2026-09-19T17:33:45Z",
@@ -133973,78 +133973,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5efadd64af04",
-      "idea_version": "IDEAV-0d4f3ec9fae0cf3e",
-      "idea_version_started_at": "2026-09-18T10:19:04Z",
-      "ticker": "8306",
-      "company": "Mitsubishi UFJ Financial Group",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A hike in the Bank of Japan policy rate to 1.25% improves net interest margins for major Japanese banks.",
-      "why_now": "The BoJ announced the rate hike on 2026-09-18.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49f712d5a1eb"
-      ],
-      "primary_source_event_id": "EVT-49f712d5a1eb",
-      "source_headlines": [
-        "Bank of Japan raises policy interest rate to 1.25% from 1.0%"
-      ],
-      "source_headline": "Bank of Japan raises policy interest rate to 1.25% from 1.0%",
-      "source_url": "https://english.kyodonews.net/articles/-/85444",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-18T02:55:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T10:19:04Z",
-      "updated_at": "2026-09-18T10:19:04Z",
-      "decay_at": "2026-09-19T14:55:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-232e58bf1748",
       "idea_version": "IDEAV-0c4c704b502559d7",
       "idea_version_started_at": "2026-09-19T08:59:15Z",
@@ -134412,14 +134340,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 13
       },
       "short": {
         "total_count": 265,
@@ -134429,11 +134357,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 379,
+      "evicted_count": 380,
       "oldest_retained_at": "2026-08-29T23:28:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 260,
+          "evicted_count": 261,
           "oldest_retained_at": "2026-09-07T23:44:00Z"
         },
         "short": {
@@ -134513,81 +134441,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-21T03:09:50Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-70b8068a4e51",
-        "idea_version": "IDEAV-8c79806f38a1e08b",
-        "idea_version_started_at": "2026-09-19T20:23:37Z",
-        "ticker": "PARA",
-        "company": "Paramount Global",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Potential settlement of antitrust lawsuits by California and 11 other states removes a major regulatory hurdle for the pending $110 billion merger.",
-        "why_now": "The report of a potential settlement surfaced on 2026-09-19, providing a catalyst for deal completion.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0e3a61d2546a"
-        ],
-        "primary_source_event_id": "EVT-0e3a61d2546a",
-        "source_headlines": [
-          "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report"
-        ],
-        "source_headline": "Paramount-Warner merger: California and 11 states could settle lawsuit blocking $110 billion acquisition — Report",
-        "source_url": "https://www.livemint.com/companies/news/paramountwarner-merger-california-and-11-states-could-settle-lawsuit-blocking-110-billion-acquisition-report-11789828816137.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T15:06:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T20:23:37Z",
-        "updated_at": "2026-09-19T20:23:37Z",
-        "decay_at": "2026-09-21T03:06:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T03:06:56Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -136663,8 +136516,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T14:55:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-21T03:10:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -163696,6 +163549,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-5e3b0ec8d5d9",
+        "idea_version": "IDEAV-7c943781b4f123b1",
+        "idea_version_started_at": "2026-09-07T00:07:53Z",
+        "ticker": "PAC",
+        "company": "Pacific Current Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has issued a price-sensitive update regarding its strategic review, which typically signals progress toward asset sales, capital returns, or a formal takeover offer.",
+        "why_now": "The update was filed as price-sensitive on September 6, 2026, creating an immediate catalyst for price discovery as the market digests the review's progress.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-63c37510b38b"
+        ],
+        "primary_source_event_id": "EVT-63c37510b38b",
+        "source_headlines": [
+          "PAC: Strategic Review Update [price-sensitive]"
+        ],
+        "source_headline": "PAC: Strategic Review Update [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAC?key=2924-03132449-2A1695646",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-06T23:58:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T05:34:45Z",
+        "updated_at": "2026-09-07T00:07:53Z",
+        "decay_at": "2026-09-08T11:58:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T00:18:10Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-20111a3ff2d1",
         "idea_version": "IDEAV-79f742a707403eb1",
         "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -171596,7 +171523,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 937,
-    "live_count": 27,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
