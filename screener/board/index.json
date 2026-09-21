@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:55:30Z",
+  "generated_at": "2026-09-21T01:59:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -1441,6 +1441,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-113",
+      "headline": "Trump administration readies sweeping sanctions against ICC, reports say",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/9/21/trump-administration-readies-sweeping-sanctions-against-icc-reports-say?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-21T01:19:42Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The US government is preparing sanctions against an international judicial body, signaling a significant shift in geopolitical and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The US government is preparing sanctions against an international judicial body, signaling a significant shift in geopolitical and legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-051",
       "headline": "Nilon’s explores majority stake sale at up to ₹1,200 crore valuation",
       "headline_en": null,
@@ -1932,55 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-061",
-      "headline": "Noel Tata challenges legality of N. Chandrasekaran’s reappointment as Tata Sons Chairman",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-sons-chairman-natarajan-chandrasekaran-reappointment-legal-11789891114906.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:20:53Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Legal challenge to the reappointment of the Tata Sons Chairman creates management uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Legal challenge to the reappointment of the Tata Sons Chairman creates management uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171598,9 +171593,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 730,
-    "news_picked_today": 123,
-    "news_dropped_today": 475
+    "news_seen_today": 750,
+    "news_picked_today": 129,
+    "news_dropped_today": 489
   },
   "book_momentum": {
     "live_count": 8,
