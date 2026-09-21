@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T04:11:05Z",
+  "generated_at": "2026-09-21T04:15:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -1306,6 +1306,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-192",
+      "headline": "JSMART TECH (00567): VOLUNTARY ANNOUNCEMENT (I) BUSINESS EXPANSION INTO EMBODIED INTELLIGENCE, AI COMPUTING AND STORAGE; AND (II) ENTER INTO COOPERATION AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100339.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-21T04:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "JSMART Tech announced a business expansion into AI computing and embodied intelligence through a new cooperation agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "JSMART Tech announced a business expansion into AI computing and embodied intelligence through a new cooperation agreement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSMART TECH",
+          "ticker": "00567",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-055",
       "headline": "CHINAHEALTHWISE (00348): EXCHANGE NOTICE - TRADING HALT",
       "headline_en": null,
@@ -1944,55 +1994,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-153",
-      "headline": "수출입은행, 정유사 원유 구매자금 대출한도 긴급 확대",
-      "headline_en": "Export-Import Bank of Korea urgently expands loan limits for oil refiners' crude oil purchase funds",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277413",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T02:47:44Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Export-Import Bank of Korea is expanding loan limits for oil refiners to purchase crude, supporting sector liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Export-Import Bank of Korea is expanding loan limits for oil refiners to purchase crude, supporting sector liquidity.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Export-Import Bank of Korea",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172041,9 +172042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1687,
-    "news_picked_today": 268,
-    "news_dropped_today": 1287
+    "news_seen_today": 1725,
+    "news_picked_today": 274,
+    "news_dropped_today": 1319
   },
   "book_momentum": {
     "live_count": 8,
