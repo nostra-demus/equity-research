@@ -1,6 +1,1263 @@
 {
-  "generated_at": "2026-09-20T23:59:52Z",
+  "generated_at": "2026-09-21T00:06:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260921-003",
+      "headline": "OSHIDORI (00622): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 100% OF THE ISSUED SHARE CAPITAL IN TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Oshidori International is acquiring 100% of a target company via share issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oshidori International is acquiring 100% of a target company via share issuance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oshidori International",
+          "ticker": "00622",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-002",
+      "headline": "NEW WORLD DEV (00017): POSSIBLE MAJOR TRANSACTION IN RELATION TO PROPOSED SPIN-OFF AND SEPARATE LISTING OF THE REIT ON THE SSE AND POSSIBLE DISCLOSEABLE TRANSACTION IN RELATION TO THE REIT SUBSCRIPTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100137.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "New World Development is exploring a spin-off and separate listing of a REIT on the SSE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "New World Development is exploring a spin-off and separate listing of a REIT on the SSE.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "00017",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-006",
+      "headline": "EHI CAR N2609 (40851): VOLUNTARY ANNOUNCEMENT REMITTANCE OF FUNDS TO TRUSTEE FOR REPAYMENT OF OUTSTANDING US$300,000,000 7.00% SENIOR NOTES DUE 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100167.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:28:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "EHI Car is remitting funds to repay US$300 million in senior notes due 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "EHI Car is remitting funds to repay US$300 million in senior notes due 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EHI Car",
+          "ticker": "40851",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-016",
+      "headline": "S ROBOT EDU (08206): (1) PROPOSED SHARE CONSOLIDATION; (2) CONNECTED TRANSACTION IN RELATION TO THE PROPOSED DEBT CAPITALISATION INVOLVING THE ISSUE OF SUBSCRIPTION SHARES UNDER SPECIFIC MANDATE; AND (3) APPLICATION FOR WHITEWASH WAIVER AND (4) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0921/2026092100011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "S Robot Edu is undergoing a share consolidation and debt capitalisation, indicating significant financial restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "S Robot Edu is undergoing a share consolidation and debt capitalisation, indicating significant financial restructuring.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S Robot Edu",
+          "ticker": "08206",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-001",
+      "headline": "ABBISKO-B (02256): VOLUNTARY ANNOUNCEMENT - ABBISKO THERAPEUTICS ANNOUNCES POSITIVE PRELIMINARY PHASE II RESULTS WITH LAVENGRATINIB (ABSK061) FOR THE TREATMENT OF ACHONDROPLASIA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100183.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Abbisko Therapeutics reported positive preliminary Phase II results for its drug candidate Lavengratinib.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Abbisko Therapeutics reported positive preliminary Phase II results for its drug candidate Lavengratinib.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbisko Therapeutics",
+          "ticker": "02256",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-014",
+      "headline": "ROBOTECHNIK (03757): GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Robotechnik is initiating a global offering to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Robotechnik is initiating a global offering to raise capital.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Robotechnik",
+          "ticker": "03757",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-015",
+      "headline": "KINWONG (03228): GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100013.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Kinwong is initiating a global offering to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Kinwong is initiating a global offering to raise capital.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kinwong",
+          "ticker": "03228",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-018",
+      "headline": "RA MATERIALS (09607): Global Offering",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "RA Materials is initiating a global offering to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "RA Materials is initiating a global offering to raise capital.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RA Materials",
+          "ticker": "09607",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-019",
+      "headline": "QFIN-S (03660): INSIDE INFORMATION - CHANGES IN MANAGEMENT AND BOARD COMPOSITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "QFIN-S is undergoing changes in management and board composition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "QFIN-S is undergoing changes in management and board composition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QFIN-S",
+          "ticker": "03660",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-008",
+      "headline": "AGR: TRES ESTRADAS UPDATE [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGR?key=2924-03137575-2A1698143",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:58:49Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The company provided a price-sensitive update regarding its Tres Estradas project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company provided a price-sensitive update regarding its Tres Estradas project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aguia Resources",
+          "ticker": "AGR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-009",
+      "headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - THE PHASE III CLINICAL STUDY OF HS-10374 IN THE TREATMENT OF MODERATE-TO-SEVERE PLAQUE PSORIASIS HAS MET THE CO-PRIMARY ENDPOINTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100135.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The company's Phase III clinical study for HS-10374 met its co-primary endpoints, a key milestone for drug development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company's Phase III clinical study for HS-10374 met its co-primary endpoints, a key milestone for drug development.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hansoh Pharmaceutical",
+          "ticker": "03692",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-012",
+      "headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The company received marketing approval for its topical finasteride spray in Macao.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company received marketing approval for its topical finasteride spray in Macao.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cutia Therapeutics",
+          "ticker": "02487",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-024",
+      "headline": "Closed for maintenance, unit-1 of Kaiga nuke power plant resumes ops after 17 months",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/science/science-20260921-9-2122190568-4153348",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:52:59Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Unit-1 of the Kaiga nuclear power plant has resumed operations after a 17-month maintenance outage, increasing regional power supply capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Unit-1 of the Kaiga nuclear power plant has resumed operations after a 17-month maintenance outage, increasing regional power supply capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaiga Atomic Power Station",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-011",
+      "headline": "FIBOCOM (00638): OVERSEAS REGULATORY ANNOUNCEMENT - Fibocom Wireless Inc. ANNOUNCEMENT ON THE PROGRESS OF THE MAJOR ASSET REORGANISATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100099.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The company provided an update on the progress of its major asset reorganization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The company provided an update on the progress of its major asset reorganization.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fibocom Wireless",
+          "ticker": "00638",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-005",
+      "headline": "Trump takes aim at ICC again, plans sanctions against entire court",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/trump-takes-aim-at-icc-again-plans-sanctions-against-entire-court-4153307",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:59:27Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Potential US sanctions against the ICC represent a geopolitical escalation affecting international legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Potential US sanctions against the ICC represent a geopolitical escalation affecting international legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-023",
+      "headline": "‘Unjustifiable & unacceptable’: France vows action after Iran shuts language centre in Tehran",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/europe/unjustifiable-unacceptable-france-vows-action-after-iran-shuts-language-centre-in-tehran-4153327",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:59:13Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Diplomatic escalation between France and Iran regarding the closure of a language center increases geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Diplomatic escalation between France and Iran regarding the closure of a language center increases geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-028",
+      "headline": "한미글로벌, SK하이닉스 美 인디애나 HBM 공장 건설 PM 맡는다",
+      "headline_en": "HanmiGlobal to manage construction of SK Hynix's HBM plant in Indiana, USA",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277357",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "HanmiGlobal has been selected as the project manager for SK Hynix's HBM plant in Indiana, representing a significant commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "HanmiGlobal has been selected as the project manager for SK Hynix's HBM plant in Indiana, representing a significant commercial contract.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HanmiGlobal",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-010",
+      "headline": "BRONCUS-B (02216): MAJOR TRANSACTION - TERMINATION OF THE SHARE TRANSFER AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The company terminated a major share transfer agreement, ending a previously announced transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "The company terminated a major share transfer agreement, ending a previously announced transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broncus Holding",
+          "ticker": "02216",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-004",
+      "headline": "CHINA WANTIAN (01854): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF LAND USE RIGHT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "China Wantian is acquiring land use rights, representing a capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "China Wantian is acquiring land use rights, representing a capital expenditure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Wantian",
+          "ticker": "01854",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-007",
+      "headline": "BJ DIGITAL (06188): DISCLOSEABLE TRANSACTION IN RELATION TO THE FACTORING FINANCING AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100165.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Beijing Digital is entering into a factoring financing agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Beijing Digital is entering into a factoring financing agreement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beijing Digital",
+          "ticker": "06188",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-022",
+      "headline": "Four hours at Bombay House: How five Tata Sons directors outflanked Noel Tata",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-noel-tata-11789917014343.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:00:52Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Internal board dynamics at Tata Sons regarding leadership succession.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Internal board dynamics at Tata Sons regarding leadership succession.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-013",
+      "headline": "XTALPI (02228): VOLUNTARY ANNOUNCEMENT PLAN TO INCREASE SHAREHOLDING IN THE COMPANY BY THE CHAIRMAN OF THE BOARD",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T22:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The chairman announced a plan to increase his shareholding in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The chairman announced a plan to increase his shareholding in the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XtalPi",
+          "ticker": "02228",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-020",
+      "headline": "A Shortage of Oil Tankers Is Threatening to Keep Gas Prices High",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/a-shortage-of-oil-tankers-is-threatening-to-keep-gas-prices-high-66b2675a?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "A shortage of oil tankers is a supply-side constraint that could keep energy costs elevated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "A shortage of oil tankers is a supply-side constraint that could keep energy costs elevated.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-025",
+      "headline": "Israeli settler killed in West Bank",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/middle-east/middle-east-20260921-9-1689485199-4153326",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:47:55Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Escalation of violence in the West Bank represents a geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of violence in the West Bank represents a geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-026",
+      "headline": "티오더스테이 몽골 시장 진출, 중앙아시아 테이블오더 시장 선점 나선다",
+      "headline_en": "T'order enters the Mongolian market, aiming to preempt the Central Asian table-order market",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277365",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:57:28Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "T'order is expanding into the Mongolian market, but the scale of this expansion is not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "T'order is expanding into the Mongolian market, but the scale of this expansion is not disclosed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "T'order",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-027",
+      "headline": "포티투마루, 국내 63건 미국·유럽·국제출원 59건 누적 122건 특허등록",
+      "headline_en": "42Maru registers 122 cumulative patents, including 63 domestic and 59 US/European/international applications",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277359",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:41:26Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "42Maru has accumulated 122 patent registrations, which is a positive indicator of R&D progress but not immediately material to financials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "42Maru has accumulated 122 patent registrations, which is a positive indicator of R&D progress but not immediately material to financials.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "42Maru",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-830",
       "headline": "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]",
@@ -129058,76 +130315,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-12b52752f576",
-      "idea_version": "IDEAV-7a11a15ca8e65ad9",
-      "idea_version_started_at": "2026-09-20T17:40:58Z",
-      "ticker": "EQIX",
-      "company": "Equinix",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Equinix is aggressively expanding its footprint with a $5 billion to $7 billion annual data center buildout plan to capture accelerating AI infrastructure demand.",
-      "why_now": "The formalization of this multi-billion dollar annual capex plan was detailed on September 19, 2026.",
-      "conviction": 72,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e93acccbf214"
-      ],
-      "primary_source_event_id": "EVT-e93acccbf214",
-      "source_headlines": [
-        "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates"
-      ],
-      "source_headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
-      "source_url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T12:02:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T11:25:05Z",
-      "updated_at": "2026-09-20T17:40:58Z",
-      "decay_at": "2026-09-21T00:02:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a8adcaeff4e3",
       "idea_version": "IDEAV-dc000cf2baf5eb1c",
       "idea_version_started_at": "2026-09-20T17:40:58Z",
@@ -130474,6 +131661,76 @@
       "surfaced_at": "2026-09-18T22:30:22Z",
       "updated_at": "2026-09-19T17:33:45Z",
       "decay_at": "2026-09-20T09:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-12b52752f576",
+      "idea_version": "IDEAV-7a11a15ca8e65ad9",
+      "idea_version_started_at": "2026-09-20T17:40:58Z",
+      "ticker": "EQIX",
+      "company": "Equinix",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Equinix is aggressively expanding its footprint with a $5 billion to $7 billion annual data center buildout plan to capture accelerating AI infrastructure demand.",
+      "why_now": "The formalization of this multi-billion dollar annual capex plan was detailed on September 19, 2026.",
+      "conviction": 72,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e93acccbf214"
+      ],
+      "primary_source_event_id": "EVT-e93acccbf214",
+      "source_headlines": [
+        "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates"
+      ],
+      "source_headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
+      "source_url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T12:02:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T11:25:05Z",
+      "updated_at": "2026-09-20T17:40:58Z",
+      "decay_at": "2026-09-21T00:02:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -132201,14 +133458,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 264,
@@ -132232,6 +133489,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-12b52752f576",
+        "idea_version": "IDEAV-7a11a15ca8e65ad9",
+        "idea_version_started_at": "2026-09-20T17:40:58Z",
+        "ticker": "EQIX",
+        "company": "Equinix",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Equinix is aggressively expanding its footprint with a $5 billion to $7 billion annual data center buildout plan to capture accelerating AI infrastructure demand.",
+        "why_now": "The formalization of this multi-billion dollar annual capex plan was detailed on September 19, 2026.",
+        "conviction": 72,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e93acccbf214"
+        ],
+        "primary_source_event_id": "EVT-e93acccbf214",
+        "source_headlines": [
+          "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates"
+        ],
+        "source_headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
+        "source_url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-19T12:02:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T11:25:05Z",
+        "updated_at": "2026-09-20T17:40:58Z",
+        "decay_at": "2026-09-21T00:02:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T00:02:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-80566e7fce69",
         "idea_version": "IDEAV-f82663b3219a08e7",
@@ -161264,80 +162594,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-97b282210bd2",
-        "idea_version": "IDEAV-69aa1a471168c9c3",
-        "idea_version_started_at": "2026-09-07T00:07:53Z",
-        "ticker": "NGY",
-        "company": "NuEnergy Gas Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The designation of the Tanjung Enim PSC as a National Strategic Project in Indonesia provides the company with streamlined regulatory approvals and prioritized infrastructure support for its gas assets.",
-        "why_now": "The official designation was announced via exchange filing on September 6, 2026, providing a concrete de-risking event for the project's development timeline.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-15ba7a6208c4"
-        ],
-        "primary_source_event_id": "EVT-15ba7a6208c4",
-        "source_headlines": [
-          "NGY: Tanjung Enim PSC designated as a National Strategic Project"
-        ],
-        "source_headline": "NGY: Tanjung Enim PSC designated as a National Strategic Project",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NGY?key=2924-03132440-6A1342477",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-09-06T23:54:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T00:07:53Z",
-        "updated_at": "2026-09-07T00:07:53Z",
-        "decay_at": "2026-09-08T11:54:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T00:18:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-20111a3ff2d1",
         "idea_version": "IDEAV-79f742a707403eb1",
         "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -169384,7 +170640,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 931,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -169394,7 +170650,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2647,
+    "inbox_unconsumed": 2673,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -169403,9 +170659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1803538,
-    "news_picked_today": 2145,
-    "news_dropped_today": 7353
+    "news_seen_today": 152,
+    "news_picked_today": 28,
+    "news_dropped_today": 124
   },
   "book_momentum": {
     "live_count": 8,
