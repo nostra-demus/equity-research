@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T03:20:13Z",
+  "generated_at": "2026-09-21T03:29:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -1449,6 +1449,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-157",
+      "headline": "Whyalla steel administrator gets extension as sale process delayed",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/manufacturing/whyalla-steel-administrator-gets-extension-as-sale-process-delayed-20260921-p60z1h?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T03:24:34Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The administrator for Whyalla steel has received an extension due to a delay in the sale process, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The administrator for Whyalla steel has received an extension due to a delay in the sale process, indicating ongoing financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whyalla Steel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-153",
       "headline": "수출입은행, 정유사 원유 구매자금 대출한도 긴급 확대",
       "headline_en": "Export-Import Bank of Korea urgently expands loan limits for oil refiners' crude oil purchase funds",
@@ -1946,55 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-072",
-      "headline": "CXMT Starts Mass Production of 5th-Gen DRAM",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277366",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T03:49:35Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "CXMT starting mass production of 5th-gen DRAM increases competitive supply pressure in the memory chip market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "CXMT starting mass production of 5th-gen DRAM increases competitive supply pressure in the memory chip market.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CXMT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171542,9 +171543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1111,
-    "news_picked_today": 207,
-    "news_dropped_today": 772
+    "news_seen_today": 1142,
+    "news_picked_today": 209,
+    "news_dropped_today": 801
   },
   "book_momentum": {
     "live_count": 8,
