@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T04:05:50Z",
+  "generated_at": "2026-09-21T04:11:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -907,6 +907,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-188",
+      "headline": "Welspun Corp shares rally 5% as firm bags Rs 2,000 crore order from Saudi Aramco; stock up over 230% YTD",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/welspun-corp-shares-in-focus-as-firm-bags-rs-2000-crore-order-from-saudi-aramco-stock-up-over-230-ytd/articleshow/134379420.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:02:49Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Welspun Corp secured a significant order worth Rs 2,000 crore from Saudi Aramco.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Welspun Corp secured a significant order worth Rs 2,000 crore from Saudi Aramco.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Corp",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-169",
       "headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
       "headline_en": null,
@@ -1600,6 +1649,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-191",
+      "headline": "Carlyle’s stalled Lukoil deal leaves refineries idle in tight market",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/708699ba-442b-46a2-9de7-805fb3ddaf24?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:00:18Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Carlyle's stalled acquisition of Lukoil assets is causing operational disruption in a tight refinery market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Carlyle's stalled acquisition of Lukoil assets is causing operational disruption in a tight refinery market.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carlyle Group",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lukoil",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-175",
       "headline": "Battle lines are drawn: Tata Trusts prepares to challenge N Chandrasekaran’s reappointment in the court",
       "headline_en": null,
@@ -1890,105 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-130",
-      "headline": "Suntec Reit to increase Singapore focus, sell three Australia properties",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/suntec-reit-to-increase-singapore-focus-sell-three-australia-properties",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T02:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Suntec Reit is shifting its geographic focus by selling three Australian properties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Suntec Reit is shifting its geographic focus by selling three Australian properties.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suntec Reit",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-078",
-      "headline": "PE suitor vows to press on with $3b pursuit of Ingenia",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/pe-suitor-vows-to-press-on-with-3b-pursuit-of-ingenia-20260921-p60z27?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:53:38Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "A private equity suitor is continuing a $3 billion pursuit of Ingenia, indicating ongoing M&A interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A private equity suitor is continuing a $3 billion pursuit of Ingenia, indicating ongoing M&A interest.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities Group",
-          "ticker": "INA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172037,9 +172041,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1377,
-    "news_picked_today": 259,
-    "news_dropped_today": 986
+    "news_seen_today": 1687,
+    "news_picked_today": 268,
+    "news_dropped_today": 1287
   },
   "book_momentum": {
     "live_count": 8,
