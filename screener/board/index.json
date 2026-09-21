@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T02:15:17Z",
+  "generated_at": "2026-09-21T02:21:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -141,6 +141,56 @@
           "name": "Hyundai Motor",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-128",
+      "headline": "Paramount Discussed $1.5 Billion California Investment to Clear Merger Hurdle",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/media/paramount-discussed-1-5-billion-california-investment-to-clear-merger-hurdle-ebe9f59b?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T02:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Paramount discussed a $1.5 billion investment to facilitate a merger, representing a significant capital commitment and regulatory strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount discussed a $1.5 billion investment to facilitate a merger, representing a significant capital commitment and regulatory strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1932,55 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-095",
-      "headline": "'Illegal, strong objection': What Noel Tata said on N Chandrasekaran's 'controversial' reappointment at Tata Sons",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/illegal-strong-objection-what-noel-tata-said-on-n-chandrasekarans-controversial-reappointment-at-tata-sons-101789948744777.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T01:13:41Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Internal conflict regarding the reappointment of N Chandrasekaran at Tata Sons raises governance concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal conflict regarding the reappointment of N Chandrasekaran at Tata Sons raises governance concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171600,9 +171601,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 825,
-    "news_picked_today": 152,
-    "news_dropped_today": 541
+    "news_seen_today": 843,
+    "news_picked_today": 157,
+    "news_dropped_today": 554
   },
   "book_momentum": {
     "live_count": 8,
