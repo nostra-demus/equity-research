@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T04:44:29Z",
+  "generated_at": "2026-09-21T04:56:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -298,6 +298,55 @@
           "name": "Hyundai Motor",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-225",
+      "headline": "SocGen hikes profitability target in new strategic plan ​",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/socgen-hikes-profitability-target-new-strategic-plan-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:38:09Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Société Générale announced an increase to its profitability targets as part of a new strategic plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Société Générale announced an increase to its profitability targets as part of a new strategic plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Société Générale",
+          "ticker": null,
+          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -917,6 +966,98 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-212",
+      "headline": "Samvardhana Motherson International Limited: Samvardhana Motherson International Limited has informed the Stock Exchange a disclosure on approval to purchase by Samvardhana Motherson Adsys Tech Limited, a wholly owned subsidiary of the Company, of 50.1% equity stake in Rotary Connectors Private Limited.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MOTHERSON_21092026101734_Disclsoure_21092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-21T04:47:55Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Samvardhana Motherson International is acquiring a 50.1% stake in Rotary Connectors Private Limited through its subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Samvardhana Motherson International is acquiring a 50.1% stake in Rotary Connectors Private Limited through its subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samvardhana Motherson International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-227",
+      "headline": "At least three killed in Pakistani airstrike on Afghanistan",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/rest-of-world/at-least-three-killed-in-pakistani-airstrike-on-afghanistan-4153469",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:36:39Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "A military airstrike by Pakistan on Afghanistan represents a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A military airstrike by Pakistan on Afghanistan represents a significant geopolitical escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1807,172 +1948,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260921-057",
-      "headline": "SHAW BROTHERS (00953): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "inbox_id": "INB-20260921-216",
+      "headline": "Premier Energies commissions 7 GW solar cell plant in Andhra Pradesh",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100245.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T00:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Trading resumption indicates the resolution of a suspension event for Shaw Brothers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading resumption indicates the resolution of a suspension event for Shaw Brothers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shaw Brothers",
-          "ticker": "00953",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-019",
-      "headline": "QFIN-S (03660): INSIDE INFORMATION - CHANGES IN MANAGEMENT AND BOARD COMPOSITION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100005.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-20T22:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "QFIN-S is undergoing changes in management and board composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "QFIN-S is undergoing changes in management and board composition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QFIN-S",
-          "ticker": "03660",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-191",
-      "headline": "Carlyle’s stalled Lukoil deal leaves refineries idle in tight market",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/708699ba-442b-46a2-9de7-805fb3ddaf24?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://economictimes.indiatimes.com/industry/renewables/premier-energies-commissions-7-gw-solar-cell-plant-in-andhra-pradesh/articleshow/134379732.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-21T04:00:18Z",
+      "found_at": "2026-09-21T04:25:16Z",
       "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Carlyle's stalled acquisition of Lukoil assets is causing operational disruption in a tight refinery market.",
+      "prelim_note": "Premier Energies has commissioned a 7 GW solar cell plant, representing a significant capacity expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Carlyle's stalled acquisition of Lukoil assets is causing operational disruption in a tight refinery market.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carlyle Group",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lukoil",
-          "ticker": null,
-          "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-175",
-      "headline": "Battle lines are drawn: Tata Trusts prepares to challenge N Chandrasekaran’s reappointment in the court",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/battle-lines-are-drawn-tata-trusts-prepares-to-challenge-n-chandrasekarans-reappointment-in-the-court-556719-2026-09-21?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T02:43:17Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Tata Trusts is challenging the reappointment of the Tata Sons Chairman, creating significant governance and leadership uncertainty for the group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Tata Trusts is challenging the reappointment of the Tata Sons Chairman, creating significant governance and leadership uncertainty for the group.",
+      "triage_score": 93,
+      "triage_reason": "Premier Energies has commissioned a 7 GW solar cell plant, representing a significant capacity expansion.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1980,29 +1969,29 @@
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
+        "event_id": "capex",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "management"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tata Sons",
+          "name": "Premier Energies",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172628,9 +172617,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2505,
-    "news_picked_today": 314,
-    "news_dropped_today": 2059
+    "news_seen_today": 2795,
+    "news_picked_today": 333,
+    "news_dropped_today": 2330
   },
   "book_momentum": {
     "live_count": 8,
