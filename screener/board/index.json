@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:05:08Z",
+  "generated_at": "2026-09-21T01:15:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -1288,6 +1288,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-086",
+      "headline": "Samsung Electronics Union Shifts to Semiconductor-Only Membership",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277378",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:28:59Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Samsung Electronics union restructuring its membership to focus on semiconductors signals potential labor friction in a critical business unit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Samsung Electronics union restructuring its membership to focus on semiconductors signals potential labor friction in a critical business unit.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-054",
       "headline": "F-35 Parts Diversion to Hong Kong Under Probe in US Congress",
       "headline_en": null,
@@ -1899,49 +1948,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-071",
-      "headline": "BREAKING NEWS: U.S. proposes notification mechanism for AI issues to China: Bessent",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/85813",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T23:58:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "A proposed US-China notification mechanism for AI issues represents a significant shift in tech regulatory diplomacy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A proposed US-China notification mechanism for AI issues represents a significant shift in tech regulatory diplomacy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -171501,9 +171507,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 546,
-    "news_picked_today": 86,
-    "news_dropped_today": 328
+    "news_seen_today": 564,
+    "news_picked_today": 90,
+    "news_dropped_today": 342
   },
   "book_momentum": {
     "live_count": 8,
