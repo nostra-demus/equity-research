@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T00:14:53Z",
+  "generated_at": "2026-09-21T00:20:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -638,6 +638,55 @@
           "name": "Hansoh Pharmaceutical",
           "ticker": "03692",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-044",
+      "headline": "Tata Sons vs Trusts may shift from boardroom to courtroom",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-sons-vs-trusts-may-shift-from-boardroom-to-courtroom/articleshow/134374697.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Potential escalation of internal governance dispute.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Potential escalation of internal governance dispute.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 30,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1319,6 +1368,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-045",
+      "headline": "Inside the 24 hours that laid bare Tata’s brutal power struggle",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/inside-the-24-hours-that-laid-bare-tatas-brutal-power-struggle",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Recap of internal governance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Recap of internal governance issues.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-033",
       "headline": "American Eagle (AEO) Holds its Forecast Steady, But Investors Sell Anyway",
       "headline_en": null,
@@ -1412,6 +1510,189 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-043",
+      "headline": "Coforge, Hexaware help clients manage AI token tab",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/infotech/ai-business-of-indian-it-companies-coforge-hexaware-technologies-11789905897871.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:15:53Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Routine service offering for AI cost management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Routine service offering for AI cost management.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Hexaware",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-042",
+      "headline": "India sets sail on seafarer tracking system, global safety plan",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/india-seafarer-tracking-system-west-asia-conflict-emergency-network-11789892759186.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:15:53Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Government initiative for maritime safety tracking.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Government initiative for maritime safety tracking.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-046",
+      "headline": "Malaysia’s Securities Commission to ask publicly-traded firms for El Nino plans, eyes deeper Middle East ties",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/malaysias-securities-commission-ask-publicly-traded-firms-el-nino-plans-eyes-deeper-middle-east-ties",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T00:15:25Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Regulatory request for climate risk planning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Regulatory request for climate risk planning.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-047",
+      "headline": "BREAKING NEWS: U.S., China negotiators discuss how to advance AI dialogue: Bessent",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/85812",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-20T23:55:22Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Diplomatic dialogue on AI policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Diplomatic dialogue on AI policy.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1602,191 +1883,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260921-025",
-      "headline": "Israeli settler killed in West Bank",
+      "inbox_id": "INB-20260921-040",
+      "headline": "ASX’s Attia Adds New CFO, Clearing Director to Leadership Team",
       "headline_en": null,
-      "url": "https://www.deccanherald.com/world/middle-east/middle-east-20260921-9-1689485199-4153326",
-      "source_name": "Deccan Herald",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-21/asx-s-attia-adds-new-cfo-clearing-director-to-leadership-team",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-20T23:47:55Z",
+      "found_at": "2026-09-21T00:01:17Z",
       "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Escalation of violence in the West Bank represents a geopolitical risk event.",
+      "prelim_note": "Routine leadership changes at ASX.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "Escalation of violence in the West Bank represents a geopolitical risk event.",
+      "triage_reason": "Routine leadership changes at ASX.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-026",
-      "headline": "티오더스테이 몽골 시장 진출, 중앙아시아 테이블오더 시장 선점 나선다",
-      "headline_en": "T'order enters the Mongolian market, aiming to preempt the Central Asian table-order market",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277365",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T23:57:28Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "T'order is expanding into the Mongolian market, but the scale of this expansion is not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "T'order is expanding into the Mongolian market, but the scale of this expansion is not disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "T'order",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-031",
-      "headline": "RIC: Change of Director's Interest Notice",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RIC?key=2924-03137582-3A702145",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T00:06:19Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Routine director interest disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine director interest disclosure.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RIC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-027",
-      "headline": "포티투마루, 국내 63건 미국·유럽·국제출원 59건 누적 122건 특허등록",
-      "headline_en": "42Maru registers 122 cumulative patents, including 63 domestic and 59 US/European/international applications",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277359",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T23:41:26Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "42Maru has accumulated 122 patent registrations, which is a positive indicator of R&D progress but not immediately material to financials.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "42Maru has accumulated 122 patent registrations, which is a positive indicator of R&D progress but not immediately material to financials.",
-      "region": "GLOBAL",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 30,
       "rank_factors": {
         "materiality": 30,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 0,
+        "event": 4,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "large"
       },
       "event_types": [
-        "product"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "42Maru",
+          "name": "ASX",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171183,7 +171323,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2684,
+    "inbox_unconsumed": 2687,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -171192,9 +171332,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194,
-    "news_picked_today": 39,
-    "news_dropped_today": 155
+    "news_seen_today": 213,
+    "news_picked_today": 47,
+    "news_dropped_today": 166
   },
   "book_momentum": {
     "live_count": 8,
