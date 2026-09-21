@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T03:55:06Z",
+  "generated_at": "2026-09-21T03:59:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -1001,6 +1001,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-170",
+      "headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T03:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Perpetual has rejected an improved takeover offer from EQT AB, ending acquisition talks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Perpetual has rejected an improved takeover offer from EQT AB, ending acquisition talks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Perpetual",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "EQT AB",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-144",
       "headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 21, 2026, titled \"Biocon s Pertuzumab Becomes First Biosimilar to Secure EMA CHMP Approval Recommendation Under New Tailored Clinical Approach\".",
       "headline_en": null,
@@ -1443,6 +1497,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-175",
+      "headline": "Battle lines are drawn: Tata Trusts prepares to challenge N Chandrasekaran’s reappointment in the court",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/battle-lines-are-drawn-tata-trusts-prepares-to-challenge-n-chandrasekarans-reappointment-in-the-court-556719-2026-09-21?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T02:43:17Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Tata Trusts is challenging the reappointment of the Tata Sons Chairman, creating significant governance and leadership uncertainty for the group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Tata Trusts is challenging the reappointment of the Tata Sons Chairman, creating significant governance and leadership uncertainty for the group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-155",
       "headline": "DPM: DPM Expands Brevene Porphyry S. Discovery- New HG Intercepts [price-sensitive]",
       "headline_en": null,
@@ -1878,105 +1981,6 @@
           "name": "NaBFID",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-079",
-      "headline": "SQX: Results of Fully Underwritten Entitlement Offer [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SQX?key=2924-03137590-6A1344676",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T00:59:55Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "The company completed a fully underwritten entitlement offer, confirming capital raise success.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company completed a fully underwritten entitlement offer, confirming capital raise success.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SQX",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-139",
-      "headline": "LG Energy Solution Completes Five ESS Production Sites in North America, Accelerating Growth in the Global ESS Market",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277401",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T05:56:31Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "LG Energy Solution has completed five new production sites for energy storage systems in North America, expanding its operational footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "LG Energy Solution has completed five new production sites for energy storage systems in North America, expanding its operational footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Energy Solution",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -171884,9 +171888,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1272,
-    "news_picked_today": 234,
-    "news_dropped_today": 906
+    "news_seen_today": 1301,
+    "news_picked_today": 240,
+    "news_dropped_today": 929
   },
   "book_momentum": {
     "live_count": 8,
