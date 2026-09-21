@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-21T02:42:06Z",
+  "generated_at": "2026-09-21T02:52:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260921-142",
+      "headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated September 21, 2026, titled \"Premier Energies Commissions India s Largest Solar Cell Facility, becomes largest Cell manufacturer with 10.6 GW capacity\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PEL2024_21092026081400_SE_Press_Release_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-21T02:44:26Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Premier Energies commissioned a 10.6 GW solar cell facility, becoming India's largest manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Premier Energies commissioned a 10.6 GW solar cell facility, becoming India's largest manufacturer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies Limited",
+          "ticker": "544238",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260921-003",
       "headline": "OSHIDORI (00622): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 100% OF THE ISSUED SHARE CAPITAL IN TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-012",
-      "headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100093.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-20T22:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "The company received marketing approval for its topical finasteride spray in Macao.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The company received marketing approval for its topical finasteride spray in Macao.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cutia Therapeutics",
-          "ticker": "02487",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171602,9 +171602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 931,
-    "news_picked_today": 173,
-    "news_dropped_today": 626
+    "news_seen_today": 983,
+    "news_picked_today": 181,
+    "news_dropped_today": 670
   },
   "book_momentum": {
     "live_count": 8,
