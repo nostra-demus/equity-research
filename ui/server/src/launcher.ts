@@ -7191,7 +7191,7 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
   // is certain to reject later: its snapshot staging block refuses a manifest above this entry count.
   if (paths.length > MAX_PUBLICATION_SNAPSHOT_ENTRIES) {
     throw new Error(`cockpit publication refused before its path list was frozen: ${paths.length} files exceed the `
-      + `${MAX_PUBLICATION_SNAPSHOT_ENTRIES}-entry limit commit-run.sh enforces on a supervisor snapshot`)
+      + `${MAX_PUBLICATION_SNAPSHOT_ENTRIES}-entry limit enforced on a supervisor snapshot`)
   }
   assertPublicationPathsCatalogued(paths)
   const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
@@ -7207,8 +7207,8 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
       // these bytes are read. Earlier files are already copied by now; the catch removes all of it.
       if (before.size > MAX_PUBLICATION_SNAPSHOT_FILE_BYTES) {
         throw new Error(`cockpit publication refused before its frozen snapshot was sealed: ${relative} is `
-          + `${before.size} bytes, above the ${MAX_PUBLICATION_SNAPSHOT_FILE_BYTES}-byte limit commit-run.sh `
-          + 'enforces on one supervisor snapshot file')
+          + `${before.size} bytes, above the ${MAX_PUBLICATION_SNAPSHOT_FILE_BYTES}-byte limit `
+          + 'enforced on one supervisor snapshot file')
       }
       const bytes = fs.readFileSync(absolute)
       const after = assertRegularArtifact(absolute, 'fixed publication artifact')
