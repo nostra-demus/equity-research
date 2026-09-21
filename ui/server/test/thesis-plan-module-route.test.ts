@@ -142,8 +142,8 @@ assert.ok(publisherStart > 0 && publisherStart < routeStart, 'localized resume-c
 const publisher = source.slice(publisherStart, routeStart)
 assert.match(publisher, /new Set\(\[\.\.\.reusedAncestorModules, module\]\)/,
   'checkpoint scope is the exact reused ancestors plus the staged target module, never the whole run root')
-assert.match(publisher, /const script = path\.join\(REPO_ROOT, 'scripts', 'commit-run\.sh'\)/,
-  'checkpoint publication uses the repository data-commit helper')
+assert.match(publisher, /const script = commitRunScriptFor\(REPO_ROOT\)/,
+  'checkpoint publication uses the repository data-commit helper, resolved through the test-guarded door')
 assert.match(publisher, /await execa\('bash', \[[\s\S]*script,[\s\S]*'--',[\s\S]*\.\.\.pathspecs/,
   'the exact pathspec checkpoint is awaited through the serialized data publisher')
 assert.match(publisher, /ensureModuleResumeCheckpointPublished\(script, pathspecs, helperAttempt\)/,
