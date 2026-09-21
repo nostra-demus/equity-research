@@ -1,0 +1,76 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-20T20:17:22Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-abd218ca6c78",
+    "idea_version": "IDEAV-a76c716dcc418656",
+    "idea_version_started_at": "2026-09-17T22:38:57Z",
+    "ticker": "RGR",
+    "company": "Sturm Ruger & Co Inc",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
+    "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-112ff420bf0e"
+    ],
+    "primary_source_event_id": "EVT-112ff420bf0e",
+    "source_headlines": [
+      "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
+    ],
+    "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
+    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-17T20:05:58Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-17T21:24:23Z",
+    "updated_at": "2026-09-17T22:38:57Z",
+    "decay_at": "2026-09-19T08:05:58Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-4b7517872828",
-  "idea_version": "IDEAV-9b5d5ea9fe194693",
-  "idea_version_started_at": "2026-09-17T19:22:08Z",
+  "idea_version": "IDEAV-a5af3b4868d76aff",
+  "idea_version_started_at": "2026-09-20T21:27:13Z",
   "ticker": "LEN",
-  "company": "Lennar Corporation",
+  "company": "Lennar",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,18 +11,18 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company reported a decline in Q3 earnings and reduced its full-year 2026 delivery guidance, signaling ongoing weakness in housing demand.",
-  "why_now": "The guidance cut was announced on 2026-09-17.",
-  "conviction": 75,
+  "reason": "Lennar has cut its home delivery forecast as aggressive buyer incentives and price concessions fail to offset affordability headwinds, squeezing gross margins.",
+  "why_now": "The guidance cut was just reported on September 20, 2026, which will force analysts to downwardly revise near-term consensus EPS estimates.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
-  "trade_score_basis": "evidence_gate_v2",
+  "trade_score": 65,
+  "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 19,
     "specificity": 15,
     "timing": 10,
-    "expression": 6,
+    "expression": 7,
     "corroboration": 0,
     "learning_adjustment": 0
   },
@@ -47,26 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-4e9930946b18"
+    "EVT-4e75a447e37a"
   ],
-  "primary_source_event_id": "EVT-4e9930946b18",
+  "primary_source_event_id": "EVT-4e75a447e37a",
   "source_headlines": [
-    "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall"
+    "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?"
   ],
-  "source_headline": "Lennar cuts full-year 2026 delivery target again, Q3 earnings fall",
-  "source_url": "https://finance.yahoo.com/real-estate/articles/lennar-cuts-full-2026-delivery-133941748.html",
+  "source_headline": "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?",
+  "source_url": "https://finance.yahoo.com/real-estate/articles/lennar-len-cuts-delivery-forecast-204510657.html",
   "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-17T13:39:41Z",
+  "newest_source_at": "2026-09-20T20:45:10Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-17T19:22:08Z",
-  "updated_at": "2026-09-17T19:22:08Z",
-  "decay_at": "2026-09-19T01:39:41Z",
+  "surfaced_at": "2026-09-20T21:27:13Z",
+  "updated_at": "2026-09-20T21:27:13Z",
+  "decay_at": "2026-09-22T08:45:10Z",
   "status": "live",
   "promoted_signal_id": null
 }

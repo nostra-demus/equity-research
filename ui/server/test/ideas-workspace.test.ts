@@ -195,6 +195,49 @@ try {
   await coldApp.close()
   await app.close()
 
+  // A publisher may replace the catalog while a reader is waiting for its repository lease.
+  // The first successful response must pair the new catalog with the post-publication filing state.
+  const publicationRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-publication-read-'))
+  const publicationApp = Fastify()
+  let publishing: number | null = null
+  try {
+    execFileSync('git', ['init', '-q'], { cwd: publicationRoot })
+    const feedPath = path.join(publicationRoot, 'screener/inbox', `${at().slice(0, 10)}_firehose.ndjson`)
+    fs.mkdirSync(path.dirname(feedPath), { recursive: true })
+    fs.writeFileSync(feedPath, `${JSON.stringify(a)}\n`)
+    registerIdeasWorkspace(publicationApp, publicationRoot)
+    publishing = await acquireRetainedFlock(repositoryMutationLockPath(publicationRoot)!, { waitMs: 0, busyMessage: 'fixture' })
+    const response = publicationApp.inject('/api/screener/idea-workspace?lane=events')
+    await new Promise((resolve) => setTimeout(resolve, 250))
+    fs.writeFileSync(feedPath, `${JSON.stringify({ ...a, headline: 'Pipeline reopened after repairs' })}\n`)
+    releaseRetainedFlock(publishing)
+    publishing = null
+    const received = await response
+    assert.equal(received.statusCode, 200)
+    assert.equal(received.json().rows[0]?.event?.title, 'Pipeline reopened after repairs', 'catalog is read after acquiring the shared publication lease')
+    const filePublished = async (card: any, action: 'archive' | 'restore') => {
+      const result = await publicationApp.inject({ method: 'POST', url: '/api/screener/idea-workspace/actions',
+        payload: { key: card.key, action, expected_revision: card.action_revision, operation_id: randomUUID() } })
+      assert.equal(result.statusCode, 200)
+      return result.json().card
+    }
+    const firstArchive = await filePublished(received.json().rows[0], 'archive')
+    assert.equal((await publicationApp.inject('/api/screener/idea-workspace?lane=events')).json().rows.length, 0, 'successful archive invalidates the ordinary GET cache immediately')
+    await filePublished(firstArchive, 'restore')
+    assert.equal((await publicationApp.inject('/api/screener/idea-workspace?lane=events')).json().rows.length, 1)
+    fs.writeFileSync(feedPath, `${JSON.stringify({ ...a, headline: 'Pipeline operator confirms normal service' })}\n`)
+    const cachedResponse = await publicationApp.inject('/api/screener/idea-workspace?lane=events')
+    assert.equal(cachedResponse.json().rows[0]?.event?.title, 'Pipeline reopened after repairs', 'ordinary reads reuse the complete short-lived snapshot')
+    const refreshed = await publicationApp.inject('/api/screener/idea-workspace?lane=events&refresh=1')
+    assert.equal(refreshed.json().rows[0]?.event?.title, 'Pipeline operator confirms normal service', 'explicit refresh bypasses the snapshot cache')
+    const latestArchive = await filePublished(refreshed.json().rows[0], 'archive')
+    assert.equal(latestArchive.event.title, 'Pipeline operator confirms normal service', 'filing uses the same refreshed catalog the user saw, not its earlier mutation cache')
+  } finally {
+    if (publishing !== null) releaseRetainedFlock(publishing)
+    await publicationApp.close()
+    fs.rmSync(publicationRoot, { recursive: true, force: true })
+  }
+
   // A legacy synchronous snapshot writer must not strand an asynchronous archive transaction on the
   // same event loop. Hold its journal externally long enough to observe the archive's repository lease.
   const journalLease = spawn('python3', ['-c', 'import fcntl,sys,time; f=open(sys.argv[1],"a"); fcntl.flock(f,fcntl.LOCK_EX); print("locked",flush=True); time.sleep(0.6)', path.join(root, 'screener/ledger/idea-workspace-actions.ndjson.lock')])
@@ -218,7 +261,7 @@ try {
   assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 200)
   fs.appendFileSync(ledger, '{broken}\n')
   const bytes = fs.readFileSync(ledger, 'utf8')
-  assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 500, 'corruption never falls back to a saved board')
+  assert.equal((await corruptApp.inject('/api/screener/idea-workspace?refresh=1')).statusCode, 500, 'corruption never falls back to a saved board')
   const corruptionLease = await acquireRetainedFlock(repositoryMutationLockPath(root)!, { waitMs: 0, busyMessage: 'fixture' })
   try {
     assert.equal((await corruptApp.inject('/api/screener/idea-workspace')).statusCode, 503, 'a later busy read cannot hide the detected corruption with a stale snapshot')
