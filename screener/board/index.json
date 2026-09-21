@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T04:52:43Z",
+  "generated_at": "2026-09-21T04:56:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -1020,6 +1020,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-227",
+      "headline": "At least three killed in Pakistani airstrike on Afghanistan",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/rest-of-world/at-least-three-killed-in-pakistani-airstrike-on-afghanistan-4153469",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T04:36:39Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "A military airstrike by Pakistan on Afghanistan represents a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A military airstrike by Pakistan on Afghanistan represents a significant geopolitical escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-163",
       "headline": "At least three killed in Pakistani airstrike on Afghanistan, Tolo News reports",
       "headline_en": null,
@@ -1949,55 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-057",
-      "headline": "SHAW BROTHERS (00953): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100245.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T00:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Trading resumption indicates the resolution of a suspension event for Shaw Brothers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading resumption indicates the resolution of a suspension event for Shaw Brothers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shaw Brothers",
-          "ticker": "00953",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172623,9 +172617,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2753,
-    "news_picked_today": 329,
-    "news_dropped_today": 2292
+    "news_seen_today": 2795,
+    "news_picked_today": 333,
+    "news_dropped_today": 2330
   },
   "book_momentum": {
     "live_count": 8,
