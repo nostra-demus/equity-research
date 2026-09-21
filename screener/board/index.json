@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T05:53:44Z",
+  "generated_at": "2026-09-21T05:54:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -133070,6 +133070,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-88eef3591541",
+      "idea_version": "IDEAV-8bcaca3f447dfabb",
+      "idea_version_started_at": "2026-09-21T05:53:59Z",
+      "ticker": "KPG",
+      "company": "KPG",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
+      "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-69dcf5a78b9a"
+      ],
+      "primary_source_event_id": "EVT-69dcf5a78b9a",
+      "source_headlines": [
+        "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
+      ],
+      "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-21T05:25:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T05:53:59Z",
+      "updated_at": "2026-09-21T05:53:59Z",
+      "decay_at": "2026-09-22T17:25:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3a81f9017113",
       "idea_version": "IDEAV-d2e52a39e9a86eb5",
       "idea_version_started_at": "2026-09-21T03:30:16Z",
@@ -172677,8 +172748,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 956,
-    "live_count": 45,
+    "surfaced_total": 957,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
