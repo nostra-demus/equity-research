@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T03:51:04Z",
+  "generated_at": "2026-09-21T03:54:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -796,6 +796,55 @@
           "name": "EHI Car",
           "ticker": "40851",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-169",
+      "headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/welspun-corp-share-price-saudi-aramco-order-win-2000-crore-order-book-timeline-fy27-guidance-2026-returns-19994417.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T03:45:23Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Welspun Corp secured a significant order worth ₹2,000 crore from Saudi Aramco.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Welspun Corp secured a significant order worth ₹2,000 crore from Saudi Aramco.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Corp",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1931,65 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-131",
-      "headline": "Samara Capital acquires stake in ARC and Calyx to build logistics platform",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/start-ups/samara-capital-arc-calyx-logistics-platform-rs-1200-crore-11789902774973.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T02:30:35Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Samara Capital is acquiring stakes in ARC and Calyx to consolidate a logistics platform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Samara Capital is acquiring stakes in ARC and Calyx to consolidate a logistics platform.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samara Capital",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "ARC",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Calyx",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -171894,9 +171884,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1252,
-    "news_picked_today": 229,
-    "news_dropped_today": 891
+    "news_seen_today": 1272,
+    "news_picked_today": 234,
+    "news_dropped_today": 906
   },
   "book_momentum": {
     "live_count": 8,
