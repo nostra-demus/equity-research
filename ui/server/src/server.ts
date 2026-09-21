@@ -28,7 +28,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, listReadyPublicationFailures, listSupersededReadyPublications, sigIdFor,
   isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -380,6 +380,9 @@ app.get('/api/health', async (_req, reply) => {
     // Sealed publications the startup recovery pass could not publish (count only: no run identity).
     // They no longer stop the engine, so this is where a monitor sees them.
     stuckPublications: listReadyPublicationFailures().length,
+    // Sealed publications the last pass settled around newer published data: their unreplaced paths were
+    // published and the newer bytes kept. Resolved, not stuck; the detail is in the startup log and archive.
+    supersededPublications: listSupersededReadyPublications().length,
     // The benchmark feed judged by the files THIS engine can read. It is here because every way its
     // refresher fails is quiet, and health is the one thing an operator checks without being told to.
     marketFeed: await marketFeedHealth([BENCHMARK_SYMBOL], new Date().toISOString().slice(0, 10)),
