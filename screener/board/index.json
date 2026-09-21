@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T06:20:12Z",
+  "generated_at": "2026-09-21T06:26:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -1810,6 +1810,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-254",
+      "headline": "Stellantis takes full ownership of Thiruvallur plant; targets 160 pc production ramp-up by 2027",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/stellantis-takes-full-ownership-of-thiruvallur-plant-targets-160-pc-production-ramp-up-by-2027/articleshow/134380755.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T05:32:03Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Stellantis is taking full ownership of a plant and targeting a 160% production increase by 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Stellantis is taking full ownership of a plant and targeting a 160% production increase by 2027.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stellantis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-129",
       "headline": "Crypto firm NTC fails in eleventh hour bid to escape final liquidation",
       "headline_en": null,
@@ -1949,55 +1999,6 @@
         {
           "name": "China Healthwise Holdings Limited",
           "ticker": "00348",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-001",
-      "headline": "ABBISKO-B (02256): VOLUNTARY ANNOUNCEMENT - ABBISKO THERAPEUTICS ANNOUNCES POSITIVE PRELIMINARY PHASE II RESULTS WITH LAVENGRATINIB (ABSK061) FOR THE TREATMENT OF ACHONDROPLASIA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100183.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Abbisko Therapeutics reported positive preliminary Phase II results for its drug candidate Lavengratinib.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Abbisko Therapeutics reported positive preliminary Phase II results for its drug candidate Lavengratinib.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abbisko Therapeutics",
-          "ticker": "02256",
           "listing_country": "CN"
         }
       ],
@@ -172773,7 +172774,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45362,
+    "news_seen_today": 51960,
     "news_picked_today": 390,
     "news_dropped_today": 4187
   },
