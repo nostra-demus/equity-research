@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-20T23:56:54Z",
+  "generated_at": "2026-09-20T23:59:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260920-830",
+      "headline": "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SVL?key=2924-03137571-2A1698132",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-20T23:56:45Z",
+      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
+      "prelim_note": "Silver Mines Limited is raising $70 million in new capital, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Silver Mines Limited is raising $70 million in new capital, which is dilutive to existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Silver Mines Limited",
+          "ticker": "SVL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260920-820",
       "headline": "IGL: Scheme Implementation Deed [price-sensitive]",
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260920-705",
-      "headline": "‎MIS inks SAR 8.7B data center deal with HUMAIN",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1937727",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-20T09:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-20_sweep.json",
-      "prelim_note": "MIS signed a SAR 8.7 billion data center deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MIS signed a SAR 8.7 billion data center deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MIS",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169403,9 +169403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1803525,
-    "news_picked_today": 2142,
-    "news_dropped_today": 7343
+    "news_seen_today": 1803538,
+    "news_picked_today": 2145,
+    "news_dropped_today": 7353
   },
   "book_momentum": {
     "live_count": 8,
