@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:49:48Z",
+  "generated_at": "2026-09-21T01:55:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -147,6 +147,55 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-111",
+      "headline": "SoftBank Seeks Over $11 Billion in Junk Bond Deal for OpenAI Bet",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-21/softbank-seeks-over-11-billion-in-junk-bond-deal-for-openai-bet",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T01:29:50Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "SoftBank is seeking to raise over $11 billion in debt to fund investments in OpenAI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank is seeking to raise over $11 billion in debt to fund investments in OpenAI.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "mega",
@@ -1642,6 +1691,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-112",
+      "headline": "Meta's social networks down for thousands of users in US, Downdetector says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/metas-social-networks-down-thousands-users-us-downdetector-says-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T01:46:49Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Meta experienced a service outage affecting thousands of users.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Meta experienced a service outage affecting thousands of users.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-098",
       "headline": "UBS CEO Ermotti warns against harsh capital rules ahead of vote",
       "headline_en": null,
@@ -1882,104 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-096",
-      "headline": "Union Says US Steel Talks Make Little Progress Ahead of Deadline",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-21/union-says-us-steel-talks-make-little-progress-ahead-of-deadline",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:55:05Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Lack of progress in labor negotiations at US Steel increases the risk of operational disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Lack of progress in labor negotiations at US Steel increases the risk of operational disruption.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "US Steel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-059",
-      "headline": "100-year-old giant grocery chain closes stores in 4 states",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/iga-closes-stores-in-4-states",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:38:32Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "A 100-year-old grocery chain is closing stores across 4 states, indicating operational distress or downsizing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A 100-year-old grocery chain is closing stores across 4 states, indicating operational distress or downsizing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unknown Grocery Chain",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -131391,6 +131392,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-1a317bf4b527b309",
+      "idea_version_started_at": "2026-09-21T01:55:19Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is a clear takeover target with a rejected $1.5 billion bid and a suitor publicly committed to pursuing a $3 billion valuation.",
+      "why_now": "The board has formally rejected the initial bid, but the suitor's public vow to continue the pursuit as of September 21, 2026, keeps the M&A premium active.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-38ff12e02d70",
+        "EVT-0f365ef8ea48"
+      ],
+      "primary_source_event_id": "EVT-38ff12e02d70",
+      "source_headlines": [
+        "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+        "PE suitor vows to press on with $3b pursuit of Ingenia"
+      ],
+      "source_headline": "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+      "source_url": "https://www.reuters.com/legal/transactional/australias-ingenia-rebuffs-revised-15-billion-takeover-bid-warburg-pincus-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T00:53:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T16:00:56Z",
+      "updated_at": "2026-09-21T01:55:19Z",
+      "decay_at": "2026-09-22T12:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b02a5d2137a2",
       "idea_version": "IDEAV-c169a0cdc5bbe1b8",
       "idea_version_started_at": "2026-09-21T00:55:55Z",
@@ -131672,78 +131746,6 @@
       "surfaced_at": "2026-09-20T20:17:19Z",
       "updated_at": "2026-09-20T20:17:19Z",
       "decay_at": "2026-09-22T07:26:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-cb2a9eef2c489e65",
-      "idea_version_started_at": "2026-09-20T19:47:02Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The board is currently reviewing a revised $3 billion private equity takeover proposal, which provides a strong valuation floor and potential acquisition premium.",
-      "why_now": "The board is actively sitting on the revised proposal, making a formal response or deal acceptance a near-term catalyst.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-becc164094ca"
-      ],
-      "primary_source_event_id": "EVT-becc164094ca",
-      "source_headlines": [
-        "Ingenia board sits on revised $3b proposal from PE suitor"
-      ],
-      "source_headline": "Ingenia board sits on revised $3b proposal from PE suitor",
-      "source_url": "https://www.afr.com/street-talk/ingenia-board-sits-on-revised-3b-proposal-from-pe-suitor-20260920-p60y3y?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T02:42:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T16:00:56Z",
-      "updated_at": "2026-09-20T19:47:02Z",
-      "decay_at": "2026-09-21T14:42:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171596,9 +171598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 717,
-    "news_picked_today": 120,
-    "news_dropped_today": 465
+    "news_seen_today": 730,
+    "news_picked_today": 123,
+    "news_dropped_today": 475
   },
   "book_momentum": {
     "live_count": 8,
