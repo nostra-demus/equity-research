@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:30:04Z",
+  "generated_at": "2026-09-21T01:35:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-003",
@@ -1489,6 +1489,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-098",
+      "headline": "UBS CEO Ermotti warns against harsh capital rules ahead of vote",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/ubs-ceo-ermotti-warns-against-harsh-capital-rules-ahead-vote",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T01:32:57Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "The CEO of a major global bank is publicly lobbying against stricter capital requirements, which could impact the bank's future capital structure and ROE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The CEO of a major global bank is publicly lobbying against stricter capital requirements, which could impact the bank's future capital structure and ROE.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UBS",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-095",
       "headline": "'Illegal, strong objection': What Noel Tata said on N Chandrasekaran's 'controversial' reappointment at Tata Sons",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
           "name": "LG Display",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-074",
-      "headline": "New World Development bags Shanghai bourse nod for $570 million REIT listing",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/new-world-development-bags-shanghai-bourse-nod-570-million-reit-listing-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:45:55Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "New World Development received approval for a $570 million REIT listing on the Shanghai stock exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "New World Development received approval for a $570 million REIT listing on the Shanghai stock exchange.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -171733,9 +171733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 642,
-    "news_picked_today": 101,
-    "news_dropped_today": 409
+    "news_seen_today": 658,
+    "news_picked_today": 107,
+    "news_dropped_today": 419
   },
   "book_momentum": {
     "live_count": 8,
