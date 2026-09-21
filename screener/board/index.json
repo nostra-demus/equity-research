@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T02:52:02Z",
+  "generated_at": "2026-09-21T03:00:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-142",
@@ -198,40 +198,41 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260921-137",
-      "headline": "Softbank Group launches over US$10 billion in bonds for OpenAI investment",
+      "inbox_id": "INB-20260921-147",
+      "headline": "Softbank Group launches over $10 billion in junk bonds for OpenAI investment, says report",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/softbank-group-launches-over-us10-billion-bonds-openai-investment",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.cnbctv18.com/business/softbank-group-launches-over-10-billion-in-junk-bonds-for-openai-investment-says-report-19994507.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-09-21T02:28:37Z",
+      "found_at": "2026-09-21T02:51:27Z",
       "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Softbank is raising over US$10 billion in debt to fund an investment in OpenAI, representing a major capital allocation move into AI.",
+      "prelim_note": "Softbank is raising over $10 billion in debt to fund an investment in OpenAI, significantly impacting its capital structure and risk profile.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Softbank is raising over US$10 billion in debt to fund an investment in OpenAI, representing a major capital allocation move into AI.",
+      "triage_reason": "Softbank is raising over $10 billion in debt to fund an investment in OpenAI, significantly impacting its capital structure and risk profile.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
-        "event": 6,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "capex",
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "capex"
+        "debt_credit",
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -239,6 +240,11 @@
           "name": "Softbank Group",
           "ticker": null,
           "listing_country": "JP"
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -854,6 +860,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-144",
+      "headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 21, 2026, titled \"Biocon s Pertuzumab Becomes First Biosimilar to Secure EMA CHMP Approval Recommendation Under New Tailored Clinical Approach\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BIOCON_21092026082614_Pressrelease21092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-21T02:56:47Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Biocon received a positive EMA CHMP recommendation for its Pertuzumab biosimilar, a significant regulatory milestone for its product pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Biocon received a positive EMA CHMP recommendation for its Pertuzumab biosimilar, a significant regulatory milestone for its product pipeline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Biocon Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-129",
       "headline": "Crypto firm NTC fails in eleventh hour bid to escape final liquidation",
       "headline_en": null,
@@ -1336,6 +1392,55 @@
           "name": "Hansoh Pharmaceutical",
           "ticker": "03692",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260921-153",
+      "headline": "수출입은행, 정유사 원유 구매자금 대출한도 긴급 확대",
+      "headline_en": "Export-Import Bank of Korea urgently expands loan limits for oil refiners' crude oil purchase funds",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277413",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T02:47:44Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Export-Import Bank of Korea is expanding loan limits for oil refiners to purchase crude, supporting sector liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Export-Import Bank of Korea is expanding loan limits for oil refiners to purchase crude, supporting sector liquidity.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Export-Import Bank of Korea",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1846,143 +1951,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260921-113",
-      "headline": "Trump administration readies sweeping sanctions against ICC, reports say",
+      "inbox_id": "INB-20260921-149",
+      "headline": "Firmus Seeks to Raise $5 Billion in Landmark Australian IPO",
       "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/9/21/trump-administration-readies-sweeping-sanctions-against-icc-reports-say?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-21T01:19:42Z",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-21/firmus-seeks-to-raise-5-billion-in-landmark-australian-ipo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T02:33:07Z",
       "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "The US government is preparing sanctions against an international judicial body, signaling a significant shift in geopolitical and legal risk.",
+      "prelim_note": "Firmus is seeking to raise $5 billion in a landmark IPO, representing a major capital event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "The US government is preparing sanctions against an international judicial body, signaling a significant shift in geopolitical and legal risk.",
-      "region": "GLOBAL",
+      "triage_reason": "Firmus is seeking to raise $5 billion in a landmark IPO, representing a major capital event.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-051",
-      "headline": "Nilon’s explores majority stake sale at up to ₹1,200 crore valuation",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/nilons-pickle-stake-sale-valuation-11789875343543.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:30:33Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "Nilon's is exploring a majority stake sale at a valuation of up to 1200 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Nilon's is exploring a majority stake sale at a valuation of up to 1200 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nilon's",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-065",
-      "headline": "ASIC sues ex-Super Retail chief executive Anthony Heraghty",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/asic-sues-ex-super-retail-chief-executive-anthony-heraghty-20260921-p60z24?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-21T00:24:13Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "ASIC is suing the former CEO of Super Retail Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "ASIC is suing the former CEO of Super Retail Group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
+        "event_id": null,
+        "size_bucket": "large"
       },
       "event_types": [
-        "litigation_enforcement"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Super Retail Group",
+          "name": "Firmus",
           "ticker": null,
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
