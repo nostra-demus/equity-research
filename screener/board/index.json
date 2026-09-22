@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T08:31:16Z",
+  "generated_at": "2026-09-22T07:14:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260921-209",
@@ -1808,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260921-287",
+      "headline": "Samvardhana Motherson gets board nod to acquire 50.1% stake in Rotary Connectors at ₹500 crore EV",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/samvardhana-motherson-share-price-rotary-connectors-50-percent-stake-enterprise-value-500-crore-business-turnover-segments-19994695.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-21T07:19:54Z",
+      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
+      "prelim_note": "Samvardhana Motherson to acquire a 50.1% stake in Rotary Connectors for ₹500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Samvardhana Motherson to acquire a 50.1% stake in Rotary Connectors for ₹500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samvardhana Motherson",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260921-166",
       "headline": "RBX: Becoming a substantial holder",
       "headline_en": null,
@@ -1956,55 +2005,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260921-246",
-      "headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T05:25:50Z",
-      "sweep_file": "screener/inbox/2026-09-21_sweep.json",
-      "prelim_note": "KPG is initiating a major corporate restructuring involving a Nasdaq listing and ASX delisting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "KPG is initiating a major corporate restructuring involving a Nasdaq listing and ASX delisting.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130923,146 +130923,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0cca54205613",
-      "idea_version": "IDEAV-82e2fc2ca1899d2e",
-      "idea_version_started_at": "2026-09-20T15:10:12Z",
-      "ticker": "ADANIPOWER.NS",
-      "company": "Adani Power",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Adani Power is laying the foundation for a significant new power project in Assam, indicating substantial capital expenditure and future growth potential.",
-      "why_now": "The project foundation is being laid now, signifying immediate commencement of a large-scale capex initiative.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6712b5291c9e"
-      ],
-      "primary_source_event_id": "EVT-6712b5291c9e",
-      "source_headlines": [
-        "Adani Power lays foundation for ₹48,000 cr Assam power project"
-      ],
-      "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
-      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T11:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T15:10:12Z",
-      "updated_at": "2026-09-20T15:10:12Z",
-      "decay_at": "2026-09-21T23:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2ed3c81de18b",
-      "idea_version": "IDEAV-5be247720c4d6e97",
-      "idea_version_started_at": "2026-09-20T01:29:10Z",
-      "ticker": "DUOL",
-      "company": "Duolingo",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
-      "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2db4cc5eda49"
-      ],
-      "primary_source_event_id": "EVT-2db4cc5eda49",
-      "source_headlines": [
-        "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
-      ],
-      "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
-      "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-20T00:28:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T01:29:10Z",
-      "updated_at": "2026-09-20T01:29:10Z",
-      "decay_at": "2026-09-21T12:28:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-697598c2bbee",
       "idea_version": "IDEAV-c9eb1d0cfeea08ee",
       "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -132067,365 +131927,6 @@
       "surfaced_at": "2026-09-20T20:17:19Z",
       "updated_at": "2026-09-20T20:17:19Z",
       "decay_at": "2026-09-22T07:26:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3579839382d4",
-      "idea_version": "IDEAV-96d91baa65bb25fe",
-      "idea_version_started_at": "2026-09-20T16:00:56Z",
-      "ticker": "3991",
-      "company": "Changhong Jiahua Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed privatization scheme of arrangement and withdrawal of listing has officially lapsed due to the non-fulfillment of pre-conditions.",
-      "why_now": "The official joint announcement of the deal's collapse was filed on September 20, 2026, which will trigger an immediate downward re-rating as the privatization premium evaporates.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-78132f347fc1"
-      ],
-      "primary_source_event_id": "EVT-78132f347fc1",
-      "source_headlines": [
-        "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
-      ],
-      "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T10:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T16:00:56Z",
-      "updated_at": "2026-09-20T16:00:56Z",
-      "decay_at": "2026-09-21T22:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b781349ed9cc",
-      "idea_version": "IDEAV-e9fe342c5bc0eb05",
-      "idea_version_started_at": "2026-09-20T15:10:12Z",
-      "ticker": "BIG.AX",
-      "company": "Big W",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
-      "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c28e7247d11"
-      ],
-      "primary_source_event_id": "EVT-4c28e7247d11",
-      "source_headlines": [
-        "Key Christmas retailer files for Chapter 11 bankrutpcy"
-      ],
-      "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
-      "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T14:07:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T15:10:12Z",
-      "updated_at": "2026-09-20T15:10:12Z",
-      "decay_at": "2026-09-22T02:07:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9e336b525ce4",
-      "idea_version": "IDEAV-a82c53b54581b47c",
-      "idea_version_started_at": "2026-09-20T13:45:08Z",
-      "ticker": "ADANIPOWER",
-      "company": "Adani Power",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has commenced a major ₹48,000 crore capital expenditure project in Assam, which will significantly expand its power generation capacity.",
-      "why_now": "The foundation stone for the project was laid on 2026-09-20, marking the start of the investment cycle.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6712b5291c9e"
-      ],
-      "primary_source_event_id": "EVT-6712b5291c9e",
-      "source_headlines": [
-        "Adani Power lays foundation for ₹48,000 cr Assam power project"
-      ],
-      "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
-      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T11:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T13:45:08Z",
-      "updated_at": "2026-09-20T13:45:08Z",
-      "decay_at": "2026-09-21T23:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ef3ca3b6a40e",
-      "idea_version": "IDEAV-7449ce2ba0d2012a",
-      "idea_version_started_at": "2026-09-20T13:45:08Z",
-      "ticker": "03991",
-      "company": "Changhong Jiahua",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed privatization and delisting of the company has officially lapsed, removing the acquisition premium from the stock price.",
-      "why_now": "The official exchange filing confirming the lapse was released on 2026-09-20.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-78132f347fc1"
-      ],
-      "primary_source_event_id": "EVT-78132f347fc1",
-      "source_headlines": [
-        "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
-      ],
-      "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T10:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T13:45:08Z",
-      "updated_at": "2026-09-20T13:45:08Z",
-      "decay_at": "2026-09-21T22:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3ad41fe6a7f3",
-      "idea_version": "IDEAV-e82eca4ec65e35ca",
-      "idea_version_started_at": "2026-09-19T23:48:22Z",
-      "ticker": "BRK.A",
-      "company": "Berkshire Hathaway",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Warren Buffett's stepping down as Berkshire Hathaway chief, with his son Howard stepping in, introduces leadership uncertainty and a potential shift in investment strategy.",
-      "why_now": "The news of Warren Buffett's exit and Howard Buffett's succession is a fresh, significant management change reported on September 19, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6206ab685d63"
-      ],
-      "primary_source_event_id": "EVT-6206ab685d63",
-      "source_headlines": [
-        "Buffett steps down as Berkshire chief, son Howard steps in"
-      ],
-      "source_headline": "Buffett steps down as Berkshire chief, son Howard steps in",
-      "source_url": "https://www.qatar-tribune.com/article/254732/business/buffett-steps-down-as-berkshire-chief-son-howard-steps-in",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T21:27:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T23:48:22Z",
-      "updated_at": "2026-09-19T23:48:22Z",
-      "decay_at": "2026-09-21T09:27:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -133998,6 +133499,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0cca54205613",
+      "idea_version": "IDEAV-82e2fc2ca1899d2e",
+      "idea_version_started_at": "2026-09-20T15:10:12Z",
+      "ticker": "ADANIPOWER.NS",
+      "company": "Adani Power",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Adani Power is laying the foundation for a significant new power project in Assam, indicating substantial capital expenditure and future growth potential.",
+      "why_now": "The project foundation is being laid now, signifying immediate commencement of a large-scale capex initiative.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6712b5291c9e"
+      ],
+      "primary_source_event_id": "EVT-6712b5291c9e",
+      "source_headlines": [
+        "Adani Power lays foundation for ₹48,000 cr Assam power project"
+      ],
+      "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T11:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T15:10:12Z",
+      "updated_at": "2026-09-20T15:10:12Z",
+      "decay_at": "2026-09-21T23:14:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-12b52752f576",
       "idea_version": "IDEAV-7a11a15ca8e65ad9",
       "idea_version_started_at": "2026-09-20T17:40:58Z",
@@ -134419,6 +133990,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2ed3c81de18b",
+      "idea_version": "IDEAV-5be247720c4d6e97",
+      "idea_version_started_at": "2026-09-20T01:29:10Z",
+      "ticker": "DUOL",
+      "company": "Duolingo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
+      "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2db4cc5eda49"
+      ],
+      "primary_source_event_id": "EVT-2db4cc5eda49",
+      "source_headlines": [
+        "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
+      ],
+      "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
+      "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-20T00:28:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T01:29:10Z",
+      "updated_at": "2026-09-20T01:29:10Z",
+      "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ab211b817901",
       "idea_version": "IDEAV-64df97f16c267173",
       "idea_version_started_at": "2026-09-19T00:43:05Z",
@@ -134556,6 +134197,365 @@
       "surfaced_at": "2026-09-20T17:25:16Z",
       "updated_at": "2026-09-20T17:25:16Z",
       "decay_at": "2026-09-20T21:54:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3579839382d4",
+      "idea_version": "IDEAV-96d91baa65bb25fe",
+      "idea_version_started_at": "2026-09-20T16:00:56Z",
+      "ticker": "3991",
+      "company": "Changhong Jiahua Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed privatization scheme of arrangement and withdrawal of listing has officially lapsed due to the non-fulfillment of pre-conditions.",
+      "why_now": "The official joint announcement of the deal's collapse was filed on September 20, 2026, which will trigger an immediate downward re-rating as the privatization premium evaporates.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78132f347fc1"
+      ],
+      "primary_source_event_id": "EVT-78132f347fc1",
+      "source_headlines": [
+        "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
+      ],
+      "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T16:00:56Z",
+      "updated_at": "2026-09-20T16:00:56Z",
+      "decay_at": "2026-09-21T22:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b781349ed9cc",
+      "idea_version": "IDEAV-e9fe342c5bc0eb05",
+      "idea_version_started_at": "2026-09-20T15:10:12Z",
+      "ticker": "BIG.AX",
+      "company": "Big W",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
+      "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c28e7247d11"
+      ],
+      "primary_source_event_id": "EVT-4c28e7247d11",
+      "source_headlines": [
+        "Key Christmas retailer files for Chapter 11 bankrutpcy"
+      ],
+      "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
+      "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T14:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T15:10:12Z",
+      "updated_at": "2026-09-20T15:10:12Z",
+      "decay_at": "2026-09-22T02:07:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9e336b525ce4",
+      "idea_version": "IDEAV-a82c53b54581b47c",
+      "idea_version_started_at": "2026-09-20T13:45:08Z",
+      "ticker": "ADANIPOWER",
+      "company": "Adani Power",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has commenced a major ₹48,000 crore capital expenditure project in Assam, which will significantly expand its power generation capacity.",
+      "why_now": "The foundation stone for the project was laid on 2026-09-20, marking the start of the investment cycle.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6712b5291c9e"
+      ],
+      "primary_source_event_id": "EVT-6712b5291c9e",
+      "source_headlines": [
+        "Adani Power lays foundation for ₹48,000 cr Assam power project"
+      ],
+      "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T11:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T13:45:08Z",
+      "updated_at": "2026-09-20T13:45:08Z",
+      "decay_at": "2026-09-21T23:14:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ef3ca3b6a40e",
+      "idea_version": "IDEAV-7449ce2ba0d2012a",
+      "idea_version_started_at": "2026-09-20T13:45:08Z",
+      "ticker": "03991",
+      "company": "Changhong Jiahua",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed privatization and delisting of the company has officially lapsed, removing the acquisition premium from the stock price.",
+      "why_now": "The official exchange filing confirming the lapse was released on 2026-09-20.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78132f347fc1"
+      ],
+      "primary_source_event_id": "EVT-78132f347fc1",
+      "source_headlines": [
+        "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
+      ],
+      "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T13:45:08Z",
+      "updated_at": "2026-09-20T13:45:08Z",
+      "decay_at": "2026-09-21T22:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3ad41fe6a7f3",
+      "idea_version": "IDEAV-e82eca4ec65e35ca",
+      "idea_version_started_at": "2026-09-19T23:48:22Z",
+      "ticker": "BRK.A",
+      "company": "Berkshire Hathaway",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Warren Buffett's stepping down as Berkshire Hathaway chief, with his son Howard stepping in, introduces leadership uncertainty and a potential shift in investment strategy.",
+      "why_now": "The news of Warren Buffett's exit and Howard Buffett's succession is a fresh, significant management change reported on September 19, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6206ab685d63"
+      ],
+      "primary_source_event_id": "EVT-6206ab685d63",
+      "source_headlines": [
+        "Buffett steps down as Berkshire chief, son Howard steps in"
+      ],
+      "source_headline": "Buffett steps down as Berkshire chief, son Howard steps in",
+      "source_url": "https://www.qatar-tribune.com/article/254732/business/buffett-steps-down-as-berkshire-chief-son-howard-steps-in",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-19T21:27:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-19T23:48:22Z",
+      "updated_at": "2026-09-19T23:48:22Z",
+      "decay_at": "2026-09-21T09:27:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135502,19 +135502,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 264,
-        "shown_count": 250,
-        "hidden_count": 14
-      },
-      "short": {
         "total_count": 266,
         "shown_count": 250,
         "hidden_count": 16
+      },
+      "short": {
+        "total_count": 271,
+        "shown_count": 250,
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -135533,6 +135533,526 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b781349ed9cc",
+        "idea_version": "IDEAV-e9fe342c5bc0eb05",
+        "idea_version_started_at": "2026-09-20T15:10:12Z",
+        "ticker": "BIG.AX",
+        "company": "Big W",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
+        "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c28e7247d11"
+        ],
+        "primary_source_event_id": "EVT-4c28e7247d11",
+        "source_headlines": [
+          "Key Christmas retailer files for Chapter 11 bankrutpcy"
+        ],
+        "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
+        "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T14:07:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T15:10:12Z",
+        "updated_at": "2026-09-20T15:10:12Z",
+        "decay_at": "2026-09-22T02:07:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T02:07:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0cca54205613",
+        "idea_version": "IDEAV-82e2fc2ca1899d2e",
+        "idea_version_started_at": "2026-09-20T15:10:12Z",
+        "ticker": "ADANIPOWER.NS",
+        "company": "Adani Power",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Adani Power is laying the foundation for a significant new power project in Assam, indicating substantial capital expenditure and future growth potential.",
+        "why_now": "The project foundation is being laid now, signifying immediate commencement of a large-scale capex initiative.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6712b5291c9e"
+        ],
+        "primary_source_event_id": "EVT-6712b5291c9e",
+        "source_headlines": [
+          "Adani Power lays foundation for ₹48,000 cr Assam power project"
+        ],
+        "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+        "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T11:14:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T15:10:12Z",
+        "updated_at": "2026-09-20T15:10:12Z",
+        "decay_at": "2026-09-21T23:14:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T23:14:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9e336b525ce4",
+        "idea_version": "IDEAV-a82c53b54581b47c",
+        "idea_version_started_at": "2026-09-20T13:45:08Z",
+        "ticker": "ADANIPOWER",
+        "company": "Adani Power",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has commenced a major ₹48,000 crore capital expenditure project in Assam, which will significantly expand its power generation capacity.",
+        "why_now": "The foundation stone for the project was laid on 2026-09-20, marking the start of the investment cycle.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6712b5291c9e"
+        ],
+        "primary_source_event_id": "EVT-6712b5291c9e",
+        "source_headlines": [
+          "Adani Power lays foundation for ₹48,000 cr Assam power project"
+        ],
+        "source_headline": "Adani Power lays foundation for ₹48,000 cr Assam power project",
+        "source_url": "https://economictimes.indiatimes.com/industry/energy/power/adani-power-lays-foundation-for-48000-cr-assam-power-project/articleshow/134367185.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T11:14:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T13:45:08Z",
+        "updated_at": "2026-09-20T13:45:08Z",
+        "decay_at": "2026-09-21T23:14:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T23:14:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3579839382d4",
+        "idea_version": "IDEAV-96d91baa65bb25fe",
+        "idea_version_started_at": "2026-09-20T16:00:56Z",
+        "ticker": "3991",
+        "company": "Changhong Jiahua Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The proposed privatization scheme of arrangement and withdrawal of listing has officially lapsed due to the non-fulfillment of pre-conditions.",
+        "why_now": "The official joint announcement of the deal's collapse was filed on September 20, 2026, which will trigger an immediate downward re-rating as the privatization premium evaporates.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78132f347fc1"
+        ],
+        "primary_source_event_id": "EVT-78132f347fc1",
+        "source_headlines": [
+          "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
+        ],
+        "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T10:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T16:00:56Z",
+        "updated_at": "2026-09-20T16:00:56Z",
+        "decay_at": "2026-09-21T22:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T22:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ef3ca3b6a40e",
+        "idea_version": "IDEAV-7449ce2ba0d2012a",
+        "idea_version_started_at": "2026-09-20T13:45:08Z",
+        "ticker": "03991",
+        "company": "Changhong Jiahua",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The proposed privatization and delisting of the company has officially lapsed, removing the acquisition premium from the stock price.",
+        "why_now": "The official exchange filing confirming the lapse was released on 2026-09-20.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78132f347fc1"
+        ],
+        "primary_source_event_id": "EVT-78132f347fc1",
+        "source_headlines": [
+          "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
+        ],
+        "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - NON-FULFILLMENT OF PRE-CONDITIONS AND LAPSE OF THE PROPOSAL IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0920/2026092000007.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T10:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T13:45:08Z",
+        "updated_at": "2026-09-20T13:45:08Z",
+        "decay_at": "2026-09-21T22:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T22:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2ed3c81de18b",
+        "idea_version": "IDEAV-5be247720c4d6e97",
+        "idea_version_started_at": "2026-09-20T01:29:10Z",
+        "ticker": "DUOL",
+        "company": "Duolingo",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
+        "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2db4cc5eda49"
+        ],
+        "primary_source_event_id": "EVT-2db4cc5eda49",
+        "source_headlines": [
+          "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
+        ],
+        "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
+        "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 85,
+        "newest_source_at": "2026-09-20T00:28:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T01:29:10Z",
+        "updated_at": "2026-09-20T01:29:10Z",
+        "decay_at": "2026-09-21T12:28:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T12:28:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3ad41fe6a7f3",
+        "idea_version": "IDEAV-e82eca4ec65e35ca",
+        "idea_version_started_at": "2026-09-19T23:48:22Z",
+        "ticker": "BRK.A",
+        "company": "Berkshire Hathaway",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Warren Buffett's stepping down as Berkshire Hathaway chief, with his son Howard stepping in, introduces leadership uncertainty and a potential shift in investment strategy.",
+        "why_now": "The news of Warren Buffett's exit and Howard Buffett's succession is a fresh, significant management change reported on September 19, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6206ab685d63"
+        ],
+        "primary_source_event_id": "EVT-6206ab685d63",
+        "source_headlines": [
+          "Buffett steps down as Berkshire chief, son Howard steps in"
+        ],
+        "source_headline": "Buffett steps down as Berkshire chief, son Howard steps in",
+        "source_url": "https://www.qatar-tribune.com/article/254732/business/buffett-steps-down-as-berkshire-chief-son-howard-steps-in",
+        "source_name": "Qatar Tribune — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-19T21:27:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T23:48:22Z",
+        "updated_at": "2026-09-19T23:48:22Z",
+        "decay_at": "2026-09-21T09:27:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-21T09:27:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ecf3fe51594a",
         "idea_version": "IDEAV-a88c271695e6ee5e",
@@ -164856,154 +165376,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fdef9c56cf5c",
-        "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
-        "idea_version_started_at": "2026-09-07T00:24:17Z",
-        "ticker": "MKR",
-        "company": "Manuka Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing $A14.5 million in funding allows the company to complete its silver circuit, directly enabling production and revenue generation.",
-        "why_now": "The filing was released on 2026-09-07, providing immediate clarity on the company's ability to execute its capital project.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-50b51a32387b"
-        ],
-        "primary_source_event_id": "EVT-50b51a32387b",
-        "source_headlines": [
-          "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]"
-        ],
-        "source_headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03132451-2A1695628",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-07T00:06:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T00:24:17Z",
-        "updated_at": "2026-09-07T00:24:17Z",
-        "decay_at": "2026-09-08T12:06:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T00:18:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4ba6c74f269e",
-        "idea_version": "IDEAV-f6984b9949cbe737",
-        "idea_version_started_at": "2026-09-07T00:44:57Z",
-        "ticker": "02616",
-        "company": "CStone Pharmaceuticals",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Inclusion in the Southbound Stock Connect allows mainland Chinese investors to trade the stock, typically increasing liquidity and broadening the investor base.",
-        "why_now": "The announcement was made on 2026-09-07, and the liquidity impact usually follows the effective date of inclusion.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "liquidity_positioning",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0f803d8a55d0"
-        ],
-        "primary_source_event_id": "EVT-0f803d8a55d0",
-        "source_headlines": [
-          "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT"
-        ],
-        "source_headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 68,
-        "newest_source_at": "2026-09-07T00:06:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T00:44:57Z",
-        "updated_at": "2026-09-07T00:44:57Z",
-        "decay_at": "2026-09-08T12:06:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T00:18:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-20111a3ff2d1",
         "idea_version": "IDEAV-79f742a707403eb1",
         "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -172309,382 +172681,12 @@
         "archived_at": "2026-09-02T08:38:01Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ab6392d211fe",
-        "idea_version": "IDEAV-9c3b865caa21cfaf",
-        "idea_version_started_at": "2026-08-29T23:08:40Z",
-        "ticker": "HDB",
-        "company": "HDFC Bank Limited",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Managing Director and CEO Sashidhar Jagdishan is stepping down, creating leadership uncertainty at India's largest private sector lender.",
-        "why_now": "The executive exit is scheduled for October 26, 2026, with the announcement on August 29, 2026, initiating a transition overhang.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2bee2888c8f9"
-        ],
-        "primary_source_event_id": "EVT-2bee2888c8f9",
-        "source_headlines": [
-          "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
-        ],
-        "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
-        "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T13:14:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T11:49:33Z",
-        "updated_at": "2026-08-29T23:08:40Z",
-        "decay_at": "2026-08-31T01:14:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b9d5031899a7",
-        "idea_version": "IDEAV-a676fff74c3d9db9",
-        "idea_version_started_at": "2026-08-29T18:43:39Z",
-        "ticker": "DICINDIA",
-        "company": "DIC India Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The resignation of the MD & CEO of DIC India Limited, Mr. Manish Bhatia, suggests potential leadership instability and operational uncertainty.",
-        "why_now": "The executive exit is effective as of August 29, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cefa77d1bf41"
-        ],
-        "primary_source_event_id": "EVT-cefa77d1bf41",
-        "source_headlines": [
-          "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
-        ],
-        "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T13:09:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T18:43:39Z",
-        "updated_at": "2026-08-29T18:43:39Z",
-        "decay_at": "2026-08-31T01:09:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-eea7081fed7e",
-        "idea_version": "IDEAV-ac905aa5149a8b38",
-        "idea_version_started_at": "2026-08-29T14:33:23Z",
-        "ticker": "DICIND",
-        "company": "DIC India Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The sudden resignation and exit of Managing Director and CEO Manish Bhatia deprives the company of its top leadership, creating operational and strategic uncertainty.",
-        "why_now": "The executive's resignation is effective as of the close of business hours on August 29, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cefa77d1bf41"
-        ],
-        "primary_source_event_id": "EVT-cefa77d1bf41",
-        "source_headlines": [
-          "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
-        ],
-        "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T13:09:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T14:33:23Z",
-        "updated_at": "2026-08-29T14:33:23Z",
-        "decay_at": "2026-08-31T01:09:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0b5dc86cd04c",
-        "idea_version": "IDEAV-ae38bb0ccca7c1ba",
-        "idea_version_started_at": "2026-08-29T14:33:23Z",
-        "ticker": "ASTRON",
-        "company": "Astron Paper & Board Mill Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
-        "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-524d8df6e2f3"
-        ],
-        "primary_source_event_id": "EVT-524d8df6e2f3",
-        "source_headlines": [
-          "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T11:45:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T14:33:23Z",
-        "updated_at": "2026-08-29T14:33:23Z",
-        "decay_at": "2026-08-30T23:45:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e89adaf01a10",
-        "idea_version": "IDEAV-40f2f177f4f041e8",
-        "idea_version_started_at": "2026-08-29T23:08:40Z",
-        "ticker": "ALV",
-        "company": "Allianz SE",
-        "exchange": "ETR",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Allianz is considering a major capital outlay of £5 billion to acquire roadside assistance giant AA, which could strain its balance sheet or dilute near-term returns.",
-        "why_now": "The acquisition talks were reported by Sky News on August 29, 2026, introducing immediate deal-related volatility.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0cd3bfc6ed36"
-        ],
-        "primary_source_event_id": "EVT-0cd3bfc6ed36",
-        "source_headlines": [
-          "Allianz considers buying roadside assistance giant AA for £5bn - Sky News"
-        ],
-        "source_headline": "Allianz envisage de racheter le géant de l'assistance routière AA pour £5 mds -Sky News",
-        "source_url": "https://www.reuters.com/fr/affaires/allianz-envisage-de-racheter-le-gant-de-lassistance-routire-aa-pour-5-mds-sky-2026-08-29/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T10:31:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T14:33:23Z",
-        "updated_at": "2026-08-29T23:08:40Z",
-        "decay_at": "2026-08-30T22:31:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 957,
-    "live_count": 42,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -172703,9 +172705,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 338645,
-    "news_picked_today": 433,
-    "news_dropped_today": 5296
+    "news_seen_today": 0,
+    "news_picked_today": 0,
+    "news_dropped_today": 0
   },
   "book_momentum": {
     "live_count": 8,
