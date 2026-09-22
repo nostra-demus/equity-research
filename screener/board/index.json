@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:18:01Z",
+  "generated_at": "2026-09-22T09:23:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-067",
+      "headline": "IDP rejects Blackstone's improved takeover offer",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T09:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "IDP Education rejected an improved takeover offer from Blackstone, signaling a breakdown in potential acquisition talks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDP Education rejected an improved takeover offer from Blackstone, signaling a breakdown in potential acquisition talks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDP Education",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -493,55 +542,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-035",
-      "headline": "Australia's IDP rejects Blackstone's $494 million takeover offer",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:22:49Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "IDP Education rejected a $494 million takeover offer from Blackstone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "IDP Education rejected a $494 million takeover offer from Blackstone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDP Education",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173455,9 +173455,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 557772,
-    "news_picked_today": 66,
-    "news_dropped_today": 1134
+    "news_seen_today": 569637,
+    "news_picked_today": 70,
+    "news_dropped_today": 1178
   },
   "book_momentum": {
     "live_count": 8,
