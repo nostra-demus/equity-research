@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:35:16Z",
+  "generated_at": "2026-09-22T12:39:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-183",
@@ -1576,6 +1576,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-207",
+      "headline": "Rama Steel Tubes Limited: Rama Steel Tubes Limited has informed the Exchange about Amendment in Share Purchase Agreement dated 11th December, 2025.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RAMASTEEL_22092026172929_SignedOutcomeoFBoard_Meeting22092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T12:02:16Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Amendments to share purchase agreements are material to M&A transactions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Amendments to share purchase agreements are material to M&A transactions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rama Steel Tubes Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-008",
       "headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
       "headline_en": null,
@@ -1774,6 +1823,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-203",
+      "headline": "JK Paper Limited: JK Paper Limited has informed the Exchange about Action(s) initiated or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JKPAPER_22092026172615_REG_30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T11:56:31Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Regulatory or legal actions initiated against the company represent operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Regulatory or legal actions initiated against the company represent operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JK Paper Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-153",
       "headline": "FCA takes Hunter Jones to High Court over alleged unauthorised activity",
       "headline_en": null,
@@ -1916,104 +2014,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-173",
-      "headline": "Allied Blenders and Distillers Limited: Proposed Sale of Equity Shares by a Promoter in Open Market to achieve Minimum Public Shareholding",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ABDINDIA_22092026151055_SE_Intimation_-_Proposed_Sale_-_BKC_-_MPS_sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T09:41:04Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "The promoter is selling equity shares in the open market to meet minimum public shareholding requirements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The promoter is selling equity shares in the open market to meet minimum public shareholding requirements.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allied Blenders and Distillers Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-198",
-      "headline": "Balwin Properties delists from JSE after R2.26bn buyout",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/balwin-properties-delists-from-jse-after-r2-26bn-buyout/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T11:52:46Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Balwin Properties is delisting from the JSE following a R2.26 billion buyout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Balwin Properties is delisting from the JSE following a R2.26 billion buyout.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Balwin Properties",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174014,9 +174014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1646109,
-    "news_picked_today": 296,
-    "news_dropped_today": 2512
+    "news_seen_today": 1660852,
+    "news_picked_today": 303,
+    "news_dropped_today": 2529
   },
   "book_momentum": {
     "live_count": 8,
