@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T10:29:07Z",
+  "generated_at": "2026-09-22T10:34:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-086",
@@ -1002,6 +1002,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-105",
+      "headline": "Clean Harbors (CLH): $600 Million in New Debt Raises the Stakes on Acquisition Execution",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/clean-harbors-clh-600-million-071611487.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T07:16:11Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Clean Harbors is raising $600 million in new debt, increasing leverage and execution risk for acquisitions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Clean Harbors is raising $600 million in new debt, increasing leverage and execution risk for acquisitions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clean Harbors",
+          "ticker": "CLH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-092",
       "headline": "KINGWELL GROUP (01195): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
       "headline_en": null,
@@ -1100,6 +1149,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-101",
+      "headline": "Binance probed by U.S. federal prosecutors for sanctions violations: Bloomberg",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/policy/2026/09/22/binance-probed-by-u-s-federal-prosecutors-for-sanctions-violations-bloomberg",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T10:07:52Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Binance is under investigation by U.S. federal prosecutors for potential sanctions violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Binance is under investigation by U.S. federal prosecutors for potential sanctions violations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-036",
       "headline": "‎AD Ports says ADQ takeover conditions met",
       "headline_en": null,
@@ -1141,6 +1240,55 @@
           "name": "AD Ports",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-110",
+      "headline": "Kingfisher delivers profit upgrade despite flagging B&Q sales",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/kingfisher-ireland-b-q-netherlands-b1297865.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T06:58:20Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Kingfisher issued a profit upgrade despite weak B&Q sales, indicating strong performance in other segments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Kingfisher issued a profit upgrade despite weak B&Q sales, indicating strong performance in other segments.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kingfisher",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1291,6 +1439,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-107",
+      "headline": "Texas judge signs off on bankruptcy plans for CVS' Omnicare unit",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/cvs-omnicare-unit-files-bankruptcy-amid-ongoing-legal-fallout",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T07:15:20Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "A judge has approved bankruptcy plans for CVS's Omnicare unit, resolving a significant legal and operational issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "A judge has approved bankruptcy plans for CVS's Omnicare unit, resolving a significant legal and operational issue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1497,6 +1694,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-113",
+      "headline": "BlackRock Said to Buy Into GCash Owner IPO Priced Below Maximum",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-22/blackrock-said-to-buy-into-gcash-owner-ipo-priced-below-maximum",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T06:41:10Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "BlackRock is investing in the IPO of the owner of GCash, a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "BlackRock is investing in the IPO of the owner of GCash, a significant capital market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackRock",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-061",
       "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
       "headline_en": null,
@@ -1644,6 +1890,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-112",
+      "headline": "Animoca puts Currenc merger on ice, delaying its Nasdaq debut",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/animoca-currenc-merger-delaying-nasdaq-debut?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T06:48:20Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Animoca has paused the Currenc merger and delayed its Nasdaq debut, impacting strategic growth plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Animoca has paused the Currenc merger and delayed its Nasdaq debut, impacting strategic growth plans.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Animoca Brands",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-081",
       "headline": "US Probes Whether Binance 'Knowingly' Let Iran-Linked Trades Through: Report",
       "headline_en": null,
@@ -1688,297 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-055",
-      "headline": "Evonik to launch second phase of restructuring in 2027, pursues unit sales",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/evonik-launch-second-phase-restructuring-2027-pursues-unit-sales-2026-09-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T07:04:11Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Evonik announced a second phase of restructuring for 2027 and is actively pursuing unit sales to streamline operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Evonik announced a second phase of restructuring for 2027 and is actively pursuing unit sales to streamline operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-080",
-      "headline": "Animoca Brands delays IPO plans, suspends merger talks with Currenc",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/09/22/animoca-brands-delays-ipo-plans-suspends-merger-talks-with-currenc",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:47:15Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Animoca Brands delayed its IPO and suspended merger talks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Animoca Brands delayed its IPO and suspended merger talks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Animoca Brands",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-034",
-      "headline": "Paymob raises $35 million pre-Series C co-led by Mubadala, EBRD",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/paymob-raises-35-million-pre-series-c-led-mubadala-ebrd",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:55:45Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Paymob raised $35 million in a pre-Series C funding round led by major institutional investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Paymob raised $35 million in a pre-Series C funding round led by major institutional investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paymob",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-024",
-      "headline": "China seeks German help to stave off EU trade sanctions days before Xi-Trump summit",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/china/diplomacy/article/3368365/china-seeks-german-help-stave-eu-trade-sanctions-days-xi-trump-summit?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:02:30Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "China is seeking diplomatic intervention to avoid EU trade sanctions, indicating significant regulatory and trade risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "China is seeking diplomatic intervention to avoid EU trade sanctions, indicating significant regulatory and trade risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-052",
-      "headline": "US closes rear-view camera probe into more than 129,000 Honda vehicles",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/us-closes-rear-view-camera-probe-into-more-than-129000-honda-vehicles-2026-09-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T07:50:03Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "US regulators closed a probe into rear-view camera issues affecting 129,000 Honda vehicles, reducing operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "US regulators closed a probe into rear-view camera issues affecting 129,000 Honda vehicles, reducing operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-053",
-      "headline": "UBS CEO Ermotti says 90% CET1 capital proposal is no real compromise",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/ubs-ceo-ermotti-says-90-cet1-capital-proposal-is-no-real-compromise-2026-09-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T07:36:09Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "UBS CEO Sergio Ermotti publicly criticized a proposed 90% CET1 capital requirement, signaling potential regulatory friction for the bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "UBS CEO Sergio Ermotti publicly criticized a proposed 90% CET1 capital requirement, signaling potential regulatory friction for the bank.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UBS",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -134497,77 +134501,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5c6ba39ec1e2",
-      "idea_version": "IDEAV-8d3d4d0d6cce61ae",
-      "idea_version_started_at": "2026-09-21T01:15:15Z",
-      "ticker": "02487",
-      "company": "Cutia Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Marketing approval for CU-40102 in Macao allows the company to begin commercializing its topical finasteride spray in a new jurisdiction.",
-      "why_now": "The approval was announced on 2026-09-20, initiating the transition from development to commercial revenue generation.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b707cd1e8419"
-      ],
-      "primary_source_event_id": "EVT-b707cd1e8419",
-      "source_headlines": [
-        "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU"
-      ],
-      "source_headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100093.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-20T22:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T01:15:15Z",
-      "updated_at": "2026-09-21T01:15:15Z",
-      "decay_at": "2026-09-22T10:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c1dfbf0d252a",
       "idea_version": "IDEAV-8288674347a3cf00",
       "idea_version_started_at": "2026-09-20T03:22:22Z",
@@ -136195,6 +136128,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-5c6ba39ec1e2",
+      "idea_version": "IDEAV-8d3d4d0d6cce61ae",
+      "idea_version_started_at": "2026-09-21T01:15:15Z",
+      "ticker": "02487",
+      "company": "Cutia Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Marketing approval for CU-40102 in Macao allows the company to begin commercializing its topical finasteride spray in a new jurisdiction.",
+      "why_now": "The approval was announced on 2026-09-20, initiating the transition from development to commercial revenue generation.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b707cd1e8419"
+      ],
+      "primary_source_event_id": "EVT-b707cd1e8419",
+      "source_headlines": [
+        "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU"
+      ],
+      "source_headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-20T22:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T01:15:15Z",
+      "updated_at": "2026-09-21T01:15:15Z",
+      "decay_at": "2026-09-22T10:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -136207,14 +136211,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       },
       "short": {
         "total_count": 264,
@@ -136238,6 +136242,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5c6ba39ec1e2",
+        "idea_version": "IDEAV-8d3d4d0d6cce61ae",
+        "idea_version_started_at": "2026-09-21T01:15:15Z",
+        "ticker": "02487",
+        "company": "Cutia Therapeutics",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Marketing approval for CU-40102 in Macao allows the company to begin commercializing its topical finasteride spray in a new jurisdiction.",
+        "why_now": "The approval was announced on 2026-09-20, initiating the transition from development to commercial revenue generation.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b707cd1e8419"
+        ],
+        "primary_source_event_id": "EVT-b707cd1e8419",
+        "source_headlines": [
+          "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU"
+        ],
+        "source_headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - CU-40102 (TOPICAL FINASTERIDE SPRAY) OBTAINED MARKETING APPROVAL BY THE MACAO PHARMACEUTICAL ADMINISTRATION BUREAU",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100093.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-20T22:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-21T01:15:15Z",
+        "updated_at": "2026-09-21T01:15:15Z",
+        "decay_at": "2026-09-22T10:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T10:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7aec883d8fe6",
         "idea_version": "IDEAV-e75ccb72c5133cb8",
@@ -165998,81 +166076,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b287a5dccf6f",
-        "idea_version": "IDEAV-3ed9c7bd15e1c551",
-        "idea_version_started_at": "2026-09-07T01:32:16Z",
-        "ticker": "42C",
-        "company": "iX Biopharma",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is nearing US military approval for its sublingual ketamine wafer (Wafermine) for acute pain, which would open a high-volume, non-opioid procurement channel.",
-        "why_now": "News of closing in on approval surfaced September 7, 2024, providing a specific regulatory catalyst window.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6a5f6ee31497"
-        ],
-        "primary_source_event_id": "EVT-6a5f6ee31497",
-        "source_headlines": [
-          "iX Biopharma closes in on US military approval for pain drug"
-        ],
-        "source_headline": "iX Biopharma closes in on US military approval for pain drug",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/ix-biopharma-closes-us-military-approval-pain-drug",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 84,
-        "newest_source_at": "2026-09-07T00:37:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T01:32:16Z",
-        "updated_at": "2026-09-07T01:32:16Z",
-        "decay_at": "2026-09-08T12:37:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T01:49:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0fa4dca8ab30",
         "idea_version": "IDEAV-e69cf06ea094710d",
         "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -173386,7 +173389,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 958,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -173405,9 +173408,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 916575,
-    "news_picked_today": 114,
-    "news_dropped_today": 1734
+    "news_seen_today": 929153,
+    "news_picked_today": 130,
+    "news_dropped_today": 1766
   },
   "book_momentum": {
     "live_count": 8,
