@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T11:28:50Z",
+  "generated_at": "2026-09-22T11:39:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-129",
@@ -1723,6 +1723,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-164",
+      "headline": "360 ONE WAM LIMITED: 360 ONE WAM LIMITED has informed the Exchange regarding Appointment of Mr Aashish Agarwal as Chief Executive Officer of the company w.e.f. February 15, 2027.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IIFLWAM_22092026164952_20260922BoardOutcomeCEOandVCandMD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T11:20:14Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Appointment of a new CEO is a significant management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Appointment of a new CEO is a significant management change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "360 ONE WAM LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-105",
       "headline": "Clean Harbors (CLH): $600 Million in New Debt Raises the Stakes on Acquisition Execution",
       "headline_en": null,
@@ -1966,55 +2015,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-036",
-      "headline": "‎AD Ports says ADQ takeover conditions met",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1938174",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "AD Ports confirmed that conditions for the ADQ takeover have been met, moving the deal toward completion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "AD Ports confirmed that conditions for the ADQ takeover have been met, moving the deal toward completion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AD Ports",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132592,76 +132592,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fe635cd74889",
-      "idea_version": "IDEAV-2bc521c746d978f1",
-      "idea_version_started_at": "2026-09-21T00:55:55Z",
-      "ticker": "CASY",
-      "company": "Casey's General Stores",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a beat on profit but missed on sales, indicating potential weakness in consumer discretionary spending at their convenience stores.",
-      "why_now": "The stock is reacting to the earnings release dated September 20, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1dcdbf283c69"
-      ],
-      "primary_source_event_id": "EVT-1dcdbf283c69",
-      "source_headlines": [
-        "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling"
-      ],
-      "source_headline": "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/casey-casy-beats-profit-soft-233311591.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T23:33:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T00:55:55Z",
-      "updated_at": "2026-09-21T00:55:55Z",
-      "decay_at": "2026-09-22T11:33:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4f6945fae7ef",
       "idea_version": "IDEAV-e30578dbfdb72aca",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -133743,79 +133673,6 @@
       "surfaced_at": "2026-09-21T00:55:55Z",
       "updated_at": "2026-09-21T00:55:55Z",
       "decay_at": "2026-09-22T11:56:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-79ba62fd1bed",
-      "idea_version": "IDEAV-e088ad6dea8d6c46",
-      "idea_version_started_at": "2026-09-20T23:40:12Z",
-      "ticker": "IGL",
-      "company": "IGL",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is expanding into the Digital Out of Home market through the acquisition of Motio, which is expected to diversify revenue streams.",
-      "why_now": "The Scheme Implementation Deed was filed on 2026-09-20.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f56204160e92",
-        "EVT-34213d811f67"
-      ],
-      "primary_source_event_id": "EVT-f56204160e92",
-      "source_headlines": [
-        "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
-        "IGL: Scheme Implementation Deed [price-sensitive]"
-      ],
-      "source_headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T23:33:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T23:40:12Z",
-      "updated_at": "2026-09-20T23:40:12Z",
-      "decay_at": "2026-09-22T11:33:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135245,6 +135102,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fe635cd74889",
+      "idea_version": "IDEAV-2bc521c746d978f1",
+      "idea_version_started_at": "2026-09-21T00:55:55Z",
+      "ticker": "CASY",
+      "company": "Casey's General Stores",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a beat on profit but missed on sales, indicating potential weakness in consumer discretionary spending at their convenience stores.",
+      "why_now": "The stock is reacting to the earnings release dated September 20, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1dcdbf283c69"
+      ],
+      "primary_source_event_id": "EVT-1dcdbf283c69",
+      "source_headlines": [
+        "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling"
+      ],
+      "source_headline": "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/casey-casy-beats-profit-soft-233311591.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:33:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T00:55:55Z",
+      "updated_at": "2026-09-21T00:55:55Z",
+      "decay_at": "2026-09-22T11:33:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f46d3fece2ff",
       "idea_version": "IDEAV-e3494413fb078623",
       "idea_version_started_at": "2026-09-20T21:27:13Z",
@@ -135729,6 +135656,79 @@
       "surfaced_at": "2026-09-20T01:29:10Z",
       "updated_at": "2026-09-20T01:29:10Z",
       "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-79ba62fd1bed",
+      "idea_version": "IDEAV-e088ad6dea8d6c46",
+      "idea_version_started_at": "2026-09-20T23:40:12Z",
+      "ticker": "IGL",
+      "company": "IGL",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is expanding into the Digital Out of Home market through the acquisition of Motio, which is expected to diversify revenue streams.",
+      "why_now": "The Scheme Implementation Deed was filed on 2026-09-20.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f56204160e92",
+        "EVT-34213d811f67"
+      ],
+      "primary_source_event_id": "EVT-f56204160e92",
+      "source_headlines": [
+        "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+        "IGL: Scheme Implementation Deed [price-sensitive]"
+      ],
+      "source_headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T23:33:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T23:40:12Z",
+      "updated_at": "2026-09-20T23:40:12Z",
+      "decay_at": "2026-09-22T11:33:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -136533,19 +136533,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -136564,6 +136564,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-79ba62fd1bed",
+        "idea_version": "IDEAV-e088ad6dea8d6c46",
+        "idea_version_started_at": "2026-09-20T23:40:12Z",
+        "ticker": "IGL",
+        "company": "IGL",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is expanding into the Digital Out of Home market through the acquisition of Motio, which is expected to diversify revenue streams.",
+        "why_now": "The Scheme Implementation Deed was filed on 2026-09-20.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f56204160e92",
+          "EVT-34213d811f67"
+        ],
+        "primary_source_event_id": "EVT-f56204160e92",
+        "source_headlines": [
+          "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+          "IGL: Scheme Implementation Deed [price-sensitive]"
+        ],
+        "source_headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T23:33:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T23:40:12Z",
+        "updated_at": "2026-09-20T23:40:12Z",
+        "decay_at": "2026-09-22T11:33:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T11:33:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-fe635cd74889",
+        "idea_version": "IDEAV-2bc521c746d978f1",
+        "idea_version_started_at": "2026-09-21T00:55:55Z",
+        "ticker": "CASY",
+        "company": "Casey's General Stores",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a beat on profit but missed on sales, indicating potential weakness in consumer discretionary spending at their convenience stores.",
+        "why_now": "The stock is reacting to the earnings release dated September 20, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1dcdbf283c69"
+        ],
+        "primary_source_event_id": "EVT-1dcdbf283c69",
+        "source_headlines": [
+          "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling"
+        ],
+        "source_headline": "Casey’s (CASY) Beats on Profit, but a Soft Sales Number Sends the Stock Tumbling",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/casey-casy-beats-profit-soft-233311591.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T23:33:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-21T00:55:55Z",
+        "updated_at": "2026-09-21T00:55:55Z",
+        "decay_at": "2026-09-22T11:33:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T11:33:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-481a4b3ef631",
         "idea_version": "IDEAV-ad638c506fa3eaae",
@@ -166163,81 +166312,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f69625cadec8",
-        "idea_version": "IDEAV-d68ad6f60ccae3bb",
-        "idea_version_started_at": "2026-09-07T02:31:45Z",
-        "ticker": "MYNT",
-        "company": "Mynt",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
-        "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-146e2faafdc6"
-        ],
-        "primary_source_event_id": "EVT-146e2faafdc6",
-        "source_headlines": [
-          "Philippines regulator clears Mynt for up to $1.5 billion IPO"
-        ],
-        "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
-        "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-07T01:36:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T02:31:45Z",
-        "updated_at": "2026-09-07T02:31:45Z",
-        "decay_at": "2026-09-08T13:36:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T01:49:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7f0cb5a0adaa",
         "idea_version": "IDEAV-be92643744795d0e",
         "idea_version_started_at": "2026-09-07T02:31:45Z",
@@ -173627,87 +173701,12 @@
         "archived_at": "2026-09-02T08:38:01Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-932317e51e1d",
-        "idea_version": "IDEAV-4bb1c2b215ae2fe9",
-        "idea_version_started_at": "2026-08-29T23:08:40Z",
-        "ticker": "GLEN",
-        "company": "Glencore plc",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Glencore has taken a substantial $480 million provision due to its exposure to Radiant World, directly impacting its net income and cash flow.",
-        "why_now": "The provision was disclosed on August 29, 2026, presenting a fresh negative catalyst for the stock.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-48237898a4f4"
-        ],
-        "primary_source_event_id": "EVT-48237898a4f4",
-        "source_headlines": [
-          "Glencore Took $480 Million Provision on Radiant World Exposure"
-        ],
-        "source_headline": "Glencore Took $480 Million Provision on Radiant World Exposure",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-29/glencore-took-480-million-provision-on-radiant-world-exposure",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T15:54:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T16:42:52Z",
-        "updated_at": "2026-08-29T23:08:40Z",
-        "decay_at": "2026-08-31T03:54:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 962,
-    "live_count": 32,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -173726,9 +173725,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1266593,
-    "news_picked_today": 217,
-    "news_dropped_today": 2063
+    "news_seen_today": 1334629,
+    "news_picked_today": 218,
+    "news_dropped_today": 2134
   },
   "book_momentum": {
     "live_count": 8,
