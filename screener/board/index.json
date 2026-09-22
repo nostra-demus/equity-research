@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T10:55:18Z",
+  "generated_at": "2026-09-22T10:57:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-129",
@@ -102,6 +102,55 @@
           "name": "Time Watch",
           "ticker": "02033",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-152",
+      "headline": "Solex Energy Limited: Solex Energy Limited has informed the Exchange regarding a press release dated September 22, 2026, titled \"Solex Energy Outlines Next Phase of Growth at 12th AGM, Targets Rupees 4,500 Crore Revenue Potential by FY28\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SOLEX_22092026153521_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T10:05:49Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Solex Energy announced a revenue target of 4500 crore rupees by FY28.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solex Energy announced a revenue target of 4500 crore rupees by FY28.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solex Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-027",
-      "headline": "Kingfisher shares jump as margin expansion drives profit upgrade",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/kingfisher-shares-jump-as-margin-expansion-drives-profit-upgrade/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:10:51Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Kingfisher shares rose following a profit upgrade driven by margin expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Kingfisher shares rose following a profit upgrade driven by margin expansion.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingfisher",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173722,9 +173722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1080789,
-    "news_picked_today": 169,
-    "news_dropped_today": 1871
+    "news_seen_today": 1093365,
+    "news_picked_today": 172,
+    "news_dropped_today": 1892
   },
   "book_momentum": {
     "live_count": 8,
