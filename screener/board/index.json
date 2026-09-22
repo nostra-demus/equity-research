@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:53:31Z",
+  "generated_at": "2026-09-22T12:55:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-183",
@@ -1668,6 +1668,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-224",
+      "headline": "Settlement Order in the matter of Adani Group Companies",
+      "headline_en": null,
+      "url": "https://www.sebi.gov.in/enforcement/orders/sep-2026/settlement-order-in-the-matter-of-adani-group-companies_104647.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-22T12:40:11Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "SEBI issued a settlement order regarding Adani Group companies, which is a significant regulatory development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "SEBI issued a settlement order regarding Adani Group companies, which is a significant regulatory development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-207",
       "headline": "Rama Steel Tubes Limited: Rama Steel Tubes Limited has informed the Exchange about Amendment in Share Purchase Agreement dated 11th December, 2025.",
       "headline_en": null,
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-203",
-      "headline": "JK Paper Limited: JK Paper Limited has informed the Exchange about Action(s) initiated or orders passed",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JKPAPER_22092026172615_REG_30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T11:56:31Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Regulatory or legal actions initiated against the company represent operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Regulatory or legal actions initiated against the company represent operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JK Paper Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -133953,79 +133953,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-1a317bf4b527b309",
-      "idea_version_started_at": "2026-09-21T01:55:19Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is a clear takeover target with a rejected $1.5 billion bid and a suitor publicly committed to pursuing a $3 billion valuation.",
-      "why_now": "The board has formally rejected the initial bid, but the suitor's public vow to continue the pursuit as of September 21, 2026, keeps the M&A premium active.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-38ff12e02d70",
-        "EVT-0f365ef8ea48"
-      ],
-      "primary_source_event_id": "EVT-38ff12e02d70",
-      "source_headlines": [
-        "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
-        "PE suitor vows to press on with $3b pursuit of Ingenia"
-      ],
-      "source_headline": "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
-      "source_url": "https://www.reuters.com/legal/transactional/australias-ingenia-rebuffs-revised-15-billion-takeover-bid-warburg-pincus-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T00:53:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T16:00:56Z",
-      "updated_at": "2026-09-21T01:55:19Z",
-      "decay_at": "2026-09-22T12:53:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e4ce1e3fbb7c",
       "idea_version": "IDEAV-888daf46cb9ced1b",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -136015,6 +135942,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-1a317bf4b527b309",
+      "idea_version_started_at": "2026-09-21T01:55:19Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is a clear takeover target with a rejected $1.5 billion bid and a suitor publicly committed to pursuing a $3 billion valuation.",
+      "why_now": "The board has formally rejected the initial bid, but the suitor's public vow to continue the pursuit as of September 21, 2026, keeps the M&A premium active.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-38ff12e02d70",
+        "EVT-0f365ef8ea48"
+      ],
+      "primary_source_event_id": "EVT-38ff12e02d70",
+      "source_headlines": [
+        "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+        "PE suitor vows to press on with $3b pursuit of Ingenia"
+      ],
+      "source_headline": "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+      "source_url": "https://www.reuters.com/legal/transactional/australias-ingenia-rebuffs-revised-15-billion-takeover-bid-warburg-pincus-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T00:53:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T16:00:56Z",
+      "updated_at": "2026-09-21T01:55:19Z",
+      "decay_at": "2026-09-22T12:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b02a5d2137a2",
       "idea_version": "IDEAV-c169a0cdc5bbe1b8",
       "idea_version_started_at": "2026-09-21T00:55:55Z",
@@ -136956,14 +136956,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       },
       "short": {
         "total_count": 266,
@@ -136987,6 +136987,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-1a317bf4b527b309",
+        "idea_version_started_at": "2026-09-21T01:55:19Z",
+        "ticker": "INA",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is a clear takeover target with a rejected $1.5 billion bid and a suitor publicly committed to pursuing a $3 billion valuation.",
+        "why_now": "The board has formally rejected the initial bid, but the suitor's public vow to continue the pursuit as of September 21, 2026, keeps the M&A premium active.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-38ff12e02d70",
+          "EVT-0f365ef8ea48"
+        ],
+        "primary_source_event_id": "EVT-38ff12e02d70",
+        "source_headlines": [
+          "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+          "PE suitor vows to press on with $3b pursuit of Ingenia"
+        ],
+        "source_headline": "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
+        "source_url": "https://www.reuters.com/legal/transactional/australias-ingenia-rebuffs-revised-15-billion-takeover-bid-warburg-pincus-2026-09-21/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-21T00:53:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T16:00:56Z",
+        "updated_at": "2026-09-21T01:55:19Z",
+        "decay_at": "2026-09-22T12:53:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T12:53:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8e6545d55d5f",
         "idea_version": "IDEAV-e5c090051bd301ec",
@@ -166809,81 +166885,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e28ce99f344d",
-        "idea_version": "IDEAV-b6b25379f08032a3",
-        "idea_version_started_at": "2026-09-07T03:45:17Z",
-        "ticker": "ING",
-        "company": "Ingenia Communities Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
-        "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5ab7cb9e8649"
-        ],
-        "primary_source_event_id": "EVT-5ab7cb9e8649",
-        "source_headlines": [
-          "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
-        ],
-        "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
-        "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T02:01:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T03:45:17Z",
-        "updated_at": "2026-09-07T03:45:17Z",
-        "decay_at": "2026-09-08T14:01:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T02:28:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7f0cb5a0adaa",
         "idea_version": "IDEAV-be92643744795d0e",
         "idea_version_started_at": "2026-09-07T02:31:45Z",
@@ -174132,7 +174133,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 971,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174151,9 +174152,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1720411,
-    "news_picked_today": 328,
-    "news_dropped_today": 2600
+    "news_seen_today": 1735285,
+    "news_picked_today": 330,
+    "news_dropped_today": 2622
   },
   "book_momentum": {
     "live_count": 8,
