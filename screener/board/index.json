@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T07:22:44Z",
+  "generated_at": "2026-09-22T08:44:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-010",
+      "headline": "Ventilator Recall: CooperSurgical Removes INCA Infant Nasal CPAP Sets",
+      "headline_en": null,
+      "url": "http://www.fda.gov/medical-devices/medical-device-recalls-and-early-alerts/ventilator-recall-coopersurgical-removes-inca-infant-nasal-cpap-sets",
+      "source_name": "U.S. Food & Drug Administration (MedWatch Safety Alerts)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-10T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "CooperSurgical is recalling INCA infant nasal CPAP sets due to potential safety risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CooperSurgical is recalling INCA infant nasal CPAP sets due to potential safety risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CooperSurgical",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132302,78 +132351,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0d97851e31b4",
-      "idea_version": "IDEAV-b340b143bd2d166f",
-      "idea_version_started_at": "2026-09-20T20:17:19Z",
-      "ticker": "CHALET",
-      "company": "Chalet Hotels",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is in advanced negotiations to acquire the Six Senses Vana for 600 crore, which would expand its luxury portfolio and asset base.",
-      "why_now": "The talks are in the 'advanced' stage as of September 20, 2024, suggesting a deal announcement is likely near.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c4f8bf466e44"
-      ],
-      "primary_source_event_id": "EVT-c4f8bf466e44",
-      "source_headlines": [
-        "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore"
-      ],
-      "source_headline": "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore",
-      "source_url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/chalet-hotels-in-advanced-talks-to-buy-six-senses-vana-for-600-crore/articleshow/134374818.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T19:26:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T20:17:19Z",
-      "updated_at": "2026-09-20T20:17:19Z",
-      "decay_at": "2026-09-22T07:26:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-55f3e51ef1d9",
       "idea_version": "IDEAV-0a9df36b51cf7ebf",
       "idea_version_started_at": "2026-09-21T04:44:10Z",
@@ -134572,6 +134549,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0d97851e31b4",
+      "idea_version": "IDEAV-b340b143bd2d166f",
+      "idea_version_started_at": "2026-09-20T20:17:19Z",
+      "ticker": "CHALET",
+      "company": "Chalet Hotels",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is in advanced negotiations to acquire the Six Senses Vana for 600 crore, which would expand its luxury portfolio and asset base.",
+      "why_now": "The talks are in the 'advanced' stage as of September 20, 2024, suggesting a deal announcement is likely near.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c4f8bf466e44"
+      ],
+      "primary_source_event_id": "EVT-c4f8bf466e44",
+      "source_headlines": [
+        "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore"
+      ],
+      "source_headline": "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore",
+      "source_url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/chalet-hotels-in-advanced-talks-to-buy-six-senses-vana-for-600-crore/articleshow/134374818.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T19:26:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T20:17:19Z",
+      "updated_at": "2026-09-20T20:17:19Z",
+      "decay_at": "2026-09-22T07:26:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2feb509f0ea7",
       "idea_version": "IDEAV-94e79f4aa3e19c2e",
       "idea_version_started_at": "2026-09-20T17:25:16Z",
@@ -135943,14 +135992,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
         "total_count": 271,
@@ -135974,6 +136023,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0d97851e31b4",
+        "idea_version": "IDEAV-b340b143bd2d166f",
+        "idea_version_started_at": "2026-09-20T20:17:19Z",
+        "ticker": "CHALET",
+        "company": "Chalet Hotels",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is in advanced negotiations to acquire the Six Senses Vana for 600 crore, which would expand its luxury portfolio and asset base.",
+        "why_now": "The talks are in the 'advanced' stage as of September 20, 2024, suggesting a deal announcement is likely near.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c4f8bf466e44"
+        ],
+        "primary_source_event_id": "EVT-c4f8bf466e44",
+        "source_headlines": [
+          "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore"
+        ],
+        "source_headline": "Chalet Hotels in advanced talks to buy Six Senses Vana for 600 crore",
+        "source_url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/chalet-hotels-in-advanced-talks-to-buy-six-senses-vana-for-600-crore/articleshow/134374818.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T19:26:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T20:17:19Z",
+        "updated_at": "2026-09-20T20:17:19Z",
+        "decay_at": "2026-09-22T07:26:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T07:26:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b781349ed9cc",
         "idea_version": "IDEAV-e9fe342c5bc0eb05",
@@ -165591,81 +165715,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d6de8a96e915",
-        "idea_version": "IDEAV-6b01ba7922e31ce9",
-        "idea_version_started_at": "2026-09-07T01:06:48Z",
-        "ticker": "XTI",
-        "company": "Crude Oil",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
-        "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4d69fd5ce5c4"
-        ],
-        "primary_source_event_id": "EVT-4d69fd5ce5c4",
-        "source_headlines": [
-          "Oil extends gains after US and Iran strike ships"
-        ],
-        "source_headline": "Oil extends gains after US and Iran strike ships",
-        "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 68,
-        "newest_source_at": "2026-09-07T00:16:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T01:06:48Z",
-        "updated_at": "2026-09-07T01:06:48Z",
-        "decay_at": "2026-09-08T12:16:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T00:18:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-98f5ab3a4fab",
         "idea_version": "IDEAV-babf068505b2027b",
         "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -173127,7 +173176,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 957,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -173137,7 +173186,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2696,
+    "inbox_unconsumed": 2697,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -173146,9 +173195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 453533,
+    "news_picked_today": 10,
+    "news_dropped_today": 950
   },
   "book_momentum": {
     "live_count": 8,
