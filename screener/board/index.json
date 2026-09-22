@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T16:50:53Z",
+  "generated_at": "2026-09-22T17:40:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-255",
@@ -507,6 +507,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-280",
+      "headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T16:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "DoorDash agreed to pay $131.5 million to resolve a regulatory investigation regarding minimum-pay law compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash agreed to pay $131.5 million to resolve a regulatory investigation regarding minimum-pay law compliance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1969,49 +2018,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-211",
-      "headline": "This Power Parts Maker’s Stock Has Gained 316% in 2026. It’s Rising Again Today on Boost to Growth Guidance.",
-      "headline_en": null,
-      "url": "https://www.barrons.com/articles/vicor-earnings-stock-price-3e170605?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T12:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "An unnamed power parts maker raised its growth guidance following a 316% stock gain in 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "An unnamed power parts maker raised its growth guidance following a 316% stock gain in 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -133662,79 +133668,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bbe6cce25e6c",
-      "idea_version": "IDEAV-ad0d76477c61048d",
-      "idea_version_started_at": "2026-09-21T05:16:02Z",
-      "ticker": "005380",
-      "company": "Hyundai Motor Company",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
-      "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d61ef8ce8d01"
-      ],
-      "primary_source_event_id": "EVT-d61ef8ce8d01",
-      "source_headlines": [
-        "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
-      ],
-      "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T05:06:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T05:16:02Z",
-      "updated_at": "2026-09-21T05:16:02Z",
-      "decay_at": "2026-09-22T17:06:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e4ce1e3fbb7c",
       "idea_version": "IDEAV-888daf46cb9ced1b",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -134016,77 +133949,6 @@
       "surfaced_at": "2026-09-22T11:39:38Z",
       "updated_at": "2026-09-22T11:39:38Z",
       "decay_at": "2026-09-23T19:33:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-88eef3591541",
-      "idea_version": "IDEAV-8bcaca3f447dfabb",
-      "idea_version_started_at": "2026-09-21T05:53:59Z",
-      "ticker": "KPG",
-      "company": "KPG",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
-      "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-69dcf5a78b9a"
-      ],
-      "primary_source_event_id": "EVT-69dcf5a78b9a",
-      "source_headlines": [
-        "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
-      ],
-      "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-21T05:25:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T05:53:59Z",
-      "updated_at": "2026-09-21T05:53:59Z",
-      "decay_at": "2026-09-22T17:25:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135282,6 +135144,79 @@
       "surfaced_at": "2026-09-21T05:16:02Z",
       "updated_at": "2026-09-21T05:16:02Z",
       "decay_at": "2026-09-22T16:38:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bbe6cce25e6c",
+      "idea_version": "IDEAV-ad0d76477c61048d",
+      "idea_version_started_at": "2026-09-21T05:16:02Z",
+      "ticker": "005380",
+      "company": "Hyundai Motor Company",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
+      "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d61ef8ce8d01"
+      ],
+      "primary_source_event_id": "EVT-d61ef8ce8d01",
+      "source_headlines": [
+        "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
+      ],
+      "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
+      "source_name": "Business Korea — All English Articles",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T05:06:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T05:16:02Z",
+      "updated_at": "2026-09-21T05:16:02Z",
+      "decay_at": "2026-09-22T17:06:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -136875,6 +136810,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-88eef3591541",
+      "idea_version": "IDEAV-8bcaca3f447dfabb",
+      "idea_version_started_at": "2026-09-21T05:53:59Z",
+      "ticker": "KPG",
+      "company": "KPG",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
+      "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-69dcf5a78b9a"
+      ],
+      "primary_source_event_id": "EVT-69dcf5a78b9a",
+      "source_headlines": [
+        "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
+      ],
+      "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-21T05:25:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T05:53:59Z",
+      "updated_at": "2026-09-21T05:53:59Z",
+      "decay_at": "2026-09-22T17:25:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3a81f9017113",
       "idea_version": "IDEAV-d2e52a39e9a86eb5",
       "idea_version_started_at": "2026-09-21T03:30:16Z",
@@ -137455,19 +137461,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -137486,6 +137492,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-88eef3591541",
+        "idea_version": "IDEAV-8bcaca3f447dfabb",
+        "idea_version_started_at": "2026-09-21T05:53:59Z",
+        "ticker": "KPG",
+        "company": "KPG",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
+        "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-69dcf5a78b9a"
+        ],
+        "primary_source_event_id": "EVT-69dcf5a78b9a",
+        "source_headlines": [
+          "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
+        ],
+        "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-21T05:25:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-21T05:53:59Z",
+        "updated_at": "2026-09-21T05:53:59Z",
+        "decay_at": "2026-09-22T17:25:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T17:25:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-bbe6cce25e6c",
+        "idea_version": "IDEAV-ad0d76477c61048d",
+        "idea_version_started_at": "2026-09-21T05:16:02Z",
+        "ticker": "005380",
+        "company": "Hyundai Motor Company",
+        "exchange": "KRX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
+        "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d61ef8ce8d01"
+        ],
+        "primary_source_event_id": "EVT-d61ef8ce8d01",
+        "source_headlines": [
+          "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
+        ],
+        "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
+        "source_name": "Business Korea — All English Articles",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-21T05:06:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-21T05:16:02Z",
+        "updated_at": "2026-09-21T05:16:02Z",
+        "decay_at": "2026-09-22T17:06:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T17:06:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-697598c2bbee",
         "idea_version": "IDEAV-c9eb1d0cfeea08ee",
@@ -167236,81 +167392,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9e336b525ce4",
-        "idea_version": "IDEAV-b3cf65b0db5542d5",
-        "idea_version_started_at": "2026-09-07T17:16:42Z",
-        "ticker": "ADANIPOWER",
-        "company": "Adani Power",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of a 330 MW hydro power plant adds immediate generation capacity and aligns with the company's strategy to expand its energy portfolio.",
-        "why_now": "The Letter of Intent was received on 2026-09-07.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-75ba08b3f643"
-        ],
-        "primary_source_event_id": "EVT-75ba08b3f643",
-        "source_headlines": [
-          "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant"
-        ],
-        "source_headline": "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant",
-        "source_url": "https://www.cnbctv18.com/business/companies/adani-power-receives-loi-to-acquire-gvk-energys-330-mw-hydro-power-plant-19985760.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T11:55:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T17:16:42Z",
-        "updated_at": "2026-09-07T17:16:42Z",
-        "decay_at": "2026-09-08T23:55:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T11:57:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-944ea5e8ab2b",
         "idea_version": "IDEAV-528910e6e1b240f0",
         "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -174552,90 +174633,12 @@
         "archived_at": "2026-09-02T12:20:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-43cd8f5eafd2",
-        "idea_version": "IDEAV-30559f333b60e932",
-        "idea_version_started_at": "2026-08-30T08:40:12Z",
-        "ticker": "CEA",
-        "company": "China Eastern Airlines",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Both major Chinese carriers reported widening net losses in the first half, signaling persistent margin pressure and weak demand in the Chinese aviation sector.",
-        "why_now": "The H1 earnings filings released today confirm the negative trend in profitability.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "sector_cycle",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0aebdf727083",
-          "EVT-36e1fe4e7f1a"
-        ],
-        "primary_source_event_id": "EVT-0aebdf727083",
-        "source_headlines": [
-          "China Eastern posts wider first-half net loss",
-          "Air China H1 net loss widens to about $341 million, filing shows"
-        ],
-        "source_headline": "China Eastern posts wider first-half net loss",
-        "source_url": "https://www.reuters.com/world/asia-pacific/china-eastern-posts-wider-first-half-net-loss-2026-08-30/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T08:34:13Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T08:40:12Z",
-        "updated_at": "2026-08-30T08:40:12Z",
-        "decay_at": "2026-08-31T20:34:13Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 978,
-    "live_count": 24,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174654,9 +174657,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3616905,
-    "news_picked_today": 536,
-    "news_dropped_today": 3352
+    "news_seen_today": 4112381,
+    "news_picked_today": 544,
+    "news_dropped_today": 3368
   },
   "book_momentum": {
     "live_count": 8,
