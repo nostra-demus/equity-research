@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-22T23:20:34Z",
+  "generated_at": "2026-09-22T23:27:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260922-371",
+      "headline": "SOP: FY27 Guidance Upgrade [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03138565-3A702336",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T23:10:38Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Company announced a guidance upgrade for FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a guidance upgrade for FY27.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260922-369",
       "headline": "PEC: Major Expansion of Nevada Scheelite Tungsten Project [price-sensitive]",
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-201",
-      "headline": "Global Lithium soars 50% on A$333M Titan takeover",
-      "headline_en": null,
-      "url": "https://www.mining.com/global-lithium-soars-50-on-a333m-titan-takeover/",
-      "source_name": "Mining.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Global Lithium is being acquired for A$333 million, causing a 50% share price surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Global Lithium is being acquired for A$333 million, causing a 50% share price surge.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Global Lithium",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174205,9 +174205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7189935,
-    "news_picked_today": 879,
-    "news_dropped_today": 6921
+    "news_seen_today": 7272111,
+    "news_picked_today": 886,
+    "news_dropped_today": 6962
   },
   "book_momentum": {
     "live_count": 8,
