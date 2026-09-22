@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:53:05Z",
+  "generated_at": "2026-09-22T09:57:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -546,6 +546,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-078",
+      "headline": "REALWAY CAPITAL (01835): JOINT ANNOUNCEMENT MONTHLY UPDATE ON THE POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY ALLIANCE CAPITAL PARTNERS LIMITED FOR AND ON BEHALF OF THE OFFEROR FOR ALL THE ISSUED H SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200741.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Ongoing update regarding a possible mandatory cash offer for the company's shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Ongoing update regarding a possible mandatory cash offer for the company's shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REALWAY CAPITAL",
+          "ticker": "01835",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,20 +1919,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260922-011",
-      "headline": "HDFC Bank Limited: board meeting 17-Oct-2026 — Financial Results",
+      "inbox_id": "INB-20260922-074",
+      "headline": "The Karnataka Bank Limited: The Karnataka Bank Limited has informed the Exchange regarding Change in Auditors of the company.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK3_22092026105217_SE_Intimation-_Board_meeting.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/KTKBANK_22092026151544_AuditorsF.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T05:24:28Z",
+      "found_at": "2026-09-22T09:46:40Z",
       "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "HDFC Bank has scheduled a board meeting to announce financial results.",
+      "prelim_note": "Change in auditors is a standard corporate governance event that requires monitoring for potential accounting implications.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 74,
-      "triage_reason": "HDFC Bank has scheduled a board meeting to announce financial results.",
+      "triage_reason": "Change in auditors is a standard corporate governance event that requires monitoring for potential accounting implications.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1891,78 +1940,29 @@
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-057",
-      "headline": "CON AERO TECH (00232): Disclosure of Dealings under Rule 22 of the Takeovers Code",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200536.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T08:58:00Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Disclosure of dealings under the Takeovers Code indicates potential M&A activity or significant shareholding changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Disclosure of dealings under the Takeovers Code indicates potential M&A activity or significant shareholding changes.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
         "event": 4,
-        "size": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CON AERO TECH",
-          "ticker": "00232",
-          "listing_country": "CN"
+          "name": "The Karnataka Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173462,9 +173462,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 723028,
-    "news_picked_today": 80,
-    "news_dropped_today": 1504
+    "news_seen_today": 746950,
+    "news_picked_today": 85,
+    "news_dropped_today": 1523
   },
   "book_momentum": {
     "live_count": 8,
