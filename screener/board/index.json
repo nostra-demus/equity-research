@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:28:40Z",
+  "generated_at": "2026-09-22T12:32:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-183",
@@ -605,6 +605,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-201",
+      "headline": "Global Lithium soars 50% on A$333M Titan takeover",
+      "headline_en": null,
+      "url": "https://www.mining.com/global-lithium-soars-50-on-a333m-titan-takeover/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Global Lithium is being acquired for A$333 million, causing a 50% share price surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Global Lithium is being acquired for A$333 million, causing a 50% share price surge.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Lithium",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,106 +1970,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260922-043",
-      "headline": "‎CMA approves Retal’s capital raise to SAR 555M to acquire 47.5% of Ajdan",
+      "inbox_id": "INB-20260922-198",
+      "headline": "Balwin Properties delists from JSE after R2.26bn buyout",
       "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1938206",
-      "source_name": "Argaam — Main News (English)",
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/balwin-properties-delists-from-jse-after-r2-26bn-buyout/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:16:00Z",
+      "found_at": "2026-09-22T11:52:46Z",
       "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Retal is raising capital to SAR 555 million to fund the acquisition of a 47.5% stake in Ajdan.",
+      "prelim_note": "Balwin Properties is delisting from the JSE following a R2.26 billion buyout.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Retal is raising capital to SAR 555 million to fund the acquisition of a 47.5% stake in Ajdan.",
+      "triage_reason": "Balwin Properties is delisting from the JSE following a R2.26 billion buyout.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Retal",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Ajdan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-068",
-      "headline": "Teva CEO Details Biopharma Pivot, $700M Savings Plan and Growth Pipeline",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/teva-ceo-details-biopharma-pivot-090251701.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:02:51Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Teva announced a $700M cost savings plan and a strategic pivot toward biopharma.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Teva announced a $700M cost savings plan and a strategic pivot toward biopharma.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "guidance_change",
-        "capex"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Teva Pharmaceutical Industries",
+          "name": "Balwin Properties",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174021,9 +174014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1587909,
-    "news_picked_today": 283,
-    "news_dropped_today": 2477
+    "news_seen_today": 1631571,
+    "news_picked_today": 293,
+    "news_dropped_today": 2491
   },
   "book_momentum": {
     "live_count": 8,
