@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T20:55:13Z",
+  "generated_at": "2026-09-22T20:55:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-351",
@@ -132365,6 +132365,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-b7d2ebf26308",
+      "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
+      "idea_version_started_at": "2026-09-22T20:55:27Z",
+      "ticker": "CDLR",
+      "company": "Cadeler A/S",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of an SC TO-T indicates a formal third-party tender offer, which typically establishes a floor price near the offer value and creates a premium opportunity for shareholders.",
+      "why_now": "The filing was submitted on 2026-09-22, making the tender offer active and actionable immediately.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b953f882920",
+        "EVT-9e7614b966ea"
+      ],
+      "primary_source_event_id": "EVT-1b953f882920",
+      "source_headlines": [
+        "SC TO-T - Cadeler plc (0002063345) (Filed by)",
+        "SC TO-T - Cadeler A/S (0001978867) (Subject)"
+      ],
+      "source_headline": "SC TO-T - Cadeler plc (0002063345) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2063345/000110465926109516/0001104659-26-109516-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T14:52:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T20:55:27Z",
+      "updated_at": "2026-09-22T20:55:27Z",
+      "decay_at": "2026-09-24T02:52:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-49a2653dd307",
       "idea_version": "IDEAV-080c1acc0dcc53da",
       "idea_version_started_at": "2026-09-22T18:20:15Z",
@@ -134203,76 +134274,6 @@
       "surfaced_at": "2026-09-20T21:27:13Z",
       "updated_at": "2026-09-20T21:27:13Z",
       "decay_at": "2026-09-22T08:45:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ecf3fe51594a",
-      "idea_version": "IDEAV-a88c271695e6ee5e",
-      "idea_version_started_at": "2026-09-20T17:40:58Z",
-      "ticker": "FER",
-      "company": "Ferrovial",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ferrovial is leading a massive $9.2 billion traffic infrastructure project in Nashville, securing long-term construction and concession revenue.",
-      "why_now": "The project award announcement on September 19, 2026, provides a major backlog catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80a16f851d22"
-      ],
-      "primary_source_event_id": "EVT-80a16f851d22",
-      "source_headlines": [
-        "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project"
-      ],
-      "source_headline": "Nashville’s Traffic Nightmare Is Now a $9.2B Ferrovial (FER)-Led Project",
-      "source_url": "https://finance.yahoo.com/real-estate/articles/nashville-traffic-nightmare-now-9-202041295.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T20:20:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T21:17:26Z",
-      "updated_at": "2026-09-20T17:40:58Z",
-      "decay_at": "2026-09-21T08:20:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -137086,14 +137087,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 27
       },
       "short": {
         "total_count": 267,
@@ -137103,12 +137104,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 413,
+      "evicted_count": 414,
       "oldest_retained_at": "2026-08-30T22:31:33Z",
       "side_counts": {
         "long": {
-          "evicted_count": 276,
-          "oldest_retained_at": "2026-09-08T12:03:00Z"
+          "evicted_count": 277,
+          "oldest_retained_at": "2026-09-08T12:06:00Z"
         },
         "short": {
           "evicted_count": 137,
@@ -140465,8 +140466,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-21T08:20:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T20:55:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174266,8 +174267,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 980,
-    "live_count": 21,
+    "surfaced_total": 981,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
