@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T11:22:12Z",
+  "generated_at": "2026-09-22T11:23:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-129",
@@ -301,6 +301,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-163",
+      "headline": "Vicor Shares Jump Nearly 9.9% After Company Raises Third-Quarter Revenue Outlook",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/vicor-shares-jump-nearly-9-104938912.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T10:49:38Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Vicor raised its third-quarter revenue outlook, a direct impact on financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vicor raised its third-quarter revenue outlook, a direct impact on financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vicor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-154",
+      "headline": "Paramount settles lawsuit with US states, clearing way for $110bn merger with Warner Bros",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cm4gjr1qepr8o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T10:48:53Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Paramount settled a lawsuit, removing a key legal hurdle for its $110bn merger with Warner Bros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount settled a lawsuit, removing a key legal hurdle for its $110bn merger with Warner Bros.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,104 +2015,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-110",
-      "headline": "Kingfisher delivers profit upgrade despite flagging B&Q sales",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/kingfisher-ireland-b-q-netherlands-b1297865.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T06:58:20Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Kingfisher issued a profit upgrade despite weak B&Q sales, indicating strong performance in other segments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Kingfisher issued a profit upgrade despite weak B&Q sales, indicating strong performance in other segments.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingfisher",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-097",
-      "headline": "SKYFAME REALTY SKYFAME B3311 SKYFAME B3311B SKYFAME B3111B SKYFAME B3211 SKYFAME B3111 (00059 05311 05379 05567 05602 05855): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092101579.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T00:14:00Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Skyfame Realty reported interim results and confirmed continued trading suspension.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Skyfame Realty reported interim results and confirmed continued trading suspension.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skyfame Realty",
-          "ticker": "00059",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173721,9 +173726,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1212570,
-    "news_picked_today": 194,
-    "news_dropped_today": 2014
+    "news_seen_today": 1226053,
+    "news_picked_today": 209,
+    "news_dropped_today": 2023
   },
   "book_momentum": {
     "live_count": 8,
