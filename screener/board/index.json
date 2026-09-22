@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T19:49:09Z",
+  "generated_at": "2026-09-22T20:02:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-351",
@@ -605,6 +605,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-355",
+      "headline": "Brightline Preparing for Bankruptcy Filing as Soon as This Week",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-22/brightline-preparing-for-bankruptcy-filing-as-soon-as-this-week",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T19:47:23Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Brightline is reportedly preparing for a bankruptcy filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brightline is reportedly preparing for a bankruptcy filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brightline",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-354",
+      "headline": "Binance faces US criminal probe over Iran sanctions violations | What we know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/binance-faces-us-criminal-probe-over-iran-sanctions-violations-what-we-know-11790095881342.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T19:36:42Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Binance faces a criminal probe regarding potential violations of Iran sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance faces a criminal probe regarding potential violations of Iran sanctions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,109 +1995,6 @@
           "name": "Kingfisher",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-060",
-      "headline": "UK's SThree raises annual pretax profit forecast after cost cuts, strength in U.S. market",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-sthree-raises-annual-profit-forecast-after-cost-cutting-measures-2026-09-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T07:54:24Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "SThree raised its annual pretax profit forecast following cost-cutting measures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SThree raised its annual pretax profit forecast following cost-cutting measures.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SThree",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-059",
-      "headline": "ADQ clears all conditions to acquire 98.93 percent share in AD Ports, settlement set for September 25",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/adq-clears-all-conditions-to-acquire-98-93-percent-share-in-ad-ports-settlement-set-for-september-25/?utm_source=rss&utm_medium=rss&utm_campaign=adq-clears-all-conditions-to-acquire-98-93-percent-share-in-ad-ports-settlement-set-for-september-25",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T07:36:52Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "ADQ has cleared conditions to acquire a 98.93% stake in AD Ports, a major M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADQ has cleared conditions to acquire a 98.93% stake in AD Ports, a major M&A transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AD Ports",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "ADQ",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -133790,77 +133785,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1fb1540d67d2",
-      "idea_version": "IDEAV-5fbbfccabcb4bb68",
-      "idea_version_started_at": "2026-09-22T12:28:28Z",
-      "ticker": "BASF",
-      "company": "BASF India",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
-      "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f89b275f2b87"
-      ],
-      "primary_source_event_id": "EVT-f89b275f2b87",
-      "source_headlines": [
-        "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
-      ],
-      "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-21T08:01:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:28:28Z",
-      "updated_at": "2026-09-22T12:28:28Z",
-      "decay_at": "2026-09-22T20:01:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cdba0d2ebad5",
       "idea_version": "IDEAV-8c26e4a74a7ab38d",
       "idea_version_started_at": "2026-09-22T12:09:02Z",
@@ -136149,6 +136073,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1fb1540d67d2",
+      "idea_version": "IDEAV-5fbbfccabcb4bb68",
+      "idea_version_started_at": "2026-09-22T12:28:28Z",
+      "ticker": "BASF",
+      "company": "BASF India",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
+      "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f89b275f2b87"
+      ],
+      "primary_source_event_id": "EVT-f89b275f2b87",
+      "source_headlines": [
+        "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
+      ],
+      "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-21T08:01:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T12:28:28Z",
+      "updated_at": "2026-09-22T12:28:28Z",
+      "decay_at": "2026-09-22T20:01:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-55f3e51ef1d9",
       "idea_version": "IDEAV-0a9df36b51cf7ebf",
       "idea_version_started_at": "2026-09-21T04:44:10Z",
@@ -137091,14 +137086,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 267,
@@ -137122,6 +137117,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1fb1540d67d2",
+        "idea_version": "IDEAV-5fbbfccabcb4bb68",
+        "idea_version_started_at": "2026-09-22T12:28:28Z",
+        "ticker": "BASF",
+        "company": "BASF India",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
+        "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f89b275f2b87"
+        ],
+        "primary_source_event_id": "EVT-f89b275f2b87",
+        "source_headlines": [
+          "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
+        ],
+        "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-21T08:01:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T12:28:28Z",
+        "updated_at": "2026-09-22T12:28:28Z",
+        "decay_at": "2026-09-22T20:01:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T20:01:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7de5b0b6f75e",
         "idea_version": "IDEAV-6b6698fe78990b27",
@@ -166953,79 +167022,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9f47945c8197",
-        "idea_version": "IDEAV-2f6f250091412bd5",
-        "idea_version_started_at": "2026-09-07T18:37:04Z",
-        "ticker": "LMT",
-        "company": "Lockheed Martin",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Swedish government has committed to a $729 million procurement of the Himars artillery rocket system, providing a direct, high-margin revenue boost to the company's missiles and fire control segment.",
-        "why_now": "The deal was officially announced on September 7, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-443e55080629"
-        ],
-        "primary_source_event_id": "EVT-443e55080629",
-        "source_headlines": [
-          "Sweden to buy Lockheed Martin's Himars artillery rocket system in $729 mln deal"
-        ],
-        "source_headline": "Sweden to buy Lockheed Martin's Himars artillery rocket system in $729 mln deal",
-        "source_url": "https://www.reuters.com/business/aerospace-defense/sweden-buy-lockheed-martins-himars-artillery-rocket-system-729-mln-deal-2026-09-07/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T12:13:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T18:37:04Z",
-        "updated_at": "2026-09-07T18:37:04Z",
-        "decay_at": "2026-09-09T00:13:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T12:37:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-944ea5e8ab2b",
         "idea_version": "IDEAV-528910e6e1b240f0",
         "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -174272,7 +174268,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 980,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174291,9 +174287,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5209389,
-    "news_picked_today": 703,
-    "news_dropped_today": 5153
+    "news_seen_today": 5406315,
+    "news_picked_today": 708,
+    "news_dropped_today": 5268
   },
   "book_momentum": {
     "live_count": 8,
