@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T17:50:42Z",
+  "generated_at": "2026-09-22T17:58:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-255",
@@ -610,6 +610,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-333",
+      "headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T16:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Dollar Tree raised its 2026 earnings outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dollar Tree raised its 2026 earnings outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dollar Tree",
+          "ticker": "DLTR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1969,55 +2018,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-117",
-      "headline": "Knowledge Marine raises FY27 revenue growth guidance to 60%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/knowledge-marine-fy27-revenue-growth-guidance-60-percet-rs-280-crore-order-mumbai-port-green-tug-alpha-article-19995530.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T06:04:55Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Knowledge Marine has raised its FY27 revenue growth guidance to 60%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Knowledge Marine has raised its FY27 revenue growth guidance to 60%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Knowledge Marine",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -133594,80 +133594,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7de5b0b6f75e",
-      "idea_version": "IDEAV-6b6698fe78990b27",
-      "idea_version_started_at": "2026-09-22T09:12:36Z",
-      "ticker": "BEZ",
-      "company": "Berentzen-Gruppe",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
-      "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cc21bfde597e",
-        "EVT-bb3bc508e213"
-      ],
-      "primary_source_event_id": "EVT-cc21bfde597e",
-      "source_headlines": [
-        "Sazerac Company launches bid for all Berentzen shares",
-        "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
-      ],
-      "source_headline": "Sazerac Company launches bid for all Berentzen shares",
-      "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T05:54:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T09:12:36Z",
-      "updated_at": "2026-09-22T09:12:36Z",
-      "decay_at": "2026-09-22T17:54:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e4ce1e3fbb7c",
       "idea_version": "IDEAV-888daf46cb9ced1b",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -135072,6 +134998,80 @@
       "surfaced_at": "2026-09-20T01:29:10Z",
       "updated_at": "2026-09-20T01:29:10Z",
       "decay_at": "2026-09-21T12:28:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7de5b0b6f75e",
+      "idea_version": "IDEAV-6b6698fe78990b27",
+      "idea_version_started_at": "2026-09-22T09:12:36Z",
+      "ticker": "BEZ",
+      "company": "Berentzen-Gruppe",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+      "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cc21bfde597e",
+        "EVT-bb3bc508e213"
+      ],
+      "primary_source_event_id": "EVT-cc21bfde597e",
+      "source_headlines": [
+        "Sazerac Company launches bid for all Berentzen shares",
+        "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
+      ],
+      "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+      "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T05:54:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T09:12:36Z",
+      "updated_at": "2026-09-22T09:12:36Z",
+      "decay_at": "2026-09-22T17:54:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -137461,14 +137461,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 272,
@@ -137492,6 +137492,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7de5b0b6f75e",
+        "idea_version": "IDEAV-6b6698fe78990b27",
+        "idea_version_started_at": "2026-09-22T09:12:36Z",
+        "ticker": "BEZ",
+        "company": "Berentzen-Gruppe",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+        "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cc21bfde597e",
+          "EVT-bb3bc508e213"
+        ],
+        "primary_source_event_id": "EVT-cc21bfde597e",
+        "source_headlines": [
+          "Sazerac Company launches bid for all Berentzen shares",
+          "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
+        ],
+        "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+        "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-21T05:54:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T09:12:36Z",
+        "updated_at": "2026-09-22T09:12:36Z",
+        "decay_at": "2026-09-22T17:54:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T17:54:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-88eef3591541",
         "idea_version": "IDEAV-8bcaca3f447dfabb",
@@ -167319,79 +167396,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1ab96b799316",
-        "idea_version": "IDEAV-2a1f1c272c1525d5",
-        "idea_version_started_at": "2026-09-07T20:32:15Z",
-        "ticker": "NXT.L",
-        "company": "Next plc",
-        "exchange": "London",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company won a landmark legal ruling in the UK regarding equal pay claims, significantly reducing potential long-term litigation liabilities.",
-        "why_now": "The ruling was issued on 2026-09-07, providing immediate clarity on a major financial overhang.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-588a63039ec6"
-        ],
-        "primary_source_event_id": "EVT-588a63039ec6",
-        "source_headlines": [
-          "Next wins ‘landmark’ ruling in UK retail’s multibillion equal pay claim"
-        ],
-        "source_headline": "Next wins ‘landmark’ ruling in UK retail’s multibillion equal pay claim",
-        "source_url": "https://www.ft.com/content/314ef6d6-6c82-4f3f-8e47-7aff135a1dbe?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T12:13:42Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T20:32:15Z",
-        "updated_at": "2026-09-07T20:32:15Z",
-        "decay_at": "2026-09-09T00:13:42Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T12:37:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-944ea5e8ab2b",
         "idea_version": "IDEAV-528910e6e1b240f0",
         "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -174638,7 +174642,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 978,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174657,9 +174661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4205971,
-    "news_picked_today": 598,
-    "news_dropped_today": 3410
+    "news_seen_today": 4262248,
+    "news_picked_today": 605,
+    "news_dropped_today": 3427
   },
   "book_momentum": {
     "live_count": 8,
