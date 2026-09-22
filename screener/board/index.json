@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:42:09Z",
+  "generated_at": "2026-09-22T09:53:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -1587,6 +1587,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-073",
+      "headline": "Fed, BoE probe banks' exposure to trading firms after Jane Street loss, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/us-fed-boe-step-up-scrutiny-bank-exposure-trading-firms-after-jane-street-loss-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T09:37:55Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Regulators are investigating bank exposure to trading firms following a loss at Jane Street, indicating potential systemic risk or tighter oversight.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Regulators are investigating bank exposure to trading firms following a loss at Jane Street, indicating potential systemic risk or tighter oversight.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Jane Street",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-039",
       "headline": "‎ADES secures CMA nod for 100% capital hike via bonus issue",
       "headline_en": null,
@@ -1913,55 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-071",
-      "headline": "Petrobras precisará ampliar atuação em renováveis para manter relevância até 2050, diz CEO",
-      "headline_en": "Petrobras will need to expand its operations in renewables to maintain relevance by 2050, says CEO",
-      "url": "https://www.reuters.com/pt/negocio/3UQI5P4P3BJEPKZYQ4R7LMY2SY-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:22:07Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Petrobras CEO states the company must expand into renewables to remain relevant by 2050.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Petrobras CEO states the company must expand into renewables to remain relevant by 2050.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Petrobras",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173461,9 +173462,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 640477,
-    "news_picked_today": 76,
-    "news_dropped_today": 1388
+    "news_seen_today": 723028,
+    "news_picked_today": 80,
+    "news_dropped_today": 1504
   },
   "book_momentum": {
     "live_count": 8,
