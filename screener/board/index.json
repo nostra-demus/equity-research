@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:49:40Z",
+  "generated_at": "2026-09-22T12:53:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-183",
@@ -1766,6 +1766,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-223",
+      "headline": "ICICI Bank Limited: board meeting 17-Oct-2026 — Financial Results",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_22092026181047_NSEBSE_22092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T12:42:02Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Scheduled earnings release for a major bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Scheduled earnings release for a major bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-078",
       "headline": "REALWAY CAPITAL (01835): JOINT ANNOUNCEMENT MONTHLY UPDATE ON THE POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY ALLIANCE CAPITAL PARTNERS LIMITED FOR AND ON BEHALF OF THE OFFEROR FOR ALL THE ISSUED H SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
       "headline_en": null,
@@ -1956,55 +2005,6 @@
           "name": "JK Paper Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-153",
-      "headline": "FCA takes Hunter Jones to High Court over alleged unauthorised activity",
-      "headline_en": null,
-      "url": "https://www.fca.org.uk/news/press-releases/fca-takes-hunter-jones-high-court-over-alleged-unauthorised-activity",
-      "source_name": "UK Financial Conduct Authority (FCA) — News",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-22T10:40:41Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "The FCA is taking legal action against Hunter Jones for alleged unauthorized financial activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The FCA is taking legal action against Hunter Jones for alleged unauthorized financial activity.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hunter Jones",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -174151,9 +174151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1690639,
-    "news_picked_today": 320,
-    "news_dropped_today": 2584
+    "news_seen_today": 1720411,
+    "news_picked_today": 328,
+    "news_dropped_today": 2600
   },
   "book_momentum": {
     "live_count": 8,
