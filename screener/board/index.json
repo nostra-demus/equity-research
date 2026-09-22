@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T14:19:03Z",
+  "generated_at": "2026-09-22T14:26:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-255",
@@ -507,6 +507,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-271",
+      "headline": "Goldman Sachs in Talks to Buy $37 Billion Credit Firm Palmer Square",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-22/goldman-in-talks-to-buy-37b-credit-firm-palmer-square-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T14:11:36Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Goldman Sachs is in talks to acquire Palmer Square, a credit firm with $37 billion in assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goldman Sachs is in talks to acquire Palmer Square, a credit firm with $37 billion in assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goldman Sachs",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-269",
+      "headline": "Volkswagen to ramp up restructuring after profit warning",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/volkswagen-porsche-shares-extend-losses-following-profit-warning-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T13:56:06Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Volkswagen is accelerating restructuring efforts following a previously announced profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is accelerating restructuring efforts following a previously announced profit warning.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,104 +2007,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-007",
-      "headline": "Indian Oil Corporation Limited: Indian Oil Corporation Limited has informed the Exchange regarding 'Investment Approval for Kochi-Kanyakumari-Thoothukudi Natural Gas Pipeline'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IOC_21092026133341_2026_09_21_Investment_approval_KTPL_S.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T08:03:50Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Indian Oil Corporation announced investment approval for the Kochi-Kanyakumari-Thoothukudi Natural Gas Pipeline project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Indian Oil Corporation announced investment approval for the Kochi-Kanyakumari-Thoothukudi Natural Gas Pipeline project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Oil Corporation Limited",
-          "ticker": "530965",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-083",
-      "headline": "Swiss brand On plans $1 billion buyback through 2029, sets long-term targets",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/switzerlands-holding-plans-1-bln-buyback-through-2029-sets-long-term-targets-2026-09-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T09:47:26Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "On announced a $1 billion share buyback program through 2029.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "On announced a $1 billion share buyback program through 2029.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "On",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135309,78 +135310,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dea4c2158a97",
-      "idea_version": "IDEAV-a356ee2ede3e0cb8",
-      "idea_version_started_at": "2026-09-21T03:50:15Z",
-      "ticker": "T82U",
-      "company": "Suntec Real Estate Investment Trust",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Suntec REIT is shifting its strategic focus back to Singapore by selling three of its Australian properties, which will help optimize its balance sheet, lower leverage, and improve cash flow distribution stability.",
-      "why_now": "The strategic divestment and geographical pivot were announced on September 21, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f3201fc35d6c"
-      ],
-      "primary_source_event_id": "EVT-f3201fc35d6c",
-      "source_headlines": [
-        "Suntec Reit to increase Singapore focus, sell three Australia properties"
-      ],
-      "source_headline": "Suntec Reit to increase Singapore focus, sell three Australia properties",
-      "source_url": "https://www.straitstimes.com/business/suntec-reit-to-increase-singapore-focus-sell-three-australia-properties",
-      "source_name": "The Straits Times",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-21T02:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T03:50:15Z",
-      "updated_at": "2026-09-21T03:50:15Z",
-      "decay_at": "2026-09-22T14:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4aa88b4041d1",
       "idea_version": "IDEAV-238931fb2ca0734b",
       "idea_version_started_at": "2026-09-21T03:30:16Z",
@@ -137297,6 +137226,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-dea4c2158a97",
+      "idea_version": "IDEAV-a356ee2ede3e0cb8",
+      "idea_version_started_at": "2026-09-21T03:50:15Z",
+      "ticker": "T82U",
+      "company": "Suntec Real Estate Investment Trust",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Suntec REIT is shifting its strategic focus back to Singapore by selling three of its Australian properties, which will help optimize its balance sheet, lower leverage, and improve cash flow distribution stability.",
+      "why_now": "The strategic divestment and geographical pivot were announced on September 21, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f3201fc35d6c"
+      ],
+      "primary_source_event_id": "EVT-f3201fc35d6c",
+      "source_headlines": [
+        "Suntec Reit to increase Singapore focus, sell three Australia properties"
+      ],
+      "source_headline": "Suntec Reit to increase Singapore focus, sell three Australia properties",
+      "source_url": "https://www.straitstimes.com/business/suntec-reit-to-increase-singapore-focus-sell-three-australia-properties",
+      "source_name": "The Straits Times",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-21T02:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-21T03:50:15Z",
+      "updated_at": "2026-09-21T03:50:15Z",
+      "decay_at": "2026-09-22T14:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-481a4b3ef631",
       "idea_version": "IDEAV-ad638c506fa3eaae",
       "idea_version_started_at": "2026-09-21T01:15:15Z",
@@ -137449,14 +137450,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       },
       "short": {
         "total_count": 266,
@@ -137480,6 +137481,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-dea4c2158a97",
+        "idea_version": "IDEAV-a356ee2ede3e0cb8",
+        "idea_version_started_at": "2026-09-21T03:50:15Z",
+        "ticker": "T82U",
+        "company": "Suntec Real Estate Investment Trust",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Suntec REIT is shifting its strategic focus back to Singapore by selling three of its Australian properties, which will help optimize its balance sheet, lower leverage, and improve cash flow distribution stability.",
+        "why_now": "The strategic divestment and geographical pivot were announced on September 21, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f3201fc35d6c"
+        ],
+        "primary_source_event_id": "EVT-f3201fc35d6c",
+        "source_headlines": [
+          "Suntec Reit to increase Singapore focus, sell three Australia properties"
+        ],
+        "source_headline": "Suntec Reit to increase Singapore focus, sell three Australia properties",
+        "source_url": "https://www.straitstimes.com/business/suntec-reit-to-increase-singapore-focus-sell-three-australia-properties",
+        "source_name": "The Straits Times",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-21T02:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-21T03:50:15Z",
+        "updated_at": "2026-09-21T03:50:15Z",
+        "decay_at": "2026-09-22T14:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T14:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-84d3d160ac55",
         "idea_version": "IDEAV-1a317bf4b527b309",
@@ -167302,82 +167378,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b8cfb6be47e3",
-        "idea_version": "IDEAV-ee5553cd5f3c92e7",
-        "idea_version_started_at": "2026-09-07T03:26:40Z",
-        "ticker": "MQG",
-        "company": "Macquarie Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Macquarie Asset Management's $4 billion acquisition of a stake in SERV from Aware Super expands its infrastructure AUM and demonstrates continued capital deployment in high-moat assets.",
-        "why_now": "The deal was reported on September 7, 2026, and represents a significant deployment of capital that impacts the Asset Management division's fee-earning potential.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2314895a53e3"
-        ],
-        "primary_source_event_id": "EVT-2314895a53e3",
-        "source_headlines": [
-          "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal"
-        ],
-        "source_headline": "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal",
-        "source_url": "https://www.afr.com/street-talk/macquarie-asset-management-buys-serv-stake-from-aware-super-in-4-deal-20260906-p60uua?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T02:07:13Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T03:26:40Z",
-        "updated_at": "2026-09-07T03:26:40Z",
-        "decay_at": "2026-09-08T14:07:13Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T02:28:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7f0cb5a0adaa",
         "idea_version": "IDEAV-be92643744795d0e",
         "idea_version_started_at": "2026-09-07T02:31:45Z",
@@ -174626,7 +174626,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 978,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174645,9 +174645,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2235200,
-    "news_picked_today": 451,
-    "news_dropped_today": 3173
+    "news_seen_today": 2315405,
+    "news_picked_today": 463,
+    "news_dropped_today": 3209
   },
   "book_momentum": {
     "live_count": 8,
