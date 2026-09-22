@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-22T21:26:13Z",
+  "generated_at": "2026-09-22T21:34:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260922-356",
+      "headline": "SC 13E3 - ReNew Energy Global plc (0001848763) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1848763/000119312526398027/0001193125-26-398027-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-22T20:44:55Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "ReNew Energy Global filed a Schedule 13E-3, indicating a potential going-private transaction or significant change in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ReNew Energy Global filed a Schedule 13E-3, indicating a potential going-private transaction or significant change in ownership structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ReNew Energy Global plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260922-351",
       "headline": "SC TO-T - Cadeler A/S (0001978867) (Subject)",
@@ -1949,55 +1998,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-025",
-      "headline": "Kingfisher Lifts Full-Year Earnings Forecast on Trade Sales",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-22/kingfisher-lifts-full-year-earnings-forecast-on-trade-sales",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:08:27Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Kingfisher raised its full-year earnings forecast, a direct impact on financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kingfisher raised its full-year earnings forecast, a direct impact on financial expectations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingfisher",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174287,9 +174287,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6095912,
-    "news_picked_today": 776,
-    "news_dropped_today": 5992
+    "news_seen_today": 6178904,
+    "news_picked_today": 779,
+    "news_dropped_today": 6061
   },
   "book_momentum": {
     "live_count": 8,
