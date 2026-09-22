@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-31T14:15:54Z",
+  "archived_at": "2026-09-22T09:12:40Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-a4e5cec1ef8b",
-    "idea_version": "IDEAV-230262be31743fba",
-    "idea_version_started_at": "2026-08-29T21:53:05Z",
-    "ticker": "00852",
-    "company": "Strong Petrochemical Holdings Limited",
+    "idea_id": "IDEA-d1966bde9f8c",
+    "idea_version": "IDEAV-47bc164323824838",
+    "idea_version_started_at": "2026-09-19T15:58:42Z",
+    "ticker": "08156",
+    "company": "Sinopharm Tech Holdings Limited",
     "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Strong Petrochemical Holdings Limited announced a further delay in the payment of its 2024 interim dividend and continued trading suspension, signaling severe financial difficulties.",
-    "why_now": "The announcement regarding the dividend delay and trading suspension was made on August 28, 2026.",
-    "conviction": 70,
+    "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
+    "why_now": "The warning was filed on September 18, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 19,
+      "impact": 20,
       "specificity": 7,
       "timing": 6,
       "expression": 0,
@@ -48,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-74e06baa7bc7"
+      "EVT-f9e144c03dbd"
     ],
-    "primary_source_event_id": "EVT-74e06baa7bc7",
+    "primary_source_event_id": "EVT-f9e144c03dbd",
     "source_headlines": [
-      "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
+      "SINOPHARM TECH (08156): PROFIT WARNING"
     ],
-    "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
+    "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
     "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-28T12:58:00Z",
+    "newest_source_at": "2026-09-18T14:02:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-29T10:43:25Z",
-    "updated_at": "2026-08-29T21:53:05Z",
-    "decay_at": "2026-08-30T00:58:00Z",
+    "surfaced_at": "2026-09-19T15:58:42Z",
+    "updated_at": "2026-09-19T15:58:42Z",
+    "decay_at": "2026-09-20T02:02:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

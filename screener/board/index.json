@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:12:23Z",
+  "generated_at": "2026-09-22T09:12:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -132672,6 +132672,80 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7de5b0b6f75e",
+      "idea_version": "IDEAV-6b6698fe78990b27",
+      "idea_version_started_at": "2026-09-22T09:12:36Z",
+      "ticker": "BEZ",
+      "company": "Berentzen-Gruppe",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+      "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cc21bfde597e",
+        "EVT-bb3bc508e213"
+      ],
+      "primary_source_event_id": "EVT-cc21bfde597e",
+      "source_headlines": [
+        "Sazerac Company launches bid for all Berentzen shares",
+        "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
+      ],
+      "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+      "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-21T05:54:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T09:12:36Z",
+      "updated_at": "2026-09-22T09:12:36Z",
+      "decay_at": "2026-09-22T17:54:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-697598c2bbee",
       "idea_version": "IDEAV-c9eb1d0cfeea08ee",
       "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -134615,217 +134689,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-352ad72e6a27",
-      "idea_version": "IDEAV-01c191d10237dce2",
-      "idea_version_started_at": "2026-09-19T20:48:40Z",
-      "ticker": "WEN",
-      "company": "Wendy's Company",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Meritage Hospitality, a major Wendy's franchisee operating hundreds of locations across 15 states, filed for Chapter 11 bankruptcy, disrupting royalty revenue streams and signaling operator distress in the Wendy's system.",
-      "why_now": "Chapter 11 filing reported on 2026-09-18; franchisee bankruptcy creates immediate uncertainty over store closures and franchise fee/royalty collection.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-965dc1b03644",
-        "EVT-bcbcc1baeb73"
-      ],
-      "primary_source_event_id": "EVT-965dc1b03644",
-      "source_headlines": [
-        "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
-        "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy"
-      ],
-      "source_headline": "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
-      "source_url": "https://thehill.com/homenews/6098417-wendys-franchisee-with-hundreds-of-locations-across-15-states-files-for-bankruptcy/",
-      "source_name": "The Hill — Homenews",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T21:20:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T20:48:40Z",
-      "updated_at": "2026-09-19T20:48:40Z",
-      "decay_at": "2026-09-20T09:20:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6c411243ff00",
-      "idea_version": "IDEAV-bb737e4eae911147",
-      "idea_version_started_at": "2026-09-19T09:53:04Z",
-      "ticker": "NFE",
-      "company": "New Fortress Energy Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which typically precedes efforts to unlock value through strategic changes or board influence.",
-      "why_now": "The 13D filing was made public on 2026-09-19, signaling immediate potential for corporate governance or strategic shifts.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c528f3a7647"
-      ],
-      "primary_source_event_id": "EVT-7c528f3a7647",
-      "source_headlines": [
-        "SCHEDULE 13D - New Fortress Energy Inc. (0001749723) (Subject)"
-      ],
-      "source_headline": "SCHEDULE 13D - New Fortress Energy Inc. (0001749723) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1749723/000119312526395888/0001193125-26-395888-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-19T01:49:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T09:53:04Z",
-      "updated_at": "2026-09-19T09:53:04Z",
-      "decay_at": "2026-09-20T13:49:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a2af7914e260",
-      "idea_version": "IDEAV-85222e04ad1edcdf",
-      "idea_version_started_at": "2026-09-20T11:25:05Z",
-      "ticker": "ACN",
-      "company": "Accenture",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Accenture is investing $2B into AI model evaluation, positioning itself as a critical service provider for enterprise AI safety and governance, which will drive high-margin consulting revenue.",
-      "why_now": "The investment partnership was announced on 2026-09-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 68,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-62dd45281562",
-        "EVT-69101fd9e879"
-      ],
-      "primary_source_event_id": "EVT-62dd45281562",
-      "source_headlines": [
-        "Anthropic, Accenture to invest $2 billion in AI model evaluation as safety concerns rise",
-        "AI companies: Accenture and Anthropic invest billions in AI safety due to security concerns"
-      ],
-      "source_headline": "Anthropic, Accenture to invest $2 billion in AI model evaluation as safety concerns rise",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/anthropic-accenture-to-invest-2-billion-in-ai-model-evaluation-as-safety-concerns-rise/article71483693.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-19T07:42:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T11:25:05Z",
-      "updated_at": "2026-09-20T11:25:05Z",
-      "decay_at": "2026-09-20T19:42:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-523a4ee7d93a",
       "idea_version": "IDEAV-e75aa25e57a9566e",
       "idea_version_started_at": "2026-09-20T21:45:11Z",
@@ -134960,76 +134823,6 @@
       "surfaced_at": "2026-09-19T20:48:40Z",
       "updated_at": "2026-09-20T17:25:16Z",
       "decay_at": "2026-09-21T06:28:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-49a2653dd307",
-      "idea_version": "IDEAV-450b022579b6b0c1",
-      "idea_version_started_at": "2026-09-19T17:33:45Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen AG",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has issued a profit warning citing a 10 billion Euro hit to earnings, signaling severe operational and margin pressure.",
-      "why_now": "The warning was released on September 18, 2026, and the market is currently digesting the magnitude of the earnings impact.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08e814ec8f92"
-      ],
-      "primary_source_event_id": "EVT-08e814ec8f92",
-      "source_headlines": [
-        "Crisis-wracked Volkswagen warns of €10bn hit to profits"
-      ],
-      "source_headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
-      "source_url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
-      "source_name": "Gulf Times — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T22:30:22Z",
-      "updated_at": "2026-09-19T17:33:45Z",
-      "decay_at": "2026-09-20T09:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135596,147 +135389,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b8b60620b725",
-      "idea_version": "IDEAV-0ec5aeeb81870780",
-      "idea_version_started_at": "2026-09-19T02:52:36Z",
-      "ticker": "YTRA",
-      "company": "Yatra Online, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The filing of a SC TO-T/A indicates an active third-party tender offer, which typically forces the stock price toward the offer premium.",
-      "why_now": "The SEC filing was processed on 2026-09-18, confirming the live status of the tender offer.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-61e28efa41d1",
-        "EVT-6f4d9a0af7b1"
-      ],
-      "primary_source_event_id": "EVT-61e28efa41d1",
-      "source_headlines": [
-        "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
-        "SC TO-T/A - Yatra Online, Inc. (0001516899) (Subject)"
-      ],
-      "source_headline": "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2125850/000153949726002545/0001539497-26-002545-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T20:29:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T02:52:36Z",
-      "updated_at": "2026-09-19T02:52:36Z",
-      "decay_at": "2026-09-20T08:29:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d69eca070d00",
-      "idea_version": "IDEAV-fadb833ffa868405",
-      "idea_version_started_at": "2026-09-19T04:47:56Z",
-      "ticker": "OLN",
-      "company": "Olin Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a $788 million contract from the U.S. Army, providing a significant, multi-year revenue stream that improves earnings visibility.",
-      "why_now": "The contract award was announced on 2026-09-19, making it a fresh catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a477efe352f"
-      ],
-      "primary_source_event_id": "EVT-8a477efe352f",
-      "source_headlines": [
-        "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?"
-      ],
-      "source_headline": "Olin Just Won a $788 Million Army Contract. Is Olin Stock a Buy?",
-      "source_url": "https://www.nasdaq.com/articles/olin-just-won-788-million-army-contract-olin-stock-buy",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-19T00:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T04:47:56Z",
-      "updated_at": "2026-09-19T04:47:56Z",
-      "decay_at": "2026-09-20T12:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b3663a1d7f5b",
       "idea_version": "IDEAV-667be2091d91183e",
       "idea_version_started_at": "2026-09-20T01:29:10Z",
@@ -135941,77 +135593,6 @@
       "surfaced_at": "2026-09-20T01:29:10Z",
       "updated_at": "2026-09-20T01:29:10Z",
       "decay_at": "2026-09-21T12:28:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ab211b817901",
-      "idea_version": "IDEAV-64df97f16c267173",
-      "idea_version_started_at": "2026-09-19T00:43:05Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has a massive $27 billion share buyback authorization remaining, which provides a significant floor for the stock price and EPS accretion.",
-      "why_now": "The news of the remaining buyback capacity was reported on 2026-09-18.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dfc8913f77a8"
-      ],
-      "primary_source_event_id": "EVT-dfc8913f77a8",
-      "source_headlines": [
-        "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company"
-      ],
-      "source_headline": "Netflix Has $27 Billion Left to Buy Back Its Own Stock -- About 8% of the Whole Company",
-      "source_url": "https://www.fool.com/investing/2026/09/18/netflix-has-usd27-billion-left-to-buy-back-its-own-stock-about-8-of-the-whole-company/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-18T23:44:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T00:43:05Z",
-      "updated_at": "2026-09-19T00:43:05Z",
-      "decay_at": "2026-09-20T11:44:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -136521,436 +136102,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1f05bd3420a7",
-      "idea_version": "IDEAV-b31b6c0def5cd963",
-      "idea_version_started_at": "2026-09-19T17:33:45Z",
-      "ticker": "BRK.B",
-      "company": "Berkshire Hathaway",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of Warren Buffett as Chairman marks the end of an era and introduces significant uncertainty regarding the company's long-term capital allocation and leadership stability.",
-      "why_now": "The announcement occurred on September 18, 2026, and represents a fundamental shift in the company's governance structure.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-149a13f16a72"
-      ],
-      "primary_source_event_id": "EVT-149a13f16a72",
-      "source_headlines": [
-        "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward."
-      ],
-      "source_headline": "Warren Buffett Steps Down as Berkshire Hathaway Chairman After 56 Years. Here's What Investors Should Expect Moving Forward.",
-      "source_url": "https://www.nasdaq.com/articles/warren-buffett-steps-down-berkshire-hathaway-chairman-after-56-years-heres-what-investors",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T18:50:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T00:23:17Z",
-      "updated_at": "2026-09-19T17:33:45Z",
-      "decay_at": "2026-09-20T06:50:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-083c9caae543",
-      "idea_version": "IDEAV-5b0c0e4ef0d0c09d",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "VOW3",
-      "company": "Volkswagen AG",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a massive 10 billion euro hit to profits, reflecting severe structural and operational headwinds.",
-      "why_now": "The warning was issued on September 18, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08e814ec8f92"
-      ],
-      "primary_source_event_id": "EVT-08e814ec8f92",
-      "source_headlines": [
-        "Crisis-wracked Volkswagen warns of €10bn hit to profits"
-      ],
-      "source_headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
-      "source_url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
-      "source_name": "Gulf Times — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T22:10:41Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T09:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2bf283da46ec",
-      "idea_version": "IDEAV-7e8acf14e8310864",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "TVVISION",
-      "company": "TV Vision Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
-      "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ac6e9cb1c13c",
-        "EVT-f187b2c0bee2"
-      ],
-      "primary_source_event_id": "EVT-ac6e9cb1c13c",
-      "source_headlines": [
-        "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
-      ],
-      "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T15:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T03:27:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-78eedf3845e5",
-      "idea_version": "IDEAV-50f71bad3bacda39",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "01371",
-      "company": "China Ecotourism Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit alert indicating deteriorating financial performance, which typically precedes further margin compression or liquidity concerns.",
-      "why_now": "The profit alert was filed on September 18, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b34cb61c0e36"
-      ],
-      "primary_source_event_id": "EVT-b34cb61c0e36",
-      "source_headlines": [
-        "CHINA ECOTOUR (01371): Profit Alert"
-      ],
-      "source_headline": "CHINA ECOTOUR (01371): Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T14:23:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T02:23:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d1966bde9f8c",
-      "idea_version": "IDEAV-47bc164323824838",
-      "idea_version_started_at": "2026-09-19T15:58:42Z",
-      "ticker": "08156",
-      "company": "Sinopharm Tech Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a significant negative deviation from expected earnings performance.",
-      "why_now": "The warning was filed on September 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9e144c03dbd"
-      ],
-      "primary_source_event_id": "EVT-f9e144c03dbd",
-      "source_headlines": [
-        "SINOPHARM TECH (08156): PROFIT WARNING"
-      ],
-      "source_headline": "SINOPHARM TECH (08156): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801732.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T14:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T15:58:42Z",
-      "updated_at": "2026-09-19T15:58:42Z",
-      "decay_at": "2026-09-20T02:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-75e7e0d545c9",
-      "idea_version": "IDEAV-52d5934feefbec53",
-      "idea_version_started_at": "2026-09-19T14:23:44Z",
-      "ticker": "08366",
-      "company": "ZJ United Inv",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed rights issue on a non-fully underwritten basis signals significant dilution risk and potential liquidity stress for existing shareholders.",
-      "why_now": "The announcement was filed on September 18, 2026, and the market has yet to price in the full impact of the capital dilution.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-717692d8d979"
-      ],
-      "primary_source_event_id": "EVT-717692d8d979",
-      "source_headlines": [
-        "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM"
-      ],
-      "source_headline": "ZJ UNITED INV (08366): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) ADJUSTED SHARE HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (4) CONNECTED TRANSACTION IN RELATION TO THE PLACING AGREEMENT AND THE UNDERWRITING AGREEMENT; AND (5) NOTICE OF EGM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0918/2026091801546.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T12:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T17:05:00Z",
-      "updated_at": "2026-09-19T14:23:44Z",
-      "decay_at": "2026-09-20T00:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-80566e7fce69",
       "idea_version": "IDEAV-f82663b3219a08e7",
       "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -137017,291 +136168,6 @@
       "surfaced_at": "2026-09-19T12:40:06Z",
       "updated_at": "2026-09-19T12:40:06Z",
       "decay_at": "2026-09-20T23:29:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0c5dd20f0abc",
-      "idea_version": "IDEAV-23de9d5eed9283c4",
-      "idea_version_started_at": "2026-09-18T22:10:41Z",
-      "ticker": "543929",
-      "company": "HMA Agro Industries Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of the statutory auditor is a high-conviction red flag for potential accounting irregularities or governance failures.",
-      "why_now": "The cessation of the auditor was filed on September 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a92173c6c45"
-      ],
-      "primary_source_event_id": "EVT-0a92173c6c45",
-      "source_headlines": [
-        "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026."
-      ],
-      "source_headline": "HMA Agro Industries Limited: Hma Agro Industries Limited has informed the Exchange regarding Cessation of M/s MAPSS and Company as Statutory Auditors of the company w.e.f. September 18, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HMA_18092026235329_Intimationofcompletionoftenure.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-18T18:23:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-18T22:10:41Z",
-      "updated_at": "2026-09-18T22:10:41Z",
-      "decay_at": "2026-09-20T06:23:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-232e58bf1748",
-      "idea_version": "IDEAV-0c4c704b502559d7",
-      "idea_version_started_at": "2026-09-19T08:59:15Z",
-      "ticker": "TIRUPATIFL",
-      "company": "Tirupati Forge Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The receipt of an industrial license for defence manufacturing allows the company to enter a high-margin, government-backed sector, diversifying its revenue stream beyond its traditional forging business.",
-      "why_now": "The company announced the license approval on September 19, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e2a2605c35d6"
-      ],
-      "primary_source_event_id": "EVT-e2a2605c35d6",
-      "source_headlines": [
-        "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\"."
-      ],
-      "source_headline": "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TIRUPATIFL_19092026112507_Press_Release_-_License_for_Defence_Manufacturing.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-19T05:55:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T08:59:15Z",
-      "updated_at": "2026-09-19T08:59:15Z",
-      "decay_at": "2026-09-20T17:55:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2f073d724c38",
-      "idea_version": "IDEAV-69b6afc59df11a75",
-      "idea_version_started_at": "2026-09-19T09:53:04Z",
-      "ticker": "KMSUGAR",
-      "company": "K.M. Sugar Mills Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has set a formal record date for a merger/hive-off, which is a definitive step toward corporate restructuring and potential value realization for shareholders.",
-      "why_now": "The record date for the transaction is set for 2026-10-02, creating a clear timeline for the corporate action.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6313e6999f04"
-      ],
-      "primary_source_event_id": "EVT-6313e6999f04",
-      "source_headlines": [
-        "K.M.Sugar Mills Limited: K.M.Sugar Mills Limited has informed the Exchange that Record date for the purpose of Merger/HiveOf is 02-Oct-2026."
-      ],
-      "source_headline": "K.M.Sugar Mills Limited: K.M.Sugar Mills Limited has informed the Exchange that Record date for the purpose of Merger/HiveOf is 02-Oct-2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/KMSUGAR_19092026115553_REGULATION30ND42.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-19T06:29:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T09:53:04Z",
-      "updated_at": "2026-09-19T09:53:04Z",
-      "decay_at": "2026-09-20T18:29:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-73741e1a1a55",
-      "idea_version": "IDEAV-97c3f27c212f3dd6",
-      "idea_version_started_at": "2026-09-19T08:59:15Z",
-      "ticker": "3690",
-      "company": "Meituan",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of an investigation into unfair competition practices creates significant regulatory overhang and potential for material fines or forced changes to the company's core business model.",
-      "why_now": "The investigation was reported on September 19, 2026, creating immediate downside risk to sentiment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35be5e963276"
-      ],
-      "primary_source_event_id": "EVT-35be5e963276",
-      "source_headlines": [
-        "China investigates Meituan unit for suspected violations of unfair competition laws"
-      ],
-      "source_headline": "China investigates Meituan unit for suspected violations of unfair competition laws",
-      "source_url": "https://www.reuters.com/world/asia-pacific/china-investigates-meituan-unit-suspected-violations-unfair-competition-laws-2026-09-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-19T03:23:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T08:59:15Z",
-      "updated_at": "2026-09-19T08:59:15Z",
-      "decay_at": "2026-09-20T15:23:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -137378,77 +136244,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-7d56acfd906a",
-      "idea_version": "IDEAV-64ec3170c0e3e22b",
-      "idea_version_started_at": "2026-09-19T05:39:44Z",
-      "ticker": "07630",
-      "company": "Impact Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The positive CHMP opinion for Senaparib significantly increases the probability of European market entry for the company's lead oncology asset, expanding its addressable revenue base.",
-      "why_now": "The regulatory opinion was announced on 2026-09-18, providing a clear catalyst for commercialization prospects.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b6ac1607a2a"
-      ],
-      "primary_source_event_id": "EVT-8b6ac1607a2a",
-      "source_headlines": [
-        "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER"
-      ],
-      "source_headline": "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - POSITIVE CHMP OPINION FOR SENAPARIB, AS POTENTIAL FIRST-LINE MAINTENANCE TREATMENT OF ADVANCED EPITHELIAL OVARIAN, FALLOPIAN TUBE, AND PRIMARY PERITONEAL CANCER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801234.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-18T10:47:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-19T05:39:44Z",
-      "updated_at": "2026-09-19T05:39:44Z",
-      "decay_at": "2026-09-19T22:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -137461,33 +136256,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 10
       },
       "short": {
-        "total_count": 273,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 13
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 384,
-      "oldest_retained_at": "2026-08-29T23:49:00Z",
+      "evicted_count": 402,
+      "oldest_retained_at": "2026-08-30T02:45:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 263,
-          "oldest_retained_at": "2026-09-08T02:01:09Z"
+          "evicted_count": 271,
+          "oldest_retained_at": "2026-09-08T11:37:39Z"
         },
         "short": {
-          "evicted_count": 121,
-          "oldest_retained_at": "2026-08-29T23:49:00Z"
+          "evicted_count": 131,
+          "oldest_retained_at": "2026-08-30T02:45:00Z"
         }
       }
     },
@@ -139261,8 +138056,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T19:42:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139335,8 +138130,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T18:29:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139409,8 +138204,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T17:55:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139484,8 +138279,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T15:23:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139556,8 +138351,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T13:49:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139629,8 +138424,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T12:50:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139703,8 +138498,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T11:44:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139777,8 +138572,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T09:20:30Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139850,8 +138645,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T09:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139925,8 +138720,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T09:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -139999,8 +138794,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T08:29:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140074,8 +138869,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T06:50:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140148,8 +138943,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T06:23:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140224,8 +139019,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T03:27:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140298,8 +139093,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T02:23:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140372,8 +139167,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T02:02:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140446,8 +139241,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-20T00:39:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -140520,8 +139315,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-19T22:47:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174640,8 +173435,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 957,
-    "live_count": 31,
+    "surfaced_total": 958,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

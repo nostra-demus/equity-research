@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-22T09:12:40Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-352ad72e6a27",
+    "idea_version": "IDEAV-01c191d10237dce2",
+    "idea_version_started_at": "2026-09-19T20:48:40Z",
+    "ticker": "WEN",
+    "company": "Wendy's Company",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Meritage Hospitality, a major Wendy's franchisee operating hundreds of locations across 15 states, filed for Chapter 11 bankruptcy, disrupting royalty revenue streams and signaling operator distress in the Wendy's system.",
+    "why_now": "Chapter 11 filing reported on 2026-09-18; franchisee bankruptcy creates immediate uncertainty over store closures and franchise fee/royalty collection.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 74,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-965dc1b03644",
+      "EVT-bcbcc1baeb73"
+    ],
+    "primary_source_event_id": "EVT-965dc1b03644",
+    "source_headlines": [
+      "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+      "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy"
+    ],
+    "source_headline": "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+    "source_url": "https://thehill.com/homenews/6098417-wendys-franchisee-with-hundreds-of-locations-across-15-states-files-for-bankruptcy/",
+    "source_name": "The Hill — Homenews",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-18T21:20:30Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-19T20:48:40Z",
+    "updated_at": "2026-09-19T20:48:40Z",
+    "decay_at": "2026-09-20T09:20:30Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

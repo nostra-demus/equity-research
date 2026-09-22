@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-083c9caae543",
-  "idea_version": "IDEAV-5b0c0e4ef0d0c09d",
-  "idea_version_started_at": "2026-09-19T15:58:42Z",
-  "ticker": "VOW3",
-  "company": "Volkswagen AG",
+  "idea_id": "IDEA-7de5b0b6f75e",
+  "idea_version": "IDEAV-6b6698fe78990b27",
+  "idea_version_started_at": "2026-09-22T09:12:36Z",
+  "ticker": "BEZ",
+  "company": "Berentzen-Gruppe",
   "exchange": "XETRA",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company announced a massive 10 billion euro hit to profits, reflecting severe structural and operational headwinds.",
-  "why_now": "The warning was issued on September 18, 2026.",
-  "conviction": 80,
+  "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+  "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 19,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -49,26 +49,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-08e814ec8f92"
+    "EVT-cc21bfde597e",
+    "EVT-bb3bc508e213"
   ],
-  "primary_source_event_id": "EVT-08e814ec8f92",
+  "primary_source_event_id": "EVT-cc21bfde597e",
   "source_headlines": [
-    "Crisis-wracked Volkswagen warns of €10bn hit to profits"
+    "Sazerac Company launches bid for all Berentzen shares",
+    "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
   ],
-  "source_headline": "Crisis-wracked Volkswagen warns of €10bn hit to profits",
-  "source_url": "https://www.gulf-times.com/article/733622/business/crisis-wracked-volkswagen-warns-of-10bn-hit-to-profits",
-  "source_name": "Gulf Times — Business",
+  "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+  "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-18T21:00:00Z",
+  "newest_source_at": "2026-09-21T05:54:33Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-18T22:10:41Z",
-  "updated_at": "2026-09-19T15:58:42Z",
-  "decay_at": "2026-09-20T09:00:00Z",
+  "surfaced_at": "2026-09-22T09:12:36Z",
+  "updated_at": "2026-09-22T09:12:36Z",
+  "decay_at": "2026-09-22T17:54:33Z",
   "status": "live",
   "promoted_signal_id": null
 }

@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-09T20:06:50Z",
+  "archived_at": "2026-09-22T09:12:40Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-40daa458c3f6",
-    "idea_version": "IDEAV-f50b43f7ea84c8ba",
-    "idea_version_started_at": "2026-09-06T20:29:47Z",
-    "ticker": "OKTA",
-    "company": "Okta",
+    "idea_id": "IDEA-b8b60620b725",
+    "idea_version": "IDEAV-0ec5aeeb81870780",
+    "idea_version_started_at": "2026-09-19T02:52:36Z",
+    "ticker": "YTRA",
+    "company": "Yatra Online, Inc.",
     "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Okta is capturing increased enterprise spending on identity security as AI-driven cyber threats necessitate more robust authentication frameworks.",
-    "why_now": "The company just reported a beat-and-raise quarter on 2026-09-06, indicating strong momentum in current demand.",
-    "conviction": 70,
+    "reason": "The filing of a SC TO-T/A indicates an active third-party tender offer, which typically forces the stock price toward the offer premium.",
+    "why_now": "The SEC filing was processed on 2026-09-18, confirming the live status of the tender offer.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 55,
+    "trade_score": 62,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 21,
+      "evidence": 25,
+      "impact": 19,
       "specificity": 15,
       "timing": 10,
       "expression": 6,
@@ -34,8 +34,6 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +45,33 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-3ad847cc0696"
+      "EVT-61e28efa41d1",
+      "EVT-6f4d9a0af7b1"
     ],
-    "primary_source_event_id": "EVT-3ad847cc0696",
+    "primary_source_event_id": "EVT-61e28efa41d1",
     "source_headlines": [
-      "Okta Jumps 20% as AI-Driven Security Fears Fuel a Beat-and-Raise Quarter"
+      "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
+      "SC TO-T/A - Yatra Online, Inc. (0001516899) (Subject)"
     ],
-    "source_headline": "Okta Jumps 20% as AI-Driven Security Fears Fuel a Beat-and-Raise Quarter",
-    "source_url": "https://finance.yahoo.com/markets/stocks/articles/okta-jumps-20-ai-driven-193519966.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2125850/000153949726002545/0001539497-26-002545-index.htm",
+    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-06T19:35:19Z",
+    "newest_source_at": "2026-09-18T20:29:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-06T20:29:47Z",
-    "updated_at": "2026-09-06T20:29:47Z",
-    "decay_at": "2026-09-08T07:35:19Z",
+    "surfaced_at": "2026-09-19T02:52:36Z",
+    "updated_at": "2026-09-19T02:52:36Z",
+    "decay_at": "2026-09-20T08:29:45Z",
     "status": "live",
     "promoted_signal_id": null
   }

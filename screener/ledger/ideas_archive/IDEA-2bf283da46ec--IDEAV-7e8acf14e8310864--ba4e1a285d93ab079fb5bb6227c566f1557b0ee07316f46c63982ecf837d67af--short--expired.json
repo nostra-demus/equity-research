@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-22T09:12:40Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-2bf283da46ec",
+    "idea_version": "IDEAV-7e8acf14e8310864",
+    "idea_version_started_at": "2026-09-19T15:58:42Z",
+    "ticker": "TVVISION",
+    "company": "TV Vision Limited",
+    "exchange": "BSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout for shareholders.",
+    "why_now": "The first meeting of the Committee of Creditors was held on September 18, 2026.",
+    "conviction": 85,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 6,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-ac6e9cb1c13c",
+      "EVT-f187b2c0bee2"
+    ],
+    "primary_source_event_id": "EVT-ac6e9cb1c13c",
+    "source_headlines": [
+      "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "TV Vision Limited: Post-facto intimation of 01st (First) meeting of the Committee of Creditors of TV Vision Limited"
+    ],
+    "source_headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+    "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_18092026205621_Appointment_of_RP_signed.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-18T15:27:14Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-19T15:58:42Z",
+    "updated_at": "2026-09-19T15:58:42Z",
+    "decay_at": "2026-09-20T03:27:14Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
