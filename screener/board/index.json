@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T13:59:27Z",
+  "generated_at": "2026-09-22T14:07:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-255",
@@ -507,6 +507,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-267",
+      "headline": "On Holding Surges 13% as Investor Day Sets Ambitious Sales Target and $1B Buyback; Nike Ticks Up 2%",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/22/on-holding-surges-13-as-investor-day-sets-ambitious-sales-target-and-1b-buyback-nike-ticks-up-2/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T13:53:37Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "On Holding announced an ambitious sales target and a $1B share buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "On Holding announced an ambitious sales target and a $1B share buyback program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "On Holding",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1953,55 +2003,6 @@
           "name": "On",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-224",
-      "headline": "Settlement Order in the matter of Adani Group Companies",
-      "headline_en": null,
-      "url": "https://www.sebi.gov.in/enforcement/orders/sep-2026/settlement-order-in-the-matter-of-adani-group-companies_104647.html",
-      "source_name": "Securities and Exchange Board of India (SEBI)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-22T12:40:11Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "SEBI issued a settlement order regarding Adani Group companies, which is a significant regulatory development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SEBI issued a settlement order regarding Adani Group companies, which is a significant regulatory development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -174644,9 +174645,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2107413,
-    "news_picked_today": 417,
-    "news_dropped_today": 2991
+    "news_seen_today": 2155275,
+    "news_picked_today": 426,
+    "news_dropped_today": 3054
   },
   "book_momentum": {
     "live_count": 8,
