@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:07:10Z",
+  "generated_at": "2026-09-22T09:12:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -952,6 +952,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-061",
+      "headline": "GUOTAI JUNAN I (01788): Disclosure of Dealings under Rule 22 of the Takeovers Code",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200552.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T09:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Guotai Junan International is disclosing dealings related to a takeover code, indicating active M&A involvement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Guotai Junan International is disclosing dealings related to a takeover code, indicating active M&A involvement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guotai Junan International",
+          "ticker": "01788",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-020",
       "headline": "Smiths Group Shares Rise After Better-Than-Expected Results",
       "headline_en": null,
@@ -1520,6 +1569,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-063",
+      "headline": "Novo CEO signals M&A opportunities to strengthen drug pipeline",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/22/novo-nordisk-ceo-interview-weight-loss-drugs-strategy.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T09:00:49Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Novo Nordisk CEO signaled intent to pursue M&A to expand the drug pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Novo Nordisk CEO signaled intent to pursue M&A to expand the drug pipeline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-001",
       "headline": "Kellton Tech Board To Consider Fundraising Plan On September 23",
       "headline_en": null,
@@ -1858,104 +1956,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-012",
-      "headline": "ESDS Software Solution Limited: board meeting 24-Sep-2026 — Financial Results",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ESDS_21092026232615_ESDS_Board_Meeting_BSE_NSE_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-21T17:56:44Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "ESDS Software Solution has scheduled a board meeting to announce financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "ESDS Software Solution has scheduled a board meeting to announce financial results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ESDS Software Solution Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-029",
-      "headline": "Paramount settles lawsuit with 12 states over Warner Bros. Discovery merger",
-      "headline_en": null,
-      "url": "https://www.npr.org/2026/09/22/nx-s1-5977050/paramount-settles-lawsuit-with-12-states-over-warner-bros-discovery-merger",
-      "source_name": "NPR — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-22T08:44:30Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Paramount reached a settlement with 12 states regarding a past merger, resolving a legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Paramount reached a settlement with 12 states regarding a past merger, resolving a legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132392,76 +132392,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-523a4ee7d93a",
-      "idea_version": "IDEAV-e75aa25e57a9566e",
-      "idea_version_started_at": "2026-09-20T21:45:11Z",
-      "ticker": "BALY",
-      "company": "Bally's Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Bally's is facing a 'going concern' warning due to its aggressive casino construction spending, indicating significant financial distress.",
-      "why_now": "The 'going concern' warning is a direct and immediate signal of financial instability.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b7e1dedd764c"
-      ],
-      "primary_source_event_id": "EVT-b7e1dedd764c",
-      "source_headlines": [
-        "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning"
-      ],
-      "source_headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T21:08:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T21:45:11Z",
-      "updated_at": "2026-09-20T21:45:11Z",
-      "decay_at": "2026-09-22T09:08:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-04669c945125",
       "idea_version": "IDEAV-f55651d824d89fa9",
       "idea_version_started_at": "2026-09-21T04:22:03Z",
@@ -134890,6 +134820,76 @@
       "surfaced_at": "2026-09-20T11:25:05Z",
       "updated_at": "2026-09-20T11:25:05Z",
       "decay_at": "2026-09-20T19:42:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-523a4ee7d93a",
+      "idea_version": "IDEAV-e75aa25e57a9566e",
+      "idea_version_started_at": "2026-09-20T21:45:11Z",
+      "ticker": "BALY",
+      "company": "Bally's Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Bally's is facing a 'going concern' warning due to its aggressive casino construction spending, indicating significant financial distress.",
+      "why_now": "The 'going concern' warning is a direct and immediate signal of financial instability.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b7e1dedd764c"
+      ],
+      "primary_source_event_id": "EVT-b7e1dedd764c",
+      "source_headlines": [
+        "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning"
+      ],
+      "source_headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T21:08:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T21:45:11Z",
+      "updated_at": "2026-09-20T21:45:11Z",
+      "decay_at": "2026-09-22T09:08:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -137461,9 +137461,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -137471,9 +137471,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -137492,6 +137492,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-523a4ee7d93a",
+        "idea_version": "IDEAV-e75aa25e57a9566e",
+        "idea_version_started_at": "2026-09-20T21:45:11Z",
+        "ticker": "BALY",
+        "company": "Bally's Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Bally's is facing a 'going concern' warning due to its aggressive casino construction spending, indicating significant financial distress.",
+        "why_now": "The 'going concern' warning is a direct and immediate signal of financial instability.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b7e1dedd764c"
+        ],
+        "primary_source_event_id": "EVT-b7e1dedd764c",
+        "source_headlines": [
+          "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning"
+        ],
+        "source_headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T21:08:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T21:45:11Z",
+        "updated_at": "2026-09-20T21:45:11Z",
+        "decay_at": "2026-09-22T09:08:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T09:08:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f46d3fece2ff",
         "idea_version": "IDEAV-e3494413fb078623",
@@ -174563,86 +174636,12 @@
         "archived_at": "2026-09-02T08:38:01Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2bf283da46ec",
-        "idea_version": "IDEAV-798ac2349a3070f2",
-        "idea_version_started_at": "2026-08-29T21:34:21Z",
-        "ticker": "TVVISION",
-        "company": "TV Vision Ltd",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The formation of a Committee of Creditors (CoC) confirms the company has entered a formal insolvency resolution process, which typically leads to significant equity dilution or total loss for shareholders.",
-        "why_now": "The first meeting of the Committee of Creditors is scheduled for August 31, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ab8b0ff15dff"
-        ],
-        "primary_source_event_id": "EVT-ab8b0ff15dff",
-        "source_headlines": [
-          "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026"
-        ],
-        "source_headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-29T15:03:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T15:47:43Z",
-        "updated_at": "2026-08-29T21:34:21Z",
-        "decay_at": "2026-08-31T03:03:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T08:38:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 957,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174661,9 +174660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 522733,
-    "news_picked_today": 60,
-    "news_dropped_today": 1092
+    "news_seen_today": 546008,
+    "news_picked_today": 65,
+    "news_dropped_today": 1111
   },
   "book_momentum": {
     "live_count": 8,
