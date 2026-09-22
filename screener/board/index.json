@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:39:22Z",
+  "generated_at": "2026-09-22T12:44:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-183",
@@ -458,6 +458,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-221",
+      "headline": "Cognex To Buy RealSense For $500 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cognex-buy-realsense-500-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T11:59:42Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Cognex is acquiring RealSense for $500 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cognex is acquiring RealSense for $500 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognex",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1429,6 +1478,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-211",
+      "headline": "This Power Parts Maker’s Stock Has Gained 316% in 2026. It’s Rising Again Today on Boost to Growth Guidance.",
+      "headline_en": null,
+      "url": "https://www.barrons.com/articles/vicor-earnings-stock-price-3e170605?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T12:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "An unnamed power parts maker raised its growth guidance following a 316% stock gain in 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "An unnamed power parts maker raised its growth guidance following a 316% stock gain in 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-056",
       "headline": "PDS Limited: PDS Limited has informed the Exchange about Acquisition",
       "headline_en": null,
@@ -1916,104 +2008,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-131",
-      "headline": "Pyramid Technoplast Limited: Pyramid Technoplast Limited has informed the Exchange regarding Change in Auditors of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PYRAMIDTECHNO_22092026160627_General_Update.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T10:36:38Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Change in auditors is a material governance event that can signal accounting or internal control risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Change in auditors is a material governance event that can signal accounting or internal control risks.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pyramid Technoplast Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260922-149",
-      "headline": "Cinevista Limited: Cinevista Limited has informed the Exchange regarding '. The Write off of Balances / Outstanding Loans / Advances to one subsidiary and one associate company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CINEVISTA_22092026152413_Outcome_Reg30_22092026Final_OCR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T09:55:54Z",
-      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
-      "prelim_note": "Cinevista Limited is writing off outstanding loans and advances to a subsidiary and an associate company, indicating a potential impairment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cinevista Limited is writing off outstanding loans and advances to a subsidiary and an associate company, indicating a potential impairment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cinevista Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174014,9 +174008,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1660852,
-    "news_picked_today": 303,
-    "news_dropped_today": 2529
+    "news_seen_today": 1675717,
+    "news_picked_today": 318,
+    "news_dropped_today": 2562
   },
   "book_momentum": {
     "live_count": 8,
