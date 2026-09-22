@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T08:53:01Z",
+  "generated_at": "2026-09-22T08:56:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260922-002",
@@ -247,6 +247,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-032",
+      "headline": "Smiths Group refocuses after £3.3bn disposals, steps up buybacks",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/smiths-group-refocuses-after-3-3bn-disposals-steps-up-buybacks/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:42:26Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Smiths Group completed £3.3 billion in disposals and is increasing share buybacks, significantly impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Smiths Group completed £3.3 billion in disposals and is increasing share buybacks, significantly impacting capital structure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Smiths Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-035",
+      "headline": "Australia's IDP rejects Blackstone's $494 million takeover offer",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:22:49Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "IDP Education rejected a $494 million takeover offer from Blackstone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "IDP Education rejected a $494 million takeover offer from Blackstone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDP Education",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-036",
+      "headline": "‎AD Ports says ADQ takeover conditions met",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1938174",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "AD Ports confirmed that conditions for the ADQ takeover have been met, moving the deal toward completion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "AD Ports confirmed that conditions for the ADQ takeover have been met, moving the deal toward completion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-027",
       "headline": "Kingfisher shares jump as margin expansion drives profit upgrade",
       "headline_en": null,
@@ -389,6 +537,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-034",
+      "headline": "Paymob raises $35 million pre-Series C co-led by Mubadala, EBRD",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/09/paymob-raises-35-million-pre-series-c-led-mubadala-ebrd",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:55:45Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Paymob raised $35 million in a pre-Series C funding round led by major institutional investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Paymob raised $35 million in a pre-Series C funding round led by major institutional investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paymob",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -873,6 +1070,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-029",
+      "headline": "Paramount settles lawsuit with 12 states over Warner Bros. Discovery merger",
+      "headline_en": null,
+      "url": "https://www.npr.org/2026/09/22/nx-s1-5977050/paramount-settles-lawsuit-with-12-states-over-warner-bros-discovery-merger",
+      "source_name": "NPR — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:44:30Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Paramount reached a settlement with 12 states regarding a past merger, resolving a legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Paramount reached a settlement with 12 states regarding a past merger, resolving a legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-022",
       "headline": "Mankind Pharma shares up 10% in just 4 sessions; Kotak upgrades the stock - Target, share price trend",
       "headline_en": null,
@@ -1069,6 +1315,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-031",
+      "headline": "FSS Warns as 90% of Oil and Natural Gas ETPs Carry High Risk",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277536",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:15:24Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "The FSS warned that 90% of oil and gas ETPs carry high risk, signaling potential regulatory scrutiny or investor caution in the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The FSS warned that 90% of oil and gas ETPs carry high risk, signaling potential regulatory scrutiny or investor caution in the sector.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-014",
       "headline": "Saraswati Saree Depot Limited: board meeting 24-Sep-2026 — Dividend",
       "headline_en": null,
@@ -1167,6 +1456,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260922-033",
+      "headline": "AREP raises pre-Seed funding for Saudi expansion, eyes regional growth",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/09/arep-raises-pre-seed-funding-saudi-expansion-eyes-regional-growth",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:55:45Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "AREP raised pre-seed funding to support its expansion into Saudi Arabia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "AREP raised pre-seed funding to support its expansion into Saudi Arabia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AREP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260922-023",
       "headline": "Swipe east: Tinder operator steps up expansion in Japan, CEO says",
       "headline_en": null,
@@ -1211,6 +1549,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260922-030",
+      "headline": "Middle East crisis live: Iran’s Revolutionary Guards warns it will ‘change geography of war’ if US escalates conflict",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/live/2026/sep/22/middle-east-iran-irgc-donald-trump-mahmoud-mahmoud-pezeshkian-abbas-araqchi-unga-latest-news-updates",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-22T08:35:25Z",
+      "sweep_file": "screener/inbox/2026-09-22_sweep.json",
+      "prelim_note": "Iran's Revolutionary Guards issued a direct threat to escalate the conflict in the Middle East, increasing geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Iran's Revolutionary Guards issued a direct threat to escalate the conflict in the Middle East, increasing geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132095,76 +132476,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f46d3fece2ff",
-      "idea_version": "IDEAV-e3494413fb078623",
-      "idea_version_started_at": "2026-09-20T21:27:13Z",
-      "ticker": "CHRD",
-      "company": "Chord Energy",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Chord Energy is selling its non-core Marcellus assets for $550 million in cash, allowing the company to streamline operations and focus capital entirely on its high-margin Williston Basin acreage.",
-      "why_now": "The transaction was just announced on September 20, 2026, providing an immediate cash infusion and a catalyst for valuation rerating as the market models a more focused asset base.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0eb7ec031c27"
-      ],
-      "primary_source_event_id": "EVT-0eb7ec031c27",
-      "source_headlines": [
-        "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?"
-      ],
-      "source_headline": "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?",
-      "source_url": "https://finance.yahoo.com/energy/articles/chord-energy-chrd-signs-550-205447338.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T20:54:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T21:27:13Z",
-      "updated_at": "2026-09-20T21:27:13Z",
-      "decay_at": "2026-09-22T08:54:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-697598c2bbee",
       "idea_version": "IDEAV-c9eb1d0cfeea08ee",
       "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -134739,6 +135050,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f46d3fece2ff",
+      "idea_version": "IDEAV-e3494413fb078623",
+      "idea_version_started_at": "2026-09-20T21:27:13Z",
+      "ticker": "CHRD",
+      "company": "Chord Energy",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Chord Energy is selling its non-core Marcellus assets for $550 million in cash, allowing the company to streamline operations and focus capital entirely on its high-margin Williston Basin acreage.",
+      "why_now": "The transaction was just announced on September 20, 2026, providing an immediate cash infusion and a catalyst for valuation rerating as the market models a more focused asset base.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0eb7ec031c27"
+      ],
+      "primary_source_event_id": "EVT-0eb7ec031c27",
+      "source_headlines": [
+        "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?"
+      ],
+      "source_headline": "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?",
+      "source_url": "https://finance.yahoo.com/energy/articles/chord-energy-chrd-signs-550-205447338.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-20T20:54:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T21:27:13Z",
+      "updated_at": "2026-09-20T21:27:13Z",
+      "decay_at": "2026-09-22T08:54:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0cca54205613",
       "idea_version": "IDEAV-82e2fc2ca1899d2e",
       "idea_version_started_at": "2026-09-20T15:10:12Z",
@@ -136814,14 +137195,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 272,
@@ -136845,6 +137226,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f46d3fece2ff",
+        "idea_version": "IDEAV-e3494413fb078623",
+        "idea_version_started_at": "2026-09-20T21:27:13Z",
+        "ticker": "CHRD",
+        "company": "Chord Energy",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Chord Energy is selling its non-core Marcellus assets for $550 million in cash, allowing the company to streamline operations and focus capital entirely on its high-margin Williston Basin acreage.",
+        "why_now": "The transaction was just announced on September 20, 2026, providing an immediate cash infusion and a catalyst for valuation rerating as the market models a more focused asset base.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0eb7ec031c27"
+        ],
+        "primary_source_event_id": "EVT-0eb7ec031c27",
+        "source_headlines": [
+          "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?"
+        ],
+        "source_headline": "Chord Energy (CHRD) Signs $550 Million Marcellus Sale. Is Greater Focus Worth it?",
+        "source_url": "https://finance.yahoo.com/energy/articles/chord-energy-chrd-signs-550-205447338.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-20T20:54:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T21:27:13Z",
+        "updated_at": "2026-09-20T21:27:13Z",
+        "decay_at": "2026-09-22T08:54:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T08:54:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b7517872828",
         "idea_version": "IDEAV-a5af3b4868d76aff",
@@ -166460,81 +166914,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5efadd64af04",
-        "idea_version": "IDEAV-7bc4af4526cc06bc",
-        "idea_version_started_at": "2026-09-07T01:32:16Z",
-        "ticker": "8306",
-        "company": "Mitsubishi UFJ Financial Group",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A key reflationist aide to LDP leadership candidate Takaichi is projecting a Bank of Japan rate hike in September, which expands net interest margins for major Japanese lenders.",
-        "why_now": "The specific projection of a September 2024 rate hike creates a immediate tradeable window ahead of the BOJ meeting.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-335005633280"
-        ],
-        "primary_source_event_id": "EVT-335005633280",
-        "source_headlines": [
-          "Takaichi's reflationist aide projects Bank of Japan rate hike in September"
-        ],
-        "source_headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
-        "source_url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 82,
-        "newest_source_at": "2026-09-07T00:27:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T01:32:16Z",
-        "updated_at": "2026-09-07T01:32:16Z",
-        "decay_at": "2026-09-08T12:27:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T01:49:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0fa4dca8ab30",
         "idea_version": "IDEAV-e69cf06ea094710d",
         "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -173997,7 +174376,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 957,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -174007,7 +174386,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2714,
+    "inbox_unconsumed": 2722,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -174016,9 +174395,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 487996,
-    "news_picked_today": 28,
-    "news_dropped_today": 1004
+    "news_seen_today": 499558,
+    "news_picked_today": 36,
+    "news_dropped_today": 1020
   },
   "book_momentum": {
     "live_count": 8,
