@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T14:21:23Z",
+  "generated_at": "2026-09-23T14:58:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-323",
+      "headline": "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301727.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T14:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Rich Goldman reports default of loan repayment by borrower",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rich Goldman reports default of loan repayment by borrower",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rich Goldman",
+          "ticker": "00070",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-310",
       "headline": "Ravindra Energy Limited: Ravindra Energy Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Announcement of Merger between Energy In Motion Limited (Transferor Company) and Ravindra Energy Limited (Transferee Company)\".",
@@ -1945,55 +1994,6 @@
         {
           "name": "Wuhan Youji",
           "ticker": "02881",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-234",
-      "headline": "COFOE MEDICAL (01187): PLEDGE OF SHARES BY CONTROLLING SHAREHOLDER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T09:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Controlling shareholder pledging shares signals potential financial stress and refinancing, heightening control and going-concern risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Controlling shareholder pledging shares signals potential financial stress and refinancing, heightening control and going-concern risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "COFOE MEDICAL",
-          "ticker": "01187",
           "listing_country": "HK"
         }
       ],
@@ -176994,9 +176994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5496398,
-    "news_picked_today": 642,
-    "news_dropped_today": 14286
+    "news_seen_today": 5908372,
+    "news_picked_today": 643,
+    "news_dropped_today": 14309
   },
   "book_momentum": {
     "live_count": 8,
