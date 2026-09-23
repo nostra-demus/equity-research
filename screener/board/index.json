@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:27:35Z",
+  "generated_at": "2026-09-23T10:37:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -901,6 +901,55 @@
       "companies": [
         {
           "name": "Inbrew Beverages Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-233",
+      "headline": "Update Regarding debt securities of Jana Capital Ltd",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260923-11/20260923-11.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T09:50:28Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Updates regarding debt securities can indicate financial distress or restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Updates regarding debt securities can indicate financial distress or restructuring.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jana Capital Ltd",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-084",
-      "headline": "Coromandel International Limited: Coromandel International Limited has informed the Exchange about Action(s) taken or orders passed",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/COROMANDELINT_22092026191832_CIL_SELetter_GST_Order_Sep2026_SD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T13:49:59Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Coromandel International disclosed regulatory action or orders passed against the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Coromandel International disclosed regulatory action or orders passed against the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coromandel International",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176483,9 +176483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4535452,
-    "news_picked_today": 415,
-    "news_dropped_today": 11201
+    "news_seen_today": 4614561,
+    "news_picked_today": 428,
+    "news_dropped_today": 11380
   },
   "book_momentum": {
     "live_count": 8,
