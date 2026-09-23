@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T09:48:35Z",
+  "generated_at": "2026-09-23T10:22:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -345,6 +345,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-219",
+      "headline": "Brookfield in talks to buy financial crime specialist Actimize for $2bn",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/brookfield-in-talks-to-buy-financial-crime-specialist-actimize-for-2bn-13590951",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T08:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Brookfield is in talks to acquire Actimize for $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is in talks to acquire Actimize for $2 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Actimize",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -852,6 +906,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-208",
+      "headline": "Saksoft Limited: Saksoft Limited has informed the Exchange about Amalgamation/Merger",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SAKSOFT_23092026151707_Merger_Order_Intimation-_Augmento_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T09:47:21Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Saksoft Limited has announced a corporate merger or amalgamation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Saksoft Limited has announced a corporate merger or amalgamation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saksoft Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1448,6 +1551,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-228",
+      "headline": "Whirlpool of India Limited: The Exchange has sought clarification from Whirlpool of India Limited with respect to recent news item captioned Whirlpool of India promoter set to sell entire stake, reports CNBC-Awaaz; shares surge 17%. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=WHIRLPOOL&seq=106789222",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T09:49:20Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The exchange has requested clarification from Whirlpool of India regarding reports of a promoter stake sale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The exchange has requested clarification from Whirlpool of India regarding reports of a promoter stake sale.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whirlpool of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-121",
       "headline": "Glenmark Pharmaceuticals Limited: Glenmark Pharmaceuticals Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Glenmark Pharmaceuticals receives Establishment Inspection Report (EIR) from U.S. FDA for its Goa facility with VAI classification\".",
       "headline_en": null,
@@ -1834,153 +1986,6 @@
           "name": "Lajin Entertainment Network Co. Ltd.",
           "ticker": "08172",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-179",
-      "headline": "IEL: Rejection of opportunistic unsolicited proposal [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03138288-3A702275",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T07:43:45Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "ASX-marked price-sensitive rejection of unsolicited takeover proposal signals board defense and competitive acquisition interest, but headline lacks acquirer name and deal valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "ASX-marked price-sensitive rejection of unsolicited takeover proposal signals board defense and competitive acquisition interest, but headline lacks acquirer name and deal valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 71,
-      "rank_factors": {
-        "materiality": 71,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IEL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-151",
-      "headline": "Salasar Techno Engineering Limited: Salasar Techno Engineering Limited has informed the Exchange about Credit Rating- Revision",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SALASAR_23092026112644_Intimation_Revision_CreditRating.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T05:56:53Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "The company received a revision to its credit rating, which is a material event for debt and equity holders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company received a revision to its credit rating, which is a material event for debt and equity holders.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salasar Techno Engineering Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-140",
-      "headline": "OFX: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OFX?key=2924-03138771-2A1698677",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T05:10:19Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "OFX is in a trading pause, which is flagged as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "OFX is in a trading pause, which is flagged as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OFX",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -176479,9 +176484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4439250,
-    "news_picked_today": 376,
-    "news_dropped_today": 9848
+    "news_seen_today": 4519443,
+    "news_picked_today": 407,
+    "news_dropped_today": 11089
   },
   "book_momentum": {
     "live_count": 8,
