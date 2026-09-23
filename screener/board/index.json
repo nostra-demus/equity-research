@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T03:44:22Z",
+  "generated_at": "2026-09-23T03:48:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-122",
+      "headline": "CAY: Lapse of A2MP's Takeover Offer [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03138733-6A1345175",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T03:33:34Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The takeover offer for A2MP has lapsed, ending the potential acquisition event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The takeover offer for A2MP has lapsed, ending the potential acquisition event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A2MP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-104",
       "headline": "Prime Focus Limited: Prime Focus Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"BRAHMA RAISES AI $150 MILLION ROUND LED BY MULTIPLES\".",
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-055",
-      "headline": "ZGC TEC LEASING (01601): DISCLOSEABLE TRANSACTION THE PURCHASE AGREEMENT AND THE FINANCE LEASE TRANSACTIONS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201397.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:11:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Company entered into a discloseable finance lease transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Company entered into a discloseable finance lease transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZGC TEC LEASING",
-          "ticker": "01601",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176118,9 +176118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2064929,
-    "news_picked_today": 156,
-    "news_dropped_today": 1908
+    "news_seen_today": 2123573,
+    "news_picked_today": 160,
+    "news_dropped_today": 1928
   },
   "book_momentum": {
     "live_count": 8,
