@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T00:46:00Z",
+  "generated_at": "2026-09-23T00:49:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-022",
@@ -292,6 +292,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-025",
+      "headline": "ASX rises; IDP Education sinks after takeover rejection",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-nasdaq-extends-tech-rebound-oil-below-us99-20260923-p60zn4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T00:33:08Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "IDP Education shares fell following the rejection of a takeover bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "IDP Education shares fell following the rejection of a takeover bid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDP Education",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -974,6 +1023,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-024",
+      "headline": "Home building about ‘to fall off a cliff’, Mirvac warns",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/residential/home-building-about-to-fall-off-a-cliff-mirvac-warns-20260923-p60z86?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T00:33:54Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Mirvac warns of a significant downturn in the home building sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Mirvac warns of a significant downturn in the home building sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Mirvac Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -175201,7 +175299,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2749,
+    "inbox_unconsumed": 2751,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -175210,9 +175308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 469410,
-    "news_picked_today": 23,
-    "news_dropped_today": 361
+    "news_seen_today": 510192,
+    "news_picked_today": 25,
+    "news_dropped_today": 383
   },
   "book_momentum": {
     "live_count": 8,
