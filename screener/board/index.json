@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:37:37Z",
+  "generated_at": "2026-09-23T10:41:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -1257,6 +1257,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-234",
+      "headline": "COFOE MEDICAL (01187): PLEDGE OF SHARES BY CONTROLLING SHAREHOLDER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301053.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T09:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Controlling shareholder pledging shares signals potential financial stress and refinancing, heightening control and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Controlling shareholder pledging shares signals potential financial stress and refinancing, heightening control and going-concern risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COFOE MEDICAL",
+          "ticker": "01187",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-206",
       "headline": "VAU: Becoming a substantial holder",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-120",
-      "headline": "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Oswal Pumps Wins Rs. 273.19 Crore Order from TGREDCO for 46.7 MW Rooftop Solar Project Across 9,937 Government Schools in Telangana\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OSWALPUMPS_23092026085715_SELetterTREDCLOrderOPL23092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T03:28:59Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Oswal Pumps won a Rs. 273.19 crore order for a solar project in Telangana.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Oswal Pumps won a Rs. 273.19 crore order for a solar project in Telangana.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oswal Pumps",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176483,9 +176483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4614561,
-    "news_picked_today": 428,
-    "news_dropped_today": 11380
+    "news_seen_today": 4630258,
+    "news_picked_today": 431,
+    "news_dropped_today": 11497
   },
   "book_momentum": {
     "live_count": 8,
