@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T05:51:42Z",
+  "generated_at": "2026-09-23T05:54:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-144",
+      "headline": "PAR: Phase 3 Interim Result Below Continuation Threshold [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03138755-3A702371",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T04:37:44Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Paragon Care reported that its Phase 3 clinical trial interim results failed to meet the continuation threshold, indicating a significant failure for a key development asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paragon Care reported that its Phase 3 clinical trial interim results failed to meet the continuation threshold, indicating a significant failure for a key development asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paragon Care",
+          "ticker": "PAR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-128",
       "headline": "SFGLOB N2909-R SFGLOB N3109-R (85177 85178): Publication of Offering Circular - CNY5,000,000,000 1.75 per cent. Guaranteed Notes due 2029 and CNY5,000,000,000 1.85 per cent. Guaranteed Notes due 2031 issued by SF Holding Global 2026 Limited and guaranteed by S.F. Holding Co., Ltd.",
@@ -1921,55 +1970,6 @@
           "name": "Skipper Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-139",
-      "headline": "AAM: AAM Completes Initial Drilling at Isle aux Morts/CapeRayWest [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAM?key=2924-03138772-6A1345191",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T05:15:44Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "AAM completed initial drilling at its project, which is flagged as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "AAM completed initial drilling at its project, which is flagged as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AAM",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -176468,9 +176468,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3596619,
-    "news_picked_today": 216,
-    "news_dropped_today": 2928
+    "news_seen_today": 3615669,
+    "news_picked_today": 217,
+    "news_dropped_today": 2975
   },
   "book_momentum": {
     "live_count": 8,
