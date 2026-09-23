@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-1e80e6023e62",
-  "idea_version": "IDEAV-10bec7e9f0509614",
+  "idea_id": "IDEA-78f3934a8dda",
+  "idea_version": "IDEAV-753de62d1e71d3d5",
   "idea_version_started_at": "2026-09-23T05:05:14Z",
-  "ticker": "IEL",
-  "company": "IDP Education",
+  "ticker": "IAG",
+  "company": "IAG",
   "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company is the subject of a $700 million takeover bid from Blackstone, providing a floor and potential upside if a deal is finalized.",
-  "why_now": "The bid was disclosed on 2026-09-22, two weeks after the initial offer.",
-  "conviction": 80,
+  "reason": "The ACCC blocked the acquisition of RAC Insurance, which removes a key inorganic growth catalyst and likely forces a re-evaluation of the company's capital allocation strategy.",
+  "why_now": "The regulatory rejection was confirmed on 2026-09-22.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 20,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -49,26 +49,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d9b3e42c51f0"
+    "EVT-9ef1aaaac9d0",
+    "EVT-17e782bffe6a"
   ],
-  "primary_source_event_id": "EVT-d9b3e42c51f0",
+  "primary_source_event_id": "EVT-9ef1aaaac9d0",
   "source_headlines": [
-    "IDP discloses $700m Blackstone takeover bid – two weeks after lobbed"
+    "ASX to rise; ACCC blocks IAG’s takeover of RAC Insurance",
+    "ASX rises; ACCC blocks IAG’s takeover of RAC Insurance"
   ],
-  "source_headline": "IDP discloses $700m Blackstone takeover bid – two weeks after lobbed",
-  "source_url": "https://www.afr.com/policy/health-and-education/idp-discloses-700m-blackstone-takeover-bid-two-weeks-after-lobbed-20260923-p60zow?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_headline": "ASX to rise; ACCC blocks IAG’s takeover of RAC Insurance",
+  "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-nasdaq-extends-tech-rebound-oil-below-us99-20260923-p60zn4?ref=rss&utm_medium=rss&utm_source=rss_feed",
   "source_name": "Australian Financial Review",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-22T22:55:01Z",
+  "newest_source_at": "2026-09-23T00:08:09Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-22T12:09:02Z",
+  "surfaced_at": "2026-09-23T05:05:14Z",
   "updated_at": "2026-09-23T05:05:14Z",
-  "decay_at": "2026-09-24T10:55:01Z",
+  "decay_at": "2026-09-24T12:08:09Z",
   "status": "live",
   "promoted_signal_id": null
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T05:04:20Z",
+  "generated_at": "2026-09-23T05:05:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-128",
@@ -134473,6 +134473,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d6b4116160c6",
+      "idea_version": "IDEAV-aaefbdf309a083bd",
+      "idea_version_started_at": "2026-09-23T05:05:14Z",
+      "ticker": "KBH",
+      "company": "KB Home",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing margin compression due to deteriorating housing market conditions, which will likely lead to downward earnings revisions.",
+      "why_now": "The guidance cut was announced on 2026-09-22.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71d0a039dfa1"
+      ],
+      "primary_source_event_id": "EVT-71d0a039dfa1",
+      "source_headlines": [
+        "KB Home Cuts Margin Outlook as Housing Conditions Worsen"
+      ],
+      "source_headline": "KB Home Cuts Margin Outlook as Housing Conditions Worsen",
+      "source_url": "https://www.wsj.com/economy/housing/kb-home-cuts-margin-outlook-as-housing-conditions-worsen-caa020ae?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T22:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T05:05:14Z",
+      "updated_at": "2026-09-23T05:05:14Z",
+      "decay_at": "2026-09-24T10:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-790783c9f10a",
       "idea_version": "IDEAV-e39509feb0c6c3a1",
       "idea_version_started_at": "2026-09-22T11:39:38Z",
@@ -135105,6 +135175,223 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1e80e6023e62",
+      "idea_version": "IDEAV-10bec7e9f0509614",
+      "idea_version_started_at": "2026-09-23T05:05:14Z",
+      "ticker": "IEL",
+      "company": "IDP Education",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is the subject of a $700 million takeover bid from Blackstone, providing a floor and potential upside if a deal is finalized.",
+      "why_now": "The bid was disclosed on 2026-09-22, two weeks after the initial offer.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d9b3e42c51f0"
+      ],
+      "primary_source_event_id": "EVT-d9b3e42c51f0",
+      "source_headlines": [
+        "IDP discloses $700m Blackstone takeover bid – two weeks after lobbed"
+      ],
+      "source_headline": "IDP discloses $700m Blackstone takeover bid – two weeks after lobbed",
+      "source_url": "https://www.afr.com/policy/health-and-education/idp-discloses-700m-blackstone-takeover-bid-two-weeks-after-lobbed-20260923-p60zow?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T22:55:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T12:09:02Z",
+      "updated_at": "2026-09-23T05:05:14Z",
+      "decay_at": "2026-09-24T10:55:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5364e3f8a882",
+      "idea_version": "IDEAV-83b2a53e193f2490",
+      "idea_version_started_at": "2026-09-23T05:05:14Z",
+      "ticker": "SOP",
+      "company": "SOP",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a formal FY27 guidance upgrade, signaling improved operational performance or demand.",
+      "why_now": "The upgrade was filed on 2026-09-22.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16ea567b0b4f"
+      ],
+      "primary_source_event_id": "EVT-16ea567b0b4f",
+      "source_headlines": [
+        "SOP: FY27 Guidance Upgrade [price-sensitive]"
+      ],
+      "source_headline": "SOP: FY27 Guidance Upgrade [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03138565-3A702336",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T23:10:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T05:05:14Z",
+      "updated_at": "2026-09-23T05:05:14Z",
+      "decay_at": "2026-09-24T11:10:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-78f3934a8dda",
+      "idea_version": "IDEAV-753de62d1e71d3d5",
+      "idea_version_started_at": "2026-09-23T05:05:14Z",
+      "ticker": "IAG",
+      "company": "IAG",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The ACCC blocked the acquisition of RAC Insurance, which removes a key inorganic growth catalyst and likely forces a re-evaluation of the company's capital allocation strategy.",
+      "why_now": "The regulatory rejection was confirmed on 2026-09-22.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ef1aaaac9d0",
+        "EVT-17e782bffe6a"
+      ],
+      "primary_source_event_id": "EVT-9ef1aaaac9d0",
+      "source_headlines": [
+        "ASX to rise; ACCC blocks IAG’s takeover of RAC Insurance",
+        "ASX rises; ACCC blocks IAG’s takeover of RAC Insurance"
+      ],
+      "source_headline": "ASX to rise; ACCC blocks IAG’s takeover of RAC Insurance",
+      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-nasdaq-extends-tech-rebound-oil-below-us99-20260923-p60zn4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T00:08:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T05:05:14Z",
+      "updated_at": "2026-09-23T05:05:14Z",
+      "decay_at": "2026-09-24T12:08:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3da66d652109",
       "idea_version": "IDEAV-bc3049636df69e58",
       "idea_version_started_at": "2026-09-22T13:59:06Z",
@@ -135384,78 +135671,6 @@
       "surfaced_at": "2026-09-22T12:49:23Z",
       "updated_at": "2026-09-22T12:49:23Z",
       "decay_at": "2026-09-23T22:26:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1e80e6023e62",
-      "idea_version": "IDEAV-59792e8eb022d5d1",
-      "idea_version_started_at": "2026-09-22T12:09:02Z",
-      "ticker": "IEL",
-      "company": "IDP Education",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The rejection of Blackstone's improved takeover offer implies the board believes the company's standalone intrinsic value is higher than the current offer, likely leading to a re-rating or a higher bid.",
-      "why_now": "The rejection was reported today, September 22, 2026, creating a live event-driven opportunity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-70007d55d740"
-      ],
-      "primary_source_event_id": "EVT-70007d55d740",
-      "source_headlines": [
-        "IDP rejects Blackstone's improved takeover offer"
-      ],
-      "source_headline": "IDP rejects Blackstone's improved takeover offer",
-      "source_url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T09:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:09:02Z",
-      "updated_at": "2026-09-22T12:09:02Z",
-      "decay_at": "2026-09-23T21:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -176091,8 +176306,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 981,
-    "live_count": 22,
+    "surfaced_total": 984,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
