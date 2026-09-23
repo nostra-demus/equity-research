@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T03:28:27Z",
+  "generated_at": "2026-09-23T03:38:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-104",
@@ -746,6 +746,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-121",
+      "headline": "Glenmark Pharmaceuticals Limited: Glenmark Pharmaceuticals Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Glenmark Pharmaceuticals receives Establishment Inspection Report (EIR) from U.S. FDA for its Goa facility with VAI classification\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GLENMARK_23092026083959_SEPressRelease23092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T03:11:06Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Glenmark Pharmaceuticals received a VAI classification from the US FDA for its Goa facility, indicating successful inspection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Glenmark Pharmaceuticals received a VAI classification from the US FDA for its Goa facility, indicating successful inspection.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glenmark Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-087",
       "headline": "424B2 - DICK'S SPORTING GOODS, INC. (0001089063) (Filer)",
       "headline_en": null,
@@ -790,6 +839,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-118",
+      "headline": "Prime Focus unit Brahma AI raises $100 million from Multiples PE entities",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/prime-focus-share-price-unit-brahma-ai-100-million-dollar-fund-raise-multiples-pe-entities-voting-rights-change-19996258.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T03:24:14Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Brahma AI, a unit of Prime Focus, raised $100 million in funding from Multiples PE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Brahma AI, a unit of Prime Focus, raised $100 million in funding from Multiples PE.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prime Focus",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-120",
+      "headline": "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Oswal Pumps Wins Rs. 273.19 Crore Order from TGREDCO for 46.7 MW Rooftop Solar Project Across 9,937 Government Schools in Telangana\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OSWALPUMPS_23092026085715_SELetterTREDCLOrderOPL23092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T03:28:59Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Oswal Pumps won a Rs. 273.19 crore order for a solar project in Telangana.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Oswal Pumps won a Rs. 273.19 crore order for a solar project in Telangana.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oswal Pumps",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1685,6 +1832,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-119",
+      "headline": "Microsoft's Xbox Cuts 268 More Jobs, Hands Next Halo Game To Activision",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/microsofts-xbox-cuts-268-more-jobs-hands-next-halo-game-to-activision",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T02:55:20Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Microsoft's Xbox division is cutting 268 jobs as part of ongoing restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Microsoft's Xbox division is cutting 268 jobs as part of ongoing restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-078",
       "headline": "Home building to fall off cliff, Mirvac warns; PM shares selfie with Trump; Myer dives to big loss",
       "headline_en": null,
@@ -1784,203 +1980,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-062",
-      "headline": "Natco Pharma Limited: board meeting 25-Sep-2026 — Fund Raising",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NATCOPHARM_22092026175852_SE_Intimation_22092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T12:29:14Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Natco Pharma has announced a board meeting to consider fund raising, which may impact capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Natco Pharma has announced a board meeting to consider fund raising, which may impact capital structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Natco Pharma Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-113",
-      "headline": "JENSCARE-B (09877): VOLUNTARY ANNOUNCEMENT The Registration Approval of JensClip by NMPA and Its Active Commercialization",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201111.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T11:27:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Jenscare-B received NMPA registration approval for its JensClip device and is actively commercializing it.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Jenscare-B received NMPA registration approval for its JensClip device and is actively commercializing it.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jenscare Scientific Co., Ltd.",
-          "ticker": "09877",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-076",
-      "headline": "FDA 510(k) clearance — Smith & Nephew Medical, Ltd.: RENASYS DYNAFLOW Kit (66807741)",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261338",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Smith & Nephew Medical, Ltd. received FDA 510(k) clearance for its RENASYS DYNAFLOW Kit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Smith & Nephew Medical, Ltd. received FDA 510(k) clearance for its RENASYS DYNAFLOW Kit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Smith & Nephew",
-          "ticker": "SN.L",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-099",
-      "headline": "FDA 510(k) clearance — Olympus Medical Systems Corp.: 4K Camera Head OLYMPUS CH-S700-08-LB",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262079",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-10T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "FDA 510(k) clearance for a new camera head enhances the company's medical imaging portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "FDA 510(k) clearance for a new camera head enhances the company's medical imaging portfolio.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Olympus Medical Systems Corp.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176119,9 +176118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1927927,
-    "news_picked_today": 149,
-    "news_dropped_today": 1795
+    "news_seen_today": 2025786,
+    "news_picked_today": 154,
+    "news_dropped_today": 1862
   },
   "book_momentum": {
     "live_count": 8,
