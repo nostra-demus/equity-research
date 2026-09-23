@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T02:52:26Z",
+  "generated_at": "2026-09-23T02:59:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-029",
@@ -1689,6 +1689,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-099",
+      "headline": "FDA 510(k) clearance — Olympus Medical Systems Corp.: 4K Camera Head OLYMPUS CH-S700-08-LB",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262079",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-10T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "FDA 510(k) clearance for a new camera head enhances the company's medical imaging portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "FDA 510(k) clearance for a new camera head enhances the company's medical imaging portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Olympus Medical Systems Corp.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-102",
+      "headline": "FDA 510(k) clearance — Siemens Medical Solutions USA, Inc.: ACUNAV Luxera 4D ICE Catheter",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261696",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-10T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "FDA 510(k) clearance for a new catheter expands the company's interventional cardiology offerings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "FDA 510(k) clearance for a new catheter expands the company's interventional cardiology offerings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens Medical Solutions USA, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-065",
       "headline": "Aashish Agarwal named CEO of 360 ONE WAM Group",
       "headline_en": null,
@@ -1787,20 +1885,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-071",
-      "headline": "FDA 510(k) clearance — 41Medical AG: DRIM-Nail System",
+      "inbox_id": "INB-20260923-100",
+      "headline": "FDA 510(k) clearance — Koh Young Technology, Inc.: Geniant Cranial (Navigated Neurosurgical Positioning Robot)",
       "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260115",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K253856",
       "source_name": "U.S. Food & Drug Administration (Press Releases)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
+      "found_at": "2026-09-10T00:00:00Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "41Medical AG received FDA 510(k) clearance for its DRIM-Nail System.",
+      "prelim_note": "FDA 510(k) clearance for a neurosurgical robot represents a significant product milestone.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "41Medical AG received FDA 510(k) clearance for its DRIM-Nail System.",
+      "triage_score": 85,
+      "triage_reason": "FDA 510(k) clearance for a neurosurgical robot represents a significant product milestone.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1809,7 +1907,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": 0,
+        "size": 1,
         "recency": 0,
         "materiality_label_floor": 25,
         "quantified": 0,
@@ -1817,7 +1915,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "product"
@@ -1825,159 +1923,61 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "41Medical AG",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-073",
-      "headline": "FDA 510(k) clearance — Heidelberg Engineering GmbH: ANTERION",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261019",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Heidelberg Engineering GmbH received FDA 510(k) clearance for its ANTERION device.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Heidelberg Engineering GmbH received FDA 510(k) clearance for its ANTERION device.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heidelberg Engineering GmbH",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-072",
-      "headline": "FDA 510(k) clearance — SmartWise Sweden AB: Extroducer Infusion Catheter System",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K254051",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "SmartWise Sweden AB received FDA 510(k) clearance for its Extroducer Infusion Catheter System.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "SmartWise Sweden AB received FDA 510(k) clearance for its Extroducer Infusion Catheter System.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SmartWise Sweden AB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-088",
-      "headline": "BRAHMA AI RAISES $150 MILLION ROUND LED BY MULTIPLES",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/brahma-ai-raises-150-million-round-led-by-multiples-302886926.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T02:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Brahma AI raised $150 million in a funding round, indicating significant capital inflow and valuation growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Brahma AI raised $150 million in a funding round, indicating significant capital inflow and valuation growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brahma AI",
+          "name": "Koh Young Technology, Inc.",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-101",
+      "headline": "FDA 510(k) clearance — Suzhou Microport Orthorecon Co., Ltd.: EVOLUTION MPX Total Knee System",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262293",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-10T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "FDA 510(k) clearance for a knee system allows for US market entry of a new orthopedic product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "FDA 510(k) clearance for a knee system allows for US market entry of a new orthopedic product.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzhou Microport Orthorecon Co., Ltd.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176116,9 +176116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1513618,
-    "news_picked_today": 116,
-    "news_dropped_today": 1444
+    "news_seen_today": 1553301,
+    "news_picked_today": 129,
+    "news_dropped_today": 1503
   },
   "book_momentum": {
     "live_count": 8,
