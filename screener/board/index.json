@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-23T13:57:33Z",
+  "generated_at": "2026-09-23T14:14:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-310",
+      "headline": "Ravindra Energy Limited: Ravindra Energy Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Announcement of Merger between Energy In Motion Limited (Transferor Company) and Ravindra Energy Limited (Transferee Company)\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RAVINDRA_23092026192630_Draft_-_REL_merger_press_release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T13:57:37Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Ravindra Energy announced a merger with Energy In Motion Limited via official exchange filing, a capital-structure and ownership event affecting shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ravindra Energy announced a merger with Energy In Motion Limited via official exchange filing, a capital-structure and ownership event affecting shareholder value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ravindra Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Energy In Motion Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-290",
       "headline": "LEADWAY TECH (02086): Interim Report 2026",
@@ -487,6 +541,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-322",
+      "headline": "Cupid raises FY27 profit guidance, targets Rs 750 crore revenue; stock up 160% in 2026",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/cupid-raises-fy27-profit-guidance-targets-rs-750-crore-revenue-stock-up-160-in-2026/articleshow/134439902.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T13:43:25Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Cupid raised its FY27 profit guidance and targets Rs 750 crore revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cupid raised its FY27 profit guidance and targets Rs 750 crore revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cupid",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1161,6 +1264,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-306",
+      "headline": "Power Grid Corporation of India Limited: Power Grid Corporation of India Limited has informed the Exchange about Acquisition of Barmer HVDC Power Transmission Limited by POWERGRID under TBCB route.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/POWERGRID1_23092026191217_BSENSEReg30Acqdt23092026_v2signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T13:44:23Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Power Grid Corporation of India Limited announced acquisition of Barmer HVDC Power Transmission Limited under tariff-based competitive bidding; no deal value, capex guidance, or strategic rationale disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Power Grid Corporation of India Limited announced acquisition of Barmer HVDC Power Transmission Limited under tariff-based competitive bidding; no deal value, capex guidance, or strategic rationale disclosed.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Power Grid Corporation of India Limited",
+          "ticker": "POWERGRID",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-249",
       "headline": "Ugro Capital Limited: Voting results as per Reg 44(3) of the SEBI (LODR) Regulations 2015 for the NCLT Convened Meeting of Equity Shareholders held on 22 September 2026",
       "headline_en": null,
@@ -1554,6 +1707,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-314",
+      "headline": "Multibagger Cupid shares gain 6% after company raises FY27 revenue, profit guidance. Could this trigger a further rally?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/multibagger-cupid-shares-gain-6-after-company-raises-fy27-revenue-profit-guidance-could-this-trigger-a-further-rally-11790167073845.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T13:35:57Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Cupid raised FY27 revenue and profit guidance, signaling improved operating performance and shifting analyst expectations; stock moved 6% on the announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Cupid raised FY27 revenue and profit guidance, signaling improved operating performance and shifting analyst expectations; stock moved 6% on the announcement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cupid",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-052",
       "headline": "Australian competition regulator blocks IAG's RAC Insurance takeover",
       "headline_en": null,
@@ -1793,202 +1995,6 @@
           "name": "COFOE MEDICAL",
           "ticker": "01187",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-206",
-      "headline": "VAU: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03138933-6A1345283",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T08:59:45Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A 5%+ substantial-holder disclosure signals material ownership change and potential control shift, but the acquirer identity and strategic intent are not disclosed in the headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A 5%+ substantial-holder disclosure signals material ownership change and potential control shift, but the acquirer identity and strategic intent are not disclosed in the headline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VAU",
-          "ticker": "VAU",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-143",
-      "headline": "SPK: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPK?key=2924-03138777-2A1698679",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T05:26:24Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Disclosure of a new substantial holder indicates a change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Disclosure of a new substantial holder indicates a change in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPK",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-092",
-      "headline": "BLG: BluGlass secures A$8.0 million R&D funding facility [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLG?key=2924-03138724-2A1698656",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T02:42:48Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "BluGlass secured an A$8.0 million R&D funding facility, improving liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "BluGlass secured an A$8.0 million R&D funding facility, improving liquidity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BluGlass",
-          "ticker": "BLG",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-066",
-      "headline": "SCHEDULE 13D - McGee Regan McMillan (0002154204) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2154204/000121390026102336/0001213900-26-102336-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T01:44:06Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest by McGee Regan McMillan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest by McGee Regan McMillan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McGee Regan McMillan",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -176988,9 +176994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5387180,
-    "news_picked_today": 610,
-    "news_dropped_today": 14222
+    "news_seen_today": 5477965,
+    "news_picked_today": 640,
+    "news_dropped_today": 14264
   },
   "book_momentum": {
     "live_count": 8,
