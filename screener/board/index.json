@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T01:24:19Z",
+  "generated_at": "2026-09-23T01:35:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-029",
@@ -1039,6 +1039,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-062",
+      "headline": "Natco Pharma Limited: board meeting 25-Sep-2026 — Fund Raising",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NATCOPHARM_22092026175852_SE_Intimation_22092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T12:29:14Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Natco Pharma has announced a board meeting to consider fund raising, which may impact capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Natco Pharma has announced a board meeting to consider fund raising, which may impact capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Natco Pharma Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-018",
       "headline": "HSBC HOLDINGS (00005): ISSUANCE OF SENIOR UNSECURED NOTES AND ADMISSION TO TRADING",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
         {
           "name": "Bairong AI",
           "ticker": "06608",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-054",
-      "headline": "SENASIC (06675): (1) CHANGE OF COMPANY SECRETARY AND AUTHORIZED REPRESENTATIVE FOR THE ACCEPTANCE OF SERVICE OF PROCESS AND NOTICES IN HONG KONG; AND (2) WAIVER FROM STRICT COMPLIANCE WITH RULES 3.28 AND 8.17 OF THE LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201401.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Company announced a change in company secretary and authorized representative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Company announced a change in company secretary and authorized representative.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SENASIC",
-          "ticker": "06675",
           "listing_country": "CN"
         }
       ],
@@ -176097,9 +176097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 733397,
-    "news_picked_today": 58,
-    "news_dropped_today": 686
+    "news_seen_today": 834291,
+    "news_picked_today": 62,
+    "news_dropped_today": 778
   },
   "book_momentum": {
     "live_count": 8,
