@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T04:37:29Z",
+  "generated_at": "2026-09-23T04:40:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-128",
+      "headline": "SFGLOB N2909-R SFGLOB N3109-R (85177 85178): Publication of Offering Circular - CNY5,000,000,000 1.75 per cent. Guaranteed Notes due 2029 and CNY5,000,000,000 1.85 per cent. Guaranteed Notes due 2031 issued by SF Holding Global 2026 Limited and guaranteed by S.F. Holding Co., Ltd.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092300179.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T04:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "SF Holding issued CNY 10 billion in guaranteed notes due 2029 and 2031.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SF Holding issued CNY 10 billion in guaranteed notes due 2029 and 2031.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S.F. Holding Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-122",
       "headline": "CAY: Lapse of A2MP's Takeover Offer [price-sensitive]",
@@ -1635,6 +1684,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-126",
+      "headline": "Manba Finance Limited: Manba Finance Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Press release under regulation 30 with respect to preferential issuance\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MANBA_23092026095135_Pr_merged_F_new.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T04:22:03Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Manba Finance announced a preferential issuance of shares, which is a capital-raising event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Manba Finance announced a preferential issuance of shares, which is a capital-raising event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manba Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-091",
       "headline": "Prime Focus Limited: Prime Focus Limited has informed the Exchange about Sale or disposal",
       "headline_en": null,
@@ -1875,99 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-086",
-      "headline": "ZERO2IPO (01945): ANNOUNCEMENT MADE PURSUANT TO RULES 13.51B(2), 13.51(2)(h) AND 13.51(2)(n)(iii) OF THE LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201321.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T13:16:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Zero2IPO announced a disclosure regarding director compliance with listing rules, which may impact management credibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Zero2IPO announced a disclosure regarding director compliance with listing rules, which may impact management credibility.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zero2IPO",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-124",
-      "headline": "S&P Global Ratings raises India FY27 growth forecast to 7% from 6.6%; expects RBI rate hike",
-      "headline_en": null,
-      "url": "https://www.livemint.com/economy/sp-global-ratings-raises-india-fy27-growth-forecast-to-7-from-6-6-expects-rbi-rate-hike-11790134784749.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T03:45:19Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "S&P Global Ratings raised India's FY27 growth forecast to 7% from 6.6%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "S&P Global Ratings raised India's FY27 growth forecast to 7% from 6.6%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176106,9 +176111,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2693789,
-    "news_picked_today": 180,
-    "news_dropped_today": 2436
+    "news_seen_today": 2732961,
+    "news_picked_today": 184,
+    "news_dropped_today": 2456
   },
   "book_momentum": {
     "live_count": 8,
