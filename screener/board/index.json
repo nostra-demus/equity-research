@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T08:14:08Z",
+  "generated_at": "2026-09-23T08:28:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -345,6 +345,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-186",
+      "headline": "Hughes Precision Raises ₹250+ Crore to Accelerate Ammunition Manufacturing Expansion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/brandhub/pr-release/hughes-precision-raises-250-crore-to-accelerate-ammunition-manufacturing-expansion/article71498738.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T07:04:49Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Hughes Precision raised over ₹250 crore to fund a major expansion in ammunition manufacturing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hughes Precision raised over ₹250 crore to fund a major expansion in ammunition manufacturing capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hughes Precision",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,55 +1981,6 @@
           "name": "FRB",
           "ticker": "FRB",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-050",
-      "headline": "CIRC (01763): VOLUNTARY ANNOUNCEMENT - CNGT Lu-177 DMF SUCCESSFULLY OBTAINED U.S. FDA FILING CLEARANCE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201405.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:15:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "The company received U.S. FDA filing clearance for its Lu-177 DMF, a significant regulatory milestone for its product pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The company received U.S. FDA filing clearance for its Lu-177 DMF, a significant regulatory milestone for its product pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CIRC",
-          "ticker": "01763",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -176479,9 +176479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4095264,
-    "news_picked_today": 310,
-    "news_dropped_today": 6794
+    "news_seen_today": 4167062,
+    "news_picked_today": 319,
+    "news_dropped_today": 7121
   },
   "book_momentum": {
     "live_count": 8,
