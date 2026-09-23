@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T12:31:49Z",
+  "generated_at": "2026-09-23T12:42:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-275",
+      "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF MR. NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301481.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T12:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Hang Yick Holdings received a voluntary cash partial offer to acquire 30 million shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hang Yick Holdings received a voluntary cash partial offer to acquire 30 million shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HANG YICK HLDGS",
+          "ticker": "01894",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-268",
       "headline": "Ashoka Buildcon Limited: Ashoka Buildcon Limited has informed the Exchange about disclosure under Reg. 30 of SEBI LODR - signing of SPA and acquisition of Project SPV viz. Sakoli Transmission Power Limited",
@@ -386,6 +435,55 @@
           "name": "BOCOM International",
           "ticker": "03329",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-280",
+      "headline": "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/cracker-barrel-q4-fiscal-2026-120720287.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T12:07:20Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Cracker Barrel beat Q4 fiscal 2026 earnings estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cracker Barrel beat Q4 fiscal 2026 earnings estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cracker Barrel",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1161,6 +1259,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-272",
+      "headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JAGSNPHARM_23092026175736_SignedIntimationofAcquisition.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T12:27:45Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Jagsonpal Pharmaceuticals is acquiring the wellness portfolio of Group Pharmaceuticals Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Jagsonpal Pharmaceuticals is acquiring the wellness portfolio of Group Pharmaceuticals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jagsonpal Pharmaceuticals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-233",
       "headline": "Update Regarding debt securities of Jana Capital Ltd",
       "headline_en": null,
@@ -1845,153 +1992,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-057",
-      "headline": "S. DRAGON (08493): (1) INSIDE INFORMATION - ENFORCEMENT DISPOSAL OF A PROPERTY HELD BY THE GROUP AND (2) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0922/2026092201387.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Company reported an enforcement disposal of property and continued suspension of trading.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Company reported an enforcement disposal of property and continued suspension of trading.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S. DRAGON",
-          "ticker": "08493",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-267",
-      "headline": "SUNSHINE PHARMA (06887): INSIDE INFORMATION FILING WITH THE CSRC IN RELATION TO THE PROPOSED IMPLEMENTATION OF H SHARE FULL CIRCULATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301281.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "The company is filing for H share full circulation, which increases liquidity and tradability of shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company is filing for H share full circulation, which increases liquidity and tradability of shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SUNSHINE PHARMA",
-          "ticker": "06887",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-228",
-      "headline": "Whirlpool of India Limited: The Exchange has sought clarification from Whirlpool of India Limited with respect to recent news item captioned Whirlpool of India promoter set to sell entire stake, reports CNBC-Awaaz; shares surge 17%. The response from the Company is awaited.",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=WHIRLPOOL&seq=106789222",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T09:49:20Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "The exchange has requested clarification from Whirlpool of India regarding reports of a promoter stake sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The exchange has requested clarification from Whirlpool of India regarding reports of a promoter stake sale.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Whirlpool of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176775,9 +176775,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5038036,
-    "news_picked_today": 543,
-    "news_dropped_today": 13281
+    "news_seen_today": 5090032,
+    "news_picked_today": 560,
+    "news_dropped_today": 13408
   },
   "book_momentum": {
     "live_count": 8,
