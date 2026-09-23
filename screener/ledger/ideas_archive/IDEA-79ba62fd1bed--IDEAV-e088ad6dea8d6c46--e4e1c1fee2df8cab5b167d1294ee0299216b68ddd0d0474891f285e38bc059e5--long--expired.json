@@ -1,26 +1,26 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-02T08:38:01Z",
+  "archived_at": "2026-09-23T23:34:59Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-eb536eed0e8f",
-    "idea_version": "IDEAV-06f83235e205d4b7",
-    "idea_version_started_at": "2026-08-29T16:42:52Z",
-    "ticker": "TRINITY",
-    "company": "Trinity Tradelink Ltd",
-    "exchange": "NSE",
+    "idea_id": "IDEA-79ba62fd1bed",
+    "idea_version": "IDEAV-e088ad6dea8d6c46",
+    "idea_version_started_at": "2026-09-20T23:40:12Z",
+    "ticker": "IGL",
+    "company": "IGL",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "Trinity Tradelink Ltd disclosed an audit qualification, indicating potential issues with its financial reporting.",
-    "why_now": "The filing regarding the audit qualification was made on August 29, 2026.",
-    "conviction": 55,
+    "reason": "The company is expanding into the Digital Out of Home market through the acquisition of Motio, which is expected to diversify revenue streams.",
+    "why_now": "The Scheme Implementation Deed was filed on 2026-09-20.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
       "impact": 19,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +47,33 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2bdcaa8febcb"
+      "EVT-f56204160e92",
+      "EVT-34213d811f67"
     ],
-    "primary_source_event_id": "EVT-2bdcaa8febcb",
+    "primary_source_event_id": "EVT-f56204160e92",
     "source_headlines": [
-      "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION"
+      "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+      "IGL: Scheme Implementation Deed [price-sensitive]"
     ],
-    "source_headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
-    "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
-    "source_name": "BSE / NSE Exchange Filing",
+    "source_headline": "IGL: Proposed Motio acquisition, expansion to Digital Out of Home [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03137499-2A1698109",
+    "source_name": "ASX (Australia Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-29T15:22:38Z",
+    "newest_source_at": "2026-09-20T23:33:14Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-29T16:42:52Z",
-    "updated_at": "2026-08-29T16:42:52Z",
-    "decay_at": "2026-08-31T03:22:38Z",
+    "surfaced_at": "2026-09-20T23:40:12Z",
+    "updated_at": "2026-09-20T23:40:12Z",
+    "decay_at": "2026-09-22T11:33:14Z",
     "status": "live",
     "promoted_signal_id": null
   }
