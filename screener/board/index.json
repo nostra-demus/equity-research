@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T05:34:49Z",
+  "generated_at": "2026-09-23T05:38:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-128",
@@ -1237,6 +1237,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-140",
+      "headline": "OFX: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OFX?key=2924-03138771-2A1698677",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T05:10:19Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "OFX is in a trading pause, which is flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "OFX is in a trading pause, which is flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OFX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-107",
       "headline": "425 - VerifyMe, Inc. (0001104038) (Subject)",
       "headline_en": null,
@@ -1782,31 +1831,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-126",
-      "headline": "Manba Finance Limited: Manba Finance Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Press release under regulation 30 with respect to preferential issuance\".",
+      "inbox_id": "INB-20260923-135",
+      "headline": "Skipper Limited: Skipper Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MANBA_23092026095135_Pr_merged_F_new.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/skipper_23092026104600_Press_ReleaseOrder.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T04:22:03Z",
+      "found_at": "2026-09-23T05:16:08Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Manba Finance announced a preferential issuance of shares, which is a capital-raising event.",
+      "prelim_note": "Skipper Limited announced the receipt of new orders/contracts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Manba Finance announced a preferential issuance of shares, which is a capital-raising event.",
+      "triage_reason": "Skipper Limited announced the receipt of new orders/contracts.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
         "event": 0,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1815,12 +1864,12 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "capital_actions"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Manba Finance Limited",
+          "name": "Skipper Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1831,69 +1880,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-091",
-      "headline": "Prime Focus Limited: Prime Focus Limited has informed the Exchange about Sale or disposal",
+      "inbox_id": "INB-20260923-139",
+      "headline": "AAM: AAM Completes Initial Drilling at Isle aux Morts/CapeRayWest [price-sensitive]",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PFOCUS_23092026080956_Reg_30signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T02:40:06Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Prime Focus Limited announced a sale or disposal of assets, which is a material corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Prime Focus Limited announced a sale or disposal of assets, which is a material corporate action.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prime Focus Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-033",
-      "headline": "BDX: BCAL Introduces Avantect Multi-Cancer Early Detection Test [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BDX?key=2924-03138671-2A1698632",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAM?key=2924-03138772-6A1345191",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T00:43:33Z",
+      "found_at": "2026-09-23T05:15:44Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "BCAL Diagnostics introduced a new multi-cancer early detection test, which is a significant product development.",
+      "prelim_note": "AAM completed initial drilling at its project, which is flagged as price-sensitive.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "BCAL Diagnostics introduced a new multi-cancer early detection test, which is a significant product development.",
+      "triage_reason": "AAM completed initial drilling at its project, which is flagged as price-sensitive.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1918,8 +1918,8 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BCAL Diagnostics",
-          "ticker": "BDX",
+          "name": "AAM",
+          "ticker": null,
           "listing_country": null
         }
       ],
@@ -1929,31 +1929,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-023",
-      "headline": "ZHIDA TECH (02650): ANNOUNCEMENT PLACING OF NEW H SHARES UNDER THE GENERAL MANDATE",
+      "inbox_id": "INB-20260923-137",
+      "headline": "Garware Hi-Tech Films Limited: Garware Hi-Tech Films Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Press Release - Garware Hi-Tech Films and Lubrizol sign MoU to collaborate on advanced TPU-based film solutions",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092300041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/GRWRHITECH_23092026102246_Reg_-_30_-_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T00:13:00Z",
+      "found_at": "2026-09-23T04:53:22Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Zhida Tech is conducting a placing of new H shares, which will dilute existing shareholders.",
+      "prelim_note": "Garware Hi-Tech Films signed an MoU with Lubrizol for advanced film solutions.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Zhida Tech is conducting a placing of new H shares, which will dilute existing shareholders.",
-      "region": "CN",
+      "triage_reason": "Garware Hi-Tech Films signed an MoU with Lubrizol for advanced film solutions.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
         "event": 0,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1962,14 +1962,14 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "capital_actions"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Zhida Tech",
-          "ticker": "02650",
-          "listing_country": "CN"
+          "name": "Garware Hi-Tech Films Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -176326,9 +176326,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3357986,
-    "news_picked_today": 204,
-    "news_dropped_today": 2868
+    "news_seen_today": 3398376,
+    "news_picked_today": 212,
+    "news_dropped_today": 2884
   },
   "book_momentum": {
     "live_count": 8,
