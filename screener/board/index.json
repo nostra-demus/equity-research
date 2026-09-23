@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T04:00:15Z",
+  "generated_at": "2026-09-23T04:06:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-122",
@@ -1139,6 +1139,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-125",
+      "headline": "AOM INT'L (00381): INSIDE INFORMATION MEMORANDUM OF UNDERSTANDING IN RESPECT OF THE ESTABLISHMENT OF A JOINT VENTURE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T10:57:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The company signed a memorandum of understanding to establish a joint venture, which is a strategic development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The company signed a memorandum of understanding to establish a joint venture, which is a strategic development.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AOM INT'L",
+          "ticker": "00381",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-014",
       "headline": "FRB: First Manganese Feedstock for Australian Demonstration Plant [price-sensitive]",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-119",
-      "headline": "Microsoft's Xbox Cuts 268 More Jobs, Hands Next Halo Game To Activision",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/microsofts-xbox-cuts-268-more-jobs-hands-next-halo-game-to-activision",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T02:55:20Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Microsoft's Xbox division is cutting 268 jobs as part of ongoing restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Microsoft's Xbox division is cutting 268 jobs as part of ongoing restructuring.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176106,9 +176106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2279958,
-    "news_picked_today": 167,
-    "news_dropped_today": 2017
+    "news_seen_today": 2357970,
+    "news_picked_today": 168,
+    "news_dropped_today": 2064
   },
   "book_momentum": {
     "live_count": 8,
