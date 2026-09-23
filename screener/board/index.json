@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T00:35:51Z",
+  "generated_at": "2026-09-23T00:40:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-022",
@@ -391,6 +391,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-023",
+      "headline": "ZHIDA TECH (02650): ANNOUNCEMENT PLACING OF NEW H SHARES UNDER THE GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092300041.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T00:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Zhida Tech is conducting a placing of new H shares, which will dilute existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Zhida Tech is conducting a placing of new H shares, which will dilute existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhida Tech",
+          "ticker": "02650",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -175223,7 +175272,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2748,
+    "inbox_unconsumed": 2749,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -175232,9 +175281,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 387798,
-    "news_picked_today": 22,
-    "news_dropped_today": 290
+    "news_seen_today": 428612,
+    "news_picked_today": 23,
+    "news_dropped_today": 313
   },
   "book_momentum": {
     "live_count": 8,
