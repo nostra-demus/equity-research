@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T18:32:12Z",
+  "generated_at": "2026-09-23T18:42:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-337",
@@ -1612,6 +1612,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-401",
+      "headline": "ECA2026-673 - Information Regarding the Business Combination of Hennessy Capital Investment Corp. VII (HVII/R/U) and ONE Nuclear Energy LLC",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-673",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T21:00:20Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "SPAC merger (business combination) combining Hennessy Capital Investment Corp. VII with ONE Nuclear Energy LLC; public-listing and capital-raise event for ONE Nuclear, major capital-structure and governance change for both entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "SPAC merger (business combination) combining Hennessy Capital Investment Corp. VII with ONE Nuclear Energy LLC; public-listing and capital-raise event for ONE Nuclear, major capital-structure and governance change for both entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hennessy Capital Investment Corp. VII",
+          "ticker": "HVII",
+          "listing_country": "US"
+        },
+        {
+          "name": "ONE Nuclear Energy LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-306",
       "headline": "Power Grid Corporation of India Limited: Power Grid Corporation of India Limited has informed the Exchange about Acquisition of Barmer HVDC Power Transmission Limited by POWERGRID under TBCB route.",
       "headline_en": null,
@@ -1952,57 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-352",
-      "headline": "McDonald's warns traffic recovery may lag; unveils $8.5 billion investment plan",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/mcdonalds-outlines-85-billion-plan-support-franchisees-2026-09-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T15:24:17Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "McDonald's announces $8.5 billion capital investment plan and warns that traffic recovery may lag, signaling demand softness paired with strategic capex repositioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "McDonald's announces $8.5 billion capital investment plan and warns that traffic recovery may lag, signaling demand softness paired with strategic capex repositioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "guidance_change",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McDonald's Corporation",
-          "ticker": "MCD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176997,9 +177000,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7585028,
-    "news_picked_today": 728,
-    "news_dropped_today": 14656
+    "news_seen_today": 7627640,
+    "news_picked_today": 744,
+    "news_dropped_today": 14808
   },
   "book_momentum": {
     "live_count": 8,
