@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T13:15:06Z",
+  "generated_at": "2026-09-23T13:21:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-290",
+      "headline": "LEADWAY TECH (02086): Interim Report 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301531.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T12:48:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Leadway Tech published its 2026 interim report, which may affect its financial performance outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leadway Tech published its 2026 interim report, which may affect its financial performance outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leadway Tech",
+          "ticker": "02086",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-275",
       "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF MR. NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM)",
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-046",
-      "headline": "IMA: Image Secures A$5 Million Funding Advance [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMA?key=2924-03138681-6A1345151",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T00:57:28Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Image Resources has secured a A$5 million funding advance, providing immediate liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Image Resources has secured a A$5 million funding advance, providing immediate liquidity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Image Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176988,9 +176988,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5263845,
-    "news_picked_today": 580,
-    "news_dropped_today": 13700
+    "news_seen_today": 5281256,
+    "news_picked_today": 591,
+    "news_dropped_today": 13881
   },
   "book_momentum": {
     "live_count": 8,
