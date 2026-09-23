@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T16:38:53Z",
+  "generated_at": "2026-09-23T16:56:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-326",
@@ -791,6 +791,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-335",
+      "headline": "Ashtead Technology receives $660 million takeover proposal from Ember",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/ashtead-technology-receives-660-million-takeover-proposal-ember-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T16:18:12Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Ashtead Technology receives $660 million takeover proposal from Ember, creating a concrete M&A exit option for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashtead Technology receives $660 million takeover proposal from Ember, creating a concrete M&A exit option for shareholders.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashtead Technology",
+          "ticker": "AST",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Ember",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-322",
       "headline": "Cupid raises FY27 profit guidance, targets Rs 750 crore revenue; stock up 160% in 2026",
       "headline_en": null,
@@ -1559,6 +1613,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-336",
+      "headline": "Ludoil to invest €1.3 billion in Sicilian oil refiner after acquisition",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/ludoil-invest-13-billion-sicilian-oil-refiner-after-acquisition-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T16:05:55Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Ludoil announces €1.3 billion capital investment in a Sicilian oil refiner following acquisition, committing material capex with unclear return drivers and capital-discipline rationale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ludoil announces €1.3 billion capital investment in a Sicilian oil refiner following acquisition, committing material capex with unclear return drivers and capital-discipline rationale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ludoil",
+          "ticker": null,
+          "listing_country": "UA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-249",
       "headline": "Ugro Capital Limited: Voting results as per Reg 44(3) of the SEBI (LODR) Regulations 2015 for the NCLT Convened Meeting of Equity Shareholders held on 22 September 2026",
       "headline_en": null,
@@ -1897,105 +2001,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-116",
-      "headline": "SOMERLEY CAP (08439): POSITIVE PROFIT ALERT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0922/2026092201073.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T11:09:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Somerley Capital issues a positive profit alert indicating expected growth in earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Somerley Capital issues a positive profit alert indicating expected growth in earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Somerley Capital Holdings Limited",
-          "ticker": "08439",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-314",
-      "headline": "Multibagger Cupid shares gain 6% after company raises FY27 revenue, profit guidance. Could this trigger a further rally?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/multibagger-cupid-shares-gain-6-after-company-raises-fy27-revenue-profit-guidance-could-this-trigger-a-further-rally-11790167073845.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T13:35:57Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Cupid raised FY27 revenue and profit guidance, signaling improved operating performance and shifting analyst expectations; stock moved 6% on the announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Cupid raised FY27 revenue and profit guidance, signaling improved operating performance and shifting analyst expectations; stock moved 6% on the announcement.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cupid",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176992,9 +176997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6919870,
-    "news_picked_today": 657,
-    "news_dropped_today": 14343
+    "news_seen_today": 7083014,
+    "news_picked_today": 667,
+    "news_dropped_today": 14405
   },
   "book_momentum": {
     "live_count": 8,
