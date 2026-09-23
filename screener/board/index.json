@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:54:57Z",
+  "generated_at": "2026-09-23T11:08:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -1944,50 +1944,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-148",
-      "headline": "Bank of Maharashtra: Bank of Maharashtra has informed the Exchange about Proposed Bank Strike",
+      "inbox_id": "INB-20260923-246",
+      "headline": "CONTEL (01912): GRANT OF WAIVER FROM STRICT COMPLIANCE WITH THE MINIMUM PUBLIC FLOAT REQUIREMENT",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MAHABANK_23092026112138_LettertoSE_Strike_notice_23092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301121.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T05:51:57Z",
+      "found_at": "2026-09-23T10:06:00Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A bank strike threatens branch/ATM operations, customer services, and earnings continuity; scope, duration, and likelihood undisclosed.",
+      "prelim_note": "Regulatory waiver from minimum public-float requirement signals potential governance issues, ownership concentration, or listing-status risk; material regulatory exception affecting shareholder protection.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "A bank strike threatens branch/ATM operations, customer services, and earnings continuity; scope, duration, and likelihood undisclosed.",
-      "region": "IN",
+      "triage_reason": "Regulatory waiver from minimum public-float requirement signals potential governance issues, ownership concentration, or listing-status risk; material regulatory exception affecting shareholder protection.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 70,
         "source_tier": 8,
         "scope": 6,
-        "event": 2,
-        "size": 2,
+        "event": 4,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "operations"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bank of Maharashtra",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "CONTEL",
+          "ticker": "01912",
+          "listing_country": "HK"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176483,9 +176483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4694539,
-    "news_picked_today": 442,
-    "news_dropped_today": 11678
+    "news_seen_today": 4726493,
+    "news_picked_today": 456,
+    "news_dropped_today": 11928
   },
   "book_momentum": {
     "live_count": 8,
