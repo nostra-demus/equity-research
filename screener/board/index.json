@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:22:39Z",
+  "generated_at": "2026-09-23T10:27:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -1748,6 +1748,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-232",
+      "headline": "Butterfly Equity to acquire food packaging maker Sabert",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/butterfly-equity-acquire-food-packaging-093939058.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T09:39:39Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Butterfly Equity is acquiring food packaging maker Sabert.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Butterfly Equity is acquiring food packaging maker Sabert.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sabert",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-118",
       "headline": "Prime Focus unit Brahma AI raises $100 million from Multiples PE entities",
       "headline_en": null,
@@ -1939,56 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-114",
-      "headline": "LAJIN ENT (08172): CHANGE OF REGISTERED OFFICE IN BERMUDA AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0922/2026092201099.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T11:18:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Lajin Entertainment announces a change of registered office alongside a continued suspension of trading.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Lajin Entertainment announces a change of registered office alongside a continued suspension of trading.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lajin Entertainment Network Co. Ltd.",
-          "ticker": "08172",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176484,9 +176483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4519443,
-    "news_picked_today": 407,
-    "news_dropped_today": 11089
+    "news_seen_today": 4535452,
+    "news_picked_today": 415,
+    "news_dropped_today": 11201
   },
   "book_momentum": {
     "live_count": 8,
