@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T06:39:47Z",
+  "generated_at": "2026-09-23T06:45:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -1727,6 +1727,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-154",
+      "headline": "JY GRANDMARK (02231): SUPPLEMENTAL ANNOUNCEMENT JULY 2026 UPDATE IN RELATION TO THE DISCLAIMER OF OPINION SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200534.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T08:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The company is providing a supplemental update regarding a disclaimer of opinion in its annual report, indicating ongoing accounting and audit concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The company is providing a supplemental update regarding a disclaimer of opinion in its annual report, indicating ongoing accounting and audit concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JY Grandmark",
+          "ticker": "02231",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-025",
       "headline": "ASX rises; IDP Education sinks after takeover rejection",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
       "companies": [
         {
           "name": "TOT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-027",
-      "headline": "NYM: PTR: Rosewood Positive Water Drilling Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NYM?key=2924-03138668-6A1345152",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T00:40:33Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Positive drilling results at the Rosewood project indicate potential resource expansion for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Positive drilling results at the Rosewood project indicate potential resource expansion for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NYM",
           "ticker": null,
           "listing_country": null
         }
@@ -176467,9 +176467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3796114,
-    "news_picked_today": 239,
-    "news_dropped_today": 4225
+    "news_seen_today": 3812174,
+    "news_picked_today": 247,
+    "news_dropped_today": 4361
   },
   "book_momentum": {
     "live_count": 8,
