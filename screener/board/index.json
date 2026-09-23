@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T01:21:32Z",
+  "generated_at": "2026-09-23T01:24:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-029",
@@ -1284,6 +1284,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-058",
+      "headline": "YSB (09885): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE ANNUAL REPORTS FOR THE YEARS ENDED 31 DECEMBER 2023, 2024 AND 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201375.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T13:59:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Company issued a supplemental announcement regarding annual reports for 2023, 2024, and 2025, indicating potential accounting or disclosure adjustments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Company issued a supplemental announcement regarding annual reports for 2023, 2024, and 2025, indicating potential accounting or disclosure adjustments.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YSB",
+          "ticker": "09885",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-030",
       "headline": "GREAT WORLD (08003): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
           "name": "SENASIC",
           "ticker": "06675",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-010",
-      "headline": "FG1: Update - Proposed issue of securities - FG1",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FG1?key=2924-03138647-3A702354",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T00:00:28Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Routine update on proposed issue of securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine update on proposed issue of securities.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fidelity Global Emerging Markets Fund",
-          "ticker": "FG1",
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -176097,9 +176097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 672779,
-    "news_picked_today": 57,
-    "news_dropped_today": 663
+    "news_seen_today": 733397,
+    "news_picked_today": 58,
+    "news_dropped_today": 686
   },
   "book_momentum": {
     "live_count": 8,
