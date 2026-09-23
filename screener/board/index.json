@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T17:43:34Z",
+  "generated_at": "2026-09-23T17:56:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-337",
@@ -1859,6 +1859,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-385",
+      "headline": "UltraTech Cement Limited: UltraTech Cement Limited has informed the Exchange regarding 'Company Update: Commissioning of cement capacity'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ULTRACEMCO1_23092026222821_CapacityExpansion23092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T16:59:16Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "UltraTech Cement commissioning new cement capacity into production — affects revenue run-rate and analyst earnings comps — but capacity magnitude not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "UltraTech Cement commissioning new cement capacity into production — affects revenue run-rate and analyst earnings comps — but capacity magnitude not disclosed in headline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UltraTech Cement Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-271",
       "headline": "WUXI APPTEC (02359): FULL CONVERSION AND WITHDRAWAL OF LISTING OF THE RMB6,780,000,000 U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027",
       "headline_en": null,
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-272",
-      "headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JAGSNPHARM_23092026175736_SignedIntimationofAcquisition.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T12:27:45Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Jagsonpal Pharmaceuticals is acquiring the wellness portfolio of Group Pharmaceuticals Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Jagsonpal Pharmaceuticals is acquiring the wellness portfolio of Group Pharmaceuticals Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jagsonpal Pharmaceuticals Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176997,9 +176997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7354078,
-    "news_picked_today": 686,
-    "news_dropped_today": 14458
+    "news_seen_today": 7395844,
+    "news_picked_today": 719,
+    "news_dropped_today": 14641
   },
   "book_momentum": {
     "live_count": 8,
