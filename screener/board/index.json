@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T12:13:54Z",
+  "generated_at": "2026-09-23T12:24:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-268",
+      "headline": "Ashoka Buildcon Limited: Ashoka Buildcon Limited has informed the Exchange about disclosure under Reg. 30 of SEBI LODR - signing of SPA and acquisition of Project SPV viz. Sakoli Transmission Power Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASHOKA_23092026171617_503_ABL_BSE_NSE_Sakoli_acquisition.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T11:48:33Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Ashoka Buildcon Limited is acquiring a project SPV, Sakoli Transmission Power Limited, via a share purchase agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashoka Buildcon Limited is acquiring a project SPV, Sakoli Transmission Power Limited, via a share purchase agreement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashoka Buildcon Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-248",
       "headline": "ESTUN (02715): POTENTIAL DISCLOSEABLE AND CONNECTED TRANSACTION PROPOSED ACQUISITIONS OF EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
@@ -340,6 +389,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-270",
+      "headline": "Paramount plans $49 billion debt sale for Warner Bros. merger",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/media-advertising/articles/paramount-plans-49-billion-debt-113923908.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T11:39:23Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Paramount is planning a $49 billion debt sale to fund a merger, significantly impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount is planning a $49 billion debt sale to fund a merger, significantly impacting its capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1004,6 +1107,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-271",
+      "headline": "WUXI APPTEC (02359): FULL CONVERSION AND WITHDRAWAL OF LISTING OF THE RMB6,780,000,000 U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301245.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T10:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Wuxi AppTec announcing full conversion and withdrawal of RMB 6.78 billion of convertible bonds due 2027, affecting capital structure and leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Wuxi AppTec announcing full conversion and withdrawal of RMB 6.78 billion of convertible bonds due 2027, affecting capital structure and leverage.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wuxi AppTec",
+          "ticker": "02359",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1840,154 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-121",
-      "headline": "Glenmark Pharmaceuticals Limited: Glenmark Pharmaceuticals Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Glenmark Pharmaceuticals receives Establishment Inspection Report (EIR) from U.S. FDA for its Goa facility with VAI classification\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GLENMARK_23092026083959_SEPressRelease23092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T03:11:06Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Glenmark Pharmaceuticals received a VAI classification from the US FDA for its Goa facility, indicating successful inspection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Glenmark Pharmaceuticals received a VAI classification from the US FDA for its Goa facility, indicating successful inspection.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glenmark Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-087",
-      "headline": "424B2 - DICK'S SPORTING GOODS, INC. (0001089063) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1089063/000114036126037299/0001140361-26-037299-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-22T12:45:56Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Dick's Sporting Goods filed a shelf registration for potential future debt or equity issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Dick's Sporting Goods filed a shelf registration for potential future debt or equity issuance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dick's Sporting Goods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-159",
-      "headline": "SFGLOB N2909-R SFGLOB N3109-R (85177 85178): Notice of Listing on the Stock Exchange of Hong Kong Limited - CNY5,000,000,000 1.75 per cent. Guaranteed Notes due 2029 and CNY5,000,000,000 1.85 per cent. Guaranteed Notes due 2031 issued by SF Holding Global 2026 Limited and guaranteed by S.F. Holding Co., Ltd.",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200358.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T08:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "SF Holding issued CNY 10 billion in guaranteed notes due 2029–2031 at 1.75–1.85%, raising capital and increasing debt and interest-burden obligations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SF Holding issued CNY 10 billion in guaranteed notes due 2029–2031 at 1.75–1.85%, raising capital and increasing debt and interest-burden obligations.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S.F. Holding Co., Ltd.",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176701,9 +176705,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4986423,
-    "news_picked_today": 520,
-    "news_dropped_today": 12920
+    "news_seen_today": 5020665,
+    "news_picked_today": 525,
+    "news_dropped_today": 12987
   },
   "book_momentum": {
     "live_count": 8,
