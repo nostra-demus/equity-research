@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T02:59:02Z",
+  "generated_at": "2026-09-23T03:03:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-103",
+      "headline": "Prime Focus Limited: Prime Focus Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"PRIME FOCUS-BACKED BRAHMA AI RAISES $150 MILLION AT $2 BILLION VALUATION\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PFOCUS_23092026081707_PressRelease23092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T02:47:26Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Prime Focus-backed Brahma AI raised $150 million at a $2 billion valuation, indicating significant value creation for the parent company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prime Focus-backed Brahma AI raised $150 million at a $2 billion valuation, indicating significant value creation for the parent company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prime Focus Limited",
+          "ticker": "532748",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-029",
       "headline": "Orient Green Power Company Limited: Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations 2015, Expansion of Solar Capacity through the Commissioning of 17.6 MW Solar Power Plant",
@@ -1924,55 +1973,6 @@
       "companies": [
         {
           "name": "Koh Young Technology, Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-101",
-      "headline": "FDA 510(k) clearance — Suzhou Microport Orthorecon Co., Ltd.: EVOLUTION MPX Total Knee System",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262293",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-10T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "FDA 510(k) clearance for a knee system allows for US market entry of a new orthopedic product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "FDA 510(k) clearance for a knee system allows for US market entry of a new orthopedic product.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzhou Microport Orthorecon Co., Ltd.",
           "ticker": null,
           "listing_country": null
         }
@@ -176116,9 +176116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1553301,
-    "news_picked_today": 129,
-    "news_dropped_today": 1503
+    "news_seen_today": 1592930,
+    "news_picked_today": 130,
+    "news_dropped_today": 1526
   },
   "book_momentum": {
     "live_count": 8,
