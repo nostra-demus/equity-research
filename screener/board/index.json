@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T18:55:45Z",
+  "generated_at": "2026-09-23T19:06:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-403",
+      "headline": "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WEBELSOLAR_23092026224345_Reg_30_-_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T17:14:45Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Government allotment of land for 4 GW greenfield solar cell/module manufacturing facility is a major capacity-expansion commitment that moves revenue trajectory, margin profile, and competitive positioning in high-growth renewable energy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Government allotment of land for 4 GW greenfield solar cell/module manufacturing facility is a major capacity-expansion commitment that moves revenue trajectory, margin profile, and competitive positioning in high-growth renewable energy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Websol Energy System Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-337",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of RAMGOPAL POLYTEX LIMITED.",
@@ -1954,55 +2003,6 @@
           "name": "UltraTech Cement Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-271",
-      "headline": "WUXI APPTEC (02359): FULL CONVERSION AND WITHDRAWAL OF LISTING OF THE RMB6,780,000,000 U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301245.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T10:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Wuxi AppTec announcing full conversion and withdrawal of RMB 6.78 billion of convertible bonds due 2027, affecting capital structure and leverage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Wuxi AppTec announcing full conversion and withdrawal of RMB 6.78 billion of convertible bonds due 2027, affecting capital structure and leverage.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wuxi AppTec",
-          "ticker": "02359",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -177000,9 +177000,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7732514,
-    "news_picked_today": 752,
-    "news_dropped_today": 15112
+    "news_seen_today": 7774166,
+    "news_picked_today": 787,
+    "news_dropped_today": 15413
   },
   "book_momentum": {
     "live_count": 8,
