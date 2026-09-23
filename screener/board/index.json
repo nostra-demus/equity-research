@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T09:38:34Z",
+  "generated_at": "2026-09-23T09:39:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -808,40 +808,40 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-200",
-      "headline": "Suspension of trading in Debt Scrips of Inbrew Beverages Private Limited",
+      "inbox_id": "INB-20260923-207",
+      "headline": "Suspension of Trading in Debt Securities of Inbrew Beverages Private Limited",
       "headline_en": null,
       "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260923-7/20260923-7.pdf",
       "source_name": "BSE India — Notices (RSS)",
       "input_nature": "exchange_announcement",
       "found_at": "2026-09-23T08:59:44Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Suspension of debt-scrip trading signals potential issuer distress, credit rating downgrade, or covenant breach; affects debt investors' exit ability and signals creditworthiness concern.",
+      "prelim_note": "Suspension of trading in debt securities indicates potential liquidity or compliance distress for the issuer.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Suspension of debt-scrip trading signals potential issuer distress, credit rating downgrade, or covenant breach; affects debt investors' exit ability and signals creditworthiness concern.",
+      "triage_score": 98,
+      "triage_reason": "Suspension of trading in debt securities indicates potential liquidity or compliance distress for the issuer.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 7,
+        "event": 9,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
+        "event_id": "default_distress",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "debt_credit"
+        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -176479,9 +176479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4405918,
-    "news_picked_today": 366,
-    "news_dropped_today": 9474
+    "news_seen_today": 4422596,
+    "news_picked_today": 369,
+    "news_dropped_today": 9495
   },
   "book_momentum": {
     "live_count": 8,
