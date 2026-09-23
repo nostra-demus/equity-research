@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T17:28:32Z",
+  "generated_at": "2026-09-23T17:43:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-337",
@@ -1908,6 +1908,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-352",
+      "headline": "McDonald's warns traffic recovery may lag; unveils $8.5 billion investment plan",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/mcdonalds-outlines-85-billion-plan-support-franchisees-2026-09-23/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T15:24:17Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "McDonald's announces $8.5 billion capital investment plan and warns that traffic recovery may lag, signaling demand softness paired with strategic capex repositioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "McDonald's announces $8.5 billion capital investment plan and warns that traffic recovery may lag, signaling demand softness paired with strategic capex repositioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "guidance_change",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McDonald's Corporation",
+          "ticker": "MCD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-272",
       "headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
       "headline_en": null,
@@ -1952,55 +2003,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-233",
-      "headline": "Update Regarding debt securities of Jana Capital Ltd",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260923-11/20260923-11.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T09:50:28Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Updates regarding debt securities can indicate financial distress or restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Updates regarding debt securities can indicate financial distress or restructuring.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jana Capital Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176995,9 +176997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7228540,
-    "news_picked_today": 672,
-    "news_dropped_today": 14424
+    "news_seen_today": 7354078,
+    "news_picked_today": 686,
+    "news_dropped_today": 14458
   },
   "book_momentum": {
     "live_count": 8,
