@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T07:46:07Z",
+  "generated_at": "2026-09-23T07:52:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-144",
@@ -1596,6 +1596,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-179",
+      "headline": "IEL: Rejection of opportunistic unsolicited proposal [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03138288-3A702275",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T07:43:45Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "ASX-marked price-sensitive rejection of unsolicited takeover proposal signals board defense and competitive acquisition interest, but headline lacks acquirer name and deal valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "ASX-marked price-sensitive rejection of unsolicited takeover proposal signals board defense and competitive acquisition interest, but headline lacks acquirer name and deal valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 71,
+      "rank_factors": {
+        "materiality": 71,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IEL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-151",
       "headline": "Salasar Techno Engineering Limited: Salasar Techno Engineering Limited has informed the Exchange about Credit Rating- Revision",
       "headline_en": null,
@@ -1931,55 +1980,6 @@
         {
           "name": "CIRC",
           "ticker": "01763",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-056",
-      "headline": "KWOON CHUNG BUS (00306): INSIDE INFORMATION - UPDATE ON THE POTENTIAL DISPOSAL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201389.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Company provided an update on a potential disposal of assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Company provided an update on a potential disposal of assets.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KWOON CHUNG BUS",
-          "ticker": "00306",
           "listing_country": "CN"
         }
       ],
@@ -176479,9 +176479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4019889,
-    "news_picked_today": 295,
-    "news_dropped_today": 6281
+    "news_seen_today": 4038867,
+    "news_picked_today": 299,
+    "news_dropped_today": 6301
   },
   "book_momentum": {
     "live_count": 8,
