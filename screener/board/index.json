@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T22:23:03Z",
+  "generated_at": "2026-09-23T22:29:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-403",
@@ -136567,78 +136567,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c2636ae09eff",
-      "idea_version": "IDEAV-5b4fa2d680f48148",
-      "idea_version_started_at": "2026-09-22T12:49:23Z",
-      "ticker": "02033",
-      "company": "Time Watch",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance compared to prior periods.",
-      "why_now": "The profit warning was filed on September 22, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8ef823bffd19"
-      ],
-      "primary_source_event_id": "EVT-8ef823bffd19",
-      "source_headlines": [
-        "TIME WATCH (02033): PROFIT WARNING"
-      ],
-      "source_headline": "TIME WATCH (02033): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200949.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T10:26:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:49:23Z",
-      "updated_at": "2026-09-22T12:49:23Z",
-      "decay_at": "2026-09-23T22:26:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a8bdb182d6cd",
       "idea_version": "IDEAV-999ebde2571da033",
       "idea_version_started_at": "2026-09-23T12:51:32Z",
@@ -137476,6 +137404,78 @@
       "surfaced_at": "2026-09-20T21:27:13Z",
       "updated_at": "2026-09-20T21:27:13Z",
       "decay_at": "2026-09-22T08:54:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c2636ae09eff",
+      "idea_version": "IDEAV-5b4fa2d680f48148",
+      "idea_version_started_at": "2026-09-22T12:49:23Z",
+      "ticker": "02033",
+      "company": "Time Watch",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance compared to prior periods.",
+      "why_now": "The profit warning was filed on September 22, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8ef823bffd19"
+      ],
+      "primary_source_event_id": "EVT-8ef823bffd19",
+      "source_headlines": [
+        "TIME WATCH (02033): PROFIT WARNING"
+      ],
+      "source_headline": "TIME WATCH (02033): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200949.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T10:26:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T12:49:23Z",
+      "updated_at": "2026-09-22T12:49:23Z",
+      "decay_at": "2026-09-23T22:26:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140012,9 +140012,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -140022,9 +140022,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -140043,6 +140043,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c2636ae09eff",
+        "idea_version": "IDEAV-5b4fa2d680f48148",
+        "idea_version_started_at": "2026-09-22T12:49:23Z",
+        "ticker": "02033",
+        "company": "Time Watch",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance compared to prior periods.",
+        "why_now": "The profit warning was filed on September 22, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8ef823bffd19"
+        ],
+        "primary_source_event_id": "EVT-8ef823bffd19",
+        "source_headlines": [
+          "TIME WATCH (02033): PROFIT WARNING"
+        ],
+        "source_headline": "TIME WATCH (02033): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200949.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T10:26:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T12:49:23Z",
+        "updated_at": "2026-09-22T12:49:23Z",
+        "decay_at": "2026-09-23T22:26:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-23T22:26:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-790783c9f10a",
         "idea_version": "IDEAV-e39509feb0c6c3a1",
@@ -177117,86 +177192,12 @@
         "archived_at": "2026-09-02T12:20:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9ef96ca850df",
-        "idea_version": "IDEAV-6b6b55a500ae137b",
-        "idea_version_started_at": "2026-08-30T11:59:45Z",
-        "ticker": "2479",
-        "company": "Tianjudihe (Suzhou) Technology",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is experiencing a near-total overhaul of its leadership, including the Chairman, CEO, CFO, and Company Secretary simultaneously, which typically signals severe internal governance distress or a fundamental strategic breakdown.",
-        "why_now": "The filing on August 30, 2026, confirms these departures are effective immediately, creating an immediate leadership vacuum and governance risk.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0e0ff34eb1bf"
-        ],
-        "primary_source_event_id": "EVT-0e0ff34eb1bf",
-        "source_headlines": [
-          "TIANJUDIHE (02479): CHANGE OF CHAIRMAN, EXECUTIVE DIRECTORS, CHIEF EXECUTIVE OFFICER, COMPANY SECRETARY, CHIEF FINANCIAL OFFICER, MEMBERS OF BOARD COMMITTEES AND AUTHORISED REPRESENTATIVE"
-        ],
-        "source_headline": "TIANJUDIHE (02479): CHANGE OF CHAIRMAN, EXECUTIVE DIRECTORS, CHIEF EXECUTIVE OFFICER, COMPANY SECRETARY, CHIEF FINANCIAL OFFICER, MEMBERS OF BOARD COMMITTEES AND AUTHORISED REPRESENTATIVE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000357.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-08-30T11:10:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T11:59:45Z",
-        "updated_at": "2026-08-30T11:59:45Z",
-        "decay_at": "2026-08-31T23:10:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1002,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -177215,9 +177216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8616719,
-    "news_picked_today": 925,
-    "news_dropped_today": 21827
+    "news_seen_today": 8649443,
+    "news_picked_today": 926,
+    "news_dropped_today": 21850
   },
   "book_momentum": {
     "live_count": 8,
