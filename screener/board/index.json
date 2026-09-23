@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T11:48:35Z",
+  "generated_at": "2026-09-23T11:59:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-248",
@@ -911,6 +911,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-249",
+      "headline": "Ugro Capital Limited: Voting results as per Reg 44(3) of the SEBI (LODR) Regulations 2015 for the NCLT Convened Meeting of Equity Shareholders held on 22 September 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/UGROCAP_23092026170547_VRRegulation44.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T11:36:52Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "NCLT-convened shareholder vote on restructuring; voting results filed but outcome and terms not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "NCLT-convened shareholder vote on restructuring; voting results filed but outcome and terms not disclosed in headline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ugro Capital Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-207",
       "headline": "Suspension of Trading in Debt Securities of Inbrew Beverages Private Limited",
       "headline_en": null,
@@ -1698,6 +1747,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-267",
+      "headline": "SUNSHINE PHARMA (06887): INSIDE INFORMATION FILING WITH THE CSRC IN RELATION TO THE PROPOSED IMPLEMENTATION OF H SHARE FULL CIRCULATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301281.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The company is filing for H share full circulation, which increases liquidity and tradability of shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company is filing for H share full circulation, which increases liquidity and tradability of shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUNSHINE PHARMA",
+          "ticker": "06887",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-228",
       "headline": "Whirlpool of India Limited: The Exchange has sought clarification from Whirlpool of India Limited with respect to recent news item captioned Whirlpool of India promoter set to sell entire stake, reports CNBC-Awaaz; shares surge 17%. The response from the Company is awaited.",
       "headline_en": null,
@@ -1890,104 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-232",
-      "headline": "Butterfly Equity to acquire food packaging maker Sabert",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/small-business/articles/butterfly-equity-acquire-food-packaging-093939058.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T09:39:39Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Butterfly Equity is acquiring food packaging maker Sabert.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Butterfly Equity is acquiring food packaging maker Sabert.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sabert",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-118",
-      "headline": "Prime Focus unit Brahma AI raises $100 million from Multiples PE entities",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/prime-focus-share-price-unit-brahma-ai-100-million-dollar-fund-raise-multiples-pe-entities-voting-rights-change-19996258.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T03:24:14Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Brahma AI, a unit of Prime Focus, raised $100 million in funding from Multiples PE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Brahma AI, a unit of Prime Focus, raised $100 million in funding from Multiples PE.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prime Focus",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176701,9 +176701,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4870894,
-    "news_picked_today": 493,
-    "news_dropped_today": 12659
+    "news_seen_today": 4935882,
+    "news_picked_today": 514,
+    "news_dropped_today": 12830
   },
   "book_momentum": {
     "live_count": 8,
