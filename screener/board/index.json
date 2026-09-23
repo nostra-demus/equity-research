@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T21:26:58Z",
+  "generated_at": "2026-09-23T21:54:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-403",
@@ -884,6 +884,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-419",
+      "headline": "Hoplark files Chapter 7 bankruptcy as Americans drink less, after raising more than $25 million, watching sales crash from $9.3 million to about $630,000, and threatening to sue Brooklyn Brewery, which says it can keep making the drinks anyway",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/non-alcoholic-brewery-hoplark-files-chapter-7-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T21:01:44Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Hoplark filed for Chapter 7 bankruptcy after a significant revenue decline from $9.3 million to $630,000.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hoplark filed for Chapter 7 bankruptcy after a significant revenue decline from $9.3 million to $630,000.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hoplark",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,55 +2001,6 @@
       "companies": [
         {
           "name": "Ugro Capital Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-207",
-      "headline": "Suspension of Trading in Debt Securities of Inbrew Beverages Private Limited",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260923-7/20260923-7.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T08:59:44Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Suspension of trading in debt securities indicates potential liquidity or compliance distress for the issuer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Suspension of trading in debt securities indicates potential liquidity or compliance distress for the issuer.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Inbrew Beverages Private Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -134647,76 +134647,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-790783c9f10a",
-      "idea_version": "IDEAV-e39509feb0c6c3a1",
-      "idea_version_started_at": "2026-09-22T11:39:38Z",
-      "ticker": "TLX",
-      "company": "Telix Pharmaceuticals",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1.6 billion acquisition of ITM significantly expands Telix's radiopharmaceutical pipeline and market share in a high-growth oncology segment.",
-      "why_now": "The acquisition was announced on 2026-09-22.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1ba6260de758"
-      ],
-      "primary_source_event_id": "EVT-1ba6260de758",
-      "source_headlines": [
-        "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition"
-      ],
-      "source_headline": "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition",
-      "source_url": "https://www.fiercebiotech.com/biotech/analysts-extremely-bullish-telix-beams-novartis-territory-165b-itm-acquisition",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T09:30:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T23:00:20Z",
-      "updated_at": "2026-09-22T11:39:38Z",
-      "decay_at": "2026-09-23T21:30:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-acf746e0f13b",
       "idea_version": "IDEAV-31f5433301e62c0f",
       "idea_version_started_at": "2026-09-23T00:45:47Z",
@@ -136986,6 +136916,76 @@
       "surfaced_at": "2026-09-20T21:45:11Z",
       "updated_at": "2026-09-20T21:45:11Z",
       "decay_at": "2026-09-22T09:08:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-790783c9f10a",
+      "idea_version": "IDEAV-e39509feb0c6c3a1",
+      "idea_version_started_at": "2026-09-22T11:39:38Z",
+      "ticker": "TLX",
+      "company": "Telix Pharmaceuticals",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.6 billion acquisition of ITM significantly expands Telix's radiopharmaceutical pipeline and market share in a high-growth oncology segment.",
+      "why_now": "The acquisition was announced on 2026-09-22.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1ba6260de758"
+      ],
+      "primary_source_event_id": "EVT-1ba6260de758",
+      "source_headlines": [
+        "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition"
+      ],
+      "source_headline": "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition",
+      "source_url": "https://www.fiercebiotech.com/biotech/analysts-extremely-bullish-telix-beams-novartis-territory-165b-itm-acquisition",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T09:30:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-20T23:00:20Z",
+      "updated_at": "2026-09-22T11:39:38Z",
+      "decay_at": "2026-09-23T21:30:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140012,14 +140012,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 264,
@@ -140043,6 +140043,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-790783c9f10a",
+        "idea_version": "IDEAV-e39509feb0c6c3a1",
+        "idea_version_started_at": "2026-09-22T11:39:38Z",
+        "ticker": "TLX",
+        "company": "Telix Pharmaceuticals",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $1.6 billion acquisition of ITM significantly expands Telix's radiopharmaceutical pipeline and market share in a high-growth oncology segment.",
+        "why_now": "The acquisition was announced on 2026-09-22.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1ba6260de758"
+        ],
+        "primary_source_event_id": "EVT-1ba6260de758",
+        "source_headlines": [
+          "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition"
+        ],
+        "source_headline": "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition",
+        "source_url": "https://www.fiercebiotech.com/biotech/analysts-extremely-bullish-telix-beams-novartis-territory-165b-itm-acquisition",
+        "source_name": "FierceBiotech",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T09:30:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-20T23:00:20Z",
+        "updated_at": "2026-09-22T11:39:38Z",
+        "decay_at": "2026-09-23T21:30:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-23T21:30:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b42aec634684",
         "idea_version": "IDEAV-f18d01fb22419729",
@@ -169955,81 +170028,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d45a12676caa",
-        "idea_version": "IDEAV-148a14d557a70be5",
-        "idea_version_started_at": "2026-09-07T21:35:59Z",
-        "ticker": "TIT",
-        "company": "Telecom Italia",
-        "exchange": "Borsa Italiana",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Poste Italiane's increased offer for Telecom Italia and waiver of the threshold condition suggest a higher probability of a successful acquisition, which could unlock value for TIT shareholders.",
-        "why_now": "Poste Italiane raised its offer and waived a key condition on September 7, 2026, making the M&A event more imminent.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7899c6ef5fef"
-        ],
-        "primary_source_event_id": "EVT-7899c6ef5fef",
-        "source_headlines": [
-          "Poste Italiane raises Telecom Italia offer, waives threshold condition"
-        ],
-        "source_headline": "Poste Italiane raises Telecom Italia offer, waives threshold condition",
-        "source_url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T20:16:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T21:35:59Z",
-        "updated_at": "2026-09-07T21:35:59Z",
-        "decay_at": "2026-09-09T08:16:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T20:58:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-e616b8c1138f",
         "idea_version": "IDEAV-531b4a0532361583",
         "idea_version_started_at": "2026-09-07T20:32:15Z",
@@ -177198,7 +177196,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1002,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -177217,9 +177215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8333934,
-    "news_picked_today": 895,
-    "news_dropped_today": 20561
+    "news_seen_today": 8385203,
+    "news_picked_today": 910,
+    "news_dropped_today": 21410
   },
   "book_momentum": {
     "live_count": 8,
