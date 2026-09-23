@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T13:40:59Z",
+  "generated_at": "2026-09-23T13:49:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-290",
@@ -1703,6 +1703,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-305",
+      "headline": "WUHAN YOUJI (02881): DISCLOSEABLE TRANSACTION IN RELATION TO CONSTRUCTION CONTRACT FOR PHASE I CIVIL WORKS OF THE MALAYSIA FACTORY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301555.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T13:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Discloseable transaction announced for Phase I civil works of Malaysia factory; magnitude not quantified but flagged as material-disclosure-threshold event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Discloseable transaction announced for Phase I civil works of Malaysia factory; magnitude not quantified but flagged as material-disclosure-threshold event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wuhan Youji",
+          "ticker": "02881",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-234",
       "headline": "COFOE MEDICAL (01187): PLEDGE OF SHARES BY CONTROLLING SHAREHOLDER",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
       "companies": [
         {
           "name": "McGee Regan McMillan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-067",
-      "headline": "SCHEDULE 13D - MBody AI Ltd. (0001610590) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1610590/000121390026102336/0001213900-26-102336-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T01:44:06Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in MBody AI Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in MBody AI Ltd.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MBody AI Ltd.",
           "ticker": null,
           "listing_country": null
         }
@@ -176988,9 +176988,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5351616,
-    "news_picked_today": 594,
-    "news_dropped_today": 14094
+    "news_seen_today": 5369134,
+    "news_picked_today": 609,
+    "news_dropped_today": 14199
   },
   "book_momentum": {
     "live_count": 8,
