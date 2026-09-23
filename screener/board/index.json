@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T02:49:13Z",
+  "generated_at": "2026-09-23T02:52:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-029",
@@ -397,6 +397,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-092",
+      "headline": "BLG: BluGlass secures A$8.0 million R&D funding facility [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLG?key=2924-03138724-2A1698656",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T02:42:48Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "BluGlass secured an A$8.0 million R&D funding facility, improving liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "BluGlass secured an A$8.0 million R&D funding facility, improving liquidity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BluGlass",
+          "ticker": "BLG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1143,6 +1192,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-091",
+      "headline": "Prime Focus Limited: Prime Focus Limited has informed the Exchange about Sale or disposal",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PFOCUS_23092026080956_Reg_30signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T02:40:06Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Prime Focus Limited announced a sale or disposal of assets, which is a material corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Prime Focus Limited announced a sale or disposal of assets, which is a material corporate action.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prime Focus Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-033",
       "headline": "BDX: BCAL Introduces Avantect Multi-Cancer Early Detection Test [price-sensitive]",
       "headline_en": null,
@@ -1836,145 +1934,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-070",
-      "headline": "FDA 510(k) clearance — Microstructure Imaging, Inc.: MICSI-PET",
+      "inbox_id": "INB-20260923-088",
+      "headline": "BRAHMA AI RAISES $150 MILLION ROUND LED BY MULTIPLES",
       "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261305",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
+      "url": "https://www.prnewswire.com/news-releases/brahma-ai-raises-150-million-round-led-by-multiples-302886926.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-23T02:30:00Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Microstructure Imaging, Inc. received FDA 510(k) clearance for its MICSI-PET device.",
+      "prelim_note": "Brahma AI raised $150 million in a funding round, indicating significant capital inflow and valuation growth.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Microstructure Imaging, Inc. received FDA 510(k) clearance for its MICSI-PET device.",
+      "triage_score": 56,
+      "triage_reason": "Brahma AI raised $150 million in a funding round, indicating significant capital inflow and valuation growth.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
+        "materiality": 75,
+        "source_tier": -36,
         "scope": 6,
         "event": 0,
         "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "company",
         "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "product"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Microstructure Imaging, Inc.",
+          "name": "Brahma AI",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-069",
-      "headline": "FDA 510(k) clearance — Beta Bionics, Inc.: iLet Dosing Decision Software",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262763",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Beta Bionics, Inc. received FDA 510(k) clearance for its iLet Dosing Decision Software.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Beta Bionics, Inc. received FDA 510(k) clearance for its iLet Dosing Decision Software.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beta Bionics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-074",
-      "headline": "FDA 510(k) clearance — Beta Bionics, Inc.: Mint ACE Pump",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260001",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Beta Bionics, Inc. received FDA 510(k) clearance for its Mint ACE Pump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Beta Bionics, Inc. received FDA 510(k) clearance for its Mint ACE Pump.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beta Bionics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -176116,9 +176116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1473932,
-    "news_picked_today": 110,
-    "news_dropped_today": 1426
+    "news_seen_today": 1513618,
+    "news_picked_today": 116,
+    "news_dropped_today": 1444
   },
   "book_momentum": {
     "live_count": 8,
