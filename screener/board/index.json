@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T03:05:14Z",
+  "generated_at": "2026-09-23T03:11:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-104",
@@ -1885,6 +1885,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-106",
+      "headline": "Shifting of scrips to ‘Z’/‘MT’ group",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260922-23/20260922-23.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-22T12:16:52Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Shifting scrips to Z/MT group indicates regulatory non-compliance or financial distress for affected companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Shifting scrips to Z/MT group indicates regulatory non-compliance or financial distress for affected companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-068",
       "headline": "FDA 510(k) clearance — Eizo Corporation: CuratOR EX2742",
       "headline_en": null,
@@ -1926,55 +1969,6 @@
           "name": "Eizo Corporation",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-100",
-      "headline": "FDA 510(k) clearance — Koh Young Technology, Inc.: Geniant Cranial (Navigated Neurosurgical Positioning Robot)",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K253856",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-10T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "FDA 510(k) clearance for a neurosurgical robot represents a significant product milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "FDA 510(k) clearance for a neurosurgical robot represents a significant product milestone.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Koh Young Technology, Inc.",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -176116,9 +176110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1632532,
-    "news_picked_today": 132,
-    "news_dropped_today": 1548
+    "news_seen_today": 1711592,
+    "news_picked_today": 137,
+    "news_dropped_today": 1591
   },
   "book_momentum": {
     "live_count": 8,
