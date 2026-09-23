@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T00:40:34Z",
+  "generated_at": "2026-09-23T00:46:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-022",
@@ -133642,6 +133642,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-acf746e0f13b",
+      "idea_version": "IDEAV-31f5433301e62c0f",
+      "idea_version_started_at": "2026-09-23T00:45:47Z",
+      "ticker": "DASH",
+      "company": "DoorDash",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
+      "why_now": "The settlement was announced on 2026-09-22.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3966d4322bf2"
+      ],
+      "primary_source_event_id": "EVT-3966d4322bf2",
+      "source_headlines": [
+        "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
+      ],
+      "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
+      "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T16:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T13:09:09Z",
+      "updated_at": "2026-09-23T00:45:47Z",
+      "decay_at": "2026-09-24T04:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3ecdab15230a",
       "idea_version": "IDEAV-59051ce1b2f90e2b",
       "idea_version_started_at": "2026-09-22T18:20:15Z",
@@ -134057,77 +134127,6 @@
       "surfaced_at": "2026-09-22T13:43:31Z",
       "updated_at": "2026-09-22T13:43:31Z",
       "decay_at": "2026-09-23T23:40:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-acf746e0f13b",
-      "idea_version": "IDEAV-36f17bf72b7a6882",
-      "idea_version_started_at": "2026-09-22T13:09:09Z",
-      "ticker": "DASH",
-      "company": "DoorDash",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a $131.5 million settlement regarding NYC minimum-pay law compliance, which will negatively impact near-term cash flow and margins.",
-      "why_now": "The settlement was announced on September 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f03e22a0dbdf"
-      ],
-      "primary_source_event_id": "EVT-f03e22a0dbdf",
-      "source_headlines": [
-        "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
-      ],
-      "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
-      "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:09:09Z",
-      "updated_at": "2026-09-22T13:09:09Z",
-      "decay_at": "2026-09-23T23:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135550,76 +135549,6 @@
       "surfaced_at": "2026-09-20T15:10:12Z",
       "updated_at": "2026-09-20T15:10:12Z",
       "decay_at": "2026-09-21T23:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2ed3c81de18b",
-      "idea_version": "IDEAV-5be247720c4d6e97",
-      "idea_version_started_at": "2026-09-20T01:29:10Z",
-      "ticker": "DUOL",
-      "company": "Duolingo",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CEO has liquidated his entire directly-held Class A share position, signaling a lack of confidence or a significant personal liquidity event that often precedes negative sentiment.",
-      "why_now": "The transaction was reported on 2026-09-20, representing a total exit of direct holdings.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2db4cc5eda49"
-      ],
-      "primary_source_event_id": "EVT-2db4cc5eda49",
-      "source_headlines": [
-        "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million"
-      ],
-      "source_headline": "Duolingo CEO Liquidates His Entire Class A Directly-Held Company Shares for $4.3 Million",
-      "source_url": "https://www.fool.com/coverage/filings/2026/09/19/duolingo-ceo-liquidates-his-entire-class-a-directly-held-company-shares-for-usd4-3-million/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-20T00:28:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T01:29:10Z",
-      "updated_at": "2026-09-20T01:29:10Z",
-      "decay_at": "2026-09-21T12:28:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -138081,9 +138010,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -138091,23 +138020,23 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 415,
-      "oldest_retained_at": "2026-08-30T23:45:34Z",
+      "evicted_count": 416,
+      "oldest_retained_at": "2026-08-31T01:09:12Z",
       "side_counts": {
         "long": {
           "evicted_count": 277,
           "oldest_retained_at": "2026-09-08T12:06:00Z"
         },
         "short": {
-          "evicted_count": 138,
-          "oldest_retained_at": "2026-08-30T23:45:34Z"
+          "evicted_count": 139,
+          "oldest_retained_at": "2026-08-31T01:09:12Z"
         }
       }
     },
@@ -141312,8 +141241,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-21T12:28:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-23T00:45:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175281,9 +175210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428612,
+    "news_seen_today": 469410,
     "news_picked_today": 23,
-    "news_dropped_today": 313
+    "news_dropped_today": 361
   },
   "book_momentum": {
     "live_count": 8,
