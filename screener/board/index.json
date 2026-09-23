@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T01:07:04Z",
+  "generated_at": "2026-09-23T01:10:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-029",
@@ -248,45 +248,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-003",
-      "headline": "A1M: Transformational Copper Project Acquisition [price-sensitive]",
+      "inbox_id": "INB-20260923-046",
+      "headline": "IMA: Image Secures A$5 Million Funding Advance [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A1M?key=2924-03138643-6A1345078",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMA?key=2924-03138681-6A1345151",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T23:53:08Z",
+      "found_at": "2026-09-23T00:57:28Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A1M announced a transformational copper project acquisition.",
+      "prelim_note": "Image Resources has secured a A$5 million funding advance, providing immediate liquidity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A1M announced a transformational copper project acquisition.",
+      "triage_score": 95,
+      "triage_reason": "Image Resources has secured a A$5 million funding advance, providing immediate liquidity.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 8,
-        "scope": 5,
-        "event": 9,
+        "scope": 6,
+        "event": 7,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "mna",
+        "event_id": "debt_credit",
         "size_bucket": "small"
       },
       "event_types": [
-        "mna"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "A1M",
+          "name": "Image Resources",
           "ticker": null,
           "listing_country": null
         }
@@ -390,6 +390,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-042",
+      "headline": "CCI clears Fairfax India’s proposal to acquire additional stake in IIFL Capital Services",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/cci-clears-fairfax-indias-proposal-to-acquire-additional-stake-in-iifl-capital-services/article71497060.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T00:59:02Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "The Competition Commission of India has approved Fairfax India's proposal to acquire an additional stake in IIFL Capital Services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The Competition Commission of India has approved Fairfax India's proposal to acquire an additional stake in IIFL Capital Services.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairfax India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IIFL Capital Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -837,6 +891,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-045",
+      "headline": "IMA: Reinstatement to Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMA?key=2924-03138683-6A1345157",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T00:57:53Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Image Resources (IMA) has been reinstated to quotation on the ASX, signaling a return to active trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Image Resources (IMA) has been reinstated to quotation on the ASX, signaling a return to active trading.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Image Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-044",
+      "headline": "SCHEDULE 13D/A - LiveOne, Inc. (0001491419) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1491419/000121390026102325/0001213900-26-102325-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-23T01:01:30Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership for LiveOne, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership for LiveOne, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LiveOne, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-043",
+      "headline": "SCHEDULE 13D/A - PodcastOne, Inc. (0001940177) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1940177/000121390026102325/0001213900-26-102325-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-23T01:01:30Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership for PodcastOne, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership for PodcastOne, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PodcastOne, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-030",
       "headline": "GREAT WORLD (08003): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -878,55 +1079,6 @@
           "name": "GREAT WORLD",
           "ticker": "08003",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-004",
-      "headline": "PTR: Rosewood Positive Water Drilling Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PTR?key=2924-03138638-2A1698617",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T23:50:23Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "PTR reported positive water drilling results at its Rosewood project, which is a positive operational update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "PTR reported positive water drilling results at its Rosewood project, which is a positive operational update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PTR",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1278,49 +1430,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260923-039",
-      "headline": "CHINFMINING (01258): Letter to Registered Shareholders and Reply Form (Notice of Publication of 2026 Interim Report and Arrangement of Electronic Dissemination of Corporate Communications)",
+      "inbox_id": "INB-20260923-041",
+      "headline": "India starts anti-dumping probe into Chinese Glycine imports",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201449.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T14:39:00Z",
+      "url": "https://www.thehindubusinessline.com/economy/policy/india-starts-anti-dumping-probe-into-chinese-glycine-imports/article71497057.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T00:56:55Z",
       "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Chinfmining announced the publication of its 2026 interim report.",
+      "prelim_note": "India has initiated an anti-dumping investigation into Chinese glycine imports, which may impact trade costs and supply chains for chemical manufacturers.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 66,
-      "triage_reason": "Chinfmining announced the publication of its 2026 interim report.",
-      "region": "CN",
+      "triage_reason": "India has initiated an anti-dumping investigation into Chinese glycine imports, which may impact trade costs and supply chains for chemical manufacturers.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
         "size": 0,
-        "recency": 2,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "regulatory"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHINFMINING",
-          "ticker": "01258",
-          "listing_country": "CN"
-        }
-      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1794,104 +1940,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-017",
-      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092300023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T23:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Routine share buyback disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine share buyback disclosure.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC HOLDINGS",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-020",
-      "headline": "MSC ship abandoned and adrift in South China Sea",
-      "headline_en": null,
-      "url": "https://splash247.com/msc-ship-abandoned-and-adrift-in-south-china-sea/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-09-23T00:11:04Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "An MSC vessel has been abandoned and is adrift, posing a significant operational and safety risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "An MSC vessel has been abandoned and is adrift, posing a significant operational and safety risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MSC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -176022,7 +176070,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2766,
+    "inbox_unconsumed": 2767,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -176031,9 +176079,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 571407,
-    "news_picked_today": 40,
-    "news_dropped_today": 560
+    "news_seen_today": 632226,
+    "news_picked_today": 46,
+    "news_dropped_today": 578
   },
   "book_momentum": {
     "live_count": 8,
