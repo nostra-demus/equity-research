@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T23:35:12Z",
+  "generated_at": "2026-09-23T23:44:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-403",
@@ -884,6 +884,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-432",
+      "headline": "CoreWeave-Tied Data Center Raises $1.1 Billion in Junk Bonds",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-23/coreweave-tied-data-center-raises-1-1-billion-in-junk-bonds",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T21:41:49Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Data center entity tied to CoreWeave raised $1.1 billion in junk bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Data center entity tied to CoreWeave raised $1.1 billion in junk bonds.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,55 +2006,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-249",
-      "headline": "Ugro Capital Limited: Voting results as per Reg 44(3) of the SEBI (LODR) Regulations 2015 for the NCLT Convened Meeting of Equity Shareholders held on 22 September 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/UGROCAP_23092026170547_VRRegulation44.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T11:36:52Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "NCLT-convened shareholder vote on restructuring; voting results filed but outcome and terms not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "NCLT-convened shareholder vote on restructuring; voting results filed but outcome and terms not disclosed in headline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ugro Capital Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135137,77 +135137,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3a6081c35649",
-      "idea_version": "IDEAV-95502f06ea22c3a9",
-      "idea_version_started_at": "2026-09-22T13:43:31Z",
-      "ticker": "THO",
-      "company": "Thor Industries",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Thor Industries reported Q4 earnings that missed analyst estimates, signaling potential demand weakness or margin pressure in the recreational vehicle market.",
-      "why_now": "The earnings miss was reported today, September 22, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-99affd9b18c2"
-      ],
-      "primary_source_event_id": "EVT-99affd9b18c2",
-      "source_headlines": [
-        "Thor Industries (THO) Q4 Earnings Lag Estimates"
-      ],
-      "source_headline": "Thor Industries (THO) Q4 Earnings Lag Estimates",
-      "source_url": "https://www.nasdaq.com/articles/thor-industries-tho-q4-earnings-lag-estimates",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:40:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:43:31Z",
-      "updated_at": "2026-09-22T13:43:31Z",
-      "decay_at": "2026-09-23T23:40:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-384082b9e158",
       "idea_version": "IDEAV-3de5df10ff347fcc",
       "idea_version_started_at": "2026-09-23T20:19:33Z",
@@ -137053,6 +136982,77 @@
       "surfaced_at": "2026-09-22T12:49:23Z",
       "updated_at": "2026-09-22T12:49:23Z",
       "decay_at": "2026-09-23T17:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3a6081c35649",
+      "idea_version": "IDEAV-95502f06ea22c3a9",
+      "idea_version_started_at": "2026-09-22T13:43:31Z",
+      "ticker": "THO",
+      "company": "Thor Industries",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Thor Industries reported Q4 earnings that missed analyst estimates, signaling potential demand weakness or margin pressure in the recreational vehicle market.",
+      "why_now": "The earnings miss was reported today, September 22, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-99affd9b18c2"
+      ],
+      "primary_source_event_id": "EVT-99affd9b18c2",
+      "source_headlines": [
+        "Thor Industries (THO) Q4 Earnings Lag Estimates"
+      ],
+      "source_headline": "Thor Industries (THO) Q4 Earnings Lag Estimates",
+      "source_url": "https://www.nasdaq.com/articles/thor-industries-tho-q4-earnings-lag-estimates",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T11:40:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T13:43:31Z",
+      "updated_at": "2026-09-22T13:43:31Z",
+      "decay_at": "2026-09-23T23:40:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139446,9 +139446,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -139456,9 +139456,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -139477,6 +139477,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3a6081c35649",
+        "idea_version": "IDEAV-95502f06ea22c3a9",
+        "idea_version_started_at": "2026-09-22T13:43:31Z",
+        "ticker": "THO",
+        "company": "Thor Industries",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Thor Industries reported Q4 earnings that missed analyst estimates, signaling potential demand weakness or margin pressure in the recreational vehicle market.",
+        "why_now": "The earnings miss was reported today, September 22, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-99affd9b18c2"
+        ],
+        "primary_source_event_id": "EVT-99affd9b18c2",
+        "source_headlines": [
+          "Thor Industries (THO) Q4 Earnings Lag Estimates"
+        ],
+        "source_headline": "Thor Industries (THO) Q4 Earnings Lag Estimates",
+        "source_url": "https://www.nasdaq.com/articles/thor-industries-tho-q4-earnings-lag-estimates",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T11:40:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T13:43:31Z",
+        "updated_at": "2026-09-22T13:43:31Z",
+        "decay_at": "2026-09-23T23:40:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-23T23:40:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-458483bd964f",
         "idea_version": "IDEAV-1b5d0cc33fde6895",
@@ -176551,86 +176625,12 @@
         "archived_at": "2026-09-02T12:20:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3c363bafcc89",
-        "idea_version": "IDEAV-af66c9580bcc89c5",
-        "idea_version_started_at": "2026-08-30T11:59:45Z",
-        "ticker": "2559",
-        "company": "Dida Inc",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Mass resignation of the Chairman, Executive Directors, and Independent Non-Executive Directors suggests a loss of board confidence or a major dispute following its recent listing.",
-        "why_now": "The formal resignation and replacement announcement was filed on August 30, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e869e2db66ae"
-        ],
-        "primary_source_event_id": "EVT-e869e2db66ae",
-        "source_headlines": [
-          "DIDA INC-PF (02559): (1) RESIGNATION OF CHAIRMAN, EXECUTIVE DIRECTORS AND INDEPENDENT NON-EXECUTIVE DIRECTORS (2) APPOINTMENT OF CHAIRMAN, EXECUTIVE DIRECTOR AND NON-EXECUTIVE DIRECTOR (3) APPOINTMENT OF INDEPENDENT NON-EXECUTIVE DIRECTORS AND (4) CHANGE IN COMPOSITION OF THE BOARD COMMITTEES"
-        ],
-        "source_headline": "DIDA INC-PF (02559): (1) RESIGNATION OF CHAIRMAN, EXECUTIVE DIRECTORS AND INDEPENDENT NON-EXECUTIVE DIRECTORS (2) APPOINTMENT OF CHAIRMAN, EXECUTIVE DIRECTOR AND NON-EXECUTIVE DIRECTOR (3) APPOINTMENT OF INDEPENDENT NON-EXECUTIVE DIRECTORS AND (4) CHANGE IN COMPOSITION OF THE BOARD COMMITTEES",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000373.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-08-30T11:22:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T11:59:45Z",
-        "updated_at": "2026-08-30T11:59:45Z",
-        "decay_at": "2026-08-31T23:22:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T12:20:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1002,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -176649,9 +176649,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8809182,
-    "news_picked_today": 1008,
-    "news_dropped_today": 22872
+    "news_seen_today": 8825060,
+    "news_picked_today": 1028,
+    "news_dropped_today": 22948
   },
   "book_momentum": {
     "live_count": 8,
