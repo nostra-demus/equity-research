@@ -1,0 +1,17 @@
+section,subject,best_available_source,period,confidence_1_to_5,missing,replacement_source,as_of_date,age,stale,impact
+source_coverage,"Board composition","FY25 DEF 14A, Director Nominees","2026 meeting slate",5,No,"—",,,,
+source_coverage,"Compensation","FY25 DEF 14A, CD&A",FY25,5,No,"—",,,,
+source_coverage,"Ownership","FY25 DEF 14A, beneficial-ownership table; CIQ History","2025-12-01 / 2026-06-30",5,No,"—",,,,
+source_coverage,"Insider trades","CIQ Insider Trading workbook","Latest filed 2026-07-31",4,No,"SEC Form 4 feed",,,,
+source_coverage,"Related-party transactions","FY25 DEF 14A, related-person policy",FY25,4,"No — verify itemized transactions in 09","10-K related-party note if any",,,,
+source_coverage,"Auditor report","FY25 10-K, KPMG report and CAM",FY25,5,No,"—",,,,
+source_coverage,"Secretarial / compliance report","N/A for US SEC issuer",N/A,5,No,"SEC/exchange compliance disclosures",,,,
+source_coverage,"AGM voting","None in frozen pool","FY26 annual meeting",1,Yes,"SEC Form 8-K / issuer voting results",,,,
+source_coverage,"Capital-allocation history","FY25 10-K and CIQ annual cash-flow history","Multi-year through FY25",5,No,"—",,,,
+source_coverage,"Legal / regulatory cases","FY25 10-K, Item 3 and Note 20",FY25,4,"No — filing coverage only","Regulator/court database sweep",,,,
+data_freshness,"FY25 10-K",,"FY ended 2025-09-30",,,,2025-11-06,"10.6 months","No for annual governance baseline","Covers audited accounts, legal matters and capital history"
+data_freshness,"FY25 DEF 14A",,"FY25 / 2026 meeting",,,,2025-12-08,"9.5 months","No for current board/comp cycle; board slate is superseded only if later change exists","Principal governance source"
+data_freshness,"Q3 FY26 10-Q",,"Quarter ended 2026-06-30",,,,2026-07-29,"1.8 months",No,"Updates capital structure and legal matters"
+data_freshness,"Q3 FY26 transcript",,"Q3 FY26",,,,2026-07-28,"1.9 months",No,"Latest management-candor source"
+data_freshness,"CIQ insider-trading export",,"All history",,,,"latest filed 2026-07-31","1.8 months",No,"Current ownership-behavior input"
+data_freshness,"CIQ ownership history",,Quarterly,,,,2026-06-30,"2.8 months",No,"Institution-holder trend input"
