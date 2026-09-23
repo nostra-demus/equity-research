@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T00:24:33Z",
+  "generated_at": "2026-09-23T00:30:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260923-002",
@@ -831,6 +831,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-021",
+      "headline": "Lars Kastrup stands down as PIL boss with Temasek exec lined up",
+      "headline_en": null,
+      "url": "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-09-23T00:06:50Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Lars Kastrup is stepping down as CEO of PIL, with a successor from Temasek lined up.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Lars Kastrup is stepping down as CEO of PIL, with a successor from Temasek lined up.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PIL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-017",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -875,6 +925,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260923-020",
+      "headline": "MSC ship abandoned and adrift in South China Sea",
+      "headline_en": null,
+      "url": "https://splash247.com/msc-ship-abandoned-and-adrift-in-south-china-sea/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-09-23T00:11:04Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "An MSC vessel has been abandoned and is adrift, posing a significant operational and safety risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "An MSC vessel has been abandoned and is adrift, posing a significant operational and safety risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MSC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -175075,7 +175174,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2745,
+    "inbox_unconsumed": 2747,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -175084,9 +175183,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 326510,
-    "news_picked_today": 19,
-    "news_dropped_today": 197
+    "news_seen_today": 367343,
+    "news_picked_today": 21,
+    "news_dropped_today": 243
   },
   "book_momentum": {
     "live_count": 8,
