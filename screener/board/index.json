@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-23T16:56:54Z",
+  "generated_at": "2026-09-23T17:28:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260923-337",
+      "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of RAMGOPAL POLYTEX LIMITED.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260923-48/20260923-48.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T16:32:31Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Formal takeover acquisition window opened for RAMGOPAL POLYTEX LIMITED; prospective change of control is a decision-changing event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Formal takeover acquisition window opened for RAMGOPAL POLYTEX LIMITED; prospective change of control is a decision-changing event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RAMGOPAL POLYTEX LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260923-326",
       "headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1663,6 +1712,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260923-338",
+      "headline": "ECA2026-672 - Information Regarding the Merger, Name Change and Symbol Change for Domo, Inc. (DOMO)",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-672",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T21:00:10Z",
+      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
+      "prelim_note": "Domo, Inc. (NASDAQ: DOMO) merger with name and symbol change; confirmed M&A affecting capital structure and trading identity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Domo, Inc. (NASDAQ: DOMO) merger with name and symbol change; confirmed M&A affecting capital structure and trading identity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Domo, Inc.",
+          "ticker": "DOMO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260923-249",
       "headline": "Ugro Capital Limited: Voting results as per Reg 44(3) of the SEBI (LODR) Regulations 2015 for the NCLT Convened Meeting of Equity Shareholders held on 22 September 2026",
       "headline_en": null,
@@ -1903,104 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-208",
-      "headline": "Saksoft Limited: Saksoft Limited has informed the Exchange about Amalgamation/Merger",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SAKSOFT_23092026151707_Merger_Order_Intimation-_Augmento_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T09:47:21Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "Saksoft Limited has announced a corporate merger or amalgamation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Saksoft Limited has announced a corporate merger or amalgamation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saksoft Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260923-002",
-      "headline": "A1M: Investor Presentation - Copper Project Acquisition [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A1M?key=2924-03138644-6A1345084",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-22T23:53:48Z",
-      "sweep_file": "screener/inbox/2026-09-23_sweep.json",
-      "prelim_note": "A1M announced a copper project acquisition, which is a material expansion of its asset base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A1M announced a copper project acquisition, which is a material expansion of its asset base.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "A1M",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135132,76 +135132,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c9da0ae18daf",
-      "idea_version": "IDEAV-dc6e3339c59e0f42",
-      "idea_version_started_at": "2026-09-22T12:49:23Z",
-      "ticker": "IONQ",
-      "company": "IonQ",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 revenue guidance, signaling stronger-than-expected commercial traction in its quantum computing hardware and services.",
-      "why_now": "The guidance increase was announced on September 22, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6fc8a406d41"
-      ],
-      "primary_source_event_id": "EVT-c6fc8a406d41",
-      "source_headlines": [
-        "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now."
-      ],
-      "source_headline": "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now.",
-      "source_url": "https://www.nasdaq.com/articles/ionq-just-raised-2026-revenue-guidance-quantum-computing-pure-play-looks-brilliant-buy-now",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T05:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:49:23Z",
-      "updated_at": "2026-09-22T12:49:23Z",
-      "decay_at": "2026-09-23T17:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a6081c35649",
       "idea_version": "IDEAV-95502f06ea22c3a9",
       "idea_version_started_at": "2026-09-22T13:43:31Z",
@@ -137410,6 +137340,76 @@
       "surfaced_at": "2026-09-20T21:27:13Z",
       "updated_at": "2026-09-20T21:27:13Z",
       "decay_at": "2026-09-22T08:45:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c9da0ae18daf",
+      "idea_version": "IDEAV-dc6e3339c59e0f42",
+      "idea_version_started_at": "2026-09-22T12:49:23Z",
+      "ticker": "IONQ",
+      "company": "IonQ",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 revenue guidance, signaling stronger-than-expected commercial traction in its quantum computing hardware and services.",
+      "why_now": "The guidance increase was announced on September 22, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6fc8a406d41"
+      ],
+      "primary_source_event_id": "EVT-c6fc8a406d41",
+      "source_headlines": [
+        "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now."
+      ],
+      "source_headline": "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now.",
+      "source_url": "https://www.nasdaq.com/articles/ionq-just-raised-2026-revenue-guidance-quantum-computing-pure-play-looks-brilliant-buy-now",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T05:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T12:49:23Z",
+      "updated_at": "2026-09-22T12:49:23Z",
+      "decay_at": "2026-09-23T17:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139797,14 +139797,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 263,
@@ -139828,6 +139828,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c9da0ae18daf",
+        "idea_version": "IDEAV-dc6e3339c59e0f42",
+        "idea_version_started_at": "2026-09-22T12:49:23Z",
+        "ticker": "IONQ",
+        "company": "IonQ",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 revenue guidance, signaling stronger-than-expected commercial traction in its quantum computing hardware and services.",
+        "why_now": "The guidance increase was announced on September 22, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c6fc8a406d41"
+        ],
+        "primary_source_event_id": "EVT-c6fc8a406d41",
+        "source_headlines": [
+          "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now."
+        ],
+        "source_headline": "IonQ Just Raised 2026 Revenue Guidance. This Quantum Computing Pure-Play Looks Like a Brilliant Buy Now.",
+        "source_url": "https://www.nasdaq.com/articles/ionq-just-raised-2026-revenue-guidance-quantum-computing-pure-play-looks-brilliant-buy-now",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T05:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T12:49:23Z",
+        "updated_at": "2026-09-22T12:49:23Z",
+        "decay_at": "2026-09-23T17:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-23T17:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e4ce1e3fbb7c",
         "idea_version": "IDEAV-888daf46cb9ced1b",
@@ -169657,81 +169730,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-25acb1424522",
-        "idea_version": "IDEAV-0155b5a0c7afca09",
-        "idea_version_started_at": "2026-09-07T18:37:04Z",
-        "ticker": "NOVARTIS",
-        "company": "Novartis India Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of blood pressure drug trademarks from Pfizer for ₹1,250 crore expands the company's domestic portfolio in a high-volume therapeutic category.",
-        "why_now": "The acquisition was reported on September 7, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3fa6d955602b"
-        ],
-        "primary_source_event_id": "EVT-3fa6d955602b",
-        "source_headlines": [
-          "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
-        ],
-        "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
-        "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T13:42:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T18:37:04Z",
-        "updated_at": "2026-09-07T18:37:04Z",
-        "decay_at": "2026-09-09T01:42:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T14:12:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-944ea5e8ab2b",
         "idea_version": "IDEAV-528910e6e1b240f0",
         "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -176978,7 +176976,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 997,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -176997,9 +176995,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7083014,
-    "news_picked_today": 667,
-    "news_dropped_today": 14405
+    "news_seen_today": 7228540,
+    "news_picked_today": 672,
+    "news_dropped_today": 14424
   },
   "book_momentum": {
     "live_count": 8,
