@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T21:58:35Z",
+  "generated_at": "2026-09-24T22:09:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -999,20 +999,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260924-589",
-      "headline": "Stock Market Today, Sept. 24: BlackBerry Lifts Fiscal 2027 Guidance on Record QNX Revenue",
+      "inbox_id": "INB-20260924-596",
+      "headline": "SoftBank raises $11.1 bn in world’s biggest corporate bond sale",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/09/24/stock-market-today-sept-24-blackberry-lifts-fiscal-2027-guidance-on-record-qnx-revenue/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.qatar-tribune.com/article/255814/business/softbank-raises-111-bn-in-worlds-biggest-corporate-bond-sale",
+      "source_name": "Qatar Tribune — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-09-24T21:07:12Z",
+      "found_at": "2026-09-24T21:29:00Z",
       "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "BlackBerry raised its fiscal 2027 guidance driven by record QNX revenue.",
+      "prelim_note": "SoftBank raised $11.1 bn in a corporate bond sale.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "BlackBerry raised its fiscal 2027 guidance driven by record QNX revenue.",
+      "triage_reason": "SoftBank raised $11.1 bn in a corporate bond sale.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-592",
+      "headline": "Stock Market Today, Sept. 24: BlackBerry Lifts Fiscal 2027 Guidance on Record QNX Revenue",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-sept-24-blackberry-lifts-fiscal-2027-guidance-record-qnx-revenue",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T21:27:12Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "BlackBerry raised its fiscal 2027 guidance citing record QNX revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BlackBerry raised its fiscal 2027 guidance citing record QNX revenue.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -1032,8 +1081,7 @@
         "size_bucket": "mid"
       },
       "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1938,56 +1986,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-362",
-      "headline": "UK homebuilder Vistry warns on profit, takes £470 million hit from strategic overhaul",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T08:10:45Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Vistry issued a profit warning and announced a 470 million GBP charge related to a strategic overhaul.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vistry issued a profit warning and announced a 470 million GBP charge related to a strategic overhaul.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vistry Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177416,9 +177414,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6960664,
-    "news_picked_today": 1477,
-    "news_dropped_today": 15011
+    "news_seen_today": 7000151,
+    "news_picked_today": 1487,
+    "news_dropped_today": 15265
   },
   "book_momentum": {
     "live_count": 8,
