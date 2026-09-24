@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T01:29:34Z",
+  "generated_at": "2026-09-24T01:35:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-076",
@@ -95,6 +95,159 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-181",
+      "headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T01:16:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "BMS and Novo Nordisk announced significant workforce reductions, including 265 and 4,000 roles respectively.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BMS and Novo Nordisk announced significant workforce reductions, including 265 and 4,000 roles respectively.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bristol Myers Squibb",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-177",
+      "headline": "Boehringer, Envisagenics sign $1B multi-target oncology collaboration",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/boehringer-envisagenics-sign-1b-multi-target-oncology-collaboration",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T01:16:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Boehringer Ingelheim and Envisagenics entered a $1 billion oncology collaboration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boehringer Ingelheim and Envisagenics entered a $1 billion oncology collaboration.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boehringer Ingelheim",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-186",
+      "headline": "SoftBank shares jump over 7% after $11.1 billion bond issuance to fund OpenAI bet",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/24/softbank-shares-bond-issuance-openai.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T01:06:45Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "SoftBank issued $11.1 billion in bonds to fund AI investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank issued $11.1 billion in bonds to fund AI investments.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1764,202 +1917,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260924-161",
-      "headline": "Pentagon-Backed Elmet to Buy Stake in Vietnam Tungsten Producer",
+      "inbox_id": "INB-20260924-184",
+      "headline": "Palantir faces a $330 million test U.S. investors should watch closely",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-24/pentagon-backed-elmet-to-buy-stake-in-vietnam-tungsten-producer",
-      "source_name": "Bloomberg",
+      "url": "https://www.thestreet.com/investing/palantir-faces-a-330-million-test-u-s-investors-should-watch-closely",
+      "source_name": "TheStreet",
       "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:02:01Z",
+      "found_at": "2026-09-24T01:03:00Z",
       "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Pentagon-backed Elmet acquiring stake in Vietnamese tungsten producer confirms US strategic supply-chain move in critical materials; affects downstream semiconductor and defense supply resilience.",
+      "prelim_note": "Palantir faces a $330 million legal or financial test that could impact its financial position.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "Pentagon-backed Elmet acquiring stake in Vietnamese tungsten producer confirms US strategic supply-chain move in critical materials; affects downstream semiconductor and defense supply resilience.",
-      "region": "OTHER",
+      "triage_reason": "Palantir faces a $330 million legal or financial test that could impact its financial position.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Elmet",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-104",
-      "headline": "EFG Holding secures $40 million EBRD loan to expand MSME financing in Egypt",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/efg-holding-secures-40-million-ebrd-loan-expand-msme-financing-egypt",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T00:31:54Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "EFG Holding secured a $40 million loan from the EBRD to expand its MSME financing operations in Egypt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "EFG Holding secured a $40 million loan from the EBRD to expand its MSME financing operations in Egypt.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EFG Holding",
-          "ticker": null,
-          "listing_country": "EG"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-132",
-      "headline": "SoftBank issues $11.1 billion in bonds in OpenAI financing push",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/softbank-issues-111-billion-bonds-openai-financing-push-2026-09-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T00:20:40Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "SoftBank issued $11.1 billion in bonds for OpenAI financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SoftBank issued $11.1 billion in bonds for OpenAI financing.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
+        "event_id": "litigation_enforcement",
         "size_bucket": "large"
       },
       "event_types": [
-        "debt_credit"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SoftBank",
+          "name": "Palantir",
           "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-102",
-      "headline": "Smiggle owner Premier Investments reports sharp drop in sales, profit",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/smiggle-owner-premier-investments-reports-sharp-drop-in-sales-profit-20260924-p60zwm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:50:46Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Premier Investments reports sharp drop in sales and profit, a material earnings and margin decline for the company and its Smiggle subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Premier Investments reports sharp drop in sales and profit, a material earnings and margin decline for the company and its Smiggle subsidiary.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Premier Investments",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178611,9 +178612,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 243637,
-    "news_picked_today": 218,
-    "news_dropped_today": 838
+    "news_seen_today": 288388,
+    "news_picked_today": 253,
+    "news_dropped_today": 923
   },
   "book_momentum": {
     "live_count": 8,
