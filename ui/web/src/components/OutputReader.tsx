@@ -26,7 +26,7 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
+export function OutputReader({ output, escapeEnabled = true }: { escapeEnabled?: boolean; output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
   const reduce = useReducedMotion()
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
@@ -81,14 +81,15 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }, [output.path, output.body, output.embedUrl, output.publishedCalls])
 
   useEffect(() => {
+    if (!escapeEnabled) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || document.querySelector('.chatpanel')?.checkVisibility() || !document.querySelector('.reader')?.checkVisibility()) return
+      if (e.key !== 'Escape') return
       if (promptView) setPromptView(false)
       else close()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, promptView])
+  }, [escapeEnabled, close, promptView])
 
   // which orb this panel is about: an agent node, the master synthesizer (the Memo), or none
   const isMaster = output.nodeKey === 'master/synthesizer'

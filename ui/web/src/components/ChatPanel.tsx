@@ -46,7 +46,7 @@ export function ChatErrorNotice({ error, retryText, onRetry, staticMessage }: { 
   )
 }
 
-export function ChatPanel({ visible = true }: { visible?: boolean }) {
+export function ChatPanel({ visible = true, focused = true }: { visible?: boolean; focused?: boolean }) {
   const reduce = useReducedMotion()
   const dismiss = useStore((s) => s.closeChat)
   const scope = useStore((s) => s.chatScope)
@@ -125,14 +125,17 @@ export function ChatPanel({ visible = true }: { visible?: boolean }) {
 
   // Focus the composer when it can accept input. If the output is not ready (or this is the static
   // showcase), focus the drawer's Close control instead of silently targeting a disabled textarea.
-  useEffect(() => { (present && !staticMode ? inputRef.current : closeRef.current)?.focus() }, [])
+  useLayoutEffect(() => {
+    if (visible && focused) (present && !staticMode ? inputRef.current : closeRef.current)?.focus()
+  }, [visible, focused, present, staticMode])
   // Esc closes (also aborts any in-flight stream via closeChat). When the History panel is open ON TOP of
   // this one, it owns Escape — ignore it here so one keypress doesn't close both.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && document.querySelector('.chatpanel')?.checkVisibility()) { if (scopeMenu || modelMenu || styleMenu || memoryMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false); setMemoryMenu(false) } else if (!historyOpen) close() } }
+    if (!visible) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu || memoryMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false); setMemoryMenu(false) } else if (!historyOpen) close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, scopeMenu, modelMenu, styleMenu, memoryMenu, historyOpen])
+  }, [visible, close, scopeMenu, modelMenu, styleMenu, memoryMenu, historyOpen])
 
   // auto-scroll to the newest token while locked; lock releases when the user scrolls up
   useLayoutEffect(() => {

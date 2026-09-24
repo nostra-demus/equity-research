@@ -15,7 +15,7 @@ export function Workspace({ children }: { children: ReactNode }) {
   const streaming = useStore((s) => s.chatStreaming)
   const view = useStore((s) => s.workspaceView)
   const setView = (workspaceView: View) => useStore.setState({ workspaceView })
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(() => typeof window === 'undefined' ? 0 : window.innerWidth)
   const root = useRef<HTMLDivElement>(null)
   const previous = useRef({ output: null as typeof output, chat: false, activity: false })
 
@@ -45,12 +45,6 @@ export function Workspace({ children }: { children: ReactNode }) {
     chat: reading && chat && (selected === 'chat' || split),
     activity: !reading && activity && (selected === 'activity' || width >= 1400),
   }
-  useLayoutEffect(() => {
-    // A composer may have been mounted while its compact pane was hidden.
-    if (visible.chat && selected === 'chat') {
-      root.current?.querySelector<HTMLTextAreaElement>('[data-ask-composer="true"]:not(:disabled)')?.focus()
-    }
-  }, [visible.chat, selected])
 
   const panels = !!output || chat || activity
   const labels: Record<View, string> = { workspace: 'Workspace', report: 'Report', chat: 'Chat', activity: 'Activity' }
@@ -69,10 +63,10 @@ export function Workspace({ children }: { children: ReactNode }) {
       <div className={`main workspace__panes${stage ? ' workspace__panes--stage' : ''}`}>
         <div id="workspace-workspace" className="workspace__stage" hidden={!visible.workspace}>{children}</div>
         <div id="workspace-report" className="workspace__report" hidden={!visible.report}>
-          {output && <OutputReader key={output.path || output.nodeKey || 'panel'} output={output} />}
+          {output && <OutputReader key={output.path || output.nodeKey || 'panel'} output={output} escapeEnabled={visible.report && !visible.chat} />}
         </div>
-        <div id="workspace-chat" className="workspace__chat" hidden={!visible.chat}>{chat && <ChatPanel visible={visible.chat} />}</div>
-        <div id="workspace-activity" className="workspace__activity" hidden={!visible.activity}><ActivityDock /></div>
+        <div id="workspace-chat" className="workspace__chat" hidden={!visible.chat}>{chat && <ChatPanel visible={visible.chat} focused={selected === 'chat'} />}</div>
+        <div id="workspace-activity" className="workspace__activity" hidden={!visible.activity}><ActivityDock escapeEnabled={visible.activity && !visible.report && !visible.chat} /></div>
       </div>
     </div>
   )
