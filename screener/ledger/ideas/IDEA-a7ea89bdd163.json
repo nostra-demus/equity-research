@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-a7ea89bdd163",
+  "idea_version": "IDEAV-5757e347122a996e",
+  "idea_version_started_at": "2026-09-24T20:05:57Z",
+  "ticker": "DHER",
+  "company": "Delivery Hero SE",
+  "exchange": "XETRA",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Uber's 14.8 billion dollar takeover bid provides a significant premium floor for Delivery Hero shares, effectively ending the uncertainty surrounding the CEO's tenure and the company's strategic direction.",
+  "why_now": "The bid was reported on 2026-09-24, making the acquisition premium the primary driver of price action.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-804097dd0f02"
+  ],
+  "primary_source_event_id": "EVT-804097dd0f02",
+  "source_headlines": [
+    "Delivery Hero Cancels CEO Exit Plans Due to Uber’s $14.8 Billion Takeover Bid"
+  ],
+  "source_headline": "Delivery Hero Cancels CEO Exit Plans Due to Uber’s $14.8 Billion Takeover Bid",
+  "source_url": "https://www.wsj.com/business/delivery-hero-cancels-ceo-exit-plans-due-to-ubers-14-8-billion-takeover-bid-de155bf8?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-24T08:04:00Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/DHER_2026-08-12",
+    "latest_decision": "Avoid",
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-09-24T20:05:57Z",
+  "updated_at": "2026-09-24T20:05:57Z",
+  "decay_at": "2026-09-25T20:04:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
