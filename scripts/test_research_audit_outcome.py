@@ -154,6 +154,28 @@ class AuditOutcomeTests(unittest.TestCase):
             self.assertNotIn(old, body)
             self.assertEqual("PROVISIONAL" in body, bool(extra))
 
+    def test_deterministic_reason_mentioning_evidence_token_is_retained(self):
+        # A DETERMINISTIC finish-gate violation that merely MENTIONS an evidence-audit token as a
+        # substring ("verification_report" here) must be RETAINED, not misclassified as an
+        # evidence-audit reason and dropped. Dropping it empties the gate, flips status provisional
+        # -> pass, and removes the banner — sealing a genuine integrity break as a clean/Completed
+        # run. Expected behaviour is pinned to reconcile's own contract ("retain every independent
+        # deterministic failure", research_audit_outcome.py) and CLAUDE.md §18 (an integrity break
+        # must not read as a clean call). RED on the pre-fix substring match; GREEN once the match
+        # is anchored to the start of the reason.
+        from research_audit_outcome import reconcile
+        decision = self.read("decision_record.json")
+        deterministic = "Scenario target contradicts verification_report figure on p.4"
+        decision["integrity_gate"] = {"status": "provisional", "violations": [deterministic]}
+        audits = {"pre_mortem": self.read("pre_mortem.json"), "expectations_gap": self.read("expectations_gap.json"),
+                  "verification": {**self.read("verification_report.json"), "verdict": "Clean"}}
+        thesis = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue**\n> "
+                  + deterministic + "\n>\n> Resolve.\n\n# TEST")
+        revised, body = reconcile(decision, thesis, audits)
+        self.assertIn(deterministic, revised["integrity_gate"]["violations"])
+        self.assertEqual(revised["integrity_gate"]["status"], "provisional")
+        self.assertIn("PROVISIONAL", body)
+
     def test_malformed_json_types_cannot_seal(self):
         from research_audit_outcome import assert_reconciled, reconcile
         decision = self.read("decision_record.json")

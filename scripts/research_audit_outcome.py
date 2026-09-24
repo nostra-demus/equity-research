@@ -103,8 +103,16 @@ def reconcile(decision, thesis, audits):
     body = re.sub(re.escape(START) + r".*?" + re.escape(END) + r"\n*", "", thesis, flags=re.S)
     verification = audits["verification"]
     # Rebuild only evidence-audit reasons; retain every independent deterministic failure.
+    # Evidence-audit reasons LEAD with one of these tokens (reconcile authors "Final evidence audit:
+    # ...", the finish-gate authors "verify-evidence ...", etc.). Match at the START only, never as a
+    # substring anywhere: a deterministic violation that merely MENTIONS one of these tokens (e.g.
+    # "Scenario target contradicts verification_report figure on p.4") is an independent integrity
+    # failure that must be retained. Dropping it would empty the reasons and flip the gate to "pass",
+    # sealing a genuine integrity break as a clean/Completed run — the exact false completion this
+    # gate exists to prevent (CLAUDE.md §18).
     def evidence_reason(reason):
-        return any(token in reason for token in ("verify-evidence", "truth-integrity audit", "verification_report", "Final evidence audit:"))
+        head = reason.strip()
+        return any(head.startswith(token) for token in ("verify-evidence", "truth-integrity audit", "verification_report", "Final evidence audit:"))
     gate = dict(updated.get("integrity_gate") or {})
     reasons = [r for r in gate.get("violations", []) if not evidence_reason(r)]
     if body.lstrip().startswith(">") and MARK in body[:2000]:
