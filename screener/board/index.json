@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T02:19:22Z",
+  "generated_at": "2026-09-24T02:19:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-076",
@@ -138518,76 +138518,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-11cf44e29c8f",
-      "idea_version": "IDEAV-2db37d7b91aa8356",
-      "idea_version_started_at": "2026-09-21T00:55:55Z",
-      "ticker": "HBAN",
-      "company": "Huntington Bancshares",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company cut its outlook following a Fed rate hike, signaling margin compression risks for regional banks in a higher-for-longer interest rate environment.",
-      "why_now": "The guidance change was reported on September 20, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fda2c4100f4f"
-      ],
-      "primary_source_event_id": "EVT-fda2c4100f4f",
-      "source_headlines": [
-        "Huntington Cut Its Outlook Right as the Fed Hiked. First Crack in Regional-Bank Margins?"
-      ],
-      "source_headline": "Huntington Cut Its Outlook Right as the Fed Hiked. First Crack in Regional-Bank Margins?",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/huntington-cut-outlook-fed-hiked-234006771.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T23:40:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T00:55:55Z",
-      "updated_at": "2026-09-21T00:55:55Z",
-      "decay_at": "2026-09-22T11:40:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c9da0ae18daf",
       "idea_version": "IDEAV-dc6e3339c59e0f42",
       "idea_version_started_at": "2026-09-22T12:49:23Z",
@@ -140098,150 +140028,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-1a317bf4b527b309",
-      "idea_version_started_at": "2026-09-21T01:55:19Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is a clear takeover target with a rejected $1.5 billion bid and a suitor publicly committed to pursuing a $3 billion valuation.",
-      "why_now": "The board has formally rejected the initial bid, but the suitor's public vow to continue the pursuit as of September 21, 2026, keeps the M&A premium active.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-38ff12e02d70",
-        "EVT-0f365ef8ea48"
-      ],
-      "primary_source_event_id": "EVT-38ff12e02d70",
-      "source_headlines": [
-        "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
-        "PE suitor vows to press on with $3b pursuit of Ingenia"
-      ],
-      "source_headline": "Australia's Ingenia rebuffs revised $1.5 billion takeover bid from Warburg Pincus",
-      "source_url": "https://www.reuters.com/legal/transactional/australias-ingenia-rebuffs-revised-15-billion-takeover-bid-warburg-pincus-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T00:53:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T16:00:56Z",
-      "updated_at": "2026-09-21T01:55:19Z",
-      "decay_at": "2026-09-22T12:53:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b02a5d2137a2",
-      "idea_version": "IDEAV-c169a0cdc5bbe1b8",
-      "idea_version_started_at": "2026-09-21T00:55:55Z",
-      "ticker": "SVL",
-      "company": "Silver Mines Limited",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is launching a $70 million share placement, which will significantly dilute existing shareholders.",
-      "why_now": "The filing was released on September 20, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-32a2bb1d1d32"
-      ],
-      "primary_source_event_id": "EVT-32a2bb1d1d32",
-      "source_headlines": [
-        "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]"
-      ],
-      "source_headline": "SVL: SVL Launches Placement to Raise $70 Million [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SVL?key=2924-03137571-2A1698132",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-20T23:56:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T00:55:55Z",
-      "updated_at": "2026-09-21T00:55:55Z",
-      "decay_at": "2026-09-22T11:56:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e4ce1e3fbb7c",
       "idea_version": "IDEAV-888daf46cb9ced1b",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -141105,77 +140891,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8e6545d55d5f",
-      "idea_version": "IDEAV-e5c090051bd301ec",
-      "idea_version_started_at": "2026-09-21T01:15:15Z",
-      "ticker": "02256",
-      "company": "Abbisko Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase II clinical trial results for Lavengratinib in treating achondroplasia validate the company's drug pipeline and potential market entry.",
-      "why_now": "The announcement was made on 2026-09-21, providing an immediate catalyst for valuation adjustment based on clinical success.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d57ac3d9eb6d"
-      ],
-      "primary_source_event_id": "EVT-d57ac3d9eb6d",
-      "source_headlines": [
-        "ABBISKO-B (02256): VOLUNTARY ANNOUNCEMENT - ABBISKO THERAPEUTICS ANNOUNCES POSITIVE PRELIMINARY PHASE II RESULTS WITH LAVENGRATINIB (ABSK061) FOR THE TREATMENT OF ACHONDROPLASIA"
-      ],
-      "source_headline": "ABBISKO-B (02256): VOLUNTARY ANNOUNCEMENT - ABBISKO THERAPEUTICS ANNOUNCES POSITIVE PRELIMINARY PHASE II RESULTS WITH LAVENGRATINIB (ABSK061) FOR THE TREATMENT OF ACHONDROPLASIA",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100183.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-21T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T01:15:15Z",
-      "updated_at": "2026-09-21T01:15:15Z",
-      "decay_at": "2026-09-22T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5c19163175c8",
       "idea_version": "IDEAV-be17059fb7f1d3eb",
       "idea_version_started_at": "2026-09-23T05:42:30Z",
@@ -141400,33 +141115,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 31
       },
       "short": {
-        "total_count": 264,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 430,
-      "oldest_retained_at": "2026-08-31T12:57:29Z",
+      "evicted_count": 434,
+      "oldest_retained_at": "2026-08-31T18:00:48Z",
       "side_counts": {
         "long": {
-          "evicted_count": 284,
-          "oldest_retained_at": "2026-09-08T13:36:45Z"
+          "evicted_count": 286,
+          "oldest_retained_at": "2026-09-08T14:07:13Z"
         },
         "short": {
-          "evicted_count": 146,
-          "oldest_retained_at": "2026-08-31T12:57:29Z"
+          "evicted_count": 148,
+          "oldest_retained_at": "2026-08-31T18:00:48Z"
         }
       }
     },
@@ -144709,8 +144424,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T12:53:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T02:19:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -144783,8 +144498,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T02:19:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -144857,8 +144572,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T11:56:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T02:19:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -144930,8 +144645,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T11:40:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T02:19:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
