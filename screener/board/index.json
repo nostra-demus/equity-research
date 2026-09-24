@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-24T12:17:53Z",
+  "generated_at": "2026-09-24T12:25:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-437",
+      "headline": "Dr. Lal Path Labs Ltd.: Dr. Lal Path Labs Ltd. has informed the Exchange about acquisition of 70% stake in SN Genelab Private Limited ( S N Gene ) from its existing Shareholders. Post acquisition, S N Gene shall become a Subsidiary of the Company",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/LALPATHLAB_24092026172628_Outcome.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:01:20Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Company acquired a 70% stake in SN Genelab Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company acquired a 70% stake in SN Genelab Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Lal Path Labs Ltd.",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-386",
       "headline": "FSN E-Commerce Ventures Limited: FSN E Commerce Ventures Limited has informed the Exchange about completion of transaction for acquisition of 51 % shareholding on a fully diluted basis in Aminu Wellness Private Limited (\"Aminu\").",
@@ -1948,55 +1997,6 @@
           "name": "Chugai Pharmaceutical",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-002",
-      "headline": "Diller abandons $18bn takeover bid for MGM Resorts",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/1f55518f-dad5-4c7b-8c81-ba82196dd747?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:47:13Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Barry Diller abandoned an $18 billion takeover bid for MGM Resorts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Barry Diller abandoned an $18 billion takeover bid for MGM Resorts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MGM Resorts",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -176921,9 +176921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2543902,
-    "news_picked_today": 1070,
-    "news_dropped_today": 11818
+    "news_seen_today": 2630649,
+    "news_picked_today": 1103,
+    "news_dropped_today": 11905
   },
   "book_momentum": {
     "live_count": 8,
