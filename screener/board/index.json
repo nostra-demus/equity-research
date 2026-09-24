@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T00:27:25Z",
+  "generated_at": "2026-09-24T00:39:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-028",
@@ -1486,6 +1486,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-057",
+      "headline": "Medical groups, city of Columbus sue to challenge final Medicaid work requirements rule",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/medical-groups-city-columbus-sue-challenge-final-medicaid-work-requirements-rule",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:36:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Medical groups and city of Columbus filed lawsuit challenging final Medicaid work-requirement rule; outcome could alter regulatory and operational risk for healthcare providers with Medicaid exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Medical groups and city of Columbus filed lawsuit challenging final Medicaid work-requirement rule; outcome could alter regulatory and operational risk for healthcare providers with Medicaid exposure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-050",
       "headline": "UnitedHealthcare, Cigna, Centene sign on to CertifyOS' new provider credentialing model",
       "headline_en": null,
@@ -1925,55 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-032",
-      "headline": "Pacifico Energy Secures Sea Survey License for 1.3 GW Nam Trung Bo 3 Offshore Wind Project in Lam Dong Province, Vietnam",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260923391087/en/Pacifico-Energy-Secures-Sea-Survey-License-for-1.3-GW-Nam-Trung-Bo-3-Offshore-Wind-Project-in-Lam-Dong-Province-Vietnam/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T23:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Pacifico Energy secured a license for a 1.3 GW offshore wind project, a significant capacity development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Pacifico Energy secured a license for a 1.3 GW offshore wind project, a significant capacity development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pacifico Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178625,9 +178620,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46356,
-    "news_picked_today": 54,
-    "news_dropped_today": 306
+    "news_seen_today": 92255,
+    "news_picked_today": 57,
+    "news_dropped_today": 351
   },
   "book_momentum": {
     "live_count": 8,
