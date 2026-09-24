@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-10T08:47:19Z",
+  "archived_at": "2026-09-24T05:59:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-22cd265aac6e",
-    "idea_version": "IDEAV-b077ce0a4e6449a7",
-    "idea_version_started_at": "2026-09-07T12:27:09Z",
-    "ticker": "STO",
-    "company": "Santos",
-    "exchange": "ASX",
+    "idea_id": "IDEA-7de5b0b6f75e",
+    "idea_version": "IDEAV-6b6698fe78990b27",
+    "idea_version_started_at": "2026-09-22T09:12:36Z",
+    "ticker": "BEZ",
+    "company": "Berentzen-Gruppe",
+    "exchange": "XETRA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company is increasing its interest in the Papua LNG project, which enhances its long-term production profile and asset base.",
-    "why_now": "The filing confirming the interest increase was released on 2026-09-07.",
+    "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+    "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
-      "timing": 10,
+      "timing": 6,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-67fa026d4912"
+      "EVT-cc21bfde597e",
+      "EVT-bb3bc508e213"
     ],
-    "primary_source_event_id": "EVT-67fa026d4912",
+    "primary_source_event_id": "EVT-cc21bfde597e",
     "source_headlines": [
-      "STO: Santos to increase interest in Papua LNG"
+      "Sazerac Company launches bid for all Berentzen shares",
+      "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
     ],
-    "source_headline": "STO: Santos to increase interest in Papua LNG",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STO?key=2924-03132694-2A1695889",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+    "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-07T07:32:22Z",
+    "newest_source_at": "2026-09-21T05:54:33Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-07T12:27:09Z",
-    "updated_at": "2026-09-07T12:27:09Z",
-    "decay_at": "2026-09-08T19:32:22Z",
+    "surfaced_at": "2026-09-22T09:12:36Z",
+    "updated_at": "2026-09-22T09:12:36Z",
+    "decay_at": "2026-09-22T17:54:33Z",
     "status": "live",
     "promoted_signal_id": null
   }
