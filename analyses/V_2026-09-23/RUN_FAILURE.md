@@ -3,9 +3,9 @@
 - ticker: V
 - orchestrator: chained full run (server)
 - status: FAILED — stopped mid-run before the final thesis
-- stopped_at: after valuation (its synthesis shipped)
+- stopped_at: valuation
 - reason: out_of_credits
-- stopped_at_utc: 2026-09-23T21:43:40.506Z
+- stopped_at_utc: 2026-09-24T01:36:20.486Z
 
 ## Modules completed
 
@@ -14,7 +14,6 @@
 - competitive-intel
 - earnings
 - management-governance
-- valuation
 
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
