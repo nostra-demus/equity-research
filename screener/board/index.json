@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-24T05:18:08Z",
+  "generated_at": "2026-09-24T05:26:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-292",
+      "headline": "[TSE]Change of the Reason for Delisting and Delisting Date: Yamadai Corporation",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260924-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T04:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Yamadai Corporation is facing a delisting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yamadai Corporation is facing a delisting event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yamadai Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-271",
       "headline": "[JPX]Notice of Revisions to Earnings Forecast and Dividend Forecast",
@@ -1133,6 +1182,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-299",
+      "headline": "PB Fintech shares fall 23%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T04:54:03Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "PB Fintech shares fell 23% following a draft paper from the IRDAI that suggests near-term pain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "PB Fintech shares fell 23% following a draft paper from the IRDAI that suggests near-term pain.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PB Fintech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-059",
       "headline": "USL: Property Acquisition to Expand Joaquin District",
       "headline_en": null,
@@ -1846,106 +1944,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-201",
-      "headline": "NSE listing today: What investors need to know about the ₹22,562 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nse-ipo-listing-today-share-price-debuts-bse-msei-premium-discount-gmp-details-what-investors-need-to-know-about-issue-19997112.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:32:09Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "NSE lists today at Rs 22,562 crore market cap, becoming 11th-largest Indian company and Nifty/Sensex constituent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "NSE lists today at Rs 22,562 crore market cap, becoming 11th-largest Indian company and Nifty/Sensex constituent.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange (NSE)",
-          "ticker": "NSE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-200",
-      "headline": "NSE Listing Live Updates: Exchange to be 11th largest Co at current market cap",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nse-listing-live-updates-debut-on-bse-ipo-subscription-gmp-lic-institutions-retail-premium-volumes-liveblog-19997086.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:29:31Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "NSE lists today and becomes 11th-largest Indian company by market cap, adding to Sensex and Nifty indices mechanically.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "NSE lists today and becomes 11th-largest Indian company by market cap, adding to Sensex and Nifty indices mechanically.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange (NSE)",
-          "ticker": "NSE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177375,9 +177373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1012343,
-    "news_picked_today": 696,
-    "news_dropped_today": 3312
+    "news_seen_today": 1069507,
+    "news_picked_today": 712,
+    "news_dropped_today": 3392
   },
   "book_momentum": {
     "live_count": 8,
