@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T03:23:52Z",
+  "generated_at": "2026-09-24T03:27:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-271",
@@ -142,6 +142,55 @@
           "name": "Tuhu-W",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-273",
+      "headline": "Honda plans to invest $2.5 bln to build hybrid vehicle plant in Ohio, Nikkei says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/honda-plans-invest-25-bln-build-hybrid-vehicle-plant-ohio-nikkei-says-2026-09-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T03:03:58Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Honda is committing $2.5 billion to a new hybrid vehicle plant in Ohio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda is committing $2.5 billion to a new hybrid vehicle plant in Ohio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda Motor Co.",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -786,6 +835,104 @@
       "event_types": [
         "capex",
         "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McDonald's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-283",
+      "headline": "PM demands answers after rogue OpenAI agent hacks Medicare",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/pm-demands-answers-after-rogue-openai-agent-hacks-medicare-20260924-p6101l?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T22:42:51Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "A major cybersecurity breach involving an AI agent hacking a government health system represents a significant operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major cybersecurity breach involving an AI agent hacking a government health system represents a significant operational and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-285",
+      "headline": "McDonald’s Unveils 10-Year Growth Plan to Drive Market Share Gains and Efficiency. Should Investors Be Concerned About the $8.5 Billion Price Tag?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/23/mcdonalds-unveils-10-year-growth-plan-to-drive-market-share-gains-and-efficiency-should-investors-be-concerned-about-the-85-billion-price-tag/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T22:34:05Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "McDonald's announced a major 10-year growth plan with a specific $8.5 billion investment commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McDonald's announced a major 10-year growth plan with a specific $8.5 billion investment commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1800,154 +1947,6 @@
           "name": "Grünenthal",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-202",
-      "headline": "David Jones’ lender lines up advisers for early-stage insolvency prep",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/david-jones-lender-lines-up-advisers-for-early-stage-insolvency-prep-20260924-p60yxd?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:56:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Lender preparing insolvency advisers for David Jones indicates material debt-refinancing and solvency risk requiring active creditor intervention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Lender preparing insolvency advisers for David Jones indicates material debt-refinancing and solvency risk requiring active creditor intervention.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": "DJS",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-172",
-      "headline": "Novartis secures new radioligand in $900M deal as competition strengthens",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/novartis-secures-new-radioligand-900m-deal-competition-strengthens",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:16:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Novartis acquired a new radioligand asset in a deal valued at $900M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Novartis acquired a new radioligand asset in a deal valued at $900M.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-139",
-      "headline": "Army awards Palantir $48.1M to modernize ammo management",
-      "headline_en": null,
-      "url": "https://www.defensenews.com/news/your-army/2026/09/24/army-awards-palantir-481m-to-modernize-ammo-management/",
-      "source_name": "Defense News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T00:37:21Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "US Army awards Palantir $48.1M contract to modernize ammunition inventory management, a direct revenue-generating defense capex expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "US Army awards Palantir $48.1M contract to modernize ammunition inventory management, a direct revenue-generating defense capex expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Palantir Technologies",
-          "ticker": "PLTR",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -177955,9 +177954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 608649,
-    "news_picked_today": 476,
-    "news_dropped_today": 1900
+    "news_seen_today": 637031,
+    "news_picked_today": 491,
+    "news_dropped_today": 1957
   },
   "book_momentum": {
     "live_count": 8,
