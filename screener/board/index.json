@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T01:15:40Z",
+  "generated_at": "2026-09-24T01:24:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-076",
@@ -352,6 +352,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-154",
+      "headline": "GCash owner Mynt secures over 20 cornerstone investors for potentially biggest Philippine IPO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/gcash-owner-mynt-secures-over-20-cornerstone-investors-potentially-biggest-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:03:11Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Mynt has secured over 20 cornerstone investors for a potentially record-breaking IPO in the Philippines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mynt has secured over 20 cornerstone investors for a potentially record-breaking IPO in the Philippines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mynt",
+          "ticker": null,
+          "listing_country": "PH"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-143",
       "headline": "McDonald’s Unveils 10-Year Growth Plan to Drive Market Share Gains and Efficiency. Should Investors Be Concerned About the $8.5 Billion Price Tag?",
       "headline_en": null,
@@ -489,6 +538,49 @@
           "listing_country": "AU"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-158",
+      "headline": "Kyiv under missile attack, emergency crews dispatched to two districts, mayor says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/kyiv-under-missile-attack-emergency-crews-dispatched-two-districts-mayor-says-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T22:51:44Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Active missile attack on capital city indicates significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Active missile attack on capital city indicates significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1873,104 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-042",
-      "headline": "SoftBank-backed SB Energy seen delaying IPO on valuation concerns",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/markets/ipo/softbank-backed-sb-energy-seen-delaying-ipo-on-valuation-concerns",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:51:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "SB Energy is reportedly delaying its IPO due to valuation concerns, impacting capital raising plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "SB Energy is reportedly delaying its IPO due to valuation concerns, impacting capital raising plans.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB Energy",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-013",
-      "headline": "Airtel Money plans to list on LSE, looks to raise $800mn",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/airtel-money-plans-to-list-on-lse-looks-to-raise-800mn/articleshow/134448519.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:19:13Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Airtel Money plans an IPO on the LSE to raise $800 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Airtel Money plans an IPO on the LSE to raise $800 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airtel Money",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178622,9 +178616,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 228584,
-    "news_picked_today": 203,
-    "news_dropped_today": 781
+    "news_seen_today": 243637,
+    "news_picked_today": 218,
+    "news_dropped_today": 838
   },
   "book_momentum": {
     "live_count": 8,
