@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T21:34:49Z",
+  "generated_at": "2026-09-24T21:52:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -999,6 +999,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-589",
+      "headline": "Stock Market Today, Sept. 24: BlackBerry Lifts Fiscal 2027 Guidance on Record QNX Revenue",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/09/24/stock-market-today-sept-24-blackberry-lifts-fiscal-2027-guidance-on-record-qnx-revenue/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T21:07:12Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "BlackBerry raised its fiscal 2027 guidance driven by record QNX revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BlackBerry raised its fiscal 2027 guidance driven by record QNX revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackBerry",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-581",
       "headline": "Growing debt leads 168-year-old winery into Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1935,55 +1985,6 @@
           "name": "Vistry Group",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-361",
-      "headline": "SoftBank raises $11bn in record junk bond offering to fund OpenAI bet",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/17b09993-8fed-47d1-9c04-e2d29ca75615?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T08:07:55Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "SoftBank raises $11 billion in a junk bond offering to fund an OpenAI investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank raises $11 billion in a junk bond offering to fund an OpenAI investment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -177415,9 +177416,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6782731,
-    "news_picked_today": 1463,
-    "news_dropped_today": 14593
+    "news_seen_today": 6901300,
+    "news_picked_today": 1471,
+    "news_dropped_today": 14873
   },
   "book_momentum": {
     "live_count": 8,
