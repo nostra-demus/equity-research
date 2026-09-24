@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T05:26:05Z",
+  "generated_at": "2026-09-24T05:33:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-292",
@@ -1704,6 +1704,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-300",
+      "headline": "Genesys International Corporation Limited: Genesys International Corporation Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \" Genesys International wins ₹283 crore contract for Ahmedabad s 3D Digital Twin and Spatial Intelligence Platform - One of India s largest Digital Twin initiatives .\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GENESYS_24092026100224_GENESYS_finalpress.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T04:32:56Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Company won a contract worth 283 crore INR for a digital twin project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Company won a contract worth 283 crore INR for a digital twin project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genesys International Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-288",
       "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated September 24, 2026, titled \"Infomerics Upgrades Steel Exchange India Limited s Long-Term Credit Rating by Two Notches to IVR BBB+/Stable; Short-Term Rating Upgraded to IVR A2\".",
       "headline_en": null,
@@ -1895,55 +1944,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-005",
-      "headline": "HLS: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03139212-2A1698927",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:43:32Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "HLS entered a trading halt pending an announcement, which is a significant operational event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HLS entered a trading halt pending an announcement, which is a significant operational event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HLS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177373,9 +177373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1069507,
-    "news_picked_today": 712,
-    "news_dropped_today": 3392
+    "news_seen_today": 1083874,
+    "news_picked_today": 720,
+    "news_dropped_today": 3456
   },
   "book_momentum": {
     "live_count": 8,
