@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T06:04:12Z",
+  "generated_at": "2026-09-24T06:14:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-305",
@@ -1665,6 +1665,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-310",
+      "headline": "Balrampur Chini Mills Limited: Balrampur Chini Mills Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \"Government of India Awards ₹75 Crore BioE3 Grant to BCML to Advance India's Bioeconomy\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BALRAMPURC_24092026110943_SE_Intimation__Press_Release_24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T05:40:58Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Balrampur Chini Mills Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-263",
       "headline": "AMK: Becoming a substantial holder",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-306",
-      "headline": "PB Fintech shares fall 26%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T05:27:29Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "IRDAI regulatory draft paper triggers 26% same-day share fall in PB Fintech with Bernstein warning of near-term operational pain, signaling material policy risk to insurance-distribution business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "IRDAI regulatory draft paper triggers 26% same-day share fall in PB Fintech with Bernstein warning of near-term operational pain, signaling material policy risk to insurance-distribution business model.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PB Fintech Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176874,9 +176874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1153129,
-    "news_picked_today": 762,
-    "news_dropped_today": 4422
+    "news_seen_today": 1195573,
+    "news_picked_today": 791,
+    "news_dropped_today": 4561
   },
   "book_momentum": {
     "live_count": 8,
