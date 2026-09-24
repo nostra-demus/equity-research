@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T20:30:12Z",
+  "generated_at": "2026-09-24T21:12:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -999,6 +999,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-581",
+      "headline": "Growing debt leads 168-year-old winery into Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/gundlach-bundschu-winery-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T20:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "A 168-year-old winery has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A 168-year-old winery has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-565",
       "headline": "MGM Resorts shares sink 11% after Barry Diller's People Inc. rescinds takeover offer",
       "headline_en": null,
@@ -1941,61 +1984,6 @@
           "name": "SoftBank",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-348",
-      "headline": "Delivery Hero Cancels CEO Exit Plans Due to Uber’s $14.8 Billion Takeover Bid",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/delivery-hero-cancels-ceo-exit-plans-due-to-ubers-14-8-billion-takeover-bid-de155bf8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T08:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Uber bids $14.8 billion to acquire Delivery Hero, affecting both companies' strategy and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber bids $14.8 billion to acquire Delivery Hero, affecting both companies' strategy and capital structure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delivery Hero SE",
-          "ticker": "DHER",
-          "listing_country": "DE"
-        },
-        {
-          "name": "Uber Technologies Inc.",
-          "ticker": "UBER",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -177355,9 +177343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6236825,
-    "news_picked_today": 1398,
-    "news_dropped_today": 13698
+    "news_seen_today": 6601601,
+    "news_picked_today": 1435,
+    "news_dropped_today": 14021
   },
   "book_momentum": {
     "live_count": 8,
