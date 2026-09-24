@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T22:30:09Z",
+  "generated_at": "2026-09-24T22:31:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -1195,6 +1195,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-678",
+      "headline": "BlackBerry Q2 Profit Rises, Raises Full-Year Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/blackberry-q2-profit-rises-raises-full-year-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T21:54:27Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "BlackBerry reported a profit increase and raised its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BlackBerry reported a profit increase and raised its full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackBerry",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-676",
       "headline": "Bitget confirms $351M security breach, suspends withdrawals",
       "headline_en": null,
@@ -1932,56 +1982,6 @@
           "name": "Vistry Group",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-409",
-      "headline": "BlackBerry results exceed expectations as company boosts forecast for second time this year",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-blackberry-second-quarter-results-forecast/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T11:02:02Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "BlackBerry reported earnings exceeding expectations and raised its guidance for the second time this year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BlackBerry reported earnings exceeding expectations and raised its guidance for the second time this year.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BlackBerry",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -177483,9 +177483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7094772,
-    "news_picked_today": 1596,
-    "news_dropped_today": 16020
+    "news_seen_today": 7132163,
+    "news_picked_today": 1602,
+    "news_dropped_today": 16038
   },
   "book_momentum": {
     "live_count": 8,
