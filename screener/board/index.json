@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T04:13:46Z",
+  "generated_at": "2026-09-24T04:23:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-271",
@@ -1231,6 +1231,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-290",
+      "headline": "Pentagon Probes How Parts Of US' Most Advanced F-35 Fighter Jet Ended Up In Hong Kong As China Reportedly Obtains Components",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/pentagon-probes-how-parts-of-us-most-advanced-f-35-fighter-jet-ended-up-in-hong-kong-as-china-reportedly-obtains-components",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T03:23:32Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-260",
       "headline": "(URGENT) N. Korean foreign minister says will to keep nuclear weapons irreversible",
       "headline_en": null,
@@ -1562,6 +1606,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-288",
+      "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated September 24, 2026, titled \"Infomerics Upgrades Steel Exchange India Limited s Long-Term Credit Rating by Two Notches to IVR BBB+/Stable; Short-Term Rating Upgraded to IVR A2\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/STEELXIND_24092026092947_Intimation_of_Press_Release_24092026_Final_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T04:00:02Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Infomerics upgraded Steel Exchange India Limited's long-term credit rating by two notches to IVR BBB+/Stable and short-term to IVR A2, reducing cost of capital and credit risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Infomerics upgraded Steel Exchange India Limited's long-term credit rating by two notches to IVR BBB+/Stable and short-term to IVR A2, reducing cost of capital and credit risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 66,
+      "rank_factors": {
+        "materiality": 66,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 4,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Steel Exchange India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-126",
       "headline": "LUFAX (06623): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1606,6 +1699,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-289",
+      "headline": "PB Fintech shares fall 15%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T04:04:56Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "PB Fintech shares fell 15% after IRDAI draft regulatory paper; Bernstein warns of near-term pain, signaling new regulatory risk and negative near-term outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "PB Fintech shares fell 15% after IRDAI draft regulatory paper; Bernstein warns of near-term pain, signaling new regulatory risk and negative near-term outlook.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PB Fintech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1804,147 +1946,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-187",
-      "headline": "US-Iran War News Live: Iran cancels flights as sanctions hit, Indian seafarer killed in strike off Oman coast",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/usiran-war-news-live-iran-flights-us-sanctions-donald-trump-unga-masoud-pezeshkian-strait-of-hormuz-11790211488453.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:18:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Military strike off Oman with casualty and Iran flight cancellations amid US sanctions and escalation create geopolitical shock and supply-chain disruption across energy, aviation, and shipping sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Military strike off Oman with casualty and Iran flight cancellations amid US sanctions and escalation create geopolitical shock and supply-chain disruption across energy, aviation, and shipping sectors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-163",
-      "headline": "AMD: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMD?key=2924-03139258-6A1345405",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T01:00:32Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "AMD has requested a trading pause, which is a price-sensitive event requiring immediate attention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "AMD has requested a trading pause, which is a price-sensitive event requiring immediate attention.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": "AMD",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-080",
-      "headline": "BSA: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03139225-2A1698930",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:56:42Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Trading halt indicates an undisclosed material operational or financial issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Trading halt indicates an undisclosed material operational or financial issue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BSA",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -136594,76 +136595,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3ecdab15230a",
-      "idea_version": "IDEAV-59051ce1b2f90e2b",
-      "idea_version_started_at": "2026-09-22T18:20:15Z",
-      "ticker": "DLTR",
-      "company": "Dollar Tree",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
-      "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fd7a8db8a08d"
-      ],
-      "primary_source_event_id": "EVT-fd7a8db8a08d",
-      "source_headlines": [
-        "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
-      ],
-      "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
-      "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T16:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T18:20:15Z",
-      "updated_at": "2026-09-22T18:20:15Z",
-      "decay_at": "2026-09-24T04:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-028c0d923343",
       "idea_version": "IDEAV-91b4668b8fd3875d",
       "idea_version_started_at": "2026-09-23T19:44:02Z",
@@ -138298,6 +138229,76 @@
       "surfaced_at": "2026-09-20T23:00:20Z",
       "updated_at": "2026-09-22T11:39:38Z",
       "decay_at": "2026-09-23T21:30:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3ecdab15230a",
+      "idea_version": "IDEAV-59051ce1b2f90e2b",
+      "idea_version_started_at": "2026-09-22T18:20:15Z",
+      "ticker": "DLTR",
+      "company": "Dollar Tree",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
+      "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fd7a8db8a08d"
+      ],
+      "primary_source_event_id": "EVT-fd7a8db8a08d",
+      "source_headlines": [
+        "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
+      ],
+      "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
+      "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T16:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T18:20:15Z",
+      "updated_at": "2026-09-22T18:20:15Z",
+      "decay_at": "2026-09-24T04:14:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140177,14 +140178,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 259,
@@ -140208,6 +140209,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3ecdab15230a",
+        "idea_version": "IDEAV-59051ce1b2f90e2b",
+        "idea_version_started_at": "2026-09-22T18:20:15Z",
+        "ticker": "DLTR",
+        "company": "Dollar Tree",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
+        "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fd7a8db8a08d"
+        ],
+        "primary_source_event_id": "EVT-fd7a8db8a08d",
+        "source_headlines": [
+          "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
+        ],
+        "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
+        "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T16:14:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T18:20:15Z",
+        "updated_at": "2026-09-22T18:20:15Z",
+        "decay_at": "2026-09-24T04:14:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T04:14:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b7d2ebf26308",
         "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
@@ -170038,81 +170112,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-53205b605f3a",
-        "idea_version": "IDEAV-ce3df47642c52ad5",
-        "idea_version_started_at": "2026-09-08T01:02:06Z",
-        "ticker": "CTD",
-        "company": "Corporate Travel Management",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The former CEO's increased stake suggests a belief in the company's turnaround or future growth, potentially indicating undervaluation.",
-        "why_now": "The news of the former CEO lifting his stake was reported on September 8, 2026, making this a current catalyst.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9371fd2f9d80"
-        ],
-        "primary_source_event_id": "EVT-9371fd2f9d80",
-        "source_headlines": [
-          "Pherous shadow looms over Corporate Travel as former CEO lifts stake"
-        ],
-        "source_headline": "Pherous shadow looms over Corporate Travel as former CEO lifts stake",
-        "source_url": "https://www.afr.com/companies/transport/pherous-shadow-looms-over-corporate-travel-as-former-ceo-lifts-stake-20260908-p60vbh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 84,
-        "newest_source_at": "2026-09-08T00:41:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T01:02:06Z",
-        "updated_at": "2026-09-08T01:02:06Z",
-        "decay_at": "2026-09-09T12:41:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T02:58:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-db76bcbae044",
         "idea_version": "IDEAV-8aff9bce6dbab3c7",
         "idea_version_started_at": "2026-09-08T00:06:31Z",
@@ -177357,7 +177356,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1004,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -177376,9 +177375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 792414,
-    "news_picked_today": 579,
-    "news_dropped_today": 2349
+    "news_seen_today": 806632,
+    "news_picked_today": 599,
+    "news_dropped_today": 2665
   },
   "book_momentum": {
     "live_count": 8,
