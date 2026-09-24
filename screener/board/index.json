@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T22:39:39Z",
+  "generated_at": "2026-09-24T22:49:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -1392,6 +1392,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-683",
+      "headline": "168-year-old popular winery files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/gundlach-bundschu-winery-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T20:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "A 168-year-old winery has filed for Chapter 11 bankruptcy, indicating a total failure of the business entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A 168-year-old winery has filed for Chapter 11 bankruptcy, indicating a total failure of the business entity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Winery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-581",
       "headline": "Growing debt leads 168-year-old winery into Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1932,56 +1981,6 @@
           "name": "Kobayashi Pharmaceutical",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-414",
-      "headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T11:10:39Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Vistry issued a profit warning and announced plans to scale back operations due to mounting charges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vistry issued a profit warning and announced plans to scale back operations due to mounting charges.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vistry Group",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
@@ -177554,9 +177553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7169553,
-    "news_picked_today": 1605,
-    "news_dropped_today": 16131
+    "news_seen_today": 7244328,
+    "news_picked_today": 1611,
+    "news_dropped_today": 16173
   },
   "book_momentum": {
     "live_count": 8,
