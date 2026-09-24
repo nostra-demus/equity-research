@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-24T07:36:29Z",
+  "generated_at": "2026-09-24T07:47:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-346",
+      "headline": "RCT: Bidder's Statement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RCT?key=2924-03139464-2A1699038",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T07:16:53Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "RCT issues a Bidder's Statement, formalizing an active takeover offer with direct impact on capital structure and control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RCT issues a Bidder's Statement, formalizing an active takeover offer with direct impact on capital structure and control.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RCT",
+          "ticker": "RCT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-324",
       "headline": "PEN: Non-Cash Impairment [price-sensitive]",
@@ -1920,49 +1969,6 @@
         "operations"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-260",
-      "headline": "(URGENT) N. Korean foreign minister says will to keep nuclear weapons irreversible",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260924000900315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T02:18:05Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "North Korea's declaration that its nuclear weapons program is irreversible escalates geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "North Korea's declaration that its nuclear weapons program is irreversible escalates geopolitical risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -176885,9 +176891,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1434073,
-    "news_picked_today": 858,
-    "news_dropped_today": 7350
+    "news_seen_today": 1494604,
+    "news_picked_today": 865,
+    "news_dropped_today": 7415
   },
   "book_momentum": {
     "live_count": 8,
