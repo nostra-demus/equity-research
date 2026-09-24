@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T08:13:35Z",
+  "generated_at": "2026-09-24T08:26:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-346",
@@ -436,6 +436,61 @@
           "name": "Tuhu-W",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-348",
+      "headline": "Delivery Hero Cancels CEO Exit Plans Due to Uber’s $14.8 Billion Takeover Bid",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/delivery-hero-cancels-ceo-exit-plans-due-to-ubers-14-8-billion-takeover-bid-de155bf8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T08:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Uber bids $14.8 billion to acquire Delivery Hero, affecting both companies' strategy and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber bids $14.8 billion to acquire Delivery Hero, affecting both companies' strategy and capital structure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delivery Hero SE",
+          "ticker": "DHER",
+          "listing_country": "DE"
+        },
+        {
+          "name": "Uber Technologies Inc.",
+          "ticker": "UBER",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1927,50 +1982,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-290",
-      "headline": "Pentagon Probes How Parts Of US' Most Advanced F-35 Fighter Jet Ended Up In Hong Kong As China Reportedly Obtains Components",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/pentagon-probes-how-parts-of-us-most-advanced-f-35-fighter-jet-ended-up-in-hong-kong-as-china-reportedly-obtains-components",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T03:23:32Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176891,9 +176902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1614016,
-    "news_picked_today": 873,
-    "news_dropped_today": 7767
+    "news_seen_today": 1660246,
+    "news_picked_today": 880,
+    "news_dropped_today": 8048
   },
   "book_momentum": {
     "live_count": 8,
