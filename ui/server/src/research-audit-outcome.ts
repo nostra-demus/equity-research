@@ -57,6 +57,7 @@ export function researchReviewBlock(decision: Record<string, any>, audits: Recor
 }
 
 export function researchAuditsReconciled(decision: Record<string, any>, thesis: string, audits: Record<string, any>): boolean {
+  thesis = thesis.replace(/\r\n/g, '\n') // Python text reads normalize CRLF too; file digests still bind exact bytes.
   const fields = researchAuditFields(decision, audits)
   const block = researchReviewBlock(decision, audits)
   if (!fields || !block || Object.entries(fields).some(([key, value]) => decision[key] !== value)) return false

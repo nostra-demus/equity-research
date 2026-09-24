@@ -26,7 +26,9 @@ from test_research_audit_outcome import AuditOutcomeTests
 from research_audit_outcome import run
 from create_idea_projection_manifest import create
 t=AuditOutcomeTests();t.setUp()
-run(t.root,'apply',t.repo);t.audit(version=2);create(t.root,t.repo)
+run(t.root,'apply',t.repo)
+thesis=t.path/'final_thesis.md';thesis.write_bytes(thesis.read_bytes().replace(b'\\n',b'\\r\\n'))
+t.audit(version=2);create(t.root,t.repo)
 shutil.copytree(t.path,sys.argv[2]);t.tearDown()
 `, sourceRepo, absolute], { stdio: 'pipe' })
   fs.copyFileSync(path.join(absolute, 'final_thesis.md'), path.join(absolute, 'memo.md'))

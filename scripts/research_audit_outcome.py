@@ -155,10 +155,10 @@ def run(run_root, action, repo=None):
         paths.update({name: latest_exact(str(run_path), name) for name in ("verification", "pre_mortem", "expectations_gap")})
         if any(Path(p).is_symlink() or not Path(p).is_file() for p in paths.values()):
             raise ValueError("audit inputs must be regular files")
-        decision = json.loads(Path(paths["decision_record"]).read_text())
+        decision = json.loads(Path(paths["decision_record"]).read_text(encoding="utf-8"))
         ticker = validate_decision_identity(decision, root)
         audits = validate_bound_audits(paths, root, ticker)
-        thesis = Path(paths["final_thesis"]).read_text()
+        thesis = Path(paths["final_thesis"]).read_text(encoding="utf-8")
         if action == "check":
             assert_reconciled(decision, thesis, audits)
             return {"status": "reconciled"}

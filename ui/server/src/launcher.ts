@@ -8015,10 +8015,10 @@ export function assertResearchAuditPublication(run: Pick<RunState, 'swarmId' | '
   if (!validated || validated.manifest.schema_version !== 'idea-projection-manifest/v2') {
     throw new PublicationRefusedError('Final research audits are missing, stale, or disagree with the published review outcome. Completed work is preserved; no automatic paid retry is allowed.')
   }
-  const thesis = fs.readFileSync(path.join(absolute, 'final_thesis.md'), 'utf8')
+  const thesis = fs.readFileSync(path.join(absolute, 'final_thesis.md'), 'utf8').replace(/\r\n/g, '\n')
   const block = /<!-- research-review:start -->[\s\S]*?<!-- research-review:end -->/.exec(thesis)?.[0]
   let memo = ''
-  try { assertRegularArtifact(path.join(absolute, 'memo.md'), 'final research memo'); memo = fs.readFileSync(path.join(absolute, 'memo.md'), 'utf8') } catch { /* refused below */ }
+  try { assertRegularArtifact(path.join(absolute, 'memo.md'), 'final research memo'); memo = fs.readFileSync(path.join(absolute, 'memo.md'), 'utf8').replace(/\r\n/g, '\n') } catch { /* refused below */ }
   const warning = thesis.startsWith('>') ? thesis.split('\n\n')[0] : null
   if (!block || !memo.slice(0, 6000).includes(block)
       || (warning?.includes('PROVISIONAL — the automated finish-gate') && !memo.slice(0, 2000).includes(warning))) {
