@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T02:54:24Z",
+  "generated_at": "2026-09-24T02:58:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-076",
@@ -92,6 +92,55 @@
           "name": "Tuhu-W",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-269",
+      "headline": "Honda to build hybrid vehicle plant in US for nearly $2.5bn",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/honda-to-build-hybrid-vehicle-plant-in-us-for-nearly-2.5bn",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T02:46:41Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Honda is investing $2.5 billion to build a new hybrid vehicle plant in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda is investing $2.5 billion to build a new hybrid vehicle plant in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -973,6 +1022,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-263",
+      "headline": "AMK: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMK?key=2924-03139308-6A1345421",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T02:31:52Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "A substantial holder disclosure indicates a significant change in ownership interest in AMK.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A substantial holder disclosure indicates a significant change in ownership interest in AMK.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMK",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-061",
       "headline": "SUPERLAND GROUP (00368): JOINT ANNOUNCEMENT DESPATCH OF COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY OCTAL CAPITAL LIMITED AND GET NICE SECURITIES LIMITED FOR AND ON BEHALF OF GRAND JUNCTION INTELLIGENCE CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SUPERLAND GROUP HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT)",
       "headline_en": null,
@@ -1848,104 +1946,6 @@
         {
           "name": "AXL",
           "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-162",
-      "headline": "HANG YICK HLDGS (01894): EXCHANGE NOTICE - TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400115.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Hang Yick Holdings has announced a trading halt, which is a significant operational event pending further disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Hang Yick Holdings has announced a trading halt, which is a significant operational event pending further disclosure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hang Yick Holdings",
-          "ticker": "01894",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-164",
-      "headline": "MHC: Drilling Delivers 21.34m at 1.72g/t Au at Jaws [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MHC?key=2924-03139256-6A1345404",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T00:57:02Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "MHC reported positive drilling results of 21.34m at 1.72g/t Au, which is a price-sensitive operational update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "MHC reported positive drilling results of 21.34m at 1.72g/t Au, which is a price-sensitive operational update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MHC",
-          "ticker": "MHC",
           "listing_country": null
         }
       ],
@@ -178313,9 +178313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 479722,
-    "news_picked_today": 417,
-    "news_dropped_today": 1671
+    "news_seen_today": 508474,
+    "news_picked_today": 431,
+    "news_dropped_today": 1729
   },
   "book_momentum": {
     "live_count": 8,
