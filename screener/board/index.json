@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T06:00:02Z",
+  "generated_at": "2026-09-24T06:04:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-305",
@@ -243,6 +243,114 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-308",
+      "headline": "Schneider agrees takeover bid for Shelly at €70 per share",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/schneider-agrees-takeover-bid-shelly-70-per-share-2026-09-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T05:42:10Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric SE",
+          "ticker": "SE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shelly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-309",
+      "headline": "Schneider to Buy Smart Device Firm Shelly in $1.4 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-24/schneider-electric-said-near-deal-for-smart-device-firm-shelly",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric SE",
+          "ticker": "SE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shelly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1802,135 +1910,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260924-300",
-      "headline": "Genesys International Corporation Limited: Genesys International Corporation Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \" Genesys International wins ₹283 crore contract for Ahmedabad s 3D Digital Twin and Spatial Intelligence Platform - One of India s largest Digital Twin initiatives .\".",
+      "inbox_id": "INB-20260924-306",
+      "headline": "PB Fintech shares fall 26%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GENESYS_24092026100224_GENESYS_finalpress.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T04:32:56Z",
+      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T05:27:29Z",
       "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Company won a contract worth 283 crore INR for a digital twin project.",
+      "prelim_note": "IRDAI regulatory draft paper triggers 26% same-day share fall in PB Fintech with Bernstein warning of near-term operational pain, signaling material policy risk to insurance-distribution business model.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Company won a contract worth 283 crore INR for a digital twin project.",
+      "triage_score": 94,
+      "triage_reason": "IRDAI regulatory draft paper triggers 26% same-day share fall in PB Fintech with Bernstein warning of near-term operational pain, signaling material policy risk to insurance-distribution business model.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 72,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genesys International Corporation Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-288",
-      "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated September 24, 2026, titled \"Infomerics Upgrades Steel Exchange India Limited s Long-Term Credit Rating by Two Notches to IVR BBB+/Stable; Short-Term Rating Upgraded to IVR A2\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/STEELXIND_24092026092947_Intimation_of_Press_Release_24092026_Final_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T04:00:02Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Infomerics upgraded Steel Exchange India Limited's long-term credit rating by two notches to IVR BBB+/Stable and short-term to IVR A2, reducing cost of capital and credit risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Infomerics upgraded Steel Exchange India Limited's long-term credit rating by two notches to IVR BBB+/Stable and short-term to IVR A2, reducing cost of capital and credit risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 66,
-      "rank_factors": {
-        "materiality": 66,
-        "source_tier": 8,
+        "materiality": 72,
+        "source_tier": 0,
         "scope": 6,
         "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 4,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Steel Exchange India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-126",
-      "headline": "LUFAX (06623): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400103.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T00:41:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "LUFAX announced the resumption of trading of its shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "LUFAX announced the resumption of trading of its shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "regulatory"
@@ -1938,12 +1948,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "LUFAX",
-          "ticker": "06623",
-          "listing_country": "CN"
+          "name": "PB Fintech Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176864,9 +176874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1125883,
-    "news_picked_today": 758,
-    "news_dropped_today": 4354
+    "news_seen_today": 1153129,
+    "news_picked_today": 762,
+    "news_dropped_today": 4422
   },
   "book_momentum": {
     "live_count": 8,
