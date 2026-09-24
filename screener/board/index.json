@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T00:07:20Z",
+  "generated_at": "2026-09-24T00:18:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-028",
@@ -198,6 +198,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-034",
+      "headline": "Vietnam's Vingroup inks $1bn bullet train deal with Siemens",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/transportation/vietnam-s-vingroup-inks-1bn-bullet-train-deal-with-siemens",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Vingroup inked a $1bn bullet-train infrastructure contract with Siemens, a major capital-investment commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Vingroup inked a $1bn bullet-train infrastructure contract with Siemens, a major capital-investment commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vingroup",
+          "ticker": null,
+          "listing_country": "VN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-004",
       "headline": "MRT: Boorara Mineralisation Extended Below Planned Pit [price-sensitive]",
       "headline_en": null,
@@ -237,6 +286,55 @@
       "companies": [
         {
           "name": "MRT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-030",
+      "headline": "VKA: TUNGSTEN ASSAYS CONFIRM THICK INTERCEPTS AT LINKA [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VKA?key=2924-03139203-6A1345395",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T23:37:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "VKA reported positive tungsten assay results with thick intercepts, indicating potential resource expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "VKA reported positive tungsten assay results with thick intercepts, indicating potential resource expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VKA",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -503,6 +601,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-033",
+      "headline": "Anthony Albanese says OpenAI agent hacked Medicare and he expressed ‘extreme concern’ to Sam Altman",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/sep/24/anthony-albanese-says-openai-agent-hacked-medicare-extreme-concern-sam-altman",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:16:12Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "The Australian PM expressed concern over an OpenAI agent allegedly hacking Medicare, posing potential regulatory and reputational risk to OpenAI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The Australian PM expressed concern over an OpenAI agent allegedly hacking Medicare, posing potential regulatory and reputational risk to OpenAI.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-015",
       "headline": "JSW set to enter e-trucks biz, seeks to drive sales",
       "headline_en": null,
@@ -548,6 +696,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-037",
+      "headline": "Alibaba touts 'most powerful AI chip in China' for data center buildout",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/alibaba-touts-most-powerful-ai-chip-in-china-for-data-center-buildout",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Alibaba announces AI chip and data-center buildout as capex expansion, but marketing language ('touts') and absence of quantified investment size prevent confirmation of materiality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Alibaba announces AI chip and data-center buildout as capex expansion, but marketing language ('touts') and absence of quantified investment size prevent confirmation of materiality.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba Group Holding Limited",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -607,6 +805,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-029",
+      "headline": "L1G: L1 Group appoints new manager - East Rocky Asset Management",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.L1G?key=2924-03139206-3A702454",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T23:39:32Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "L1 Group has appointed a new manager, East Rocky Asset Management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "L1 Group has appointed a new manager, East Rocky Asset Management.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L1 Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-031",
+      "headline": "WHF: Update - Notification of buy-back - WHF",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WHF?key=2924-03139202-2A1698925",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-23T23:36:57Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "WHF announced an update to its share buy-back program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "WHF announced an update to its share buy-back program.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WHF",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-007",
       "headline": "USL: Proposed issue of securities - USL",
       "headline_en": null,
@@ -656,6 +952,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-035",
+      "headline": "Japan's NEC joins Meta on ultrafast US-France undersea fiber-optic line",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/telecommunication/japan-s-nec-joins-meta-on-ultrafast-us-france-undersea-fiber-optic-line",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "NEC joins Meta on ultrafast US-France undersea fiber-optic infrastructure project; capex amount, revenue implication, and NEC's role (investor vs. vendor) unquantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "NEC joins Meta on ultrafast US-France undersea fiber-optic infrastructure project; capex amount, revenue implication, and NEC's role (investor vs. vendor) unquantified.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEC",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-038",
+      "headline": "Nine broadcast boss Amanda Laing exits after 18 months",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/media-and-marketing/nine-broadcast-boss-amanda-laing-exits-after-18-months-20260924-p60zyj?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:48:06Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Amanda Laing exits Nine broadcast boss after 18 months; no stated reason, departure timing or successor disclosed, raising potential governance or execution concern.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Amanda Laing exits Nine broadcast boss after 18 months; no stated reason, departure timing or successor disclosed, raising potential governance or execution concern.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nine Entertainment Co.",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-027",
       "headline": "Sojitz eyes investment in Australia, New Zealand renewable power grids",
       "headline_en": null,
@@ -700,6 +1100,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-036",
+      "headline": "Pakistan's auto policy likely to reignite WTO dispute with Japan",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/pakistan-s-auto-policy-likely-to-reignite-wto-dispute-with-japan",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Pakistan auto-policy escalation could alter regulatory risk and export market access for Japanese automakers, but outcome unconfirmed and no single company quantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Pakistan auto-policy escalation could alter regulatory risk and export market access for Japanese automakers, but outcome unconfirmed and no single company quantified.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -949,6 +1393,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-032",
+      "headline": "Pacifico Energy Secures Sea Survey License for 1.3 GW Nam Trung Bo 3 Offshore Wind Project in Lam Dong Province, Vietnam",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260923391087/en/Pacifico-Energy-Secures-Sea-Survey-License-for-1.3-GW-Nam-Trung-Bo-3-Offshore-Wind-Project-in-Lam-Dong-Province-Vietnam/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-23T23:49:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Pacifico Energy secured a license for a 1.3 GW offshore wind project, a significant capacity development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Pacifico Energy secured a license for a 1.3 GW offshore wind project, a significant capacity development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacifico Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-003",
       "headline": "Bell, Cohere release AI model designed to aid cybersecurity investigations",
       "headline_en": null,
@@ -998,6 +1491,106 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-039",
+      "headline": "Form 8.3 - Advanced Medical Solutions Group plc - Octopus Investments",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367538/0/en/form-8-3-advanced-medical-solutions-group-plc-octopus-investments.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-23T13:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Advanced Medical Solutions Group; no deal price, offer terms, or stake size disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Advanced Medical Solutions Group; no deal price, offer terms, or stake size disclosed.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Medical Solutions Group plc",
+          "ticker": "AMS",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-040",
+      "headline": "Form 8.3 - Gooch & Housego plc - Octopus Investments",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367531/0/en/form-8-3-gooch-housego-plc-octopus-investments.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-23T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Gooch & Housego plc; no deal price, offer terms, or stake size disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Gooch & Housego plc; no deal price, offer terms, or stake size disclosed.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gooch & Housego plc",
+          "ticker": "GHH",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -136249,76 +136842,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5dab7ab65aa0",
-      "idea_version": "IDEAV-986e35ef32672b50",
-      "idea_version_started_at": "2026-09-22T13:59:06Z",
-      "ticker": "MLKN",
-      "company": "MillerKnoll",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Surpassing Q1 earnings estimates suggests better-than-expected operational efficiency and demand recovery in the office furniture segment.",
-      "why_now": "The earnings results were released today, September 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3a5616d14ef2"
-      ],
-      "primary_source_event_id": "EVT-3a5616d14ef2",
-      "source_headlines": [
-        "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates"
-      ],
-      "source_headline": "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates",
-      "source_url": "https://www.nasdaq.com/articles/millerknoll-mlkn-surpasses-q1-earnings-estimates",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T12:15:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:59:06Z",
-      "updated_at": "2026-09-22T13:59:06Z",
-      "decay_at": "2026-09-24T00:15:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-028c0d923343",
       "idea_version": "IDEAV-91b4668b8fd3875d",
       "idea_version_started_at": "2026-09-23T19:44:02Z",
@@ -137882,6 +138405,76 @@
       "surfaced_at": "2026-09-20T23:00:20Z",
       "updated_at": "2026-09-22T11:39:38Z",
       "decay_at": "2026-09-23T21:30:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5dab7ab65aa0",
+      "idea_version": "IDEAV-986e35ef32672b50",
+      "idea_version_started_at": "2026-09-22T13:59:06Z",
+      "ticker": "MLKN",
+      "company": "MillerKnoll",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Surpassing Q1 earnings estimates suggests better-than-expected operational efficiency and demand recovery in the office furniture segment.",
+      "why_now": "The earnings results were released today, September 22, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3a5616d14ef2"
+      ],
+      "primary_source_event_id": "EVT-3a5616d14ef2",
+      "source_headlines": [
+        "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates"
+      ],
+      "source_headline": "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates",
+      "source_url": "https://www.nasdaq.com/articles/millerknoll-mlkn-surpasses-q1-earnings-estimates",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T12:15:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T13:59:06Z",
+      "updated_at": "2026-09-22T13:59:06Z",
+      "decay_at": "2026-09-24T00:15:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140838,14 +141431,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 262,
@@ -140869,6 +141462,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5dab7ab65aa0",
+        "idea_version": "IDEAV-986e35ef32672b50",
+        "idea_version_started_at": "2026-09-22T13:59:06Z",
+        "ticker": "MLKN",
+        "company": "MillerKnoll",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Surpassing Q1 earnings estimates suggests better-than-expected operational efficiency and demand recovery in the office furniture segment.",
+        "why_now": "The earnings results were released today, September 22, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3a5616d14ef2"
+        ],
+        "primary_source_event_id": "EVT-3a5616d14ef2",
+        "source_headlines": [
+          "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates"
+        ],
+        "source_headline": "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates",
+        "source_url": "https://www.nasdaq.com/articles/millerknoll-mlkn-surpasses-q1-earnings-estimates",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T12:15:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T13:59:06Z",
+        "updated_at": "2026-09-22T13:59:06Z",
+        "decay_at": "2026-09-24T00:15:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T00:15:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ad4134269029",
         "idea_version": "IDEAV-cab3d395714a14d7",
@@ -170777,80 +171443,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-24262cdd95f2",
-        "idea_version": "IDEAV-f25fe8fb0faa22c1",
-        "idea_version_started_at": "2026-09-07T23:01:43Z",
-        "ticker": "GCI",
-        "company": "GCI",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
-        "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-815b42714107"
-        ],
-        "primary_source_event_id": "EVT-815b42714107",
-        "source_headlines": [
-          "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
-        ],
-        "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T22:42:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T23:01:43Z",
-        "updated_at": "2026-09-07T23:01:43Z",
-        "decay_at": "2026-09-09T10:42:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T23:14:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-815cbc7f3212",
         "idea_version": "IDEAV-42635029d1772aaa",
         "idea_version_started_at": "2026-09-07T23:46:49Z",
@@ -178022,7 +178614,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1002,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -178032,7 +178624,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2795,
+    "inbox_unconsumed": 2807,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -178041,9 +178633,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 31024,
+    "news_picked_today": 40,
+    "news_dropped_today": 200
   },
   "book_momentum": {
     "live_count": 8,
