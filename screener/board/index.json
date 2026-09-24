@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-24T23:05:34Z",
+  "generated_at": "2026-09-24T23:09:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-684",
+      "headline": "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03139740-2A1699182",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T22:49:16Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Healius Limited has entered into an agreement to sell its Agilex Biolabs business to Novotech.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Healius Limited has entered into an agreement to sell its Agilex Biolabs business to Novotech.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Healius Limited",
+          "ticker": "HLS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-480",
       "headline": "Offer to Buy – Acquisition Window (Takeover) for RAMGOPAL POLYTEX LIMITED – Live Activities Schedule",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-563",
-      "headline": "Kobayashi in ¥500 billion buyout talks after red-yeast case",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/24/kobayashi-buyout-talks/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T12:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Kobayashi is in talks for a ¥500 billion buyout following a major product safety crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kobayashi is in talks for a ¥500 billion buyout following a major product safety crisis.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kobayashi Pharmaceutical",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177553,9 +177553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7337445,
-    "news_picked_today": 1621,
-    "news_dropped_today": 16283
+    "news_seen_today": 7356070,
+    "news_picked_today": 1623,
+    "news_dropped_today": 16329
   },
   "book_momentum": {
     "live_count": 8,
