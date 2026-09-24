@@ -793,6 +793,7 @@ interface State {
   newsChatRetryText?: string
   newsChatRetryTurnId?: string
   newsChatConversationId?: string
+  workspaceView: 'workspace' | 'report' | 'chat' | 'activity'
   activityOpen: boolean // the Activity dock (live runs + the audit history) — auto-opens whenever a run goes live
   scoringOpen: boolean
   valuationPlaygroundOpen: boolean
@@ -1635,7 +1636,7 @@ function requireLaunchProviderReceipt(
 // wait for polling/SSE/subject navigation to make a real run discoverable: open Activity now, then reconcile
 // the supervisor's authoritative row in the background.
 function revealAcceptedTrackedLaunch(set: any, get: () => State): void {
-  set({ activityOpen: true })
+  set({ activityOpen: true, workspaceView: 'activity' as const })
   void get().refreshActiveRuns()
 }
 
@@ -1798,6 +1799,7 @@ export const useStore = create<State>((set, get) => ({
   newsChatRetryTurnId: undefined,
   newsChatConversationId: undefined,
   activityOpen: false,
+  workspaceView: 'workspace',
   scoringOpen: false,
   valuationPlaygroundOpen: false,
   callsOpen: false,
@@ -2255,7 +2257,7 @@ export const useStore = create<State>((set, get) => ({
       const { requests } = await api.pendingAdmissions()
       const prior = new Map(get().pendingAdmissions.map((request) => [request.requestId, request.status]))
       const newlyNeedsAttention = requests.some((request) => request.status === 'needs_attention' && prior.get(request.requestId) !== 'needs_attention')
-      set({ pendingAdmissions: requests, ...(newlyNeedsAttention ? { activityOpen: true } : {}) })
+      set({ pendingAdmissions: requests, ...(newlyNeedsAttention ? { activityOpen: true, workspaceView: 'activity' as const } : {}) })
     } catch {}
   },
 
@@ -2449,7 +2451,7 @@ export const useStore = create<State>((set, get) => ({
             receipt, info.runRoot,
           )
           if (isQueuedLaunchResponse(out)) {
-            set({ resumeConfirm: null, activityOpen: true })
+            set({ resumeConfirm: null, activityOpen: true, workspaceView: 'activity' as const })
             await get().refreshPendingAdmissions()
             get().setToast({ msg: `Saved Continue for ${info.subject}. It will start once after the update, using only the work still needed.`, tone: 'good' })
             return
@@ -3060,7 +3062,7 @@ export const useStore = create<State>((set, get) => ({
       }
       const out = await api.launch({ selection, kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, requestId: crypto.randomUUID(), swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
       if (isQueuedLaunchResponse(out)) {
-        set({ launchConfirm: null, activityOpen: true })
+        set({ launchConfirm: null, activityOpen: true, workspaceView: 'activity' as const })
         await get().refreshPendingAdmissions()
         get().setToast({ msg: `Full run on ${selection.subject} is waiting for the update and will start once.`, tone: 'good' })
         return
@@ -4091,7 +4093,7 @@ export const useStore = create<State>((set, get) => ({
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
     set({
-      chatHistoryOpen: false, chatOpen: true, chatScope: scope,
+      chatHistoryOpen: false, chatOpen: true, workspaceView: 'chat', chatScope: scope,
       chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
       chatTitle: defaultChatTitle(scope, t, opts),
       chatError: undefined, chatRetryText: undefined, chatRetryTurnId: undefined, chatStreaming: false, chatWork: null,
@@ -4245,7 +4247,7 @@ export const useStore = create<State>((set, get) => ({
     const lastAssistantMemory = [...messages].reverse().find((message) => message.role === 'assistant')?.memory
     set({
       chatHistoryOpen: false,
-      chatOpen: true,
+      chatOpen: true, workspaceView: 'chat',
       chatScope: c.scope,
       chatModule: c.module,
       chatOrbPath: orbPath,
@@ -4409,22 +4411,22 @@ export const useStore = create<State>((set, get) => ({
     )
   },
 
-  openActivity: () => set({ activityOpen: true }),
+  openActivity: () => set({ activityOpen: true, workspaceView: 'activity' }),
   closeActivity: () => set({ activityOpen: false }),
   openCockpitFeedback: () => set({ cockpitFeedbackOpen: true }),
   closeCockpitFeedback: () => set({ cockpitFeedbackOpen: false }),
   openDataPipeline: (needId?: string) => set({ dataPipelineOpen: true, dataPipelineFocusNeed: needId ?? null }),
   closeDataPipeline: () => set({ dataPipelineOpen: false, dataPipelineFocusNeed: null }),
-  openScoring: () => set({ scoringOpen: true }),
+  openScoring: () => set({ scoringOpen: true, workspaceView: 'workspace' }),
   closeScoring: () => set({ scoringOpen: false }),
-  openValuationPlayground: () => set({ valuationPlaygroundOpen: true }),
+  openValuationPlayground: () => set({ valuationPlaygroundOpen: true, workspaceView: 'workspace' }),
   closeValuationPlayground: () => set({ valuationPlaygroundOpen: false }),
-  openCalls: () => set({ callsOpen: true, memoryOpen: false, toolsOpen: false }),
+  openCalls: () => set({ callsOpen: true, workspaceView: 'workspace', memoryOpen: false, toolsOpen: false }),
   closeCalls: () => set({ callsOpen: false }),
 
   // ---- Data Library (cross-swarm overlay; one overlay at a time, the openPipeline idiom) ----
   openDataLibrary: () => {
-    set({ dataLibraryOpen: true, memoryOpen: false, toolsOpen: false, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
+    set({ dataLibraryOpen: true, workspaceView: 'workspace', memoryOpen: false, toolsOpen: false, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
     void get().refreshPipelines()
   },
   closeDataLibrary: () => set({ dataLibraryOpen: false, dlSelectedId: null }),
@@ -5684,7 +5686,7 @@ export const useStore = create<State>((set, get) => ({
     const filters = get().reviewFilters
     const covered = get().coveredTickers
     set({
-      reviewOpen: true,
+      reviewOpen: true, workspaceView: 'workspace',
       reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, filters, covered)),
       reviewIndex: 0,
       reviewSessionCount: 0,
@@ -6373,7 +6375,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   openPipeline: () => {
-    set({ pipelineOpen: true, newsFeedOpen: false, diagnosticsOpen: false }) // one overlay at a time — the wire yields to the board
+    set({ pipelineOpen: true, workspaceView: 'workspace', newsFeedOpen: false, diagnosticsOpen: false }) // one overlay at a time — the wire yields to the board
     void get().scRefreshBoard()
   },
   closePipeline: () => set({ pipelineOpen: false, scThesisDetail: null }),
@@ -6538,7 +6540,7 @@ export const useStore = create<State>((set, get) => ({
 
   // ---- the news wire: watch the scanner live ----
   openNewsFeed: async () => {
-    set({ newsFeedOpen: true, pipelineOpen: false, diagnosticsOpen: false, scThesisDetail: null })
+    set({ newsFeedOpen: true, workspaceView: 'workspace', pipelineOpen: false, diagnosticsOpen: false, scThesisDetail: null })
     await loadNewsFeed(set, get, false)
   },
   refreshNewsFeed: async () => {
@@ -6647,11 +6649,11 @@ export const useStore = create<State>((set, get) => ({
       set({ scArchiveLoadingMore: false, scArchiveError: archiveErrorNote(e) })
     }
   },
-  openSources: () => set({ sourcesOpen: true, diagnosticsOpen: false }),
+  openSources: () => set({ sourcesOpen: true, workspaceView: 'workspace', diagnosticsOpen: false }),
   closeSources: () => set({ sourcesOpen: false }),
   // ---- pipeline diagnostics: the full end-to-end tier/backlog/defer view (one-overlay-at-a-time) ----
   openDiagnostics: async () => {
-    set({ diagnosticsOpen: true, newsFeedOpen: false, pipelineOpen: false, sourcesOpen: false, dataLibraryOpen: false, dataPipelineOpen: false, callsOpen: false, scThesisDetail: null })
+    set({ diagnosticsOpen: true, workspaceView: 'workspace', newsFeedOpen: false, pipelineOpen: false, sourcesOpen: false, dataLibraryOpen: false, dataPipelineOpen: false, callsOpen: false, scThesisDetail: null })
     await get().refreshDiagnostics()
   },
   closeDiagnostics: () => set({ diagnosticsOpen: false }),
@@ -7416,8 +7418,8 @@ function beginRun(
   // close the output panel so the user is dropped back to the swarm to watch the run live; keep
   // other concurrent runs' stream rows, just clear any stale rows from this runId
   set(onScreen
-    ? { activeRuns, activityOpen: true, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null }
-    : { activeRuns, activityOpen: true })
+    ? { activeRuns, activityOpen: true, workspaceView: 'activity' as const, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null }
+    : { activeRuns, activityOpen: true, workspaceView: 'activity' as const })
   connectRun(get, runId)
   get().refreshActiveRuns()
 }
@@ -8024,9 +8026,9 @@ function beginScreenerRun(
   if (subject.startsWith('SIG-') && ownsVisibleSignal) {
     const rt: Record<string, NodeRuntime> = {}
     for (const k of get().scNodesByKey.keys()) rt[k] = { status: 'queued', runId }
-    set({ activeRuns, activityOpen: true, scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
+    set({ activeRuns, activityOpen: true, workspaceView: 'activity' as const, scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
   } else {
-    set({ activeRuns, activityOpen: true })
+    set({ activeRuns, activityOpen: true, workspaceView: 'activity' as const })
   }
   connectScreenerRun(get, runId, subject)
   void get().refreshActiveRuns() // the kill-switch pill ("N running") tracks screener runs too

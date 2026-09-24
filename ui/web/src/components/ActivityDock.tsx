@@ -64,7 +64,7 @@ export function ActivityDock() {
   // Esc closes — but never out from under a live run, which would hide the progress it just opened for.
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && !live) closeActivity() }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && !live && document.querySelector('.adock')?.checkVisibility() && !document.querySelector('.reader')?.checkVisibility() && !document.querySelector('.chatpanel')?.checkVisibility()) closeActivity() }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open, live, closeActivity])

@@ -20,9 +20,7 @@ import { PipelineDiagnostics } from './components/screener/PipelineDiagnostics'
 import { SourcesPanel } from './components/screener/SourcesPanel'
 import { PipelineBoard } from './components/screener/PipelineBoard'
 import { SwarmWarp } from './components/SwarmWarp'
-import { ActivityDock } from './components/ActivityDock'
-import { OutputReader } from './components/OutputReader'
-import { ChatPanel } from './components/ChatPanel'
+import { Workspace } from './components/Workspace'
 import { ChatHistory } from './components/ChatHistory'
 import { NewsChatPanel } from './components/screener/NewsChatPanel'
 import { ScoringPanel } from './components/screener/ScoringPanel'
@@ -251,8 +249,6 @@ function MobileViewPill() {
 
 export function App() {
   const init = useStore((s) => s.init)
-  const openOutput = useStore((s) => s.openOutput)
-  const activityOpen = useStore((s) => s.activityOpen)
   const scoringOpen = useStore((s) => s.scoringOpen)
   const valuationPlaygroundOpen = useStore((s) => s.valuationPlaygroundOpen)
   const reviewOpen = useStore((s) => s.reviewOpen)
@@ -264,7 +260,6 @@ export function App() {
   const toolsOpen = useStore((s) => s.toolsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const dataPipelineOpen = useStore((s) => s.dataPipelineOpen)
-  const chatOpen = useStore((s) => s.chatOpen)
   const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
   const newsChatOpen = useStore((s) => s.newsChatOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
@@ -289,48 +284,44 @@ export function App() {
   }, [init])
 
   return (
-    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}${openOutput && chatOpen ? ' app--dual' : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
+    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
       <div className="app__bg" />
       <CommandBar />
       <OfflineBanner />
-      <div className="main">
-        <div className="stage" key={activeSwarm}>
-          {activeLayout === 'flow' ? <ScreenerStage /> : <ResearchStage />}
-        </div>
-        {/* ONE activity surface, docked IN the layout (never over it): what's running now, then everything
-            that has run. Opens itself the moment anything launches; drag its edge to resize. */}
-        <ActivityDock />
+      <div className="app__content">
+        <Workspace>
+          <div className="stage" key={activeSwarm}>
+            {activeLayout === 'flow' ? <ScreenerStage /> : <ResearchStage />}
+          </div>
+        </Workspace>
+        <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
+        <AnimatePresence>{newsChatOpen && <NewsChatPanel />}</AnimatePresence>
+        <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
+        <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
+        <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
+        <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
+        <AnimatePresence>{watchComposerOpen && <WatchComposer />}</AnimatePresence>
+        <AnimatePresence>{dataPipelineOpen && <DataPipelinePanel />}</AnimatePresence>
+        <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
+        <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>
+        <AnimatePresence>{memoryOpen && <MemoryExplorer />}</AnimatePresence>
+        <AnimatePresence>{toolsOpen && <ToolsWorkspace />}</AnimatePresence>
+        <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
+        {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
+            freeze a framer exit mid-slide — instant close is deterministic (and exits should be
+            faster than enters anyway); the entry slide still runs via initial/animate */}
+        {newsFeedOpen && <LiveFeed personalScopeEnabled={activeSwarm === 'screener'} />}
+        {diagnosticsOpen && <PipelineDiagnostics />}
+        {sourcesOpen && <SourcesPanel />}
+        <SignalIntake />
+        <LaunchConfirm />
+        <ResumeConfirm />
+        <ThesisPlanPanel />
+        <WhatChangedPanel />
+        <AddCompany />
+        <ReadinessWarnings />
+        <SwarmWarp />
       </div>
-
-      <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
-      <AnimatePresence>{chatOpen && <ChatPanel />}</AnimatePresence>
-      <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
-      <AnimatePresence>{newsChatOpen && <NewsChatPanel />}</AnimatePresence>
-      <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
-      <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
-      <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
-      <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
-      <AnimatePresence>{watchComposerOpen && <WatchComposer />}</AnimatePresence>
-      <AnimatePresence>{dataPipelineOpen && <DataPipelinePanel />}</AnimatePresence>
-      <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
-      <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>
-      <AnimatePresence>{memoryOpen && <MemoryExplorer />}</AnimatePresence>
-      <AnimatePresence>{toolsOpen && <ToolsWorkspace />}</AnimatePresence>
-      <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
-      {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
-          freeze a framer exit mid-slide — instant close is deterministic (and exits should be
-          faster than enters anyway); the entry slide still runs via initial/animate */}
-      {newsFeedOpen && <LiveFeed personalScopeEnabled={activeSwarm === 'screener'} />}
-      {diagnosticsOpen && <PipelineDiagnostics />}
-      {sourcesOpen && <SourcesPanel />}
-      <SignalIntake />
-      <LaunchConfirm />
-      <ResumeConfirm />
-      <ThesisPlanPanel />
-      <WhatChangedPanel />
-      <AddCompany />
-      <ReadinessWarnings />
-      <SwarmWarp />
 
       <AnimatePresence>
         {toast && (

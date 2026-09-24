@@ -1,0 +1,81 @@
+/* The shell owns geometry; content owns its own scroll. No panel can cover the product navigation. */
+.app__content { position: relative; flex: 1; min-height: 0; min-width: 0; }
+.topbar { flex: none; z-index: 60; }
+.app__content > .pipeline.memory, .app__content > .pipeline.toolswork { position: absolute; }
+.workspace { position: absolute; inset: 0; display: flex; flex-direction: column; min-width: 0; }
+.workspace--reading { z-index: 55; background: var(--bg); }
+.workspace__nav {
+  display: flex; align-items: center; gap: 4px; flex: none; min-height: 44px; padding: 6px 16px;
+  background: var(--surface-1); border-bottom: 1px solid var(--hairline);
+}
+.workspace__tab {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--r-sm);
+  color: var(--text-muted); font-size: 12px; white-space: nowrap;
+}
+.workspace__tab[aria-pressed='true'] { background: var(--accent-wash); color: var(--accent-bright); }
+.workspace__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.workspace__hint { margin-left: auto; color: var(--text-faint); font-size: 11px; }
+.workspace__live { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--accent); }
+.workspace__panes { min-width: 0; z-index: auto; }
+.workspace__panes > * { position: relative; min-width: 0; min-height: 0; }
+.workspace__panes > [hidden] { display: none; }
+.workspace__stage { display: flex; flex: 1 1 1000px; overflow: auto; }
+/* A constellation is a canvas: on a compact desktop it pans, rather than putting its rail over nodes. */
+.workspace__stage > .stage { min-width: 1000px; }
+.workspace__report { display: flex; flex: 1.45 1 600px; }
+.workspace__chat { display: flex; flex: 1 1 420px; }
+.workspace__activity { display: flex; }
+.workspace__panes--stage > .workspace__report { flex: 0 0 clamp(600px, 34%, 800px); }
+.workspace__panes--stage > .workspace__chat { flex: 0 0 clamp(420px, 24%, 560px); }
+.workspace__panes:not(.workspace__panes--stage) > .workspace__activity { flex: 1; }
+.workspace__panes:not(.workspace__panes--stage) .adock { width: 100% !important; }
+.workspace__panes:not(.workspace__panes--stage) .adock__grip { display: none; }
+.workspace__panes--stage .adock { max-width: calc(100vw - 1000px); }
+.workspace .reader, .workspace .chatpanel {
+  position: relative; inset: auto; width: 100%; min-width: 0; min-height: 0; flex: 1;
+  box-shadow: none;
+}
+.workspace .reader { z-index: 1; }
+.workspace .chatpanel { z-index: 2; }
+
+/* Titles, close controls and toolbars get separate space. Toolbars wrap as the PANEL gets narrower. */
+.reader__head, .workspace .chatpanel__head {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; flex: none;
+  padding: 16px 20px 12px; align-items: start;
+}
+.reader__heading, .chatpanel__heading { min-width: 0; }
+.reader__title { flex-wrap: wrap; row-gap: 6px; }
+.reader__titletext { overflow-wrap: anywhere; }
+.reader__close, .chatpanel__close { grid-column: 2; grid-row: 1; }
+.reader__actions, .chatpanel__actions {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0;
+  position: relative;
+}
+.reader__actions .btn, .chatpanel__actions .btn { white-space: nowrap; padding-inline: 10px; }
+/* Anchor every dropdown to its toolbar, so the first/last control cannot open it outside the panel. */
+.reader__actions > div, .chatpanel__actions > div { position: static !important; }
+.reader__actions .dlmenu, .chatpanel__actions .dlmenu {
+  top: calc(100% + 6px); left: 0; right: auto; min-width: min(286px, 100%); max-width: 100%;
+  max-height: min(440px, 50dvh); overflow-y: auto; overscroll-behavior: contain;
+}
+.reader__body, .chatpanel__thread { min-width: 0; min-height: 0; overscroll-behavior: contain; overflow-x: hidden; }
+.reader__body { padding: 24px clamp(20px, 3vw, 48px) 48px; }
+.reader__body > .md { max-width: 960px; margin-inline: auto; }
+.reader .md, .chatpanel .md, .chatmsg { overflow-wrap: anywhere; }
+.reader .md table, .chatpanel .md table { display: block; overflow-x: auto; overscroll-behavior-inline: contain; }
+.reader .md :is(th, td), .chatpanel .md :is(th, td) { min-width: 140px; vertical-align: top; }
+.reader .md pre, .chatpanel .md pre { max-width: 100%; overflow-x: auto; }
+.reader .md img, .chatpanel .md img { max-width: 100%; height: auto; }
+.chatpanel__body { overflow: hidden; }
+.chatpanel__input { flex: none; }
+@media (max-width: 700px) {
+  .topbar { flex-wrap: wrap; height: auto; min-height: 56px; padding-block: 8px; }
+  .topbar__spacer { display: none; }
+  .workspace__hint { display: none; }
+  .workspace__nav { padding-inline: 8px; }
+  .workspace__tab { padding-inline: 10px; }
+  .reader__head, .workspace .chatpanel__head { padding-inline: 16px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .workspace__tab:hover { background: var(--surface-3); color: var(--text); }
+}
