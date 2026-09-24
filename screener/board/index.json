@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T06:59:41Z",
+  "generated_at": "2026-09-24T07:02:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-324",
@@ -387,6 +387,109 @@
           "name": "Tuhu-W",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-326",
+      "headline": "Elmet Group To Acquire 4.99% Stake In Masan High-Tech Materials For $124.75 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/elmet-group-acquire-499-stake-masan-high-tech-materials-12475-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T06:15:55Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Elmet Group is acquiring a 4.99% stake in Masan High-Tech Materials for $124.75 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elmet Group is acquiring a 4.99% stake in Masan High-Tech Materials for $124.75 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Masan High-Tech Materials",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-332",
+      "headline": "Schneider to launch €1.2 billion takeover bid for smart device firm Shelly",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/schneider-agrees-takeover-bid-shelly-70-per-share-2026-09-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T06:12:30Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Schneider is launching a €1.2 billion takeover bid for Shelly.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider is launching a €1.2 billion takeover bid for Shelly.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Shelly",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1856,104 +1959,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-310",
-      "headline": "Balrampur Chini Mills Limited: Balrampur Chini Mills Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \"Government of India Awards ₹75 Crore BioE3 Grant to BCML to Advance India's Bioeconomy\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BALRAMPURC_24092026110943_SE_Intimation__Press_Release_24092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T05:40:58Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Balrampur Chini Mills Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-263",
-      "headline": "AMK: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMK?key=2924-03139308-6A1345421",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T02:31:52Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "A substantial holder disclosure indicates a significant change in ownership interest in AMK.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A substantial holder disclosure indicates a significant change in ownership interest in AMK.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMK",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -176875,9 +176880,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1305645,
-    "news_picked_today": 830,
-    "news_dropped_today": 5962
+    "news_seen_today": 1338907,
+    "news_picked_today": 838,
+    "news_dropped_today": 6050
   },
   "book_momentum": {
     "live_count": 8,
