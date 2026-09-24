@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T09:38:56Z",
+  "generated_at": "2026-09-24T09:46:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-363",
@@ -1949,51 +1949,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260924-082",
-      "headline": "MSB: FDA Approves New Potency Assay for Commercial Ryoncil [price-sensitive]",
+      "inbox_id": "INB-20260924-367",
+      "headline": "SUNAC (01918): QUARTERLY UPDATE ON IMPLEMENTATION OF ACTION PLAN TO RESOLVE AUDITOR'S DISCLAIMER OF OPINION",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MSB?key=2924-03139221-3A702461",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401231.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:52:12Z",
+      "found_at": "2026-09-24T09:30:00Z",
       "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "FDA approval for a commercial assay is a significant regulatory milestone for product commercialization.",
+      "prelim_note": "Sunac is providing a quarterly update on its efforts to resolve a disclaimer of opinion from its auditor, a critical governance and accounting issue.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "FDA approval for a commercial assay is a significant regulatory milestone for product commercialization.",
-      "region": "OTHER",
+      "triage_reason": "Sunac is providing a quarterly update on its efforts to resolve a disclaimer of opinion from its auditor, a critical governance and accounting issue.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 0,
+        "event": 7,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "product",
-        "regulatory"
+        "accounting_restatement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MSB",
+          "name": "SUNAC",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176914,9 +176913,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1873989,
-    "news_picked_today": 924,
-    "news_dropped_today": 10308
+    "news_seen_today": 1929563,
+    "news_picked_today": 937,
+    "news_dropped_today": 10367
   },
   "book_momentum": {
     "live_count": 8,
