@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T15:25:48Z",
+  "generated_at": "2026-09-24T16:36:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-459",
@@ -136368,6 +136368,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-a85bb583dca8",
+      "idea_version": "IDEAV-901fdab91d427bdb",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "9984.T",
+      "company": "SoftBank Group",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
+      "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1704c2896411",
+        "EVT-40e63e4ca332"
+      ],
+      "primary_source_event_id": "EVT-1704c2896411",
+      "source_headlines": [
+        "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+        "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
+      ],
+      "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+      "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T02:10:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-25T14:10:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8fb3bbf64a3a",
       "idea_version": "IDEAV-86f32e39f1a8ab6e",
       "idea_version_started_at": "2026-09-23T11:48:13Z",
@@ -136643,6 +136714,293 @@
       "surfaced_at": "2026-09-23T12:24:49Z",
       "updated_at": "2026-09-23T12:24:49Z",
       "decay_at": "2026-09-24T20:28:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-317ffe2f33bc",
+      "idea_version": "IDEAV-f42792e289d61c94",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "IDP.AX",
+      "company": "IDP Education",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "IDP Education has received a takeover bid from Blackstone valued at $700 million.",
+      "why_now": "The bid was disclosed on September 23, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-397fa9b92e85"
+      ],
+      "primary_source_event_id": "EVT-397fa9b92e85",
+      "source_headlines": [
+        "IDP discloses $700m Blackstone takeover bid – two weeks after lands"
+      ],
+      "source_headline": "IDP discloses $700m Blackstone takeover bid – two weeks after lands",
+      "source_url": "https://www.afr.com/policy/health-and-education/idp-discloses-700m-blackstone-takeover-bid-two-weeks-after-lobbed-20260923-p60zow?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T04:40:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-24T16:40:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-588713c450b7",
+      "idea_version": "IDEAV-d0c6400c0838ff79",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "SDPI",
+      "company": "Superior Energy Services",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Superior Energy Services has announced its intention to acquire Welltec International.",
+      "why_now": "The acquisition news was reported on September 23, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36b4ddbbbe8e"
+      ],
+      "primary_source_event_id": "EVT-36b4ddbbbe8e",
+      "source_headlines": [
+        "Superior Energy Services To Acquire Welltec International"
+      ],
+      "source_headline": "Superior Energy Services To Acquire Welltec International",
+      "source_url": "https://www.nasdaq.com/articles/superior-energy-services-acquire-welltec-international",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T05:30:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-24T17:30:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-775dc56cb4f0",
+      "idea_version": "IDEAV-1cf21e270ba6dc94",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "PAR.AX",
+      "company": "Paragon Care",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Paragon Care's Phase 3 interim result has fallen below the continuation threshold, indicating potential financial distress.",
+      "why_now": "The price-sensitive filing was made on September 23, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7c6663dbfa72"
+      ],
+      "primary_source_event_id": "EVT-7c6663dbfa72",
+      "source_headlines": [
+        "PAR: Phase 3 Interim Result Below Continuation Threshold [price-sensitive]"
+      ],
+      "source_headline": "PAR: Phase 3 Interim Result Below Continuation Threshold [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03138755-3A702371",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T04:37:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-24T16:37:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bfad6f23179e",
+      "idea_version": "IDEAV-f73316026dc66369",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "ACFS.AX",
+      "company": "ACFS Logistics",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "ACFS Logistics' debts have significantly increased to nearly half a billion dollars, signaling potential default risk.",
+      "why_now": "The concerning debt levels were reported on September 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-467b378e69cd"
+      ],
+      "primary_source_event_id": "EVT-467b378e69cd",
+      "source_headlines": [
+        "Tzaneros’ ACFS debts blow out to nearly half a billion dollars"
+      ],
+      "source_headline": "Tzaneros’ ACFS debts blow out to nearly half a billion dollars",
+      "source_url": "https://www.afr.com/companies/transport/tzaneros-acfs-debts-blow-out-to-nearly-half-a-billion-dollars-20260924-p6102o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T02:22:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-25T14:22:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139284,148 +139642,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e4ce1e3fbb7c",
-      "idea_version": "IDEAV-888daf46cb9ced1b",
-      "idea_version_started_at": "2026-09-22T10:45:27Z",
-      "ticker": "IOC",
-      "company": "Indian Oil Corporation",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The approval of the Kochi-Kanyakumari-Thoothukudi natural gas pipeline represents a significant long-term capital expenditure project that will expand the company's infrastructure footprint.",
-      "why_now": "The investment approval was filed on September 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-719f0baa8171"
-      ],
-      "primary_source_event_id": "EVT-719f0baa8171",
-      "source_headlines": [
-        "Indian Oil Corporation Limited: Indian Oil Corporation Limited has informed the Exchange regarding 'Investment Approval for Kochi-Kanyakumari-Thoothukudi Natural Gas Pipeline'."
-      ],
-      "source_headline": "Indian Oil Corporation Limited: Indian Oil Corporation Limited has informed the Exchange regarding 'Investment Approval for Kochi-Kanyakumari-Thoothukudi Natural Gas Pipeline'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/IOC_21092026133341_2026_09_21_Investment_approval_KTPL_S.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-21T08:03:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T10:45:27Z",
-      "updated_at": "2026-09-22T10:45:27Z",
-      "decay_at": "2026-09-22T20:03:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1fb1540d67d2",
-      "idea_version": "IDEAV-5fbbfccabcb4bb68",
-      "idea_version_started_at": "2026-09-22T12:28:28Z",
-      "ticker": "BASF",
-      "company": "BASF India",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
-      "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f89b275f2b87"
-      ],
-      "primary_source_event_id": "EVT-f89b275f2b87",
-      "source_headlines": [
-        "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
-      ],
-      "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-21T08:01:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:28:28Z",
-      "updated_at": "2026-09-22T12:28:28Z",
-      "decay_at": "2026-09-22T20:01:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-cdba0d2ebad5",
       "idea_version": "IDEAV-8c26e4a74a7ab38d",
       "idea_version_started_at": "2026-09-22T12:09:02Z",
@@ -139723,14 +139939,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 21
       },
       "short": {
         "total_count": 259,
@@ -139740,12 +139956,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 456,
+      "evicted_count": 458,
       "oldest_retained_at": "2026-08-31T20:48:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 302,
-          "oldest_retained_at": "2026-09-09T00:13:47Z"
+          "evicted_count": 304,
+          "oldest_retained_at": "2026-09-09T01:42:46Z"
         },
         "short": {
           "evicted_count": 154,
@@ -142051,8 +142267,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T20:03:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T16:36:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142125,8 +142341,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T20:01:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T16:36:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176905,8 +177121,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1004,
-    "live_count": 15,
+    "surfaced_total": 1009,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -176925,7 +177141,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3823167,
+    "news_seen_today": 4354193,
     "news_picked_today": 1142,
     "news_dropped_today": 11962
   },

@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-a85bb583dca8",
+  "idea_version": "IDEAV-901fdab91d427bdb",
+  "idea_version_started_at": "2026-09-24T16:36:19Z",
+  "ticker": "9984.T",
+  "company": "SoftBank Group",
+  "exchange": "Tokyo Stock Exchange",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
+  "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 74,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-1704c2896411",
+    "EVT-40e63e4ca332"
+  ],
+  "primary_source_event_id": "EVT-1704c2896411",
+  "source_headlines": [
+    "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+    "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
+  ],
+  "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+  "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
+  "source_name": "FierceBiotech",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-24T02:10:50Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-24T16:36:19Z",
+  "updated_at": "2026-09-24T16:36:19Z",
+  "decay_at": "2026-09-25T14:10:50Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-24T16:36:33Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-1fb1540d67d2",
+    "idea_version": "IDEAV-5fbbfccabcb4bb68",
+    "idea_version_started_at": "2026-09-22T12:28:28Z",
+    "ticker": "BASF",
+    "company": "BASF India",
+    "exchange": "BSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
+    "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 6,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f89b275f2b87"
+    ],
+    "primary_source_event_id": "EVT-f89b275f2b87",
+    "source_headlines": [
+      "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
+    ],
+    "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
+    "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
+    "materiality_max": 97,
+    "newest_source_at": "2026-09-21T08:01:45Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-22T12:28:28Z",
+    "updated_at": "2026-09-22T12:28:28Z",
+    "decay_at": "2026-09-22T20:01:45Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
