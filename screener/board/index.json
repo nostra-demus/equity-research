@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T10:26:09Z",
+  "generated_at": "2026-09-24T10:53:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-363",
@@ -136510,76 +136510,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6b4116160c6",
-      "idea_version": "IDEAV-aaefbdf309a083bd",
-      "idea_version_started_at": "2026-09-23T05:05:14Z",
-      "ticker": "KBH",
-      "company": "KB Home",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing margin compression due to deteriorating housing market conditions, which will likely lead to downward earnings revisions.",
-      "why_now": "The guidance cut was announced on 2026-09-22.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71d0a039dfa1"
-      ],
-      "primary_source_event_id": "EVT-71d0a039dfa1",
-      "source_headlines": [
-        "KB Home Cuts Margin Outlook as Housing Conditions Worsen"
-      ],
-      "source_headline": "KB Home Cuts Margin Outlook as Housing Conditions Worsen",
-      "source_url": "https://www.wsj.com/economy/housing/kb-home-cuts-margin-outlook-as-housing-conditions-worsen-caa020ae?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T22:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T05:05:14Z",
-      "updated_at": "2026-09-23T05:05:14Z",
-      "decay_at": "2026-09-24T10:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-028c0d923343",
       "idea_version": "IDEAV-91b4668b8fd3875d",
       "idea_version_started_at": "2026-09-23T19:44:02Z",
@@ -138144,6 +138074,76 @@
       "surfaced_at": "2026-09-22T18:20:15Z",
       "updated_at": "2026-09-22T18:20:15Z",
       "decay_at": "2026-09-24T01:56:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d6b4116160c6",
+      "idea_version": "IDEAV-aaefbdf309a083bd",
+      "idea_version_started_at": "2026-09-23T05:05:14Z",
+      "ticker": "KBH",
+      "company": "KB Home",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing margin compression due to deteriorating housing market conditions, which will likely lead to downward earnings revisions.",
+      "why_now": "The guidance cut was announced on 2026-09-22.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71d0a039dfa1"
+      ],
+      "primary_source_event_id": "EVT-71d0a039dfa1",
+      "source_headlines": [
+        "KB Home Cuts Margin Outlook as Housing Conditions Worsen"
+      ],
+      "source_headline": "KB Home Cuts Margin Outlook as Housing Conditions Worsen",
+      "source_url": "https://www.wsj.com/economy/housing/kb-home-cuts-margin-outlook-as-housing-conditions-worsen-caa020ae?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T22:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T05:05:14Z",
+      "updated_at": "2026-09-23T05:05:14Z",
+      "decay_at": "2026-09-24T10:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139724,9 +139724,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -139734,9 +139734,9 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 257,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 8
       }
     },
     "retention": {
@@ -139755,6 +139755,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6b4116160c6",
+        "idea_version": "IDEAV-aaefbdf309a083bd",
+        "idea_version_started_at": "2026-09-23T05:05:14Z",
+        "ticker": "KBH",
+        "company": "KB Home",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing margin compression due to deteriorating housing market conditions, which will likely lead to downward earnings revisions.",
+        "why_now": "The guidance cut was announced on 2026-09-22.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-71d0a039dfa1"
+        ],
+        "primary_source_event_id": "EVT-71d0a039dfa1",
+        "source_headlines": [
+          "KB Home Cuts Margin Outlook as Housing Conditions Worsen"
+        ],
+        "source_headline": "KB Home Cuts Margin Outlook as Housing Conditions Worsen",
+        "source_url": "https://www.wsj.com/economy/housing/kb-home-cuts-margin-outlook-as-housing-conditions-worsen-caa020ae?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T22:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T05:05:14Z",
+        "updated_at": "2026-09-23T05:05:14Z",
+        "decay_at": "2026-09-24T10:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T10:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-acf746e0f13b",
         "idea_version": "IDEAV-31f5433301e62c0f",
@@ -176824,85 +176897,12 @@
         "archived_at": "2026-09-02T21:32:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6f55bf31e25a",
-        "idea_version": "IDEAV-2d43af8978c497d0",
-        "idea_version_started_at": "2026-08-30T18:59:22Z",
-        "ticker": "BA",
-        "company": "Boeing",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Engineers have authorized a strike for October, threatening to halt the recent momentum in 737 production rates and increase labor costs.",
-        "why_now": "The strike authorization occurred on August 30, 2026, creating a specific downside catalyst for October.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cebb0aeaf2e8"
-        ],
-        "primary_source_event_id": "EVT-cebb0aeaf2e8",
-        "source_headlines": [
-          "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
-        ],
-        "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/boeing-building-737s-faster-years-182701948.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T18:27:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T18:39:27Z",
-        "updated_at": "2026-08-30T18:59:22Z",
-        "decay_at": "2026-09-01T06:27:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T19:27:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1004,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -176921,9 +176921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2025615,
-    "news_picked_today": 957,
-    "news_dropped_today": 11427
+    "news_seen_today": 2126917,
+    "news_picked_today": 962,
+    "news_dropped_today": 11518
   },
   "book_momentum": {
     "live_count": 8,
