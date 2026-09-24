@@ -1,6 +1,202 @@
 {
-  "generated_at": "2026-09-24T04:05:56Z",
+  "generated_at": "2026-09-24T06:41:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-311",
+      "headline": "Whirlpool of India Limited: The Exchange has sought clarification from Whirlpool of India Limited with respect to recent news item captioned Whirlpool of India promoter set to sell entire stake, reports CNBC-Awaaz; shares surge 17%. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/llogesh_24092026113320_SE_intimation_marketrumour_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T06:05:53Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Whirlpool of India is facing reports of a potential full promoter stake sale, which has already driven a 17% share price surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Whirlpool of India is facing reports of a potential full promoter stake sale, which has already driven a 17% share price surge.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whirlpool of India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-319",
+      "headline": "SGR: The Star Gold Coast Licence Suspension Deferred [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGR?key=2924-03139382-2A1699009",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T05:56:08Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "The Star Gold Coast license suspension being deferred is a significant regulatory development affecting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Star Gold Coast license suspension being deferred is a significant regulatory development affecting operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SGR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-305",
+      "headline": "STAR GROUP ASIA (01560): Notification Letter and Request Form to Non-Registered Holder - Notice of Publication of Circular dated 23 September 2026 relating Major Transaction in Relation to Disposal of Property",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400251.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T04:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "STAR GROUP ASIA disclosed a major transaction for property disposal; Hong Kong regulatory threshold classification indicates material deal size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "STAR GROUP ASIA disclosed a major transaction for property disposal; Hong Kong regulatory threshold classification indicates material deal size.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STAR GROUP ASIA",
+          "ticker": "01560",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-292",
+      "headline": "[TSE]Change of the Reason for Delisting and Delisting Date: Yamadai Corporation",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260924-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T04:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Yamadai Corporation is facing a delisting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yamadai Corporation is facing a delisting event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yamadai Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-271",
       "headline": "[JPX]Notice of Revisions to Earnings Forecast and Dividend Forecast",
@@ -145,6 +341,114 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-308",
+      "headline": "Schneider agrees takeover bid for Shelly at €70 per share",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/schneider-agrees-takeover-bid-shelly-70-per-share-2026-09-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T05:42:10Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric SE",
+          "ticker": "SE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shelly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-309",
+      "headline": "Schneider to Buy Smart Device Firm Shelly in $1.4 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-24/schneider-electric-said-near-deal-for-smart-device-firm-shelly",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric SE",
+          "ticker": "SE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Shelly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1133,6 +1437,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-304",
+      "headline": "Pine Labs Limited: Pine Labs Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \"Pine Labs to Deploy 10 Lakh Soundboxes Across India to Power Digital Commerce\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PINELABS_24092026103059_PR_PLL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T05:01:48Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Pine Labs announced deployment of 10 lakh soundboxes across India, a quantified capacity-expansion investment for its digital-commerce platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Pine Labs announced deployment of 10 lakh soundboxes across India, a quantified capacity-expansion investment for its digital-commerce platform.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pine Labs Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-299",
+      "headline": "PB Fintech shares fall 23%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T04:54:03Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "PB Fintech shares fell 23% following a draft paper from the IRDAI that suggests near-term pain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "PB Fintech shares fell 23% following a draft paper from the IRDAI that suggests near-term pain.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PB Fintech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-059",
       "headline": "USL: Property Acquisition to Expand Joaquin District",
       "headline_en": null,
@@ -1231,6 +1633,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-290",
+      "headline": "Pentagon Probes How Parts Of US' Most Advanced F-35 Fighter Jet Ended Up In Hong Kong As China Reportedly Obtains Components",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/pentagon-probes-how-parts-of-us-most-advanced-f-35-fighter-jet-ended-up-in-hong-kong-as-china-reportedly-obtains-components",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T03:23:32Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Pentagon investigating export of US F-35 fighter components to Hong Kong; military supply-chain security breach affecting US defense contractors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-260",
       "headline": "(URGENT) N. Korean foreign minister says will to keep nuclear weapons irreversible",
       "headline_en": null,
@@ -1312,6 +1758,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-310",
+      "headline": "Balrampur Chini Mills Limited: Balrampur Chini Mills Limited has informed the Exchange regarding a press release dated September 24, 2026, titled \"Government of India Awards ₹75 Crore BioE3 Grant to BCML to Advance India's Bioeconomy\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BALRAMPURC_24092026110943_SE_Intimation__Press_Release_24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T05:40:58Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Balrampur Chini Mills Limited received a government grant of ₹75 Crore for bioeconomy advancement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Balrampur Chini Mills Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1456,492 +1951,6 @@
           "name": "AMD",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-001",
-      "headline": "USL: Unico Raises $60 Million to Accelerate Development [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.USL?key=2924-03139209-3A702448",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:42:52Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Unico raised $60 million in capital to accelerate development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Unico raised $60 million in capital to accelerate development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unico",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-087",
-      "headline": "SEM HLDGS (09929): SUPPLEMENTAL ANNOUNCEMENT REGARDING PREPAYMENTS TO SUPPLIERS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T22:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Supplemental announcement regarding supplier prepayments suggests potential accounting or liquidity concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Supplemental announcement regarding supplier prepayments suggests potential accounting or liquidity concerns.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEM HLDGS",
-          "ticker": "09929",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-126",
-      "headline": "LUFAX (06623): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092400103.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T00:41:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "LUFAX announced the resumption of trading of its shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "LUFAX announced the resumption of trading of its shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LUFAX",
-          "ticker": "06623",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-075",
-      "headline": "BSA: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03139240-2A1698940",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T00:25:02Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement indicates potential material news or corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt pending a price-sensitive announcement indicates potential material news or corporate action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BSA Limited",
-          "ticker": "BSA",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-005",
-      "headline": "HLS: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03139212-2A1698927",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:43:32Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "HLS entered a trading halt pending an announcement, which is a significant operational event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HLS entered a trading halt pending an announcement, which is a significant operational event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HLS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-201",
-      "headline": "NSE listing today: What investors need to know about the ₹22,562 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nse-ipo-listing-today-share-price-debuts-bse-msei-premium-discount-gmp-details-what-investors-need-to-know-about-issue-19997112.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:32:09Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "NSE lists today at Rs 22,562 crore market cap, becoming 11th-largest Indian company and Nifty/Sensex constituent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "NSE lists today at Rs 22,562 crore market cap, becoming 11th-largest Indian company and Nifty/Sensex constituent.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange (NSE)",
-          "ticker": "NSE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-200",
-      "headline": "NSE Listing Live Updates: Exchange to be 11th largest Co at current market cap",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nse-listing-live-updates-debut-on-bse-ipo-subscription-gmp-lic-institutions-retail-premium-volumes-liveblog-19997086.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:29:31Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "NSE lists today and becomes 11th-largest Indian company by market cap, adding to Sensex and Nifty indices mechanically.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "NSE lists today and becomes 11th-largest Indian company by market cap, adding to Sensex and Nifty indices mechanically.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange (NSE)",
-          "ticker": "NSE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-187",
-      "headline": "US-Iran War News Live: Iran cancels flights as sanctions hit, Indian seafarer killed in strike off Oman coast",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/usiran-war-news-live-iran-flights-us-sanctions-donald-trump-unga-masoud-pezeshkian-strait-of-hormuz-11790211488453.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:18:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Military strike off Oman with casualty and Iran flight cancellations amid US sanctions and escalation create geopolitical shock and supply-chain disruption across energy, aviation, and shipping sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Military strike off Oman with casualty and Iran flight cancellations amid US sanctions and escalation create geopolitical shock and supply-chain disruption across energy, aviation, and shipping sectors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-163",
-      "headline": "AMD: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMD?key=2924-03139258-6A1345405",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T01:00:32Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "AMD has requested a trading pause, which is a price-sensitive event requiring immediate attention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "AMD has requested a trading pause, which is a price-sensitive event requiring immediate attention.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": "AMD",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-080",
-      "headline": "BSA: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03139225-2A1698930",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-23T23:56:42Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Trading halt indicates an undisclosed material operational or financial issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Trading halt indicates an undisclosed material operational or financial issue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BSA",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -136524,146 +136533,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-acf746e0f13b",
-      "idea_version": "IDEAV-31f5433301e62c0f",
-      "idea_version_started_at": "2026-09-23T00:45:47Z",
-      "ticker": "DASH",
-      "company": "DoorDash",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
-      "why_now": "The settlement was announced on 2026-09-22.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3966d4322bf2"
-      ],
-      "primary_source_event_id": "EVT-3966d4322bf2",
-      "source_headlines": [
-        "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
-      ],
-      "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
-      "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T16:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:09:09Z",
-      "updated_at": "2026-09-23T00:45:47Z",
-      "decay_at": "2026-09-24T04:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3ecdab15230a",
-      "idea_version": "IDEAV-59051ce1b2f90e2b",
-      "idea_version_started_at": "2026-09-22T18:20:15Z",
-      "ticker": "DLTR",
-      "company": "Dollar Tree",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
-      "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fd7a8db8a08d"
-      ],
-      "primary_source_event_id": "EVT-fd7a8db8a08d",
-      "source_headlines": [
-        "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
-      ],
-      "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
-      "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T16:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T18:20:15Z",
-      "updated_at": "2026-09-22T18:20:15Z",
-      "decay_at": "2026-09-24T04:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-028c0d923343",
       "idea_version": "IDEAV-91b4668b8fd3875d",
       "idea_version_started_at": "2026-09-23T19:44:02Z",
@@ -136798,6 +136667,78 @@
       "surfaced_at": "2026-09-23T12:24:49Z",
       "updated_at": "2026-09-23T12:24:49Z",
       "decay_at": "2026-09-24T20:28:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0931a29b975f",
+      "idea_version": "IDEAV-6137d43ad605c205",
+      "idea_version_started_at": "2026-09-24T04:13:22Z",
+      "ticker": "SWRK",
+      "company": "Smurfit Westrock",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of CMPC's corrugated business in Chile for $420 million expands Smurfit Westrock's footprint in the Latin American packaging market, likely driving long-term synergies and scale.",
+      "why_now": "The deal was announced on 2026-09-23, providing a clear catalyst for market re-rating of the combined entity's regional capacity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a973a5165c53"
+      ],
+      "primary_source_event_id": "EVT-a973a5165c53",
+      "source_headlines": [
+        "CMPC sells corrugated business in Chile to Smurfit Westrock for $420 million"
+      ],
+      "source_headline": "CMPC vende negocio de corrugados en Chile a Smurfit Westrock por 420 millones de dólares",
+      "source_url": "https://www.reuters.com/es/negocio/FBLXGFTMIRJITBHLLMSAOGTXQE-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T23:27:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T04:13:22Z",
+      "updated_at": "2026-09-24T04:13:22Z",
+      "decay_at": "2026-09-25T11:27:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -138232,6 +138173,146 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-acf746e0f13b",
+      "idea_version": "IDEAV-31f5433301e62c0f",
+      "idea_version_started_at": "2026-09-23T00:45:47Z",
+      "ticker": "DASH",
+      "company": "DoorDash",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
+      "why_now": "The settlement was announced on 2026-09-22.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3966d4322bf2"
+      ],
+      "primary_source_event_id": "EVT-3966d4322bf2",
+      "source_headlines": [
+        "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
+      ],
+      "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
+      "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T16:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T13:09:09Z",
+      "updated_at": "2026-09-23T00:45:47Z",
+      "decay_at": "2026-09-24T04:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3ecdab15230a",
+      "idea_version": "IDEAV-59051ce1b2f90e2b",
+      "idea_version_started_at": "2026-09-22T18:20:15Z",
+      "ticker": "DLTR",
+      "company": "Dollar Tree",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
+      "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fd7a8db8a08d"
+      ],
+      "primary_source_event_id": "EVT-fd7a8db8a08d",
+      "source_headlines": [
+        "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
+      ],
+      "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
+      "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-22T16:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-22T18:20:15Z",
+      "updated_at": "2026-09-22T18:20:15Z",
+      "decay_at": "2026-09-24T04:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-53ee18f2f113",
       "idea_version": "IDEAV-bcbd56917907a554",
       "idea_version_started_at": "2026-09-22T18:04:49Z",
@@ -138436,146 +138517,6 @@
       "surfaced_at": "2026-09-22T13:43:31Z",
       "updated_at": "2026-09-22T13:43:31Z",
       "decay_at": "2026-09-23T23:59:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-04669c945125",
-      "idea_version": "IDEAV-f55651d824d89fa9",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "INOXWIND.NS",
-      "company": "Inox Wind",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inox Clean Energy is set to acquire Athena Renewables for Rs 2,500 crore, which should expand its renewable energy portfolio and revenue base.",
-      "why_now": "The acquisition was announced today.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ccb2e9fccec"
-      ],
-      "primary_source_event_id": "EVT-5ccb2e9fccec",
-      "source_headlines": [
-        "Inox Clean Energy set to buy Actis-owned Athena Renewables for Rs 2,500 crore"
-      ],
-      "source_headline": "Inox Clean Energy set to buy Actis-owned Athena Renewables for Rs 2,500 crore",
-      "source_url": "https://economictimes.indiatimes.com/industry/renewables/inox-clean-energy-set-to-buy-actis-owned-athena-renewables-share-price/articleshow/134379119.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T03:35:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T15:35:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fd81e870591f",
-      "idea_version": "IDEAV-dc0e8811a40578c3",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "KAYNES.NS",
-      "company": "Kaynes Technology India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kaynes Technology may triple its semiconductor investment under ISM 2.0, indicating significant capacity expansion and future revenue growth in a booked chip market.",
-      "why_now": "JPMorgan highlighted this potential investment today amid strong demand for India's chip capacity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ef05e5ddfd47"
-      ],
-      "primary_source_event_id": "EVT-ef05e5ddfd47",
-      "source_headlines": [
-        "Kaynes Tech May Triple Its Semiconductor Investment Under ISM 2.0, Says JPMorgan As India's Chip Capacity Gets Booked"
-      ],
-      "source_headline": "Kaynes Tech May Triple Its Semiconductor Investment Under ISM 2.0, Says JPMorgan As India's Chip Capacity Gets Booked",
-      "source_url": "https://www.ndtvprofit.com/markets/kaynes-techs-semiconductor-push-gets-bigger-1-billion-assembly-and-testing-investment-in-the-works-12074295#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T03:31:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T15:31:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139368,444 +139309,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7de5b0b6f75e",
-      "idea_version": "IDEAV-6b6698fe78990b27",
-      "idea_version_started_at": "2026-09-22T09:12:36Z",
-      "ticker": "BEZ",
-      "company": "Berentzen-Gruppe",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
-      "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cc21bfde597e",
-        "EVT-bb3bc508e213"
-      ],
-      "primary_source_event_id": "EVT-cc21bfde597e",
-      "source_headlines": [
-        "Sazerac Company launches bid for all Berentzen shares",
-        "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
-      ],
-      "source_headline": "Sazerac Company launches bid for all Berentzen shares",
-      "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T05:54:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T09:12:36Z",
-      "updated_at": "2026-09-22T09:12:36Z",
-      "decay_at": "2026-09-22T17:54:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-697598c2bbee",
-      "idea_version": "IDEAV-c9eb1d0cfeea08ee",
-      "idea_version_started_at": "2026-09-21T05:16:02Z",
-      "ticker": "GLE",
-      "company": "Société Générale",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Société Générale has raised its profitability targets in a newly unveiled strategic plan, which should drive upward revisions to return-on-equity expectations.",
-      "why_now": "The strategic plan and hiked targets were announced on September 21, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6290922bb85a"
-      ],
-      "primary_source_event_id": "EVT-6290922bb85a",
-      "source_headlines": [
-        "SocGen hikes profitability target in new strategic plan ​"
-      ],
-      "source_headline": "SocGen hikes profitability target in new strategic plan ​",
-      "source_url": "https://www.reuters.com/legal/transactional/socgen-hikes-profitability-target-new-strategic-plan-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T04:38:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T05:16:02Z",
-      "updated_at": "2026-09-21T05:16:02Z",
-      "decay_at": "2026-09-22T16:38:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bbe6cce25e6c",
-      "idea_version": "IDEAV-ad0d76477c61048d",
-      "idea_version_started_at": "2026-09-21T05:16:02Z",
-      "ticker": "005380",
-      "company": "Hyundai Motor Company",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
-      "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d61ef8ce8d01"
-      ],
-      "primary_source_event_id": "EVT-d61ef8ce8d01",
-      "source_headlines": [
-        "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
-      ],
-      "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T05:06:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T05:16:02Z",
-      "updated_at": "2026-09-21T05:16:02Z",
-      "decay_at": "2026-09-22T17:06:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9048ab0ec675",
-      "idea_version": "IDEAV-98c5d9a0646b944d",
-      "idea_version_started_at": "2026-09-21T04:44:10Z",
-      "ticker": "ING",
-      "company": "Ingenia Communities",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ingenia Communities rejected an improved $1.47 billion takeover offer from Warburg Pincus, removing a potential premium for shareholders.",
-      "why_now": "The rejection of the improved offer was announced on September 21, 2026, eliminating a near-term M&A catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8e18c6f14773"
-      ],
-      "primary_source_event_id": "EVT-8e18c6f14773",
-      "source_headlines": [
-        "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer"
-      ],
-      "source_headline": "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer",
-      "source_url": "https://www.wsj.com/business/deals/ingenia-communities-rejects-warburg-pincuss-improved-1-47-billion-takeover-offer-c36f1391?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T04:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:44:10Z",
-      "updated_at": "2026-09-21T04:44:10Z",
-      "decay_at": "2026-09-22T16:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e2f9187cf5e3",
-      "idea_version": "IDEAV-fb66cf1d9cf0f18a",
-      "idea_version_started_at": "2026-09-21T04:44:10Z",
-      "ticker": "HSCL",
-      "company": "Himadri Speciality Chemical Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Himadri Speciality Chemical Limited's board approved a Scheme of Arrangement with Dalmia Bharat Refractories Limited, which could lead to strategic benefits and value creation.",
-      "why_now": "The Board Meeting approving the Scheme of Arrangement was held on September 21, 2026, providing a clear catalyst for the company's strategic direction.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5648b6621511",
-        "EVT-c38e006e814e"
-      ],
-      "primary_source_event_id": "EVT-5648b6621511",
-      "source_headlines": [
-        "Himadri Speciality Chemical Limited: Himadri Speciality Chemical Limited has informed the Exchange about Scheme of Arrangement between Dalmia Bharat Refractories Limited ( Demerged Company ) and Himadri Speciality Chemical Ltd ( Resulting Company ) and their respective shareholders and creditors under Section 230-232 and other applicable provisions of the Companies Act, 2013",
-        "Himadri Speciality Chemical Limited: Himadri Speciality Chemical Limited has informed the Exchange regarding Outcome of Board Meeting held on September 21, 2026 approving Scheme of Arrangement between Dalmia Bharat Refractories Limited ( Demerged Company ) and Himadri Speciality Chemical Ltd ( Resulting Company ) and their respective shareholders and creditors under Section 230-232 and other applicable provisions of the Companies Act, 2013"
-      ],
-      "source_headline": "Himadri Speciality Chemical Limited: Himadri Speciality Chemical Limited has informed the Exchange about Scheme of Arrangement between Dalmia Bharat Refractories Limited ( Demerged Company ) and Himadri Speciality Chemical Ltd ( Resulting Company ) and their respective shareholders and creditors under Section 230-232 and other applicable provisions of the Companies Act, 2013",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HSCL_21092026100728_Boardoutcome21092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T04:37:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:44:10Z",
-      "updated_at": "2026-09-21T04:44:10Z",
-      "decay_at": "2026-09-22T16:37:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cbb18e192ffa",
-      "idea_version": "IDEAV-abf8cfd76609be89",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "ICG.AX",
-      "company": "Ingenia Communities",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ingenia Communities rejected Warburg Pincus's improved $1.47 billion takeover offer, indicating potential resistance to current valuation or strategic concerns.",
-      "why_now": "The company announced the rejection of the offer today.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8e18c6f14773"
-      ],
-      "primary_source_event_id": "EVT-8e18c6f14773",
-      "source_headlines": [
-        "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer"
-      ],
-      "source_headline": "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer",
-      "source_url": "https://www.wsj.com/business/deals/ingenia-communities-rejects-warburg-pincuss-improved-1-47-billion-takeover-offer-c36f1391?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-21T04:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T16:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e4ce1e3fbb7c",
       "idea_version": "IDEAV-888daf46cb9ced1b",
       "idea_version_started_at": "2026-09-22T10:45:27Z",
@@ -139942,224 +139445,6 @@
       "surfaced_at": "2026-09-22T12:28:28Z",
       "updated_at": "2026-09-22T12:28:28Z",
       "decay_at": "2026-09-22T20:01:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-55f3e51ef1d9",
-      "idea_version": "IDEAV-0a9df36b51cf7ebf",
-      "idea_version_started_at": "2026-09-21T04:44:10Z",
-      "ticker": "WELCORP",
-      "company": "Welspun Corp",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Welspun Corp's unit secured a significant ₹2,000 crore order from Saudi Aramco, which will boost its revenue and order book.",
-      "why_now": "The company announced the new order from Saudi Aramco on September 21, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec038bf8cd46",
-        "EVT-8e57fde72ed3"
-      ],
-      "primary_source_event_id": "EVT-ec038bf8cd46",
-      "source_headlines": [
-        "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
-        "Welspun Corp shares rally 5% as firm bags Rs 2,000 crore order from Saudi Aramco; stock up over 230% YTD"
-      ],
-      "source_headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
-      "source_url": "https://www.cnbctv18.com/market/welspun-corp-share-price-saudi-aramco-order-win-2000-crore-order-book-timeline-fy27-guidance-2026-returns-19994417.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-21T04:02:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:44:10Z",
-      "updated_at": "2026-09-21T04:44:10Z",
-      "decay_at": "2026-09-22T16:02:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-05caede1e5ff",
-      "idea_version": "IDEAV-65f7c5f3b9e66418",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "WELSPUNCORP.NS",
-      "company": "Welspun Corp",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Welspun Corp's unit has secured a ₹2,000 crore order from Saudi Aramco, directly boosting its revenue and order book.",
-      "why_now": "The order was announced today, building on recent strong performance.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec038bf8cd46",
-        "EVT-8e57fde72ed3"
-      ],
-      "primary_source_event_id": "EVT-ec038bf8cd46",
-      "source_headlines": [
-        "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
-        "Welspun Corp shares rally 5% as firm bags Rs 2,000 crore order from Saudi Aramco; stock up over 230% YTD"
-      ],
-      "source_headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
-      "source_url": "https://www.cnbctv18.com/market/welspun-corp-share-price-saudi-aramco-order-win-2000-crore-order-book-timeline-fy27-guidance-2026-returns-19994417.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-21T04:02:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T16:02:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3fba593662de",
-      "idea_version": "IDEAV-2b679ca740cc2f5c",
-      "idea_version_started_at": "2026-09-21T04:05:35Z",
-      "ticker": "WELSPUNCORP",
-      "company": "Welspun Corp",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant ₹2,000 crore order from Saudi Aramco, which provides substantial revenue visibility and validates its expansion into the Middle East energy infrastructure market.",
-      "why_now": "The order was announced and confirmed as of September 21, 2026, triggering a momentum play following the stock's year-to-date performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec038bf8cd46"
-      ],
-      "primary_source_event_id": "EVT-ec038bf8cd46",
-      "source_headlines": [
-        "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco"
-      ],
-      "source_headline": "Welspun Corp shares extend 2026 gains to 245% after unit bags ₹2,000 crore order from Saudi Aramco",
-      "source_url": "https://www.cnbctv18.com/market/welspun-corp-share-price-saudi-aramco-order-win-2000-crore-order-book-timeline-fy27-guidance-2026-returns-19994417.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-21T03:45:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:05:35Z",
-      "updated_at": "2026-09-21T04:05:35Z",
-      "decay_at": "2026-09-22T15:45:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140311,293 +139596,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f54642af591f",
-      "idea_version": "IDEAV-9f428eccdcc78341",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "PER.AX",
-      "company": "Perpetual Limited",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Perpetual rejected EQT AB's improved offer and ended takeover talks, suggesting potential undervaluation or strategic disagreement that could pressure its stock.",
-      "why_now": "The company announced the termination of takeover talks today.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b36d18b04081"
-      ],
-      "primary_source_event_id": "EVT-b36d18b04081",
-      "source_headlines": [
-        "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks"
-      ],
-      "source_headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
-      "source_url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-21T03:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T15:53:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-21c21ede9213",
-      "idea_version": "IDEAV-f3b2988e8c93d157",
-      "idea_version_started_at": "2026-09-21T04:05:35Z",
-      "ticker": "PPT",
-      "company": "Perpetual Limited",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The termination of takeover talks with EQT AB removes the acquisition premium that had been supporting the share price, likely leading to a re-rating toward fundamental valuation.",
-      "why_now": "The rejection of the improved offer and cessation of talks was announced on September 21, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b36d18b04081"
-      ],
-      "primary_source_event_id": "EVT-b36d18b04081",
-      "source_headlines": [
-        "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks"
-      ],
-      "source_headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
-      "source_url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-21T03:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:05:35Z",
-      "updated_at": "2026-09-21T04:05:35Z",
-      "decay_at": "2026-09-22T15:53:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-88eef3591541",
-      "idea_version": "IDEAV-8bcaca3f447dfabb",
-      "idea_version_started_at": "2026-09-21T05:53:59Z",
-      "ticker": "KPG",
-      "company": "KPG",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
-      "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-69dcf5a78b9a"
-      ],
-      "primary_source_event_id": "EVT-69dcf5a78b9a",
-      "source_headlines": [
-        "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
-      ],
-      "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-21T05:25:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T05:53:59Z",
-      "updated_at": "2026-09-21T05:53:59Z",
-      "decay_at": "2026-09-22T17:25:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-98465c4e5c09",
-      "idea_version": "IDEAV-2f5e71a6a679f9b8",
-      "idea_version_started_at": "2026-09-21T04:22:03Z",
-      "ticker": "00567",
-      "company": "JSMART TECH",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "JSMART TECH is expanding into embodied intelligence, AI computing, and storage through a cooperation agreement, signaling a strategic pivot towards high-growth tech areas.",
-      "why_now": "The company made a voluntary announcement of this business expansion and cooperation agreement today.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-32b09e9a45e0"
-      ],
-      "primary_source_event_id": "EVT-32b09e9a45e0",
-      "source_headlines": [
-        "JSMART TECH (00567): VOLUNTARY ANNOUNCEMENT (I) BUSINESS EXPANSION INTO EMBODIED INTELLIGENCE, AI COMPUTING AND STORAGE; AND (II) ENTER INTO COOPERATION AGREEMENT"
-      ],
-      "source_headline": "JSMART TECH (00567): VOLUNTARY ANNOUNCEMENT (I) BUSINESS EXPANSION INTO EMBODIED INTELLIGENCE, AI COMPUTING AND STORAGE; AND (II) ENTER INTO COOPERATION AGREEMENT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100339.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-21T04:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T04:22:03Z",
-      "updated_at": "2026-09-21T04:22:03Z",
-      "decay_at": "2026-09-22T16:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5c19163175c8",
       "idea_version": "IDEAV-be17059fb7f1d3eb",
       "idea_version_started_at": "2026-09-23T05:42:30Z",
@@ -140667,77 +139665,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-4aa88b4041d1",
-      "idea_version": "IDEAV-238931fb2ca0734b",
-      "idea_version_started_at": "2026-09-21T03:30:16Z",
-      "ticker": "DPM",
-      "company": "DPM",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "DPM has expanded its Brevene Porphyry S. Discovery with new high-grade intercepts, suggesting increased resource potential.",
-      "why_now": "The company announced these new price-sensitive exploration results on September 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e2715804920"
-      ],
-      "primary_source_event_id": "EVT-2e2715804920",
-      "source_headlines": [
-        "DPM: DPM Expands Brevene Porphyry S. Discovery- New HG Intercepts [price-sensitive]"
-      ],
-      "source_headline": "DPM: DPM Expands Brevene Porphyry S. Discovery- New HG Intercepts [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DPM?key=2924-03137637-6A1344693",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-21T03:16:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-21T03:30:16Z",
-      "updated_at": "2026-09-21T03:30:16Z",
-      "decay_at": "2026-09-22T15:16:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -140750,37 +139677,183 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 17
       },
       "short": {
-        "total_count": 261,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 7
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 440,
-      "oldest_retained_at": "2026-08-31T18:35:48Z",
+      "evicted_count": 456,
+      "oldest_retained_at": "2026-08-31T20:48:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 291,
-          "oldest_retained_at": "2026-09-08T15:18:53Z"
+          "evicted_count": 302,
+          "oldest_retained_at": "2026-09-09T00:13:47Z"
         },
         "short": {
-          "evicted_count": 149,
-          "oldest_retained_at": "2026-08-31T18:35:48Z"
+          "evicted_count": 154,
+          "oldest_retained_at": "2026-08-31T20:48:01Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-acf746e0f13b",
+        "idea_version": "IDEAV-31f5433301e62c0f",
+        "idea_version_started_at": "2026-09-23T00:45:47Z",
+        "ticker": "DASH",
+        "company": "DoorDash",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
+        "why_now": "The settlement was announced on 2026-09-22.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3966d4322bf2"
+        ],
+        "primary_source_event_id": "EVT-3966d4322bf2",
+        "source_headlines": [
+          "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
+        ],
+        "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
+        "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T16:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T13:09:09Z",
+        "updated_at": "2026-09-23T00:45:47Z",
+        "decay_at": "2026-09-24T04:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T04:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3ecdab15230a",
+        "idea_version": "IDEAV-59051ce1b2f90e2b",
+        "idea_version_started_at": "2026-09-22T18:20:15Z",
+        "ticker": "DLTR",
+        "company": "Dollar Tree",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
+        "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fd7a8db8a08d"
+        ],
+        "primary_source_event_id": "EVT-fd7a8db8a08d",
+        "source_headlines": [
+          "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
+        ],
+        "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
+        "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T16:14:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T18:20:15Z",
+        "updated_at": "2026-09-22T18:20:15Z",
+        "decay_at": "2026-09-24T04:14:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T04:14:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b7d2ebf26308",
         "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
@@ -142485,8 +141558,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T17:54:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142559,8 +141632,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T17:25:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142635,8 +141708,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T17:06:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142710,8 +141783,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:38:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142787,8 +141860,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:37:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142862,8 +141935,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:16:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -142938,8 +142011,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:16:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143012,8 +142085,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:13:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143088,8 +142161,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:02:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143164,8 +142237,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T16:02:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143239,8 +142312,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:53:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143315,8 +142388,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:53:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143390,8 +142463,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:45:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143463,8 +142536,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:35:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143536,8 +142609,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:31:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -143610,8 +142683,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-22T15:16:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-24T04:13:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -170611,81 +169684,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-53205b605f3a",
-        "idea_version": "IDEAV-ce3df47642c52ad5",
-        "idea_version_started_at": "2026-09-08T01:02:06Z",
-        "ticker": "CTD",
-        "company": "Corporate Travel Management",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The former CEO's increased stake suggests a belief in the company's turnaround or future growth, potentially indicating undervaluation.",
-        "why_now": "The news of the former CEO lifting his stake was reported on September 8, 2026, making this a current catalyst.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9371fd2f9d80"
-        ],
-        "primary_source_event_id": "EVT-9371fd2f9d80",
-        "source_headlines": [
-          "Pherous shadow looms over Corporate Travel as former CEO lifts stake"
-        ],
-        "source_headline": "Pherous shadow looms over Corporate Travel as former CEO lifts stake",
-        "source_url": "https://www.afr.com/companies/transport/pherous-shadow-looms-over-corporate-travel-as-former-ceo-lifts-stake-20260908-p60vbh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 84,
-        "newest_source_at": "2026-09-08T00:41:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T01:02:06Z",
-        "updated_at": "2026-09-08T01:02:06Z",
-        "decay_at": "2026-09-09T12:41:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T02:58:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-db76bcbae044",
         "idea_version": "IDEAV-8aff9bce6dbab3c7",
         "idea_version_started_at": "2026-09-08T00:06:31Z",
@@ -177852,85 +176850,12 @@
         "archived_at": "2026-09-02T19:27:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-177f467dfd2a",
-        "idea_version": "IDEAV-48449690aa68a6bc",
-        "idea_version_started_at": "2026-08-30T16:05:18Z",
-        "ticker": "AON",
-        "company": "Aon plc",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
-        "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dc4bc47f7047"
-        ],
-        "primary_source_event_id": "EVT-dc4bc47f7047",
-        "source_headlines": [
-          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
-        ],
-        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-30T15:40:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-30T16:05:18Z",
-        "updated_at": "2026-08-30T16:05:18Z",
-        "decay_at": "2026-09-01T03:40:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-02T17:26:08Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1003,
-    "live_count": 24,
+    "surfaced_total": 1004,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -177949,9 +176874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 778124,
-    "news_picked_today": 570,
-    "news_dropped_today": 2286
+    "news_seen_today": 1256428,
+    "news_picked_today": 809,
+    "news_dropped_today": 5527
   },
   "book_momentum": {
     "live_count": 8,
