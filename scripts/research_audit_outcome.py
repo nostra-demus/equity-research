@@ -182,7 +182,7 @@ def run(run_root, action, repo=None):
             return {"status": "repair_authorized", "findings": audits["verification"]["blocking_findings"]}
         atomic_write(paths["decision_record"], revised)
         # Failure between writes leaves stale audits, which block publication; never rebind their hashes.
-        Path(paths["final_thesis"]).write_text(body)
+        atomic_write(paths["final_thesis"], body, raw_text=True)
         return {"status": "changed", "next": "Rerun the read-only audit trio, then --check; do not edit audit hashes."}
 
     finally:

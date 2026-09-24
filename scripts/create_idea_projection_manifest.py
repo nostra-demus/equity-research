@@ -261,12 +261,15 @@ def validate_manifest(value, run_abs, expected_root):
         return False
 
 
-def atomic_write(path, value):
+def atomic_write(path, value, *, raw_text=False):
     fd, tmp = tempfile.mkstemp(prefix=".idea-projection-manifest-", suffix=".json", dir=os.path.dirname(path))
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            json.dump(value, handle, ensure_ascii=False, indent=2, allow_nan=False)
-            handle.write("\n")
+            if raw_text:
+                handle.write(value)
+            else:
+                json.dump(value, handle, ensure_ascii=False, indent=2, allow_nan=False)
+                handle.write("\n")
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(tmp, path)
