@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-24T13:05:36Z",
+  "generated_at": "2026-09-24T14:15:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260924-446",
+      "headline": "COFCO JOYCOME (01610): PROPOSED MERGER WITH A DIRECT WHOLLY-OWNED SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402199.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "COFCO Joycome is proposing a merger with a direct wholly-owned subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "COFCO Joycome is proposing a merger with a direct wholly-owned subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COFCO JOYCOME",
+          "ticker": "01610",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-437",
       "headline": "Dr. Lal Path Labs Ltd.: Dr. Lal Path Labs Ltd. has informed the Exchange about acquisition of 70% stake in SN Genelab Private Limited ( S N Gene ) from its existing Shareholders. Post acquisition, S N Gene shall become a Subsidiary of the Company",
@@ -1946,55 +1995,6 @@
       "companies": [
         {
           "name": "JERA",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-041",
-      "headline": "Roche-owned Chugai Pharma to ramp up in-house output with 50% capex boost",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/pharmaceuticals/roche-owned-chugai-pharma-to-ramp-up-in-house-output-with-50-capex-boost",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:51:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Chugai Pharma is increasing its capital expenditure by 50% to expand in-house production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chugai Pharma is increasing its capital expenditure by 50% to expand in-house production capacity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chugai Pharmaceutical",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -176920,9 +176920,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2820783,
-    "news_picked_today": 1110,
-    "news_dropped_today": 11922
+    "news_seen_today": 3205864,
+    "news_picked_today": 1120,
+    "news_dropped_today": 11936
   },
   "book_momentum": {
     "live_count": 8,
