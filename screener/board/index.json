@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T03:37:57Z",
+  "generated_at": "2026-09-24T04:05:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-271",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-287",
+      "headline": "Microsoft plans $10 billion-plus Gulf investment with focus on resilience",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/microsoft-plans-10-billion-plus-gulf-investment-with-focus-on-resilience-19997240.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T03:40:28Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Microsoft announced a $10 billion-plus investment in Gulf infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft announced a $10 billion-plus investment in Gulf infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1896,60 +1945,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-236",
-      "headline": "Bayer offloads cancer drug Stivarga to Grünenthal for up to $431M as new competition looms",
-      "headline_en": null,
-      "url": "https://www.fiercepharma.com/pharma/bayer-offloads-cancer-drug-stivarga-grunenthal-431m-new-competition-looms",
-      "source_name": "FiercePharma",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T02:31:35Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Bayer is divesting its cancer drug Stivarga to Grünenthal for up to $431M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Bayer is divesting its cancer drug Stivarga to Grünenthal for up to $431M.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bayer",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Grünenthal",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177954,9 +177949,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 665419,
-    "news_picked_today": 507,
-    "news_dropped_today": 2013
+    "news_seen_today": 778124,
+    "news_picked_today": 570,
+    "news_dropped_today": 2286
   },
   "book_momentum": {
     "live_count": 8,
