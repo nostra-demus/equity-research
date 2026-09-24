@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T00:18:25Z",
+  "generated_at": "2026-09-24T00:27:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-028",
@@ -51,6 +51,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-041",
+      "headline": "Roche-owned Chugai Pharma to ramp up in-house output with 50% capex boost",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/pharmaceuticals/roche-owned-chugai-pharma-to-ramp-up-in-house-output-with-50-capex-boost",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Chugai Pharma is increasing its capital expenditure by 50% to expand in-house production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chugai Pharma is increasing its capital expenditure by 50% to expand in-house production capacity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chugai Pharmaceutical",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-002",
       "headline": "Diller abandons $18bn takeover bid for MGM Resorts",
       "headline_en": null,
@@ -91,6 +140,61 @@
         {
           "name": "MGM Resorts",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-047",
+      "headline": "CMPC vende negocio de corrugados en Chile a Smurfit Westrock por 420 millones de dólares",
+      "headline_en": "CMPC sells corrugated business in Chile to Smurfit Westrock for $420 million",
+      "url": "https://www.reuters.com/es/negocio/FBLXGFTMIRJITBHLLMSAOGTXQE-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:27:43Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "CMPC sells corrugated business in Chile to Smurfit Westrock for $420 million, affecting both companies' capital structure and geographic portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CMPC sells corrugated business in Chile to Smurfit Westrock for $420 million, affecting both companies' capital structure and geographic portfolio.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMPC",
+          "ticker": "CMPC",
+          "listing_country": "CL"
+        },
+        {
+          "name": "Smurfit Westrock",
+          "ticker": "SWRK",
           "listing_country": "US"
         }
       ],
@@ -345,6 +449,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-048",
+      "headline": "Barry Diller's People withdraws bid for MGM Resorts",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/barry-diller-withdraws-bid-mgm-resorts-wsj-reports-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:19:07Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Withdrawal of acquisition bid removes potential acquirer and change-of-control optionality for MGM Resorts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Withdrawal of acquisition bid removes potential acquirer and change-of-control optionality for MGM Resorts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MGM Resorts International",
+          "ticker": "MGM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-025",
       "headline": "CXMT, SMIC power 620% surge in profits in China's chip industry",
       "headline_en": null,
@@ -394,6 +547,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-042",
+      "headline": "SoftBank-backed SB Energy seen delaying IPO on valuation concerns",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/ipo/softbank-backed-sb-energy-seen-delaying-ipo-on-valuation-concerns",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "SB Energy is reportedly delaying its IPO due to valuation concerns, impacting capital raising plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "SB Energy is reportedly delaying its IPO due to valuation concerns, impacting capital raising plans.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SB Energy",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -645,6 +847,49 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-051",
+      "headline": "Florida AG sues PBMs, pharmas over rise in insulin prices",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/florida-ag-sues-pbms-pharmas-over-rise-insulin-prices",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:36:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Florida AG lawsuit against unnamed PBMs and pharma companies over insulin prices is state-level enforcement action touching multiple mega-cap issuers; unquantified damages at early stage, but real regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Florida AG lawsuit against unnamed PBMs and pharma companies over insulin prices is state-level enforcement action touching multiple mega-cap issuers; unquantified damages at early stage, but real regulatory and legal risk.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1149,6 +1394,157 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-052",
+      "headline": "As CMS overhauls provider tax policy, hospitals plead for minimal administrative burden, uncertainty",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/regulatory/cms-overhauls-provider-tax-policy-hospitals-plead-minimal-administrative-burden",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:36:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "CMS overhauls provider tax policy affecting hospital margins and cash flow, but implementation details and timeline are unconfirmed; hospitals seek to minimize burden, indicating expectation of adverse impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "CMS overhauls provider tax policy affecting hospital margins and cash flow, but implementation details and timeline are unconfirmed; hospitals seek to minimize burden, indicating expectation of adverse impact.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-043",
+      "headline": "SMFG brings in Nomura exec as latest outside hire ahead of Jefferies venture",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/finance/smfg-brings-in-nomura-exec-as-latest-outside-hire-ahead-of-jefferies-venture",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "SMFG is hiring an outside executive, a routine management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "SMFG is hiring an outside executive, a routine management change.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo Mitsui Financial Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-050",
+      "headline": "UnitedHealthcare, Cigna, Centene sign on to CertifyOS' new provider credentialing model",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/unitedhealthcare-cigna-centene-sign-certifyos-new-provider-credentialing-model",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:36:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Three major insurers adopt CertifyOS' provider credentialing model, potentially reducing operational friction and cost, but no contract value or quantified margin impact stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Three major insurers adopt CertifyOS' provider credentialing model, potentially reducing operational friction and cost, but no contract value or quantified margin impact stated.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UnitedHealth Group",
+          "ticker": "UNH",
+          "listing_country": "US"
+        },
+        {
+          "name": "Cigna",
+          "ticker": "CI",
+          "listing_country": "US"
+        },
+        {
+          "name": "Centene",
+          "ticker": "CNC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-019",
       "headline": "White House plan to increase control of NIH grants appears ‘dead’",
       "headline_en": null,
@@ -1241,6 +1637,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-046",
+      "headline": "Amazon taps TBC to make AI models faster, cheaper with human neurons",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/amazon-taps-tbc-to-make-ai-models-faster-cheaper-with-human-neurons",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Amazon is collaborating with TBC to optimize AI models, a routine commercial partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Amazon is collaborating with TBC to optimize AI models, a routine commercial partnership.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-045",
+      "headline": "Mitsubishi Heavy buoyed by brisk gas turbine demand from US data centers",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/editor-s-picks/interview/mitsubishi-heavy-buoyed-by-brisk-gas-turbine-demand-from-us-data-centers",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:51:33Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Mitsubishi Heavy Industries is seeing increased demand for gas turbines from data centers, a positive sector trend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Mitsubishi Heavy Industries is seeing increased demand for gas turbines from data centers, a positive sector trend.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsubishi Heavy Industries",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-026",
       "headline": "Japan railway JR Kyushu joins with SBI to offer riders financial app",
       "headline_en": null,
@@ -1290,6 +1784,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-054",
+      "headline": "American Medical Association urges CMS to stick to 2027 electronic PA deadline, enforcement",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/regulatory/american-medical-association-urges-cms-stick-2027-electronic-pa-deadline",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-23T23:36:22Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "AMA advocacy for CMS enforcement of the 2027 electronic Prior Authorization deadline; reiterates existing regulatory requirement affecting healthcare provider operations and workflows sector-wide, not a new enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "AMA advocacy for CMS enforcement of the 2027 electronic Prior Authorization deadline; reiterates existing regulatory requirement affecting healthcare provider operations and workflows sector-wide, not a new enforcement action.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1437,551 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-003",
-      "headline": "Bell, Cohere release AI model designed to aid cybersecurity investigations",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-bell-cohere-ai-model-cybersecurity-investigations/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:46:21Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Bell and Cohere released a new AI model for cybersecurity, which is a routine product development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Bell and Cohere released a new AI model for cybersecurity, which is a routine product development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bell",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Cohere",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-039",
-      "headline": "Form 8.3 - Advanced Medical Solutions Group plc - Octopus Investments",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367538/0/en/form-8-3-advanced-medical-solutions-group-plc-octopus-investments.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Advanced Medical Solutions Group; no deal price, offer terms, or stake size disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Advanced Medical Solutions Group; no deal price, offer terms, or stake size disclosed.",
-      "region": "GB",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Advanced Medical Solutions Group plc",
-          "ticker": "AMS",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-040",
-      "headline": "Form 8.3 - Gooch & Housego plc - Octopus Investments",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367531/0/en/form-8-3-gooch-housego-plc-octopus-investments.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Gooch & Housego plc; no deal price, offer terms, or stake size disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "UK Takeover Code Form 8.3 filing by Octopus Investments signals potential bid or concert-party intention on Gooch & Housego plc; no deal price, offer terms, or stake size disclosed.",
-      "region": "GB",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gooch & Housego plc",
-          "ticker": "GHH",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-024",
-      "headline": "Trump-Xi summit live: US says trade truce extended as Chinese leader arrives",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/spotlight/trump-xi-summit/trump-xi-summit-live-us-says-trade-truce-extended-as-chinese-leader-arrives",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:51:33Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "A trade truce between the US and China is a major geopolitical and economic event affecting global trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A trade truce between the US and China is a major geopolitical and economic event affecting global trade.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-017",
-      "headline": "Sunrun and SPAN Expand Partnership to Accelerate Distributed Edge Computing | RUN Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/RUN/sunrun-and-span-expand-partnership-to-accelerate-distributed-edge-81s77rgtmr1a.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Sunrun and SPAN are expanding their partnership for distributed edge computing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Sunrun and SPAN are expanding their partnership for distributed edge computing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunrun",
-          "ticker": "RUN",
-          "listing_country": "US"
-        },
-        {
-          "name": "SPAN",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-018",
-      "headline": "Sunrun and SPAN Expand Partnership to Accelerate Distributed Edge Computing",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367556/0/en/sunrun-and-span-expand-partnership-to-accelerate-distributed-edge-computing.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Sunrun and SPAN are expanding their partnership for distributed edge computing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Sunrun and SPAN are expanding their partnership for distributed edge computing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunrun",
-          "ticker": "RUN",
-          "listing_country": "US"
-        },
-        {
-          "name": "SPAN",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-008",
-      "headline": "Brightline Interactive Announces Reverse Stock Split of the Company's Common Stock to Regain Compliance with Nasdaq Bid Price Requirement | BTLN Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BTLN/brightline-interactive-announces-reverse-stock-split-of-the-company-8b58psxmhwgt.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Brightline Interactive announced a reverse stock split to regain Nasdaq minimum-bid compliance, signaling stock-price distress and elevated delisting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Brightline Interactive announced a reverse stock split to regain Nasdaq minimum-bid compliance, signaling stock-price distress and elevated delisting risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brightline Interactive",
-          "ticker": "BTLN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-016",
-      "headline": "Fredonia Announces Closing of C$11.5M Bought Deal Private Placement Including Full Exercise of Underwriters’ Option",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367557/0/en/fredonia-announces-closing-of-c-11-5m-bought-deal-private-placement-including-full-exercise-of-underwriters-option.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Fredonia closed a C$11.5 million private placement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Fredonia closed a C$11.5 million private placement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fredonia",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-020",
-      "headline": "MAIA Biotechnology Expands Pivotal Phase 3 THIO-104 Non-Small Cell Lung Cancer Trial into Spain and Portugal | MAIA Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/MAIA/maia-biotechnology-expands-pivotal-phase-3-thio-104-non-small-cell-rhwlkulkkuh4.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "MAIA Biotechnology expands its Phase 3 clinical trial for THIO-104 into Spain and Portugal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "MAIA Biotechnology expands its Phase 3 clinical trial for THIO-104 into Spain and Portugal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAIA Biotechnology",
-          "ticker": "MAIA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-009",
-      "headline": "Forecasts for Scant Ivory Coast Rains Boost Cocoa Prices",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/forecasts-scant-ivory-coast-rains-boost-cocoa-prices",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-23T23:15:50Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Forecast of scarce Ivory Coast rains signals potential cocoa supply tightening; commodity price rise pressures downstream chocolate and food manufacturers' margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Forecast of scarce Ivory Coast rains signals potential cocoa supply tightening; commodity price rise pressures downstream chocolate and food manufacturers' margins.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-022",
-      "headline": "MAIA Biotechnology Expands Pivotal Phase 3 THIO-104 Non-Small Cell Lung Cancer Trial into Spain and Portugal",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/23/3367552/0/en/maia-biotechnology-expands-pivotal-phase-3-thio-104-non-small-cell-lung-cancer-trial-into-spain-and-portugal.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-23T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "MAIA Biotechnology expands its Phase 3 clinical trial for THIO-104 into Spain and Portugal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "MAIA Biotechnology expands its Phase 3 clinical trial for THIO-104 into Spain and Portugal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAIA Biotechnology",
-          "ticker": "MAIA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178633,9 +178625,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31024,
-    "news_picked_today": 40,
-    "news_dropped_today": 200
+    "news_seen_today": 46356,
+    "news_picked_today": 54,
+    "news_dropped_today": 306
   },
   "book_momentum": {
     "live_count": 8,
