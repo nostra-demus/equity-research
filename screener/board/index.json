@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T20:17:05Z",
+  "generated_at": "2026-09-24T20:23:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -999,6 +999,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-565",
+      "headline": "MGM Resorts shares sink 11% after Barry Diller's People Inc. rescinds takeover offer",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T20:11:24Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "MGM Resorts shares fell 11% following the cancellation of a takeover offer by Barry Diller's People Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MGM Resorts shares fell 11% following the cancellation of a takeover offer by Barry Diller's People Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MGM Resorts International",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-481",
       "headline": "Novo Nordisk's CEO delivered a warning that sank its stock by 8%",
       "headline_en": null,
@@ -1947,55 +1996,6 @@
           "name": "Uber Technologies Inc.",
           "ticker": "UBER",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-342",
-      "headline": "UK's Capricorn Energy agrees to revised terms of $396 million takeover offer from DNO (Sept. 17)",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/uks-capricorn-energy-agrees-revised-terms-396-million-takeover-offer-dno-2026-09-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T07:17:29Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Capricorn Energy agrees to revised takeover terms from DNO for $396 million; confirmed M&A with quantified value materially affecting shareholder returns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Capricorn Energy agrees to revised takeover terms from DNO for $396 million; confirmed M&A with quantified value materially affecting shareholder returns.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capricorn Energy",
-          "ticker": "CARN",
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -177356,9 +177356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6196445,
-    "news_picked_today": 1374,
-    "news_dropped_today": 13122
+    "news_seen_today": 6216816,
+    "news_picked_today": 1392,
+    "news_dropped_today": 13608
   },
   "book_momentum": {
     "live_count": 8,
