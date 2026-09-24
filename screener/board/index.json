@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T18:55:12Z",
+  "generated_at": "2026-09-24T19:01:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -1200,6 +1200,114 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-490",
+      "headline": "GoDaddy receives takeover offer from maker of Norton antivirus software",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/6cc7149f-a9f1-47f6-9faf-b98a28f9aedc?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T15:22:14Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "GoDaddy has received a takeover offer from the maker of Norton antivirus software.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GoDaddy has received a takeover offer from the maker of Norton antivirus software.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GoDaddy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Norton",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-496",
+      "headline": "Dr Lal PathLabs to acquire 70 pc stake in SN Genelab for Rs 168 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/dr-lal-pathlabs-to-acquire-70-pc-stake-in-sn-genelab-for-rs-168-crore/articleshow/134465323.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T14:59:20Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Dr Lal PathLabs will acquire a 70% stake in SN Genelab for Rs 168 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dr Lal PathLabs will acquire a 70% stake in SN Genelab for Rs 168 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr Lal PathLabs",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SN Genelab",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-414",
       "headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
       "headline_en": null,
@@ -1896,114 +2004,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-308",
-      "headline": "Schneider agrees takeover bid for Shelly at €70 per share",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/schneider-agrees-takeover-bid-shelly-70-per-share-2026-09-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T05:42:10Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly at €70 per share, a $1.4 billion M&A deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric SE",
-          "ticker": "SE",
-          "listing_country": "FR"
-        },
-        {
-          "name": "Shelly",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-309",
-      "headline": "Schneider to Buy Smart Device Firm Shelly in $1.4 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-24/schneider-electric-said-near-deal-for-smart-device-firm-shelly",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric agreed to acquire smart-device firm Shelly for $1.4 billion, a confirmed M&A deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric SE",
-          "ticker": "SE",
-          "listing_country": "FR"
-        },
-        {
-          "name": "Shelly",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -177146,9 +177146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5621808,
-    "news_picked_today": 1244,
-    "news_dropped_today": 12148
+    "news_seen_today": 5641554,
+    "news_picked_today": 1254,
+    "news_dropped_today": 12162
   },
   "book_momentum": {
     "live_count": 8,
