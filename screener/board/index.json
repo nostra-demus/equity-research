@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T09:57:55Z",
+  "generated_at": "2026-09-24T10:04:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-363",
@@ -490,6 +490,56 @@
           "name": "Tuhu-W",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-370",
+      "headline": "UK housebuilder Vistry cuts jobs and downsizes following £661m loss",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/vistry-financial-loss-restructuring-share-price-b3055616.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T09:34:41Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Company reported a £661m loss and announced job cuts and downsizing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a £661m loss and announced job cuts and downsizing.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vistry Group",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1906,93 +1956,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260924-196",
-      "headline": "Kyiv under Russian missile attack, two dead, six injured, mayor says",
+      "inbox_id": "INB-20260924-375",
+      "headline": "SICHUAN EXPRESS (00107): FURTHER ANNOUNCEMENT - PROFIT FORECAST IN RELATION TO THE VALUATION IN PROPOSED ISSUANCE OF QUASI REITS AND RELATED DISCLOSEABLE TRANSACTION AND MAJOR TRANSACTION",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/kyiv-under-missile-attack-emergency-crews-dispatched-two-districts-mayor-says-2026-09-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T01:04:01Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401273.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T09:32:00Z",
       "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Escalation of military conflict in Kyiv with casualties represents a significant geopolitical risk event.",
+      "prelim_note": "Major transaction—proposed quasi-REIT issuance with quantified profit forecast relating to valuation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "Escalation of military conflict in Kyiv with casualties represents a significant geopolitical risk event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-367",
-      "headline": "SUNAC (01918): QUARTERLY UPDATE ON IMPLEMENTATION OF ACTION PLAN TO RESOLVE AUDITOR'S DISCLAIMER OF OPINION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401231.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T09:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Sunac is providing a quarterly update on its efforts to resolve a disclaimer of opinion from its auditor, a critical governance and accounting issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sunac is providing a quarterly update on its efforts to resolve a disclaimer of opinion from its auditor, a critical governance and accounting issue.",
+      "triage_reason": "Major transaction—proposed quasi-REIT issuance with quantified profit forecast relating to valuation.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 72,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 72,
         "source_tier": 8,
         "scope": 6,
         "event": 7,
-        "size": 2,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "accounting_restatement"
+        "capital_actions",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SUNAC",
-          "ticker": null,
-          "listing_country": "CN"
+          "name": "Sichuan Express",
+          "ticker": "00107",
+          "listing_country": "HK"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176913,9 +176921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1957687,
-    "news_picked_today": 939,
-    "news_dropped_today": 10677
+    "news_seen_today": 1985274,
+    "news_picked_today": 952,
+    "news_dropped_today": 10784
   },
   "book_momentum": {
     "live_count": 8,
