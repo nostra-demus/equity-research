@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "ticker": "V",
+  "run_root": "analyses/V_2026-09-23",
+  "performed_at": "2026-09-24T05:39:57Z",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/V_2026-09-23/final_thesis.md",
+  "decision_record_path": "analyses/V_2026-09-23/decision_record.json",
+  "final_thesis_sha256": "e93d9ff1ad41e883f51c45eead8f3b7f700011b1cb3b8056148d44423d501bc2",
+  "decision_record_sha256": "833c85b17c2dbebcd51baa5c35c75e1b9a6fb07a858697521a666f502fcd86d9",
+  "original_decision": "Watchlist",
+  "original_confidence": 42.0,
+  "adversarial_direction": "Red-team both sides of the Watchlist: test whether the evidence warrants Avoid and whether the no-position stance creates a false negative versus Starter Position Only. The more consequential residual failure mode is false-negative opportunity cost because the existing stance already avoids capital loss from the bear case.",
+  "pre_mortem_narrative": "It is 12 months later and the Watchlist decision has clearly failed as a false negative. Visa's Q3 incentive, margin, and cash-flow weakness proved temporary rather than structural: payment activity, pricing and mix, and value-added services supported the bull-case $36.720bn of NTM vendor EBITDA; full-year cash conversion recovered; and investors continued to pay roughly 22.34x. The stock reached or exceeded the thesis's $425.88 bull value while the portfolio owned none. The engine anchored on a stale $364.15 price, a rate-sensitive $243.23 DCF, and one recent cash-flow window, while underweighting evidence already visible on 2026-09-23: four consecutive revenue and vendor-normalized-EPS beats, 14.4% LTM revenue growth, sound multi-year cash conversion, low leverage, and a 7.15% discount-rate solve that reconciled the modeled cash path to the market. The loss was foregone return, not permanent capital loss, but it showed that temporary working-capital, severance, litigation-comparison, and marketing-timing effects were mistaken for a durable deterioration in Visa's economics.",
+  "bear_case": "The Watchlist could still be too generous and the correct label could be Avoid. At the pool anchor, price exceeded the $331.56 base value, the intrinsic DCF was $243.23, and the 9.04% reverse-DCF required 19.67% annual FCF growth for five years versus 10.4% in FY2021-FY2025 and a 4.8% latest-twelve-month decline. Q3 incentives grew 18% versus 14% net revenue, GAAP-derived EBITDA margin fell 157 basis points, and LTM CFO fell 3.9% while revenue rose. A demand slowdown, continued incentive pressure, and a conduct-changing DOJ or EC remedy could reduce both EBITDA and the multiple, taking value toward the $283.37 bear case. The balance sheet limits survival risk but does not protect the share price from multiple compression.",
+  "bull_case_steelman": "Visa's network remained unusually durable: LTM revenue grew 14.4%, Q3 payment volume and processed transactions each grew 10%, value-added-services revenue grew 34% at constant currency, and revenue plus vendor-normalized EPS beat consensus in each of the prior four quarters. The latest margin comparison included $563m of severance, marketing timing, and a changing litigation provision; annual CFO/GAAP-derived EBITDA conversion had remained about 81%-94.6% in FY2023-FY2025. Strict net leverage was only 0.41x. The bearish DCF depended heavily on a 9.04% WACC and a 74.3% terminal-value share, while the same modeled cash flows matched the market at 7.15% and own-history and peer values of $355.21 and $367.62 were near the admitted price. A filed FY2026 result showing revenue of at least $12.339bn, margin of at least 60.3%, and recovering cash conversion could validate the $425.88 bull case and make waiting costly.",
+  "killer_risk": "The no-position call is broken if the incentive, margin, and cash-conversion weakness is temporary, Visa earns the bull-case $36.720bn of NTM vendor EBITDA, and the market sustains a 22.34x multiple, producing about $425.88 per share before the thesis is re-underwritten.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "FQ4 FY2026 revenue is at or below $11.85471bn.",
+      "closeness_to_trigger": "Not yet observable as of 2026-09-23. The frozen $12.09664bn consensus was only $0.24193bn, or 2.0%, above the threshold, but it was 43 days old. The threshold still implies 10.5% year-on-year growth, and the last two matched surprise outcomes were beats.",
+      "disconfirming_evidence_now": "No current result had triggered it. More importantly, this is a bearish confirmation trigger for the Watchlist, not a criterion that kills the actual no-position call. The true false-negative revenue test appears elsewhere in the thesis at $12.33857bn or better.",
+      "severity": "Medium"
+    },
+    {
+      "criterion": "FQ4 FY2026 GAAP-derived EBITDA margin is below 60.3%.",
+      "closeness_to_trigger": "Partway on operating evidence, not on the unreported FQ4 outcome. Q3 margin was 62.3%, 2.0 percentage points above the FQ4 threshold, but it fell below its own matched Q3 prior-year margin of 63.8%; the comparable test passed in Q2 and failed in Q3. Management also expected slightly faster incentive growth and deferred marketing in FQ4.",
+      "disconfirming_evidence_now": "The latest matched margin evidence supports caution, but the criterion again confirms rather than kills the Watchlist. One quarter also contained severance and timing effects, so it does not prove a structural margin break. The actual bull disconfirmation is margin at or above 60.3% together with revenue and cash-conversion proof.",
+      "severity": "High"
+    },
+    {
+      "criterion": "FY2026 CFO divided by GAAP-derived EBITDA is below 70%.",
+      "closeness_to_trigger": "Partway. Nine-month FY2026 CFO of $16.342bn divided by GAAP-derived EBITDA of $21.874bn was about 74.7%, only 4.7 percentage points above the threshold, although the LTM ratio was 79.7% and the annual FY2024-FY2025 ratios were about 81% and 91.5%. The final result depends on Q4 CFO and EBITDA under the thesis's stated formula.",
+      "disconfirming_evidence_now": "Recent cash divergence is visible, but healthy prior annual conversion cuts against treating it as a proven breakdown. A sub-70% result would strengthen the no-position stance, not falsify it; recovery in full-year conversion is the missing false-negative test.",
+      "severity": "High"
+    },
+    {
+      "criterion": "Strict net debt divided by GAAP-derived LTM EBITDA exceeds 0.75x at FY2026 year-end.",
+      "closeness_to_trigger": "Not close in level: the latest ratio was 0.41x, leaving 0.34x of headroom to the threshold. The direction was adverse because strict net leverage rose from 0.32x at FY2025 as cash fell and 9M cash uses exceeded CFO.",
+      "disconfirming_evidence_now": "Low leverage and cash-covered maturities argue against imminent balance-sheet stress. Exceeding 0.75x would confirm a more negative Watchlist or Avoid view; it is not a falsifier of the existing no-position decision.",
+      "severity": "Medium"
+    },
+    {
+      "criterion": "A final DOJ or European Commission remedy materially restricts Visa's core debit conduct or pricing.",
+      "closeness_to_trigger": "Procedurally partway but not economically triggered. The DOJ action and EC inquiry were active and disclosed as of 2026-09-23, but no final remedy, quantified economic range, or reliable decision date existed.",
+      "disconfirming_evidence_now": "The open matters are a high-severity precursor. A conduct-changing remedy would validate the cautious or Avoid side rather than kill the Watchlist. The opposing disconfirmation would be resolution without a material economic remedy, which is not listed as a formal kill criterion.",
+      "severity": "High"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "The market may underweight the quality gap between Visa's reported growth and the faster incentive growth, lower reported margin, and weaker cash conversion.",
+    "already_priced": null,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "Fresh consensus, revision detail, and comparable-window peer evidence showing that analysts already model rising incentives, lower margin, and weaker cash conversion—and that the current multiple already reflects those assumptions—would show that the engine is not different from consensus. The run lacked eligible peer calls, a fresh price, fresh FQ4 consensus, and sector-cycle multiple history, so neither novelty nor pricing was proven. The thesis correctly states that there is no proven variant perception yet."
+  },
+  "value_trap_check": "This is not a conventional cheap-stock value trap and no controlling-owner trap is identified. The risk is the reverse: paying a premium for a high-quality franchise while growth quality weakens. At $364.15, the stock was above the $331.56 base value and near the $355.21 own-history and $367.62 peer references. The bull case needs both a 5% EBITDA beat and a 22.34x multiple, so part of its return requires a valuation outcome not earned by the current margin and cash evidence. Conversely, the low DCF is too discount-rate-sensitive to prove overvaluation on its own; the 7.15% implied-WACC solve keeps the false-negative risk open.",
+  "base_rate_check": "No external reference-class frequency for global payment networks was supplied, so the scenario probabilities remain judgment rather than measured odds. The closest same-metric company base rate supports caution: the 9.04% reverse-DCF requires 19.67% five-year annual FCF growth versus 10.4% realized in FY2021-FY2025 and a 4.8% latest-twelve-month decline. The contrary company base rate is that annual CFO/GAAP-derived EBITDA conversion was about 81%-94.6% in FY2023-FY2025, so one weaker recent window is not enough to call a structural cash break. Four straight revenue and vendor-normalized-EPS beats are only n=4 and were correctly labeled judgmental. The 20% bull, 50% base, and 30% bear probabilities respect the demanding FCF path but have no empirical outside-view calibration; this limits confidence rather than mechanically changing the Watchlist.",
+  "overconfidence_flags": [
+    "False precision from stale inputs: the $364.15 price was 26 trading days stale, FQ4 consensus was 43 days old, and valuation methods differed by 51.14%, yet expected return was printed to two decimals. The thesis disclosed each limitation and kept conviction at 42.",
+    "Recency and narrative risk: the no-position story can overweight one Q3 margin decline and one nine-month cash-flow divergence even though annual cash conversion remained sound and the cause of the cash gap was not proven. The thesis retained these qualifiers.",
+    "Discount-rate anchoring: the $243.23 DCF and 19.67% implied-growth hurdle depend on 9.04% WACC, while 7.15% reconciles the same cash path to the market. Treating the higher rate as uniquely correct would manufacture overvaluation; the thesis did not do so.",
+    "Confirmation bias in monitoring: four adverse outcomes are labeled kill criteria even though they would confirm, not falsify, a Watchlist/no-position decision. The true bull falsifier is present in the edge-proof text but is not represented symmetrically in the formal kill-criteria array.",
+    "Probability overconfidence: all scenario probabilities are judgment and there is no external reference-class frequency or eligible peer read-through. The disclosed 42 confidence already reflects this and should not be raised."
+  ],
+  "disconfirming_evidence_present": [
+    "Revenue grew 14.4% in the June-2026 LTM period, while Q3 payment volume and processed transactions each grew 10%; this is operating strength, not merely a valuation narrative.",
+    "Revenue and vendor-normalized EPS beat consensus in each of the prior four quarters. The sample is too small for an empirical frequency, but it is direct evidence against assuming a near-term miss.",
+    "Q3 included $563m of severance, marketing timing, and a different litigation comparison, so the latest margin decline may not represent recurring economics.",
+    "FY2023-FY2025 CFO/GAAP-derived EBITDA conversion remained about 81%-94.6%, FY2025 CFO/net income was 1.15x, and the M-score was -2.461; these facts weaken a structural cash-quality or manipulation story.",
+    "Own-history and adjusted-peer valuation references of $355.21 and $367.62 were near the admitted price, and a 7.15% WACC reconciled the modeled cash path to price; the $243.23 DCF is not a uniquely valid anchor.",
+    "Strict net leverage was only 0.41x and cash covered named 24-month maturities 2.18x, giving Visa room to absorb temporary cost or legal cash pressure.",
+    "No eligible comparable-window peer call existed, so the claim that Visa's recent quality gap was differentiated from sector conditions had no independent peer corroboration."
+  ],
+  "what_would_change_the_call": [
+    "Move toward Starter Position Only only after a fresh pool-verified price and refreshed consensus show an acceptable margin of safety, or the filed FY2026 result simultaneously reports FQ4 revenue of at least $12.33857bn, GAAP-derived EBITDA margin of at least 60.3%, and improving full-year CFO/EBITDA conversion.",
+    "Move from Watchlist toward Avoid if FQ4 revenue is at or below $11.85471bn, margin is below 60.3%, or FY2026 CFO/GAAP-derived EBITDA is below 70%, especially if weakness persists in a second matched period rather than arising from one-time timing effects.",
+    "Reject a long thesis if a final DOJ or EC remedy materially restricts core debit conduct or pricing, or if the unquantified legal tail crystallizes while cash distributions remain above internally generated cash.",
+    "Downgrade the balance-sheet read if strict net debt/GAAP-derived LTM EBITDA exceeds 0.75x, usable liquidity falls below the $5.678bn 24-month maturity wall, or disclosed covenant terms show thin headroom.",
+    "Rebuild the valuation before acting if fresh sector-level multiple history shows that both own-history and peer anchors were cycle-distorted, or if the discount-rate reconciliation can no longer support the modeled cash path."
+  ],
+  "survives": true,
+  "confidence_haircut": 0,
+  "recommended_confidence": 42.0,
+  "recommended_rating_cap": "",
+  "verdict": "Survives",
+  "notes": "The directional Watchlist survives at its already-cautious 42/100 conviction. The no-proven-edge ceiling, stale inputs, valuation dispersion, and specialist conflict were already explicit and already reduced conviction, so applying another haircut for the same facts would double-count them. No information after the 2026-09-23 decision date and no external web evidence were used. The formal kill-criteria array should be read carefully at the next review: its first four numeric items and the adverse-remedy item confirm the no-position stance; the actual false-negative falsifiers are the positive revenue, margin, cash-conversion, and benign-remedy outcomes stated elsewhere in the thesis. This report is append-only and does not alter the audited thesis or decision record."
+}
