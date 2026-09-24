@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { reportIntegrityView } from './reportIntegrity'
+import { reportIntegrityView, reportStatus } from './reportIntegrity'
 
 const heading = '# HAIER — Investment Dossier\n\nThe report starts here.'
 const haier = `> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**
@@ -42,3 +42,12 @@ const malformed = `> ⚠️ **PROVISIONAL — the automated finish-gate found an
 assert.deepEqual(reportIntegrityView(malformed), { body: malformed, warning: null })
 
 console.log('reportIntegrity: 6 checks passed')
+
+const idle = { running: false, queued: false, pending: false, loading: false, failed: false, warning: false }
+assert.deepEqual(reportStatus({ ...idle, warning: true }), { label: 'Unverified', tone: 'pending' })
+assert.deepEqual(reportStatus({ ...idle, warning: true, running: true }), { label: 'Running', tone: 'running' })
+assert.equal(reportStatus({ ...idle, running: true, queued: true }).label, 'Queued')
+assert.equal(reportStatus({ ...idle, loading: true }).label, 'Loading')
+assert.equal(reportStatus({ ...idle, failed: true }).label, 'Unavailable')
+assert.equal(reportStatus({ ...idle, pending: true }).label, 'Not run')
+assert.equal(reportStatus(idle).label, 'Completed')

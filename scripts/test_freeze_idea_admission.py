@@ -10,8 +10,9 @@ import shutil
 import tempfile
 
 from freeze_idea_admission import digest, freeze, main as freeze_main
-from create_idea_projection_manifest import create as create_manifest, file_digest, validate_manifest
+from create_idea_projection_manifest import create as create_manifest, file_digest, validate_manifest, decision_digest, DECISION_HASH_BASIS
 from idea_run_root import parse_idea_run_root
+from research_audit_outcome import reconcile
 
 
 def freeze_worker(queue, run_root, repo):
@@ -49,7 +50,7 @@ def rewrite_decision_and_rebind_audits(run, mutate):
     mutate(decision)
     with open(decision_path, "w", encoding="utf-8") as handle:
         json.dump(decision, handle)
-    decision_sha = file_digest(decision_path)
+    decision_sha = decision_digest(decision_path)
     for name in ("verification_report.json", "pre_mortem.json", "expectations_gap.json"):
         audit_path = os.path.join(run, name)
         audit = json.load(open(audit_path, encoding="utf-8"))
@@ -107,6 +108,7 @@ def fixture(
     decision_company = f"{ticker} Holdings" if company_name is None else company_name
     record = {
         "run_root": run_root, "decision_date": run_date, "ticker": ticker, "company_name": decision_company, "exchange": "NYSE", "currency": "USD",
+        "confidence_score": 65, "basket": "Watchlist" if decision == "Watchlist" else "Selected",
         "decision": decision, "post_mortem_decision": post_decision or decision, "data_sufficiency_score": 82, "edge_score": 66,
         "edge_proof": edge_proof, "rating_cap": None, "red_flags": [],
         "confidence_inputs": {"rating_cap_ceiling": None, "critical_governance_unresolved": False},
@@ -143,7 +145,17 @@ def fixture(
             "is_exploitable": expectations_exploitable, "edge_score": expectations_edge,
         },
     }
+    # Simulate the genuine final audit set after deterministic outcome propagation.
+    audits = {"verification": docs["verification_report.json"], "pre_mortem": docs["pre_mortem.json"], "expectations_gap": docs["expectations_gap.json"]}
+    record, thesis = reconcile(record, "# Final thesis\n", audits)
+    with open(os.path.join(run, "decision_record.json"), "w", encoding="utf-8") as handle:
+        json.dump(record, handle)
+    with open(os.path.join(run, "final_thesis.md"), "w", encoding="utf-8") as handle:
+        handle.write(thesis)
     for name, value in docs.items():
+        value.update(final_thesis_sha256=file_digest(os.path.join(run, "final_thesis.md")),
+                     decision_record_sha256=decision_digest(os.path.join(run, "decision_record.json")),
+                     decision_record_hash_basis=DECISION_HASH_BASIS)
         with open(os.path.join(run, name), "w", encoding="utf-8") as handle:
             json.dump(value, handle)
     manifest = create_manifest(run_root, repo)
@@ -418,6 +430,7 @@ def main():
         bad_manifest_root, bad_manifest_run = fixture(repo, ticker="NEGBADMANIFEST")
         replace_with_negative(bad_manifest_root, bad_manifest_run, "NEGBADMANIFEST")
         assert freeze(bad_manifest_root, repo) == 0
+        original_thesis = open(os.path.join(bad_manifest_run, "final_thesis.md"), encoding="utf-8").read()
         with open(os.path.join(bad_manifest_run, "final_thesis.md"), "a", encoding="utf-8") as handle:
             handle.write("Tampered after the negative seal.\n")
         try:
@@ -426,7 +439,7 @@ def main():
         except ValueError:
             pass
         with open(os.path.join(bad_manifest_run, "final_thesis.md"), "w", encoding="utf-8") as handle:
-            handle.write("# Final thesis\n")
+            handle.write(original_thesis)
         assert freeze(bad_manifest_root, repo) == 0
         with open(os.path.join(bad_manifest_run, "idea_projection_manifest.json"), "w", encoding="utf-8") as handle:
             handle.write("{corrupt JSON")

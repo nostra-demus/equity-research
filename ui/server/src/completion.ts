@@ -34,6 +34,7 @@
 // swarm has dated run folders, so only it can carry forward; a constellation swarm keeps one stable
 // folder per subject, where "reuse" is already the natural behaviour and the carry set is always empty.
 
+import { RESEARCH_AUDIT_ATTEMPT_MARKERS } from './research-audit-outcome'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -2401,12 +2402,21 @@ export interface PrivateThesisPlanPreparation extends FullContinuationPreparatio
  * This runs only in the private transaction copy. The canonical interrupted root (including its supervisor
  * marker) stays untouched until atomic activation, and is restored wholesale if no paid child starts.
  */
+/** A consumed attempt is a deny-only fact, never reusable research or an instruction source. */
+function preserveAuditAttempt(target: string, name: string, info: fs.Stats): boolean {
+  if (!RESEARCH_AUDIT_ATTEMPT_MARKERS.has(name)) return false
+  if (!info.isFile() || info.isSymbolicLink()) throw new Error(`unsafe audit attempt marker: ${name}`)
+  fs.writeFileSync(target, JSON.stringify({ attempt_consumed: true }) + '\n')
+  return true
+}
+
 function sanitizePrivateContinuationRoot(stagingRootAbs: string, moduleNames: ReadonlySet<string>): void {
   for (const entry of fs.readdirSync(stagingRootAbs, { withFileTypes: true })) {
     if (entry.isDirectory() && (entry.name === '_pool_extracts' || moduleNames.has(entry.name))) continue
     const target = path.join(stagingRootAbs, entry.name)
     const info = fs.lstatSync(target)
     if (info.isSymbolicLink()) throw new Error(`private continuation root contains an unsafe link: ${entry.name}`)
+    if (preserveAuditAttempt(target, entry.name, info)) continue
     fs.rmSync(target, { recursive: info.isDirectory(), force: true })
   }
 }
@@ -2551,6 +2561,7 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
     const target = path.join(runAbs, entry.name)
     const info = fs.lstatSync(target)
     if (info.isSymbolicLink()) throw new Error(`recoverable chain root contains an unsafe link: ${entry.name}`)
+    if (preserveAuditAttempt(target, entry.name, info)) continue
     fs.rmSync(target, { recursive: info.isDirectory(), force: true })
   }
 }

@@ -290,6 +290,18 @@ try {
   // ---- the single finalizer: distinct durable reason, identical for both providers (doctrine §30) --------
   const refusedRoots: Partial<Record<RunProvider, string>> = {}
   for (const provider of ['claude', 'codex'] as const) {
+    await check(`finalize (${provider}): an exhausted audit stops without a publication request and holds paid recovery`, () => {
+      const { run, runRoot } = mkMaster(provider, `ZZAUDITSTOP${provider.toUpperCase()}`)
+      run.publicationRequested = false
+      fs.writeFileSync(path.join(REPO_ROOT, runRoot, '.audit_reconciliation_attempted.json'), '{}')
+      finalizeRunOnClose(run, { exitCode: 0 }, '')
+      assert.equal(run.publicationRefused, true)
+      assert.equal(readRunMarker(runRoot, '.interrupted')?.reason, PUBLICATION_REFUSED_REASON)
+      assert.match(String(run.note), /publication_refused/)
+      assert.equal(autoResumeDue(readRunMarker(runRoot, '.interrupted')?.reason, undefined), false)
+    })
+  }
+  for (const provider of ['claude', 'codex'] as const) {
     await check(`finalize (${provider}): a refused publication is recorded as publication_refused and still shows why`, () => {
       const { run, events, runRoot } = mkMaster(provider, `ZZPUBREF${provider.toUpperCase()}`)
       refusedRoots[provider] = runRoot

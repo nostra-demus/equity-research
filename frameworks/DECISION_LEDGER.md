@@ -1104,3 +1104,30 @@ known winner or loser would create survival bias. Calibration remains `pre_data`
 the sample and benchmark coverage floors clear. The first post-floor label is `measured`, not
 `calibrated`: sample size makes Brier and
 signed/absolute forecast-error diagnostics judgeable; it does not prove the probabilities accurate.
+
+
+### Final audit reconciliation before publication
+
+Every newly finalized research thesis, including standalone and chained reruns, follows
+`/research:full` Step 10B.3A before immutable publication. One durable evidence-repair attempt may correct
+citation, aggregate-build, qualifier, contradiction, and math findings using existing modules and the
+frozen evidence. One separate deterministic reconciliation copies the latest audit result into the
+additive post-review fields and the thesis's Final audit outcome block. Neither budget resets on resume.
+If a genuine read-only audit of the changed files disagrees again, preserve the work and stop visibly;
+never manufacture agreement by editing old audit hashes or automatically repeating paid work.
+
+`confidence_score` and `decision` remain the original synthesis call. The effective result uses
+`post_review_confidence_score`, `post_mortem_decision`, and `post_mortem_basket`. Independent edge results
+use `post_review_edge_score`, `post_review_variant_perception_quality`, and `post_review_is_exploitable`.
+Memos and human-facing scorecards lead with these reviewed fields and label any original scores. An
+adverse evidence audit remains PROVISIONAL even when all displayed fields reconcile. Generated output
+and verified output are distinct states; the report reader must not label a flagged report Completed.
+
+New `idea-projection-manifest/v2` seals require deterministic reconciliation and explicit
+`decision_record_hash_basis: research-analytical-json/v1` in all three final audits. This hash is the
+shared canonical JSON SHA-256 of every analytical decision field, excluding only the separately verified,
+supervisor-owned `execution_provenance` metadata stamped after provider exit. Thesis and audit artifacts
+remain bound by exact byte hashes. Adding runtime metadata therefore cannot invalidate research, while
+changing any rating, score, forecast, cap, or other analytical field still invalidates the seal. Historical
+v1 manifests retain their original byte-hash contract. The supervisor rechecks new v2 publication before
+and after stamping; a deterministic mismatch enters manual-only recovery, never an automatic paid loop.

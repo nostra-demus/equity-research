@@ -1,3 +1,5 @@
+import { RESEARCH_AUDIT_ATTEMPT_MARKERS } from './research-audit-outcome'
+import { validateProjectionManifest } from './qualified-ideas-store'
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -357,7 +359,7 @@ const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
  * human `readiness_override.json` trace) does not belong here: dropping it would hide it. It is refused
  * before sealing instead, so the gap is visible and gets a deliberate catalogue decision.
  */
-export const SUPERVISOR_CONTROL_MARKERS: ReadonlySet<string> = new Set([IDEA_PUBLICATION_MARKER, '.interrupted'])
+export const SUPERVISOR_CONTROL_MARKERS: ReadonlySet<string> = new Set([IDEA_PUBLICATION_MARKER, '.interrupted', ...RESEARCH_AUDIT_ATTEMPT_MARKERS])
 
 function ideaPublicationMarkerPath(runRoot: string): string {
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
@@ -939,6 +941,9 @@ export function planCodexAutomaticContinuation(
   if (run.publicationRequested || run.publicationCompleted || run.publicationError) {
     return { continue: false, reason: 'publication_started' }
   }
+  if (run.swarmId === RESEARCH_SWARM_ID && ['full', 'rerun'].includes(run.kind) && researchAuditRecoveryBlocked(run.runRoot)) {
+    return { continue: false, reason: PUBLICATION_REFUSED_REASON }
+  }
   const modelCapacity = run.cliResult?.isError === true && run.cliResult.subtype === 'model_capacity'
   // A screener signal may deliberately stop at a terminal routing before later discovered modules run.
   // RUN_METADATA is written only after that routing is adjudicated, so it is the exact parent-completion
@@ -1162,6 +1167,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
       message: codexIncompleteOrchestrationMessage(run),
     }
   }
+  if (!run.publicationCompleted && !run.cancelRequested && (run.status as string) !== 'cancelled'
+      && run.swarmId === RESEARCH_SWARM_ID && ['full', 'rerun'].includes(run.kind)
+      && researchAuditRecoveryBlocked(run.runRoot)) {
+    const message = recordPublicationFailure(run, new PublicationRefusedError(
+      'The bounded final audit attempt ended without a valid final seal. Completed research is preserved; resolve the audit mismatch before a manual continuation.'))
+    classified = { outcome: 'error', reason: 'publication_failed', message }
+  }
   if (classified.outcome === 'success' && run.kind === 'parity') {
     let verified = run.parityVerificationCompleted === true
     if (verified) {
@@ -1221,7 +1233,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
       message: refused ? terminalMessage.slice(-400) : terminalProof.message, ts: Date.now(),
     })
     finishClose('incomplete')
-  } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)
+  } else if (!run.publicationRefused && isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)
       && (!run.willCommitToMain || run.publicationCompleted)) {
     // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
     // written by THIS attempt (Findings 12/14 — not just present, which a same-day stale relaunch could also
@@ -6121,7 +6133,7 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
   ]))
   const support = new Set([
     '.provider-parity-input.json', '.defer_module_memos', IDEA_PUBLICATION_MARKER,
-    'readiness_override.json', '_pool_extracts',
+    'readiness_override.json', '_pool_extracts', ...RESEARCH_AUDIT_ATTEMPT_MARKERS,
   ])
   // Finder may create this metadata file merely by displaying the directory. It carries no research
   // evidence and is never passed to a provider, so ignore it without widening the support-file contract.
@@ -7982,6 +7994,38 @@ function expectedLedgerIntegrityReview(run: RunState): Record<string, unknown> |
  * provider/model/attempt rows or artifact identities. Those come from the live RunState and pre-spawn
  * baselines; the server stamps and performs the serialized git operation before acknowledging the child.
  */
+/** Consumed correction budgets only deny automatic work; their contents never authorize anything. */
+export function researchAuditRecoveryBlocked(runRoot: string | null | undefined): boolean {
+  if (!runRoot) return false
+  const absolute = path.join(REPO_ROOT, runRoot)
+  if (![...RESEARCH_AUDIT_ATTEMPT_MARKERS].some(name => {
+    try { fs.lstatSync(path.join(absolute, name)); return true } catch { return false }
+  })) return false
+  const validated = validateProjectionManifest(absolute, runRoot)
+  return !validated || validated.manifest.schema_version !== 'idea-projection-manifest/v2'
+}
+
+/** Independent publication boundary: model instructions alone cannot declare an audit reconciled. */
+export function assertResearchAuditPublication(run: Pick<RunState, 'swarmId' | 'kind' | 'runRoot'>): void {
+  if (run.swarmId !== RESEARCH_SWARM_ID || !['full', 'rerun'].includes(run.kind) || !run.runRoot) return
+  const absolute = path.join(REPO_ROOT, run.runRoot)
+  // No-thesis refusals and module checkpoints retain their existing artifact-completion rules.
+  if (!fs.existsSync(path.join(absolute, 'final_thesis.md'))) return
+  const validated = validateProjectionManifest(absolute, run.runRoot)
+  if (!validated || validated.manifest.schema_version !== 'idea-projection-manifest/v2') {
+    throw new PublicationRefusedError('Final research audits are missing, stale, or disagree with the published review outcome. Completed work is preserved; no automatic paid retry is allowed.')
+  }
+  const thesis = fs.readFileSync(path.join(absolute, 'final_thesis.md'), 'utf8')
+  const block = /<!-- research-review:start -->[\s\S]*?<!-- research-review:end -->/.exec(thesis)?.[0]
+  let memo = ''
+  try { assertRegularArtifact(path.join(absolute, 'memo.md'), 'final research memo'); memo = fs.readFileSync(path.join(absolute, 'memo.md'), 'utf8') } catch { /* refused below */ }
+  const warning = thesis.startsWith('>') ? thesis.split('\n\n')[0] : null
+  if (!block || !memo.slice(0, 6000).includes(block)
+      || (warning?.includes('PROVISIONAL — the automated finish-gate') && !memo.slice(0, 2000).includes(warning))) {
+    throw new PublicationRefusedError('The final memo does not carry the sealed audit outcome and integrity warning. Regenerate it from the final thesis before publication.')
+  }
+}
+
 export async function supervisePublication(
   runId: string, token: string, request: SupervisorPublicationRequest,
 ): Promise<{
@@ -8076,6 +8120,8 @@ export async function supervisePublication(
     }
   }
 
+  if (phase === 'commit' || parityCanary) assertResearchAuditPublication(run)
+
   // From this point onward the supervisor mutates/stamps durable bytes. Validation failures above remain
   // retryable; once mutation begins, the terminal capability is deliberately consumed fail-closed.
   if (phase === 'archive') run.publicationPhase = 'archive-in-progress'
@@ -8093,6 +8139,8 @@ export async function supervisePublication(
     for (const artifact of artifacts) args.push('--repo-artifact', artifact)
     await execa('python3', args, { cwd: REPO_ROOT, input: manifest, reject: true })
   }
+  if (phase === 'commit' || parityCanary) assertResearchAuditPublication(run)
+
   // Only the terminal commit projects the shared board/checkpoint stores. A stamp-only phase validates
   // and stamps the run/ledger pair but must remain side-effect free outside those artifacts; otherwise a
   // retry or test stamp could update globally shared screener state without a corresponding publication.

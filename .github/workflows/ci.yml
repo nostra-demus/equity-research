@@ -197,7 +197,9 @@ jobs:
         run: python3 scripts/validate_screener_json.py --fixture
 
       - name: Qualified-idea immutable admission + projection-manifest regressions
-        run: python3 scripts/test_freeze_idea_admission.py
+        run: |
+          python3 scripts/test_freeze_idea_admission.py
+          python3 scripts/test_research_audit_outcome.py
 
       - name: Qualified-idea Python/TypeScript canonical-digest parity
         run: python3 scripts/test_canonical_json.py

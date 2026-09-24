@@ -751,7 +751,7 @@ def write_idea_evidence_snapshot(feed, symbol, run_root, exchange=None, currency
                 manifest = json.load(handle)
             manifest_payload = dict(manifest)
             manifest_sha = manifest_payload.pop("manifest_sha256", None)
-            if (manifest.get("schema_version") != "idea-projection-manifest/v1" or
+            if (manifest.get("schema_version") not in {"idea-projection-manifest/v1", "idea-projection-manifest/v2"} or
                     not isinstance(manifest_sha, str) or len(manifest_sha) != 64 or
                     manifest_sha != hashlib.sha256(_canonical_json_bytes(manifest_payload)).hexdigest()):
                 raise ValueError("digest mismatch")

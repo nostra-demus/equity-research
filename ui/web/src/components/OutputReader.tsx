@@ -9,7 +9,7 @@ import { buildReportHtml, parseMeta, safeName } from '../lib/export'
 import { buildDocxBlob } from '../lib/docx'
 import { fmtClock } from '../lib/eta'
 import { CONSTITUTION_PATH, moduleOfNodeKey, moduleRulesPath, promptFileName, promptPathForNodeKey, splitFrontmatter } from '../lib/prompts'
-import { reportIntegrityView } from '../lib/reportIntegrity'
+import { reportIntegrityView, reportStatus } from '../lib/reportIntegrity'
 import { Spin } from './Spin'
 
 const IMPROVE_EMAIL = 'ceekay@muns.io'
@@ -47,6 +47,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const now = useStore((s) => s.now) // shared 1s clock — ticks while any orb runs
   const [md, setMd] = useState<string>('')
   const [loading, setLoading] = useState(false)
+  const [loadFailed, setLoadFailed] = useState(false)
   const [menu, setMenu] = useState(false)
   const [promptMenu, setPromptMenu] = useState(false)
   // prompt view: people can read + download the exact instructions an orb/module runs on, then send back
@@ -58,6 +59,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const reportView = useMemo(() => reportIntegrityView(md), [md])
 
   useEffect(() => {
+    setLoadFailed(false)
     // Content the caller already holds (a watchlist thesis attachment: it lives under a reserved data
     // folder, which api.output deliberately cannot read) renders directly — same pipeline, no fetch.
     if (output.embedUrl) { setMd(''); setLoading(false); return } // rendered by the viewer, not fetched
@@ -73,8 +75,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     let live = true
     const readPromise = output.publishedCalls ? api.callArtifact(path) : api.output(path)
     readPromise
-      .then((r) => { if (live) setMd(typeof r?.markdown === 'string' ? r.markdown : '*Could not load this output.*') })
-      .catch(() => { if (live) setMd('*Could not load this output.*') })
+      .then((r) => { if (live) { setLoadFailed(typeof r?.markdown !== 'string'); setMd(typeof r?.markdown === 'string' ? r.markdown : '*Could not load this output.*') } })
+      .catch(() => { if (live) { setLoadFailed(true); setMd('*Could not load this output.*') } })
       .finally(() => { if (live) setLoading(false) })
     return () => { live = false }
   }, [output.path, output.body, output.embedUrl, output.publishedCalls])
@@ -104,6 +106,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   // live elapsed for the header chip while THIS orb runs (server-stamped start, shared 1s clock)
   const runStartedAt = targetKey ? nodeRuntime[targetKey]?.startedAt : undefined
   const runElapsed = tstatus === 'running' && runStartedAt ? fmtClock(Math.max(0, now - runStartedAt)) : null
+  const status = reportStatus({ running: busy || pendingHere, queued: tstatus === 'queued' && !pendingHere,
+    pending: !!output.pending, loading, failed: loadFailed, warning: !!reportView.warning })
 
   // the prompt(s) reachable from this panel: the orb's own prompt, its module's shared rules (if any),
   // and the engine constitution. Derived purely from the node key (+ the active swarm's agents root,
@@ -350,14 +354,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
       <div className="reader__head">
         <div style={{ minWidth: 0 }}>
           <div className="reader__title">
-            {/* the chip tells the truth about NOW: a running orb never wears a stale "Not run" */}
-            {busy || pendingHere ? (
-              <span className="reader__running">● {tstatus === 'queued' && !pendingHere ? 'Queued' : 'Running'}{runElapsed ? ` · ${runElapsed}` : ''}</span>
-            ) : output.pending ? (
-              <span className="reader__pending">○ Not run</span>
-            ) : (
-              <span className="reader__done">✓ Completed</span>
-            )}{' '}
+            <span className={`reader__${status.tone}`}>{status.tone === 'done' ? '✓ ' : status.tone === 'running' ? '● ' : '○ '}{status.label}{status.tone === 'running' && runElapsed ? ` · ${runElapsed}` : ''}</span>{' '}
             {output.title}
           </div>
           {output.verdict ? <div className="reader__verdict">{output.verdict}</div> : output.path ? <div className="reader__path">{output.path}</div> : null}
@@ -398,7 +395,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
             {reportView.warning && (
               <section className="reportcheck" role="region" aria-label="Report integrity warning">
                 <strong>This report is not ready to use</strong>
-                <p>Some checks failed. Fix them, then run the report again.</p>
+                <p>The report was generated, but its integrity checks did not pass. The findings below must be resolved before these figures can be treated as verified.</p>
                 <details>
                   <summary>Show what failed</summary>
                   <div className="reportcheck__details md">
