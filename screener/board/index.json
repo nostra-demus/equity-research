@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T19:01:03Z",
+  "generated_at": "2026-09-24T19:11:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260924-480",
@@ -1308,6 +1308,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260924-506",
+      "headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T14:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Darden Restaurants reported earnings hit by higher food and labor costs, impacting margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Darden Restaurants reported earnings hit by higher food and labor costs, impacting margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Darden Restaurants",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-521",
+      "headline": "USA Rare Earth Is Breaking Ground on Its $1.2 Billion South Carolina Facility. Is It Time to Buy the Critical Minerals Stock?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/usa-rare-earth-breaking-ground-its-12-billion-south-carolina-facility-it-time-buy-critical",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T13:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "USA Rare Earth is breaking ground on a $1.2 billion facility in South Carolina, representing a major capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "USA Rare Earth is breaking ground on a $1.2 billion facility in South Carolina, representing a major capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USA Rare Earth",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260924-563",
+      "headline": "Kobayashi in ¥500 billion buyout talks after red-yeast case",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/09/24/kobayashi-buyout-talks/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
+      "prelim_note": "Kobayashi is in talks for a ¥500 billion buyout following a major product safety crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kobayashi is in talks for a ¥500 billion buyout following a major product safety crisis.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kobayashi Pharmaceutical",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260924-414",
       "headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
       "headline_en": null,
@@ -1849,158 +1996,6 @@
           "name": "Capricorn Energy",
           "ticker": "CARN",
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-334",
-      "headline": "Stock Crash: PB Fintech shares fall 28%; Bernstein warns of 'near-term pain' after IRDAI draft paper",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-irdai-draft-paper-distribution-reforms-impact-concerns-unit-economics-19997082.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T06:42:58Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "PB Fintech shares dropped 28% following a draft paper from the IRDAI that signals potential near-term operational headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PB Fintech shares dropped 28% following a draft paper from the IRDAI that signals potential near-term operational headwinds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PB Fintech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-326",
-      "headline": "Elmet Group To Acquire 4.99% Stake In Masan High-Tech Materials For $124.75 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/elmet-group-acquire-499-stake-masan-high-tech-materials-12475-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T06:15:55Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Elmet Group is acquiring a 4.99% stake in Masan High-Tech Materials for $124.75 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Elmet Group is acquiring a 4.99% stake in Masan High-Tech Materials for $124.75 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Masan High-Tech Materials",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260924-332",
-      "headline": "Schneider to launch €1.2 billion takeover bid for smart device firm Shelly",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/schneider-agrees-takeover-bid-shelly-70-per-share-2026-09-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T06:12:30Z",
-      "sweep_file": "screener/inbox/2026-09-24_sweep.json",
-      "prelim_note": "Schneider is launching a €1.2 billion takeover bid for Shelly.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider is launching a €1.2 billion takeover bid for Shelly.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Shelly",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -177146,9 +177141,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5641554,
-    "news_picked_today": 1254,
-    "news_dropped_today": 12162
+    "news_seen_today": 5720548,
+    "news_picked_today": 1336,
+    "news_dropped_today": 12416
   },
   "book_momentum": {
     "live_count": 8,
