@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T18:59:14Z",
+  "generated_at": "2026-09-25T19:09:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-358",
+      "headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T21:00:40Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Inflection Point Acquisition Corp. V is completing a business combination with GOWell Energy Technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Inflection Point Acquisition Corp. V is completing a business combination with GOWell Energy Technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inflection Point Acquisition Corp. V",
+          "ticker": "IPEX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-350",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process regarding Post facto intimation of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
@@ -1946,65 +1995,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-161",
-      "headline": "Genel Energy raises Capricorn bid to $436 million, beats Norway's DNO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/genel-energy-capricorn-agree-terms-higher-436-million-deal-topping-rival-dno-bid-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T06:53:07Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Genel Energy raises bid for Capricorn Energy to $436 million, beating DNO in active M&A competition with named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Genel Energy raises bid for Capricorn Energy to $436 million, beating DNO in active M&A competition with named deal value.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genel Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Capricorn Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "DNO",
-          "ticker": null,
-          "listing_country": "NO"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180121,9 +180111,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4413058,
-    "news_picked_today": 862,
-    "news_dropped_today": 21506
+    "news_seen_today": 4447180,
+    "news_picked_today": 881,
+    "news_dropped_today": 21607
   },
   "book_momentum": {
     "live_count": 8,
