@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T11:40:33Z",
+  "generated_at": "2026-09-25T11:52:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-244",
@@ -1068,6 +1068,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-251",
+      "headline": "FU SHOU YUAN (01448): (1) SUPPLEMENTAL ANNOUNCEMENT - REMOVAL OF EXECUTIVE DIRECTOR; AND (2) CONTINUED TRADING SUSPENSION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Continued trading suspension and removal of an executive director indicate significant governance and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Continued trading suspension and removal of an executive director indicate significant governance and operational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FU SHOU YUAN",
+          "ticker": "01448",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-017",
       "headline": "25-NSE - KLX Energy Services Holdings, Inc. (0001738827) (Subject)",
       "headline_en": null,
@@ -1954,55 +2004,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-060",
-      "headline": "SCHEDULE 13D/A - Wood River Capital, LLC (0001888978) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1888978/000119312526401393/0001193125-26-401393-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-25T01:12:34Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Wood River Capital filed an amended 13D regarding a stake in a company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Wood River Capital filed an amended 13D regarding a stake in a company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wood River Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180123,9 +180124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2809110,
-    "news_picked_today": 425,
-    "news_dropped_today": 15367
+    "news_seen_today": 2881359,
+    "news_picked_today": 427,
+    "news_dropped_today": 15749
   },
   "book_momentum": {
     "live_count": 8,
