@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T11:52:46Z",
+  "generated_at": "2026-09-25T12:01:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-252",
+      "headline": "ITI Capital Ltd enters special administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/iti-capital-ltd-enters-special-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-25T11:31:59Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "ITI Capital Ltd has entered special administration, indicating a formal insolvency process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ITI Capital Ltd has entered special administration, indicating a formal insolvency process.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITI Capital Ltd",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-244",
       "headline": "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange about the execution of the Business Transfer Agreement for purchase and acquisition of the Business Undertaking of U M Cables Limited by the Company.",
@@ -1708,6 +1757,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-253",
+      "headline": "PC Jeweller Limited: PC Jeweller Limited has informed regarding Disclosure of material issue",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PCJEWELLER_25092026165942_update250926.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T11:30:22Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "PC Jeweller has disclosed a material issue, which typically implies regulatory or operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "PC Jeweller has disclosed a material issue, which typically implies regulatory or operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PC Jeweller Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-254",
+      "headline": "UCAL LIMITED: UCAL LIMITED has informed the Exchange about Action(s) initiated or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/UCALFUEL_25092026165958_SCN_25092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T11:30:12Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "UCAL Limited has reported regulatory action or orders passed against the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "UCAL Limited has reported regulatory action or orders passed against the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UCAL LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-230",
       "headline": "Gillette India Limited: Gillette India Limited has informed the Exchange about Resignation of Director/KMP/SMP",
       "headline_en": null,
@@ -1848,159 +1995,6 @@
           "name": "HATCHER GROUP",
           "ticker": "08365",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-207",
-      "headline": "HANHUA HOLDING (03903): (1) SUPPLEMENTAL INFORMATION IN RELATION TO RESIGNATION OF AUDITOR; (2) SUPPLEMENTAL INFORMATION IN RELATION TO CHANGE OF INTERAL CONTROL CONSULTANT; AND (3) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500855.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T09:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Continued trading suspension and supplemental info regarding auditor resignation and internal control changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Continued trading suspension and supplemental info regarding auditor resignation and internal control changes.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HANHUA HOLDING",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-136",
-      "headline": "Prism Johnson Limited: Prism Johnson Limited has informed the Exchange about Investment in KUS Renewable Private Limited, a Special Purpose Vehicle, for setting up 49.5 MW Captive Wind Power Plant for supply of Wind Power to the Cement Plant of the Company located at Satna, Madhya Pradesh.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PRSMJOHNSN_25092026101234_SEIntimationinKUS.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T04:44:51Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Prism Johnson invests in 49.5 MW captive wind power plant for its cement plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Prism Johnson invests in 49.5 MW captive wind power plant for its cement plant.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prism Johnson Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-140",
-      "headline": "5E SVM Railway Company, LLC-Acquisition and Operation Exemption-Assets of Trona Railway Company LLC",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/25/2026-19627/5e-svm-railway-company-llc-acquisition-and-operation-exemption-assets-of-trona-railway-company-llc",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-25T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "5E SVM Railway Company is acquiring assets of Trona Railway Company, representing a change in operational scope.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "5E SVM Railway Company is acquiring assets of Trona Railway Company, representing a change in operational scope.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "5E SVM Railway Company",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trona Railway Company",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -180124,9 +180118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2881359,
-    "news_picked_today": 427,
-    "news_dropped_today": 15749
+    "news_seen_today": 2924763,
+    "news_picked_today": 434,
+    "news_dropped_today": 15814
   },
   "book_momentum": {
     "live_count": 8,
