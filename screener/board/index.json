@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T11:06:03Z",
+  "generated_at": "2026-09-25T11:12:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-229",
@@ -894,6 +894,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-239",
+      "headline": "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange about a press release regarding the acquisition of U M Cables' Optical Fibre Cable Business.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RRKL1995_25092026162141_Press_Release_25_September_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T10:56:32Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "R R Kabel is acquiring the Optical Fibre Cable business of U M Cables, expanding its product portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "R R Kabel is acquiring the Optical Fibre Cable business of U M Cables, expanding its product portfolio.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "R R Kabel Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,60 +1989,6 @@
           "name": "Conoship",
           "ticker": null,
           "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-225",
-      "headline": "Gamma suitor Epiris in talks to buy TalkTalk wholesale arm PXC for £200m",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/gamma-suitor-epiris-in-talks-to-buy-talktalk-wholesale-arm-pxc-for-200m-13591705",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T09:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Epiris is in talks to acquire PXC for £200 million, indicating consolidation in the wholesale telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Epiris is in talks to acquire PXC for £200 million, indicating consolidation in the wholesale telecom sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Epiris",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
