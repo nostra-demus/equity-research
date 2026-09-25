@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T01:42:14Z",
+  "generated_at": "2026-09-25T01:50:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-049",
@@ -1279,6 +1279,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-056",
+      "headline": "TRIUMPH NEW EN (01108): ANNOUNCEMENT ON THE ADJUSTMENT TO THE EXPECTED AMOUNT OF GUARANTEES TO BE PROVIDED TO SUBSIDIARIES IN 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402095.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company is adjusting the expected amount of guarantees provided to subsidiaries for 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The company is adjusting the expected amount of guarantees provided to subsidiaries for 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Triumph New Energy",
+          "ticker": "01108",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-032",
       "headline": "Addvalue shareholders approve spinoff of unit, share dilution for Nasdaq listing",
       "headline_en": null,
@@ -1609,55 +1658,6 @@
           "name": "KOV",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-054",
-      "headline": "TRIUMPH NEW EN (01108): ADJUSTMENT TO EXPECTED AMOUNT OF GUARANTEES TO BE PROVIDED TO SUBSIDIARIES IN 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T13:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Parent-company guarantee adjustment to subsidiaries in 2026 disclosed via exchange filing, but magnitude and direction not quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Parent-company guarantee adjustment to subsidiaries in 2026 disclosed via exchange filing, but magnitude and direction not quantified.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Triumph New Energy",
-          "ticker": "01108",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -179639,9 +179639,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 418247,
-    "news_picked_today": 59,
-    "news_dropped_today": 2149
+    "news_seen_today": 434508,
+    "news_picked_today": 60,
+    "news_dropped_today": 2220
   },
   "book_momentum": {
     "live_count": 8,
