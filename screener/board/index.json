@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T06:05:58Z",
+  "generated_at": "2026-09-25T06:06:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -138671,6 +138671,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d8fab6669b2a",
+      "idea_version": "IDEAV-b8175cb05e09fc26",
+      "idea_version_started_at": "2026-09-25T06:06:13Z",
+      "ticker": "HLS",
+      "company": "Healius Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The sale of the Agilex Biolabs unit provides a liquidity event that allows the company to pay down debt and focus on its core diagnostic business.",
+      "why_now": "The agreement was announced via an official exchange filing on 2026-09-24.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-189722952451"
+      ],
+      "primary_source_event_id": "EVT-189722952451",
+      "source_headlines": [
+        "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]"
+      ],
+      "source_headline": "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03139740-2A1699182",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T22:49:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-25T06:06:13Z",
+      "updated_at": "2026-09-25T06:06:13Z",
+      "decay_at": "2026-09-26T10:49:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-111ec83cfb59",
       "idea_version": "IDEAV-a9aa0b416610b566",
       "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -179991,8 +180062,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1023,
-    "live_count": 18,
+    "surfaced_total": 1024,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
