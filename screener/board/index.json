@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T23:08:50Z",
+  "generated_at": "2026-09-25T23:13:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-358",
@@ -139046,78 +139046,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5cafd3edd0bd",
-      "idea_version": "IDEAV-bea16d395573f816",
-      "idea_version_started_at": "2026-09-24T22:18:36Z",
-      "ticker": "VTY",
-      "company": "Vistry Group",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Vistry Group issued a profit warning and announced it will scale back operations due to mounting charges, indicating significant margin pressure and operational headwinds.",
-      "why_now": "The news was released on 2026-09-24, and the market is currently reacting to the CEO's strategic pivot and downward earnings revision.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a4758ed37f5"
-      ],
-      "primary_source_event_id": "EVT-5a4758ed37f5",
-      "source_headlines": [
-        "Vistry CEO to scale back housebuilder after profit warning and mounting charges"
-      ],
-      "source_headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
-      "source_url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T11:10:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-24T20:05:57Z",
-      "updated_at": "2026-09-24T22:18:36Z",
-      "decay_at": "2026-09-25T23:10:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a85bb583dca8",
       "idea_version": "IDEAV-901fdab91d427bdb",
       "idea_version_started_at": "2026-09-24T16:36:19Z",
@@ -139536,6 +139464,78 @@
       "surfaced_at": "2026-09-24T22:39:26Z",
       "updated_at": "2026-09-24T22:39:26Z",
       "decay_at": "2026-09-25T18:11:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5cafd3edd0bd",
+      "idea_version": "IDEAV-bea16d395573f816",
+      "idea_version_started_at": "2026-09-24T22:18:36Z",
+      "ticker": "VTY",
+      "company": "Vistry Group",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Vistry Group issued a profit warning and announced it will scale back operations due to mounting charges, indicating significant margin pressure and operational headwinds.",
+      "why_now": "The news was released on 2026-09-24, and the market is currently reacting to the CEO's strategic pivot and downward earnings revision.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a4758ed37f5"
+      ],
+      "primary_source_event_id": "EVT-5a4758ed37f5",
+      "source_headlines": [
+        "Vistry CEO to scale back housebuilder after profit warning and mounting charges"
+      ],
+      "source_headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
+      "source_url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T11:10:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T20:05:57Z",
+      "updated_at": "2026-09-24T22:18:36Z",
+      "decay_at": "2026-09-25T23:10:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -141271,9 +141271,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -141281,9 +141281,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -141302,6 +141302,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5cafd3edd0bd",
+        "idea_version": "IDEAV-bea16d395573f816",
+        "idea_version_started_at": "2026-09-24T22:18:36Z",
+        "ticker": "VTY",
+        "company": "Vistry Group",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Vistry Group issued a profit warning and announced it will scale back operations due to mounting charges, indicating significant margin pressure and operational headwinds.",
+        "why_now": "The news was released on 2026-09-24, and the market is currently reacting to the CEO's strategic pivot and downward earnings revision.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5a4758ed37f5"
+        ],
+        "primary_source_event_id": "EVT-5a4758ed37f5",
+        "source_headlines": [
+          "Vistry CEO to scale back housebuilder after profit warning and mounting charges"
+        ],
+        "source_headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
+        "source_url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T11:10:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-24T20:05:57Z",
+        "updated_at": "2026-09-24T22:18:36Z",
+        "decay_at": "2026-09-25T23:10:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T23:10:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2453b96dcab7",
         "idea_version": "IDEAV-17ddaddaa3f9dbe2",
@@ -178363,87 +178438,12 @@
         "archived_at": "2026-09-03T04:55:41Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-81a62aef2e6f",
-        "idea_version": "IDEAV-13c7955f2f7261f4",
-        "idea_version_started_at": "2026-08-31T05:42:48Z",
-        "ticker": "OZON",
-        "company": "Ozon Holdings PLC",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A missile attack hitting Ozon facilities in Belgorod could disrupt operations, damage infrastructure, and lead to increased costs, negatively impacting the company's profitability and supply chain efficiency.",
-        "why_now": "The missile attack on Ozon's facilities is a current operational disruption that could immediately affect the company's performance.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2cc3490adc47"
-        ],
-        "primary_source_event_id": "EVT-2cc3490adc47",
-        "source_headlines": [
-          "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities"
-        ],
-        "source_headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
-        "source_url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T04:19:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T05:42:48Z",
-        "updated_at": "2026-08-31T05:42:48Z",
-        "decay_at": "2026-09-01T16:19:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 11,
+    "live_count": 10,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -178462,9 +178462,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4814153,
-    "news_picked_today": 1261,
-    "news_dropped_today": 26315
+    "news_seen_today": 4823249,
+    "news_picked_today": 1265,
+    "news_dropped_today": 26359
   },
   "book_momentum": {
     "live_count": 8,
