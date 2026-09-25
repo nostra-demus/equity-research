@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T02:42:17Z",
+  "generated_at": "2026-09-25T02:47:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-090",
+      "headline": "KONTA CHINA (01312): MAJOR TRANSACTION (Multi-Files)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401994.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company announced a major transaction, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a major transaction, which is a significant corporate event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KONTA CHINA",
+          "ticker": "01312",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-049",
       "headline": "‘The Housing Supply Just Isn’t There’: Buffett Bought 10% of Lennar the Day After It Cut Guidance",
@@ -1908,55 +1957,6 @@
           "name": "Unknown (CIK 0001297602)",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-008",
-      "headline": "424B5 - REPUBLIC OF TURKEY (0000869687) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/869687/000119312526400421/0001193125-26-400421-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T14:32:23Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "The Republic of Turkey filed a final prospectus for a shelf offering, indicating potential upcoming debt issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The Republic of Turkey filed a final prospectus for a shelf offering, indicating potential upcoming debt issuance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Republic of Turkey",
-          "ticker": null,
-          "listing_country": "TR"
         }
       ],
       "size_bucket": "unknown",
@@ -179651,9 +179651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 665318,
-    "news_picked_today": 102,
-    "news_dropped_today": 3234
+    "news_seen_today": 680541,
+    "news_picked_today": 104,
+    "news_dropped_today": 3280
   },
   "book_momentum": {
     "live_count": 8,
