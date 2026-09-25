@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T14:05:34Z",
+  "generated_at": "2026-09-25T14:13:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-305",
@@ -138356,77 +138356,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-a85bb583dca8",
-      "idea_version": "IDEAV-901fdab91d427bdb",
-      "idea_version_started_at": "2026-09-24T16:36:19Z",
-      "ticker": "9984.T",
-      "company": "SoftBank Group",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
-      "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1704c2896411",
-        "EVT-40e63e4ca332"
-      ],
-      "primary_source_event_id": "EVT-1704c2896411",
-      "source_headlines": [
-        "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-        "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
-      ],
-      "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-      "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T02:10:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-24T16:36:19Z",
-      "updated_at": "2026-09-24T16:36:19Z",
-      "decay_at": "2026-09-25T14:10:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fedbe5f5da3b",
       "idea_version": "IDEAV-a214476d7e13f703",
       "idea_version_started_at": "2026-09-25T04:16:09Z",
@@ -139704,6 +139633,77 @@
       "surfaced_at": "2026-09-22T20:55:27Z",
       "updated_at": "2026-09-22T20:55:27Z",
       "decay_at": "2026-09-24T02:52:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a85bb583dca8",
+      "idea_version": "IDEAV-901fdab91d427bdb",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "9984.T",
+      "company": "SoftBank Group",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
+      "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1704c2896411",
+        "EVT-40e63e4ca332"
+      ],
+      "primary_source_event_id": "EVT-1704c2896411",
+      "source_headlines": [
+        "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+        "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
+      ],
+      "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+      "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T02:10:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-25T14:10:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142927,14 +142927,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 32
       },
       "short": {
         "total_count": 265,
@@ -142958,6 +142958,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a85bb583dca8",
+        "idea_version": "IDEAV-901fdab91d427bdb",
+        "idea_version_started_at": "2026-09-24T16:36:19Z",
+        "ticker": "9984.T",
+        "company": "SoftBank Group",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
+        "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1704c2896411",
+          "EVT-40e63e4ca332"
+        ],
+        "primary_source_event_id": "EVT-1704c2896411",
+        "source_headlines": [
+          "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+          "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
+        ],
+        "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
+        "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
+        "source_name": "FierceBiotech",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T02:10:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-24T16:36:19Z",
+        "updated_at": "2026-09-24T16:36:19Z",
+        "decay_at": "2026-09-25T14:10:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T14:10:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0931a29b975f",
         "idea_version": "IDEAV-6137d43ad605c205",
@@ -172937,82 +173011,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1338cc3158ad",
-        "idea_version": "IDEAV-454f92775d04d19a",
-        "idea_version_started_at": "2026-09-08T12:37:12Z",
-        "ticker": "PFIZER",
-        "company": "Pfizer",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The divestiture of non-core brands to Novartis India for $132 million improves capital allocation and streamlines the company's portfolio.",
-        "why_now": "The acquisition agreement was reported on September 08, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e8cf5e04f935"
-        ],
-        "primary_source_event_id": "EVT-e8cf5e04f935",
-        "source_headlines": [
-          "Novartis India acquires Pfizer brands for $132m"
-        ],
-        "source_headline": "Novartis India acquires Pfizer brands for $132m",
-        "source_url": "https://finance.yahoo.com/healthcare/articles/novartis-india-acquires-pfizer-brands-085150122.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T08:51:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T12:27:09Z",
-        "updated_at": "2026-09-08T12:37:12Z",
-        "decay_at": "2026-09-09T20:51:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T09:10:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-e15ec643a0a42a39",
         "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -180102,7 +180100,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180121,9 +180119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3469927,
-    "news_picked_today": 531,
-    "news_dropped_today": 17709
+    "news_seen_today": 3484269,
+    "news_picked_today": 534,
+    "news_dropped_today": 17874
   },
   "book_momentum": {
     "live_count": 8,
