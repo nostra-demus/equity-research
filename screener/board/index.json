@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T13:31:40Z",
+  "generated_at": "2026-09-25T13:52:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-305",
+      "headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-25T12:55:01Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Definitive merger proxy for Weave Communications indicates shareholder vote on change-of-control transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Definitive merger proxy for Weave Communications indicates shareholder vote on change-of-control transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Weave Communications, Inc.",
+          "ticker": "WEAV",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-281",
       "headline": "POLYFAIR HLDGS (08532): INSIDE INFORMATION UPDATE ON THE WINDING-UP PETITION",
@@ -1953,55 +2002,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-130",
-      "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT IN RELATION TO PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER AND RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092402241.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T04:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Pre-conditional voluntary cash partial offer announced with trading resumption, indicating active but incomplete M&A process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Pre-conditional voluntary cash partial offer announced with trading resumption, indicating active but incomplete M&A process.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hang Yick Holdings",
-          "ticker": "01894",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180122,9 +180122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3299517,
-    "news_picked_today": 511,
-    "news_dropped_today": 17249
+    "news_seen_today": 3427734,
+    "news_picked_today": 515,
+    "news_dropped_today": 17509
   },
   "book_momentum": {
     "live_count": 8,
