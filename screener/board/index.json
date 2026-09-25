@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T14:21:35Z",
+  "generated_at": "2026-09-25T14:30:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-314",
@@ -139497,78 +139497,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bfad6f23179e",
-      "idea_version": "IDEAV-f73316026dc66369",
-      "idea_version_started_at": "2026-09-24T16:36:19Z",
-      "ticker": "ACFS.AX",
-      "company": "ACFS Logistics",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "ACFS Logistics' debts have significantly increased to nearly half a billion dollars, signaling potential default risk.",
-      "why_now": "The concerning debt levels were reported on September 24, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-467b378e69cd"
-      ],
-      "primary_source_event_id": "EVT-467b378e69cd",
-      "source_headlines": [
-        "Tzaneros’ ACFS debts blow out to nearly half a billion dollars"
-      ],
-      "source_headline": "Tzaneros’ ACFS debts blow out to nearly half a billion dollars",
-      "source_url": "https://www.afr.com/companies/transport/tzaneros-acfs-debts-blow-out-to-nearly-half-a-billion-dollars-20260924-p6102o?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T02:22:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-24T16:36:19Z",
-      "updated_at": "2026-09-24T16:36:19Z",
-      "decay_at": "2026-09-25T14:22:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b7d2ebf26308",
       "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
       "idea_version_started_at": "2026-09-22T20:55:27Z",
@@ -140833,6 +140761,78 @@
       "surfaced_at": "2026-09-24T16:36:19Z",
       "updated_at": "2026-09-24T16:36:19Z",
       "decay_at": "2026-09-24T16:37:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bfad6f23179e",
+      "idea_version": "IDEAV-f73316026dc66369",
+      "idea_version_started_at": "2026-09-24T16:36:19Z",
+      "ticker": "ACFS.AX",
+      "company": "ACFS Logistics",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "ACFS Logistics' debts have significantly increased to nearly half a billion dollars, signaling potential default risk.",
+      "why_now": "The concerning debt levels were reported on September 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-467b378e69cd"
+      ],
+      "primary_source_event_id": "EVT-467b378e69cd",
+      "source_headlines": [
+        "Tzaneros’ ACFS debts blow out to nearly half a billion dollars"
+      ],
+      "source_headline": "Tzaneros’ ACFS debts blow out to nearly half a billion dollars",
+      "source_url": "https://www.afr.com/companies/transport/tzaneros-acfs-debts-blow-out-to-nearly-half-a-billion-dollars-20260924-p6102o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T02:22:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T16:36:19Z",
+      "updated_at": "2026-09-24T16:36:19Z",
+      "decay_at": "2026-09-25T14:22:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142928,9 +142928,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
         "total_count": 282,
@@ -142938,9 +142938,9 @@
         "hidden_count": 32
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -142959,6 +142959,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bfad6f23179e",
+        "idea_version": "IDEAV-f73316026dc66369",
+        "idea_version_started_at": "2026-09-24T16:36:19Z",
+        "ticker": "ACFS.AX",
+        "company": "ACFS Logistics",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "ACFS Logistics' debts have significantly increased to nearly half a billion dollars, signaling potential default risk.",
+        "why_now": "The concerning debt levels were reported on September 24, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-467b378e69cd"
+        ],
+        "primary_source_event_id": "EVT-467b378e69cd",
+        "source_headlines": [
+          "Tzaneros’ ACFS debts blow out to nearly half a billion dollars"
+        ],
+        "source_headline": "Tzaneros’ ACFS debts blow out to nearly half a billion dollars",
+        "source_url": "https://www.afr.com/companies/transport/tzaneros-acfs-debts-blow-out-to-nearly-half-a-billion-dollars-20260924-p6102o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T02:22:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-24T16:36:19Z",
+        "updated_at": "2026-09-24T16:36:19Z",
+        "decay_at": "2026-09-25T14:22:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T14:22:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a85bb583dca8",
         "idea_version": "IDEAV-901fdab91d427bdb",
@@ -180021,87 +180096,12 @@
         "archived_at": "2026-09-03T03:15:31Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-192245eacbdf",
-        "idea_version": "IDEAV-16a9e4b5deec02f9",
-        "idea_version_started_at": "2026-08-31T04:01:48Z",
-        "ticker": "078520",
-        "company": "GS Retail",
-        "exchange": "KRX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company was fined 12.8 billion won following a massive personal data leak affecting 1.66 million customers, creating both direct financial and reputational headwinds.",
-        "why_now": "The fine was announced by regulators on August 31, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c31e5cc4dd58"
-        ],
-        "primary_source_event_id": "EVT-c31e5cc4dd58",
-        "source_headlines": [
-          "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers"
-        ],
-        "source_headline": "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers",
-        "source_url": "https://en.yna.co.kr/view/AEN20260831003900315",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T02:22:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T04:01:48Z",
-        "updated_at": "2026-08-31T04:01:48Z",
-        "decay_at": "2026-09-01T14:22:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T03:15:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180120,9 +180120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3526635,
-    "news_picked_today": 542,
-    "news_dropped_today": 17890
+    "news_seen_today": 3540707,
+    "news_picked_today": 547,
+    "news_dropped_today": 18173
   },
   "book_momentum": {
     "live_count": 8,
