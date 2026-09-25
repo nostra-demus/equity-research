@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:32:21Z",
+  "generated_at": "2026-09-25T03:40:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-112",
+      "headline": "CAR: Becoming a substantial holder from CBA",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAR?key=2924-03139958-3A702557",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T03:17:52Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Commonwealth Bank of Australia has become a substantial holder in Carsales.com Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Commonwealth Bank of Australia has become a substantial holder in Carsales.com Ltd.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carsales.com Ltd",
+          "ticker": "CAR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1477,6 +1526,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-113",
+      "headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - BIOLOGICS LICENSE APPLICATION OF RISVUTATUG REZETECAN FOR INJECTION (HS-20093) FOR OSTEOSARCOMA ACCEPTED BY THE NMPA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401893.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "NMPA accepted the Biologics License Application for a new drug, a positive regulatory milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "NMPA accepted the Biologics License Application for a new drug, a positive regulatory milestone.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hansoh Pharma",
+          "ticker": "03692",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-110",
       "headline": "Artists, game designers and producers hit hard as Microsoft cuts 277 jobs in Washington state",
       "headline_en": null,
@@ -1860,104 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-065",
-      "headline": "SC TO-I/A - Destiny Alternative Fund (0002093738) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2093738/000110465926110238/0001104659-26-110238-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:09:59Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "SEC TO-I/A tender-offer amendment filed by subject company, but acquirer identity, offer price, and current deal status not disclosed; confirmation of live deal required.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "SEC TO-I/A tender-offer amendment filed by subject company, but acquirer identity, offer price, and current deal status not disclosed; confirmation of live deal required.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Destiny Alternative Fund",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-104",
-      "headline": "424B4 - RUI Holdings Inc (0002094989) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2094989/000118518526004253/0001185185-26-004253-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B4 (IPO/Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T11:54:03Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "RUI Holdings Inc filed a final prospectus for an IPO/offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "RUI Holdings Inc filed a final prospectus for an IPO/offering.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RUI Holdings Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139311,77 +139311,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6a9504a0851",
-      "idea_version": "IDEAV-bd15eb0b21b08ad7",
-      "idea_version_started_at": "2026-09-23T20:19:33Z",
-      "ticker": "AGSTRANS",
-      "company": "AGS Transact Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of a Corporate Insolvency Resolution Process indicates the company is entering a formal bankruptcy proceeding, likely resulting in significant equity impairment.",
-      "why_now": "The exchange filing confirming the insolvency process was released on 2026-09-23.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d2f3cebd5b3e"
-      ],
-      "primary_source_event_id": "EVT-d2f3cebd5b3e",
-      "source_headlines": [
-        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_23092026210550_Intimation_to_BSE_And_NSE_-_18th_Coc_meeting_-_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T15:36:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T20:19:33Z",
-      "updated_at": "2026-09-23T20:19:33Z",
-      "decay_at": "2026-09-25T03:36:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b7d2ebf26308",
       "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
       "idea_version_started_at": "2026-09-22T20:55:27Z",
@@ -140716,6 +140645,77 @@
       "surfaced_at": "2026-09-23T20:19:33Z",
       "updated_at": "2026-09-23T20:19:33Z",
       "decay_at": "2026-09-25T02:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d6a9504a0851",
+      "idea_version": "IDEAV-bd15eb0b21b08ad7",
+      "idea_version_started_at": "2026-09-23T20:19:33Z",
+      "ticker": "AGSTRANS",
+      "company": "AGS Transact Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The initiation of a Corporate Insolvency Resolution Process indicates the company is entering a formal bankruptcy proceeding, likely resulting in significant equity impairment.",
+      "why_now": "The exchange filing confirming the insolvency process was released on 2026-09-23.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d2f3cebd5b3e"
+      ],
+      "primary_source_event_id": "EVT-d2f3cebd5b3e",
+      "source_headlines": [
+        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_23092026210550_Intimation_to_BSE_And_NSE_-_18th_Coc_meeting_-_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T15:36:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T20:19:33Z",
+      "updated_at": "2026-09-23T20:19:33Z",
+      "decay_at": "2026-09-25T03:36:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142454,9 +142454,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -142464,9 +142464,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -142485,6 +142485,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6a9504a0851",
+        "idea_version": "IDEAV-bd15eb0b21b08ad7",
+        "idea_version_started_at": "2026-09-23T20:19:33Z",
+        "ticker": "AGSTRANS",
+        "company": "AGS Transact Technologies Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The initiation of a Corporate Insolvency Resolution Process indicates the company is entering a formal bankruptcy proceeding, likely resulting in significant equity impairment.",
+        "why_now": "The exchange filing confirming the insolvency process was released on 2026-09-23.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d2f3cebd5b3e"
+        ],
+        "primary_source_event_id": "EVT-d2f3cebd5b3e",
+        "source_headlines": [
+          "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_23092026210550_Intimation_to_BSE_And_NSE_-_18th_Coc_meeting_-_final.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-23T15:36:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T20:19:33Z",
+        "updated_at": "2026-09-23T20:19:33Z",
+        "decay_at": "2026-09-25T03:36:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T03:36:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b0ca41a7745b",
         "idea_version": "IDEAV-98474034d0631587",
@@ -179549,88 +179623,12 @@
         "archived_at": "2026-09-03T03:15:31Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cf45c7e74897",
-        "idea_version": "IDEAV-f60db826d687c579",
-        "idea_version_started_at": "2026-08-31T03:20:55Z",
-        "ticker": "007070",
-        "company": "GS Retail",
-        "exchange": "KRX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a 12.8 billion won fine for a data breach involving 1.66 million customers, which will impact near-term earnings and likely damage brand reputation.",
-        "why_now": "The fine was announced on 2026-08-31.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c31e5cc4dd58"
-        ],
-        "primary_source_event_id": "EVT-c31e5cc4dd58",
-        "source_headlines": [
-          "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers"
-        ],
-        "source_headline": "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers",
-        "source_url": "https://en.yna.co.kr/view/AEN20260831003900315",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T02:22:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T03:20:55Z",
-        "updated_at": "2026-08-31T03:20:55Z",
-        "decay_at": "2026-09-01T14:22:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T03:15:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1017,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -179649,9 +179647,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 903660,
-    "news_picked_today": 137,
-    "news_dropped_today": 3871
+    "news_seen_today": 918328,
+    "news_picked_today": 142,
+    "news_dropped_today": 4082
   },
   "book_momentum": {
     "live_count": 8,
