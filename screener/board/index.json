@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T04:16:28Z",
+  "generated_at": "2026-09-25T04:28:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -247,6 +247,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-128",
+      "headline": "PB Fintech Faces Upto 45% Target Price Cuts As Brokerages Assess New Insurance Commission Rules — Check Ratings",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/pb-fintech-target-prices-slashed-after-irdai-insurance-commission-shock-what-hsbc-bofa-jefferies-say-12095253#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T02:54:47Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "PB Fintech faces significant target price cuts of up to 45% following regulatory changes to insurance commission rules.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PB Fintech faces significant target price cuts of up to 45% following regulatory changes to insurance commission rules.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PB Fintech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-094",
       "headline": "Winery older than the Civil War files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -390,6 +439,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-130",
+      "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT IN RELATION TO PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER AND RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092402241.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Pre-conditional voluntary cash partial offer announced with trading resumption, indicating active but incomplete M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Pre-conditional voluntary cash partial offer announced with trading resumption, indicating active but incomplete M&A process.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hang Yick Holdings",
+          "ticker": "01894",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1864,104 +1962,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-033",
-      "headline": "Adarx Pharmaceuticals Raises $446.3 Million in Upsized US IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-24/adarx-pharmaceuticals-raises-446-3-million-in-upsized-us-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T23:43:53Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Adarx Pharmaceuticals raised $446.3 million in an upsized IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Adarx Pharmaceuticals raised $446.3 million in an upsized IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adarx Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-103",
-      "headline": "LIFETECH SCI (01302): VOLUNTARY ANNOUNCEMENT - Admission of the SureCham TM Aortic Arch Single-Branch Stent Graft System into Special Examination and Approval Procedure for Innovative Medical Devices",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401951.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T11:56:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Lifetech Scientific's aortic arch stent graft system was admitted to the special examination and approval procedure for innovative medical devices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Lifetech Scientific's aortic arch stent graft system was admitted to the special examination and approval procedure for innovative medical devices.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIFETECH SCI",
-          "ticker": "01302",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139312,78 +139312,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-384082b9e158",
-      "idea_version": "IDEAV-3de5df10ff347fcc",
-      "idea_version_started_at": "2026-09-23T20:19:33Z",
-      "ticker": "AST",
-      "company": "Ashtead Technology",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has received a $660 million takeover proposal, which typically sets a floor for the stock price and creates a potential arbitrage opportunity if the deal proceeds.",
-      "why_now": "The takeover proposal was reported on 2026-09-23.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e60a0376da7e"
-      ],
-      "primary_source_event_id": "EVT-e60a0376da7e",
-      "source_headlines": [
-        "Ashtead Technology receives $660 million takeover proposal from Ember"
-      ],
-      "source_headline": "Ashtead Technology receives $660 million takeover proposal from Ember",
-      "source_url": "https://www.reuters.com/legal/transactional/ashtead-technology-receives-660-million-takeover-proposal-ember-2026-09-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T16:18:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T20:19:33Z",
-      "updated_at": "2026-09-23T20:19:33Z",
-      "decay_at": "2026-09-25T04:18:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-39795426b446",
       "idea_version": "IDEAV-2b58782b6e536a32",
       "idea_version_started_at": "2026-09-23T20:19:33Z",
@@ -140718,6 +140646,78 @@
       "surfaced_at": "2026-09-24T16:36:19Z",
       "updated_at": "2026-09-24T16:36:19Z",
       "decay_at": "2026-09-24T16:37:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-384082b9e158",
+      "idea_version": "IDEAV-3de5df10ff347fcc",
+      "idea_version_started_at": "2026-09-23T20:19:33Z",
+      "ticker": "AST",
+      "company": "Ashtead Technology",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has received a $660 million takeover proposal, which typically sets a floor for the stock price and creates a potential arbitrage opportunity if the deal proceeds.",
+      "why_now": "The takeover proposal was reported on 2026-09-23.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e60a0376da7e"
+      ],
+      "primary_source_event_id": "EVT-e60a0376da7e",
+      "source_headlines": [
+        "Ashtead Technology receives $660 million takeover proposal from Ember"
+      ],
+      "source_headline": "Ashtead Technology receives $660 million takeover proposal from Ember",
+      "source_url": "https://www.reuters.com/legal/transactional/ashtead-technology-receives-660-million-takeover-proposal-ember-2026-09-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T16:18:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T20:19:33Z",
+      "updated_at": "2026-09-23T20:19:33Z",
+      "decay_at": "2026-09-25T04:18:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142598,14 +142598,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 265,
@@ -142629,6 +142629,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-384082b9e158",
+        "idea_version": "IDEAV-3de5df10ff347fcc",
+        "idea_version_started_at": "2026-09-23T20:19:33Z",
+        "ticker": "AST",
+        "company": "Ashtead Technology",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has received a $660 million takeover proposal, which typically sets a floor for the stock price and creates a potential arbitrage opportunity if the deal proceeds.",
+        "why_now": "The takeover proposal was reported on 2026-09-23.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e60a0376da7e"
+        ],
+        "primary_source_event_id": "EVT-e60a0376da7e",
+        "source_headlines": [
+          "Ashtead Technology receives $660 million takeover proposal from Ember"
+        ],
+        "source_headline": "Ashtead Technology receives $660 million takeover proposal from Ember",
+        "source_url": "https://www.reuters.com/legal/transactional/ashtead-technology-receives-660-million-takeover-proposal-ember-2026-09-23/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-23T16:18:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T20:19:33Z",
+        "updated_at": "2026-09-23T20:19:33Z",
+        "decay_at": "2026-09-25T04:18:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T04:18:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d6a9504a0851",
         "idea_version": "IDEAV-bd15eb0b21b08ad7",
@@ -172681,81 +172756,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2cf05feb74ee",
-        "idea_version": "IDEAV-20f279fc0534beaf",
-        "idea_version_started_at": "2026-09-08T08:32:35Z",
-        "ticker": "CCC",
-        "company": "Computacenter",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported an 87% surge in profit driven by strong demand for AI infrastructure and subsequently raised its forward guidance.",
-        "why_now": "The earnings and guidance update was released on September 8, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3fc151325ac5"
-        ],
-        "primary_source_event_id": "EVT-3fc151325ac5",
-        "source_headlines": [
-          "Computacenter profit surges 87% on AI infrastructure demand, raises outlook"
-        ],
-        "source_headline": "Computacenter profit surges 87% on AI infrastructure demand, raises outlook",
-        "source_url": "https://ukinvestormagazine.co.uk/computacenter-profit-surges-87-on-ai-infrastructure-demand-raises-outlook/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T07:14:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T08:32:35Z",
-        "updated_at": "2026-09-08T08:32:35Z",
-        "decay_at": "2026-09-09T19:14:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T09:10:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d45c5c6a293c",
         "idea_version": "IDEAV-4c3423f52b003f7e",
         "idea_version_started_at": "2026-09-08T08:32:35Z",
@@ -179772,7 +179772,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1019,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -179791,9 +179791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1061656,
-    "news_picked_today": 160,
-    "news_dropped_today": 4544
+    "news_seen_today": 1075973,
+    "news_picked_today": 169,
+    "news_dropped_today": 4871
   },
   "book_momentum": {
     "live_count": 8,
