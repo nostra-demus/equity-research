@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-25T12:20:36Z",
+  "generated_at": "2026-09-25T12:32:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-264",
+      "headline": "AMASSE CAPITAL (08168): ESTABLISHMENT OF INDEPENDENT INVESTIGATION COMMITTEE AND CONTINUED SUSPENSION IN TRADING OF SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0925/2026092501071.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T12:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Amasse Capital has established an independent investigation committee and remains suspended from trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amasse Capital has established an independent investigation committee and remains suspended from trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amasse Capital",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-252",
       "headline": "ITI Capital Ltd enters special administration",
@@ -443,6 +493,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-274",
+      "headline": "BASF approaches rival Evonik with merger proposal, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/basf-approaches-rival-evonik-with-merger-proposal-ft-reports-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:09:31Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "BASF has approached Evonik with a merger proposal, representing a major potential consolidation in the chemical sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BASF has approached Evonik with a merger proposal, representing a major potential consolidation in the chemical sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF SE",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik Industries AG",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1855,118 +1959,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260925-253",
-      "headline": "PC Jeweller Limited: PC Jeweller Limited has informed regarding Disclosure of material issue",
+      "inbox_id": "INB-20260925-262",
+      "headline": "Tata Communications Limited: Tata Communications Limited has informed the Exchange about Resignation of Director/KMP/SMP",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PCJEWELLER_25092026165942_update250926.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_ROID_99029_KMP_Doc.zip",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T11:30:22Z",
+      "found_at": "2026-09-25T12:13:32Z",
       "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "PC Jeweller has disclosed a material issue, which typically implies regulatory or operational risk.",
+      "prelim_note": "Director resignation at Tata Communications Limited.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "PC Jeweller has disclosed a material issue, which typically implies regulatory or operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PC Jeweller Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-254",
-      "headline": "UCAL LIMITED: UCAL LIMITED has informed the Exchange about Action(s) initiated or orders passed",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/UCALFUEL_25092026165958_SCN_25092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T11:30:12Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "UCAL Limited has reported regulatory action or orders passed against the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "UCAL Limited has reported regulatory action or orders passed against the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UCAL LIMITED",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-230",
-      "headline": "Gillette India Limited: Gillette India Limited has informed the Exchange about Resignation of Director/KMP/SMP",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GILLETTE_ROID_99003_KMP_Doc.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T10:35:14Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Resignation of a Director/KMP is a material governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Resignation of a Director/KMP is a material governance event.",
+      "triage_reason": "Director resignation at Tata Communications Limited.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1991,7 +1997,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Gillette India Limited",
+          "name": "Tata Communications Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -180117,9 +180123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2969556,
-    "news_picked_today": 446,
-    "news_dropped_today": 16018
+    "news_seen_today": 3014050,
+    "news_picked_today": 464,
+    "news_dropped_today": 16336
   },
   "book_momentum": {
     "live_count": 8,
