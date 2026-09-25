@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T00:47:11Z",
+  "generated_at": "2026-09-25T00:55:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-017",
@@ -95,6 +95,155 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-023",
+      "headline": "424B2 - BANK OF AMERICA CORP /DE/ (0000070858) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/70858/000191870426028607/0001918704-26-028607-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T13:42:30Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Bank of America Corp files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bank of America Corp files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America Corp",
+          "ticker": "BAC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-022",
+      "headline": "424B2 - BofA Finance LLC (0001682472) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1682472/000191870426028607/0001918704-26-028607-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T13:42:30Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "BofA Finance LLC files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "BofA Finance LLC files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America Corp",
+          "ticker": "BAC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-021",
+      "headline": "Brigade Enterprises Limited: Brigade Enterprises Limited has informed the Exchange about Show Cause Notice Received from GST Authority",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BRIGADE_24092026191121_SEIntimationforSCN24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:41:40Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "GST authority issued show-cause notice to Brigade Enterprises; alleged violation and exposure unspecified, flagging regulatory/compliance risk but without quantified impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "GST authority issued show-cause notice to Brigade Enterprises; alleged violation and exposure unspecified, flagging regulatory/compliance risk but without quantified impact.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Enterprises Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -243,6 +392,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-025",
+      "headline": "Gandhar Oil Refinery (India) Limited: Gandhar Oil Refinery (India) Limited has informed the Exchange that Outcome of litigation (order passed by court)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GANDHAROIL_24092026190431_Intimation_Regn_30_signed_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:36:16Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company reported the outcome of a court litigation, which may have operational or financial implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "The company reported the outcome of a court litigation, which may have operational or financial implications.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gandhar Oil Refinery (India) Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -728,6 +926,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-024",
+      "headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange about Giving guarantees/indemnity/ becoming a surety for third party",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AXISCADES_24092026190722_OutcomeBM_24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:38:38Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company disclosed provision of guarantees/indemnity/surety to an unidentified third party; no amount, terms, beneficiary class, or duration stated, rendering impact unquantifiable.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Company disclosed provision of guarantees/indemnity/surety to an unidentified third party; no amount, terms, beneficiary class, or duration stated, rendering impact unquantifiable.",
+      "region": "IN",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 32,
+      "rank_factors": {
+        "materiality": 32,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AXISCADES Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178651,7 +178898,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2827,
+    "inbox_unconsumed": 2832,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -178660,9 +178907,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 267022,
-    "news_picked_today": 21,
-    "news_dropped_today": 651
+    "news_seen_today": 284659,
+    "news_picked_today": 26,
+    "news_dropped_today": 766
   },
   "book_momentum": {
     "live_count": 8,
