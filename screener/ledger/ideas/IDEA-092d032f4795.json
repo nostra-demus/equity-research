@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-fedbe5f5da3b",
-  "idea_version": "IDEAV-a214476d7e13f703",
+  "idea_id": "IDEA-092d032f4795",
+  "idea_version": "IDEAV-a17714b587321d36",
   "idea_version_started_at": "2026-09-25T04:16:09Z",
-  "ticker": "MGM",
-  "company": "MGM Resorts",
+  "ticker": "DRI",
+  "company": "Darden Restaurants",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
-  "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
-  "conviction": 75,
+  "reason": "Rising food and labor costs are compressing operating margins, which directly impacts earnings per share in a low-margin restaurant business model.",
+  "why_now": "The earnings report highlighting these cost pressures was released today, September 24, 2026.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 69,
+  "trade_score": 64,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 23,
+    "impact": 18,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -47,26 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-7de28ca62c26"
+    "EVT-78ba8e651768"
   ],
-  "primary_source_event_id": "EVT-7de28ca62c26",
+  "primary_source_event_id": "EVT-78ba8e651768",
   "source_headlines": [
-    "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
+    "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs"
   ],
-  "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
-  "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
-  "source_name": "CNBC",
+  "source_headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
+  "source_url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-24T16:06:00Z",
+  "newest_source_at": "2026-09-24T14:22:00Z",
   "prior_coverage": {
-    "has_run": true,
-    "latest_run": "analyses/MGM_2026-07-03",
+    "has_run": false,
+    "latest_run": null,
     "latest_decision": null,
-    "data_pool_present": true
+    "data_pool_present": false
   },
-  "surfaced_at": "2026-09-24T03:15:08Z",
+  "surfaced_at": "2026-09-25T04:16:09Z",
   "updated_at": "2026-09-25T04:16:09Z",
-  "decay_at": "2026-09-26T04:06:00Z",
+  "decay_at": "2026-09-26T02:22:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

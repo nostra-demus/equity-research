@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T04:15:55Z",
+  "generated_at": "2026-09-25T04:16:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -138389,16 +138389,86 @@
     },
     {
       "idea_id": "IDEA-fedbe5f5da3b",
-      "idea_version": "IDEAV-2a49758ca6b9b8f9",
-      "idea_version_started_at": "2026-09-24T03:15:08Z",
+      "idea_version": "IDEAV-a214476d7e13f703",
+      "idea_version_started_at": "2026-09-25T04:16:09Z",
       "ticker": "MGM",
       "company": "MGM Resorts",
       "exchange": "NYSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The abandonment of an $18 billion takeover bid removes the acquisition premium that was supporting the stock price.",
-      "why_now": "The deal was officially abandoned on September 23, 2026, triggering an immediate repricing to standalone fundamentals.",
+      "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
+      "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
       "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 69,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7de28ca62c26"
+      ],
+      "primary_source_event_id": "EVT-7de28ca62c26",
+      "source_headlines": [
+        "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
+      ],
+      "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
+      "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T16:06:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/MGM_2026-07-03",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-24T03:15:08Z",
+      "updated_at": "2026-09-25T04:16:09Z",
+      "decay_at": "2026-09-26T04:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-97418df6dd12",
+      "idea_version": "IDEAV-a46c9b8af5a1f499",
+      "idea_version_started_at": "2026-09-25T04:16:09Z",
+      "ticker": "NVO",
+      "company": "Novo Nordisk",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO's guidance warning signals potential headwinds to revenue growth or margin expansion, which is critical for a high-multiple growth stock.",
+      "why_now": "The guidance warning was issued today, September 24, 2026.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 67,
       "trade_score_basis": "event_driven_v3",
@@ -138432,26 +138502,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-6c286abe48b4"
+        "EVT-6f533a7a1435"
       ],
-      "primary_source_event_id": "EVT-6c286abe48b4",
+      "primary_source_event_id": "EVT-6f533a7a1435",
       "source_headlines": [
-        "Diller abandons $18bn takeover bid for MGM Resorts"
+        "Novo Nordisk's CEO delivered a warning that sank its stock by 8%"
       ],
-      "source_headline": "Diller abandons $18bn takeover bid for MGM Resorts",
-      "source_url": "https://www.ft.com/content/1f55518f-dad5-4c7b-8c81-ba82196dd747?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "source_headline": "Novo Nordisk's CEO delivered a warning that sank its stock by 8%",
+      "source_url": "https://www.thestreet.com/investing/stocks/novo-nordisk-ceo-delivered-a-warning-that-sank-its-stock",
+      "source_name": "TheStreet",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-23T23:47:13Z",
+      "newest_source_at": "2026-09-24T18:33:00Z",
       "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/MGM_2026-07-03",
+        "has_run": false,
+        "latest_run": null,
         "latest_decision": null,
-        "data_pool_present": true
+        "data_pool_present": false
       },
-      "surfaced_at": "2026-09-24T03:15:08Z",
-      "updated_at": "2026-09-24T03:15:08Z",
-      "decay_at": "2026-09-25T11:47:13Z",
+      "surfaced_at": "2026-09-25T04:16:09Z",
+      "updated_at": "2026-09-25T04:16:09Z",
+      "decay_at": "2026-09-26T06:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -138522,6 +138592,76 @@
       "surfaced_at": "2026-09-24T22:18:36Z",
       "updated_at": "2026-09-24T22:18:36Z",
       "decay_at": "2026-09-25T23:02:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-092d032f4795",
+      "idea_version": "IDEAV-a17714b587321d36",
+      "idea_version_started_at": "2026-09-25T04:16:09Z",
+      "ticker": "DRI",
+      "company": "Darden Restaurants",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising food and labor costs are compressing operating margins, which directly impacts earnings per share in a low-margin restaurant business model.",
+      "why_now": "The earnings report highlighting these cost pressures was released today, September 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78ba8e651768"
+      ],
+      "primary_source_event_id": "EVT-78ba8e651768",
+      "source_headlines": [
+        "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs"
+      ],
+      "source_headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
+      "source_url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T14:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-25T04:16:09Z",
+      "updated_at": "2026-09-25T04:16:09Z",
+      "decay_at": "2026-09-26T02:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179631,8 +179771,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1017,
-    "live_count": 14,
+    "surfaced_total": 1019,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
