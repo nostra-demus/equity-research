@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T08:50:46Z",
+  "generated_at": "2026-09-25T08:55:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-169",
@@ -1195,6 +1195,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-183",
+      "headline": "POWERLONG (01238): UPDATE ON THE HOLISTIC SOLUTION EXTENSION OF THE LONGSTOP DATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500419.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company extended the deadline on a 'holistic solution' process—likely a restructuring or strategic review—without disclosing the nature or timeline of the underlying event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Company extended the deadline on a 'holistic solution' process—likely a restructuring or strategic review—without disclosing the nature or timeline of the underlying event.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POWERLONG",
+          "ticker": "01238",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-123",
       "headline": "VKA: NOTIFICATION OF CHANGE OF EXTERNAL AUDITOR",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "Meesho",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-071",
-      "headline": "SCHEDULE 13D - Troops, Inc. /Cayman Islands/ (0001412095) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1412095/000110465926110233/0001104659-26-110233-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:01:05Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake change or activist interest in the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake change or activist interest in the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Troops, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -180096,9 +180096,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2160175,
-    "news_picked_today": 300,
-    "news_dropped_today": 11604
+    "news_seen_today": 2175706,
+    "news_picked_today": 310,
+    "news_dropped_today": 11690
   },
   "book_momentum": {
     "live_count": 8,
