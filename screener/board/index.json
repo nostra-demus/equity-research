@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T02:19:17Z",
+  "generated_at": "2026-09-25T02:25:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-049",
@@ -191,6 +191,104 @@
           "name": "UM1",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-082",
+      "headline": "JINCHUAN INTL (02362): QUARTERLY UPDATE ON RESUMPTION PROGRESS; SUBMISSION OF RESUMPTION APPLICATION; AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402033.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company remains suspended from trading while providing a quarterly update on resumption progress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company remains suspended from trading while providing a quarterly update on resumption progress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jinchuan Group International Resources Co Ltd",
+          "ticker": "02362",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-084",
+      "headline": "Ventive Hospitality Limited: Order of the National Company Law Tribunal in relation to the Scheme of Amalgamation.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VENTIVE_24092026180339_Ventive_SE_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:33:52Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "National Company Law Tribunal issued an order on a scheme of amalgamation for Ventive Hospitality Limited; official ruling on a named M&A transaction alters capital structure and corporate identity, but order outcome (approval/rejection) not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "National Company Law Tribunal issued an order on a scheme of amalgamation for Ventive Hospitality Limited; official ruling on a named M&A transaction alters capital structure and corporate identity, but order outcome (approval/rejection) not stated in headline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ventive Hospitality Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1862,104 +1960,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-080",
-      "headline": "AIR CHINA (00753): MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT AND NOTICE OF EXTRAORDINARY SHAREHOLDERS' MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T12:53:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Major aircraft purchase capex with extraordinary shareholder meeting, but no deal size, quantity, or financing terms disclosed; aircraft procurement is routine capex for airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Major aircraft purchase capex with extraordinary shareholder meeting, but no deal size, quantity, or financing terms disclosed; aircraft procurement is routine capex for airlines.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air China Limited",
-          "ticker": "00753",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-032",
-      "headline": "Addvalue shareholders approve spinoff of unit, share dilution for Nasdaq listing",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/addvalue-shareholders-approve-spinoff-unit-share-dilution-nasdaq-listing",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T00:33:58Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Shareholders approved a unit spinoff and share dilution to facilitate a Nasdaq listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Shareholders approved a unit spinoff and share dilution to facilitate a Nasdaq listing.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Addvalue",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139313,77 +139313,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b0ca41a7745b",
-      "idea_version": "IDEAV-98474034d0631587",
-      "idea_version_started_at": "2026-09-23T20:19:33Z",
-      "ticker": "00070",
-      "company": "Rich Goldman",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has disclosed a default on loan repayment, signaling severe liquidity distress and potential insolvency risk.",
-      "why_now": "The filing was released on 2026-09-23, making the default news immediate and actionable.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a353ebe9f444"
-      ],
-      "primary_source_event_id": "EVT-a353ebe9f444",
-      "source_headlines": [
-        "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER"
-      ],
-      "source_headline": "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301727.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T14:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T20:19:33Z",
-      "updated_at": "2026-09-23T20:19:33Z",
-      "decay_at": "2026-09-25T02:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d6a9504a0851",
       "idea_version": "IDEAV-bd15eb0b21b08ad7",
       "idea_version_started_at": "2026-09-23T20:19:33Z",
@@ -140718,6 +140647,77 @@
       "surfaced_at": "2026-09-24T16:36:19Z",
       "updated_at": "2026-09-24T16:36:19Z",
       "decay_at": "2026-09-24T16:37:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b0ca41a7745b",
+      "idea_version": "IDEAV-98474034d0631587",
+      "idea_version_started_at": "2026-09-23T20:19:33Z",
+      "ticker": "00070",
+      "company": "Rich Goldman",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has disclosed a default on loan repayment, signaling severe liquidity distress and potential insolvency risk.",
+      "why_now": "The filing was released on 2026-09-23, making the default news immediate and actionable.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a353ebe9f444"
+      ],
+      "primary_source_event_id": "EVT-a353ebe9f444",
+      "source_headlines": [
+        "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER"
+      ],
+      "source_headline": "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301727.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T14:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T20:19:33Z",
+      "updated_at": "2026-09-23T20:19:33Z",
+      "decay_at": "2026-09-25T02:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142456,9 +142456,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -142466,9 +142466,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -142487,6 +142487,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b0ca41a7745b",
+        "idea_version": "IDEAV-98474034d0631587",
+        "idea_version_started_at": "2026-09-23T20:19:33Z",
+        "ticker": "00070",
+        "company": "Rich Goldman",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has disclosed a default on loan repayment, signaling severe liquidity distress and potential insolvency risk.",
+        "why_now": "The filing was released on 2026-09-23, making the default news immediate and actionable.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a353ebe9f444"
+        ],
+        "primary_source_event_id": "EVT-a353ebe9f444",
+        "source_headlines": [
+          "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER"
+        ],
+        "source_headline": "RICH GOLDMAN (00070): INSIDE INFORMATION - DEFAULT OF LOAN REPAYMENT BY BORROWER",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092301727.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-23T14:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T20:19:33Z",
+        "updated_at": "2026-09-23T20:19:33Z",
+        "decay_at": "2026-09-25T02:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T02:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a8bdb182d6cd",
         "idea_version": "IDEAV-999ebde2571da033",
@@ -179553,90 +179627,12 @@
         "archived_at": "2026-09-03T03:15:31Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1f1e1ddecae9",
-        "idea_version": "IDEAV-086f83c221577d76",
-        "idea_version_started_at": "2026-08-31T03:20:55Z",
-        "ticker": "SOP",
-        "company": "Star Entertainment Group",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company reported a $307 million annual loss and auditors have explicitly questioned its ability to continue as a going concern.",
-        "why_now": "The FY26 annual report and auditor warning were released on 2026-08-31.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3af489949609",
-          "EVT-c7f59be0577c",
-          "EVT-e0e7e432fad8"
-        ],
-        "primary_source_event_id": "EVT-3af489949609",
-        "source_headlines": [
-          "Star reports $307m loss as auditors warn survival still in question",
-          "Star Entertainment warns tough conditions to persist after annual loss",
-          "SOP: Appendix 4E and 2026 Annual Report [price-sensitive]"
-        ],
-        "source_headline": "Star reports $307m loss as auditors warn survival still in question",
-        "source_url": "https://www.afr.com/companies/games-and-wagering/star-reports-307m-loss-as-auditors-warn-survival-still-in-question-20260831-p60sx1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T01:23:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T03:20:55Z",
-        "updated_at": "2026-08-31T03:20:55Z",
-        "decay_at": "2026-09-01T13:23:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T01:51:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1017,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -179655,9 +179651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 529275,
-    "news_picked_today": 91,
-    "news_dropped_today": 2813
+    "news_seen_today": 559931,
+    "news_picked_today": 94,
+    "news_dropped_today": 3002
   },
   "book_momentum": {
     "live_count": 8,
