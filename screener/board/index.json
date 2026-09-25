@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-25T14:13:57Z",
+  "generated_at": "2026-09-25T14:21:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-314",
+      "headline": "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T13:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Ritamix announced a share sale, a possible special dividend, and a mandatory cash offer for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ritamix announced a share sale, a possible special dividend, and a mandatory cash offer for the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ritamix Global Limited",
+          "ticker": "01936",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-305",
       "headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
@@ -591,6 +641,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-320",
+      "headline": "Breaking: Manchester City face huge sanction after being found guilty of 114 charges",
+      "headline_en": null,
+      "url": "https://www.cityam.com/breaking-manchester-city-face-huge-sanction-after-being-found-guilty-of-114-charges/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T14:02:27Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Manchester City faces significant sanctions after being found guilty of 114 charges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Manchester City faces significant sanctions after being found guilty of 114 charges.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manchester City",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1900,104 +1999,6 @@
           "name": "SKIL Infrastructure Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-283",
-      "headline": "CCOE (08286): QUARTERLY UPDATE ON THE IMPLEMENTATION OF ACTION PLANS TO REMOVE THE DISCLAIMER OF OPINION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0925/2026092501037.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T11:21:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Quarterly update on action plans to remove an auditor's disclaimer of opinion signals unresolved material accounting or governance issues under remediation; disclaimer of opinion is a critical credibility and going-concern red flag.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Quarterly update on action plans to remove an auditor's disclaimer of opinion signals unresolved material accounting or governance issues under remediation; disclaimer of opinion is a critical credibility and going-concern red flag.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCOE",
-          "ticker": "08286",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-195",
-      "headline": "PARKSON GROUP (03368): Major Transaction",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500649.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T09:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Major transaction meeting HKEX regulatory threshold (typically exceeds 25% of consolidated metrics), but deal structure, counterparty, and terms not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Major transaction meeting HKEX regulatory threshold (typically exceeds 25% of consolidated metrics), but deal structure, counterparty, and terms not disclosed.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Parkson Group",
-          "ticker": "03368",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -180119,9 +180120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3484269,
-    "news_picked_today": 534,
-    "news_dropped_today": 17874
+    "news_seen_today": 3526635,
+    "news_picked_today": 542,
+    "news_dropped_today": 17890
   },
   "book_momentum": {
     "live_count": 8,
