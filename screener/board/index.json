@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T07:31:21Z",
+  "generated_at": "2026-09-25T07:35:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -144,6 +144,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-161",
+      "headline": "Genel Energy raises Capricorn bid to $436 million, beats Norway's DNO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/genel-energy-capricorn-agree-terms-higher-436-million-deal-topping-rival-dno-bid-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T06:53:07Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Genel Energy raises bid for Capricorn Energy to $436 million, beating DNO in active M&A competition with named deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Genel Energy raises bid for Capricorn Energy to $436 million, beating DNO in active M&A competition with named deal value.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genel Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Capricorn Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "DNO",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1628,6 +1687,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-157",
+      "headline": "Dabur gets NCLT approval for Sesa Care merger",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/dabur-gets-nclt-approval-for-sesa-care-merger/article71507571.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T07:12:55Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Dabur receives NCLT approval to merge Sesa Care subsidiary, clearing the major regulatory gate for the acquisition to proceed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Dabur receives NCLT approval to merge Sesa Care subsidiary, clearing the major regulatory gate for the acquisition to proceed.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dabur India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-133",
       "headline": "Meesho shares can fall 28%, warns Nomura after initiating coverage with Reduce call. Here is why",
       "headline_en": null,
@@ -1865,105 +1973,6 @@
           "name": "Natco Pharma Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-135",
-      "headline": "Easy Trip Planners Limited: Easy Trip Planners Limited has informed the Exchange regarding a press release dated September 25, 2026, titled \"EaseMyTrip Advances Vision 2030 with EMTev Electric Buses Debuting in Bhopal, Targets Annual Manufacturing of 5,000 Buses Within Five Years\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/EASEMYTRIP_25092026101822_pr_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T04:48:53Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Easy Trip Planners announces electric bus launch targeting 5,000 buses/year within five years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Easy Trip Planners announces electric bus launch targeting 5,000 buses/year within five years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Easy Trip Planners Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-041",
-      "headline": "INV: Notification of cessation of securities - INV",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INV?key=2924-03139867-2A1699354",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T00:21:22Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "INV ceasing its securities from quotation, a confirmed change to capital structure or listing status; underlying reason (M&A, distress, voluntary) not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "INV ceasing its securities from quotation, a confirmed change to capital structure or listing status; underlying reason (M&A, distress, voluntary) not disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "INV",
-          "ticker": "INV",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -180086,9 +180095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1690833,
-    "news_picked_today": 261,
-    "news_dropped_today": 10611
+    "news_seen_today": 1706607,
+    "news_picked_today": 268,
+    "news_dropped_today": 10700
   },
   "book_momentum": {
     "live_count": 8,
