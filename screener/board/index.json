@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T06:25:29Z",
+  "generated_at": "2026-09-25T06:53:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1824,6 +1824,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-156",
+      "headline": "Natco Pharma Limited: Natco Pharma Limited has informed the Exchange that Board of Directors at its meeting held on September 25, 2026, has decided to issue equity shares on rights basis in the ratio of 2 : 21, i.e 2 Equity Shares for every 21 Equity Shares held at an Issue Price of Rs. 750 per share (including a premium of ₹ 748/- (Rupees Seven Hundred and Forty Eight only) per Rights Equity Share)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NATCOPHARM_25092026111109_OutcomeofBM_25092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T05:47:44Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Board-approved rights issue (2:21 ratio, ₹750/share) announced 2026-09-25 dilutes shareholders and raises capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Board-approved rights issue (2:21 ratio, ₹750/share) announced 2026-09-25 dilutes shareholders and raises capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Natco Pharma Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-135",
       "headline": "Easy Trip Planners Limited: Easy Trip Planners Limited has informed the Exchange regarding a press release dated September 25, 2026, titled \"EaseMyTrip Advances Vision 2030 with EMTev Electric Buses Debuting in Bhopal, Targets Annual Manufacturing of 5,000 Buses Within Five Years\".",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-081",
-      "headline": "SF HOLDING (06936): Overseas Regulatory Announcement - Announcement on Progress of Gratuitous Donation of the Company's Shares by Director and Senior Management",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T12:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Director and senior management are donating company shares, which is a significant change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Director and senior management are donating company shares, which is a significant change in ownership structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SF HOLDING",
-          "ticker": "06936",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180086,9 +180086,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1468373,
-    "news_picked_today": 226,
-    "news_dropped_today": 7766
+    "news_seen_today": 1512932,
+    "news_picked_today": 230,
+    "news_dropped_today": 9082
   },
   "book_momentum": {
     "live_count": 8,
