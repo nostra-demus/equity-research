@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:15:14Z",
+  "generated_at": "2026-09-25T03:17:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1476,6 +1476,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-103",
+      "headline": "LIFETECH SCI (01302): VOLUNTARY ANNOUNCEMENT - Admission of the SureCham TM Aortic Arch Single-Branch Stent Graft System into Special Examination and Approval Procedure for Innovative Medical Devices",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401951.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T11:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Lifetech Scientific's aortic arch stent graft system was admitted to the special examination and approval procedure for innovative medical devices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Lifetech Scientific's aortic arch stent graft system was admitted to the special examination and approval procedure for innovative medical devices.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIFETECH SCI",
+          "ticker": "01302",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-091",
       "headline": "PB Fintech shares downgraded, price target cut by nearly 50% on core earnings risk",
       "headline_en": null,
@@ -1766,6 +1815,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-104",
+      "headline": "424B4 - RUI Holdings Inc (0002094989) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094989/000118518526004253/0001185185-26-004253-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B4 (IPO/Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T11:54:03Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "RUI Holdings Inc filed a final prospectus for an IPO/offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "RUI Holdings Inc filed a final prospectus for an IPO/offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RUI Holdings Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-031",
       "headline": "Bitget CEO suspects North Korea behind $352M hack, citing IP clues",
       "headline_en": null,
@@ -1859,105 +1957,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-035",
-      "headline": "SILVER GRANT (00171): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500065.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T00:44:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Silver Grant International Holdings has its trading suspended, preventing investors from transacting in the stock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Silver Grant International Holdings has its trading suspended, preventing investors from transacting in the stock.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SILVER GRANT",
-          "ticker": "00171",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-022",
-      "headline": "424B2 - BofA Finance LLC (0001682472) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1682472/000191870426028607/0001918704-26-028607-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:42:30Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "BofA Finance LLC files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "BofA Finance LLC files prospectus (SEC 424B2) for shelf-registered debt or equity offering; no offering size, terms, coupon, or use of proceeds disclosed in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America Corp",
-          "ticker": "BAC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179649,9 +179648,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 815310,
-    "news_picked_today": 121,
-    "news_dropped_today": 3599
+    "news_seen_today": 844770,
+    "news_picked_today": 125,
+    "news_dropped_today": 3619
   },
   "book_momentum": {
     "live_count": 8,
