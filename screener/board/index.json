@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T00:42:13Z",
+  "generated_at": "2026-09-25T00:47:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-017",
@@ -440,6 +440,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-020",
+      "headline": "RBI to conduct 3-day Variable Rate Reverse Repo (VRRR) auction under LAF on September 25, 2026",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63660",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T13:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The RBI is conducting a 3-day variable rate reverse repo auction to manage banking system liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The RBI is conducting a 3-day variable rate reverse repo auction to manage banking system liquidity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178608,7 +178651,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2826,
+    "inbox_unconsumed": 2827,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -178617,9 +178660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 232124,
-    "news_picked_today": 20,
-    "news_dropped_today": 532
+    "news_seen_today": 267022,
+    "news_picked_today": 21,
+    "news_dropped_today": 651
   },
   "book_momentum": {
     "live_count": 8,
