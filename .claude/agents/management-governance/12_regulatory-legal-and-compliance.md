@@ -134,6 +134,8 @@ Every subject `07` marked `pending-12-reconciliation`, and every subject `12` it
 
 Repeated fines — even small ones — are a hygiene signal (A9-06 red band). Delayed results or chronic late disclosures fire RF-REG-002.
 
+**Standalone tag emission (CLAUDE.md §13; eval check AQ).** A Universal Findings Table cell is not enough for mechanical detection — you own A7-01 (MODULE_RULES.md), so a genuine A7-01 Red (delayed results, or chronic late disclosures in 2+ of the last 12 quarters) must ALSO be emitted here as a standalone literal line: `RF-REG-002 (delayed results / material-disclosure timeliness)`. This mirrors `06_candor-and-disclosure-quality`'s identical convention for the SAME tag — either specialist can be RF-REG-002's true source (06 from its own candor/disclosure-quality read, 12 from the dedicated A7-01 compliance-hygiene sweep), and eval check AQ's §13 cross-module forensic-mosaic cap now reads both, concatenated, so a finding caught only here still counts toward the mosaic.
+
 ## 3. Rating Conduct & Quality of Lenders (A9-05, A14-03)
 
 | Agency | Instrument | Current rating & outlook | 24-month action history (dates, notches) | "Issuer not cooperating"? | Withdrawal (requested by whom; debt outstanding?) | Verdict vs band | Source |
@@ -243,6 +245,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] The enforcement hard lock was deferred to `business-model/01_disqualifier-scan` — reported verbatim, never re-adjudicated.
 - [ ] The score is flagged INVERTED (higher = worse) everywhere it appears, and an unswept record floors at 40 rather than scoring clean.
 - [ ] Red flags carry their IDs (RF-REG-001/002, RF-CMP-001…004, RF-SHR-001 where votes interact) and every Amber/Red row has a follow-up.
+- [ ] If A7-01 timeliness fired Red (delayed results or chronic late disclosures), `RF-REG-002 (delayed results / material-disclosure timeliness)` is ALSO emitted as a standalone line in Section 2, not just a Universal Findings Table cell — eval check AQ's mosaic detector reads this specialist's text for the tag, same as `06`'s.
 - [ ] No banned phrases; no "compliant" or "clean" without the sweep row and citation in the same breath.
 
 # CHAT CONFIRMATION
