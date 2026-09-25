@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T01:20:07Z",
+  "generated_at": "2026-09-25T01:27:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-017",
@@ -192,6 +192,55 @@
           "name": "INV",
           "ticker": "INV",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-044",
+      "headline": "HANHUA HOLDING (03903): (1) UPDATE ON RESUMPTION PROGRESS; AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402123.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Hanhua Holding's trading suspension persists; a continued suspension materially impairs liquidity and capital-raising ability, signaling unresolved operational or regulatory distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Hanhua Holding's trading suspension persists; a continued suspension materially impairs liquidity and capital-raising ability, signaling unresolved operational or regulatory distress.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanhua Holding",
+          "ticker": "03903",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1900,55 +1949,6 @@
           "name": "Nebius Group N.V.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-014",
-      "headline": "The Jammu & Kashmir Bank Limited: The Jammu & Kashmir Bank Limited has informed the Exchange regarding Appointment of Mr. Tsewang Tharchin, IA&AS as Non- Executive Director of the company w.e.f. September 22, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TUFAIL_24092026195443_Designation_Change.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T14:26:51Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Routine appointment of a non-executive director.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Routine appointment of a non-executive director.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Jammu & Kashmir Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -179647,9 +179647,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 336587,
-    "news_picked_today": 44,
-    "news_dropped_today": 1660
+    "news_seen_today": 369429,
+    "news_picked_today": 45,
+    "news_dropped_today": 1923
   },
   "book_momentum": {
     "live_count": 8,
