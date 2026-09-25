@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:17:20Z",
+  "generated_at": "2026-09-25T03:23:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -732,6 +732,56 @@
           "name": "AUDDIA INC.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-107",
+      "headline": "KERRY PPT (00683): Connected Transaction - Disposal of Interests in a Subsidiary and Assignment of Shareholder's Loan",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401931.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T11:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Connected-party disposal of subsidiary interests plus shareholder-loan assignment — a named capital-structure event affecting group composition and cash flow; materiality hinges on subsidiary size relative to parent, undisclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Connected-party disposal of subsidiary interests plus shareholder-loan assignment — a named capital-structure event affecting group composition and cash flow; materiality hinges on subsidiary size relative to parent, undisclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kerry PPT",
+          "ticker": "00683",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1908,55 +1958,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-069",
-      "headline": "F-1 - Biodexa Pharmaceuticals Plc (0001643918) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1643918/000121465926011934/0001214659-26-011934-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:01:10Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "An F-1 filing indicates a new registration statement for a securities offering, which may lead to share dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "An F-1 filing indicates a new registration statement for a securities offering, which may lead to share dilution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Biodexa Pharmaceuticals Plc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179648,9 +179649,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 844770,
-    "news_picked_today": 125,
-    "news_dropped_today": 3619
+    "news_seen_today": 859488,
+    "news_picked_today": 128,
+    "news_dropped_today": 3712
   },
   "book_momentum": {
     "live_count": 8,
